@@ -1,4 +1,4 @@
-# Vincent hosting preflight — approval blocked
+# Vincent hosting deployment status
 
 Task `CURB-VINCENT-HOSTING / 1`, Dev B recovery session `6af8bfb9-50b8-8191-bb64-258bab4200f8`. Source and deployment assignment: [6884031001](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884031001). No project, deployment or public URL exists from this attempt.
 
@@ -34,3 +34,13 @@ The remaining human decision is explicit approval to create the minimal project 
 6. Update only this report, publish/verify its task-branch SHA and post RESULT/STOP/RELEASE for root's independent verification and report integration.
 
 No hosted build, HTTP, media, report or browser pass is claimed before these steps run.
+
+## Laptop resumption and approved import
+
+Vincent approved deploying the pinned source in the laptop chat after the cloud [STOP/RELEASE](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884461249). The laptop [ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884544877) records the exact source and checkout. The earlier explicit-approval blocker is cleared.
+
+On November 14, the laptop verified that canonical remote main still matched `b010ad02ce9e0cb905e15e5c7c7109713814b36e` and that this report branch matched the cloud checkpoint `a31ee1618853eeaab810e4975cf1ad5344b01503` before taking ownership. Read-only Vercel inventory found no linked project by repository ID or name in Vincent's Hobby scope.
+
+The approved Git import of `oliverchennn/Curb` as project `curb` returned HTTP 400. Vercel reported, “You need to add a Login Connection to your GitHub account first.” A second project inventory still returned no Curb project. No signed-in Vercel CLI was available on the laptop. This is a provider account prerequisite. Vincent needs to connect GitHub as `vzhu08` in Vercel's Authentication settings and grant GitHub App access to the repository if prompted. [Vercel login connections](https://vercel.com/docs/accounts#login-methods-and-connections).
+
+Project creation and deployment remain blocked on that connection. No hosted build, production URL or public verification is available.
