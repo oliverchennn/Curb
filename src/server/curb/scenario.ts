@@ -10,7 +10,7 @@ import { buildScenarioView } from '../../domain/curb';
 
 const fixtures = { sample, empty } as const;
 
-export function getScenarioResponse(dataset: string | null): {
+export function getScenarioResponse(dataset: unknown): {
   status: number;
   body: ScenarioResponse;
 } {
