@@ -1,22 +1,44 @@
-import { ScenarioDatasetSchema, type ScenarioFailure } from '../../contracts/curb';
+import {
+  ScenarioDatasetSchema,
+  ScenarioResponseSchema,
+  ScenarioSchema,
+  type ScenarioResponse,
+} from '../../contracts/curb';
+import empty from '../../data/curb/empty.json';
+import sample from '../../data/curb/sample.json';
+import { buildScenarioView } from '../../domain/curb';
+
+const fixtures = { sample, empty } as const;
 
 export function getScenarioResponse(dataset: string | null): {
   status: number;
-  body: ScenarioFailure;
+  body: ScenarioResponse;
 } {
   const selected = ScenarioDatasetSchema.safeParse(dataset ?? 'sample');
   if (!selected.success) {
     return {
       status: 404,
-      body: { ok: false, error: { code: 'DATASET_NOT_FOUND', message: 'Unknown scenario dataset.' } },
+      body: ScenarioResponseSchema.parse({
+        ok: false,
+        error: { code: 'DATASET_NOT_FOUND', message: 'Unknown scenario dataset.' },
+      }),
     };
   }
 
-  return {
-    status: 501,
-    body: {
-      ok: false,
-      error: { code: 'SCENARIO_UNAVAILABLE', message: 'Scenario loading is unavailable in this build.' },
-    },
-  };
+  try {
+    const scenario = ScenarioSchema.parse(fixtures[selected.data]);
+    const view = buildScenarioView(scenario);
+    return {
+      status: 200,
+      body: ScenarioResponseSchema.parse({ ok: true, data: view }),
+    };
+  } catch {
+    return {
+      status: 500,
+      body: ScenarioResponseSchema.parse({
+        ok: false,
+        error: { code: 'INVALID_SERVER_SCENARIO', message: 'The scenario dataset is invalid.' },
+      }),
+    };
+  }
 }
