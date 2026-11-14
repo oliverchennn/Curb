@@ -171,7 +171,7 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     mesh(cylinder, palette.green, robot, [0.36, 1.6, 0], [0.026, 0.45, 0.026]);
     const sensors: Record<SensorId, THREE.Mesh> = {
       forward: mesh(geometry(new RoundedBoxGeometry(0.2, 0.16, 0.28, 3, 0.04)), palette.green, robot, [0.46, 1.85, 0]),
-      surface: mesh(geometry(new RoundedBoxGeometry(0.16, 0.11, 0.18, 3, 0.03)), palette.amber, robot, [0.83, 0.56, 0.42]),
+      surface: mesh(geometry(new RoundedBoxGeometry(0.16, 0.11, 0.18, 3, 0.03)), palette.amber, robot, [0.94, 0.49, 0.43]),
       curb: mesh(geometry(new RoundedBoxGeometry(0.19, 0.15, 0.12, 3, 0.03)), palette.cyan, robot, [-0.23, 0.81, 0.57]),
     };
     for (const sensor of Object.values(sensors)) {
