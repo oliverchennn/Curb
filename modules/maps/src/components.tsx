@@ -14,6 +14,12 @@ export function GeoMap({
   const [view, setView] = useState({ zoom: 1, x: 0, y: 0 });
   const helpId = useId();
   const { zoom, x, y } = view;
+  const canZoomOut = zoom > 0.5;
+  const canZoomIn = zoom < 3;
+  const canPanLeft = zoom > 1 && x < 300 * (zoom - 1);
+  const canPanRight = zoom > 1 && x > -300 * (zoom - 1);
+  const canPanUp = zoom > 1 && y < 180 * (zoom - 1);
+  const canPanDown = zoom > 1 && y > -180 * (zoom - 1);
   const clamp = (value: number, limit: number) => Math.max(-limit, Math.min(limit, value));
   function changeZoom(delta: number) {
     setView(previous => {
@@ -71,8 +77,8 @@ export function GeoMap({
         <button
           type="button"
           aria-label="Zoom out map"
-          disabled={zoom <= 0.5}
-          onClick={() => changeZoom(-0.25)}
+          aria-disabled={!canZoomOut}
+          onClick={() => { if (canZoomOut) changeZoom(-0.25); }}
         >
           −
         </button>
@@ -82,15 +88,15 @@ export function GeoMap({
         <button
           type="button"
           aria-label="Zoom in map"
-          disabled={zoom >= 3}
-          onClick={() => changeZoom(0.25)}
+          aria-disabled={!canZoomIn}
+          onClick={() => { if (canZoomIn) changeZoom(0.25); }}
         >
           +
         </button>
-        <button type="button" aria-label="Pan map left" disabled={zoom <= 1 || x >= 300 * (zoom - 1)} onClick={() => pan(60, 0)}>←</button>
-        <button type="button" aria-label="Pan map right" disabled={zoom <= 1 || x <= -300 * (zoom - 1)} onClick={() => pan(-60, 0)}>→</button>
-        <button type="button" aria-label="Pan map up" disabled={zoom <= 1 || y >= 180 * (zoom - 1)} onClick={() => pan(0, 40)}>↑</button>
-        <button type="button" aria-label="Pan map down" disabled={zoom <= 1 || y <= -180 * (zoom - 1)} onClick={() => pan(0, -40)}>↓</button>
+        <button type="button" aria-label="Pan map left" aria-disabled={!canPanLeft} onClick={() => { if (canPanLeft) pan(60, 0); }}>←</button>
+        <button type="button" aria-label="Pan map right" aria-disabled={!canPanRight} onClick={() => { if (canPanRight) pan(-60, 0); }}>→</button>
+        <button type="button" aria-label="Pan map up" aria-disabled={!canPanUp} onClick={() => { if (canPanUp) pan(0, 40); }}>↑</button>
+        <button type="button" aria-label="Pan map down" aria-disabled={!canPanDown} onClick={() => { if (canPanDown) pan(0, -40); }}>↓</button>
       </div>
       <svg
         viewBox="0 0 600 360"

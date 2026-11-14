@@ -39,6 +39,11 @@
   background: #eef6f3;
 }
 
+.map figure button[aria-disabled='true'] {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
 .map :focus-visible {
   outline: 3px solid #166d62;
   outline-offset: 3px;
