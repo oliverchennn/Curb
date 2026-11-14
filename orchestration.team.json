@@ -42,7 +42,15 @@
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
       "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878700641",
       "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878787282"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878787282",
+      "nextTask": {
+        "task": "ROBERTSON-PILOT-VALIDATION/1",
+        "state": "READY after current task STOP/RELEASE",
+        "baseSha": "1ea205d6630eee001e4f827c456cf828567ec9ea",
+        "branch": "codex/robertson-pilot-validation",
+        "scope": "docs/demo/ROBERTSON_PILOT_VALIDATION.md only",
+        "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879039357"
+      }
     },
     {
       "lane": "C",
@@ -51,10 +59,11 @@
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
       "task": "ROBERTSON-OVERLAY-FINISH/1",
       "branch": "codex/robertson-overlay-finish",
-      "state": "READY; awaiting exact-base ACK",
+      "state": "ACK / RUNNING",
       "scope": "VideoEvidence.tsx, SurveyWorkspace.module.css and docs/demo/ROBERTSON_OVERLAY_FINISH.md; root released these files",
       "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878700641"
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878700641",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878876233"
     },
     {
       "lane": "D",
@@ -63,11 +72,14 @@
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
       "task": "ROBERTSON-FINAL-GATE/1",
       "branch": "codex/robertson-final-gate",
-      "state": "ACK / RUNNING",
+      "state": "STOPPED / RELEASED; final gate integrated; D6-01 independently closed",
       "scope": "docs/demo/ROBERTSON_FINAL_GATE.md only; product read-only",
       "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
       "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878746888",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878771480"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878771480",
+      "resultSha": "650640933d744f72668abf5f1bd0e5db29602838",
+      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878901888",
+      "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878950138"
     }
   ],
   "board": {
@@ -75,7 +87,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6878787282"
+    "lastReadCommentId": "6879039357"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -261,10 +273,9 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "Root final integration, video correction and offline backup capture",
-      "B accessible exports, then exact-base adversarial matrix, then portable document release (6878016797)",
-      "C final integrated visual correction review after exact checkpoint",
-      "D corrective rendered-media review after exact checkpoint"
+      "Root serialized PR/main integration and final offline backup package",
+      "B portable report verifier, then scoped pilot-validation packet (6879039357)",
+      "C final live-overlay corrections (6878876233)"
     ]
   },
   "historicalR2Developers": [

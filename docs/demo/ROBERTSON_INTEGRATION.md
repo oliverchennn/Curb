@@ -2,6 +2,14 @@
 
 Root owns this record. It records observed checks, not a blanket acceptance of a branch.
 
+## Current checkpoint — 2026-11-14
+
+PR #5 remains draft while the assigned B portable-bundle verifier and C live-overlay corrections are completed. The sections below preserve earlier checkpoints and their then-open gates; later evidence supersedes those statuses. Five findings, accessible HTML/PDF/CSV/JSON exports, the bounded budget evaluator and corrected annotated media are integrated. No deployment or field acceptance is implied.
+
+D's final gate at `117175a34f3e8ae8dec87ffe80b131453a3b6771` is integrated from `650640933d744f72668abf5f1bd0e5db29602838`. D found no new P0–P2 blocker and identified D6-01, a direct-API priority attribution gap. Root corrected it in `1ea205d6630eee001e4f827c456cf828567ec9ea`: changed priority/rationale requires the workspace's named, nonblank review format. A priority change cannot reuse its unchanged published rationale. This remains self-reported attribution, not authentication. Root's 104 targeted tests and typecheck passed. D independently closed D6-01 in [6878950138](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878950138), exercising 16 unmocked HTML/PDF handler cases: unsigned/malformed attribution returned 400, unchanged data and a valid Unicode review returned 200, and the canonical data hash stayed unchanged. The full combined check follows B/C integration; the earlier 674-test run is not claimed for later code.
+
+Root also exercised the actual production `/curb/plans` page: at $2 both policies newly reach 0 destinations; at $4 condition-first reaches 1 and the best combination reaches 2; at $8 both reach 3. Input 1.005 is rejected as fractional cents, without rounding. The selected evidence reads “Synthetic example” and “Observed”; these outcomes remain separate from Robertson Hall's unknown traversal. A screenshot is retained at `.curb-local/release/screenshots/r2-comparison-verified.jpg`.
+
 ## Media and tracking review
 
 The original MOV remains byte-identical to Oliver's upload: SHA-256 `30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a`. Both MP4s decode 419 frames at 30 fps, 720 × 1280, with BT.709 primaries/transfer/matrix. No measured dimensions or individual map placements have been added.

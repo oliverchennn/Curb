@@ -6,9 +6,9 @@ User-selected scope: disability-access repair planning from the supplied Roberts
 
 `src/contracts/curb/survey.ts` is the common contract. Do not change it independently. Request a bounded change on board #1. Media are local under `/curb/surveys/robertson-hall/`. Canonical authored data: `src/data/curb/surveys/robertson-hall.json`. One physical defect has one ID; multiple defects on one panel share a work area. Track entries identify displayed CFR video frames (30 fps), normalized [x,y,width,height]; missing frames have no retained tracking evidence; physical visibility is unknown, and no box is interpolated across a gap or occlusion. All measurements initially absent. Review method AI is distinct from manual review. Pending AI findings may support explicitly provisional plans; rejected findings are excluded, not deleted.
 
-Root supplies these pure exports in `src/domain/curb/survey.ts`:
-
 For report requests, changed work-area priorities/rationales must carry the workspace's v1 attribution format: `Priority reviewed by <name>: <access rationale>`. Both parts must be nonblank, and changing priority cannot reuse the unchanged published rationale. This is a self-reported review record, not authenticated identity or a passability determination. Finding review remains a separate field.
+
+Root supplies these pure exports in `src/domain/curb/survey.ts`:
 
 ```ts
 validateSurvey(input: unknown): Survey
