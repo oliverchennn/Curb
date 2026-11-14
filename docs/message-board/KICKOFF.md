@@ -1,8 +1,8 @@
 # Active coordination checkpoint
 
-Board: https://github.com/vzhu08/Curb/issues/1. Coordinator: `01a1d84f-5fd1-71b0-a1d3-c9952d311e7a`, `codex/coordination-kickoff`, `C:\Users\vzhu0\PycharmProjects\Curb`. Snapshot cursor `6872753548`; live comments take precedence.
+Board: https://github.com/vzhu08/Curb/issues/1. Coordinator: `01a1d84f-5fd1-71b0-a1d3-c9952d311e7a`, `codex/coordination-kickoff`, `C:\Users\vzhu0\PycharmProjects\Curb`. Snapshot cursor `6872922294`; live comments take precedence.
 
-F0 result `7e56583774b9723a6ce8b6c25def915c08e76217` is reviewed. Its single native child stopped before Git publication; no grandchildren. Integration commit `d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1` independently passes install, typecheck, 23 tests and production build. [Frozen imports/fixtures](../CONTRACTS.md), [checks](../ACCEPTANCE.md), [import provenance](../KIT_IMPORT.md). Final F1 assignments will record the same published common SHA containing these docs.
+F0 result `7e56583774b9723a6ce8b6c25def915c08e76217` is reviewed. Its single native child stopped before Git publication; no grandchildren. Integration commit `d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1` independently passes install, typecheck, 23 tests and production build. [Frozen imports/fixtures](../CONTRACTS.md), [checks](../ACCEPTANCE.md), [import provenance](../KIT_IMPORT.md). Final F1 common base `313395308c26791ef8f9fd37a2d0fb72e441e9b7` passed npm run check (23 tests/build) and is published on main; A/B/C all ACKed and are running. Current checkouts/branches are in orchestration.team.json.
 
 ## People and ownership
 
@@ -17,7 +17,7 @@ Coordinator reserved documentation only: `README.md`, `orchestration.team.json`,
 
 ## Next actions and authority
 
-Publish the checked F0/freeze checkpoint, record exact common SHA, then assign/communicate F1A/B/C with literal disjoint paths. Review lane diffs and remote results, confirm writers stopped, assign separate A integration work B → A → C, run F2 full checks and real-browser walkthrough. Stop feature dispatch after F2 for Vincent's choice. Landau's sponsor proposal is deferred to that choice.
+F0/freeze is published and F1A/B/C are assigned with literal disjoint paths. Review lane diffs and remote results, confirm writers stopped, assign separate A integration work B â†’ A â†’ C, run F2 full checks and real-browser walkthrough. Stop feature dispatch after F2 for Vincent's choice. Landau's sponsor proposal is deferred to that choice.
 
 Vincent authorized scoped board comments, creation/communication with A and temporary B, routine task-branch commits/pushes and orchestrator decisions on reviewed main merges. [Git sync policy](../GIT_SYNC.md) requires verified remote SHAs and safe milestone/15-minute checkpoints. No force-pushing, deployment, new product scope or spending authority follows from this.
 

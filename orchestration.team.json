@@ -16,11 +16,11 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "F0/1 accepted; F1A awaiting explicit assignment",
-      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f0-bootstrap\\Curb",
-      "branch": "codex/f0-bootstrap",
-      "baseSha": "aed56a3935408ed139a13e56fe42a589368e1e19",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872004050"
+      "task": "F1A/1 running",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f1a-api\\Curb",
+      "branch": "codex/f1a-api",
+      "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872874560"
     },
     {
       "lane": "B",
@@ -36,8 +36,15 @@
         "github": "vzhu08",
         "session": "01a1d853-781e-7ce1-9082-ac04a68d3782",
         "hostId": "local",
-        "state": "ready-for-F1B-assignment",
-        "writeScope": []
+        "state": "F1B/1 running",
+        "writeScope": [
+          "src/domain/curb/",
+          "src/data/curb/"
+        ],
+        "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f1b-domain\\Curb",
+        "branch": "codex/f1b-domain",
+        "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
+        "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875115"
       }
     },
     {
@@ -47,10 +54,13 @@
       "github": "landautzou",
       "focus": "UI, accessibility, demo",
       "access": "accepted-write",
-      "readiness": "ready-for-F1C-assignment",
+      "readiness": "F1C/1 running",
       "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221",
-      "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb",
-      "modelException": "Vincent permits existing Claude Code session"
+      "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-f1c-screen",
+      "modelException": "Vincent permits existing Claude Code session",
+      "branch": "codex/f1c-screen",
+      "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875811"
     }
   ],
   "board": {
@@ -58,7 +68,7 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6872753548"
+    "lastReadCommentId": "6872922294"
   },
   "currentSlice": "foundation",
   "verifiedFoundationSha": null,
@@ -95,5 +105,5 @@
     "astra": "coordinator only",
     "exception": "Landau may continue independently started Claude Code session"
   },
-  "verifiedF0Sha": "d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1"
+  "verifiedF0Sha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7"
 }
