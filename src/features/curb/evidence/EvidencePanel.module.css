@@ -1,0 +1,160 @@
+.panel {
+  color: #173d35;
+  background: #f7faf8;
+  border: 1px solid #d5e3dd;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  max-width: 70ch;
+  min-width: 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.heading {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+}
+
+.subheading {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.barrier {
+  padding-bottom: 0.25rem;
+}
+
+.barrierTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  color: #166d62;
+}
+
+.meta {
+  margin: 0 0 0.5rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  min-width: 0;
+}
+
+.metaRow dt {
+  font-weight: 600;
+}
+
+.metaRow dt::after {
+  content: ':';
+}
+
+.metaRow dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.wrap {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.note {
+  margin: 0.5rem 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 70ch;
+}
+
+.muted {
+  margin: 0.5rem 0 0;
+  color: #4b6660;
+  font-style: italic;
+}
+
+.status {
+  display: inline-block;
+  padding: 0 0.5rem;
+  border: 2px solid;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: #ffffff;
+}
+
+.statusPending {
+  border-color: #b7791f;
+  color: #7a4f10;
+  background: #fff8e6;
+}
+
+.statusAccepted {
+  border-color: #166d62;
+  color: #0f4f47;
+  background: #e8f5f1;
+}
+
+.statusRejected {
+  border-color: #8a4b4b;
+  color: #5c3434;
+  background: #f3eeee;
+  border-style: dashed;
+}
+
+.origin {
+  display: inline-block;
+  padding: 0 0.4rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.originSynthetic {
+  border: 1px dashed #5a7a73;
+  background: #eef3f1;
+}
+
+.originField {
+  border: 1px solid #166d62;
+  background: #e8f5f1;
+}
+
+.evidenceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.evidenceItem {
+  background: #ffffff;
+  border: 1px solid #d5e3dd;
+  border-radius: 6px;
+  padding: 0.75rem;
+  min-width: 0;
+}
+
+.evidenceCaption {
+  margin: 0 0 0.375rem;
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+.disclaimer {
+  margin: 1rem 0 0;
+  font-size: 0.8125rem;
+  color: #4b6660;
+}

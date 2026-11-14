@@ -1,0 +1,232 @@
+.screen {
+  color: #173d35;
+  display: grid;
+  gap: 20px;
+  padding-block: 24px 48px;
+  overflow-wrap: anywhere;
+}
+
+.screen :focus-visible {
+  outline: 3px solid #166d62;
+  outline-offset: 3px;
+}
+
+.intro {
+  display: grid;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.2;
+}
+
+.badgeSynthetic,
+.badgeField {
+  justify-self: start;
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.badgeSynthetic {
+  background: #fff4d6;
+  color: #5b4300;
+  border: 1px solid #e6c36a;
+}
+
+.badgeField {
+  background: #e3f2ee;
+  color: #173d35;
+  border: 1px solid #9ccfc3;
+}
+
+.disclaimer {
+  margin: 0;
+  color: #3f5d55;
+  font-size: 0.95rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+}
+
+.resetButton {
+  background: #166d62;
+  color: #ffffff;
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 18px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  background: #173d35;
+}
+
+.resetButton:disabled {
+  background: #8aa9a1;
+  cursor: progress;
+}
+
+.statusMessage {
+  margin: 0;
+  padding: 16px;
+  border-radius: 12px;
+  background: #eef6f3;
+}
+
+.errorBox {
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #c9877a;
+  background: #fff0ec;
+  color: #5c1d10;
+}
+
+.errorMessage {
+  margin: 0;
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+  }
+
+  .secondary {
+    position: sticky;
+    top: 16px;
+  }
+}
+
+.primary,
+.secondary {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #d5e3de;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 0;
+}
+
+.sectionHeading {
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.counts div {
+  background: #f2f8f6;
+  border-radius: 9px;
+  padding: 8px 12px;
+}
+
+.counts dt {
+  font-size: 0.85rem;
+  color: #3f5d55;
+}
+
+.counts dd {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.emptyNote {
+  margin: 12px 0 0;
+  padding: 12px;
+  border-radius: 9px;
+  background: #f2f8f6;
+  font-weight: 600;
+}
+
+.sectionHeading + .emptyNote {
+  margin-top: 0;
+}
+
+.hint {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  color: #3f5d55;
+}
+
+.barrierList,
+.destinationList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.barrierButton,
+.barrierButtonSelected {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font: inherit;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.barrierButton {
+  background: #ffffff;
+  color: #173d35;
+  border: 1px solid #b7cfc8;
+}
+
+.barrierButton:hover {
+  background: #eef6f3;
+}
+
+.barrierButtonSelected,
+.barrierButtonSelected:hover {
+  background: #166d62;
+  color: #ffffff;
+  border: 1px solid #166d62;
+}
+
+.barrierKind {
+  font-weight: 700;
+}
+
+.barrierMeta {
+  font-size: 0.9rem;
+}
+
+.destinationList li {
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: #f2f8f6;
+}
+
+.destinationLabel {
+  font-weight: 600;
+}
