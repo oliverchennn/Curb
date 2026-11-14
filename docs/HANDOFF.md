@@ -7,6 +7,9 @@ Task / attempt / state:
 Human / agent session:
 Base SHA / result SHA / contract version:
 Branch / absolute checkout:
+Origin repository / remote branch:
+Verified remote SHA / last successful sync time:
+Uncommitted or unpushed paths / sync blocker (or none):
 Changed files:
 Delivered behavior:
 Checks: exact command, exit/result, timestamp, tested SHA
@@ -18,6 +21,8 @@ Requested change from another lane:
 Push / PR / integration status and links:
 Next action / recommended cut:
 ```
+
+Before Review or handoff, follow [GIT_SYNC](GIT_SYNC.md): push the scoped result and verify that the remote branch resolves to the intended local SHA. A local-only result stays blocked from Review. Read-only work reports no code to publish. Routine assigned-branch pushes are already authorized by Vincent.
 
 On BLOCKED include the attempted fixes and precise help needed. Do not imply that a successful build proves the browser flow, or that a local endpoint proves a deployed provider path.
 

@@ -13,8 +13,11 @@ Allowed literal paths / reserved paths:
 Dependencies satisfied:
 Acceptance / exact configured check commands:
 Timebox / rollback or cut:
-Remote code authority:
+Remote code authority: standing authorization for scoped commits/pushes to assigned codex/* branch; record integration/PR authority separately
+Remote branch / publisher / last verified remote SHA and sync time:
 ```
+
+Follow [GIT_SYNC](../GIT_SYNC.md): routine scoped task-branch commits/pushes are already authorized by Vincent. Fetch at safe task boundaries, publish safe milestones and before handoff, verify actual remote SHAs, and disclose sync blockers. Aim for a safe published checkpoint every 15 minutes during active coding. Main remains the designated integration owner's responsibility.
 
 Use `codex/` branches. Children receive the same fields plus a parent task ID and the exact subset of their parent's scope. Prefer isolated child worktrees. In shared-checkout mode children do not stage/commit/change branches; parent handles Git after all children stop. A read-only reviewer does not fix files without a new writer assignment.
 

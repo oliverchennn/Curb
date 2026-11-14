@@ -5,6 +5,7 @@
 | [Implementation plan](IMPLEMENTATION_PLAN.md) | Adapted product scope, foundation, roadmap, deadline and sponsor gates |
 | [Orchestration](ORCHESTRATION.md) | Four lead chats, three humans, board startup, assignment and recovery |
 | [Message board](MESSAGE_BOARD.md) | Authority, message formats and operating cadence |
+| [Git sync](GIT_SYNC.md) | Required checkpoint pushes, remote verification and safe integration |
 | [Board issue body](message-board/ISSUE_BODY.md) | Exact seed body for the live GitHub issue |
 | [Task board](TASK_BOARD.md) | Checked-in snapshot and dependency gates |
 | [Task cards](tasks/README.md) | F0, three F1 lanes, F2 and child assignments |
