@@ -1,6 +1,6 @@
 # Working on Curb
 
-Build Curb: evidence-backed accessibility repair planning for campus facilities. The foundation through F2 is verified at `fc12e86c85394ab8126db1be485aaf0e7845c087`. All application writers have stopped; read the live board and wait for Vincent's next-slice choice and an explicit assignment before new feature work. Do not restart F0.
+Build Curb: evidence-backed accessibility repair planning for campus facilities. Foundation F0–F2 is verified at `fc12e86c85394ab8126db1be485aaf0e7845c087`. Oliver (`oliverchennn`) has accepted cloud orchestration and explicitly selected **R1: trip reachability and one repair simulation**. Read `docs/tasks/R1.md`, `docs/message-board/CLOUD_TAKEOVER.md` and the live board for exact current scopes/base SHAs. This current R1 assignment supersedes historical foundation-only pause text below; other roadmap/sponsor work stays unassigned. Previous local writers are stopped. Do not restart F0.
 
 ## Read first
 

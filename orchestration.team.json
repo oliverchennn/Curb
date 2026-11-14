@@ -6,18 +6,18 @@
   "coordinator": {
     "name": "Oliver",
     "github": "oliverchennn",
-    "session": "pending-oliver-ack"
+    "session": "6af808fa-83dc-8191-bd58-80697dbe50c9"
   },
   "handoff": {
-    "state": "paused-awaiting-successor-ack",
+    "state": "accepted-cloud-orchestration",
     "authorizedBy": "Vincent / vzhu08",
     "reason": "Vincent requested all work paused because his laptop is about to shut down and designated Oliver to take over orchestration.",
     "outgoingSession": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
     "checkpoint": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6873532614",
     "instructions": "docs/message-board/OLIVER_HANDOFF.md",
     "localHeartbeat": "PAUSED",
-    "successorAccess": "GitHub permission none at handoff; accept repository invitation and verify write access before writes.",
-    "resumeGate": "Oliver acknowledges coordination takeover; product work stays paused until Vincent resumes and selects the next slice."
+    "successorAccess": "oliverchennn authenticated; WRITE independently verified during cloud takeover 2026-11-14",
+    "resumeGate": "Oliver accepted takeover and explicitly selected R1 in the current cloud session. Only R1 is resumed; other slices remain unassigned."
   },
   "developers": [
     {
@@ -40,8 +40,8 @@
       "name": "Oliver",
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
-      "access": "invitation-pending",
-      "availability": "unavailable",
+      "access": "accepted-write",
+      "availability": "active cloud coordinator; local historical lanes remain stopped",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -79,9 +79,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6873532614"
+    "lastReadCommentId": "6873665200"
   },
-  "currentSlice": "paused-handoff-to-oliver",
+  "currentSlice": "R1-contract-freeze",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -108,7 +108,7 @@
     "decision": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956"
   },
   "documentationBaseSha": "eee48e553de92072b4cb53148f9fd12c957514f0",
-  "coordinatorBranch": "codex/coordination-kickoff",
+  "coordinatorBranch": "codex/cloud-takeover",
   "workerModel": {
     "model": "gpt-6.1-sol",
     "reasoningEffort": "xhigh",
@@ -116,5 +116,21 @@
     "astra": "coordinator only",
     "exception": "Landau may continue independently started Claude Code session"
   },
-  "verifiedF0Sha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7"
+  "verifiedF0Sha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
+  "cloudTakeover": {
+    "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
+    "checkout": "/workspace/curb",
+    "baselineSha": "1992c53778c4374c7b2400f2a201f02dcac8c260",
+    "ack": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6873649864",
+    "audit": "docs/message-board/CLOUD_TAKEOVER.md",
+    "selectedSlice": "R1 trip reachability and one repair simulation",
+    "previousLocalAgents": "paused; no restart",
+    "workers": {
+      "A": "/root/r1_a; contract task; /workspace/curb-a-r1; codex/r1-contract-api"
+    },
+    "activeApplicationScope": [
+      "src/contracts/curb/trips.ts",
+      "tests/integration/contracts/trips.test.ts"
+    ]
+  }
 }

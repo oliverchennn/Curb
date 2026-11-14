@@ -2,7 +2,7 @@
 
 Accessibility repair planning for campus facilities: connect barrier evidence to the trips a repair could restore.
 
-The foundation is verified: a real local API serves synthetic campus data, and `/curb` shows the schematic, barrier list, linked evidence, keyboard selection and reset. Loading, empty and error states are checked. Routing and repair comparisons await the next slice.
+The foundation is verified: a real local API serves synthetic campus data, and `/curb` shows the schematic, barrier list, linked evidence, keyboard selection and reset. Loading, empty and error states are checked. The next selected slice is R1: trip reachability and one hypothetical repair; implementation status is on the live board.
 
 ## Run locally
 
@@ -16,7 +16,7 @@ npm run dev
 
 Open `http://127.0.0.1:3000/curb`. `check` runs TypeScript, Vitest and the production Next.js build. See the [frozen contract](docs/CONTRACTS.md) and [acceptance evidence](docs/ACCEPTANCE.md).
 
-Verified application commit: `fc12e86c85394ab8126db1be485aaf0e7845c087` (53 tests, build and Chrome walkthrough). This uses synthetic examples and a credential-free schematic. It is not a deployment, field survey, navigation tool or compliance determination. Foundation work is complete; new feature work waits for Vincent's next-slice choice on the live board.
+Verified application commit: `fc12e86c85394ab8126db1be485aaf0e7845c087` (53 tests, build and Chrome walkthrough). This uses synthetic examples and a credential-free schematic. It is not a deployment, field survey, navigation tool or compliance determination. Foundation work is complete. Oliver has taken over cloud orchestration and selected [R1](docs/tasks/R1.md); see the [takeover audit](docs/message-board/CLOUD_TAKEOVER.md) for baseline verification and limits.
 
 Live team board: [Curb foundation coordination](https://github.com/vzhu08/Curb/issues/1). See the [kickoff checkpoint](docs/message-board/KICKOFF.md) for the current roster and handoffs. Vincent authorized a temporary B lead under `vzhu08` while Oliver is unavailable; Landau's accepted account is `landautzou`.
 
