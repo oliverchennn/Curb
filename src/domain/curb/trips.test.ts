@@ -9,6 +9,7 @@ import tripDemo from '../../data/curb/trip-demo.json';
 import {
   evaluateTrip,
   InvalidTripScenarioError,
+  prepareTripEvaluator,
   TripRequestError,
   validateTripScenario,
 } from './trips';
@@ -22,6 +23,48 @@ const request = (input: TripScenario, overrides: Partial<TripRequest> = {}): Tri
   ...input.defaults,
   repairId: null,
   ...overrides,
+});
+
+describe('prepared route projections', () => {
+  it('uses the R1 route core for multiple cleared blockers and ordered destinations', () => {
+    const input = context();
+    const evaluator = prepareTripEvaluator(input);
+    const target = input.scenario.destinations.find(({ id }) => id === 'service')!.nodeId;
+    const blockers = ['move-service-crate', 'resurface-service-entry'].map((id) =>
+      input.repairs.find((repair) => repair.id === id)!.barrierId);
+    const before = evaluator.evaluateRoutes(input.defaults.originNodeId, [target], new Set())[0];
+    expect(before).toEqual(evaluateTrip(input, request(input, { destinationId: 'service' })).before);
+    for (const blocker of blockers) {
+      expect(evaluator.evaluateRoutes(input.defaults.originNodeId, [target], new Set([blocker]))[0]).toEqual(before);
+    }
+    const routes = evaluator.evaluateRoutes(input.defaults.originNodeId, [target, input.defaults.originNodeId], new Set(blockers));
+    expect(routes[0].status).toBe('reachable');
+    expect(routes[1]).toEqual({ status: 'reachable', nodeIds: [input.defaults.originNodeId], edgeIds: [], distanceMeters: 0 });
+    expect(evaluator.evaluateRoutes(input.defaults.originNodeId, [target], new Set())[0]).toEqual(before);
+  });
+
+  it('snapshots mutable graph inputs and returns independent route results', () => {
+    const input = graph([{ id: 'edge', fromNodeId: 'origin', toNodeId: 'destination', lengthMeters: 2 }]);
+    const evaluator = prepareTripEvaluator(input);
+    expect(Object.isFrozen(evaluator)).toBe(true);
+    input.scenario.edges[0].lengthMeters = 999;
+    input.scenario.edges[0].toNodeId = 'a';
+    input.edgeAssessments[0].status = 'unknown';
+    input.edgeAssessments[0].blockingBarrierIds.push('later-blocker');
+    const expected = { status: 'reachable', nodeIds: ['origin', 'destination'], edgeIds: ['edge'], distanceMeters: 2 };
+    const first = evaluator.evaluateRoutes('origin', ['destination'], new Set())[0];
+    expect(first).toEqual(expected);
+    if (first.status === 'reachable') first.nodeIds.reverse();
+    expect(evaluator.evaluateRoutes('origin', ['destination'], new Set())[0]).toEqual(expected);
+  });
+
+  it('retains the existing R1 context error when route lengths overflow', () => {
+    const input = graph([
+      { id: 'first', fromNodeId: 'origin', toNodeId: 'a', lengthMeters: Number.MAX_VALUE },
+      { id: 'second', fromNodeId: 'a', toNodeId: 'destination', lengthMeters: Number.MAX_VALUE },
+    ]);
+    expect(() => evaluateTrip(input, request(input))).toThrow(InvalidTripScenarioError);
+  });
 });
 
 function freezeDeep(value: unknown): void {

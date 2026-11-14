@@ -93,7 +93,7 @@ export function validateTripScenario(input: unknown): TripScenario {
 }
 
 type Path = { nodeIds: string[]; edgeIds: string[]; distanceMeters: number };
-type Arc = { edge: Edge; toNodeId: string };
+type Arc = { edge: Pick<Edge, 'id' | 'lengthMeters'>; toNodeId: string };
 
 // Use code-unit ID ordering, independent of input order and host locale.
 function compareIds(left: string, right: string): number {
@@ -114,12 +114,13 @@ function comparePaths(left: Path, right: Path): number {
     || compareIdLists(left.nodeIds, right.nodeIds);
 }
 
-function buildAdjacency(context: TripScenario): Map<string, Arc[]> {
+function buildAdjacency(context: Pick<TripScenario, 'scenario'>): Map<string, Arc[]> {
   const adjacency = new Map(context.scenario.nodes.map((node) => [node.id, [] as Arc[]]));
   for (const edge of context.scenario.edges) {
-    adjacency.get(edge.fromNodeId)!.push({ edge, toNodeId: edge.toNodeId });
+    const preparedEdge = { id: edge.id, lengthMeters: edge.lengthMeters };
+    adjacency.get(edge.fromNodeId)!.push({ edge: preparedEdge, toNodeId: edge.toNodeId });
     if (edge.bidirectional && edge.fromNodeId !== edge.toNodeId) {
-      adjacency.get(edge.toNodeId)!.push({ edge, toNodeId: edge.fromNodeId });
+      adjacency.get(edge.toNodeId)!.push({ edge: preparedEdge, toNodeId: edge.fromNodeId });
     }
   }
   return adjacency;
@@ -164,13 +165,38 @@ function shortestPath(
   return null;
 }
 
-function effectiveStatuses(context: TripScenario, clearedBarrierId: string | null): Map<string, TripEdgeStatus> {
-  return new Map(context.edgeAssessments.map((assessment) => {
-    const hasBlockers = assessment.blockingBarrierIds.some((id) => id !== clearedBarrierId);
+function effectiveStatuses(
+  assessments: TripScenario['edgeAssessments'],
+  clearedBarrierIds: ReadonlySet<string>,
+): Map<string, TripEdgeStatus> {
+  return new Map(assessments.map((assessment) => {
+    const hasBlockers = assessment.blockingBarrierIds.some((id) => !clearedBarrierIds.has(id));
     const status: TripEdgeStatus = hasBlockers ? 'blocked'
       : assessment.status === 'unknown' ? 'unknown' : 'pass';
     return [assessment.edgeId, status];
   }));
+}
+
+/** Domain-internal seam for already validated R1/R2 contexts. Snapshot routing
+ * inputs once; each projection clears only its named barriers. No mutable
+ * prepared state or caller-owned graph records escape this closure.
+ */
+export function prepareTripEvaluator(context: Pick<TripScenario, 'scenario' | 'edgeAssessments'>) {
+  const adjacency = buildAdjacency(context);
+  const assessments = context.edgeAssessments.map((assessment) => ({
+    ...assessment, blockingBarrierIds: [...assessment.blockingBarrierIds],
+  }));
+  return Object.freeze({
+    evaluateRoutes(
+      originNodeId: string,
+      destinationNodeIds: readonly string[],
+      clearedBarrierIds: ReadonlySet<string>,
+    ): TripRouteResult[] {
+      const statuses = effectiveStatuses(assessments, clearedBarrierIds);
+      return destinationNodeIds.map((destinationNodeId) =>
+        evaluateRoute(adjacency, statuses, originNodeId, destinationNodeId));
+    },
+  });
 }
 
 function evaluateRoute(
@@ -218,10 +244,10 @@ export function evaluateTrip(input: TripScenario, request: TripRequest): TripEva
   const repair = selection.repairId === null ? null : context.repairs.find((record) => record.id === selection.repairId);
   if (repair === undefined) throw new TripRequestError('INVALID_REQUEST', 'Trip repair does not exist.');
 
-  const adjacency = buildAdjacency(context);
-  const before = evaluateRoute(adjacency, effectiveStatuses(context, null), selection.originNodeId, destination.nodeId);
+  const evaluator = prepareTripEvaluator(context);
+  const [before] = evaluator.evaluateRoutes(selection.originNodeId, [destination.nodeId], new Set());
   const after = repair
-    ? evaluateRoute(adjacency, effectiveStatuses(context, repair.barrierId), selection.originNodeId, destination.nodeId)
+    ? evaluator.evaluateRoutes(selection.originNodeId, [destination.nodeId], new Set([repair.barrierId]))[0]
     : before;
   return { ...selection, before, after };
 }

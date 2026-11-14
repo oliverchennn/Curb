@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "curb-r2",
+  "scenario": {
+    "schemaVersion": 1,
+    "id": "synthetic-campus-repair-plans",
+    "revision": 1,
+    "title": "Synthetic campus repair comparison",
+    "dataKind": "synthetic",
+    "nodes": [
+      { "id": "arrival", "coordinate": [0, 0], "label": "Arrival court" },
+      { "id": "link-mid", "coordinate": [0.0001, 0], "label": "West-link midpoint" },
+      { "id": "hub", "coordinate": [0.0003, 0], "label": "Shared destination hub" },
+      { "id": "library-door", "coordinate": [0.0004, 0.0001], "label": "Library entry" },
+      { "id": "student-center-door", "coordinate": [0.00045, -0.0001], "label": "Student center entry" },
+      { "id": "hall-door", "coordinate": [-0.00025, 0], "label": "Hall entry" },
+      { "id": "cafe-door", "coordinate": [0, 0.00012], "label": "Cafe entry" },
+      { "id": "studio-door", "coordinate": [0, -0.0003], "label": "Studio entry" },
+      { "id": "archive-door", "coordinate": [-0.0003, 0.0003], "label": "Archive entry" }
+    ],
+    "edges": [
+      {
+        "id": "link-a",
+        "fromNodeId": "arrival",
+        "toNodeId": "link-mid",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0.0001, 0]] },
+        "lengthMeters": 10,
+        "bidirectional": true,
+        "barrierIds": ["link-a-curb"]
+      },
+      {
+        "id": "link-b",
+        "fromNodeId": "link-mid",
+        "toNodeId": "hub",
+        "geometry": { "type": "LineString", "coordinates": [[0.0001, 0], [0.0003, 0]] },
+        "lengthMeters": 20,
+        "bidirectional": true,
+        "barrierIds": ["link-b-crate"]
+      },
+      {
+        "id": "library-walk",
+        "fromNodeId": "hub",
+        "toNodeId": "library-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0003, 0], [0.0004, 0.0001]] },
+        "lengthMeters": 10,
+        "bidirectional": false,
+        "barrierIds": []
+      },
+      {
+        "id": "student-center-walk",
+        "fromNodeId": "hub",
+        "toNodeId": "student-center-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0003, 0], [0.00045, -0.0001]] },
+        "lengthMeters": 15,
+        "bidirectional": false,
+        "barrierIds": []
+      },
+      {
+        "id": "hall-link",
+        "fromNodeId": "arrival",
+        "toNodeId": "hall-door",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [-0.00025, 0]] },
+        "lengthMeters": 25,
+        "bidirectional": false,
+        "barrierIds": ["hall-surface"]
+      },
+      {
+        "id": "cafe-walk",
+        "fromNodeId": "arrival",
+        "toNodeId": "cafe-door",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0, 0.00012]] },
+        "lengthMeters": 12,
+        "bidirectional": true,
+        "barrierIds": []
+      },
+      {
+        "id": "studio-walk",
+        "fromNodeId": "arrival",
+        "toNodeId": "studio-door",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0, -0.0003]] },
+        "lengthMeters": 30,
+        "bidirectional": false,
+        "barrierIds": []
+      },
+      {
+        "id": "studio-shortcut",
+        "fromNodeId": "arrival",
+        "toNodeId": "studio-door",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0.00009, -0.00015], [0, -0.0003]] },
+        "lengthMeters": 18,
+        "bidirectional": false,
+        "barrierIds": ["studio-shortcut-crate"]
+      }
+    ],
+    "destinations": [
+      { "id": "library", "label": "Library", "nodeId": "library-door" },
+      { "id": "student-center", "label": "Student center", "nodeId": "student-center-door" },
+      { "id": "hall", "label": "Hall", "nodeId": "hall-door" },
+      { "id": "cafe", "label": "Cafe", "nodeId": "cafe-door" },
+      { "id": "studio", "label": "Studio", "nodeId": "studio-door" },
+      { "id": "archive", "label": "Archive", "nodeId": "archive-door" }
+    ],
+    "barriers": [
+      {
+        "id": "link-a-curb",
+        "edgeId": "link-a",
+        "kind": "missing_ramp",
+        "reviewStatus": "accepted",
+        "evidenceIds": ["link-a-note"],
+        "note": "Synthetic missing ramp at link A. Its accepted review is separate from the authored step-free assessment."
+      },
+      {
+        "id": "link-b-crate",
+        "edgeId": "link-b",
+        "kind": "obstruction",
+        "reviewStatus": "rejected",
+        "evidenceIds": ["link-b-note"],
+        "note": "Synthetic crate at link B. Rejected evidence review does not clear the independently authored blocker."
+      },
+      {
+        "id": "hall-surface",
+        "edgeId": "hall-link",
+        "kind": "surface_issue",
+        "reviewStatus": "pending",
+        "evidenceIds": ["hall-note"],
+        "note": "Synthetic damaged hall approach, assigned the worst illustrative condition rating in this comparison."
+      },
+      {
+        "id": "studio-shortcut-crate",
+        "edgeId": "studio-shortcut",
+        "kind": "obstruction",
+        "reviewStatus": "pending",
+        "evidenceIds": ["studio-shortcut-note"],
+        "note": "Synthetic crate on an edge whose step-free coverage is also unknown. Clearing the crate leaves that uncertainty."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "link-a-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic link A missing ramp",
+        "note": "Authored illustration: a raised curb blocks the first shared link. Repair A alone leaves link B blocked; no observation, quotation or completed repair is claimed.",
+        "attribution": "Curb R2 synthetic fixture authors"
+      },
+      {
+        "id": "link-b-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic link B obstruction",
+        "note": "Authored illustration: a crate blocks the second shared link. Repair B alone leaves link A blocked; the rejected review does not determine passability.",
+        "attribution": "Curb R2 synthetic fixture authors"
+      },
+      {
+        "id": "hall-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic hall approach surface",
+        "note": "Authored illustration: damaged surfacing blocks only the hall connection. Its severity and repair cost are assumed comparison inputs, with no measured condition or supplier quotation.",
+        "attribution": "Curb R2 synthetic fixture authors"
+      },
+      {
+        "id": "studio-shortcut-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic studio shortcut obstruction and uncertainty",
+        "note": "Authored illustration: a crate is a known blocker on a shortcut with unknown step-free coverage. No repair cost is supplied; moving the crate would not establish passability.",
+        "attribution": "Curb R2 synthetic fixture authors"
+      }
+    ]
+  },
+  "profile": {
+    "id": "step-free-demo",
+    "label": "Authored step-free demo",
+    "description": "A synthetic repair-planning profile with explicit edge assessments, equal-weight destinations and hypothetical blocker removal. It does not establish legal compliance or safe real-world navigation."
+  },
+  "assumptions": [
+    "This is an entirely synthetic schematic near coordinate [0, 0]. Nodes, topology, evidence, edge lengths and condition assessments are authored illustrations, not field geography, measurements or observations.",
+    "Every destination has weight one and uses the fixed arrival origin and step-free demo profile. Edge direction is explicit, visual intersections create no connections, and the archive has no connecting edge.",
+    "Every edge has an explicit authored assessment. Passability is independent of evidence review status; rejected, accepted and pending reviews do not override named blockers or unknown coverage.",
+    "Costs are illustrative assumed amounts in USD cents, not supplier quotes: repair A costs 200 cents, repair B costs 200 cents and repair C costs 400 cents. The studio repair cost is unknown and is excluded rather than treated as free. The default shared budget is 400 cents.",
+    "Severity is an authored integer scale from 1 (least severe) to 5 (most severe), independent of trip benefit: C is 5, the studio obstruction is 4, A is 3 and B is 2. These are illustrative condition ratings, not measured inspection results.",
+    "The library and student center share two sequential blocked links. A and B each restore zero destinations alone; together they restore both named destinations. C is a separate worse-condition repair that restores only the hall. The cafe is already reachable and is never counted as newly restored.",
+    "The studio walk has unknown coverage without a named blocker; its shorter parallel shortcut has both unknown coverage and a known crate blocker. Clearing the shortcut crate would still leave its coverage unknown, never passable.",
+    "Each repair clears one named blocker in an immutable hypothetical projection. It does not change evidence, review records, source assessments or unknown coverage. Exactness applies only to the supplied bounded candidates and assumptions, not real-world outcomes."
+  ],
+  "edgeAssessments": [
+    { "edgeId": "link-a", "kind": "crossing", "status": "blocked", "blockingBarrierIds": ["link-a-curb"], "reason": "Authored synthetic step-free assessment: the missing ramp blocks shared link A despite its accepted evidence review." },
+    { "edgeId": "link-b", "kind": "walkway", "status": "blocked", "blockingBarrierIds": ["link-b-crate"], "reason": "Authored synthetic step-free assessment: the crate blocks shared link B despite its rejected evidence review." },
+    { "edgeId": "library-walk", "kind": "entrance", "status": "pass", "blockingBarrierIds": [], "reason": "Authored synthetic step-free assessment permits the directed library entry after reaching the hub." },
+    { "edgeId": "student-center-walk", "kind": "entrance", "status": "pass", "blockingBarrierIds": [], "reason": "Authored synthetic step-free assessment permits the directed student center entry after reaching the hub." },
+    { "edgeId": "hall-link", "kind": "entrance", "status": "blocked", "blockingBarrierIds": ["hall-surface"], "reason": "Authored synthetic step-free assessment: the surface blocker prevents only the hall connection." },
+    { "edgeId": "cafe-walk", "kind": "walkway", "status": "pass", "blockingBarrierIds": [], "reason": "Authored synthetic step-free assessment permits the cafe walk before any repair." },
+    { "edgeId": "studio-walk", "kind": "walkway", "status": "unknown", "blockingBarrierIds": [], "reason": "Authored synthetic assessment has unknown step-free coverage; an empty barrier list does not establish passability." },
+    { "edgeId": "studio-shortcut", "kind": "walkway", "status": "unknown", "blockingBarrierIds": ["studio-shortcut-crate"], "reason": "Authored synthetic assessment names a known crate blocker and separately unknown coverage; clearing the crate leaves unknown coverage." }
+  ],
+  "repairs": [
+    { "id": "repair-a", "label": "Add west-link ramp (A)", "barrierId": "link-a-curb", "description": "Hypothetically clear only link A's missing ramp. Link B must also be repaired to restore the library and student center." },
+    { "id": "repair-b", "label": "Clear hub approach (B)", "barrierId": "link-b-crate", "description": "Hypothetically clear only link B's crate. Link A must also be repaired to restore the library and student center." },
+    { "id": "repair-c", "label": "Resurface hall approach (C)", "barrierId": "hall-surface", "description": "Hypothetically clear the hall surface blocker, restoring only the separate hall destination." },
+    { "id": "repair-studio", "label": "Clear studio shortcut", "barrierId": "studio-shortcut-crate", "description": "Hypothetically clear the shortcut crate without resolving unknown coverage. Its unknown cost excludes it from both plans." }
+  ],
+  "originNodeId": "arrival",
+  "destinationIds": ["library", "student-center", "hall", "cafe", "studio", "archive"],
+  "candidates": [
+    { "repairId": "repair-a", "severity": { "score": 3, "rationale": "Authored rating 3 of 5 for the synthetic missing ramp; a moderate illustrative condition, independent of its shared-route benefit." }, "cost": { "status": "assumed", "cents": 200, "source": "Synthetic author assumption: illustrative USD 200 cents for A, not a supplier quote or field estimate." } },
+    { "repairId": "repair-b", "severity": { "score": 2, "rationale": "Authored rating 2 of 5 for the synthetic crate; a lower illustrative condition rating, independent of its shared-route benefit." }, "cost": { "status": "assumed", "cents": 200, "source": "Synthetic author assumption: illustrative USD 200 cents for B, not a supplier quote or field estimate." } },
+    { "repairId": "repair-c", "severity": { "score": 5, "rationale": "Authored rating 5 of 5 for the synthetic hall surface; the worst illustrative condition in this comparison, although it serves only one destination." }, "cost": { "status": "assumed", "cents": 400, "source": "Synthetic author assumption: illustrative USD 400 cents for C, not a supplier quote or field estimate." } },
+    { "repairId": "repair-studio", "severity": { "score": 4, "rationale": "Authored rating 4 of 5 for the synthetic shortcut obstruction; its condition rating neither supplies a cost nor resolves unknown coverage." }, "cost": { "status": "unknown", "cents": null, "source": "Synthetic author intentionally supplies no USD-cent amount for the studio repair; exclude it from selection and disclose the omission." } }
+  ],
+  "defaultBudgetCents": 400
+}
