@@ -1,6 +1,6 @@
 # Shared message board
 
-One issue, title `Curb team board | curb-hackprinceton-f26`, repository `vzhu08/Curb`. Its canonical URL is `orchestration.team.json` → `board.url`. State at preparation: no issue created and no tasks started. [Startup procedure](ORCHESTRATION.md) and [seed body](message-board/ISSUE_BODY.md).
+One issue, title `Curb team board | curb-hackprinceton-f26`, repository `vzhu08/Curb`. Its canonical URL is `orchestration.team.json` → `board.url`: [issue #1](https://github.com/vzhu08/Curb/issues/1), created and read back at kickoff. [Startup procedure](ORCHESTRATION.md) and unchanged [seed body](message-board/ISSUE_BODY.md).
 
 ## Authority
 
@@ -51,6 +51,8 @@ No F1 assignment with a placeholder SHA, draft contract, missing human identity 
 UPDATE: completed observable work, current activity, last actual check, active child IDs/scopes/checkouts, blocker and next step. No invented percentages.
 
 RESULT: use [HANDOFF](HANDOFF.md); include full commit, changed paths, exact checks and outcomes, manual demo steps, limits and whether all children stopped. A patch without a commit is labeled explicitly and cannot be called a verified committed checkpoint.
+
+Vincent's standing sync instruction authorizes scoped routine pushes to assigned `codex/*` branches. Every UPDATE/RESULT also records branch, full local SHA, verified remote SHA, last sync time, check status and any unpushed/uncommitted scope. Main integration/release remain gated. See [sync decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642).
 
 BLOCKER / CHANGE_REQUEST: failing step, evidence, attempted fixes, affected paths/interface, options, recommended resolution and what can continue. Never broaden your own scope.
 

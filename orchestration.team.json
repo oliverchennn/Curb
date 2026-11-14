@@ -6,7 +6,7 @@
   "coordinator": {
     "name": "Vincent",
     "github": "vzhu08",
-    "session": null
+    "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a"
   },
   "developers": [
     {
@@ -20,22 +20,36 @@
       "lane": "B",
       "agent": "agent-b",
       "name": "Oliver",
-      "github": null,
-      "focus": "domain, data, field evidence"
+      "github": "oliverchennn",
+      "focus": "domain, data, field evidence",
+      "access": "invitation-pending",
+      "availability": "unavailable",
+      "temporaryCoverage": {
+        "agent": "agent-b-temp",
+        "operator": "Vincent",
+        "github": "vzhu08",
+        "session": "01a1d853-781e-7ce1-9082-ac04a68d3782",
+        "hostId": "local",
+        "state": "readiness-only-awaiting-F0",
+        "writeScope": []
+      }
     },
     {
       "lane": "C",
       "agent": "agent-c",
       "name": "Landau",
-      "github": null,
-      "focus": "UI, accessibility, demo"
+      "github": "landautzou",
+      "focus": "UI, accessibility, demo",
+      "access": "accepted-write",
+      "readiness": "session-acknowledgement-pending"
     }
   ],
   "board": {
     "title": "Curb team board | curb-hackprinceton-f26",
-    "issueNumber": null,
-    "url": null,
-    "status": "prepared-not-started"
+    "issueNumber": 1,
+    "url": "https://github.com/vzhu08/Curb/issues/1",
+    "status": "active",
+    "lastReadCommentId": "6871779642"
   },
   "currentSlice": "foundation",
   "verifiedFoundationSha": null,
@@ -56,5 +70,13 @@
   "scheduleSource": "supplied implementation plan; confirm event packet onsite",
   "kitRevision": "22a5f44a27375e88ac2cd1754f6976704f725bc5",
   "managedRunnerInstalled": false,
-  "remoteCodeActions": "only as authorized in the active task; board startup is authorized by kickoff prompt"
+  "remoteCodeActions": "Vincent authorizes scoped commits and routine pushes to assigned codex/* branches with verified remote SHA; main integration, PR and release retain explicit gates; no force pushes",
+  "documentationBaseSha": "eee48e553de92072b4cb53148f9fd12c957514f0",
+  "coordinatorBranch": "codex/coordination-kickoff",
+  "workerModel": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "xhigh",
+    "appliesTo": "all worker chats and coding children",
+    "astra": "coordinator only"
+  }
 }

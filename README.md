@@ -4,6 +4,8 @@ Accessibility repair planning for campus facilities: connect barrier evidence to
 
 This checkout currently contains the implementation plan and collaboration setup. Application development starts with F0; there is no runnable app yet.
 
+Live team board: [Curb foundation coordination](https://github.com/vzhu08/Curb/issues/1). See the [kickoff checkpoint](docs/message-board/KICKOFF.md) for the current roster and handoffs. Vincent authorized a temporary B lead under `vzhu08` while Oliver is unavailable; Landau's accepted account is `landautzou`.
+
 ## Start the team
 
 - **Vincent / `vzhu08`:** open a new coordinator chat in this repo and paste [START_ORCHESTRATOR.txt](START_ORCHESTRATOR.txt).

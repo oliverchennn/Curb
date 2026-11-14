@@ -4,6 +4,8 @@
 
 Three humans: Vincent (`vzhu08`, Dev A), Oliver (Dev B/domain and evidence), Landau (Dev C/UI and demo). Confirm B/C GitHub logins from their accepted repository access at kickoff. Do not use toolkit authorship as identity proof.
 
+Kickoff 2026-11-14 UTC: [board #1](https://github.com/vzhu08/Curb/issues/1) is live. `landautzou` has accepted write access; `oliverchennn` has a pending write invitation. Vincent explicitly authorized a separate temporary B chat (`agent-b-temp`, operating through Vincent / `vzhu08`) and creation/communication with the separate A lead. The temporary B lead follows all B gates and scopes and does not claim Oliver's identity or field observations. Before Oliver resumes writing, confirm the temporary lead and all descendants stopped and released scope. See [kickoff checkpoint](message-board/KICKOFF.md).
+
 Four lead chats: Vincent's coordinator, Vincent's separate `agent-a` coding lead, Oliver's `agent-b`, and Landau's `agent-c`. Each developer uses their own account and clone. Coding leads may spawn up to two scoped children, one level deep; F0 uses one serial child. If native children are unavailable, use separately started ordinary sessions with the same scopes and record that fallback.
 
 The shared message board is **one GitHub issue in `vzhu08/Curb`**. The coordinator reserves scopes and records assignments; leads acknowledge and report through comments. This follows the kit's manual collaboration conventions while preserving the supplied plan's subagents. It supplies no automatic cross-computer dispatch, locks, notifications to offline agents, heartbeat service or lease fencing.
@@ -62,6 +64,8 @@ For a comment, write the exact reviewed Markdown to a local UTF-8 file under ign
 ## Integration and recovery
 
 Each task names its branch `codex/<task-id>-<short-name>` and records its checkout. Only the assigned agent writes there. Preserve unrelated work. Remote pushes/PRs/integration need the authority recorded in the task; preparation alone does not authorize publishing code or deploying. Ask only for an action not already authorized by Vincent.
+
+Standing authority from Vincent at kickoff: keep origin consistently updated. Scoped local commits and routine pushes to assigned `codex/*` branches are authorized and expected; no repeated permission is needed. Verify origin is `vzhu08/Curb`, fetch at safe task starts/resumes and before integration, retain the assigned base, and publish at meaningful milestones/before handoff or stop (aim for a safe checkpoint every 15 minutes while coding). Pause/stop shared-checkout children before parent Git operations. Mark incomplete checkpoints WIP. Verify remote SHA equals intended local SHA; report both, sync time, check status and remaining edits in UPDATE/RESULT. No force pushes, blind pull/rebase under active writers, or independent main pushes. Main integration, PR and release authority retain their existing gates. See [board decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642); the support session is adding `docs/GIT_SYNC.md` on separate exclusive paths.
 
 F2 reviews B → A → C, integrates sequentially in an A integration checkout after writers stop, reruns checks after conflicts and records the actual tested commit. If a cross-lane fix is needed, assign a bounded correction to its owner. The coordinator stays out of application code.
 
