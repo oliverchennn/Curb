@@ -29,6 +29,10 @@ Accept, reject or correct a finding in the workspace, and supply a reviewer and 
 
 With the production server running, `npm run verify:flow -- http://127.0.0.1:3004` checks the real API and saves three PDF/HTML report variants in ignored `.curb-local/release/` for inspection. `scripts/curb/build_backup.py` assembles a two-minute offline walkthrough from actual captured app screens and the full annotated clip; it requires the documented screenshots and does not simulate a live session.
 
+The completed [two-minute backup video](public/curb/surveys/robertson-hall/demo-backup.mp4) is committed for the presentation machine. Download it before the venue; it plays independently of the app. See the [presenter script](docs/demo/ROBERTSON_DEMO_SCRIPT.md) for the live flow and its remaining field-review limits.
+
+Verify saved report bundles without the server using `node --import tsx scripts/curb/verify_report_bundle.ts .curb-local/release`. This checks all five evidence photos, IDs, review data, costs and selected/deferred work across the corresponding request/JSON/CSV/HTML/PDF files. See the [portable report runbook](docs/demo/ROBERTSON_PORTABLE_RELEASE.md) for the bundle format and deliberate failure checks.
+
 No dimensions were measured from this footage. Accessibility effects are qualified observations, not an overall ADA verdict. A visible crack never automatically blocks a route. The Robertson Hall map is context only, with no accepted per-defect map placements or verified route graph. Cost amounts are partial planning estimates from explicitly identified historical/regional benchmarks and assumed quantities; obtain site measurements, suitable repair scopes and current quotes. Unknown costs are never treated as free.
 
 ## Separate synthetic routing examples

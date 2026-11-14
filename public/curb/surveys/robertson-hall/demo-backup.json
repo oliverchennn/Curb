@@ -1,0 +1,42 @@
+{
+  "kind": "edited walkthrough from actual captures and annotated footage",
+  "durationSeconds": 120,
+  "output": "demo-backup.mp4",
+  "sha256": "fb30922f4e31f42165447230ede7955607eb152c426b1fb2cf3a64730546c20b",
+  "inputs": [
+    {
+      "path": "walkthrough-01-survey.jpg",
+      "sha256": "231290dd506b72d13f2e74834077359f4f22db98b473e2a4e4193ea74ddf6aaf"
+    },
+    {
+      "path": "annotated.mp4",
+      "sha256": "e3dd5a6058a8d809abc2d93037f3021a7c0686da378cde140e321adb73415173"
+    },
+    {
+      "path": "walkthrough-02-evidence.jpg",
+      "sha256": "7eb6aa9712cd24a260db2dbc3bac7b9ac1d63b6415789ddfd0cdaea40ddac87a"
+    },
+    {
+      "path": "walkthrough-03-inspection.jpg",
+      "sha256": "470f818e1222b3feb95fe2ae9803900fa6b18ea711da5aa3aa03373e225c6496"
+    },
+    {
+      "path": "walkthrough-04-plans.jpg",
+      "sha256": "682aab9a4a9a52e1197095482f595c294f80fd8fddce5ae30d047faffeee79fd"
+    },
+    {
+      "path": "walkthrough-05-budget.jpg",
+      "sha256": "1ccf36ee9b21fa24d823a55078ad4db3706c45dcfa17da5cb194d96c47f9a313"
+    },
+    {
+      "path": "walkthrough-06-exports.jpg",
+      "sha256": "08dfa64458d170bc191241195115c06541aab0366aff0d8dea84ed03d43e4c94"
+    },
+    {
+      "path": "walkthrough-07-report.jpg",
+      "sha256": "1fe51d60d5c767196724203aacb7548c7b5e6bfc1b1da90e019d28dbda628e16"
+    }
+  ],
+  "surveyUiCheckpoint": "1dbb59f1ce87c675299973ea3a359f3844254d48",
+  "notes": "Actual captured UI states and report page plus complete annotated footage; not a continuous live screen recording. Other unchanged captures predate the final overlay finish. No narration."
+}

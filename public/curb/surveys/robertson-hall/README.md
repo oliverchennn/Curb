@@ -16,6 +16,12 @@ python scripts/curb/build_manifest.py
 
 The Python environment is preprocessing-only; the demo requires only the normal local Next.js runtime and committed media/data. Full-resolution frame caches and contact sheets stay in ignored `.curb-local/`. Building the manifest overwrites authored edits: save reviewed JSON first. Review tracking and generated frames after changing seeds or media. Do not interpolate through missing track frames.
 
+## Offline presentation backup
+
+[`demo-backup.mp4`](demo-backup.mp4) is a 120-second edited walkthrough of actual app captures, the full annotated clip and an exported report page. It is H.264, 1600×1100, 30fps, 3,600 frames, with on-screen cues and no narration. It is not a continuous live rehearsal. The opening capture includes the final collision-aware overlay; the unchanged review/budget/export views were captured earlier. [`demo-backup.json`](demo-backup.json) records the input/output hashes and UI checkpoint. SHA-256: `fb30922f4e31f42165447230ede7955607eb152c426b1fb2cf3a64730546c20b`.
+
+Reproduce with `python scripts/curb/build_backup.py` after capturing its named screenshots. The screenshots are local verification artifacts, not generated replacements for app states. Root decoded all 3,600 output frames and visually checked one frame from each of the eight segments.
+
 Cost references are benchmarks with visible dates and assumptions. The sealing benchmark is historical (2021), the selected sidewalk-construction benchmark is from a 2026 New Jersey bid. Neither is a current small-job campus quote. Work quantities are scenario assumptions, not dimensions measured from this video. Mobilization, site verification, accessible work-zone provision and other unpriced work remain quote-required. The report must display partial estimates as partial.
 # Local map context
 

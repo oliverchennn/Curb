@@ -37,11 +37,21 @@ function checkReviewedSurvey(edited: Survey, canonical: Survey) {
     }
     return { ...evidence, label: original.label, kind: original.kind, description: original.description, review: original.review };
   });
-  const workAreas = edited.workAreas.map((area, index) => ({
-    ...area,
-    priority: canonical.workAreas[index]?.priority,
-    rationale: canonical.workAreas[index]?.rationale,
-  }));
+  const workAreas = edited.workAreas.map((area, index) => {
+    const original = canonical.workAreas[index];
+    if (!original) throw new Error('unexpected additional work area');
+    if (area.priority !== original.priority || area.rationale !== original.rationale) {
+      // Match the final v1 report boundary introduced after this verifier's base.
+      // This is self-reported attribution, not proof of reviewer identity.
+      const prefix = 'Priority reviewed by ';
+      const separator = area.rationale.indexOf(': ', prefix.length);
+      assert.ok(area.rationale.startsWith(prefix) && separator >= prefix.length
+        && area.rationale.slice(prefix.length, separator).trim().length > 0
+        && area.rationale.slice(separator + 2).trim().length > 0
+        && area.rationale !== original.rationale, 'changed work-area priority lacks named review and rationale');
+    }
+    return { ...area, priority: original.priority, rationale: original.rationale };
+  });
   requireMatch({ ...edited, findings, workAreas }, canonical, 'request changed immutable survey evidence, costs, grouping, or sources');
 }
 
