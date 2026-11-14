@@ -69,11 +69,23 @@ function isReviewOf(edited: Survey, saved: Survey): boolean {
       review: original.review,
     };
   });
-  const workAreas = edited.workAreas.map(area => ({
-    ...area,
-    priority: areasById.get(area.id)?.priority ?? area.priority,
-    rationale: areasById.get(area.id)?.rationale ?? area.rationale,
-  }));
+  const workAreas = edited.workAreas.map(area => {
+    const original = areasById.get(area.id);
+    if (!original) return area;
+    const changed = area.priority !== original.priority || area.rationale !== original.rationale;
+    if (changed) {
+      // v1 records the workspace's self-reported reviewer and reason in this
+      // rationale. Require that attribution at the API boundary as well. This
+      // records a review; it does not authenticate the reviewer or prove access.
+      const prefix = 'Priority reviewed by ';
+      const separator = area.rationale.indexOf(': ', prefix.length);
+      const named = area.rationale.startsWith(prefix) && separator >= prefix.length
+        && area.rationale.slice(prefix.length, separator).trim().length > 0
+        && area.rationale.slice(separator + 2).trim().length > 0;
+      if (!named || area.rationale === original.rationale) return area;
+    }
+    return { ...area, priority: original.priority, rationale: original.rationale };
+  });
 
   return isDeepStrictEqual({ ...edited, findings, workAreas }, saved);
 }

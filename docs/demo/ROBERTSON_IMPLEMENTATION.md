@@ -8,6 +8,8 @@ User-selected scope: disability-access repair planning from the supplied Roberts
 
 Root supplies these pure exports in `src/domain/curb/survey.ts`:
 
+For report requests, changed work-area priorities/rationales must carry the workspace's v1 attribution format: `Priority reviewed by <name>: <access rationale>`. Both parts must be nonblank, and changing priority cannot reuse the unchanged published rationale. This is a self-reported review record, not authenticated identity or a passability determination. Finding review remains a separate field.
+
 ```ts
 validateSurvey(input: unknown): Survey
 costRange(cost: Cost): { lowCents: number; highCents: number } | null

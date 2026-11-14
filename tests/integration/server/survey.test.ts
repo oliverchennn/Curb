@@ -5,6 +5,7 @@ import { GET } from '../../../app/api/curb/survey/route';
 import { POST } from '../../../app/api/curb/survey/report/route';
 import canonical from '../../../src/data/curb/surveys/robertson-hall.json';
 import { SurveyResponseSchema, SurveySchema } from '../../../src/contracts/curb/survey';
+import { setAreaPriority } from '../../../src/features/curb/survey/presentation';
 
 vi.mock('node:fs/promises', async (original) => {
   const fs = await original<typeof import('node:fs/promises')>();
@@ -57,6 +58,19 @@ describe('Robertson survey GET', () => {
 });
 
 describe('Robertson report POST', () => {
+  it.each(['?format=html', '?format=pdf'])('requires a named priority rationale at the API boundary (%s)', async query => {
+    for (const rationale of [survey.workAreas[0].rationale, 'Unattributed change', 'Priority reviewed by : Recheck access.', 'Priority reviewed by Facilities: ']) {
+      const edited = structuredClone(survey);
+      edited.workAreas[0].priority = 'low';
+      edited.workAreas[0].rationale = rationale;
+      await expectError(await report({ ...payload, survey: edited }, query), 400, 'INVALID_REQUEST');
+    }
+    const edited = setAreaPriority(survey, 'panel-01', 'low', '王小明', 'Confirm wheel contact and measure the opening.');
+    expect(edited.ok).toBe(true);
+    if (!edited.ok) throw new Error(edited.message);
+    expect((await report({ ...payload, survey: edited.survey }, query)).status).toBe(200);
+  });
+
   it.each(['?format=', '?format=csv', '?format=html&format=html', '?format=pdf&format=html', '?extra=pdf', '?format=html&extra=1'])(
     'rejects an invalid report selector (%s) before reading saved data',
     async (query) => {

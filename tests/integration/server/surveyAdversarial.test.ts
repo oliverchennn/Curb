@@ -312,13 +312,13 @@ describe('Robertson cross-format review and evidence', () => {
     finding.kind = '"Edge" & <small>surface</small>';
     finding.review = { status: 'accepted', method: 'manual', reviewer: '王小明', note: '=1 + 2' };
     edited.workAreas[0].priority = 'low';
-    edited.workAreas[0].rationale = '  Vérifier l’accès, puis mesurer.  '.trim();
+    edited.workAreas[0].rationale = 'Priority reviewed by 王小明: Vérifier l’accès, puis mesurer.';
 
     const roundTrip = SurveySchema.parse(JSON.parse(surveyJson(edited)));
     expect(roundTrip).toEqual(edited);
     const csv = surveyToCsv(roundTrip);
     expect(csv).toContain('"<b>Évaluation & 測</b>"');
-    expect(csv).toContain('"accepted","王小明","manual","\'=1 + 2","low","Vérifier l’accès, puis mesurer."');
+    expect(csv).toContain('"accepted","王小明","manual","\'=1 + 2","low","Priority reviewed by 王小明: Vérifier l’accès, puis mesurer."');
     expect(csv).toContain('"rejected","Facilities","manual"');
     for (const id of expectedFindingIds) expect(csv).toContain('"' + id + '"');
     const budget = 47800;
