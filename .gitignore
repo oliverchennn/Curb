@@ -1,0 +1,10 @@
+# Local staging, logs and evidence; never share credentials.
+.curb-local/
+.kit/
+.env
+.env.*
+!.env.example
+!.env.kit.example
+node_modules/
+.next/
+coverage/

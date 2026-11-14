@@ -1,0 +1,92 @@
+{
+  "repository": "oliverchennn/hackathon-kit",
+  "revision": "22a5f44a27375e88ac2cd1754f6976704f725bc5",
+  "inspectedDate": "2026-11-13",
+  "files": [
+    {
+      "sourcePath": "AGENTS.md",
+      "localPath": "docs/vendor/hackathon-kit/AGENTS.md",
+      "gitBlobSha": "55a418050f17ee1df8b3029f986d09bb1cc92a27"
+    },
+    {
+      "sourcePath": "docs/guides/ORCHESTRATION.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/guides/ORCHESTRATION.md",
+      "gitBlobSha": "3efdcacf62f619eff97600faecbb9d2f67d18bbe"
+    },
+    {
+      "sourcePath": "LICENSE",
+      "localPath": "docs/vendor/hackathon-kit/LICENSE",
+      "gitBlobSha": "c581b440df63a8954354bb872a2f7a246ed570dd"
+    },
+    {
+      "sourcePath": "THIRD_PARTY_NOTICES.md",
+      "localPath": "docs/vendor/hackathon-kit/THIRD_PARTY_NOTICES.md",
+      "gitBlobSha": "6d9b0a1382b9a88e96c88b281b5eb4ed27960373"
+    },
+    {
+      "sourcePath": "docs/templates/COLLABORATION.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/COLLABORATION.md",
+      "gitBlobSha": "4b553e9c8bea238d2cc104bdce5ac9e3a90b0f5c"
+    },
+    {
+      "sourcePath": "docs/templates/OWNERSHIP.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/OWNERSHIP.md",
+      "gitBlobSha": "482ff9c9d1eeb90ab7510dcb4a8f82460f7b7528"
+    },
+    {
+      "sourcePath": "docs/templates/TASK_BOARD.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/TASK_BOARD.md",
+      "gitBlobSha": "cb89f39d47dddf57e9e058c480b5c4b8058d3fa1"
+    },
+    {
+      "sourcePath": "docs/templates/TASK_CARD.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/TASK_CARD.md",
+      "gitBlobSha": "f3f3000eadb0cb1b3dadc188a9ab6049906bdea1"
+    },
+    {
+      "sourcePath": "docs/templates/HUMAN_AI_TEAM_WORKFLOW.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/HUMAN_AI_TEAM_WORKFLOW.md",
+      "gitBlobSha": "e7da80fe05a59061fb486824b4374c7b05877434"
+    },
+    {
+      "sourcePath": "docs/templates/HANDOFF.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/HANDOFF.md",
+      "gitBlobSha": "d35e14547ccb53aa469f7f38835999bec643324d"
+    },
+    {
+      "sourcePath": "docs/templates/DECISION_LOG.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/DECISION_LOG.md",
+      "gitBlobSha": "5af99a72da70c4e38f7583307a98e91f8f9aa754"
+    },
+    {
+      "sourcePath": "docs/templates/GIT_WORKFLOW.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/GIT_WORKFLOW.md",
+      "gitBlobSha": "2412acd1e35b286bed1f0653c7e3e1fbce59a52e"
+    },
+    {
+      "sourcePath": "docs/templates/API_CONTRACT.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/templates/API_CONTRACT.md",
+      "gitBlobSha": "8cc78ab18239344e43da5eb39dad12450df56104"
+    },
+    {
+      "sourcePath": "docs/start-here/AGENT_START.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/start-here/AGENT_START.md",
+      "gitBlobSha": "29177a1274e7033e6a85fdad9af64c0dae74ffcc"
+    },
+    {
+      "sourcePath": "docs/start-here/CREATE.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/start-here/CREATE.md",
+      "gitBlobSha": "1f256cf684391057d9618ff0828fb7487bb2a00b"
+    },
+    {
+      "sourcePath": "docs/start-here/ADOPT.md",
+      "localPath": "docs/vendor/hackathon-kit/docs/start-here/ADOPT.md",
+      "gitBlobSha": "9a5b61118c4dd0b5db81e3461f8ebca92a46f97b"
+    },
+    {
+      "sourcePath": ".codex/agents/orchestrator.toml",
+      "localPath": "docs/vendor/hackathon-kit/.codex/agents/orchestrator.toml",
+      "gitBlobSha": "2cad28c7bb7caef9dbf85ddf44466a74f214938d"
+    }
+  ]
+}

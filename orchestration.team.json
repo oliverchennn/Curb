@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "mode": "manual-github-issue-with-native-subagents",
+  "repository": "vzhu08/Curb",
+  "runId": "curb-hackprinceton-f26",
+  "coordinator": {
+    "name": "Vincent",
+    "github": "vzhu08",
+    "session": null
+  },
+  "developers": [
+    {
+      "lane": "A",
+      "agent": "agent-a",
+      "name": "Vincent",
+      "github": "vzhu08",
+      "focus": "bootstrap, API, transport, integration"
+    },
+    {
+      "lane": "B",
+      "agent": "agent-b",
+      "name": "Oliver",
+      "github": null,
+      "focus": "domain, data, field evidence"
+    },
+    {
+      "lane": "C",
+      "agent": "agent-c",
+      "name": "Landau",
+      "github": null,
+      "focus": "UI, accessibility, demo"
+    }
+  ],
+  "board": {
+    "title": "Curb team board | curb-hackprinceton-f26",
+    "issueNumber": null,
+    "url": null,
+    "status": "prepared-not-started"
+  },
+  "currentSlice": "foundation",
+  "verifiedFoundationSha": null,
+  "contracts": {
+    "version": "curb-v0",
+    "status": "draft-until-F0"
+  },
+  "delegation": {
+    "maxCodingChildrenPerLane": 2,
+    "maxChildDepth": 1,
+    "optionalReadOnlyReviewer": true
+  },
+  "timezone": "America/New_York",
+  "eventStart": "2026-11-13T20:00:00-05:00",
+  "featureFreeze": "2026-11-15T02:00:00-05:00",
+  "targetSubmission": "2026-11-15T07:30:00-05:00",
+  "hardDeadline": "2026-11-15T08:00:00-05:00",
+  "scheduleSource": "supplied implementation plan; confirm event packet onsite",
+  "kitRevision": "22a5f44a27375e88ac2cd1754f6976704f725bc5",
+  "managedRunnerInstalled": false,
+  "remoteCodeActions": "only as authorized in the active task; board startup is authorized by kickoff prompt"
+}
