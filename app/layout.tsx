@@ -16,8 +16,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </a>
         <header>
           <Link href="/" className="brand">
-            Curb
+            <span aria-hidden="true" className="brandMark">c</span> Curb
           </Link>
+          <nav aria-label="Main navigation">
+            <Link href="/curb/surveys/robertson-hall">Survey workspace</Link>
+            <Link href="/curb/plans">Sample network</Link>
+          </nav>
         </header>
         <main id="main">{children}</main>
       </body>

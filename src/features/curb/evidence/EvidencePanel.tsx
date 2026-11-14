@@ -78,14 +78,14 @@ function EvidenceItem({ item }: { item: Evidence }) {
             </span>
           </dd>
         </div>
-        {item.observedAt !== undefined && (
-          <div className={styles.metaRow}>
-            <dt>Recorded</dt>
-            <dd>
-              <time dateTime={item.observedAt}>{formatObservedAt(item.observedAt)}</time>
-            </dd>
-          </div>
-        )}
+        <div className={styles.metaRow}>
+          <dt>Observed</dt>
+          <dd>
+            {item.observedAt !== undefined
+              ? <time dateTime={item.observedAt}>{formatObservedAt(item.observedAt)}</time>
+              : 'Unknown'}
+          </dd>
+        </div>
         {item.attribution !== undefined && (
           <div className={styles.metaRow}>
             <dt>Attribution</dt>
@@ -111,7 +111,7 @@ export function EvidencePanel({ detail }: { detail: BarrierDetail | null }) {
         <h2 id={HEADING_ID} className={styles.heading}>
           Evidence
         </h2>
-        <p className={styles.muted}>Select a barrier from the list to see its linked evidence.</p>
+        <p className={styles.muted}>No evidence selected. Linked evidence appears here when available for the selected item.</p>
       </section>
     );
   }

@@ -1,0 +1,160 @@
+{
+  "method": "AI visual proposals from contact sheets and full-resolution anchors; subsequent all-419-frame overview and all tracked-frame crop review. LK optical-flow tracking is separate. Human field review is pending.",
+  "model": "Codex assistant vision (exact model build not exposed)",
+  "createdAt": "2026-11-14T07:33:00-05:00",
+  "sourceSha256": "30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a",
+  "normalJoints": "Straight saw-cut/control joints were excluded. No raised-slab height or physical crack width was estimated.",
+  "findings": [
+    {
+      "id": "defect-01",
+      "label": "Defect 01 \u00b7 Transverse crack",
+      "kind": "Transverse crack with edge deterioration",
+      "seedFrame": 210,
+      "startFrame": 105,
+      "endFrame": 229,
+      "seedBoxPixels": [
+        20,
+        805,
+        700,
+        145
+      ],
+      "description": "An irregular crack crosses the walking panel, with a visibly broken/open edge toward the left. The opening and any vertical displacement need measurement."
+    },
+    {
+      "id": "defect-02",
+      "label": "Defect 02 \u00b7 Branched crack",
+      "kind": "Branched crack near panel joint",
+      "seedFrame": 285,
+      "startFrame": 195,
+      "endFrame": 308,
+      "seedBoxPixels": [
+        15,
+        845,
+        705,
+        180
+      ],
+      "description": "A transverse defect near the panel boundary includes a branching fragment on the right. This may be localized edge deterioration; depth, movement and level difference are unmeasured."
+    },
+    {
+      "id": "defect-03",
+      "label": "Defect 03 \u00b7 Diagonal crack",
+      "kind": "Diagonal transverse crack",
+      "seedFrame": 360,
+      "startFrame": 270,
+      "endFrame": 370,
+      "seedBoxPixels": [
+        0,
+        985,
+        720,
+        215
+      ],
+      "description": "An irregular diagonal crack crosses another walking panel. No vertical displacement is established from this view; inspect width, edge stability and movement before selecting treatment."
+    },
+    {
+      "id": "defect-04",
+      "label": "Defect 04 \u00b7 Surface breakup",
+      "kind": "Intersecting cracks and surface deterioration",
+      "seedFrame": 180,
+      "startFrame": 0,
+      "endFrame": 301,
+      "seedBoxPixels": [
+        435,
+        230,
+        285,
+        95
+      ],
+      "description": "A broad area beside the walking strip has intersecting irregular cracks, broken edges and exposed aggregate or debris. Treat this connected area as one inspection/repair scope; its cause, stability, depth and full extent are unknown.",
+      "correctedKeyframes": [
+        {
+          "frame": 120,
+          "boxPixels": [
+            397,
+            173,
+            300,
+            75
+          ]
+        },
+        {
+          "frame": 210,
+          "boxPixels": [
+            465,
+            282,
+            255,
+            130
+          ]
+        },
+        {
+          "frame": 240,
+          "boxPixels": [
+            510,
+            350,
+            210,
+            190
+          ]
+        },
+        {
+          "frame": 255,
+          "boxPixels": [
+            518,
+            380,
+            202,
+            230
+          ]
+        },
+        {
+          "frame": 270,
+          "boxPixels": [
+            570,
+            435,
+            150,
+            290
+          ]
+        },
+        {
+          "frame": 285,
+          "boxPixels": [
+            615,
+            525,
+            105,
+            260
+          ]
+        },
+        {
+          "frame": 300,
+          "boxPixels": [
+            686,
+            680,
+            34,
+            210
+          ]
+        },
+        {
+          "frame": 301,
+          "boxPixels": [
+            698,
+            700,
+            22,
+            180
+          ]
+        }
+      ],
+      "trackingReview": "AI visual correction anchors constrain perspective drift as the connected damage exits the right edge. Stop after frame 301 when too little surface remains to track reliably."
+    },
+    {
+      "id": "defect-05",
+      "label": "Defect 05 \u00b7 Final transverse crack",
+      "kind": "Irregular transverse crack at the end of the clip",
+      "seedFrame": 418,
+      "startFrame": 330,
+      "endFrame": 418,
+      "seedBoxPixels": [
+        0,
+        920,
+        720,
+        85
+      ],
+      "description": "The final visible walking panel has an irregular transverse crack with localized edge deterioration, distinct from Defect 03. It remains in view when recording ends. Opening width and vertical displacement are unmeasured."
+    }
+  ],
+  "coverageNote": "Revision 2 incorporates user-identified omissions: the large intersecting cracked/deteriorated area and the terminal transverse crack. Not a guarantee of complete automated detection; distant pavement and straight joints require separate review."
+}
