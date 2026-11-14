@@ -1,0 +1,792 @@
+{
+  "checks": [
+    {
+      "name": "production collection returns 200",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reduced motion starts paused",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reduced motion clock remains stationary",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "desktop no horizontal overflow",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "essential playback button initially visible in 768px viewport",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "at least two clean initial callouts",
+      "pass": true,
+      "detail": [
+        {
+          "id": "forward",
+          "rect": {
+            "x": 61,
+            "y": 276.140625,
+            "width": 176.953125,
+            "height": 50,
+            "top": 276.140625,
+            "right": 237.953125,
+            "bottom": 326.140625,
+            "left": 61
+          }
+        },
+        {
+          "id": "surface",
+          "rect": {
+            "x": 792.484375,
+            "y": 487.140625,
+            "width": 192.515625,
+            "height": 50,
+            "top": 487.140625,
+            "right": 985,
+            "bottom": 537.140625,
+            "left": 792.484375
+          }
+        },
+        {
+          "id": "curb",
+          "rect": {
+            "x": 841.5,
+            "y": 276.140625,
+            "width": 143.5,
+            "height": 50,
+            "top": 276.140625,
+            "right": 985,
+            "bottom": 326.140625,
+            "left": 841.5
+          }
+        }
+      ]
+    },
+    {
+      "name": "scrub 0s updates time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "scrub 0s pauses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "capture count at 0s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader labels do not overlap at 0s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader starts match mounted dots at 0s",
+      "pass": true,
+      "detail": [
+        {
+          "id": "forward",
+          "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+          "cx": "478.17",
+          "cy": "98.92"
+        },
+        {
+          "id": "surface",
+          "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+          "cx": "487.84",
+          "cy": "179.66"
+        },
+        {
+          "id": "curb",
+          "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+          "cx": "431.82",
+          "cy": "153.61"
+        }
+      ]
+    },
+    {
+      "name": "scrub 6s updates time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "scrub 6s pauses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "capture count at 6s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader labels do not overlap at 6s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader starts match mounted dots at 6s",
+      "pass": true,
+      "detail": [
+        {
+          "id": "forward",
+          "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+          "cx": "478.17",
+          "cy": "98.92"
+        },
+        {
+          "id": "surface",
+          "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+          "cx": "487.84",
+          "cy": "179.66"
+        },
+        {
+          "id": "curb",
+          "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+          "cx": "431.82",
+          "cy": "153.61"
+        }
+      ]
+    },
+    {
+      "name": "scrub 12s updates time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "scrub 12s pauses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "capture count at 12s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader labels do not overlap at 12s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader starts match mounted dots at 12s",
+      "pass": true,
+      "detail": [
+        {
+          "id": "forward",
+          "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+          "cx": "478.17",
+          "cy": "98.92"
+        },
+        {
+          "id": "surface",
+          "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+          "cx": "487.84",
+          "cy": "179.66"
+        },
+        {
+          "id": "curb",
+          "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+          "cx": "431.82",
+          "cy": "153.61"
+        }
+      ]
+    },
+    {
+      "name": "scrub 18s updates time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "scrub 18s pauses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "capture count at 18s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader labels do not overlap at 18s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader starts match mounted dots at 18s",
+      "pass": true,
+      "detail": [
+        {
+          "id": "forward",
+          "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+          "cx": "478.17",
+          "cy": "98.92"
+        },
+        {
+          "id": "surface",
+          "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+          "cx": "487.84",
+          "cy": "179.66"
+        },
+        {
+          "id": "curb",
+          "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+          "cx": "431.82",
+          "cy": "153.61"
+        }
+      ]
+    },
+    {
+      "name": "scrub 24s updates time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "scrub 24s pauses",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "capture count at 24s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader labels do not overlap at 24s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "leader starts match mounted dots at 24s",
+      "pass": true,
+      "detail": [
+        {
+          "id": "forward",
+          "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+          "cx": "478.17",
+          "cy": "98.92"
+        },
+        {
+          "id": "surface",
+          "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+          "cx": "487.84",
+          "cy": "179.66"
+        },
+        {
+          "id": "curb",
+          "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+          "cx": "431.82",
+          "cy": "153.61"
+        }
+      ]
+    },
+    {
+      "name": "follow tracks preserve relative camera mounts across travel",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "traversal scene pixels differ",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Forward context camera selected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Downward surface camera selected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Side / curb camera selected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "coverage toggles off",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Side viewpoint selected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Overhead viewpoint selected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Follow viewpoint selected",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "viewpoint changes reproject camera anchors",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "orbit interaction pauses simulation",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reset view restores visible anchors",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "entire 24-second traversal completes and pauses",
+      "pass": true,
+      "detail": [
+        0.0,
+        0.77,
+        1.57,
+        2.23,
+        3.3,
+        4.17,
+        4.97,
+        5.77,
+        6.37,
+        7.33,
+        8.33,
+        9.87,
+        10.87,
+        11.97,
+        13.27,
+        14.23,
+        15.03,
+        16.53,
+        17.7,
+        19.03,
+        20.13,
+        21.27,
+        22.3,
+        23.43
+      ]
+    },
+    {
+      "name": "full traversal is monotonic",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "replay restarts near zero",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "pause holds position",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "speed 0.5 changes traversal rate",
+      "pass": true,
+      "detail": 0.39
+    },
+    {
+      "name": "speed 1 changes traversal rate",
+      "pass": true,
+      "detail": 0.77
+    },
+    {
+      "name": "speed 2 changes traversal rate",
+      "pass": true,
+      "detail": 1.5
+    },
+    {
+      "name": "no overflow at 1920x1080",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "canvas resizes at 1920",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "labels stay inside stage at 1920",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no overflow at 1366x768",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "canvas resizes at 1366",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "labels stay inside stage at 1366",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no overflow at 683x384",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "canvas resizes at 683",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "labels stay inside stage at 683",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no overflow at 390x844",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "canvas resizes at 390",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "labels stay inside stage at 390",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "offscreen stage freezes traversal",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "returning stage resumes without jumping to wall clock",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "keyboard viewpoint works",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "keyboard focus is retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "keyboard scrub advances timeline",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "static mode removes WebGL canvas",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "static mode has semantic diagram",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "static mode scrub preserves capture sequence",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "static mode disables animated play",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "3D mode can be restored",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "real WebGL context loss shows fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "phone survey link works",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "back navigation remounts scene",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "forward navigation works",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "touch scene keeps native vertical scrolling enabled",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "native emulated finger swipe scrolls page over canvas",
+      "pass": true,
+      "detail": 291
+    },
+    {
+      "name": "ordinary motion preference starts playing",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "changing to reduced motion pauses an active scene",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "missing WebGL shows diagram automatically",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "mobile fallback has no overflow",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "fallback sensor descriptions work",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no page exceptions",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no external runtime requests",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "sourceSha256": {
+    "app/curb/collection/page.tsx": "f90779125ceb66ba75c3eaf98c7dbb3dc31a37e44f554a617695225c1a358321",
+    "src/features/curb/collection/CollectionDemo.tsx": "56b8289fb7aac4e746e7cbbe6d4288ac507528819f33688e76589dfbb77c9700",
+    "src/features/curb/collection/CollectionScene.tsx": "f9f701ce68ab51c21e782f47548cad0bb2e358c0ff2b6baa57d49cb42a544552",
+    "src/features/curb/collection/StaticDiagram.tsx": "8d9ede5cad07d47efc720d245c45c4df40a72c0ebf081712b7a6a24c036741a3",
+    "src/features/curb/collection/collection.module.css": "385b93938ab27d4d70f8ed539ecf7097d7d0190f7f19842cb955dab3403c4590",
+    "src/features/curb/collection/simulation.test.ts": "6e15b2a26ff0ae167dc8c2449878902d95ae19c1278151e933adc3c607cdab71",
+    "src/features/curb/collection/simulation.ts": "81c47d7dd7f0faf872f1a47bc9d64bfd4c1f68013cc572ce8992a36188e8e9b5"
+  },
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "httpErrors": [
+    {
+      "url": "http://127.0.0.1:3001/curb/explore?_rsc=75RJaX8CEdotGQEI",
+      "status": 404
+    }
+  ],
+  "requestFailures": [
+    {
+      "url": "http://127.0.0.1:3001/curb/surveys/robertson-hall?_rsc=75RJaX8CEdotGQEI",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "externalRequests": [],
+  "traversalSamples": [
+    0.0,
+    0.77,
+    1.57,
+    2.23,
+    3.3,
+    4.17,
+    4.97,
+    5.77,
+    6.37,
+    7.33,
+    8.33,
+    9.87,
+    10.87,
+    11.97,
+    13.27,
+    14.23,
+    15.03,
+    16.53,
+    17.7,
+    19.03,
+    20.13,
+    21.27,
+    22.3,
+    23.43
+  ],
+  "anchorSamples": {
+    "0": [
+      {
+        "id": "forward",
+        "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+        "cx": "478.17",
+        "cy": "98.92"
+      },
+      {
+        "id": "surface",
+        "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+        "cx": "487.84",
+        "cy": "179.66"
+      },
+      {
+        "id": "curb",
+        "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+        "cx": "431.82",
+        "cy": "153.61"
+      }
+    ],
+    "6": [
+      {
+        "id": "forward",
+        "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+        "cx": "478.17",
+        "cy": "98.92"
+      },
+      {
+        "id": "surface",
+        "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+        "cx": "487.84",
+        "cy": "179.66"
+      },
+      {
+        "id": "curb",
+        "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+        "cx": "431.82",
+        "cy": "153.61"
+      }
+    ],
+    "12": [
+      {
+        "id": "forward",
+        "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+        "cx": "478.17",
+        "cy": "98.92"
+      },
+      {
+        "id": "surface",
+        "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+        "cx": "487.84",
+        "cy": "179.66"
+      },
+      {
+        "id": "curb",
+        "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+        "cx": "431.82",
+        "cy": "153.61"
+      }
+    ],
+    "18": [
+      {
+        "id": "forward",
+        "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+        "cx": "478.17",
+        "cy": "98.92"
+      },
+      {
+        "id": "surface",
+        "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+        "cx": "487.84",
+        "cy": "179.66"
+      },
+      {
+        "id": "curb",
+        "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+        "cx": "431.82",
+        "cy": "153.61"
+      }
+    ],
+    "24": [
+      {
+        "id": "forward",
+        "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+        "cx": "478.17",
+        "cy": "98.92"
+      },
+      {
+        "id": "surface",
+        "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+        "cx": "487.84",
+        "cy": "179.66"
+      },
+      {
+        "id": "curb",
+        "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+        "cx": "431.82",
+        "cy": "153.61"
+      }
+    ]
+  },
+  "viewAnchors": {
+    "Side": [
+      {
+        "id": "surface",
+        "d": "M502.14,171.91 L731.00,254.00 L749.00,254.00",
+        "cx": "502.14",
+        "cy": "171.91"
+      },
+      {
+        "id": "curb",
+        "d": "M443.08,157.87 L781.00,43.00 L799.00,43.00",
+        "cx": "443.08",
+        "cy": "157.87"
+      }
+    ],
+    "Overhead": [
+      {
+        "id": "curb",
+        "d": "M469.64,180.61 L781.00,43.00 L799.00,43.00",
+        "cx": "469.64",
+        "cy": "180.61"
+      }
+    ],
+    "Follow": [
+      {
+        "id": "forward",
+        "d": "M478.17,98.92 L213.00,43.00 L195.00,43.00",
+        "cx": "478.17",
+        "cy": "98.92"
+      },
+      {
+        "id": "surface",
+        "d": "M487.84,179.66 L731.00,254.00 L749.00,254.00",
+        "cx": "487.84",
+        "cy": "179.66"
+      },
+      {
+        "id": "curb",
+        "d": "M431.82,153.61 L781.00,43.00 L799.00,43.00",
+        "cx": "431.82",
+        "cy": "153.61"
+      }
+    ]
+  },
+  "browser": "156.0.8078.79",
+  "time": "2026-11-14T20:40:21Z",
+  "note": "Local production Chromium with software WebGL. 683x384 is a 200%-equivalent CSS viewport, not verified native browser zoom. Touch swipe is CDP emulation, not hardware. Injected missing WebGL and actual WEBGL_lose_context checks are separate.",
+  "testedProductCommit": "5e23a63f93ce15e0d364bff1d8c026bb5a1a971c"
+}

@@ -1,0 +1,533 @@
+{
+  "staticTo3DCycles": 8,
+  "navigationCycles": 4,
+  "retiredContexts": 13,
+  "allDisconnected": true,
+  "allContextsLost": true,
+  "records": [
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    },
+    {
+      "connected": false,
+      "lost": true,
+      "remainingExplicit": {
+        "Buffer": 0,
+        "Framebuffer": 3,
+        "Texture": 4,
+        "VertexArray": 0,
+        "Renderbuffer": 0,
+        "Program": 1,
+        "Shader": 0
+      }
+    }
+  ],
+  "cycles": [
+    [
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ],
+    [
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      },
+      {
+        "connected": false,
+        "lost": true
+      }
+    ]
+  ],
+  "warnings": [
+    "The resource http://127.0.0.1:3001/_next/static/css/fb05e310404106e6.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource http://127.0.0.1:3001/_next/static/css/96cf0c1dd24fa5d3.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource http://127.0.0.1:3001/_next/static/css/96cf0c1dd24fa5d3.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+  ],
+  "errors": [],
+  "note": "remainingExplicit counts instrument explicit delete calls only. A lost context implicitly releases any residual GL/driver caches; these are not claimed as explicit delete calls.",
+  "testedProductCommit": "5e23a63f93ce15e0d364bff1d8c026bb5a1a971c",
+  "sourceSha256": {
+    "app/curb/collection/page.tsx": "f90779125ceb66ba75c3eaf98c7dbb3dc31a37e44f554a617695225c1a358321",
+    "src/features/curb/collection/CollectionDemo.tsx": "56b8289fb7aac4e746e7cbbe6d4288ac507528819f33688e76589dfbb77c9700",
+    "src/features/curb/collection/CollectionScene.tsx": "f9f701ce68ab51c21e782f47548cad0bb2e358c0ff2b6baa57d49cb42a544552",
+    "src/features/curb/collection/StaticDiagram.tsx": "8d9ede5cad07d47efc720d245c45c4df40a72c0ebf081712b7a6a24c036741a3",
+    "src/features/curb/collection/collection.module.css": "385b93938ab27d4d70f8ed539ecf7097d7d0190f7f19842cb955dab3403c4590",
+    "src/features/curb/collection/simulation.test.ts": "6e15b2a26ff0ae167dc8c2449878902d95ae19c1278151e933adc3c607cdab71",
+    "src/features/curb/collection/simulation.ts": "81c47d7dd7f0faf872f1a47bc9d64bfd4c1f68013cc572ce8992a36188e8e9b5"
+  }
+}
