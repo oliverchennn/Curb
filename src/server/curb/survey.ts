@@ -7,6 +7,7 @@ import {
   type Survey,
 } from '../../contracts/curb/survey';
 import { buildRepairPlans, validateSurvey } from '../../domain/curb/survey';
+import { renderSurveyHtmlReport } from './surveyHtmlReport';
 import { renderSurveyReport } from './surveyReport';
 
 const surveyId = 'robertson-hall';
@@ -124,6 +125,13 @@ async function loadCloseups(saved: Survey): Promise<ReadonlyMap<string, Uint8Arr
 }
 
 export async function postSurveyReportResponse(request: Request): Promise<Response> {
+  const params = new URL(request.url).searchParams;
+  const formats = params.getAll('format');
+  const format = formats[0] ?? 'pdf';
+  if (formats.length > 1 || [...params.keys()].some(key => key !== 'format') || (format !== 'html' && format !== 'pdf')) {
+    return fail(400, 'Choose one report format: PDF or HTML.');
+  }
+
   const input = await readReportBody(request);
   if ('response' in input) return input.response;
 
@@ -138,7 +146,19 @@ export async function postSurveyReportResponse(request: Request): Promise<Respon
       return fail(400, 'The submitted review does not match the published survey and allowed review fields.');
     }
     const plans = buildRepairPlans(survey, budgetCents ?? undefined);
-    const pdf = await renderSurveyReport(survey, plans, planId, await loadCloseups(saved));
+    const closeups = await loadCloseups(saved);
+    if (format === 'html') {
+      return new Response(renderSurveyHtmlReport(survey, plans, planId, closeups), {
+        headers: {
+          ...headers,
+          'content-type': 'text/html; charset=utf-8',
+          'content-disposition': 'attachment; filename="robertson-hall-repair-report.html"',
+          'content-security-policy': "default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          'x-content-type-options': 'nosniff',
+        },
+      });
+    }
+    const pdf = await renderSurveyReport(survey, plans, planId, closeups);
     return new Response(new Uint8Array(pdf), {
       headers: {
         ...headers,

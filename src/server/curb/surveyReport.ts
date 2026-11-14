@@ -40,14 +40,18 @@ const styles = {
   link: { size: 10, leading: 14, bold: false, color: linkColor },
 };
 
-function printable(text: string, characterSet: Set<number>): string {
-  return Array.from(
+function printable(text: string, characterSet: Set<number>): { text: string; substituted: boolean } {
+  let substituted = false;
+  const safe = Array.from(
     text.normalize('NFC').replace(/[\u2010-\u2015\u2212]/gu, '-').replace(/[\s\u0000-\u001f\u007f-\u009f]+/gu, ' ').trim(),
     character => {
       const point = character.codePointAt(0)!;
-      return characterSet.has(point) ? character : '[U+' + point.toString(16).toUpperCase().padStart(4, '0') + ']';
+      if (characterSet.has(point)) return character;
+      substituted = true;
+      return '[U+' + point.toString(16).toUpperCase().padStart(4, '0') + ']';
     },
   ).join('');
+  return { text: safe, substituted };
 }
 
 function wrap(text: string, font: PDFFont, size: number): string[] {
@@ -79,6 +83,7 @@ class ReportLayout {
   private page!: PDFPage;
   private y = 0;
   private section = '';
+  private hasSubstitutions = false;
   private readonly regularCharacterSet: Set<number>;
   private readonly boldCharacterSet: Set<number>;
 
@@ -119,7 +124,9 @@ class ReportLayout {
     const style = styles[preset];
     const font = style.bold ? this.bold : this.font;
     const characterSet = style.bold ? this.boldCharacterSet : this.regularCharacterSet;
-    const lines = wrap(printable(text, characterSet), font, style.size);
+    const safe = printable(text, characterSet);
+    this.hasSubstitutions ||= safe.substituted;
+    const lines = wrap(safe.text, font, style.size);
     for (const line of lines) {
       this.reserve(style.leading);
       this.y -= style.leading;
@@ -163,6 +170,11 @@ class ReportLayout {
       page.drawText('SURVEY REPORT  /  FACILITIES PLANNING', { x: inset, y: 27, font: this.bold, size: 8, color: muted });
       const label = String(index + 1) + ' / ' + pages.length;
       page.drawText(label, { x: pageWidth - inset - this.font.widthOfTextAtSize(label, 9), y: 27, font: this.font, size: 9, color: muted });
+      if (this.hasSubstitutions) {
+        page.drawText('Some characters appear as [U+XXXX]. Download the accessible HTML report for the original text.', {
+          x: inset, y: 15, font: this.font, size: 8, color: muted,
+        });
+      }
     }
   }
 }
@@ -216,7 +228,7 @@ function showFinding(layout: ReportLayout, finding: Finding, workAreaId: string 
   layout.text(review.note);
   if (review.status === 'rejected') layout.text('Excluded from repair selection. Evidence retained for review.', 'focus');
   layout.gap(7);
-  layout.text('Accessibility priority  ' + assessment.priority, 'subheading');
+  layout.text('Provisional finding priority  ' + assessment.priority, 'subheading');
   layout.text(assessment.rationale);
   for (const impact of assessment.accessImpacts) layout.text('- ' + impact);
   layout.gap(7);
@@ -266,6 +278,8 @@ export async function renderSurveyReport(
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
   const layout = new ReportLayout(pdf, font, bold);
   const treatments = new Map(survey.treatments.map(treatment => [treatment.id, treatment]));
+  const workAreas = new Map(survey.workAreas.map(area => [area.id, area]));
+  const named = ({ label, id }: { label: string; id: string }) => label + ' (' + id + ')';
   const excludedFindings = survey.findings.filter(finding => finding.review.status === 'rejected').map(finding => finding.id);
   const pendingCount = survey.findings.filter(finding => finding.review.status === 'pending').length;
   const findingsById = new Map(survey.findings.map(finding => [finding.id, finding]));
@@ -300,10 +314,11 @@ export async function renderSurveyReport(
     if (plan.budgetFit === 'over') layout.text('Known upper subtotal exceeds the supplied budget.', 'planAlert');
     const { high, medium, low, unassessed } = plan.coverage;
     layout.text('Work area priority coverage  ' + high + ' high, ' + medium + ' medium, ' + low + ' low, ' + unassessed + ' unassessed', 'planDetail');
-    layout.text('Selected work areas  ' + labels(plan.workAreaIds) + '  /  Deferred work areas  ' + labels(plan.deferredWorkAreaIds), 'planDetail');
-    layout.text('Selected treatment IDs  ' + labels(plan.optionIds), 'planDetail');
+    layout.text('Selected work areas  ' + labels(plan.workAreaIds.map(id => named(workAreas.get(id)!))), 'planDetail');
+    layout.text('Deferred work areas  ' + labels(plan.deferredWorkAreaIds.map(id => named(workAreas.get(id)!))), 'planDetail');
+    layout.text('Selected treatments  ' + labels(plan.optionIds.map(id => named(treatments.get(id)!))), 'planDetail');
     const unpricedItems = items.filter(item => item.cost.status === 'quote_required');
-    if (unpricedItems.length) layout.text('Items requiring quotes  ' + labels(unpricedItems.map(item => item.id)), 'planAlert');
+    if (unpricedItems.length) layout.text('Items requiring quotes  ' + labels(unpricedItems.map(named)), 'planAlert');
   }
 
   layout.start('Work areas and estimates');
@@ -329,7 +344,7 @@ export async function renderSurveyReport(
     layout.text(area.label + '  /  ' + area.id, 'heading');
     const active = area.findingIds.some(id => findingsById.get(id)!.review.status !== 'rejected');
     const priority = area.priority === 'unassessed' ? 'unassessed (prioritize field inspection)' : area.priority;
-    layout.text('Accessibility priority  ' + priority + '  /  Evidence IDs  ' + labels(area.findingIds), 'detail');
+    layout.text('Work-area planning priority  ' + priority + '  /  Evidence IDs  ' + labels(area.findingIds), 'detail');
     layout.text(area.rationale);
     if (!area.repairWorthy) layout.text('Outside the current repair candidate scope.', 'detail');
     if (!active) layout.text('All associated findings were rejected. Area excluded from repair selection.', 'detail');

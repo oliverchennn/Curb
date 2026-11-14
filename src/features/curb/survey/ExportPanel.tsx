@@ -7,6 +7,12 @@ import { exportFileName, surveyJson } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
 const REPORT_TIMEOUT_MS = 30_000;
+const reportFormats = {
+  pdf: { label: 'PDF', contentType: 'application/pdf' },
+  html: { label: 'HTML', contentType: 'text/html' },
+} as const;
+
+type ReportFormat = keyof typeof reportFormats;
 
 function saveBlob(blob: Blob, fileName: string) {
   const url = URL.createObjectURL(blob);
@@ -23,7 +29,10 @@ async function reportError(response: Response): Promise<string> {
   try {
     const body: unknown = await response.json();
     const error = (body as { error?: { code?: unknown; message?: unknown } })?.error;
-    if (typeof error?.message === 'string') return `${error.message} (HTTP ${response.status}).`;
+    if (typeof error?.message === 'string') {
+      const message = error.message.trim().replace(/[.!?]+$/, '');
+      if (message) return `${message} (HTTP ${response.status}).`;
+    }
   } catch { /* fall through */ }
   return response.status === 404
     ? 'The report service is not available in this build (HTTP 404). JSON and CSV exports still work.'
@@ -37,8 +46,14 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
   budgetCents: number | null;
 }) {
   const [status, setStatus] = useState<{ kind: 'idle' | 'working' | 'done' | 'error'; message: string }>({ kind: 'idle', message: '' });
+  const [activeFormat, setActiveFormat] = useState<ReportFormat | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
-  useEffect(() => () => controllerRef.current?.abort(), []);
+  useEffect(() => () => {
+    const controller = controllerRef.current;
+    controllerRef.current = null;
+    controller?.abort();
+  }, []);
+  const reportUnavailable = !plan || activeFormat !== null;
 
   function validSurvey(): Survey | null {
     const parsed = SurveySchema.safeParse(survey);
@@ -67,51 +82,72 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
     }
   }
 
-  async function downloadPdf() {
+  async function downloadReport(format: ReportFormat) {
+    if (!plan || controllerRef.current) return;
     const data = validSurvey();
-    if (!data || !plan) return;
-    controllerRef.current?.abort();
+    if (!data) return;
+
+    const { label, contentType } = reportFormats[format];
     const controller = new AbortController();
     controllerRef.current = controller;
     const timer = setTimeout(() => controller.abort(), REPORT_TIMEOUT_MS);
-    setStatus({ kind: 'working', message: `Preparing the PDF for the ${plan.title} plan…` });
+    setActiveFormat(format);
+    setStatus({ kind: 'working', message: `Preparing the ${label} report for the ${plan.title} plan…` });
     try {
       const planId: PlanId = plan.id;
-      const response = await fetch('/api/curb/survey/report', {
+      const query = format === 'html' ? '?format=html' : '';
+      const response = await fetch(`/api/curb/survey/report${query}`, {
         method: 'POST', cache: 'no-store', signal: controller.signal,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ survey: data, budgetCents, planId }),
       });
+      controller.signal.throwIfAborted();
       if (controllerRef.current !== controller) return;
       if (!response.ok) {
-        setStatus({ kind: 'error', message: await reportError(response) });
+        const message = await reportError(response);
+        controller.signal.throwIfAborted();
+        setStatus({ kind: 'error', message });
         return;
       }
-      if (!response.headers.get('content-type')?.includes('application/pdf')) {
-        setStatus({ kind: 'error', message: 'The report service returned something other than a PDF. Nothing was saved.' });
+      const responseType = response.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase();
+      if (responseType !== contentType) {
+        setStatus({ kind: 'error', message: `The report service returned an unexpected file type. Try downloading the ${label} report again.` });
         return;
       }
-      saveBlob(await response.blob(), exportFileName(data, 'pdf', edited));
-      setStatus({ kind: 'done', message: `Saved the PDF report for the ${plan.title} plan.` });
-    } catch (error) {
+      const blob = await response.blob();
+      controller.signal.throwIfAborted();
+      const fileName = exportFileName(data, 'pdf', edited).replace(/\.pdf$/, `.${format}`);
+      saveBlob(blob, fileName);
+      setStatus({ kind: 'done', message: `Saved the ${label} report for the ${plan.title} plan.` });
+    } catch {
       if (controllerRef.current !== controller) return;
-      setStatus({ kind: 'error', message: error instanceof DOMException && error.name === 'AbortError'
+      setStatus({ kind: 'error', message: controller.signal.aborted
         ? 'The report took too long and was cancelled. Try again.'
         : 'Could not reach the report service. Check that the app is running, then try again.' });
     } finally {
       clearTimeout(timer);
-      if (controllerRef.current === controller) controllerRef.current = null;
+      if (controllerRef.current === controller) {
+        controllerRef.current = null;
+        setActiveFormat(null);
+      }
     }
   }
 
   return <section className={styles.card} aria-labelledby="survey-export-heading">
     <h2 id="survey-export-heading"><span className={styles.stepNumber}>3</span> Export report</h2>
-    <p className={styles.small}>Downloads happen only when you choose one. JSON, CSV and PDF reflect your current review{edited ? ' edits' : ''}; the videos are fixed files.</p>
+    <p className={styles.small}>Report and data downloads reflect your current review{edited ? ' edits' : ''}.</p>
     <div className={styles.exportGrid}>
       <div className={styles.exportItem}>
-        <h3>PDF report</h3>
+        <h3>Repair reports</h3>
         <p className={styles.small}>{plan ? `Plan: ${plan.title}.` : 'Select a plan first.'} Includes all three policies, evidence cards, assumptions and quote-required work. No overall ADA verdict.</p>
-        <button type="button" onClick={downloadPdf} disabled={!plan || status.kind === 'working'}>Download PDF</button>
+        <p id="survey-report-formats" className={styles.small}>The PDF is untagged. Choose accessible HTML for screen-reader use.</p>
+        <div className={styles.actions}>
+          <button type="button" aria-describedby="survey-report-formats" aria-disabled={reportUnavailable}
+            aria-busy={activeFormat === 'pdf'} onClick={() => downloadReport('pdf')}>Download PDF</button>
+          <button type="button" className={styles.secondaryButton} aria-describedby="survey-report-formats"
+            aria-disabled={reportUnavailable} aria-busy={activeFormat === 'html'}
+            onClick={() => downloadReport('html')}>Download accessible HTML</button>
+        </div>
       </div>
       <div className={styles.exportItem}>
         <h3>Data</h3>

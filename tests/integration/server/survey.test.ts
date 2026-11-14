@@ -15,8 +15,8 @@ const endpoint = 'http://localhost/api/curb/survey';
 const survey = SurveySchema.parse(canonical);
 const payload = { survey, budgetCents: 50_000, planId: 'budget' };
 
-function report(input: unknown) {
-  return POST(new Request(`${endpoint}/report`, {
+function report(input: unknown, query = '') {
+  return POST(new Request(`${endpoint}/report${query}`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(input),
@@ -57,6 +57,64 @@ describe('Robertson survey GET', () => {
 });
 
 describe('Robertson report POST', () => {
+  it.each(['?format=', '?format=csv', '?format=html&format=html', '?format=pdf&format=html', '?extra=pdf', '?format=html&extra=1'])(
+    'rejects an invalid report selector (%s) before reading saved data',
+    async (query) => {
+      await expectError(await report(payload, query), 400, 'INVALID_REQUEST');
+      expect(vi.mocked(readFile)).not.toHaveBeenCalled();
+    },
+  );
+
+  it('serves an explicit PDF with the existing attachment headers', async () => {
+    const response = await report(payload, '?format=pdf');
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('application/pdf');
+    expect(response.headers.get('content-disposition')).toMatch(/\.pdf"$/);
+  });
+
+  it('renders an offline HTML attachment from approved and reviewed survey data', async () => {
+    const edited = structuredClone(survey);
+    edited.findings[0].label = '裂缝检查 <em>A & B</em>';
+    edited.findings[0].review = {
+      status: 'accepted', method: 'manual', reviewer: '王小明', note: 'Keep "A & B" as text.',
+    };
+    edited.findings[1].review = {
+      status: 'rejected', method: 'manual', reviewer: 'Facilities', note: 'Recheck on site.',
+    };
+    edited.workAreas[0].priority = 'low';
+    edited.workAreas[0].rationale = 'Priority reviewed by 王小明: verify access.';
+    const response = await report({ ...payload, survey: edited }, '?format=html');
+    expect(response.status).toBe(200);
+    expect(response.headers.get('cache-control')).toBe('no-store');
+    expect(response.headers.get('content-type')).toBe('text/html; charset=utf-8');
+    expect(response.headers.get('content-disposition')).toMatch(/^attachment; filename="robertson-hall-repair-report\.html"$/);
+    expect(response.headers.get('content-security-policy')).toContain("default-src 'none'");
+    const text = await response.text();
+    expect(text).toContain('裂缝检查 &lt;em&gt;A &amp; B&lt;/em&gt;');
+    expect(text).toContain('王小明');
+    expect(text).not.toContain('<em>A & B</em>');
+    expect(text.match(/<img\b/g)).toHaveLength(5);
+    expect(text.match(/src="data:image\/jpeg;base64,/g)).toHaveLength(5);
+    expect(text.match(/<figcaption\b/g)).toHaveLength(5);
+    expect(text).toContain('Provisional finding priority');
+    expect(text).toContain('Work-area planning priority');
+    expect(text).toContain('panel-01');
+    expect(text).toContain('defect-02');
+    expect(text).not.toMatch(/<script\b|src="https?:/i);
+  });
+
+  it('uses the same body limit and saved-evidence validation for HTML', async () => {
+    const differentAsset = structuredClone(survey);
+    differentAsset.findings[0].closeupSrc = survey.findings[1].closeupSrc;
+    await expectError(await report({ ...payload, survey: differentAsset }, '?format=html'), 400, 'INVALID_REQUEST');
+    const oversized = new Request(`${endpoint}/report?format=html`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'content-length': '2097153' },
+      body: '{}',
+    });
+    await expectError(await POST(oversized), 413, 'BODY_TOO_LARGE');
+  });
+
   it('generates an attachment from accepted and rejected manual edits', async () => {
     const edited = structuredClone(survey);
     edited.findings[0].label = 'Reviewed crack';
