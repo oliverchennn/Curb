@@ -1,46 +1,24 @@
-# Vincent hosting deployment status
+# Curb production deployment
 
-Task `CURB-VINCENT-HOSTING / 1`, Dev B recovery session `6af8bfb9-50b8-8191-bb64-258bab4200f8`. Source and deployment assignment: [6884031001](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884031001). No project, deployment or public URL exists from this attempt.
+`CURB-VINCENT-HOSTING/1` deployed the exact approved release `b010ad02ce9e0cb905e15e5c7c7109713814b36e` from [PR #7](https://github.com/oliverchennn/Curb/pull/7). Vercel reported the production deployment READY, and the public HTTP and Chrome checks passed on November 14, 2026. [Assignment](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884031001), [laptop ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884544877).
 
-## Concrete target
+- Public production URL: [curb-taupe.vercel.app](https://curb-taupe.vercel.app).
+- Deployment: `dpl_BWzjmy9YwNRuAcRBLTpbJGWRK1x9`. [Immutable deployment hostname](https://curb-f85ac7h39-vzhu08.vercel.app), [Vercel dashboard](https://vercel.com/vzhu08/curb/BWzjmy9YwNRuAcRBLTpbJGWRK1x9).
+- Project: `curb` in Vincent's `vzhu08` Hobby scope. Default `vercel.app` aliases only. The public production alias loaded in a fresh unauthenticated Chrome context. The immutable hostname's public accessibility was outside these checks.
 
-- Canonical repository: `oliverchennn/Curb`.
-- Exact approved source: **`b010ad02ce9e0cb905e15e5c7c7109713814b36e`**, merged main. Actual fetch and remote main lookup matched this source on November 14.
-- Isolated report branch: `codex/vincent-hosting-result`; sole writable tracked path is this report. All application, configuration, data/media and main writes remain with root. C's separate polish reservation does not move this deployment target.
-- Connected hosting identity was verified to match the required Vincent owner. No Curb project was found by exact repository ID or name search. Account identifiers and billing metadata are omitted from this shared report.
-- Proposed project: minimal `curb` project in that verified scope, Next.js, Node `24.x`, repository root, `npm ci --no-audit --no-fund`, then `npm run build`, using existing `vercel.json` and report tracing. Default Vercel URL only; no paid upgrade, custom domain, secrets or protection weakening.
+## Source, build and runtime
 
-## Completed read-only checks
+I verified the canonical remote main SHA before deploying and staged only the tracked bytes from `git archive --format=zip` of that SHA. The source ZIP was 58,647,095 bytes with SHA-256 `e5fafcbc1f36cf1081220e24bb726492441b6980978276279602d354c7938ca0`. The staging directory omitted local Git metadata, credentials, build output and untracked files. After signing in as `vzhu08`, I deployed that directory with Vercel CLI 65.16.0 using `deploy --prod --yes --json --archive=tgz --scope vzhu08 --project <verified project ID> --meta curbSourceSha=<release SHA>`.
 
-The current live board and main `AGENTS.md` were read before claiming this task. The `ROBERTSON_HOSTING.md` handoff and Vercel deployment/CLI skills were read. Existing configuration and the deployment verifier were inspected at the exact source. The local checkout is clean except for this scoped report; there are no children or concurrent B workers.
+The project is unlinked from GitHub. Direct upload preserves the pinned release and ownership in Vincent's account. Git pushes do not automatically deploy this project. The build used the release's `npm ci --no-audit --no-fund` and `npm run build` settings. Project settings specify Node `24.x`, as assigned. Vercel's build log says the approved source's `engines.node >=22.23.0` superseded the project setting and selected Node `26.x`. The deployment inspection confirms the emitted functions use `nodejs26.x`. The released manifest was preserved. A hard Node 24 pin would need a new reviewed source from Oliver. [Vercel version precedence](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions#version-overrides-in-packagejson).
 
-Root's assignment records 718 combined tests/build, actual browser acceptance and ten local functional requests on the merged application. Those are root's accepted source checks, not hosted checks performed by this preflight. No redundant local suite or public load test was run.
+## Public verification
 
-## Automatic approval block
+- At 16:47:24 EST, `node --import tsx scripts/curb/verify_deployment.ts https://curb-taupe.vercel.app` exited 0 from the exact source checkout. All ten sequential requests passed. Upload, survey, collection, explorer, canonical survey JSON and both exports returned 200. HTML and the 12-page PDF each embedded all five expected evidence photo hashes. Range reads of the normalized MP4, annotated MP4 and original MOV returned 206 with the expected bytes and content ranges.
+- At 16:47:30 EST, headless Chrome 156.0.8078.74 at 1366×768 with software WebGL and reduced motion verified the bundled simulated upload into the live survey, the final crack seek at 13.933333 seconds / frame 418, both browser report downloads, the collection canvas with Overhead selection and a static-diagram switch, and advancing an explorer snapshot. No page exceptions or same-origin HTTP errors were observed. This pass covered those interactions and this viewport.
 
-Automatic approval review rejected creating the project because the operation would transfer a private repository to an external hosting service and establish a persistent integration without direct user approval. The creation tool did not run. No alternate account, CLI path or indirect workaround was attempted.
+## Handoff history
 
-A separate proposed board ACK was rejected because it contained hosting-account identifiers and billing metadata. It was not posted. A replacement status omits those details. This report does not publish them.
+The [cloud preflight](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884237775) completed before the user approved transferring the pinned source to Vercel. The first approved laptop Git import hit a [missing GitHub Login Connection](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884564171). Vincent completed the login connection. A retry then reported missing GitHub integration access. GitHub confirmed the private repository is owned by Oliver's personal account and Vincent has collaborator write access. Vercel requires the personal repository owner for Git import, so I used the signed-in direct CLI path after Vincent authorized the laptop. [Vercel GitHub import permissions](https://vercel.com/docs/git/vercel-for-github#missing-git-repository).
 
-The remaining human decision is explicit approval to create the minimal project in Vincent's verified account and deploy the pinned private repository source to Vercel. Until that approval arrives, future scheduled runs should preserve this blocked claim and avoid retrying the mutation or starting a duplicate writer.
-
-## Next authorized execution after approval
-
-1. Recheck the live board, active ownership, exact source and current provider scope/project inventory.
-2. Reuse a matching project if one has appeared; otherwise create the minimal approved project and configure Node `24.x` without changing security or paid settings.
-3. Deploy exactly the pinned merged source, recording the actual deployment ID, immutable URL, source SHA and build outcome after they exist.
-4. Run `node --import tsx scripts/curb/verify_deployment.ts https://<actual-public-origin>` once: ten sequential functional requests, including canonical survey, both report formats with all five photo hashes, four pages and three media ranges.
-5. Verify the actual public upload → survey workflow, collection/explorer navigation and downloads in Chromium. A login/protection page does not count as public product acceptance.
-6. Update only this report, publish/verify its task-branch SHA and post RESULT/STOP/RELEASE for root's independent verification and report integration.
-
-No hosted build, HTTP, media, report or browser pass is claimed before these steps run.
-
-## Laptop resumption and approved import
-
-Vincent approved deploying the pinned source in the laptop chat after the cloud [STOP/RELEASE](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884461249). The laptop [ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884544877) records the exact source and checkout. The earlier explicit-approval blocker is cleared.
-
-On November 14, the laptop verified that canonical remote main still matched `b010ad02ce9e0cb905e15e5c7c7109713814b36e` and that this report branch matched the cloud checkpoint `a31ee1618853eeaab810e4975cf1ad5344b01503` before taking ownership. Read-only Vercel inventory found no linked project by repository ID or name in Vincent's Hobby scope.
-
-The approved Git import of `oliverchennn/Curb` as project `curb` returned HTTP 400. Vercel reported, “You need to add a Login Connection to your GitHub account first.” A second project inventory still returned no Curb project. No signed-in Vercel CLI was available on the laptop. This is a provider account prerequisite. Vincent needs to connect GitHub as `vzhu08` in Vercel's Authentication settings and grant GitHub App access to the repository if prompted. [Vercel login connections](https://vercel.com/docs/accounts#login-methods-and-connections).
-
-Project creation and deployment remain blocked on that connection. No hosted build, production URL or public verification is available.
+No product, configuration, main branch, paid feature, custom domain or protection settings were changed. Oliver retains integration and independent public verification.
