@@ -53,3 +53,23 @@ Destinations: `library`, `student-center`, `science-hall`. Barrier → evidence:
 ## Change procedure
 
 Post a CHANGE_REQUEST naming file/export, reason, consumers and compatibility impact. Coordinator stops affected writers and assigns a serial A contract task. Publish the new contract/base after checks and update dependent assignments. B/C do not edit frozen schemas, manifests or root configuration.
+
+## R1 trip contract — curb-r1
+
+Serial contract result: `c271c4fee62b3f05e7909df450a66f263db213ea`, reviewed with 23 passing boundary tests and typecheck. New imports are from `src/contracts/curb/trips.ts`; the existing curb-v0 file and fixtures are unchanged. Exact common implementation base is recorded on the live board after this freeze checkpoint.
+
+`TripScenario` wraps the unchanged synthetic `Scenario` with `schemaVersion: 1`, `contractVersion: 'curb-r1'`, a `step-free-demo` profile (`id`, `label`, `description`), nonempty `assumptions`, `edgeAssessments`, `repairs` and `defaults: {originNodeId, destinationId}`. Assessments declare `edgeId`, `kind: walkway|crossing|entrance`, `status: pass|blocked|unknown`, `blockingBarrierIds` and `reason`. A repair has `id`, `label`, `barrierId`, `description` and clears only that barrier in an immutable projection. B owns complete reference/coverage/default validation in addition to structural schemas.
+
+`TripRequest` explicitly includes `contractVersion`, `scenarioId`, `revision`, `profileId`, `originNodeId`, `destinationId` and nullable `repairId`. `TripEvaluation` echoes all these fields and includes `before` and `after`. A reachable result has `status: reachable`, ordered `nodeIds`, `edgeIds`, finite nonnegative `distanceMeters`. A same-node trip has one node, zero edges and zero distance. Failure results have `status: unknown|blocked|disconnected`, `blockedEdgeIds` and `unknownEdgeIds`, and **no route path or distance**. Explanation lists describe one possible directed connection, not every alternative. Prefer an unknown-only potential connection before one needing known blockers; unknown edges with known blockers remain excluded from the unknown-only search until cleared. They remain unknown afterward. With no repair, before and after must agree.
+
+| Lane | Frozen seam |
+|---|---|
+| B | `src/domain/curb/trips.ts`: `validateTripScenario(input: unknown): TripScenario`; `evaluateTrip(input: TripScenario, request: TripRequest): TripEvaluation` |
+| B | `InvalidTripScenarioError extends Error` for invalid context; `TripRequestError extends Error` with `code: INVALID_REQUEST|SCENARIO_NOT_FOUND|STALE_SCENARIO` for request failures |
+| B | `src/data/curb/trip-demo.json`: separately authored synthetic graph/context, with complete explicit assessments and no inferred field truth |
+| A | `GET /api/curb/trip-scenario`, optional `scenarioId`; omitted selects the single R1 example, unsupported ID fails |
+| A | `POST /api/curb/trip`, body `TripRequest`; immutable before/after evaluation |
+| A/client | `src/client/curb/fetchTrip.ts`: `fetchTripScenario(signal: AbortSignal, scenarioId?: string): Promise<TripScenario>`; `fetchTrip(request: TripRequest, signal: AbortSignal): Promise<TripEvaluation>`; `TripFetchError` with `code` and `status` |
+| C | `app/curb/trips/page.tsx`, `src/features/curb/trips/`; link from `app/curb/page.tsx`; reuse existing EvidencePanel by import |
+
+Both envelopes contain `contractVersion: curb-r1`: success `{ok:true,data}` or failure `{ok:false,error:{code,message}}`. `TRIP_ERROR_HTTP_STATUS` maps `INVALID_REQUEST` to 400, `SCENARIO_NOT_FOUND` to 404, `STALE_SCENARIO` to 409 and `INVALID_SERVER_SCENARIO` to 500. Client validation checks status/envelope agreement and the exact requested result identity; abort/network failure never silently falls back. Unknown schemas/fields fail explicitly. No costs, optimizer, provider or persistence fields are included.
