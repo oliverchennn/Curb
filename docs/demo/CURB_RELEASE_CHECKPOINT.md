@@ -16,7 +16,7 @@ The detailed B/C/D stress reports describe their pinned source and executed chec
 ## Remaining release gates
 
 1. Vincent/B finishes and releases the collection concept; Oliver/D finishes and releases the route explorer. Root reviews exact commits and integrates serially.
-2. C's independent upload/survey QA uses exact base `28b0b1b0b2ab5d9e8051468493155122db91fc39`, [assignment 6883284921](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883284921). The pending new-page links are explicitly outside that core-only pass.
+2. C's [independent upload/survey QA](ROBERTSON_INTEGRATED_SURVEY_QA.md) is complete at exact base `28b0b1b0b2ab5d9e8051468493155122db91fc39`, source `9661fae0556257b75df4a1360448a0d3150be2a0`, integrated as `8a0112a`. It passed683 tests/build, accepted/rejected files, ten-second single navigation, cancellation/navigation-away,30 seeks,21 mode switches, retained review/report state and five viewport sizes. INT-01 is a P4 scripted stale-element observation with real keyboard/positional controls passing; retained without a product change. The new pages remain outside this core-only pass and need combined verification.
 3. Run the combined full check, production browser interactions and bounded functional probes; verify mobile, keyboard, reduced-motion/fallback behavior and final navigation. Refresh the offline walkthrough with actual new-page captures.
 4. Merge the verified release, hand Vincent the exact source, deploy through his account, and verify the actual public pages, report photos and media ranges. Record the real project, deployment and URL. Hosting has not yet occurred at this checkpoint.
 
