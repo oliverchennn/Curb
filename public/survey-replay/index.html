@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Review sidewalk evidence and compare how two hypothetical repairs change step-free access.">
+  <title>Survey replay · Curb</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand"><span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 17h6l4-10h6M4 12h4m8 5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Curb</div>
+      <div class="event">HackPrinceton <span aria-hidden="true">/</span> Accessibility planning</div>
+    </div>
+  </header>
+  <main>
+    <div class="page-heading">
+      <div><h1>Survey replay</h1><p>See which sidewalk repair would improve step-free access from the bus stop.</p></div>
+      <nav class="workflow" aria-label="Demo workflow">
+        <button id="step-review" aria-current="step"><span>1</span> Review survey</button>
+        <span class="step-arrow" aria-hidden="true">›</span>
+        <button id="step-compare"><span>2</span> Compare repairs</button>
+      </nav>
+    </div>
+    <p id="data-state" class="message" role="status">Loading survey data…</p>
+    <div id="workspace" class="workspace" hidden>
+      <section class="panel video-panel" aria-labelledby="survey-title">
+        <div class="panel-heading"><div><h2 id="survey-title">Sidewalk survey</h2><p id="media-label"></p></div><span class="pill" id="video-duration">—</span></div>
+        <div class="video-surface" id="video-surface">
+          <video id="video" playsinline preload="auto" aria-label="Sidewalk survey footage"></video>
+          <div class="overlay" id="annotations" aria-hidden="true"></div>
+          <button class="video-action" id="video-action" aria-label="Play survey" hidden></button>
+          <div class="media-message" id="media-state" role="status" hidden></div>
+        </div>
+        <div class="transport">
+          <button id="play" class="play" aria-label="Play survey" disabled></button>
+          <div class="track">
+            <input id="seek" type="range" min="0" max="0" value="0" step=".01" aria-label="Seek survey video" disabled>
+            <div id="cue-marks" class="cue-marks" aria-hidden="true"></div>
+          </div>
+          <output id="time" for="seek">0:00 / 0:00</output>
+        </div>
+        <div class="findings">
+          <div class="section-label">Findings <span id="finding-count"></span></div>
+          <div id="finding-list" class="finding-list"></div>
+          <div id="finding-detail" class="finding-detail" hidden></div>
+        </div>
+      </section>
+      <section class="panel map-panel" aria-labelledby="map-title">
+        <div class="panel-heading"><div><h2 id="map-title">Street map</h2><p id="map-label"></p></div><span class="pill profile"><i></i> Step-free</span></div>
+        <div class="map" id="map">
+          <svg id="street-map" viewBox="0 0 650 392" role="img" aria-label="Sidewalk network from the bus stop to Library, Clinic, and Pharmacy"></svg>
+          <div id="map-pins" class="map-pins"></div>
+        </div>
+        <div class="map-legend"><span><i class="legend-route"></i> Usable route</span><span><i class="legend-block"></i> Blocked segment</span><span><i class="legend-gain"></i> New or shorter route</span></div>
+        <div class="comparison" id="comparison">
+          <div class="comparison-title"><h2>Compare repairs</h2><span>Hypothetical changes</span></div>
+          <div id="repair-controls" class="repair-controls" role="group" aria-label="Repair scenario"></div>
+          <div id="map-results" class="map-results" aria-live="polite"></div>
+        </div>
+      </section>
+    </div>
+    <footer id="footnote"></footer>
+  </main>
+  <dialog id="photo-dialog"><form method="dialog"><button aria-label="Close detail photo">×</button></form><img id="detail-photo" alt=""><p id="photo-caption"></p></dialog>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

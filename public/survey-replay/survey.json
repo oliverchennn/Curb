@@ -1,0 +1,70 @@
+{
+  "label": "Maple district",
+  "sample": true,
+  "video": {
+    "src": "media/sidewalk-survey.mp4",
+    "poster": "media/survey-poster.jpg",
+    "label": "Synthetic sample replay"
+  },
+  "origin": "bus",
+  "nodes": [
+    { "id": "bus", "x": 91, "y": 245, "label": "Bus stop" },
+    { "id": "west", "x": 173, "y": 245 },
+    { "id": "park", "x": 173, "y": 95 },
+    { "id": "north", "x": 321, "y": 95 },
+    { "id": "center", "x": 321, "y": 245 },
+    { "id": "library", "x": 465, "y": 95 },
+    { "id": "east", "x": 507, "y": 245 },
+    { "id": "clinic", "x": 507, "y": 170 },
+    { "id": "pharmacy", "x": 507, "y": 325 }
+  ],
+  "segments": [
+    { "id": "bus-west", "from": "bus", "to": "west", "meters": 50, "type": "sidewalk" },
+    { "id": "park-west", "from": "west", "to": "park", "meters": 125, "type": "sidewalk" },
+    { "id": "park-north", "from": "park", "to": "north", "meters": 90, "type": "sidewalk" },
+    { "id": "west-center", "from": "west", "to": "center", "meters": 55, "type": "crossing" },
+    { "id": "maple-frontage", "from": "center", "to": "north", "meters": 70, "type": "sidewalk" },
+    { "id": "north-library", "from": "north", "to": "library", "meters": 65, "type": "sidewalk" },
+    { "id": "market-crossing", "from": "center", "to": "east", "meters": 95, "type": "crossing" },
+    { "id": "east-clinic", "from": "east", "to": "clinic", "meters": 60, "type": "sidewalk" },
+    { "id": "east-pharmacy", "from": "east", "to": "pharmacy", "meters": 75, "type": "sidewalk" }
+  ],
+  "destinations": [
+    { "node": "library", "label": "Library" },
+    { "node": "clinic", "label": "Clinic" },
+    { "node": "pharmacy", "label": "Pharmacy" }
+  ],
+  "findings": [
+    {
+      "id": "surface-crack",
+      "label": "Surface crack",
+      "source": "model",
+      "start": 5.2,
+      "end": 10.7,
+      "box": [0.1, 0.35, 0.72, 0.39],
+      "segment": "maple-frontage",
+      "location": "Maple Avenue sidewalk",
+      "assessment": {
+        "reviewed": true,
+        "stepFree": "blocked",
+        "reason": "The sample reviewer marked this stretch blocked because broken pavement interrupts the usable width."
+      }
+    },
+    {
+      "id": "raised-slab",
+      "label": "Raised slab",
+      "source": "manual",
+      "start": 11.3,
+      "end": 20,
+      "box": [0.11, 0.35, 0.76, 0.38],
+      "segment": "market-crossing",
+      "location": "Market Street crossing",
+      "closeUp": "media/raised-slab.jpg",
+      "assessment": {
+        "reviewed": true,
+        "stepFree": "blocked",
+        "reason": "The sample reviewer marked the vertical lip across the crossing approach as blocked for the step-free profile."
+      }
+    }
+  ]
+}
