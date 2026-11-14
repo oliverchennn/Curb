@@ -76,8 +76,8 @@
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
       "task": "CURB-ROUTE-EXPLORER/1",
       "branch": "codex/route-evidence-explorer",
-      "state": "ACK / RUNNING",
-      "scope": "app/curb/explore/page.tsx; src/features/curb/explore/**; public/curb/explore/**; docs/demo/ROUTE_EXPLORER_RESULT.md",
+      "state": "STOPPED/RELEASED; integrated as b10808a and 5e35729; available for bounded independent review",
+      "scope": "",
       "baseSha": "6b2b11040eed8d3d620743bc4e12e112f9ebfa90",
       "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883030624",
       "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882978608",
@@ -89,9 +89,11 @@
       "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883049425",
       "wipCheckpoint": {
         "sha": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d",
-        "state": "RUNNING; read-only root review, not released",
+        "state": "Completed and integrated with final result",
         "url": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883237684"
-      }
+      },
+      "resultSha": "2b3f8282fa2f065d4eba285c1de70e417009ce00",
+      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883472767"
     }
   ],
   "board": {
@@ -99,7 +101,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6883457062"
+    "lastReadCommentId": "6883479825"
   },
   "currentSlice": "Robertson disability-access workspace, simulated upload, collection concept and route explorer; final integration and Vincent hosting pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
