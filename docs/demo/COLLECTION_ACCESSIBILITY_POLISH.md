@@ -116,9 +116,47 @@ Autoplay ticks and capture thresholds crossed during playback are not announced.
 - Before: `before-1366x768.jpg`, `before-1920x1080-12s.jpg`, `before-390-sequence.jpg`.
 - After: `after-1366x768.jpg`, `after-1920x1080-12s-surface.jpg` (sensor 02 selected, ✓ Captured cards), `after-390-sequence.jpg`, `after-390-controls.jpg`.
 
+## Screen reader: NVDA (added after the first RESULT)
+
+**Setup:**
+- **NVDA 2026.3.1** (AMD64) on Windows 11 Pro 10.0.26200.
+- Page: the Claude desktop app's built-in browser (Chromium), with the pane visible and in front, and keyboard focus inside the page after Landau clicked into it.
+- NVDA ran with `--log-level=12` (input/output), so every utterance was written to a log.
+- Keys were real key events sent to the page. Speech below is quoted from that log, with the Claude app's own status messages left out.
+- Production builds served locally: candidate `e4d2510` (same product bytes as the release under test) and the base `b010ad0` for comparison.
+
+**Result: the intended behavior holds in NVDA.**
+
+| Check | NVDA speech |
+|---|---|
+| **Base autoplay**, 12s with focus on the heading | "Simulation time" / "03 / 24s", "Simulation time" / "04 / 24s" … through "14 / 24s": **one announcement every second** |
+| **Candidate autoplay**, 12s, 2.3s → ~17s, crossing the 5s and 12s captures | **nothing** |
+| End of run | "Simulation finished at 24 seconds. 3 of 3 illustrative captures. Replay is available." (once) |
+| Tab to Play / Replay, then Enter | "Collection visualization, region, Replay simulation, button", then "Replaying from the start." |
+| Space during playback | "Play simulation", then "Paused at 4 seconds. 0 of 3 illustrative captures." |
+| Tab to the capture list | "Simulated capture sequence, region, list, with 3 items, Context frame, 5 seconds, Upcoming. Sidewalk ahead. Seek here., button" |
+| Enter on the 12s card | "Surface detail, 12 seconds, Captured. Illustrative crack. Seek here." (focused name updates), then "Paused at 12 seconds. Surface detail captured. 2 of 3 illustrative captures." |
+| ← on the slider (12 → 11.9) | "Simulation progress, slider, 11 of 24 seconds; 1 of 3 illustrative captures" |
+| Back to the 12s card | "Surface detail, 12 seconds, **Upcoming**. Illustrative crack. Seek here., button" (state follows the backward seek) |
+| Tab, Enter on camera 02 | "02 Downward surface camera, toggle button, not pressed", then just the explanation: "Camera 02, Downward surface camera. Look closer at the surface. A downward view could…" |
+| Enter on Static diagram, then Shift+Tab, Enter on 3D scene | "Static diagram, toggle button, not pressed" → "pressed" → "Static diagram shown. Scrub to move the illustration."; then "3D scene, toggle button" → "pressed" → "3D scene shown, paused." |
+| Focused CAMERA 01 callout hidden by switching to Side | "CAMERA 01Forward context camera, toggle button", then after the hide "Proposed sensors, complementary landmark, Choose a camera, grouping, 01 Forward context camera, toggle button": focus is rescued and announced |
+
+**Observations (not blockers):**
+- After choosing camera 02, NVDA spoke the pre-press state ("not pressed") before the explanation and didn't re-speak "pressed". The pressed state is exposed (verified by `aria-pressed`); the explanation simply takes the speech.
+- The canvas callout's name runs words together: "CAMERA 01Forward context camera". The two parts are separate spans in `CollectionScene.tsx` (read-only for me). Root follow-up: add a space or separator in that name.
+
+**Evidence** (git-ignored, main checkout `.curb-local/`):
+- `nvda-speech-2.log`: the full NVDA input/output log.
+- `nvda-collection-excerpt.log`: speech lines only, 181 lines.
+
+After the run, NVDA was restarted with its normal settings (no speech logging).
+
+**Scope of this acceptance:** one screen reader (NVDA), in Chromium inside the Claude desktop app. JAWS, VoiceOver, Narrator, Firefox and Safari were not tested. Browse-mode reading of the whole page was not exhaustively reviewed; the checks covered the task's specific flows.
+
 ## Not verified / limits
 
-- **Screen reader:** no NVDA is installed. Windows Narrator exists, but I couldn't drive it and capture its speech from this session, so **no screen-reader acceptance is claimed**. Announcements were verified as DOM live-region text and accessible names.
+- **Other screen readers and browsers:** see the NVDA scope above.
 - The pane's animation frames were throttled (about 1.5/s), so the scene advanced slowly. Timing claims are functional, not frame-rate.
 - Native 200% zoom, a projector, Safari or Firefox, and touch hardware were not checked.
 
@@ -128,4 +166,4 @@ Autoplay ticks and capture thresholds crossed during playback are not announced.
 - Keep the focused callout visible (and its leader hidden) until it blurs.
 - Or skip hiding when `document.activeElement` is that callout.
 
-Proposed scope: `CollectionScene.tsx` only, a few lines near the visibility update.
+Proposed scope: `CollectionScene.tsx` only, a few lines near the visibility update. In the same file, separate "CAMERA 01" from the camera name in the callout's accessible name (NVDA reads "CAMERA 01Forward context camera").
