@@ -24,6 +24,6 @@ The answers describe the merged Robertson release and accompany the two-minute d
 
 ## 30-second fallback
 
-If the app is unavailable, open the committed two-minute backup. Play the annotated footage at 0:12 or seek to 1:48 for the saved report. [Backup video](../../public/curb/surveys/robertson-hall/demo-backup.mp4), [Backup segment source](../../scripts/curb/build_backup.py#L20), [Backup receipt](../../public/curb/surveys/robertson-hall/demo-backup.json).
+If the app is unavailable, open the committed two-minute backup. The annotated footage starts at 0:18, the simulated collection robot at 1:32, the route explorer at 1:42, and the saved report at 1:52. [Backup video](../../public/curb/surveys/robertson-hall/demo-backup.mp4), [Backup segment source](../../scripts/curb/build_backup.py#L20), [Backup receipt](../../public/curb/surveys/robertson-hall/demo-backup.json).
 
 > This backup shows the actual Robertson Hall footage, captured app screens and a saved report. Five AI-assisted proposals link visible sidewalk damage to frames we can review. Curb compares repair options and shows the work deferred and the items still needing quotes. Dimensions and route effects remain unknown. Next we’ll test the workflow with disabled campus users and facilities staff, then verify the repair scope and costs on site.

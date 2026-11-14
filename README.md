@@ -39,6 +39,12 @@ Verify saved report bundles without the server using `node --import tsx scripts/
 
 No dimensions were measured from this footage. Accessibility effects are qualified observations, not an overall ADA verdict. A visible crack never automatically blocks a route. The Robertson Hall map is context only, with no accepted per-defect map placements or verified route graph. Cost amounts are partial planning estimates from explicitly identified historical/regional benchmarks and assumed quantities; obtain site measurements, suitable repair scopes and current quotes. Unknown costs are never treated as free.
 
+## Try the collection robot concept
+
+Open `/curb/collection` from **Collection demo**. A procedural six-wheel robot rolls along a miniature sidewalk while three camera callouts follow their physical mounts. Select a camera to inspect its proposed coverage, switch between Follow, Side and Overhead, or use a mouse to orbit. Play, pause, replay, speed and the timeline control the same 24-second capture sequence. Selecting a capture card seeks to its time; keyboard arrows scrub backward too.
+
+**Static diagram** retains the sensor explanations and capture controls without WebGL; it also appears automatically if graphics are unavailable. Reduced motion starts paused. This is a simulated collection concept, separate from the actual Robertson Hall phone evidence. It does not represent deployed hardware, calibrated measurements or live inference. All geometry and assets are local. See [Vincent's implementation and verification](docs/demo/COLLECTION_ROBOT_RESULT.md).
+
 ## Explore routes and their evidence
 
 Open `/curb/explore` from **Route explorer** in the shared navigation. Choose Library / Witherspoon, Nassau / east crossing, or Nassau / west crossing to inspect the local DVRPC archive geometry. Select a line, landing marker or snapshot to see its source record. Zoom into closely spaced features; every record is also available in the evidence list. Search accepts collection names, source IDs and record IDs. The selected collection, snapshot, filter and mobile panel are kept in the URL, so reload and Back restore the view. Arrow keys pan the focused map, plus/minus zoom, and Home fits the collection.

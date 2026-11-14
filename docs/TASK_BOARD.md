@@ -1,15 +1,15 @@
-# Current Robertson Hall queue
+# Current release queue
 
-The user designated desktop session `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` orchestrator and heavy implementation owner. This current section supersedes historical task/role rows below. Read the [live assignments](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877377911) for newer ACKs and exact scope. Shared contract base `8c319faeec2f2cfc250021f0a6acfbe260c72c88`; core/media dependency `9b4e2c056930d97c0603f3566b3df135bb269dc4` is published, with 509 tests/build and 14 standalone replay tests passing. UI/API/PDF integrated acceptance is pending.
+Root / Oliver desktop is the sole integration and merge owner. [Live board](https://github.com/oliverchennn/Curb/issues/1) and [release checkpoint](demo/CURB_RELEASE_CHECKPOINT.md) supersede the historical rows below.
 
-| Owner | Current task | Next ready task after release |
+| Owner | Current scope | State |
 | --- | --- | --- |
-| Root / Oliver desktop | Core, media, accessibility/cost evaluation, shell, integration; RUNNING | Integrate released B/C/D results and resolve reported defects, then complete browser/offline/PDF checks |
-| B / Vincent | API/report/CSV/client; assigned, ACK not yet observed | One-file report/export QA record on its exact released result |
-| C / Landau | Survey workspace; ACK/RUNNING6877298123 | One-file UI/keyboard/offline QA record on its exact released result |
-| D / Oliver cloud | Independent oracle/evidence/cost review; ACK/RUNNING6877392092 | Two-minute script and rehearsal checklist, one new file |
+| Root | Shared product, source integration, final checks, offline backup, reviewed merge and branch archive | Combined product ec57fb0 passed718 tests/build, local HTTP and actual browser checks; final artifacts and release pending |
+| B / Vincent recovery | Read-only hosting preflight, no tracked writes or hosting mutations yet | Collection f76457c released/integrated; hosting assignment6883967983, await actual ACK |
+| C / Landau | No active write scope | Explorer QA7e0d289 released/integrated; three observations corrected by root1c6f1ce |
+| D / Oliver cloud | Only docs/demo/COLLECTION_INDEPENDENT_QA.md | Final collection independent review running on B's released product |
 
-No duplicate writer, silent main integration, fake field measurements, ADA verdict or full-price claim from incomplete costs. A successful checkpoint does not authorize unrelated features. Current interface specification: [ROBERTSON_IMPLEMENTATION](demo/ROBERTSON_IMPLEMENTATION.md).
+The old B laptop writer is not claimed stopped; preserve any later candidate. Hosting uses Vincent's account only, no paid upgrades. Root supplies the exact merged source before deployment. No measurements, field passability or hardware claims may be inferred from the concepts.
 
 ---
 
