@@ -6,7 +6,7 @@ The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [c
 | --- | --- | --- |
 | Root | Replay layout/banner removal, backend/shared files, PR review, archives and integration | Running on codex/demo-upgrade-integration; PR8 and PR9 merged and archived |
 | B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | ACK/RUNNING 6885609474; graphics addendum 6885549275 |
-| C / Landau | EXPLORER-IMPLEMENTATION-V2/1: adaptive map/photo/conflict stage and linked evidence | Design85769f4 accepted; combined scope READY6885741592 from main16f5444 |
+| C / Landau | EXPLORER-IMPLEMENTATION-V2/1: adaptive map/photo/conflict stage and linked evidence | Design85769f4 accepted; ACK/RUNNING6885777369 from main16f5444; combined scope6885741592 |
 | D / Oliver cloud | BUDGET-CLARITY-V2/1: survey plan presentation and synthetic budget-page explanation | ACK/RUNNING 6885605644; exact disjoint paths in assignment 6885586935 |
 
 Both new tasks start from exact `2fb49f710085732a7ac20f63680925b8db06dba5` in isolated branches. B owns the collection paths listed in its assignment. C has design-document ownership only. No product changes outside those scopes, no paid actions, no duplicate writers. All previous hosted audit and candidate regression reports are STOPPED/RELEASED and integrated. Final feature deployment is assigned to Vincent only after root acceptance and exact merge. Historical tables below are history, not current assignments.
