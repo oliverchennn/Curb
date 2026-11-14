@@ -2,11 +2,11 @@
 
 Accessibility repair planning for campus facilities: connect barrier evidence to the trips a repair could restore.
 
-The foundation is verified: a real local API serves synthetic campus data, and `/curb` shows the schematic, barrier list, linked evidence, keyboard selection and reset. Loading, empty and error states are checked. Routing and repair comparisons await the next slice.
+R1 is verified: choose a trip and compare one hypothetical repair at `/curb/trips`. The real local API returns directed shortest routes or distinct blocked, unknown and disconnected explanations. The original `/curb` barrier review, schematic and linked evidence remain available.
 
 ## Run locally
 
-Use Node.js 22.23.0 or newer (checked on Node 24.12.0 / npm 11.6.2). No credentials or environment file are needed.
+Use Node.js 22.23.0 or newer (cloud checks used Node 24.22.1 / npm 11.9.0). No credentials or environment file are needed.
 
 ```powershell
 npm ci
@@ -14,11 +14,11 @@ npm run check
 npm run dev
 ```
 
-Open `http://127.0.0.1:3000/curb`. `check` runs TypeScript, Vitest and the production Next.js build. See the [frozen contract](docs/CONTRACTS.md) and [acceptance evidence](docs/ACCEPTANCE.md).
+Open `http://127.0.0.1:3000/curb` and follow **Plan a trip and compare one repair**, or open `/curb/trips` directly. Keep the default Welcome court → Library trip, select **Add library ramp**, then **Compare trip**: the blocked baseline becomes a hypothetical 60 m route. Cafe stays reachable, Studio needs unknown assessments, Archive is disconnected, and either single Service repair leaves another blocker. Reset clears the simulation.
 
-Verified application commit: `fc12e86c85394ab8126db1be485aaf0e7845c087` (53 tests, build and Chrome walkthrough). This uses synthetic examples and a credential-free schematic. It is not a deployment, field survey, navigation tool or compliance determination. Foundation work is complete; new feature work waits for Vincent's next-slice choice on the live board.
+`check` runs TypeScript, Vitest and the production Next.js build. Verified application commit: `03d89572c207b88bc02d80c6f3a745aad1895391` (258 tests, build, 160 independent API comparisons and production-browser checks). See the [frozen contracts](docs/CONTRACTS.md), [acceptance evidence](docs/ACCEPTANCE.md), [R1 card](docs/tasks/R1.md) and [takeover audit](docs/message-board/CLOUD_TAKEOVER.md). These are explicitly synthetic planning examples, not a deployment, field survey, navigation tool or compliance determination.
 
-Live team board: [Curb foundation coordination](https://github.com/vzhu08/Curb/issues/1). See the [kickoff checkpoint](docs/message-board/KICKOFF.md) for the current roster and handoffs. Vincent authorized a temporary B lead under `vzhu08` while Oliver is unavailable; Landau's accepted account is `landautzou`.
+Live team board: [Curb coordination](https://github.com/vzhu08/Curb/issues/1). Oliver (`oliverchennn`, verified write access) accepted cloud orchestration while the prior local agents are paused. R1 coding leads and children have stopped and released their scopes after verification. The board records final publication and any later assignments. R2–R5 and sponsor work remain unassigned.
 
 ## Start the team
 
@@ -27,7 +27,7 @@ Live team board: [Curb foundation coordination](https://github.com/vzhu08/Curb/i
 - **Oliver, domain/evidence:** [START_DEV_B.txt](START_DEV_B.txt).
 - **Landau, UI/demo:** [START_DEV_C.txt](START_DEV_C.txt).
 
-There are three humans and four lead chats: one coordinator plus one coding lead per human. Confirm Oliver's and Landau's GitHub accounts/access before their assignments. The kickoff prompt opens or resumes one GitHub issue in `vzhu08/Curb` as the live message board; it does not start the kit's custom worker runner.
+These are historical kickoff prompts. Read the current task board before using them; do not restart F0 or reopen released scopes without an assignment. The workflow uses one coordinator, scoped coding leads and one GitHub issue; it does not start the kit's custom worker runner.
 
 Read the [orchestration guide](docs/ORCHESTRATION.md), [task board](docs/TASK_BOARD.md), [ownership](docs/OWNERSHIP.md), and [adapted implementation plan](docs/IMPLEMENTATION_PLAN.md). The [docs index](docs/README.md) lists the full package.
 
