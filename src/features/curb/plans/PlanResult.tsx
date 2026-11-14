@@ -128,7 +128,7 @@ function PlanCard({ id, title, context, plan, total, orderNote, names, onViewEvi
     <p className={styles.small}>{formatCents(plan.spendCents)} spent · {plural(plan.selectedRepairIds.length, 'repair')}</p>
     <p className={styles.small}>{plan.restoredCount > 0 ? `Newly reaches ${names(plan.restoredDestinationIds)}.` : 'No destination is newly reached.'}</p>
     {plan.selectedRepairIds.length === 0
-      ? <p className={styles.small}>No repair fits this budget.</p>
+      ? <p className={styles.small}>No repairs selected for this budget and the destination-reachability objective.</p>
       : <>
         <p className={styles.small}>{orderNote}</p>
         <ol className={styles.repairList}>{plan.selectedRepairIds.map((repairId) => <li key={repairId}>
