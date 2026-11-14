@@ -40,24 +40,20 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "R2-A/1",
+      "task": "R2-VERIFY-CORE/1",
       "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-r2-contract-api\\Curb",
-      "branch": "codex/r2-contract-api",
-      "baseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730",
+      "branch": "codex/r2-verify",
+      "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876147806",
       "resultSha": null,
-      "currentAvailability": "R2-A active; WIP 657a6f9d81a737c37d683781344865d08083a75e; exact reviewed B dependency merge authorized by 6876065350",
+      "currentAvailability": "Active verification only; ACK 6876162160; no application writer, child or implementation scope",
       "previousResult": {
-        "task": "R2-CONTRACT/1 accepted; stopped/released",
-        "resultSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18"
+        "task": "R2-A/1 accepted/stopped/released",
+        "resultSha": "84161110be92e04436568d4080c9afab6aa7575d"
       },
-      "writeScope": [
-        "app/api/curb/plan-scenario/route.ts",
-        "app/api/curb/plan/route.ts",
-        "src/server/curb/plans.ts",
-        "src/client/curb/fetchPlan.ts",
-        "tests/integration/server/plans.test.ts",
-        "tests/integration/client/fetchPlan.test.ts"
+      "writeScope": [],
+      "verificationScope": [
+        ".curb-local/r2-verification/ (ignored artifacts in assigned isolated checkout)"
       ]
     },
     {
@@ -100,15 +96,31 @@
       "github": "landautzou",
       "focus": "UI, accessibility, demo",
       "access": "accepted-write",
-      "readiness": "F1C verified; stopped/released",
-      "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221",
-      "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-f1c-screen",
+      "readiness": "R2-C exact assignment ready; ACK required before writes",
+      "session": "Await actual returning Landau session in ACK",
+      "checkout": "Await actual isolated checkout in R2-C ACK",
       "modelException": "Vincent permits existing Claude Code session",
-      "branch": "codex/f1c-screen",
-      "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875811",
-      "resultSha": "6fc3ccdd00229ab1a615174a8caa6d2eb526fb79",
-      "currentAvailability": "unconfirmed; previous recorded work stopped/released"
+      "branch": "codex/r2-ui",
+      "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876190198",
+      "resultSha": null,
+      "currentAvailability": "Vincent expects return at 2026-11-14 06:00 America/New_York; assigned, waiting for actual owner ACK; not Running",
+      "previousResult": {
+        "task": "Historical F1C complete/stopped/released",
+        "resultSha": "6fc3ccdd00229ab1a615174a8caa6d2eb526fb79",
+        "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-f1c-screen",
+        "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221"
+      },
+      "task": "R2-C/1",
+      "writeScope": [
+        "app/curb/plans/page.tsx",
+        "app/curb/page.tsx (navigation only)",
+        "src/features/curb/plans/PlanPlanner.tsx",
+        "src/features/curb/plans/PlanResult.tsx",
+        "src/features/curb/plans/PlanPlanner.module.css",
+        "src/features/curb/plans/presentation.ts",
+        "src/features/curb/plans/presentation.test.ts"
+      ]
     }
   ],
   "board": {
@@ -116,9 +128,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6876065350"
+    "lastReadCommentId": "6876190198"
   },
-  "currentSlice": "R2: B accepted; A integrating reviewed B dependency; C readiness pending",
+  "currentSlice": "R2: A/B accepted; production core verification active; C assignment awaiting 06:00 owner return/ACK",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
