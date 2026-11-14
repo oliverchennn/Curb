@@ -6,6 +6,9 @@ import { PDFDocument, PDFDict, PDFName, PDFRawStream } from 'pdf-lib';
 import { ExportRequestSchema, SurveyResponseSchema, SurveySchema } from '../../src/contracts/curb/survey';
 
 const base = new URL(process.argv[2] ?? 'http://127.0.0.1:3004');
+const expectedRevision = process.argv[3];
+assert.ok(process.argv.length <= 4, 'Usage: verify_deployment.ts <origin> [expected-source-sha]');
+assert.ok(expectedRevision === undefined || /^[a-f0-9]{40}$/.test(expectedRevision), 'Expected revision must be a full Git SHA');
 assert.ok(!base.username && !base.password && !base.search && !base.hash && base.pathname === '/', 'Pass an origin without credentials, path, query or fragment');
 assert.ok(base.protocol === 'https:' || (base.protocol === 'http:' && base.hostname === '127.0.0.1'), 'Use HTTPS or local loopback HTTP');
 const canonical = SurveySchema.parse(JSON.parse(await readFile('src/data/curb/surveys/robertson-hall.json', 'utf8')));
@@ -32,6 +35,16 @@ for (const [path, expected] of [
   assert.match(result.response.headers.get('content-type') ?? '', /^text\/html/);
   assert.ok(result.text().includes(expected), `${path}: expected page content missing`);
 }
+
+const health = await request('/api/health', 200);
+assert.equal(health.response.headers.get('cache-control'), 'no-store');
+const healthData = JSON.parse(health.text());
+assert.equal(healthData.status, 'alive');
+assert.equal(healthData.service, 'web');
+if (expectedRevision !== undefined) assert.equal(healthData.revision, expectedRevision, 'Deployment source revision does not match');
+const ready = await request('/api/ready', 200);
+assert.equal(ready.response.headers.get('cache-control'), 'no-store');
+assert.equal(JSON.parse(ready.text()).status, 'ready');
 
 const survey = await request('/api/curb/survey', 200);
 assert.equal(survey.response.headers.get('cache-control'), 'no-store');
@@ -66,4 +79,5 @@ for (const path of [canonical.media.src, canonical.media.annotatedSrc, canonical
   assert.deepEqual(Buffer.from(result.bytes), source.subarray(0, 32));
 }
 console.log(JSON.stringify({ checkedAt: new Date().toISOString(), origin: base.origin, checks, pdfPages: document.getPageCount(),
-  result: 'pass', scope: '10 sequential functional requests; not browser, load, or accessibility certification' }, null, 2));
+  revision: healthData.revision, expectedRevision: expectedRevision ?? null,
+  result: 'pass', scope: '12 sequential functional requests; not browser, load, or accessibility certification' }, null, 2));
