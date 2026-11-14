@@ -110,7 +110,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
 
   return <section className={styles.videoPanel} aria-labelledby="survey-video-heading">
     <div className={styles.panelHeading}>
-      <h2 id="survey-video-heading">Survey replay</h2>
+      <h2 id="survey-video-heading">Video</h2>
       <div className={styles.segmented} role="group" aria-label="Video version">
         {/* Accessible names begin with the visible words (WCAG 2.5.3 Label in Name). */}
         <button type="button" aria-label="Original: footage without boxes" aria-pressed={mode === 'original'} onClick={() => switchMode('original')}>Original</button>
@@ -118,11 +118,6 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
         <button type="button" aria-label="Annotated: exported video preview" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
       </div>
     </div>
-    <p className={styles.small}>
-      {mode === 'original' ? 'Original footage · no boxes. Inspect the surface yourself.'
-        : mode === 'live' ? 'Interactive review · selection and review edits change these overlays.'
-          : 'Export preview · the original finding labels are permanently rendered into this video.'}
-    </p>
     <div ref={frameRef} className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
       <video key={src} ref={videoRef} className={styles.video} src={src} poster={media.posterSrc} controls playsInline preload="metadata"
         aria-describedby="survey-video-note"
@@ -141,11 +136,11 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     </div>
     {mediaError ? <p role="alert" className={styles.inlineError}>{mediaError}</p> : null}
     <p id="survey-video-note" className={styles.small}>
-      {mode === 'original' ? `${formatTime(time)} · Original Robertson Hall survey. Switch to Review to inspect the proposed findings.` : mode === 'live'
-        ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Dashed boxes await review. A missing box does not mean there is no defect.`
+      {mode === 'original' ? `${formatTime(time)} · Original footage without boxes. Switch to Review to inspect the findings.` : mode === 'live'
+        ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Interactive overlays follow your review. Dashed boxes await review. A missing box does not mean there is no defect.`
         : edited
-          ? 'This pre-rendered video shows the original analysis. Your review edits are not burned into it; the JSON and PDF exports carry them.'
-          : 'Pre-rendered from the original analysis.'}
+          ? 'Export preview: original labels are permanently rendered into this video. Your review edits appear in JSON and reports, not this file.'
+          : 'Export preview: original finding labels are permanently rendered into this video.'}
     </p>
     <details className={styles.pendingChecks}><summary>About the tracks</summary>
       <p className={styles.small}>Boxes appear only on retained tracked frames; missing boxes do not establish that a defect is absent. Rejected findings are hidden in the live overlay. Measurements and field review are still needed.</p>

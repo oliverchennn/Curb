@@ -345,7 +345,7 @@
   .desk { grid-template-columns: max(360px, calc(var(--frame-h) * 0.5625 + 40px)) minmax(0, 1fr); }
   .evidenceColumn { position: sticky; top: 8px; }
   .evidenceColumn .videoPanel { padding: 14px 16px; }
-  .evidenceColumn .panelHeading { margin-bottom: 10px; }
+  .evidenceColumn .panelHeading { margin-bottom: 10px; gap: 8px; }
   .evidenceColumn .videoPanel h2 { font-size: 22px; }
   .evidenceColumn .segmented button { padding: 6px 10px; }
   .evidenceColumn .videoPanel .small { margin-bottom: 4px; font-size: 14px; }
