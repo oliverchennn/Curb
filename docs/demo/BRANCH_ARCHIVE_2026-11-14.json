@@ -297,6 +297,30 @@
         "refs/heads/codex/robertson-release-final": "b34a7ac39f2caecfa56d5856d25f7a2a551ac11e",
         "refs/heads/codex/route-evidence-explorer": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d"
       }
+    },
+    {
+      "recordedAt": "2026-11-14T20:18:56.248302+00:00",
+      "reason": "Completed C core QA and D explorer reviewed and cherry-picked into release-final; main merge remains pending. Current C explorer QA and B recovery scopes untouched.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 2,
+      "branches": [
+        {
+          "branch": "codex/robertson-integrated-survey-qa",
+          "sha": "9661fae0556257b75df4a1360448a0d3150be2a0",
+          "archiveTag": "archive/2026-11-14/codex/robertson-integrated-survey-qa",
+          "integratedOnReleaseBranch": "8a0112a2d897ffd96c1ab246abb4a4a3cb17102d"
+        },
+        {
+          "branch": "codex/route-evidence-explorer",
+          "sha": "2b3f8282fa2f065d4eba285c1de70e417009ce00",
+          "archiveTag": "archive/2026-11-14/codex/route-evidence-explorer",
+          "integratedOnReleaseBranch": [
+            "b10808a93ddaf0c0d57dc4a873239479de0bf05d",
+            "5e3572918e192d7c20b2b4351182065492f164e0"
+          ]
+        }
+      ]
     }
   ]
 }
