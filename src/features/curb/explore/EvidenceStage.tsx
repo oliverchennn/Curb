@@ -23,12 +23,7 @@ export default function EvidenceStage({ atlas, collection, records, record, stop
   const unplaced = records.filter(r => !atlas.features.find(f => f.id === r.featureId)?.geometry);
   if (collection.kind === 'archive') return <div className={styles.stage} data-mode="map">
     <MapCanvas atlas={atlas} collection={collection} records={records} selected={record} onSelect={onSelect} stops={stops} />
-    {unplaced.length > 0 && <div className={styles.tray} role="group" aria-label={`Not on the map: ${unplaced.length} records`}>
-      <strong>Not on the map ({unplaced.length})</strong>
-      <span>Listed, never drawn: no verified position.</span>
-      <div>{unplaced.map(r => <button key={r.id} type="button" aria-pressed={record?.id === r.id} onClick={() => onSelect(r.id)}>
-        <b>{String(stops.get(r.id)).padStart(2, '0')}</b> {r.title}</button>)}</div>
-    </div>}
+    {unplaced.length > 0 && <UnplacedTray key={collection.id} unplaced={unplaced} record={record} stops={stops} onSelect={onSelect} />}
   </div>;
   if (collection.kind === 'field') return <div className={styles.stage} data-mode="photo">
     {record ? <FieldPhoto key={record.id} record={record} stop={stops.get(record.id)} /> : null}
@@ -38,6 +33,21 @@ export default function EvidenceStage({ atlas, collection, records, record, stop
     <div className={styles.conflictBanner}><strong>Records disagree.</strong> Both are synthetic examples shown at equal size. Neither is treated as current; no winner is selected.</div>
     <div className={styles.stagePair}>{pair.map(r => <RecordCard key={r.id} atlas={atlas} record={r} comparison />)}</div>
   </div>;
+}
+
+/** Compact, expandable list of records with no verified position. The count is always visible;
+ *  selecting an unplaced record (reel, URL, list) opens it. Records are listed, never drawn. */
+function UnplacedTray({ unplaced, record, stops, onSelect }: {
+  unplaced: EvidenceRecord[]; record: EvidenceRecord | null; stops: Map<string, number>; onSelect: (id: string) => void;
+}) {
+  const selectedHere = Boolean(record && unplaced.some(r => r.id === record.id));
+  const [open, setOpen] = useState(selectedHere);
+  useEffect(() => { if (selectedHere) setOpen(true); }, [selectedHere, record?.id]);
+  return <details className={styles.tray} open={open} onToggle={e => setOpen(e.currentTarget.open)}>
+    <summary><strong>Not on the map ({unplaced.length})</strong><span>Listed, never drawn: no verified position.</span><span className={styles.trayHint} aria-hidden="true">{open ? 'Hide' : 'Show'}</span></summary>
+    <div>{unplaced.map(r => <button key={r.id} type="button" aria-pressed={record?.id === r.id} onClick={() => onSelect(r.id)}>
+      <b>{String(stops.get(r.id)).padStart(2, '0')}</b> {r.title}</button>)}</div>
+  </details>;
 }
 
 function recordsInGroup(atlas: Atlas, c: Collection, group: string) {
@@ -51,15 +61,24 @@ function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | u
   const [clip, setClip] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const limit = (s: number) => (s - 1) / 2 * 100;
-  const set = (s: number, x: number, y: number) => {
-    const ns = Math.max(1, Math.min(MAX_SCALE, s)), l = limit(ns);
-    setView({ s: ns, x: Math.max(-l, Math.min(l, x)), y: Math.max(-l, Math.min(l, y)) });
-  };
-  const zoom = (d: number) => set(view.s + d, view.x, view.y);
-  const pan = (dx: number, dy: number) => set(view.s, view.x + dx, view.y + dy);
+  // Functional updates: repeated keys within one frame must each apply, and every result is clamped.
+  const update = (next: (v: typeof view) => typeof view) => setView(v => {
+    const n = next(v), s = Math.max(1, Math.min(MAX_SCALE, n.s)), l = limit(s);
+    return { s, x: Math.max(-l, Math.min(l, n.x)), y: Math.max(-l, Math.min(l, n.y)) };
+  });
+  const zoom = (d: number) => update(v => ({ ...v, s: v.s + d }));
+  const pan = (dx: number, dy: number) => update(v => ({ ...v, x: v.x + dx, y: v.y + dy }));
   const reset = () => setView({ s: 1, x: 0, y: 0 });
-  // Leaving the record, the mode or the page unmounts this component: stop the clip explicitly.
-  useEffect(() => () => { video.current?.pause(); }, []);
+  // Capture the mounted clip element: on unmount React may already have cleared the ref.
+  // Leaving the record, the collection or the page pauses it; so does hiding the Stage
+  // (mobile panels hide it with CSS only, which the observer sees as a zero-size box).
+  useEffect(() => {
+    const el = video.current;
+    if (!clip || !el) return;
+    const observer = new ResizeObserver(([entry]) => { if (!entry.contentRect.width || !el.getClientRects().length) el.pause(); });
+    observer.observe(el);
+    return () => { observer.disconnect(); el.pause(); };
+  }, [clip]);
   const keys = (e: KeyboardEvent<HTMLDivElement>) => {
     const step = 12;
     const map: Record<string, () => void> = { '+': () => zoom(.5), '=': () => zoom(.5), '-': () => zoom(-.5), '0': reset,
@@ -75,7 +94,7 @@ function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | u
         ? <img src={(record.media as { src: string }).src} alt={(record.media as { alt: string }).alt} onError={() => setFailed(true)}
           style={{ transform: `translate(${view.x}%, ${view.y}%) scale(${view.s})` }} draggable={false} />
         : <div className={styles.photoNotice}><span aria-hidden="true">▧</span><p>{record.media.status === 'available' ? 'Photo unavailable — the local file could not be loaded. This record is unchanged.' : record.media.reason}</p></div>}
-      <span className={styles.photoBadge}>{stop !== undefined ? `Frame ${String(stop).padStart(2, '0')} · ` : ''}Actual clip frame · location not yet placed</span>
+      <span className={styles.photoBadge}>{stop !== undefined ? `Record ${String(stop).padStart(2, '0')} · ` : ''}Actual clip frame · location not yet placed</span>
     </div>
     <div className={styles.photoTools} role="group" aria-label="Photo inspection controls">
       <button type="button" aria-label="Zoom in on photo" aria-disabled={!available || view.s >= MAX_SCALE} onClick={() => available && zoom(.5)}>+</button>

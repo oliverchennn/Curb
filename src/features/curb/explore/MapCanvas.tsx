@@ -17,10 +17,12 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const features = locatedFeatures(atlas, records);
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);
   const selectedFeature = selected ? atlas.features.find(f => f.id === selected.featureId && f.geometry) : undefined;
-  const fitCollection = () => setView(fitFeatures(locatedFeatures(atlas, recordsFor(atlas, collection))));
-  const fitSelection = () => { if (selectedFeature) setView(fitFeatures([selectedFeature])); };
+  // Tighter than the overview default, leaving room above the top stop for its number badge.
+  const fit = (f: Feature[]) => fitFeatures(f, 26, 40);
+  const fitCollection = () => setView(fit(locatedFeatures(atlas, recordsFor(atlas, collection))));
+  const fitSelection = () => { if (selectedFeature) setView(fit([selectedFeature])); };
   // Fit only when changing collections; filtering, selection and zoom keep the current view.
-  useEffect(() => { setView(fitFeatures(locatedFeatures(atlas, recordsFor(atlas, collection)))); }, [atlas, collection]);
+  useEffect(() => { setView(fitFeatures(locatedFeatures(atlas, recordsFor(atlas, collection)), 26, 40)); }, [atlas, collection]);
   useEffect(() => {
     if (!svg.current) return;
     const observer = new ResizeObserver(entries => { const r = entries[0].contentRect; if (r.width && r.height) setSize([r.width, r.height]); });
@@ -49,7 +51,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     </div>
     <div className={styles.north} aria-hidden="true"><span>↑</span>N</div>
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
-      aria-label="Archive map. Arrow keys pan. Plus and minus zoom. Home fits the collection. Every numbered stop is also in the evidence reel."
+      aria-label="Archive map. Arrow keys pan. Plus and minus zoom. Home fits the collection. Tab reaches paths, then ramps; the evidence reel lists every stop in source order."
       onKeyDown={e => {
         if (e.target !== e.currentTarget) return;
         if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(e.key)) {
@@ -84,11 +86,11 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
           className={styles.mapFeature} onClick={e => { e.stopPropagation(); if (!moved.current) select(); }}
           onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); select(); } }}>
           {f.geometry?.type === 'LineString' ? <>
-            <path d={path(f.geometry.coordinates)} stroke="transparent" strokeWidth="22" fill="none" vectorEffect="non-scaling-stroke" />
+            <path d={path(f.geometry.coordinates)} stroke="transparent" strokeWidth="34" fill="none" vectorEffect="non-scaling-stroke" />
             <path d={path(f.geometry.coordinates)} stroke={active ? '#fffdf4' : '#f5f4e9'} strokeWidth={active ? 11 : 8} fill="none" vectorEffect="non-scaling-stroke" />
             <path d={path(f.geometry.coordinates)} stroke={collection.color} strokeWidth={active ? 6 : 4} strokeDasharray={f.type === 'crossing' ? '7 5' : undefined} fill="none" vectorEffect="non-scaling-stroke" />
           </> : f.geometry?.type === 'Point' ? <g transform={`translate(${project(f.geometry.coordinates).join(',')})`}>
-            <circle r={13 * unit} fill="transparent" />
+            <circle r={20 * unit} fill="transparent" />
             {active && <circle r={12 * unit} fill="#f3d796" stroke="#8a551a" strokeWidth="1" vectorEffect="non-scaling-stroke" />}
             <circle r={6.5 * unit} fill={status === 'ASSUMED' ? '#fffdf7' : active ? collection.color : '#fffdf7'}
               stroke={collection.color} strokeWidth={status === 'ASSUMED' ? 2.5 : 3} strokeDasharray={status === 'ASSUMED' ? '3 2.4' : undefined} vectorEffect="non-scaling-stroke" />

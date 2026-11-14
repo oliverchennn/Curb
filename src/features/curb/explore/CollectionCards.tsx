@@ -13,6 +13,7 @@ export default function CollectionCards({ atlas, collections, selectedId, onSele
     const inspect = c.kind === 'archive' ? `${k.mappedFeatures} mapped archive features` : c.kind === 'field' ? `${k.photos} actual photographs` : 'two records that disagree';
     return <button key={c.id} ref={el => { buttons.current[i] = el; }} type="button" className={styles.collectionCard}
       aria-pressed={selectedId === c.id} data-collection={c.id} style={{ ['--accent' as string]: c.color }}
+      aria-label={`${c.code} ${c.name}. ${kindLabels[c.kind]}. Inspect ${inspect}. ${k.records} records, ${k.mappedRecords} on map, ${k.unplacedRecords} not on map${k.conflictRecords ? `, ${k.conflictRecords} in conflict` : ''}.`}
       onClick={() => onSelect(c)}
       onKeyDown={e => { const n = e.key === 'ArrowDown' ? (i + 1) % collections.length : e.key === 'ArrowUp' ? (i - 1 + collections.length) % collections.length : -1; if (n >= 0) { e.preventDefault(); buttons.current[n]?.focus(); } }}>
       <Preview atlas={atlas} collection={c} />

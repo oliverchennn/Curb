@@ -91,12 +91,14 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
           {records.length < all.length && <span className={styles.filteredNote}>{records.length} match the filter. <button onClick={clear}>Show all {all.length}</button></span>}</div>}
         <EvidenceStage atlas={atlas} collection={collection} records={records} record={record} stops={stops} onSelect={selectRecord} onReset={clear} />
         {collection && <>
-          <div className={styles.snapshotsHeader}><div><h2>{collection.kind === 'field' ? 'Frames' : 'Records'} <span>{records.length ? `${index + 1} / ${records.length}` : '0'}</span></h2><p>{collection.kind === 'archive' ? 'Source order · not a chronological capture sequence' : collection.kind === 'field' ? 'Clip order · not a walking route' : 'Both sides of the disagreement'}</p></div>
+          <div className={styles.snapshotsHeader}><div><h2>Records <span>{records.length ? `${index + 1} / ${records.length}` : '0'}</span></h2><p>{collection.kind === 'archive' ? 'Source order · not a chronological capture sequence' : collection.kind === 'field' ? 'Source order · not a walking route' : 'Both sides of the disagreement'}</p></div>
             <div><button aria-label="Previous snapshot" aria-disabled={!records.length} onClick={() => step(-1)}>←</button><button aria-label="Next snapshot" aria-disabled={!records.length} onClick={() => step(1)}>→</button></div></div>
           <div ref={filmstrip} className={styles.filmstrip} role="group" aria-label="Evidence reel">{records.map(r => {
             const feature = atlas.features.find(f => f.id === r.featureId)!;
-            const chip = feature.geometry ? feature.properties.status ? `${feature.type} · ${feature.properties.status}` : feature.type : 'Not on map';
-            return <button key={r.id} className={styles.snapshotButton} aria-pressed={record?.id === r.id} onClick={() => selectRecord(r.id)} data-snapshot={r.id}>
+            const type = feature.type.charAt(0).toUpperCase() + feature.type.slice(1);
+            const chip = feature.geometry ? feature.properties.status ? `${type} · ${feature.properties.status}` : type : 'Not on map';
+            return <button key={r.id} className={styles.snapshotButton} aria-pressed={record?.id === r.id} onClick={() => selectRecord(r.id)} data-snapshot={r.id}
+              aria-label={`Record ${stops.get(r.id)}: ${r.title}. ${chip}. ${r.kind === 'archive' ? 'Source capture' : 'Photo captured'}: ${dateText(r.captured)}.`}>
               <span className={styles.reelThumb}><Snapshot record={r} feature={feature} compact /><b className={styles.reelStop}>#{pad(stops.get(r.id))}</b></span>
               <strong>{r.title}</strong>
               <span className={styles.reelChips}><span>{chip}</span><span>{r.kind === 'archive' ? 'Source capture' : 'Photo captured'}: {dateText(r.captured)}</span></span>
