@@ -1,6 +1,6 @@
 """Bounded production Chromium acceptance. Uses an already installed Playwright/Chromium.
 
-Start the production server, then run:
+Start the integrated v2 production server (including finding deep links), then run:
   python src/features/curb/explore/verify_browser.py --base http://127.0.0.1:3186
 No hosted service, external source link or collection-page dependency is exercised.
 """
@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import tempfile
 from datetime import datetime, timezone
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 from playwright.sync_api import sync_playwright, expect
 
 parser = argparse.ArgumentParser()
@@ -23,10 +23,10 @@ parser.add_argument('--chromium', default='/usr/bin/chromium')
 args = parser.parse_args()
 assert urlparse(args.base).hostname in ('localhost', '127.0.0.1'), 'Use a local production server.'
 root = Path(__file__).resolve().parents[4]
-out = root / 'public/curb/explore/verification'
+out = root / '.curb-local/verification/explorer-v2'
 out.mkdir(parents=True, exist_ok=True)
 receipt = {'startedAt': datetime.now(timezone.utc).isoformat(), 'baseUrl': args.base,
-           'implementationBase': '6b2b11040eed8d3d620743bc4e12e112f9ebfa90',
+           'integrationBase': '79da517844789bb6fdc1581b6a32aa4c6dcddf36',
            'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip(),
            'checks': [], 'runs': [], 'screenshots': []}
 receipt['productSha256'] = {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -132,11 +132,12 @@ try:
             check(name + ': record, geometry and traversal counts')
             if markers:
                 map_clearance(page, name)
-        expect(page.locator('[data-record="example:a"]')).to_be_visible()
-        expect(page.locator('[data-record="example:b"]')).to_be_visible()
-        check('Conflict cards are side by side', page.locator('[data-record="example:a"]').bounding_box()['x'] < page.locator('[data-record="example:b"]').bounding_box()['x'])
-        expect(page.get_by_text('Records disagree.', exact=True)).to_be_visible()
-        check('Separate withheld and unavailable example copy', 'withheld' in page.locator('[data-record="example:b"]').inner_text().lower() and 'unavailable' in page.locator('[data-record="example:a"]').inner_text().lower())
+        pair = page.locator('[data-mode="conflict"]')
+        expect(pair.locator('[data-record="example:a"]')).to_be_visible()
+        expect(pair.locator('[data-record="example:b"]')).to_be_visible()
+        check('Conflict cards are side by side', pair.locator('[data-record="example:a"]').bounding_box()['x'] < pair.locator('[data-record="example:b"]').bounding_box()['x'])
+        expect(pair.get_by_text('Records disagree.', exact=True)).to_be_visible()
+        check('Separate withheld and unavailable example copy', 'withheld' in pair.locator('[data-record="example:b"]').inner_text().lower() and 'unavailable' in pair.locator('[data-record="example:a"]').inner_text().lower())
         shot(page, 'conflicting-examples.png')
         search = page.get_by_role('searchbox')
         search.fill('example:a')
@@ -149,12 +150,12 @@ try:
         check('Stable source ID search finds exactly the target', '834108' in selected(page))
         page.get_by_role('combobox').select_option('archive')
         check('Type filter preserves an eligible selected identity', '834108' in selected(page))
-        expect(page.get_by_text('11 unplaced records · 2 illustrative conflict records in the atlas.', exact=False)).to_be_visible()
-        check('Hidden unplaced/conflict counts remain explicit')
+        collection_text = page.locator('#explorer-map').inner_text()
+        check('Full-collection coverage counts remain explicit under filtering', all(text in collection_text for text in ('10 records', '7 on map', '3 not on map')))
         search.fill('no-matching-source-xyz')
         expect(page.locator('[data-snapshot]')).to_have_count(0)
-        expect(page.locator('#explorer-map').get_by_role('heading', name='No matching records', exact=True).first).to_be_visible()
-        page.get_by_role('button', name='Reset search & filters').first.click()
+        expect(page.locator('#explorer-map').get_by_role('heading', name='No matching evidence', exact=True).first).to_be_visible()
+        page.get_by_role('button', name='Show the complete atlas', exact=True).first.click()
         expect(page.locator('[data-collection]')).to_have_count(5)
         check('No-results reset restores every collection')
         route(page, 'witherspoon')
@@ -207,7 +208,7 @@ try:
         for i in range(5):
             snapshot = page.locator('[data-snapshot]').nth(i)
             snapshot.click()
-            image = page.locator('[data-record] img')
+            image = page.locator('#explorer-map [aria-label*="Photo inspection:"] img')
             expect(image).to_be_visible()
             image.evaluate('(img)=>img.decode()')
             check('Robertson photo ' + str(i + 1) + ' loads locally without a marker', image.evaluate('(img)=>img.complete&&img.naturalWidth>0') and page.locator('[data-feature]').count() == 0)
@@ -227,10 +228,13 @@ try:
         video_page.wait_for_function('document.querySelector("video").readyState >= 1')
         check('Actual media-fragment clip navigation reaches a local video', '#t=' in video_page.url and video.evaluate('(v)=>v.duration') > 13)
         video_page.close()
-        page.locator('[data-record]').get_by_role('link', name='Review Robertson survey', exact=False).click()
+        page.locator('#explorer-evidence [data-record]').get_by_role('link', name='Review this finding in the survey', exact=False).click()
         page.wait_for_load_state('networkidle')
         check('Real survey page navigation', urlparse(page.url).path == '/curb/surveys/robertson-hall')
         expect(page.locator('video')).to_be_visible()
+        check('Field link identifies the canonical final finding', parse_qs(urlparse(page.url).query).get('finding') == ['defect-05'])
+        page.wait_for_function('document.querySelector("video").readyState >= 1 && document.querySelector("video").currentTime > 13.8')
+        check('Field link seeks the matching final evidence frame')
         check('Existing survey handoff has no page exception or external request', not run['pageErrors'] and not run['externalRequests'])
         check('Existing survey handoff has no resource failure except its known missing root favicon', not run['failedRequests'] and all(e['location'].get('url') == args.base + '/favicon.ico' for e in run['consoleErrors']))
         context.close()
@@ -243,7 +247,7 @@ try:
             map_clearance(page, run['label'])
             shot(page, 'desktop-1920.png' if width == 1920 else 'mobile-map.png')
             if width == 390:
-                tab = page.get_by_role('tab', name='Map & snapshots', exact=True)
+                tab = page.get_by_role('tab', name='Stage', exact=True)
                 tab.focus(); tab.press('ArrowRight')
                 expect(page.get_by_role('tab', name='Collections', exact=True)).to_be_focused()
                 expect(page.locator('#explorer-routes')).to_be_visible()
@@ -259,7 +263,7 @@ try:
                     expect(page.locator('#explorer-map')).to_be_visible()
                     if page.locator('[data-feature]').count():
                         map_clearance(page, '390: ' + name)
-                    expect(page.get_by_role('tab', name='Map & snapshots', exact=True)).to_be_focused()
+                    expect(page.get_by_role('tab', name='Stage', exact=True)).to_be_focused()
                     check('390: ' + name + ' selection keeps keyboard focus visible')
                     page.get_by_role('button', name='Open selected evidence', exact=False).click()
                     expect(page.locator('#explorer-evidence')).to_be_visible()
@@ -269,8 +273,9 @@ try:
                 shot(page, 'mobile-conflicts.png')
                 route(page, 'robertson', True)
                 page.get_by_role('button', name='Next snapshot', exact=True).click()
+                page.locator('#explorer-map [aria-label*="Photo inspection:"] img').evaluate('(img)=>img.decode()')
+                shot(page, 'mobile-field-stage.png')
                 page.get_by_role('button', name='Open selected evidence', exact=False).click()
-                page.locator('[data-record] img').evaluate('(img)=>img.decode()')
                 shot(page, 'mobile-field-detail.png')
                 check('Mobile full record list exposes every field frame', page.locator('#explorer-evidence details').last.locator('button').count() == 5)
             clean_run(run); context.close()
@@ -296,8 +301,9 @@ try:
         context.route('**/defect-01.jpg', lambda request: request.abort())
         page = context.new_page(); run = watch(page, 'injected-local-photo-failure')
         load(page); route(page, 'robertson')
-        expect(page.locator('[data-record]').get_by_text('Photo unavailable — the local file could not be loaded.', exact=True)).to_be_visible()
-        expect(page.locator('[data-record] img')).to_have_count(0)
+        photo = page.locator('#explorer-map [aria-label*="Photo inspection:"]')
+        expect(photo.get_by_text('Photo unavailable — the local file could not be loaded.', exact=False)).to_be_visible()
+        expect(photo.locator('img')).to_have_count(0)
         check('Broken local photo shows honest failure and no substitute image')
         check('Injected failure is local and produces no page exception', bool(run['failedRequests']) and not run['externalRequests'] and not run['pageErrors'])
         context.close(); browser.close()
