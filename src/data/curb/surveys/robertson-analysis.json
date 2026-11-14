@@ -1,0 +1,54 @@
+{
+  "method": "AI visual inspection of the complete 0.5-second contact sheet and full-resolution evidence frames; LK optical-flow tracking is run separately. Human field review is pending.",
+  "model": "Codex assistant vision (exact model build not exposed)",
+  "createdAt": "2026-11-14T07:33:00-05:00",
+  "sourceSha256": "30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a",
+  "normalJoints": "Straight saw-cut/control joints were excluded. No raised-slab height or physical crack width was estimated.",
+  "findings": [
+    {
+      "id": "defect-01",
+      "label": "Defect 01",
+      "kind": "Transverse crack with edge deterioration",
+      "seedFrame": 210,
+      "startFrame": 105,
+      "endFrame": 231,
+      "seedBoxPixels": [
+        20,
+        805,
+        700,
+        145
+      ],
+      "description": "An irregular crack crosses the walking panel, with a visibly broken/open edge toward the left. The opening and any vertical displacement need measurement."
+    },
+    {
+      "id": "defect-02",
+      "label": "Defect 02",
+      "kind": "Branched crack near panel joint",
+      "seedFrame": 285,
+      "startFrame": 195,
+      "endFrame": 308,
+      "seedBoxPixels": [
+        15,
+        845,
+        705,
+        180
+      ],
+      "description": "A transverse defect near the panel boundary includes a branching fragment on the right. This may be localized edge deterioration; depth, movement and level difference are unmeasured."
+    },
+    {
+      "id": "defect-03",
+      "label": "Defect 03",
+      "kind": "Diagonal transverse crack",
+      "seedFrame": 360,
+      "startFrame": 270,
+      "endFrame": 387,
+      "seedBoxPixels": [
+        0,
+        985,
+        720,
+        215
+      ],
+      "description": "An irregular diagonal crack crosses another walking panel. No vertical displacement is established from this view; inspect width, edge stability and movement before selecting treatment."
+    }
+  ]
+}
