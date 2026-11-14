@@ -52,7 +52,9 @@ UPDATE: completed observable work, current activity, last actual check, active c
 
 RESULT: use [HANDOFF](HANDOFF.md); include full commit, changed paths, exact checks and outcomes, manual demo steps, limits and whether all children stopped. A patch without a commit is labeled explicitly and cannot be called a verified committed checkpoint.
 
-Vincent's standing sync instruction authorizes scoped routine pushes to assigned `codex/*` branches. Every UPDATE/RESULT also records branch, full local SHA, verified remote SHA, last sync time, check status and any unpushed/uncommitted scope. Main integration/release remain gated. See [sync decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642).
+Vincent authorizes routine scoped pushes to assigned `codex/*` branches. Every UPDATE/RESULT records branch, full local SHA, verified remote SHA, last sync time, check status and any unpushed or uncommitted scope. [Sync decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642).
+
+The orchestrator handles routine `main` merges within agreed scope. Record the review, checks, designated publisher and verified remote SHA in the merge decision and result. Route ordinary progress through the board. Escalate to Vincent only when human action, an unresolved blocker or an important choice with no clear answer requires him. [Merge delegation decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956).
 
 BLOCKER / CHANGE_REQUEST: failing step, evidence, attempted fixes, affected paths/interface, options, recommended resolution and what can continue. Never broaden your own scope.
 

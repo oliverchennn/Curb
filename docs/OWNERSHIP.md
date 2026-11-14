@@ -1,6 +1,6 @@
 # Ownership
 
-Vincent (`vzhu08`) is the orchestrator, Dev A, contract steward and integration decision owner. Oliver is Dev B/domain and evidence; Landau is Dev C/UI and demo. Confirm their GitHub logins/access before dispatch. A human role is distinct from its agent session.
+Vincent (`vzhu08`) is the human lead, Dev A and contract steward. The orchestrator owns routine merge decisions and may designate one integration agent to execute each merge. Oliver owns Dev B domain and evidence. Landau owns Dev C UI and demo. Verify each developer's GitHub account and access before dispatch.
 
 The live issue's coordinator assignments reserve task scopes. Before kickoff, no application writer is active. `TASK_BOARD.md` is a snapshot. A lane steward may not edit files delegated to a child.
 

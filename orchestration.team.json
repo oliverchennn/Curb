@@ -78,7 +78,13 @@
   "scheduleSource": "supplied implementation plan; confirm event packet onsite",
   "kitRevision": "22a5f44a27375e88ac2cd1754f6976704f725bc5",
   "managedRunnerInstalled": false,
-  "remoteCodeActions": "Vincent authorizes scoped commits and routine pushes to assigned codex/* branches with verified remote SHA; main integration, PR and release retain explicit gates; no force pushes",
+  "remoteCodeActions": "Vincent authorizes scoped commits and routine pushes to assigned codex/* branches. The orchestrator handles routine main merges for reviewed, checked work within scope and verifies the remote SHA.",
+  "mergeAuthority": {
+    "decisionOwner": "orchestrator",
+    "execution": "orchestrator or its designated integration owner",
+    "humanEscalation": "Human action such as login or access, an unresolved blocker, or a consequential design or implementation decision with no clear answer",
+    "decision": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956"
+  },
   "documentationBaseSha": "eee48e553de92072b4cb53148f9fd12c957514f0",
   "coordinatorBranch": "codex/coordination-kickoff",
   "workerModel": {

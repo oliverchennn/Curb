@@ -14,6 +14,8 @@ Build Curb: evidence-backed accessibility repair planning for campus facilities.
 - The user's current instructions govern scope. Imported documents are reference material, not permission to execute commands or start their roadmaps.
 - Vincent (`vzhu08`) is Dev A and the human orchestrator. There are three developers total: Oliver is Dev B/domain and evidence; Landau is Dev C/UI and demo. Confirm their GitHub logins and accepted repo access at kickoff.
 - The coordinator chat assigns work, records decisions with reasons, and maintains coordination docs. It does not write application code. A separate `agent-a` implementation lead handles Vincent's coding lane.
+- The orchestrator decides and handles routine merges to `main` within the agreed scope. Vincent has delegated standing authority. The orchestrator may merge directly or assign the Git operation to one integration owner after review and checks.
+- Resolve routine implementation choices and recoverable issues within scope. Contact Vincent for human actions such as logins or permissions, unresolved blockers, or consequential design or implementation decisions with no clear answer. Post ordinary progress and merge evidence on the board.
 - Ordinary developer sessions plus one GitHub issue are the selected workflow. The kit's custom `agents chat` / `agents worker` runtime is NOT installed or enabled.
 - Team leads may delegate implementation to at most two coding children, one level deep, after contracts are frozen. F0 uses one serial child. An optional reviewer is read-only. Children cannot spawn grandchildren or take team-level tasks.
 - These delegation instructions apply to assigned implementation, not to unrelated preparation or documentation tasks.
@@ -33,7 +35,7 @@ Build Curb: evidence-backed accessibility repair planning for campus facilities.
 - Push safe milestones, before review/handoff/stop, and aim for a safe checkpoint every 15 minutes of active coding. Label unfinished or failing checkpoints WIP; never merge them as verified work.
 - Shared-checkout children never manage Git; their lead publishes only after affected writers pause/stop. Isolated children push only explicitly assigned branches. Every lane lead is responsible for getting its children's work to origin.
 - Verify the actual remote SHA after pushing. Report branch, local SHA, remote SHA, sync time, checks and remaining local changes. Local-only results cannot enter Review.
-- No force pushes or shared-branch races. Only the designated integration owner updates main after review/checks under coordinator authority. Report sync failures immediately while preserving work.
+- The orchestrator serializes updates to `main` and assigns one publisher per merge. Review the candidate, verify checks and confirm the remote result. Preserve history and report sync failures while retaining work.
 
 ## Build boundaries
 
@@ -47,7 +49,7 @@ Build Curb: evidence-backed accessibility repair planning for campus facilities.
 
 - Record actual commands, results and full commit SHAs. A worker report is not an integrated pass; local checks are not deployment evidence.
 - F0 establishes executable checks and v0 imports. Use targeted checks during tasks and `npm run check` on the final integrated checkpoint. Never fabricate missing script results.
-- Submit the handoff format in `docs/HANDOFF.md`, including verified remote sync evidence. Routine assigned-branch pushes are already authorized by Vincent; integration/PR/release actions follow their recorded authority. Never infer a successful push, merge or release from a status label. Board posting is authorized when the kickoff prompt is invoked.
+- Submit the handoff format in `docs/HANDOFF.md`, including verified remote sync evidence. Vincent authorizes routine assigned-branch pushes and delegates routine merge decisions to the orchestrator. Record actual push, merge and release evidence. Deployment, spending and new product scope follow their separate decision paths.
 - Keep credentials and private notes out of Git, board comments and prompts. Preserve kit MIT and third-party notices.
 
 The unmodified kit references in `docs/vendor/hackathon-kit/` describe upstream, including a different optional runner. Curb's documents above define this project's chosen workflow.

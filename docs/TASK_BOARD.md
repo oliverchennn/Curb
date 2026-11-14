@@ -20,4 +20,4 @@ Dispatch records contain: task/attempt ID, owner/login, session, full base SHA, 
 
 F1 uses one common F0 SHA. The integration candidate advances sequentially B → A → C. F2 verifies the resulting commit; later tasks use that newly verified SHA.
 
-R1–R5 and all sponsor additions are **deferred choices**, not Ready tasks. After F2, Vincent selects one next outcome. The remote board is verified live; no application tests, multi-machine check or deployment have run yet. Routine scoped commits/pushes to assigned `codex/*` branches are authorized and expected; report verified remote SHA. Main integration, PR and release gates remain.
+R1–R5 and sponsor additions are deferred choices. After F2, Vincent selects one next outcome. Use the live board for current verification evidence and report the verified remote SHA of task checkpoints. The orchestrator handles routine merges to `main` after review and required checks. [Merge delegation decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956).

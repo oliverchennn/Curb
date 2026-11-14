@@ -1,6 +1,6 @@
 # Keeping origin current
 
-Standing instruction from Vincent: all agents keep `origin` consistently updated. Routine scoped commits and pushes to each assigned `codex/*` branch in `vzhu08/Curb` are authorized; do not ask for permission on every push. [Live policy notice](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642). This policy changes synchronization, not task scope, exclusive ownership, integration/release authority or deployment.
+Vincent authorizes routine scoped commits and pushes to each assigned `codex/*` branch in `vzhu08/Curb`. Each lane keeps `origin` current by publishing verified checkpoints. [Sync decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642).
 
 ## Before starting or resuming
 
@@ -43,9 +43,9 @@ Every UPDATE/RESULT includes branch, local HEAD, verified remote branch SHA, las
 
 Coordinator tracks each lane's last remote checkpoint and sync blockers. A lane cannot enter Review with a local-only result; a lost connection is a precise blocker, not an exemption from disclosure. Dependent assignments must use a commit other machines can fetch.
 
-Only the designated integration owner updates `main` under the coordinator's recorded integration authority. Integrate reviewed, checked results serially, verify the combined SHA, push the accepted main update promptly and verify `origin/main`. The coordinator publishes its own documentation checkpoints to its owned branch and arranges their integration; no routine work should remain only on a laptop.
+The orchestrator owns routine merges to `main` under Vincent's standing delegation. It can merge directly or assign one integration owner to execute the merge. Integrate reviewed, checked changes serially and verify `origin/main`. Post the resulting SHA and check evidence on the board. [Merge delegation decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956).
 
-If main moved during verification, fetch and reconcile in the integration checkout, then rerun affected checks before pushing. Never replace the newer main or advance main to an unverified candidate. F0/F1/F2 gates and Vincent's release decisions still apply.
+If `main` moved during verification, fetch and reconcile in the integration checkout, then rerun affected checks before pushing. Preserve history and integrate the verified candidate. Escalate only when a human action, unresolved blocker or consequential choice requires Vincent. F0/F1/F2 checks and release decisions remain separate from routine merge authority.
 
 ## Failures and limits
 
