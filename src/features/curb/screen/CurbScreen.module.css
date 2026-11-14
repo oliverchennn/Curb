@@ -90,12 +90,8 @@
 }
 
 .errorMessage {
-  margin: 0 0 6px;
-  font-weight: 600;
-}
-
-.errorMeta {
   margin: 0;
+  font-weight: 600;
 }
 
 .layout {

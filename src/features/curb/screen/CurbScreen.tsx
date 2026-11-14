@@ -23,7 +23,7 @@ const REVIEW_STATUS_LABELS: Record<Barrier['reviewStatus'], string> = {
 };
 
 const ERROR_MESSAGES: Record<ScenarioFetchError['code'], string> = {
-  SCENARIO_UNAVAILABLE: 'Scenario data is unavailable from the server in this build.',
+  SCENARIO_UNAVAILABLE: 'Scenario data is not available right now.',
   DATASET_NOT_FOUND: 'The requested scenario dataset was not found on the server.',
   INVALID_SERVER_SCENARIO: 'The server scenario data failed validation and was not shown.',
   INVALID_RESPONSE: 'The server response did not match the expected format.',
@@ -134,16 +134,8 @@ export function CurbScreen() {
 
       {state.status === 'error' ? (
         <div role="alert" className={styles.errorBox}>
+          {/* Code and HTTP status stay in state for diagnostics but are not shown to facilities staff. */}
           <p className={styles.errorMessage}>{state.message}</p>
-          <p className={styles.errorMeta}>
-            <small>
-              Code: {state.code}
-              {state.httpStatus !== null ? ` · HTTP status: ${state.httpStatus}` : ''}
-            </small>
-          </p>
-          <p className={styles.errorMeta}>
-            <small>No sample or cached data is shown in place of the failed load.</small>
-          </p>
         </div>
       ) : null}
 
