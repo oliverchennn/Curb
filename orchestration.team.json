@@ -4,33 +4,30 @@
   "repository": "vzhu08/Curb",
   "runId": "curb-hackprinceton-f26",
   "coordinator": {
-    "name": "Vincent",
-    "github": "vzhu08",
-    "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
-    "state": "active; R2 selected"
+    "name": "Oliver",
+    "github": "oliverchennn",
+    "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
+    "state": "designated by Vincent; B task stopped; actual coordinator ACK pending outgoing final release"
   },
   "handoff": {
-    "state": "accepted-by-vincent",
-    "authorizedBy": "User request in Oliver's cloud conversation",
-    "reason": "Package completed R1 for Vincent to resume orchestration and this cloud conversation to continue as Dev B.",
-    "outgoingSession": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-    "outgoingRoleAfterPublication": "Dev B ready/unassigned; no coordination or main integration authority unless separately assigned",
+    "state": "published-awaiting-successor-ACK",
+    "authorizedBy": "Vincent: pass orchestration to oliver, then stop this chat",
+    "outgoingSession": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
     "incomingCoordinator": {
-      "name": "Vincent",
-      "github": "vzhu08",
-      "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
-      "ackObserved": true
+      "name": "Oliver",
+      "github": "oliverchennn",
+      "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
+      "state": "designated by Vincent; B task stopped; actual coordinator ACK pending outgoing final release"
     },
-    "checkpoint": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875515894",
-    "instructions": "docs/message-board/VINCENT_HANDOFF.md",
-    "devBInstructions": "docs/message-board/DEV_B_CONTINUATION.md",
-    "baseSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
-    "publicationBranch": "codex/vincent-handoff",
-    "finalPublication": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612; https://github.com/vzhu08/Curb/issues/1#issuecomment-6875649929",
-    "localHeartbeat": "ACTIVE; every five minutes",
-    "preview": "STOPPED",
-    "resumeGate": "Vincent resumed, accepted handoff and selected R2. B/C code starts only after reviewed R2 contract freeze and exact assignments/ACKs.",
-    "acceptance": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713"
+    "checkpoint": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876971017",
+    "instructions": "docs/message-board/OLIVER_R2_HANDOFF.md",
+    "baseSha": "489e678eeee4e01a24e9a069a87b2c7df55cae5b",
+    "publicationBranch": "codex/r2-coordination",
+    "finalPublication": "See final HANDOFF/RELEASE on issue #1 after this packet is published",
+    "localHeartbeat": "DELETED at user request; no automatic resume",
+    "outgoingState": "Handoff-only publication, then STOPPED/RELEASED",
+    "activationGate": "B scout-map STOP recorded6877084218; after outgoing final release Oliver verifies actual access/main/checkout and posts COORDINATOR ACK before coordinator writes",
+    "healthyWorkers": "A/B/C have published STOPPED/RELEASED results; no new writer or assignment implied"
   },
   "developers": [
     {
@@ -40,30 +37,22 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "REPLAY-CORRECTION/1",
-      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-replay-correction-local\\Curb",
-      "branch": "codex/replay-correction",
-      "baseSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876629908",
-      "resultSha": null,
-      "currentAvailability": "Running REPLAY-CORRECTION/1; sole existing A lead, no child; boundary prep unclaimed/deferred",
+      "task": "R3-BOUNDARY-PREP/1",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-r3-boundary-prep\\Curb",
+      "branch": "codex/r3-boundary-prep",
+      "baseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
+      "resultSha": "f9aeda43a3ee8fa899939e4ba7ed6b8b3c89b345",
+      "currentAvailability": "STOPPED/RELEASED; boundary proposal and replay correction await successor review; no children",
       "previousResult": {
-        "task": "REPLAY-UI-REVIEW/1 accepted/stopped/released; replay corrections required",
-        "resultSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
-        "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876599465"
+        "task": "REPLAY-CORRECTION/1 published/stopped/released; independent review pending",
+        "resultSha": "ce0a66fe753a55150dbbecf910fe57440aea50f0",
+        "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876939367"
       },
-      "writeScope": [
-        "demo/survey-replay/README.md",
-        "demo/survey-replay/serve.mjs",
-        "demo/survey-replay/replay.test.mjs",
-        "demo/survey-replay/server.test.mjs",
-        "public/survey-replay/graph.mjs",
-        "public/survey-replay/app.mjs",
-        "public/survey-replay/index.html",
-        "public/survey-replay/styles.css"
-      ],
+      "writeScope": [],
       "verificationScope": [],
-      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876827578"
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876948734",
+      "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6877003684"
     },
     {
       "lane": "B",
@@ -72,7 +61,7 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "Assigned ready static field-reference map; actual task ACK required",
+      "availability": "STOPPED/RELEASED; waiting for outgoing final handoff before coordinator ACK",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -88,26 +77,23 @@
         "resultSha": "a0837c0edbfe973d0fb658b187984e53cde80ed2"
       },
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "checkout": "Await scout-map ACK",
+      "checkout": "/workspace/curb-princeton-scout-map",
       "branch": "codex/princeton-scout-map",
       "task": "PRINCETON-SCOUT-MAP/1",
-      "writeScope": [
-        "docs/research/PRINCETON_SCOUT_MAP.svg",
-        "docs/research/PRINCETON_SCOUT_MAP.png",
-        "docs/research/PRINCETON_SCOUT_MAP.md"
-      ],
+      "writeScope": [],
       "readinessBase": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612",
-      "instructions": "docs/message-board/DEV_B_CONTINUATION.md",
+      "instructions": "docs/message-board/OLIVER_R2_HANDOFF.md",
       "baseSha": "2d56e6a0a2ca4e70fd2977009d572e983182fb4c",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876823930",
-      "resultSha": null,
+      "resultSha": "4ba01d89396bc864ba31884ed298e1e4993d131a",
       "previousResult": {
         "task": "R2-DEMO-BRIEF/1 reviewed/stopped/released",
         "resultSha": "93d5e2509febd63fd718b92ad04909d0d99a8f2d",
         "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876791620"
       },
-      "ackUrl": null,
-      "verificationScope": []
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876919611",
+      "verificationScope": [],
+      "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6877084218"
     },
     {
       "lane": "C",
@@ -116,31 +102,30 @@
       "github": "landautzou",
       "focus": "UI, accessibility, demo",
       "access": "accepted-write",
-      "readiness": "R2-C exact assignment ready; ACK required before writes",
-      "session": "Await actual returning Landau session in ACK",
-      "checkout": "Await actual isolated checkout in R2-C ACK",
+      "readiness": "STOPPED/RELEASED; UI and UX proposal await successor review",
+      "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221",
+      "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-r3-evidence-ux",
       "modelException": "Vincent permits existing Claude Code session",
-      "branch": "codex/r2-ui",
-      "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876190198",
-      "resultSha": null,
-      "currentAvailability": "Vincent expects return at 2026-11-14 06:00 America/New_York; assigned, waiting for actual owner ACK; not Running",
+      "branch": "codex/r3-evidence-ux-prep",
+      "baseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
+      "resultSha": "ed6472de87d19703f8f9a69768ca532f37015748",
+      "currentAvailability": "Stopped, no children/previews; exact new assignment required",
       "previousResult": {
-        "task": "Historical F1C complete/stopped/released",
-        "resultSha": "6fc3ccdd00229ab1a615174a8caa6d2eb526fb79",
-        "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-f1c-screen",
-        "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221"
+        "task": "R2-C/1 STOPPED/RELEASED; independent review/final integration pending",
+        "resultSha": "2ff4478b9b2f84399f3ee66ff357f6c976f3c6dd",
+        "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6877006449",
+        "branch": "codex/r2-ui",
+        "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-r2-ui",
+        "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2"
       },
-      "task": "R2-C/1",
-      "writeScope": [
-        "app/curb/plans/page.tsx",
-        "app/curb/page.tsx (navigation only)",
-        "src/features/curb/plans/PlanPlanner.tsx",
-        "src/features/curb/plans/PlanResult.tsx",
-        "src/features/curb/plans/PlanPlanner.module.css",
-        "src/features/curb/plans/presentation.ts",
-        "src/features/curb/plans/presentation.test.ts"
-      ]
+      "task": "R3-EVIDENCE-UX-PREP/1",
+      "writeScope": [],
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6877020556",
+      "reportedModel": "Claude Opus 5.5 under existing exception",
+      "lastObservedRemoteSha": "ed6472de87d19703f8f9a69768ca532f37015748",
+      "remoteCheckpointState": "Published result independently remote verified; source review pending",
+      "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6877049587"
     }
   ],
   "board": {
@@ -148,9 +133,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6876827578"
+    "lastReadCommentId": "6877084218"
   },
-  "currentSlice": "R2 core verified; Landau UI assignment awaits return/ACK; final UI/browser gate pending",
+  "currentSlice": "R2 core verified; C UI and replay corrected candidates stopped/published awaiting independent review; orchestration transferring to Oliver",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -195,7 +180,7 @@
     "decision": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956"
   },
   "documentationBaseSha": "eee48e553de92072b4cb53148f9fd12c957514f0",
-  "coordinatorBranch": "codex/r2-coordination",
+  "coordinatorBranch": "codex/oliver-r2-orchestration",
   "workerModel": {
     "model": "gpt-6.1-sol",
     "reasoningEffort": "xhigh",
@@ -259,13 +244,36 @@
       "localHeartbeat": "PAUSED",
       "successorAccess": "oliverchennn authenticated; WRITE independently verified during cloud takeover 2026-11-14",
       "resumeGate": "Oliver accepted cloud takeover and selected R1, now verified complete. All R1 writers stopped/released; another product slice needs new user direction."
+    },
+    {
+      "state": "accepted-by-vincent",
+      "authorizedBy": "User request in Oliver's cloud conversation",
+      "reason": "Package completed R1 for Vincent to resume orchestration and this cloud conversation to continue as Dev B.",
+      "outgoingSession": "6af808fa-83dc-8191-bd58-80697dbe50c9",
+      "outgoingRoleAfterPublication": "Dev B ready/unassigned; no coordination or main integration authority unless separately assigned",
+      "incomingCoordinator": {
+        "name": "Vincent",
+        "github": "vzhu08",
+        "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
+        "ackObserved": true
+      },
+      "checkpoint": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875515894",
+      "instructions": "docs/message-board/VINCENT_HANDOFF.md",
+      "devBInstructions": "docs/message-board/DEV_B_CONTINUATION.md",
+      "baseSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
+      "publicationBranch": "codex/vincent-handoff",
+      "finalPublication": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612; https://github.com/vzhu08/Curb/issues/1#issuecomment-6875649929",
+      "localHeartbeat": "ACTIVE; every five minutes",
+      "preview": "STOPPED",
+      "resumeGate": "Vincent resumed, accepted handoff and selected R2. B/C code starts only after reviewed R2 contract freeze and exact assignments/ACKs.",
+      "acceptance": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713"
     }
   ],
   "verifiedR2CoreSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
   "parallelTasks": [
     {
       "task": "SURVEY-REPLAY/1",
-      "state": "Original writer stopped/released; both independent reviews complete with corrections required; eight correction paths reassigned to existing A under REPLAY-CORRECTION/1; no main integration",
+      "state": "Original writer released; A correction ce0a66fe753a55150dbbecf910fe57440aea50f0 published/stopped, successor independent review pending; not merged",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876269112",
       "branch": "codex/survey-replay-demo",
       "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
@@ -284,7 +292,14 @@
       "children": [],
       "resultSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
       "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876360532",
-      "correctionAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876629908"
+      "correctionAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876629908",
+      "correctedCandidate": {
+        "sha": "ce0a66fe753a55150dbbecf910fe57440aea50f0",
+        "branch": "codex/replay-correction",
+        "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876939367",
+        "workerEvidence": "docs/message-board/replay-correction-evidence.zip",
+        "acceptance": "pending"
+      }
     }
   ],
   "workQueue": {
@@ -293,10 +308,7 @@
     "authority": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876402752",
     "startGate": "Published exact-base READY assignment; prior task and descendants stopped/released; read live board then new exact-scope ACK",
     "readyPreparation": [
-      "PRINCETON-SCOUT-MAP/1 (actual B), separate base 2d56e6a0a2ca4e70fd2977009d572e983182fb4c",
-      "R3-BOUNDARY-PREP/1 (existing A)",
-      "R3-EVIDENCE-UX-PREP/1 (Landau, after R2-C)",
-      "REPLAY-REUSE-PREP/1 (existing replay writer, after replay)"
+      "REPLAY-REUSE-PREP/1 (original replay writer after fresh ACK, original base)"
     ],
     "blockedPriorities": [
       "R2 final integration/browser after reviewed C release",
@@ -307,8 +319,10 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "REPLAY-CORRECTION/1 (A) Running under ACK 6876827578; eight literal paths",
-      "PRINCETON-SCOUT-MAP/1 (B), exact ACK required; assigned three documentation artifacts"
+      "Oliver coordinator ACK after outgoing final publication/release; B map STOP recorded",
+      "Review stopped R2-C result 2ff4478b9b2f84399f3ee66ff357f6c976f3c6dd and assign final integrated verification",
+      "Review stopped corrected replay ce0a66fe753a55150dbbecf910fe57440aea50f0",
+      "Review stopped A boundary proposal f9aeda43a3ee8fa899939e4ba7ed6b8b3c89b345 and C UX proposal ed6472de87d19703f8f9a69768ca532f37015748; reconcile B map state; refill useful queue"
     ]
   }
 }

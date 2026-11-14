@@ -1,14 +1,16 @@
 # Rolling work queue
 
+Vincent has transferred orchestration to Oliver; [current handoff](message-board/OLIVER_R2_HANDOFF.md). Local checker deleted. Outgoing coordinator makes no new dispatch after handoff preparation; Oliver has safely stopped the scout map and ACKs after outgoing release. All current A/B/C tasks have now published STOPPED/RELEASED results.
+
 Vincent explicitly requested continuous useful queues on 2026-11-14, including helping a slower lane and preparing the next checkpoint. [Authority](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876402752). This queue complements the live board; it does not replace exact assignments, frozen interfaces or ownership ACKs.
 
 Maintain a current task, one independently ready fallback, and the next dependency-gated task for each lead. Refill the ready slot when it is claimed. Prioritize active-slice blockers and review, then disjoint support for another lane, then checkpoint preparation. Do not add unnecessary code, repeat completed checks or expand product scope just to stay busy.
 
 | Lead | Current / immediate work | Ready fallback | Dependency-gated priority |
 |---|---|---|---|
-| Existing A, Sol/xhigh | REPLAY-CORRECTION/1 Running under ACK 6876827578; boundary prep unclaimed/deferred | R3-BOUNDARY-PREP/1 evidence boundary decision packet | R2 final integration/browser verification after reviewed C release |
-| Actual Oliver B | Field packet and R2 brief reviewed/stopped; scout-map task assigned | PRINCETON-SCOUT-MAP/1 at its separate corrected-field base, ACK required | Replay-domain correction review or C presentation review after a published exact candidate and assignment |
-| Landau C | R2-C/1 UI assignment, owner ACK pending | R3-EVIDENCE-UX-PREP/1 after R2-C STOP/RELEASE | Correct evidenced UI defects and rehearse the reviewed integrated demo |
+| Existing A, Sol/xhigh | Boundary proposal and replay correction published/stopped, awaiting review | Successor assigns useful exact review/integration work after acceptance | R2 final integration/browser verification after reviewed C source and new ACK |
+| Actual Oliver B | Scout map published/stopped; coordinator ACK pending outgoing release | Accept designated orchestration after outgoing final release | Independent replay/C review, own map independent review, integration and queue maintenance |
+| Landau C | R2-C and UX proposal published/stopped; review pending | Successor assigns exact evidenced fixes or rehearsal | Rehearse reviewed integrated demo after appropriate assignment |
 | Existing survey replay writer | SURVEY-REPLAY/1 stopped/released; candidate under review, exact model unverified | REPLAY-REUSE-PREP/1 ready after its published release and new ACK | Correct reviewed replay defects after exact assignment and model confirmation |
 
 The two read-only reviews and five independent preparation items are defined in [READINESS_QUEUE](tasks/READINESS_QUEUE.md). Their exact bases and branch assignments are published on the board. They are review/documentation/readiness tasks, not permission to implement R3 or change the current R2 path. All developer documentation paths are explicitly transferred for those tasks; coordinator does not write them concurrently.
