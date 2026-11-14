@@ -6,6 +6,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Curb',
   description: 'Accessibility repair planning for campus facilities.',
+  icons: { icon: { url: '/curb/icon.svg', type: 'image/svg+xml' } },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
