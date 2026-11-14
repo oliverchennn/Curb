@@ -36,7 +36,7 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
@@ -333,7 +333,11 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       controls.removeEventListener('start', beginOrbit); controls.removeEventListener('change', changed); controls.dispose();
       geometries.forEach(item => item.dispose()); materials.forEach(item => item.dispose()); textures.forEach(item => item.dispose());
-      sun.shadow.dispose(); renderer.dispose(); renderer.domElement.remove();
+      sun.shadow.dispose(); renderer.dispose();
+      // dispose() releases Three's resources, but some GL driver caches remain
+      // until context destruction. This canvas owns its context exclusively.
+      if (!renderer.getContext().isContextLost()) renderer.forceContextLoss();
+      renderer.domElement.remove();
     };
   }, [transport, onTime, onPause, onFailure]);
 
