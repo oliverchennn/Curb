@@ -1,0 +1,29 @@
+{
+  "checks": [
+    "Foundation link and explicit initial controls; no automatic comparison",
+    "Golden library repair: blocked to 60 m; three route edges; original linked evidence",
+    "cafe: before/after Reachable; truthful route rendering",
+    "studio: before/after Unknown; truthful route rendering",
+    "archive: before/after Disconnected; truthful route rendering",
+    "Both single service repairs leave the other blocker and its evidence",
+    "Same-node 0 m and one-way entrance prevents reverse trip",
+    "Reset clears simulation/evidence; native keyboard selection and submit",
+    "390 px layout has no horizontal overflow with comparison/evidence",
+    "Context and comparison transport failures show error and recover on retry",
+    "Response with mismatched revision is rejected without stale output",
+    "Late old library response cannot replace latest cafe selection/result",
+    "Reset and explicit cancel suppress late responses",
+    "10 s comparison deadline, late response rejection, successful retry",
+    "Context loading cancel, 10 s deadline, and real API retry"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: net::ERR_FAILED",
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "browserVersion": "156.0.8078.79",
+  "normalConsoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

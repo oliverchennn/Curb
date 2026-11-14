@@ -13,6 +13,8 @@ Application SHA: `03d89572c207b88bc02d80c6f3a745aad1895391`. [Coordinator verifi
 
 Local reproducible harnesses: `/workspace/scratch/verify-curb-trips.py`, `verify-curb-trip-browser.py`, `verify-curb-foundation.py`. Evidence: `/tmp/curb-r1-check.log`, `/tmp/curb-r1-{api,browser,foundation}-check.log`, and `/workspace/scratch/curb-r1-verification/` JSON/screenshots. These cloud-local artifacts are not committed, deployed or a CI service. The repo still has no GitHub Actions workflow.
 
+Handoff preservation, November 14: the above execution record is historical. Exact copies of its successful logs, result JSON, screenshots and executed harnesses are now checked in under [r1-evidence](message-board/r1-evidence/README.md), with SHA-256 provenance, so Vincent can inspect them outside the original cloud workspace. This packaging adds no new test pass; original harness paths/runtime requirements are documented beside the copies.
+
 The example is a separate synthetic scenario with explicit authored step-free assumptions, not measured accessibility or field geography. Clearing one blocker never clears another or unknown coverage, and evidence/review records stay unchanged. No screen-reader audit, deployment, live GIS/provider path, budget optimizer or legal compliance result is established. The original foundation request's missing timeout and optional favicon remain; the new trip flow has bounded cancellation/deadlines. R1 is complete; R2–R5 and sponsors remain unassigned.
 
 ## Verified F2 checkpoint
