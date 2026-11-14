@@ -76,6 +76,7 @@
 .outcomeTable thead th { color: var(--muted); font-size: 12px; font-weight: 700; }
 .statusCell { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .reachable, .blocked, .unknown, .disconnected, .restored { display: inline-block; padding: 3px 8px; border-radius: 5px; font-size: 12px; font-weight: 700; }
+.statusCell > span { overflow-wrap: normal; }
 .reachable { background: #e4f0e6; color: #215531; }
 .blocked { background: #fae9e4; color: #923d31; }
 .unknown { background: #f7efd4; color: #735811; }
@@ -109,7 +110,8 @@
 @media (max-width: 420px) {
   .card, .profileCard, .planCard, .planCardHighlight { padding: 16px; }
   .outcomeTable { font-size: 13px; }
-  .outcomeTable th, .outcomeTable td { padding: 8px 4px; }
-  .reachable, .blocked, .unknown, .disconnected, .restored { padding: 2px 5px; font-size: 11px; }
+  .outcomeTable th, .outcomeTable td { padding: 8px 3px; }
+  .outcomeTable tbody th { overflow-wrap: normal; }
+  .reachable, .blocked, .unknown, .disconnected, .restored { padding: 2px 4px; font-size: 10.5px; }
   .actions > button { flex: 1 1 auto; }
 }

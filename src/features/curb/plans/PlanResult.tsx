@@ -93,7 +93,7 @@ export function PlanResult({ context, comparison, onViewEvidence }: Props) {
         </div>
         <div>
           <h4>Best set</h4>
-          <p className={styles.small}>Every combination of the {plural(comparison.eligibleRepairs.length, 'eligible repair')} was evaluated on the network: {comparison.search.enumeratedSubsetCount} combinations, {comparison.search.feasibleSubsetCount} within budget. The best one newly reaches the most destinations; ties go to lower spend, then fewer repairs, then repair ID.</p>
+          <p className={styles.small}>The {plural(comparison.eligibleRepairs.length, 'eligible repair')} form {plural(comparison.search.enumeratedSubsetCount, 'combination')} (including no repairs); {comparison.search.feasibleSubsetCount === comparison.search.enumeratedSubsetCount ? 'all of them fit' : `${comparison.search.feasibleSubsetCount} ${comparison.search.feasibleSubsetCount === 1 ? 'fits' : 'fit'}`} the budget and {comparison.search.feasibleSubsetCount === 1 ? 'was' : 'were'} evaluated on the network. The best one newly reaches the most destinations; ties go to lower spend, then fewer repairs, then repair ID.</p>
           <p className={styles.small}>“Best” is exact only among these candidates, costs and authored assumptions. It is not a prediction of real-world outcomes.</p>
         </div>
       </div>
@@ -156,7 +156,7 @@ function RoleList({ title, roles, context, names }: {
           {role.kind === 'no-added-effect'
             ? 'Removing it from this plan loses nothing.'
             : `Removing it from this plan loses ${names(role.lostWithout)}.`}
-          {role.needsCompanions.length > 0 ? ` ${names(role.needsCompanions)} ${role.needsCompanions.length === 1 ? 'needs' : 'need'} it together with the other selected repairs.` : ''}</p>
+          {role.needsCompanions.length > 0 ? ` ${role.needsCompanions.length === role.lostWithout.length ? (role.needsCompanions.length === 1 ? 'That destination needs' : 'Those destinations need') : `${names(role.needsCompanions)} ${role.needsCompanions.length === 1 ? 'needs' : 'need'}`} this repair together with the other selected repairs.` : ''}</p>
       </li>)}
     </ul>}
   </div>;
