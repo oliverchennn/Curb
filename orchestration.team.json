@@ -45,16 +45,13 @@
       "branch": "codex/r2-contract-api",
       "baseSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864",
-      "resultSha": null,
-      "currentAvailability": "active; ACK 6875667787; sole writer, no child",
+      "resultSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18",
+      "currentAvailability": "R2-CONTRACT accepted/stopped/released; ready for exact R2-A assignment",
       "previousResult": {
         "task": "F2/1 and M-DEV/1 verified; stopped/released",
         "resultSha": "fc12e86c85394ab8126db1be485aaf0e7845c087"
       },
-      "writeScope": [
-        "src/contracts/curb/plans.ts",
-        "tests/integration/contracts/plans.test.ts"
-      ]
+      "writeScope": []
     },
     {
       "lane": "B",
@@ -63,7 +60,7 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "Oliver actual Dev B ready; awaiting reviewed R2 freeze and exact assignment",
+      "availability": "Confirmed available at 6875771475; approved domain route-set scope; awaiting exact R2-B assignment/ACK",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -109,9 +106,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6875693713"
+    "lastReadCommentId": "6875818820"
   },
-  "currentSlice": "R2-selected; serial contract in progress",
+  "currentSlice": "R2-selected; contract accepted/frozen; implementation assignments follow published common base",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -124,8 +121,11 @@
     },
     "plans": {
       "version": "curb-r2",
-      "status": "draft; awaiting reviewed A result",
-      "assignment": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864"
+      "status": "frozen",
+      "assignment": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864",
+      "contractSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18",
+      "reviewedMergeSha": "ad5e26340a9e25034d126313f2b02f38e57bda5a",
+      "implementationBase": "Published freeze SHA in next live-board assignment"
     }
   },
   "delegation": {

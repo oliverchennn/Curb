@@ -2,7 +2,7 @@
 
 ## Current R2 coordination
 
-Vincent (`vzhu08`) has resumed coordinator session `01a1d84f-5fd1-71b0-a1d3-c9952d311e7a`, accepted Oliver's published/released handoff, and selected R2. [Resume ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713); [R2 task](tasks/R2.md). Local implementation agents are Dev A only. Oliver's cloud session `6af808fa-83dc-8191-bd58-80697dbe50c9` is actual Dev B; Landau is Dev C. Earlier temporary B/C coverage is superseded. A's serial contract scope is active; B/C code waits for the reviewed common freeze and exact ACKs. The existing native local board checker is active every five minutes; it does not install a kit runtime or automatically wake remote chats. Historical kickoff and handoff records below do not restart completed tasks.
+Vincent (`vzhu08`) has resumed coordinator session `01a1d84f-5fd1-71b0-a1d3-c9952d311e7a`, accepted Oliver's published/released handoff, and selected R2. [Resume ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713); [R2 task](tasks/R2.md). Local implementation agents are Dev A only. Oliver's cloud session `6af808fa-83dc-8191-bd58-80697dbe50c9` is actual Dev B; Landau is Dev C. Earlier temporary B/C coverage is superseded. A's serial contract is accepted and released at `c71310539c762a1d893f6e3b7778bdcdd3258a18`. The coordinator independently passed typecheck and 40 contract tests on merge `ad5e26340a9e25034d126313f2b02f38e57bda5a`. Implementation starts from the published common freeze with exact lane ACKs. The existing native local board checker is active every five minutes; it does not install a kit runtime or automatically wake remote chats. Historical kickoff and handoff records below do not restart completed tasks.
 
 ## Team and selected mode
 
