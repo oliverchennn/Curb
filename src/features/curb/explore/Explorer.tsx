@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { dateText, kindLabels, recordsFor, selectionFor, traversalText, type Atlas, type Filter } from './model';
+import { explorerLocationUrl, readExplorerLocation, type ExplorerPanel } from './location';
 import MapCanvas from './MapCanvas';
 import { RecordCard, Snapshot } from './Evidence';
 import styles from './Explorer.module.css';
@@ -8,9 +9,32 @@ import styles from './Explorer.module.css';
 export default function Explorer({ atlas }: { atlas: Atlas }) {
   const [filter, setFilter] = useState<Filter>('all'), [query, setQuery] = useState('');
   const [collectionId, setCollectionId] = useState(atlas.collections[0].id), [recordId, setRecordId] = useState(atlas.collections[0].recordIds[0]);
-  const [panel, setPanel] = useState<'map' | 'routes' | 'evidence'>('map');
+  const [panel, setPanel] = useState<ExplorerPanel>('map');
+  const [locationReady, setLocationReady] = useState(false);
   const selected = useMemo(() => selectionFor(atlas, filter, query, collectionId, recordId), [atlas, filter, query, collectionId, recordId]);
   const { collection, record, records, collections } = selected;
+  useEffect(() => {
+    const restore = () => {
+      if (window.location.pathname !== '/curb/explore') return;
+      const saved = readExplorerLocation(atlas, window.location.search);
+      setFilter(saved.filter); setQuery(saved.query); setCollectionId(saved.collectionId);
+      setRecordId(saved.recordId); setPanel(saved.panel); setLocationReady(true);
+    };
+    restore();
+    window.addEventListener('popstate', restore);
+    return () => window.removeEventListener('popstate', restore);
+  }, [atlas]);
+  useEffect(() => {
+    if (!locationReady || window.location.pathname !== '/curb/explore') return;
+    const next = explorerLocationUrl(window.location.href, {
+      collectionId: collection?.id ?? collectionId, recordId: record?.id ?? recordId, filter, query, panel,
+    });
+    if (next !== window.location.pathname + window.location.search + window.location.hash) {
+      // Replace this page's entry: scrubbing snapshots must not create dozens of Back steps.
+      // Next's native-history bridge retains its router state when passed null.
+      window.history.replaceState(null, '', next);
+    }
+  }, [locationReady, collection?.id, record?.id, collectionId, recordId, filter, query, panel]);
   const routeButtons = useRef<(HTMLButtonElement | null)[]>([]), mobileTabs = useRef<(HTMLButtonElement | null)[]>([]);
   const all = collection ? recordsFor(atlas, collection) : [];
   const unplaced = all.filter(r => !atlas.features.find(f => f.id === r.featureId)?.geometry).length;
@@ -34,7 +58,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
       <div className={styles.pageLinks}><span className={styles.localBadge}><i /> Local snapshot</span><a href="/curb/collection">How collection would work →</a><a href="/curb/surveys/robertson-hall">Review Robertson survey →</a></div>
     </header>
     <div className={styles.toolbar}>
-      <label className={styles.search}><span aria-hidden="true">⌕</span><span className={styles.srOnly}>Search collections, features or record IDs</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search a collection or source ID…" type="search" /></label>
+      <label className={styles.search}><span aria-hidden="true">⌕</span><span className={styles.srOnly}>Search collections, features or record IDs</span><input value={query} onChange={e => setQuery(e.target.value)} maxLength={256} placeholder="Search a collection or source ID…" type="search" /></label>
       <label className={styles.filter}>Evidence type<select value={filter} onChange={e => setFilter(e.target.value as Filter)}><option value="all">All evidence</option>{Object.entries(kindLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
       <span className={styles.resultCount}>{collections.length} of {atlas.collections.length} collections</span>
       {(query || filter !== 'all') && <button className={styles.clear} onClick={clear}>Clear filters</button>}
