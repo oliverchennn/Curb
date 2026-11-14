@@ -39,6 +39,14 @@ Verify saved report bundles without the server using `node --import tsx scripts/
 
 No dimensions were measured from this footage. Accessibility effects are qualified observations, not an overall ADA verdict. A visible crack never automatically blocks a route. The Robertson Hall map is context only, with no accepted per-defect map placements or verified route graph. Cost amounts are partial planning estimates from explicitly identified historical/regional benchmarks and assumed quantities; obtain site measurements, suitable repair scopes and current quotes. Unknown costs are never treated as free.
 
+## Explore routes and their evidence
+
+Open `/curb/explore` from **Route explorer** in the shared navigation. Choose Library / Witherspoon, Nassau / east crossing, or Nassau / west crossing to inspect the local DVRPC archive geometry. Select a line, landing marker or snapshot to see its source record. Zoom into closely spaced features; every record is also available in the evidence list. Search accepts collection names, source IDs and record IDs. Arrow keys pan the focused map, plus/minus zoom, and Home fits the collection.
+
+The **Robertson Hall** collection contains the five actual close-ups and links to their positions in the original clip. Their precise locations are unknown, so no finding pins are drawn. **Evidence examples** contains two explicitly synthetic conflicting records, kept side by side. Evidence-type filters, named date fields and Unknown values preserve these distinctions. A record's accepted attachment is not a passability decision; current traversal remains Unknown throughout this explorer.
+
+At narrow widths, **Map & snapshots**, **Collections**, and **Evidence** are keyboard-operable tabs. The page uses committed SVG geometry and local photographs without map-service credentials or runtime tiles. Geometry attribution and source details are visible in the page. The [explorer result](docs/demo/ROUTE_EXPLORER_RESULT.md) records the audited source features and its independent browser checks; the [release checkpoint](docs/demo/CURB_RELEASE_CHECKPOINT.md) separates those from later integration checks.
+
 ## Separate synthetic routing examples
 
 `/survey-replay/index.html` demonstrates the three repair states: the sample crack repair saves 90 m on the library trip, while the sample slab repair opens clinic and pharmacy routes. `/curb/trips` and `/curb/plans` preserve the directed routing and equal-budget comparison foundation. These use labeled synthetic geography, not Robertson Hall field routes.
