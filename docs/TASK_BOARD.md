@@ -1,10 +1,10 @@
 # Current production verification and visual upgrade queue
 
-The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merged PR8 at bfd8826; the disjoint visual tasks now proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
+The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merged PR8 at bfd8826 and replay-layout PR9 at 16f5444; the disjoint visual tasks now proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
 
 | Owner | Current scope | State |
 | --- | --- | --- |
-| Root | Replay layout/banner removal, backend/shared files, PR review, archives and integration | Running; PR8 merged and archived |
+| Root | Replay layout/banner removal, backend/shared files, PR review, archives and integration | Running on codex/demo-upgrade-integration; PR8 and PR9 merged and archived |
 | B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | ACK/RUNNING 6885609474; graphics addendum 6885549275 |
 | C / Landau | EXPLORER-DESIGN-V2/1: independent design critique and comparison, only EXPLORER_UPGRADE_PROPOSAL.md | READY 6885550039; design first, implementation after synthesis |
 | D / Oliver cloud | BUDGET-CLARITY-V2/1: survey plan presentation and synthetic budget-page explanation | ACK/RUNNING 6885605644; exact disjoint paths in assignment 6885586935 |
