@@ -4,7 +4,7 @@ User-selected scope: disability-access repair planning from the supplied Roberts
 
 ## Shared boundary
 
-`src/contracts/curb/survey.ts` is the common contract. Do not change it independently. Request a bounded change on board #1. Media are local under `/curb/surveys/robertson-hall/`. Canonical authored data: `src/data/curb/surveys/robertson-hall.json`. One physical defect has one ID; multiple defects on one panel share a work area. Track entries identify displayed CFR video frames (30 fps), normalized [x,y,width,height]; missing frames have no retained tracking evidence; physical visibility is unknown, and no box is interpolated across a gap, not interpolation through an occlusion. All measurements initially absent. Review method AI is distinct from manual review. Pending AI findings may support explicitly provisional plans; rejected findings are excluded, not deleted.
+`src/contracts/curb/survey.ts` is the common contract. Do not change it independently. Request a bounded change on board #1. Media are local under `/curb/surveys/robertson-hall/`. Canonical authored data: `src/data/curb/surveys/robertson-hall.json`. One physical defect has one ID; multiple defects on one panel share a work area. Track entries identify displayed CFR video frames (30 fps), normalized [x,y,width,height]; missing frames have no retained tracking evidence; physical visibility is unknown, and no box is interpolated across a gap or occlusion. All measurements initially absent. Review method AI is distinct from manual review. Pending AI findings may support explicitly provisional plans; rejected findings are excluded, not deleted.
 
 Root supplies these pure exports in `src/domain/curb/survey.ts`:
 

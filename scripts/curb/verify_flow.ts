@@ -4,6 +4,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { SurveyResponseSchema } from '../../src/contracts/curb/survey';
 import { buildRepairPlans } from '../../src/domain/curb/survey';
+import { surveyToCsv } from '../../src/domain/curb/surveyExports';
 
 const base = new URL(process.argv[2] ?? 'http://127.0.0.1:3004');
 assert.ok(['127.0.0.1', 'localhost', '[::1]'].includes(base.hostname), 'This verifier only contacts a local demo server');
@@ -43,6 +44,9 @@ for (const [name, reviewed, planId, budgetCents] of [
   ['edited', {...survey, findings: survey.findings.map((finding, i) => i === 0 ? {...finding,
     label: 'Defect 01 · Reviewer correction', review: {status:'rejected',method:'manual',reviewer:'Integration verification',note:'Disposable verification scenario; not a field decision.'}} : finding)}, 'balanced', null],
 ] as const) {
+  await writeFile(resolve(out,`${name}.request.json`),JSON.stringify({survey:reviewed,planId,budgetCents},null,2)+'\n');
+  await writeFile(resolve(out,`${name}.json`),JSON.stringify(reviewed,null,2)+'\n');
+  await writeFile(resolve(out,`${name}.csv`),surveyToCsv(reviewed));
   const result = await fetch(new URL('/api/curb/survey/report', base), {
     method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({survey:reviewed,planId,budgetCents}),
   });
