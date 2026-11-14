@@ -247,7 +247,7 @@ export function TripPlanner() {
             onChange={(event) => setSelectedBarrierId(event.target.value || null)}>
             <option value="">Choose a barrier</option>
             {context.scenario.barriers.map((barrier) => <option key={barrier.id} value={barrier.id}>
-              {context.repairs.find((repair) => repair.barrierId === barrier.id)?.label ?? barrier.note ?? barrier.id}
+              {context.repairs.find((repair) => repair.barrierId === barrier.id)?.label || barrier.note || barrier.id}
             </option>)}
           </select></label>
         </div>
