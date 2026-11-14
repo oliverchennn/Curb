@@ -27,6 +27,7 @@ export function RecordCard({ atlas, record, comparison = false }: { atlas: Atlas
   return <article className={comparison ? styles.comparisonCard : styles.recordCard} data-record={record.id}>
     <span className={styles.provenance} data-kind={record.kind}>{kindLabels[record.kind]}</span>
     <h3>{record.title}</h3>
+    <p className={styles.featureKey}>{feature.id}</p>
     <Snapshot key={record.id} record={record} feature={feature} />
     <p className={styles.recordNote}>{record.note}</p>
     <dl className={styles.recordMeta}>
@@ -34,11 +35,11 @@ export function RecordCard({ atlas, record, comparison = false }: { atlas: Atlas
       <div><dt>{record.kind === 'archive' ? 'Source capture' : 'Observed'}</dt><dd><DateValue value={record.kind === 'archive' ? record.captured : record.observed} /></dd></div>
       {record.kind !== 'archive' && <div><dt>Photo captured</dt><dd><DateValue value={record.captured} /></dd></div>}
       <div><dt>Retrieved</dt><dd><DateValue value={record.retrieved} /></dd></div>
-      <div><dt>Attachment</dt><dd>{record.attachment === 'source-matched' ? 'Source ID matched' : record.attachment === 'accepted' ? 'Accepted (example only)' : 'Pending review'}</dd></div>
+      <div><dt>Attachment</dt><dd>{record.attachment === 'source-matched' ? 'Source ID matched' : record.attachment === 'accepted' ? record.kind === 'synthetic' ? 'Accepted (example only)' : 'Accepted attachment' : 'Pending review'}</dd></div>
       {record.clipSeconds !== undefined && <div><dt>Clip position</dt><dd>{record.clipSeconds.toFixed(3)} seconds · not a date</dd></div>}
     </dl>
     <p className={styles.unknown}>Current traversal: Unknown</p>
-    {record.kind === 'field' && <div className={styles.evidenceLinks}><a className={styles.actionLink} href={`/curb/surveys/robertson-hall/survey.mp4#t=${record.clipSeconds}`}>Open source clip at this frame ↗</a><a href="/curb/surveys/robertson-hall">Review Robertson survey →</a></div>}
+    {record.kind === 'field' && <div className={styles.evidenceLinks}><a className={styles.actionLink} href={`/curb/surveys/robertson-hall/survey.mp4#t=${record.clipSeconds}`}>Open source clip at this frame →</a><a href="/curb/surveys/robertson-hall">Review Robertson survey →</a></div>}
     <details className={styles.sourceDetails}><summary>Source & record details</summary>
       <dl className={styles.recordMeta}>
         <div><dt>Feature ID</dt><dd>{feature.id}</dd></div><div><dt>Record ID</dt><dd>{record.id}</dd></div>
@@ -48,7 +49,7 @@ export function RecordCard({ atlas, record, comparison = false }: { atlas: Atlas
         {record.kind === 'archive' && <><div><dt>Dimensions / slope</dt><dd>Unknown · not measured</dd></div><div><dt>ADA determination</dt><dd>Unknown</dd></div></>}
         {source.sha256 && <div><dt>Source SHA-256</dt><dd className={styles.hash}>{source.sha256}</dd></div>}
       </dl>
-      <p>{source.credit}</p><a href={source.url} target="_blank" rel="noreferrer">Open original source site ↗</a>
+      <p>{source.credit}</p><a href={source.url} target="_blank" rel="noreferrer">Open original source site →</a>
       <p>Attachment review does not establish passability. No automatically selected winner or current condition is inferred.</p>
     </details>
   </article>;

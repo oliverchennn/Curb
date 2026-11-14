@@ -56,9 +56,9 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       {hasMap && <>
         <g className={styles.contextLines} aria-hidden="true">{atlas.context.map(f => f.geometry?.type === 'LineString' && <path key={f.id} d={path(f.geometry.coordinates)} vectorEffect="non-scaling-stroke" />)}</g>
         <g className={styles.streetLabels} aria-hidden="true">
-          <text x={-43} y={-50} transform="rotate(-72 -43 -50)" fontSize={12 * unit}>WITHERSPOON ST</text>
+          <text x={-77} y={-20} transform="rotate(-72 -77 -20)" fontSize={11 * unit}>WITHERSPOON ST</text>
           <text x={48} y={72} transform="rotate(17 48 72)" fontSize={12 * unit}>NASSAU ST</text>
-          <text x={-60} y={-105} fontSize={11 * unit}>SPRING ST</text>
+          <text x={10} y={-95} fontSize={11 * unit}>SPRING ST</text>
           <text x={60} y={118} fontSize={11 * unit}>CAMPUS CONTEXT</text>
         </g>
         {features.map(f => {
