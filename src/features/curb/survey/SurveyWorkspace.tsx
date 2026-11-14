@@ -186,7 +186,6 @@ export function SurveyWorkspace() {
       </div>
     </div>
 
-    <p className={styles.footerNote}>AI-assisted findings from one walk-through video. Not a measured survey, an ADA compliance determination, a cost quote or a record of completed repairs. Route impact is unknown because no reviewed route graph exists for this site.</p>
   </div>;
 }
 

@@ -332,17 +332,16 @@
 @media (min-width: 1100px) {
   .workspace {
     --desk-width: min(1640px, calc(100vw - 64px));
-    /* Picture width stays in ranges whose labels were swept frame by frame: under 240px
-     * (compact "Defect NN" labels) on short screens, at least 320px on taller ones. */
-    --frame-h: clamp(320px, calc(100vh - 345px), 420px);
+    /* Give the evidence more of the desktop and enlarge the actual portrait picture,
+     * while preserving room for transport controls and the finding shortcuts. */
+    --frame-h: clamp(480px, calc(100vh - 240px), 800px);
     width: var(--desk-width);
     margin-inline: calc((100% - var(--desk-width)) / 2);
   }
   .header { padding: 10px 22px; }
   .header h1 { font-size: clamp(30px, 2.6vw, 40px); }
   .lede { font-size: 18px; }
-  @media (min-height: 900px) { .workspace { --frame-h: clamp(570px, calc(100vh - 330px), 720px); } }
-  .desk { grid-template-columns: max(360px, calc(var(--frame-h) * 0.5625 + 40px)) minmax(0, 1fr); }
+  .desk { grid-template-columns: minmax(420px, .95fr) minmax(0, 1.05fr); }
   .evidenceColumn { position: sticky; top: 8px; }
   .evidenceColumn .videoPanel { padding: 14px 16px; }
   .evidenceColumn .panelHeading { margin-bottom: 10px; gap: 8px; }
