@@ -79,7 +79,7 @@ export function CollectionDemo() {
     if (seconds >= DURATION) { replay(); return; }
     transport.current.running = !transport.current.running;
     setRunning(transport.current.running);
-    announce(transport.current.running ? 'Playing.' : `Paused at ${wholeSeconds} seconds. ${captures} of ${CAPTURES.length} illustrative captures.`);
+    announce(transport.current.running ? 'Playing.' : `Paused at ${wholeSeconds} ${wholeSeconds === 1 ? 'second' : 'seconds'}. ${captures} of ${CAPTURES.length} illustrative captures.`);
   }
   function chooseMode(diagram: boolean) {
     pause(); setStaticMode(diagram); setMessage('');
