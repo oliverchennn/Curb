@@ -1,3 +1,18 @@
+# Current Robertson Hall queue
+
+The user designated desktop session `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` orchestrator and heavy implementation owner. This current section supersedes historical task/role rows below. Read the [live assignments](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877377911) for newer ACKs and exact scope. Shared contract base `8c319faeec2f2cfc250021f0a6acfbe260c72c88`; core/media dependency `9b4e2c056930d97c0603f3566b3df135bb269dc4` is published, with 509 tests/build and 14 standalone replay tests passing. UI/API/PDF integrated acceptance is pending.
+
+| Owner | Current task | Next ready task after release |
+| --- | --- | --- |
+| Root / Oliver desktop | Core, media, accessibility/cost evaluation, shell, integration; RUNNING | Integrate released B/C/D results and resolve reported defects, then complete browser/offline/PDF checks |
+| B / Vincent | API/report/CSV/client; assigned, ACK not yet observed | One-file report/export QA record on its exact released result |
+| C / Landau | Survey workspace; ACK/RUNNING6877298123 | One-file UI/keyboard/offline QA record on its exact released result |
+| D / Oliver cloud | Independent oracle/evidence/cost review; ACK/RUNNING6877392092 | Two-minute script and rehearsal checklist, one new file |
+
+No duplicate writer, silent main integration, fake field measurements, ADA verdict or full-price claim from incomplete costs. A successful checkpoint does not authorize unrelated features. Current interface specification: [ROBERTSON_IMPLEMENTATION](demo/ROBERTSON_IMPLEMENTATION.md).
+
+---
+
 # Rolling work queue
 
 Vincent has transferred orchestration to Oliver; [current handoff](message-board/OLIVER_R2_HANDOFF.md). Local checker deleted. Outgoing coordinator makes no new dispatch after handoff preparation; Oliver has safely stopped the scout map and ACKs after outgoing release. All current A/B/C tasks have now published STOPPED/RELEASED results.

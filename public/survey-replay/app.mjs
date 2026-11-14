@@ -183,7 +183,7 @@ function renderResults() {
 
 function setRepair(id) {
   repair = id;
-  result = results.get(id);
+  result = compareRoutes(survey, id);
   for (const button of $('repair-controls').children) {
     button.setAttribute('aria-pressed', String(button.dataset.repair === id));
   }
