@@ -41,7 +41,7 @@ No dimensions were measured from this footage. Accessibility effects are qualifi
 
 ## Explore routes and their evidence
 
-Open `/curb/explore` from **Route explorer** in the shared navigation. Choose Library / Witherspoon, Nassau / east crossing, or Nassau / west crossing to inspect the local DVRPC archive geometry. Select a line, landing marker or snapshot to see its source record. Zoom into closely spaced features; every record is also available in the evidence list. Search accepts collection names, source IDs and record IDs. Arrow keys pan the focused map, plus/minus zoom, and Home fits the collection.
+Open `/curb/explore` from **Route explorer** in the shared navigation. Choose Library / Witherspoon, Nassau / east crossing, or Nassau / west crossing to inspect the local DVRPC archive geometry. Select a line, landing marker or snapshot to see its source record. Zoom into closely spaced features; every record is also available in the evidence list. Search accepts collection names, source IDs and record IDs. The selected collection, snapshot, filter and mobile panel are kept in the URL, so reload and Back restore the view. Arrow keys pan the focused map, plus/minus zoom, and Home fits the collection.
 
 The **Robertson Hall** collection contains the five actual close-ups and links to their positions in the original clip. Their precise locations are unknown, so no finding pins are drawn. **Evidence examples** contains two explicitly synthetic conflicting records, kept side by side. Evidence-type filters, named date fields and Unknown values preserve these distinctions. A record's accepted attachment is not a passability decision; current traversal remains Unknown throughout this explorer.
 

@@ -101,3 +101,9 @@ No clipped headings or controls at any size. The global skip link (22px) is shar
 
 - The pane wasn't drawing for real mouse and key input or screenshots, so the mobile keyboard flow used dispatched events (labelled above), and no screenshots are attached. Root reports real-input captures of the same flows.
 - Not checked: D's full matrix (out of scope), a projector, a screen reader, Safari or Firefox, touch hardware, the hosted site, and the Collection demo (pending).
+
+## Root correction and production verification
+
+Root integrated this report as `0f9efc8` and corrected EXQA-01/02/03 in `1c6f1ce28553f223e3c8b28086af4c18c3164910`. This paragraph records a later root check, not an extension of C's pinned run. The full check passed TypeScript,714 tests in25 files and the production build. Four location regressions cover field snapshot round trips, invalid/cross-collection IDs, filtered/empty states, and URL punctuation.
+
+In the actual production in-app browser, root selected Robertson Defect05, navigated to Sample network, pressed Back/Forward, followed the full-page survey link, pressed Back and reloaded. The same final finding survived every return. At390px a field filter, search and Evidence panel also survived reload; a no-results query stayed empty, then clearing filters restored the final finding. The page inherited `/curb/icon.svg`. Measured header links, search, select and visible details summaries were44px high, with no horizontal overflow. The production browser error/warning log was empty. These were real supported browser interactions; no synthetic key dispatch was used. Root refreshed the1920px archive screenshot and saved a390px evidence capture. Collection integration and hosted checks remain separate.

@@ -37,7 +37,7 @@
       "github": "vzhu08",
       "task": "CURB-COLLECTION-DEMO/1",
       "branch": "codex/collection-robot-demo-recovery",
-      "state": "READY recovery attempt2 under explicit human takeover; awaiting actual ACK",
+      "state": "ACK/RUNNING recovery attempt2; WIP published, not released",
       "scope": "app/curb/collection/page.tsx; src/features/curb/collection/**; public/curb/collection/**; docs/demo/COLLECTION_ROBOT_RESULT.md",
       "session": "6af8bfb9-50b8-8191-bb64-258bab4200f8",
       "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883587803",
@@ -56,6 +56,12 @@
         "session": "01a1db77-0c6c-7e53-a5af-b5fae92dbda3",
         "state": "Not confirmed stopped; explicit Vincent-directed recovery takeover; preserve any later candidate",
         "branch": "codex/collection-robot-demo"
+      },
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883667040",
+      "wipCheckpoint": {
+        "sha": "67c3edc8bf8890b8fe1bae1f5d34b25167f2a8ad",
+        "state": "RUNNING; root read-only review, not released",
+        "url": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883710065"
       }
     },
     {
@@ -65,8 +71,8 @@
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
       "task": "CURB-EXPLORER-INTEGRATION-QA/1",
       "branch": "codex/curb-explorer-integration-qa",
-      "state": "ACK/RUNNING; bounded combined explorer and navigation QA, product read-only",
-      "scope": "docs/demo/CURB_EXPLORER_INTEGRATION_QA.md",
+      "state": "STOPPED/RELEASED; report integrated as0f9efc8; root corrections verified at1c6f1ce",
+      "scope": "",
       "baseSha": "08855c746b38ced0a4fe0ffb2e4f4b422777c60a",
       "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883518793",
       "previousResult": {
@@ -74,33 +80,27 @@
         "sha": "9661fae0556257b75df4a1360448a0d3150be2a0",
         "state": "STOPPED/RELEASED; integrated as8a0112a"
       },
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883602281"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883602281",
+      "resultSha": "7e0d2897d47c778abbd54922b3df9bb29bfe915b",
+      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883660464"
     },
     {
       "lane": "D",
       "name": "Oliver / existing cloud chat",
       "github": "oliverchennn",
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "task": "CURB-ROUTE-EXPLORER/1",
-      "branch": "codex/route-evidence-explorer",
-      "state": "STOPPED/RELEASED; integrated as b10808a and 5e35729; available for bounded independent review",
-      "scope": "",
-      "baseSha": "6b2b11040eed8d3d620743bc4e12e112f9ebfa90",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883030624",
+      "task": "CURB-COLLECTION-INDEPENDENT-QA/1",
+      "branch": "codex/collection-independent-qa",
+      "state": "READY; direct existing-chat follow-up sent; awaiting ACK",
+      "scope": "docs/demo/COLLECTION_INDEPENDENT_QA.md",
+      "baseSha": "67c3edc8bf8890b8fe1bae1f5d34b25167f2a8ad",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883735516",
       "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882978608",
       "previousResult": {
-        "task": "ROBERTSON-STRESS-D/1",
-        "sha": "61584001e0ffda5a7ce947e074836674a6480030",
-        "state": "STOPPED/RELEASED; integrated ase11c68a; decimal fix independently passed"
-      },
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883049425",
-      "wipCheckpoint": {
-        "sha": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d",
-        "state": "Completed and integrated with final result",
-        "url": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883237684"
-      },
-      "resultSha": "2b3f8282fa2f065d4eba285c1de70e417009ce00",
-      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883472767"
+        "task": "CURB-ROUTE-EXPLORER/1",
+        "sha": "2b3f8282fa2f065d4eba285c1de70e417009ce00",
+        "state": "STOPPED/RELEASED; integrated b10808a+5e35729"
+      }
     }
   ],
   "board": {
@@ -108,7 +108,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6883602281"
+    "lastReadCommentId": "6883735516"
   },
   "currentSlice": "Robertson disability-access workspace, simulated upload, collection concept and route explorer; final integration and Vincent hosting pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
