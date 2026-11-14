@@ -54,17 +54,16 @@
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-WORKSPACE-LAYOUT/1",
-      "branch": "codex/robertson-workspace-layout",
-      "state": "ACK / RUNNING",
-      "scope": "SurveyWorkspace.tsx/.module.css; FindingReview.tsx; PlanCompare.tsx; SiteContext.tsx; docs/demo/ROBERTSON_WORKSPACE_LAYOUT.md",
-      "baseSha": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882879208",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882934804",
+      "task": "ROBERTSON-INTEGRATED-SURVEY-QA/1",
+      "branch": "codex/robertson-integrated-survey-qa",
+      "state": "READY; ACK pending",
+      "scope": "docs/demo/ROBERTSON_INTEGRATED_SURVEY_QA.md only; product read-only",
+      "baseSha": "28b0b1b0b2ab5d9e8051468493155122db91fc39",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883284921",
       "previousResult": {
-        "task": "ROBERTSON-STRESS-C/1",
-        "sha": "e57a37195c89cc794ff7691fe19ed9b850cdbc3e",
-        "state": "STOPPED/RELEASED; integrated as4acf58c"
+        "task": "ROBERTSON-WORKSPACE-LAYOUT/1",
+        "sha": "d32074ad22449d55d2b8ca1ea87edd0ee5f84b84",
+        "state": "STOPPED/RELEASED; integrated as a4afbfb; three-mode/header integration 28b0b1b"
       }
     },
     {
@@ -84,7 +83,12 @@
         "sha": "61584001e0ffda5a7ce947e074836674a6480030",
         "state": "STOPPED/RELEASED; integrated ase11c68a; decimal fix independently passed"
       },
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883049425"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883049425",
+      "wipCheckpoint": {
+        "sha": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d",
+        "state": "RUNNING; read-only root review, not released",
+        "url": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883237684"
+      }
     }
   ],
   "board": {
@@ -92,7 +96,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6883099156"
+    "lastReadCommentId": "6883290937"
   },
   "currentSlice": "Robertson disability-access workspace, simulated upload, collection concept and route explorer; final integration and Vincent hosting pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -278,10 +282,10 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "B HTTP stress, then website integration/hosting",
-      "C interaction/responsive stress",
-      "D independent planning stress",
-      "Root fixes, serialized merges, archived branch cleanup and final hosted verification"
+      "B collection robot, then final Vincent-account hosting",
+      "C independent integrated upload and survey QA",
+      "D route and evidence explorer",
+      "Root source review, integration, backup, serialized merge and hosted verification"
     ]
   },
   "historicalR2Developers": [
@@ -410,5 +414,5 @@
     "applicationTests": 676,
     "state": "merged local product; final stress/hosting requested by user"
   },
-  "hostingAuthority": "Oliver explicitly selected Vincent’s hosting account (board6882804873). B confirmed scope vzhu08 and no existing linked Curb project; exact project/team and post-stress base required before deployment. No paid upgrades or spending."
+  "hostingAuthority": "Oliver explicitly selected Vincent\u2019s hosting account (board6882804873). B confirmed scope vzhu08 and no existing linked Curb project; exact project/team and post-stress base required before deployment. No paid upgrades or spending."
 }
