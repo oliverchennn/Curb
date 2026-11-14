@@ -1,0 +1,57 @@
+.map {
+  display: grid;
+  gap: 8px;
+  color: #173d35;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.map figure {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.map figcaption {
+  font-size: 0.85rem;
+  color: #3f5d55;
+}
+
+.map figure > div {
+  display: flex;
+  gap: 6px;
+}
+
+.map figure button {
+  background: #ffffff;
+  color: #173d35;
+  border: 1px solid #b7cfc8;
+  border-radius: 9px;
+  padding: 4px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.map figure button:hover {
+  background: #eef6f3;
+}
+
+.map :focus-visible {
+  outline: 3px solid #166d62;
+  outline-offset: 3px;
+}
+
+.map small {
+  color: #3f5d55;
+}
+
+.selection {
+  margin: 0;
+  font-weight: 600;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #3f5d55;
+}
