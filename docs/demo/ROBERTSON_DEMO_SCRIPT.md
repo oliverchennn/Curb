@@ -6,11 +6,11 @@ Root revision-2 update: the user identified two omissions in the three-finding s
 
 ## Two-minute script
 
-The six timed cues include time for clicks and short pauses. Start with restored original data, an empty budget field and the normalized video paused. Route: `/curb/surveys/robertson-hall`. Cues are operator instructions; quoted paragraphs are spoken copy.
+The six timed cues include time for clicks and short pauses. Start at `/curb/upload`; choose the original Robertson Hall MOV or **Use Robertson Hall demo**. The explicitly labeled 10-second processing simulation opens the prepared survey with original data, an empty budget and the video paused. `/curb/surveys/robertson-hall` remains a direct entry when skipping the introduction. Cues are operator instructions; quoted paragraphs are spoken copy. Rehearse the timing on the final tabbed workspace.
 
-**0:00–0:18 — Show Survey replay and the site context.**
+**0:00–0:18 — Start the prepared demo; let the processing simulation open Survey replay.**
 
-> Curb helps facilities teams turn sidewalk footage into evidence they can inspect and repair choices they can discuss. For wheelchair, walker and cane users, an irregular walking surface can matter. This example uses footage supplied from outside Robertson Hall at Princeton.
+> Curb connects sidewalk footage to repair decisions for disability access. This ten-second walkthrough opens analysis prepared from our Robertson Hall clip. We can inspect the evidence, compare repair choices, and carry the unanswered questions into a facilities report.
 
 **0:18–0:36 — Play briefly; select Defect 02 to seek to 9.5 seconds.**
 

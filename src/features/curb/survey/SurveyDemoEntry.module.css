@@ -1,0 +1,39 @@
+.page { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 80px); padding-block: clamp(24px, 5vh, 64px); color: #193b2b; min-height: calc(100svh - 90px); }
+.intro h1 { margin: 16px 0 24px; font-size: clamp(40px, 4.4vw, 70px); letter-spacing: -.055em; line-height: 1.06; }
+.eyebrow { color: #80530f; text-transform: uppercase; letter-spacing: .12em; font-size: 13px; font-weight: 750; }
+.lede { font-size: clamp(18px, 1.6vw, 23px); line-height: 1.5; max-width: 570px; color: #43584c; }
+.workflow { list-style: none; padding: 0; display: grid; gap: 18px; margin: 32px 0; font-size: 18px; }
+.workflow li { display: flex; align-items: center; gap: 14px; }
+.workflow span { border: 1px solid #ced7c6; border-radius: 50%; display: grid; place-items: center; width: 38px; height: 38px; color: #80530f; font-size: 13px; font-weight: 750; }
+.caption { color: #526253; font-size: 14px; line-height: 1.5; }
+.card { min-width: 0; background: #fffdf7; border: 1px solid #ddd8c8; border-radius: 24px; padding: clamp(20px, 2.8vw, 38px); box-shadow: 0 20px 70px -36px #385b3e55; }
+.cardHeading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; color: #526253; font-size: 13px; margin-bottom: 22px; }
+.badge { background: #edf1e7; color: #315540; border-radius: 30px; padding: 6px 12px; font-weight: 700; }
+.card h2 { font-size: clamp(24px, 2.3vw, 32px); line-height: 1.15; letter-spacing: -.025em; margin: 0 0 12px; }
+.card p { line-height: 1.5; }
+.dropzone { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; padding: 22px 14px; margin: 22px 0 16px; border: 1px dashed #93a18c; border-radius: 14px; background: #f7f8f0; position: relative; }
+.dragging { border: 2px solid #236747; background: #e9f1e4; }
+.uploadIcon { font-size: 30px; width: 46px; height: 46px; border: 1px solid #d2dcca; border-radius: 12px; }
+.fileInput { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; clip-path: inset(50%); overflow: hidden; }
+.fileInput:focus-visible + .fileLabel { outline: 3px solid #8a5606; outline-offset: 4px; }
+.fileInput:disabled + .fileLabel { opacity: .55; cursor: progress; }
+.fileLabel { padding: 12px 20px; border: 1px solid #315540; border-radius: 8px; background: #fffdf7; font-weight: 700; cursor: pointer; }
+.primary { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 12px; background: #1b4532; min-height: 48px; font-weight: 650; }
+.primary:disabled { opacity: .55; cursor: progress; }
+.secondary { color: #1b4532; background: transparent; border: 1px solid #a7b5a2; min-height: 44px; }
+.secondary:hover { background: #edf1e7; }
+.skip { display: inline-block; min-height: 44px; padding-block: 10px; font-size: 14px; text-underline-offset: 4px; }
+.error { color: #882d1f; background: #fff1e9; padding: 12px; border-radius: 8px; }
+.filename { overflow-wrap: anywhere; color: #526253; }
+.processing { display: flex; gap: 20px; align-items: center; margin-block: 22px; }
+.processing img { width: 96px; height: 146px; object-fit: cover; border-radius: 12px; }
+.processing > div { min-width: 0; flex: 1; }
+.processing label { font-size: 14px; }
+.simulation { font-size: 13px; color: #80530f; font-weight: 650; }
+.processing progress { width: 100%; display: block; height: 9px; margin-top: 12px; accent-color: #2b6a4d; }
+.stages { display: grid; gap: 14px; list-style: none; padding: 0; margin-block: 24px; }
+.stages li { display: flex; gap: 12px; align-items: center; color: #526253; }
+.stages span { width: 28px; font-size: 13px; font-weight: 750; }
+.stages [aria-current] { font-weight: 750; color: #193b2b; }
+@media (max-width: 760px) { .page { grid-template-columns: minmax(0, 1fr); gap: 24px; } .intro h1 { font-size: 42px; } .workflow { display: none; } .intro .caption { display: none; } .processing { gap: 12px; } .processing img { width: 72px; height: 110px; } }
+@media (prefers-reduced-motion: reduce) { .page * { animation: none !important; transition: none !important; } }

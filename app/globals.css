@@ -57,7 +57,7 @@ button:hover {
 
 body > header,
 main {
-  max-width: 1200px;
+  max-width: 1680px;
   margin: auto;
   padding-inline: clamp(16px, 4vw, 42px);
 }
@@ -78,6 +78,8 @@ body > header nav a:hover { text-decoration: underline; }
 @media (max-width: 500px) { body > header nav { gap: 12px; font-size: 12px; } }
 
 .brand {
+  white-space: nowrap;
+  flex-shrink: 0;
   color: inherit;
   font-size: 18px;
   font-weight: 700;

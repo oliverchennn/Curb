@@ -23,10 +23,10 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
   const resumeTimeRef = useRef(0);
   const [time, setTime] = useState(0);
   const [picture, setPicture] = useState<Rect>({ left: 0, top: 0, width: 0, height: 0 });
-  const [mode, setMode] = useState<'live' | 'annotated'>('live');
+  const [mode, setMode] = useState<'original' | 'live' | 'annotated'>('live');
   const [mediaError, setMediaError] = useState<string | null>(null);
   const { media } = survey;
-  const src = mode === 'live' ? media.src : media.annotatedSrc;
+  const src = mode === 'annotated' ? media.annotatedSrc : media.src;
 
   // Keep the overlay in the displayed picture's coordinate system.
   useLayoutEffect(() => {
@@ -88,7 +88,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
 
   useEffect(() => setMediaError(null), [src]);
 
-  function switchMode(next: 'live' | 'annotated') {
+  function switchMode(next: 'original' | 'live' | 'annotated') {
     if (next === mode) return;
     resumeTimeRef.current = videoRef.current?.currentTime ?? time;
     setMode(next);
@@ -113,15 +113,21 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
       <h2 id="survey-video-heading">Survey replay</h2>
       <div className={styles.segmented} role="group" aria-label="Video version">
         {/* Accessible names begin with the visible words (WCAG 2.5.3 Label in Name). */}
-        <button type="button" aria-label="Review: live overlay" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Review</button>
-        <button type="button" aria-label="Annotated: pre-rendered video" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
+        <button type="button" aria-label="Original: footage without boxes" aria-pressed={mode === 'original'} onClick={() => switchMode('original')}>Original</button>
+        <button type="button" aria-label="Review: editable finding overlays" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Review</button>
+        <button type="button" aria-label="Annotated: exported video preview" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
       </div>
     </div>
+    <p className={styles.small}>
+      {mode === 'original' ? 'Original footage · no boxes. Inspect the surface yourself.'
+        : mode === 'live' ? 'Interactive review · selection and review edits change these overlays.'
+          : 'Export preview · the original finding labels are permanently rendered into this video.'}
+    </p>
     <div ref={frameRef} className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
       <video key={src} ref={videoRef} className={styles.video} src={src} poster={media.posterSrc} controls playsInline preload="metadata"
         aria-describedby="survey-video-note"
         onLoadedMetadata={(event) => { event.currentTarget.currentTime = resumeTimeRef.current; setTime(resumeTimeRef.current); }}
-        onError={() => setMediaError(`The ${mode === 'live' ? 'survey' : 'annotated'} video could not be loaded. Reload the page, or download the original MOV from Export report.`)} />
+        onError={() => setMediaError(`The ${mode === 'annotated' ? 'annotated' : 'survey'} video could not be loaded. Reload the page, or download the original MOV from Export report.`)} />
       <div className={styles.overlay} aria-hidden="true">
         {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} selected={finding.id === selectedFindingId} />)}
         {visible.map(({ finding }) => {
@@ -135,7 +141,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     </div>
     {mediaError ? <p role="alert" className={styles.inlineError}>{mediaError}</p> : null}
     <p id="survey-video-note" className={styles.small}>
-      {mode === 'live'
+      {mode === 'original' ? `${formatTime(time)} · Original Robertson Hall survey. Switch to Review to inspect the proposed findings.` : mode === 'live'
         ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Dashed boxes await review. A missing box does not mean there is no defect.`
         : edited
           ? 'This pre-rendered video shows the original analysis. Your review edits are not burned into it; the JSON and PDF exports carry them.'

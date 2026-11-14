@@ -19,6 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <span aria-hidden="true" className="brandMark">c</span> Curb
           </Link>
           <nav aria-label="Main navigation">
+            <Link href="/curb/upload">Upload demo</Link>
             <Link href="/curb/surveys/robertson-hall">Survey workspace</Link>
             <Link href="/curb/plans">Sample network</Link>
           </nav>
