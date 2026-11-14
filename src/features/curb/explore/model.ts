@@ -86,11 +86,11 @@ export function locatedFeatures(a: Atlas, records: EvidenceRecord[]) {
 export const traversalText = (_collection: Collection) => 'Current traversal: Unknown';
 export const project = ([lon, lat]: [number, number]) => [(lon + 74.6597) * Math.cos(40.35 * Math.PI / 180) * 100000, (40.3502 - lat) * 100000] as [number, number];
 export function vertices(f: Feature) { return f.geometry?.type === 'Point' ? [f.geometry.coordinates] : f.geometry?.coordinates ?? []; }
-export function fitFeatures(features: Feature[]): [number, number, number, number] {
+export function fitFeatures(features: Feature[], pad = 55, min = 65): [number, number, number, number] {
   const points = features.flatMap(vertices).map(project);
   if (!points.length) return [-100, -160, 230, 260];
   const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-  const w = Math.max(65, Math.max(...xs) - Math.min(...xs) + 55), h = Math.max(65, Math.max(...ys) - Math.min(...ys) + 55);
+  const w = Math.max(min, Math.max(...xs) - Math.min(...xs) + pad), h = Math.max(min, Math.max(...ys) - Math.min(...ys) + pad);
   return [(Math.max(...xs) + Math.min(...xs) - w) / 2, (Math.max(...ys) + Math.min(...ys) - h) / 2, w, h];
 }
 

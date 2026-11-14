@@ -28,7 +28,7 @@ export function RecordCard({ atlas, record, comparison = false, stop, hidePhoto 
   // Root's survey deep link: validated canonical finding ID from the field record's feature.
   const reviewHref = record.kind === 'field' && feature.sourceFeatureId ? `/curb/surveys/robertson-hall?finding=${encodeURIComponent(feature.sourceFeatureId)}` : '/curb/surveys/robertson-hall';
   return <article className={comparison ? styles.comparisonCard : styles.recordCard} data-record={record.id}>
-    <span className={styles.provenance} data-kind={record.kind}>{kindLabels[record.kind]}</span>{stop !== undefined && <span className={styles.stopTag}>{record.kind === 'field' ? 'Frame' : 'Stop'} {String(stop).padStart(2, '0')} · source order</span>}
+    <span className={styles.provenance} data-kind={record.kind}>{kindLabels[record.kind]}</span>{stop !== undefined && <span className={styles.stopTag}>{record.kind === 'field' ? 'Record' : 'Stop'} {String(stop).padStart(2, '0')} · source order</span>}
     <h3>{record.title}</h3>
     <p className={styles.featureKey}>{feature.id}</p>
     {!hidePhoto && <Snapshot key={record.id} record={record} feature={feature} />}
