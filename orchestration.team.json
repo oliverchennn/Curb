@@ -48,22 +48,24 @@
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-UI-QA/1",
-      "branch": "codex/robertson-ui-qa",
-      "state": "STOPPED / RELEASED; CSS and QA integrated",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877899282",
-      "scope": "No active product scope; root owns released CSS"
+      "task": "ROBERTSON-UI-CORRECTIONS/1",
+      "branch": "codex/robertson-ui-corrections",
+      "state": "READY; awaiting exact-base ACK",
+      "scope": "docs/demo/ROBERTSON_UI_CORRECTIONS.md only; product read-only",
+      "baseSha": "f960df5c17db51947529e08374c4bc4dc1440c89",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252"
     },
     {
       "lane": "D",
       "name": "Oliver / existing cloud chat",
       "github": "oliverchennn",
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "task": "ROBERTSON-FIVE-MEDIA-REVIEW/1",
-      "branch": "codex/robertson-five-media-review",
-      "state": "STOPPED / RELEASED; expanded media review integrated",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877806264",
-      "scope": "No active write scope; corrective media review queued"
+      "task": "ROBERTSON-MEDIA-CORRECTIONS/1",
+      "branch": "codex/robertson-media-corrections",
+      "state": "READY; awaiting exact-base ACK",
+      "scope": "docs/demo/ROBERTSON_MEDIA_CORRECTIONS.md only; product/media read-only",
+      "baseSha": "f960df5c17db51947529e08374c4bc4dc1440c89",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252"
     }
   ],
   "board": {
@@ -71,7 +73,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6878016797"
+    "lastReadCommentId": "6878074252"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -363,7 +365,7 @@
     }
   ],
   "historicalHandoff": {
-    "state": "published-awaiting-successor-ACK",
+    "state": "Historical snapshot only; superseded by current coordinator and developers above",
     "authorizedBy": "Vincent: pass orchestration to oliver, then stop this chat",
     "outgoingSession": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
     "incomingCoordinator": {

@@ -114,6 +114,7 @@
 .steps { position: sticky; top: 8px; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; border-radius: 999px; justify-self: start; }
 .steps a { padding: 8px 16px; border-radius: 999px; color: var(--forest); font-size: 15px; font-weight: 750; text-decoration: none; }
 .steps a:hover { background: var(--forest-tint); }
+.workspace h2[id] { scroll-margin-top: 84px; }
 .stepNumber { display: inline-grid; place-items: center; width: 36px; height: 36px; margin-right: 10px; border-radius: 50%; background: var(--forest); color: #fff; font-size: 17px; vertical-align: 3px; box-shadow: 0 0 0 4px var(--forest-tint); }
 
 /* ---------- Solid reading surfaces ---------- */
