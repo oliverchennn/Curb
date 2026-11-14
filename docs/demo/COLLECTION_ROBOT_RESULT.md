@@ -25,7 +25,7 @@ The page connects collect footage → review proposed findings → plan repairs.
 
 ## Verification
 
-On November 14, Linux Node `v24.22.1`, locked `npm ci` succeeded. **`npm run check` exited 0: typecheck, 687 tests in 24 files, and production build.** The four new semantic tests cover bounded/non-finite timeline inputs, wheel rolling and backward/replay consistency, exact capture boundaries, and speed/end behavior. The initial restricted sandbox blocked Next's subprocess; the same command passed outside that restriction. [Full check log](../../public/curb/collection/verification/check.log).
+On November 14, Linux Node `v24.22.1`, locked `npm ci` succeeded. **`npm run check` exited 0: typecheck, 687 tests in 24 files, and production build.** The four new semantic tests cover bounded/non-finite timeline inputs, wheel rolling and backward/replay consistency, exact capture boundaries, and speed/end behavior. The initial restricted sandbox blocked Next's subprocess; the same command passed outside that restriction. [Full check log](../../public/curb/collection/verification/check.log), with terminal progress whitespace normalized for Git.
 
 Production server: `npm run start -- --port 3001`. Browser: installed Chromium 156, ANGLE SwiftShader software WebGL. These are rendered 3D tests, separate from the explicit fallback checks.
 
