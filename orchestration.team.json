@@ -27,7 +27,7 @@
       "lane": "C",
       "agent": "agent-c",
       "name": "Landau",
-      "github": landautzou,
+      "github": "landautzou",
       "focus": "UI, accessibility, demo"
     }
   ],
