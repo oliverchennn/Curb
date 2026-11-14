@@ -1,13 +1,13 @@
 # Current production verification and visual upgrade queue
 
-The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merges the completed hardening work while those disjoint tasks proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
+The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merged PR8 at bfd8826; the disjoint visual tasks now proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
 
 | Owner | Current scope | State |
 | --- | --- | --- |
-| Root | PR8, accepted audits/fixes, backend/shared files, archives and integration | Running; hardening checks passed, merge pending |
-| B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | READY 6885539290; graphics addendum 6885549275; actual ACK on board |
+| Root | Replay layout/banner removal, backend/shared files, PR review, archives and integration | Running; PR8 merged and archived |
+| B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | ACK/RUNNING 6885609474; graphics addendum 6885549275 |
 | C / Landau | EXPLORER-DESIGN-V2/1: independent design critique and comparison, only EXPLORER_UPGRADE_PROPOSAL.md | READY 6885550039; design first, implementation after synthesis |
-| D / Oliver cloud | No active scope | Stopped |
+| D / Oliver cloud | BUDGET-CLARITY-V2/1: survey plan presentation and synthetic budget-page explanation | ACK/RUNNING 6885605644; exact disjoint paths in assignment 6885586935 |
 
 Both new tasks start from exact `2fb49f710085732a7ac20f63680925b8db06dba5` in isolated branches. B owns the collection paths listed in its assignment. C has design-document ownership only. No product changes outside those scopes, no paid actions, no duplicate writers. All previous hosted audit and candidate regression reports are STOPPED/RELEASED and integrated. Final feature deployment is assigned to Vincent only after root acceptance and exact merge. Historical tables below are history, not current assignments.
 

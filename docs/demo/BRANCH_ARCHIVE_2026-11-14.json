@@ -454,6 +454,21 @@
           ]
         }
       ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:06:33.907696+00:00",
+      "reason": "PR8 reviewed, both CI runtimes passed on exact e36b2a2 head, merged as bfd8826; remote exact archive tag verified before deleting completed hardening branch. New visual upgrade branches remain active.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/production-hardening",
+          "sha": "e36b2a274eecd4c87a2178db0afca1303d28768a",
+          "archiveTag": "archive/2026-11-14/codex/production-hardening",
+          "mergedIntoMain": "bfd8826ea157991514cefc91a9a89cd90a86d187"
+        }
+      ]
     }
   ]
 }
