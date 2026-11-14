@@ -58,17 +58,24 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
 
     {planError ? <p role="alert" className={styles.inlineError}>{planError}</p> : <div className={styles.planGrid}>
       {plans.map((plan) => <PlanCard key={plan.id} survey={survey} plan={plan} selected={plan.id === selectedPlanId}
-        highlightAreaId={selectedArea?.id ?? null} onSelect={() => onSelectPlan(plan.id)} />)}
+        highlightAreaId={selectedArea?.id ?? null}
+        selectedExcluded={selectedFindingId !== null && plan.excludedFindingIds.includes(selectedFindingId)}
+        onSelect={() => onSelectPlan(plan.id)} />)}
     </div>}
     <p className={styles.small}>Route impact for every plan: unknown. {survey.routeAssessment.note}</p>
   </section>;
 }
 
-function PlanCard({ survey, plan, selected, highlightAreaId, onSelect }: {
+function plural(count: number, one: string) {
+  return `${count} ${one}${count === 1 ? '' : 's'}`;
+}
+
+function PlanCard({ survey, plan, selected, highlightAreaId, selectedExcluded, onSelect }: {
   survey: Survey;
   plan: RepairPlan;
   selected: boolean;
   highlightAreaId: string | null;
+  selectedExcluded: boolean;
   onSelect: () => void;
 }) {
   const { cost, coverage } = plan;
@@ -81,14 +88,25 @@ function PlanCard({ survey, plan, selected, highlightAreaId, onSelect }: {
       {formatCentsRange(cost.lowCents, cost.highCents)}
       <span>{cost.isComplete ? 'estimated range' : 'partial — known items only'}</span>
     </p>
-    {!cost.isComplete ? <p className={styles.quoteNote}>Needs a quote: {cost.unpricedItems.map((id) => labelForId(survey, id)).join(', ')}</p> : null}
-    {plan.budgetCents !== null ? <p className={styles[`fit_${plan.budgetFit}`]}>{BUDGET_FIT_LABELS[plan.budgetFit]} · {formatCents(plan.budgetCents)}</p> : null}
+    {!cost.isComplete ? <div className={styles.quoteNote}>
+      <strong>Not in the total — needs a quote ({cost.unpricedItems.length}):</strong>
+      <ul className={styles.plainList}>{cost.unpricedItems.map((item) => <li key={item}>{labelForId(survey, item)}</li>)}</ul>
+    </div> : null}
+    {plan.budgetCents !== null ? <p className={styles[`fit_${plan.optionIds.length === 0 ? 'not_set' : plan.budgetFit}`]}>
+      {plan.optionIds.length === 0 ? 'No priced repair fits this budget' : BUDGET_FIT_LABELS[plan.budgetFit]} · {formatCents(plan.budgetCents)}
+    </p> : null}
     {highlightAreaId !== null ? <p className={includesSelected ? styles.tagIn : styles.tagOut}>
-      {includesSelected ? 'Includes the selected evidence’s work area' : 'Does not include the selected evidence’s work area'}
+      {includesSelected
+        ? 'Includes the selected evidence’s work area'
+        : selectedExcluded
+          ? 'Selected finding is rejected, so its work area is excluded'
+          : plan.deferredWorkAreaIds.includes(highlightAreaId)
+            ? 'Defers the selected evidence’s work area'
+            : 'Does not include the selected evidence’s work area'}
     </p> : null}
     <dl className={styles.facts}>
       <div><dt>Areas covered</dt><dd>High {coverage.high} · Medium {coverage.medium} · Low {coverage.low} · Unassessed {coverage.unassessed}</dd></div>
-      <div><dt>Durability</dt><dd>{plan.durability} of 3</dd></div>
+      <div><dt>Durability</dt><dd>{plan.durability} total across {plural(treatments.length, 'repair')} (each option rated 0–3)</dd></div>
     </dl>
     {treatments.length === 0 ? <p className={styles.small}>No repairs selected.</p> : <ul className={styles.plainList}>
       {treatments.map((treatment) => <li key={treatment.id} className={treatment.workAreaId === highlightAreaId ? styles.highlightItem : undefined}>
