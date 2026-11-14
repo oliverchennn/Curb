@@ -1,8 +1,8 @@
 # Visual upgrade integration gates
 
-Root integrates only published, STOPPED/RELEASED work onto main after PR9 (`16f5444ace90422cac3ef32548ec35b9bed9fc1f`). B, C and D have disjoint scopes. B/D retain their assigned base `2fb49f7`; C implementation starts from main `16f5444`. The current public deployment is still `b010ad0`. User-selected browser for root acceptance is Chrome.
+The [merge owner](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886029469) (chat `01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5`) integrates published, released work in PR10 after PR9 (`16f5444ace90422cac3ef32548ec35b9bed9fc1f`). B, C and D have disjoint scopes. B/D retain their assigned base `2fb49f7`; C implementation starts from main `16f5444`. The current public deployment is still `b010ad0`. Integrated browser acceptance uses Chrome.
 
-| Change | Independent evidence to review | Root integrated acceptance |
+| Change | Independent evidence to review | Integrated acceptance |
 | --- | --- | --- |
 | B: rover inspection and graphics | Deterministic route/stop/capture tests; three visual passes; actual camera-feed screenshots; context/lifecycle results | Freeze a capture and switch all three feeds: same time/defect, distinct camera poses, visible modeled crack. Auto/manual inspection, backward seek, replay, static fallback, 390px controls and a complete demo run. |
 | C: explorer redesign | Independent proposal compared with root list, then explicitly assigned implementation and browser report | Select known geometry and matching record; inspect real unplaced photo without a pin; retain equal conflicting examples; manual demo sequence, keyboard, URL restoration, empty filters, 390px and offline assets. |
