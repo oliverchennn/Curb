@@ -2,7 +2,7 @@
 
 Curb helps campus facilities teams turn sidewalk evidence into disability-access repair priorities and budget options.
 
-The Robertson Hall pilot uses an actual 14-second phone video, five AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
+The Robertson Hall pilot uses an actual 14-second phone video, five AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**, with a sticky video beside the three workspace tabs on desktop. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
 
 ## Run locally
 
@@ -14,7 +14,9 @@ npm run check
 npm run start
 ```
 
-Open `http://127.0.0.1:3000/`. The home page opens `/curb/surveys/robertson-hall`. For development use `npm run dev`; for a different port use `npm run start -- --port 3004`. The production build and committed media/data work with local loopback access and no venue internet. Opening an external source reference requires internet; playback, calculations and exports do not.
+Open `http://127.0.0.1:3000/`. The home page opens `/curb/upload`: choose the supplied Robertson Hall MOV or its prepared MP4, or use the bundled demo. A visibly labeled ten-second processing simulation then opens the prepared findings. File identity is checked locally; arbitrary clips do not receive Robertson's findings, and no live AI analysis or file upload occurs. `/curb/surveys/robertson-hall` opens the workspace directly.
+
+For development use `npm run dev`; for a different port use `npm run start -- --port 3004`. The production build and committed media/data work with local loopback access and no venue internet. Opening an external source reference requires internet; playback, calculations and exports do not.
 
 `npm run check` runs TypeScript, Vitest and the production Next.js build. Run `npm run test:replay` for the separate synthetic replay regressions. `npm run verify:media` verifies committed media hashes, decoded frames, color metadata and track agreement; this optional media audit requires `ffprobe` on PATH.
 
@@ -25,7 +27,9 @@ Open `http://127.0.0.1:3000/`. The home page opens `/curb/surveys/robertson-hall
 - AI proposals and every tracked frame: `src/data/curb/surveys/robertson-analysis.json` and `robertson-tracks.json`.
 - Video preparation and local map rendering: `scripts/curb/`. See the [media provenance and reproduction notes](public/curb/surveys/robertson-hall/README.md).
 
-Accept, reject or correct a finding in the workspace, and supply a reviewer and rationale for priority changes. Edits remain in the current browser session; download the updated JSON to keep them. PDF, self-contained HTML and CSV exports reflect the current review. HTML includes semantic navigation, original Unicode text and embedded evidence photos; the PDF is untagged. The downloadable annotated MP4 is a fixed rendering of the original analysis and does not incorporate subsequent browser edits. Rebuilding a manifest with the Python script overwrites authored edits; preserve them first.
+Accept, reject or correct a finding in the workspace, and supply a reviewer and rationale for priority changes. Edits survive workspace tab switches but remain in the current open page; download the updated JSON before reloading or leaving it. PDF, self-contained HTML and CSV exports reflect the current review. HTML includes semantic navigation, original Unicode text and embedded evidence photos; the PDF is untagged.
+
+The video offers three views: **Original** plays clean footage, **Review** draws editable overlays at the playhead, and **Annotated** previews the downloadable MP4 with burned-in labels. Switching views preserves the evidence time after media metadata loads. The annotated MP4 is a fixed rendering of the original analysis and does not incorporate subsequent browser edits. Rebuilding a manifest with the Python script overwrites authored edits; preserve them first.
 
 With the production server running, `npm run verify:flow -- http://127.0.0.1:3004` checks the real API and saves three PDF/HTML report variants in ignored `.curb-local/release/` for inspection. `scripts/curb/build_backup.py` assembles a two-minute offline walkthrough from actual captured app screens and the full annotated clip; it requires the documented screenshots and does not simulate a live session.
 
