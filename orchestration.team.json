@@ -40,18 +40,25 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "R2-CONTRACT/1",
+      "task": "R2-A/1",
       "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-r2-contract-api\\Curb",
       "branch": "codex/r2-contract-api",
-      "baseSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864",
-      "resultSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18",
-      "currentAvailability": "R2-CONTRACT accepted/stopped/released; ready for exact R2-A assignment",
+      "baseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730",
+      "resultSha": null,
+      "currentAvailability": "Running; ACK 6875927241; lead server plus one native Sol/xhigh transport child",
       "previousResult": {
-        "task": "F2/1 and M-DEV/1 verified; stopped/released",
-        "resultSha": "fc12e86c85394ab8126db1be485aaf0e7845c087"
+        "task": "R2-CONTRACT/1 accepted; stopped/released",
+        "resultSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18"
       },
-      "writeScope": []
+      "writeScope": [
+        "app/api/curb/plan-scenario/route.ts",
+        "app/api/curb/plan/route.ts",
+        "src/server/curb/plans.ts",
+        "src/client/curb/fetchPlan.ts",
+        "tests/integration/server/plans.test.ts",
+        "tests/integration/client/fetchPlan.test.ts"
+      ]
     },
     {
       "lane": "B",
@@ -60,7 +67,7 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "Confirmed available at 6875771475; approved domain route-set scope; awaiting exact R2-B assignment/ACK",
+      "availability": "Running; ACK 6875922042; two native Sol/xhigh children for disjoint domain and data scopes",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -76,12 +83,21 @@
         "resultSha": "a0837c0edbfe973d0fb658b187984e53cde80ed2"
       },
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "checkout": "/workspace/curb-dev-b",
-      "branch": "codex/dev-b-ready",
-      "task": null,
-      "writeScope": [],
+      "checkout": "/workspace/curb-b-r2",
+      "branch": "codex/r2-domain",
+      "task": "R2-B/1",
+      "writeScope": [
+        "src/domain/curb/plans.ts",
+        "src/domain/curb/plans.test.ts",
+        "src/domain/curb/trips.ts",
+        "src/domain/curb/trips.test.ts",
+        "src/data/curb/plan-demo.json",
+        "src/data/curb/plan-demo.test.ts"
+      ],
       "readinessBase": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612",
-      "instructions": "docs/message-board/DEV_B_CONTINUATION.md"
+      "instructions": "docs/message-board/DEV_B_CONTINUATION.md",
+      "baseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730"
     },
     {
       "lane": "C",
@@ -106,9 +122,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6875818820"
+    "lastReadCommentId": "6875927241"
   },
-  "currentSlice": "R2-selected; contract accepted/frozen; implementation assignments follow published common base",
+  "currentSlice": "R2 implementation: A/B running from frozen common base; C readiness pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -125,7 +141,7 @@
       "assignment": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864",
       "contractSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18",
       "reviewedMergeSha": "ad5e26340a9e25034d126313f2b02f38e57bda5a",
-      "implementationBase": "Published freeze SHA in next live-board assignment"
+      "implementationBaseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d"
     }
   },
   "delegation": {
