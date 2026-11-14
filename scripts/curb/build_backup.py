@@ -63,10 +63,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--captures', type=Path, default=ROOT/'.curb-local/release/screenshots')
     parser.add_argument('--output', type=Path, default=ROOT/'.curb-local/release/curb-offline-walkthrough.mp4')
+    parser.add_argument('--collection-recording', type=Path,
+                        help='Optional actual browser recording to replace the collection still.')
     args = parser.parse_args()
     ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
     clip = ROOT/'public/curb/surveys/robertson-hall/annotated.mp4'
-    inputs = [clip if name == '@video' else args.captures/name for name, *_ in STEPS]
+    inputs = [clip if name == '@video' else
+              args.collection_recording if name == 'walkthrough-08-collection.jpg' and args.collection_recording else
+              args.captures/name for name, *_ in STEPS]
     missing = [str(p) for p in inputs if not p.is_file()]
     if missing:
         raise SystemExit('Capture or provide these real inputs first: ' + ', '.join(missing))
@@ -78,7 +82,8 @@ def main():
             canvas = background(title, caption)
             frame = temp/f'{index}.png'
             output = temp/f'{index}.mp4'
-            if name != '@video':
+            is_video = name == '@video' or (name == 'walkthrough-08-collection.jpg' and args.collection_recording)
+            if not is_video:
                 with Image.open(source) as screenshot:
                     screenshot = screenshot.convert('RGB')
                     screenshot.thumbnail((1472, 920), Image.Resampling.LANCZOS)
@@ -88,7 +93,7 @@ def main():
             else:
                 canvas.save(frame)
                 command = [ffmpeg, '-y', '-loglevel', 'error', '-loop', '1', '-framerate', str(FPS), '-i', str(frame), '-i', str(source),
-                           '-filter_complex', '[1:v]scale=-2:920,tpad=stop_mode=clone:stop_duration=1[clip];[0:v][clip]overlay=(W-w)/2:16:shortest=1']
+                           '-filter_complex', '[1:v]scale=1472:920:force_original_aspect_ratio=decrease:force_divisible_by=2,tpad=stop_mode=clone:stop_duration=1[clip];[0:v][clip]overlay=(W-w)/2:(952-h)/2:shortest=1']
             command += ['-t', str(duration), '-r', str(FPS), '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', '-pix_fmt', 'yuv420p', str(output)]
             subprocess.run(command, check=True)
             segments.append(output)
