@@ -1,5 +1,19 @@
 # Acceptance and evidence
 
+## Verified F2 checkpoint
+
+Application SHA: `fc12e86c85394ab8126db1be485aaf0e7845c087`. [F2 report](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873216551); [coordinator acceptance](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873224948). All source writers/children stopped and released. Final main publication (including completion docs) is recorded on the live board.
+
+- Locked `npm ci` passed at 2026-11-14 06:30:16 UTC; `npm run check` passed at 06:30:55: TypeScript, 53/53 tests across four files, Next.js production build. The sole F2 source edit adds `--webpack` to the dev script; no dependency/lock/schema changes. Plain `npm run dev` was observed working.
+- Chrome 156.0.8078.74, production server on `127.0.0.1:3000`, verified at 06:34:25–06:34:31 UTC through actual headless Playwright browser interaction. Real API sample/empty/404, map and destinations, every mouse/keyboard barrier selection, ordered linked evidence/review status, deselection, two resets and refresh passed.
+- Empty UI was exercised by rerouting to the real empty API. Controlled held requests, malformed JSON/schema/counts, network failure and long notes were browser-only injections; recovery returned to the real sample. Navigation away aborted a held request; no overlapping-reset race was claimed because reset is disabled while loading.
+- At 390px width, keyboard focus was visible and an 850-character note wrapped without horizontal overflow. Reviewed desktop and narrow screenshots. No page errors, unexpected normal-flow network errors or external requests; nine loaded client chunks were checked for server/provider/fixture markers.
+- First browser run stopped on `/favicon.ico` 404. The optional missing icon was identified and recorded separately; the rerun passed without hiding other network/console errors. No source correction was needed.
+
+Local evidence: A's F2 checkout `.curb-local/f2/browser-check.mjs`, `browser-evidence.json`, first-run evidence, install/check logs and screenshots. These ignored artifacts are not committed or uploaded. Known limits: list-first schematic selection, missing favicon, no screen-reader/deployment/field verification, and a never-resolving request has no client timeout. No legal compliance, safe navigation or observed repair outcome is claimed.
+
+This establishes the foundation gate only. Feature dispatch stops for Vincent's next-slice choice.
+
 ## F0 readiness gate
 
 - Pinned kit `web` + `maps` imported without overwriting the coordination package or Git history.

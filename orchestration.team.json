@@ -16,11 +16,12 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "F1A/1 running",
-      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f1a-api\\Curb",
-      "branch": "codex/f1a-api",
-      "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872874560"
+      "task": "F2/1 and M-DEV/1 verified; stopped/released",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f2-foundation\\Curb",
+      "branch": "codex/f2-foundation",
+      "baseSha": "bcbd3aa93e573f512baf96d5960cf049288adc10",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6873087590",
+      "resultSha": "fc12e86c85394ab8126db1be485aaf0e7845c087"
     },
     {
       "lane": "B",
@@ -36,15 +37,13 @@
         "github": "vzhu08",
         "session": "01a1d853-781e-7ce1-9082-ac04a68d3782",
         "hostId": "local",
-        "state": "F1B/1 running",
-        "writeScope": [
-          "src/domain/curb/",
-          "src/data/curb/"
-        ],
+        "state": "F1B verified; stopped/released",
+        "writeScope": [],
         "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f1b-domain\\Curb",
         "branch": "codex/f1b-domain",
         "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
-        "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875115"
+        "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875115",
+        "resultSha": "a0837c0edbfe973d0fb658b187984e53cde80ed2"
       }
     },
     {
@@ -54,13 +53,14 @@
       "github": "landautzou",
       "focus": "UI, accessibility, demo",
       "access": "accepted-write",
-      "readiness": "F1C/1 running",
+      "readiness": "F1C verified; stopped/released",
       "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221",
       "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb-f1c-screen",
       "modelException": "Vincent permits existing Claude Code session",
       "branch": "codex/f1c-screen",
       "baseSha": "313395308c26791ef8f9fd37a2d0fb72e441e9b7",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875811"
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872875811",
+      "resultSha": "6fc3ccdd00229ab1a615174a8caa6d2eb526fb79"
     }
   ],
   "board": {
@@ -68,10 +68,10 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6872922294"
+    "lastReadCommentId": "6873224948"
   },
-  "currentSlice": "foundation",
-  "verifiedFoundationSha": null,
+  "currentSlice": "foundation-verified-awaiting-next-choice",
+  "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
     "status": "frozen"

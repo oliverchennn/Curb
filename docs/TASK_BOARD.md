@@ -1,21 +1,19 @@
-# Foundation task board â€” snapshot
+# Foundation task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work; this file is a snapshot, not a lock. Cursor: `6872922294`. [Session checkpoint](message-board/KICKOFF.md).
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Cursor: `6873224948`. No active application writers or feature assignments.
 
-F0 result: `7e56583774b9723a6ce8b6c25def915c08e76217`. Integration checkpoint: `d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1`, independently passed install, typecheck, 23 tests and production build. `curb-v0` is frozen in [CONTRACTS](CONTRACTS.md). All F1 lanes ACKed common published and fully checked base `313395308c26791ef8f9fd37a2d0fb72e441e9b7`; no lane may substitute a different base.
+**Foundation F0 → F1A/F1B/F1C → F2 is verified. Stop feature dispatch for Vincent's next-slice choice.** Browser/full-check application SHA: `fc12e86c85394ab8126db1be485aaf0e7845c087`. Final main publication SHA is recorded on the board after this documentation checkpoint. [Acceptance evidence](ACCEPTANCE.md).
 
-| ID | Visible result | Owner | State / gate | Card |
-|---|---|---|---|---|
-| F0 | Reproducible web+maps skeleton, schemas, fixtures, compiling seams | Vincent / separate agent-a | Verified on main; child stopped; scope released in comment 6872873873 | [F0](tasks/F0.md) |
-| F1A | Validated real API and browser transport | Vincent / agent-a | Running; ACK 6872907300 | [F1A](tasks/F1A.md) |
-| F1B | Correct relationships, counts, evidence lookup and fixtures | Vincent / agent-b-temp, covering unavailable Oliver | Running; ACK 6872922294 | [F1B](tasks/F1B.md) |
-| F1C | Map/list/evidence screen and load states | Landau / landautzou / Claude Code | Running; ACK 6872915352 | [F1C](tasks/F1C.md) |
-| F2 | Integrated foundation with browser walkthrough | Vincent / separate A integration agent | Blocked until reviewed F1 results and confirmed stopped writers | [F2](tasks/F2.md) |
+| ID | Owner | Result SHA | State / evidence |
+|---|---|---|---|
+| F0 | Vincent / agent-a | `7e56583774b9723a6ce8b6c25def915c08e76217` | Verified; common frozen F1 base `313395308c26791ef8f9fd37a2d0fb72e441e9b7` |
+| F1A | Vincent / agent-a | `b8b8c682b86e7594eea80d3a659ed13e0b4b2c0e` | Accepted/integrated; real API and transport; [result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873032653) |
+| F1B | Vincent / agent-b-temp for unavailable Oliver | `a0837c0edbfe973d0fb658b187984e53cde80ed2` | Accepted/integrated; 23 domain + 5 data tests; [result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873019586) |
+| F1C | Landau / landautzou / Claude Code | `6fc3ccdd00229ab1a615174a8caa6d2eb526fb79` | Accepted/integrated; screen and evidence; [final result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873069299) |
+| F2 / M-DEV | Vincent / separate A integration lead | `fc12e86c85394ab8126db1be485aaf0e7845c087` | Verified: B → A → C merges, dev-command fix, 53 tests/build and real browser; [result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873216551) |
 
-All coordinator-created workers/children use GPT-6.1 Sol / extra-high; Landau retains his approved Claude Code exception. Astra is coordinator-only. Ordinary native children only, no custom kit worker runtime.
+All leads and children stopped and released their write scopes. The loopback production preview is a process, not an active source writer or deployment. Coordinator owns the final documentation/publication only. No branch state grants a new task.
 
-Dispatch records include task/attempt, owner/login, session, full base, contract, branch/checkout, literal scopes, checks, non-goals, timebox and remote authority. Running requires ACK. Silence does not release scope. Scoped commits/pushes follow [GIT_SYNC](GIT_SYNC.md), including actual remote verification and safe checkpoints about every 15 minutes.
+Contracts stay frozen at `curb-v0`. New work requires Vincent's choice and exact coordinator assignment. R1–R5 and sponsor proposals remain unassigned. [Git sync](GIT_SYNC.md), exclusive ownership and [standing merge delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956) continue to apply.
 
-F2 integrates B â†’ A â†’ C, checks the exact candidate and records browser evidence before main publication. Orchestrator owns routine reviewed merges under [standing delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956). No status implies deployment or successful checks.
-
-Stop feature dispatch after F2. Landau's sponsor proposal is recorded for Vincent's subsequent choice; R1â€“R5 and sponsor work remain unassigned.
+All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau retains his approved Claude Code exception; Astra is coordinator-only.

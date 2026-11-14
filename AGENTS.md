@@ -1,6 +1,6 @@
 # Working on Curb
 
-Build Curb: evidence-backed accessibility repair planning for campus facilities. This repository is currently a coordination package; application bootstrap is task F0.
+Build Curb: evidence-backed accessibility repair planning for campus facilities. The foundation through F2 is verified at `fc12e86c85394ab8126db1be485aaf0e7845c087`. All application writers have stopped; read the live board and wait for Vincent's next-slice choice and an explicit assignment before new feature work. Do not restart F0.
 
 ## Read first
 
