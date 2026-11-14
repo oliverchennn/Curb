@@ -35,18 +35,18 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-MERGED-RELEASE-SMOKE/1",
-      "branch": "codex/robertson-merged-smoke",
+      "task": "ROBERTSON-DEMO-QA/1",
+      "branch": "codex/robertson-demo-qa",
       "state": "READY; awaiting ACK",
-      "scope": "docs/demo/ROBERTSON_MERGED_SMOKE.md only; product/data/media read-only",
+      "scope": "docs/demo/ROBERTSON_JUDGE_QA.md only; all other files read-only",
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879384589",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879789783",
       "baseSha": "3bcc6f63e49eae883a428c505421851db0125718",
       "previousResult": {
-        "task": "ROBERTSON-PILOT-VALIDATION/1",
-        "sha": "a6a96f7da4c5914297ddf44bb0f4a5db0c72a41e",
+        "task": "ROBERTSON-MERGED-RELEASE-SMOKE/1",
+        "sha": "660df76abb04b860a598dd7337c89792ad5c3ac2",
         "state": "STOPPED/RELEASED; reviewed and integrated in follow-up",
-        "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879168080"
+        "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879512942"
       }
     },
     {
@@ -86,7 +86,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6879384589"
+    "lastReadCommentId": "6879789783"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -272,8 +272,8 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "Root docs-only pilot packet merge",
-      "B clean Windows checkout and committed backup smoke (6879384589)"
+      "Root docs-only pilot/smoke record merge",
+      "B presenter Q&A and backup explanation (6879789783)"
     ]
   },
   "historicalR2Developers": [

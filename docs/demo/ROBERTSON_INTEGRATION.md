@@ -16,6 +16,8 @@ B's portable verifier/runbook `690bc4ffb0abca0290334444821d8b8d19c8d675` is inte
 
 The final committed backup is `public/curb/surveys/robertson-hall/demo-backup.mp4`: 120 seconds, 1600×1100 H.264, 30fps, 3,600 decoded frames, SHA-256 `fb30922f4e31f42165447230ede7955607eb152c426b1fb2cf3a64730546c20b`. Root visually checked all eight segment snapshots. It includes actual captured app states, the complete annotated clip and a report page; it is not a continuous live recording. The first capture is refreshed for C's final labels. The other unchanged views retain their actual earlier captures. The presenter still needs a live timed rehearsal; physical projector and manual assistive-technology testing remain unclaimed.
 
+B also verified the actual merged release from a clean Windows checkout: locked install and production build/start, actual final-frame evidence and HTML download, all four media hashes, server-stopped bundle verification, and offline playback of the committed backup through its final report/end. The released [smoke record](ROBERTSON_MERGED_SMOKE.md) retains commands and limits. The [pilot packet](ROBERTSON_PILOT_VALIDATION.md) is a plan for future voluntary research and professional inspection, not a claim that those sessions have occurred.
+
 ## Media and tracking review
 
 The original MOV remains byte-identical to Oliver's upload: SHA-256 `30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a`. Both MP4s decode 419 frames at 30 fps, 720 × 1280, with BT.709 primaries/transfer/matrix. No measured dimensions or individual map placements have been added.
