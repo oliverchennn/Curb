@@ -35,13 +35,13 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-ACCESSIBLE-EXPORT/1",
-      "branch": "codex/robertson-accessible-export",
-      "state": "ACK / RUNNING",
-      "scope": "Exact transferred ExportPanel/server/report paths in6877959673; no root writes",
+      "task": "ROBERTSON-EXPORT-ADVERSARIAL/1",
+      "branch": "codex/robertson-export-adversarial",
+      "state": "READY; awaiting exact-base ACK",
+      "scope": "tests/integration/server/surveyAdversarial.test.ts and docs/demo/ROBERTSON_EXPORT_ADVERSARIAL.md only; product read-only",
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878001740",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877959673"
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878105758",
+      "baseSha": "eb07a83b4097aaa2c45a7583dad3715e58cd49db"
     },
     {
       "lane": "C",
@@ -50,10 +50,11 @@
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
       "task": "ROBERTSON-UI-CORRECTIONS/1",
       "branch": "codex/robertson-ui-corrections",
-      "state": "READY; awaiting exact-base ACK",
+      "state": "ACK / RUNNING",
       "scope": "docs/demo/ROBERTSON_UI_CORRECTIONS.md only; product read-only",
       "baseSha": "f960df5c17db51947529e08374c4bc4dc1440c89",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252"
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878089799"
     },
     {
       "lane": "D",
@@ -62,10 +63,11 @@
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
       "task": "ROBERTSON-MEDIA-CORRECTIONS/1",
       "branch": "codex/robertson-media-corrections",
-      "state": "READY; awaiting exact-base ACK",
+      "state": "ACK / RUNNING",
       "scope": "docs/demo/ROBERTSON_MEDIA_CORRECTIONS.md only; product/media read-only",
       "baseSha": "f960df5c17db51947529e08374c4bc4dc1440c89",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252"
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878087605"
     }
   ],
   "board": {
@@ -73,7 +75,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6878074252"
+    "lastReadCommentId": "6878110841"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",

@@ -115,6 +115,10 @@
 .steps a { padding: 8px 16px; border-radius: 999px; color: var(--forest); font-size: 15px; font-weight: 750; text-decoration: none; }
 .steps a:hover { background: var(--forest-tint); }
 .workspace h2[id] { scroll-margin-top: 84px; }
+.workspace h3[id] { scroll-margin-top: 84px; }
+.budgetSummary { margin-bottom: 20px; padding: 14px 16px; border: 1px solid var(--forest); border-radius: 12px; background: var(--forest-tint); }
+.budgetSummary p { margin: 0 0 6px; }
+.budgetSummary a { color: var(--forest); font-weight: 700; text-underline-offset: 3px; }
 .stepNumber { display: inline-grid; place-items: center; width: 36px; height: 36px; margin-right: 10px; border-radius: 50%; background: var(--forest); color: #fff; font-size: 17px; vertical-align: 3px; box-shadow: 0 0 0 4px var(--forest-tint); }
 
 /* ---------- Solid reading surfaces ---------- */

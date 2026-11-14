@@ -31,6 +31,7 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
 }) {
   const selectedArea = selectedFindingId ? areaForFinding(survey, selectedFindingId) : undefined;
   const sliderValue = budget.ok && budget.cents !== null ? Math.min(budget.cents, sliderMax) : 0;
+  const budgetPlan = plans.find(plan => plan.id === 'budget');
 
   return <section className={styles.card} aria-labelledby="survey-plans-heading">
     <h2 id="survey-plans-heading"><span className={styles.stepNumber}>2</span> Compare repairs</h2>
@@ -55,6 +56,15 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
     <p id="survey-budget-help" className={budget.ok ? styles.small : styles.inlineError}>
       {budget.ok ? `Exact cents; never rounded. Slider moves in $100 steps up to ${formatCents(sliderMax)}.` : budget.message}
     </p>
+
+    {budget.ok && budget.cents !== null && budgetPlan && !planError ? <div className={styles.budgetSummary}>
+      <p role="status"><strong>Your budget result: </strong>{budgetPlan.workAreaIds.length === 0
+        ? (budgetPlan.deferredWorkAreaIds.length ? 'No repair fits the known upper estimates.' : 'No eligible repair work is currently selected.')
+        : `${formatCentsRange(budgetPlan.cost.lowCents, budgetPlan.cost.highCents)} for ${budgetPlan.workAreaIds.length} work area${budgetPlan.workAreaIds.length === 1 ? '' : 's'}.`}
+        {' '}{budgetPlan.cost.isComplete ? '' : 'Partial estimate; quotes are needed to confirm the full cost.'}
+        {' '}{budgetPlan.deferredWorkAreaIds.length} work area{budgetPlan.deferredWorkAreaIds.length === 1 ? '' : 's'} deferred.</p>
+      <a href="#plan-budget-heading">See included and deferred work</a>
+    </div> : null}
 
     {planError ? <p role="alert" className={styles.inlineError}>{planError}</p> : <div className={styles.planGrid}>
       {plans.map((plan) => <PlanCard key={plan.id} survey={survey} plan={plan} selected={plan.id === selectedPlanId}

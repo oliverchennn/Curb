@@ -53,6 +53,19 @@ for (const [name, reviewed, planId, budgetCents] of [
   assert.equal(bytes.subarray(0,5).toString(), '%PDF-');
   await writeFile(resolve(out, `${name}.pdf`),bytes);
   checks.push(`${name} PDF downloaded (${bytes.length} bytes); visual/text inspection is separate`);
+  const htmlResult = await fetch(new URL('/api/curb/survey/report?format=html', base), {
+    method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({survey:reviewed,planId,budgetCents}),
+  });
+  assert.equal(htmlResult.status,200,`${name} HTML`); headers(htmlResult);
+  assert.match(htmlResult.headers.get('content-type') ?? '', /text\/html; charset=utf-8/);
+  assert.match(htmlResult.headers.get('content-security-policy') ?? '', /default-src 'none'/);
+  const html = await htmlResult.text();
+  assert.equal((html.match(/<img\b/g) ?? []).length,5);
+  assert.equal((html.match(/src="data:image\/jpeg;base64,/g) ?? []).length,5);
+  assert.doesNotMatch(html, /<script\b|<link\b|src="https?:/i);
+  for (const finding of reviewed.findings) assert.ok(html.includes(`id="finding-${finding.id}"`));
+  await writeFile(resolve(out,`${name}.html`),html);
+  checks.push(`${name} self-contained HTML downloaded; five embedded photos, same evidence IDs, no automatic external resources`);
 }
 const post = (body: unknown) => ({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 const valid = {survey, planId:'balanced', budgetCents:null};
