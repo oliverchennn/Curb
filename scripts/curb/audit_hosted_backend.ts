@@ -1,4 +1,4 @@
-/** Bounded read-only contract audit of the pinned Curb release. */
+/** Bounded contract audit of an explicitly identified Curb release. */
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { ScenarioResponseSchema } from '../../src/contracts/curb';
@@ -9,8 +9,10 @@ import planFixture from '../../src/data/curb/plan-demo.json';
 import tripFixture from '../../src/data/curb/trip-demo.json';
 
 const production = 'https://curb-taupe.vercel.app';
-const source = 'b010ad02ce9e0cb905e15e5c7c7109713814b36e';
-const origin = new URL(process.argv[2] ?? production);
+assert.equal(process.argv.length, 4, 'Usage: audit_hosted_backend.ts <origin> <full-source-sha>');
+const source = process.argv[3];
+assert.match(source, /^[a-f0-9]{40}$/, 'Supply the full expected source SHA');
+const origin = new URL(process.argv[2]);
 assert.equal(origin.href, origin.origin + '/', 'Supply an origin without credentials, path, query or fragment');
 assert.ok(origin.origin === production || (origin.protocol === 'http:' && origin.hostname === '127.0.0.1' && origin.port));
 const cap = 31;
@@ -101,7 +103,7 @@ await probe('health', '/api/health', 200, {}, value => {
   const body = object(value);
   assert.equal(body.status, 'alive');
   assert.equal(body.service, 'web');
-  assert.equal(typeof body.revision, 'string');
+  assert.equal(body.revision, source, 'Deployment source revision does not match');
   return 'revision=' + JSON.stringify(body.revision);
 });
 await probe('ready', '/api/ready', 200, {}, body => {
@@ -111,7 +113,7 @@ await probe('ready', '/api/ready', 200, {}, body => {
 await probe('default sample', '/api/curb/scenario', 200, {}, scenario('synthetic-campus-quad'));
 await probe('explicit empty', '/api/curb/scenario?dataset=empty', 200, {}, scenario('synthetic-empty-campus'));
 await probe('invalid dataset', '/api/curb/scenario?dataset=missing', 404, {}, error('DATASET_NOT_FOUND'));
-await probe('duplicate dataset observation', '/api/curb/scenario?dataset=empty&dataset=sample', 200, {}, scenario('synthetic-empty-campus'));
+await probe('duplicate dataset rejection', '/api/curb/scenario?dataset=empty&dataset=sample', 404, {}, error('DATASET_NOT_FOUND'));
 
 await probe('trip metadata', '/api/curb/trip-scenario', 200, {}, value => {
   const body = TripScenarioResponseSchema.parse(value);

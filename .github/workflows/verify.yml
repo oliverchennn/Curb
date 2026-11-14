@@ -52,6 +52,7 @@ jobs:
             sleep 1
           done
           node --import tsx scripts/curb/verify_deployment.ts http://127.0.0.1:3004 "$APP_REVISION"
+          node --import tsx scripts/curb/audit_hosted_backend.ts http://127.0.0.1:3004 "$APP_REVISION"
       - name: Show server log on failure
         if: failure()
         run: cat "$RUNNER_TEMP/curb-server.log" 2>/dev/null || true
