@@ -334,7 +334,7 @@
     --desk-width: min(1640px, calc(100vw - 64px));
     /* Give the evidence more of the desktop and enlarge the actual portrait picture,
      * while preserving room for transport controls and the finding shortcuts. */
-    --frame-h: clamp(480px, calc(100vh - 240px), 800px);
+    --frame-h: clamp(320px, calc(100vh - 268px), 800px);
     width: var(--desk-width);
     margin-inline: calc((100% - var(--desk-width)) / 2);
   }
@@ -349,6 +349,8 @@
   .evidenceColumn .segmented button { padding: 6px 10px; }
   .evidenceColumn .videoPanel .small { margin-bottom: 4px; font-size: 14px; }
   .evidenceColumn .pendingChecks { margin-block: 2px 0; }
+  .evidenceColumn .jumpBar { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; }
+  .evidenceColumn .jumpBar ul { grid-template-columns: repeat(5, minmax(44px, 1fr)); }
   .evidenceColumn .videoFrame { max-height: none; }
   @supports (aspect-ratio: 1) { .evidenceColumn .videoFrame { height: var(--frame-h); } }
 }
