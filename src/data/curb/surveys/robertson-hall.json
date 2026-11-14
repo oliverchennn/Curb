@@ -80,7 +80,7 @@
   "findings": [
     {
       "id": "defect-01",
-      "label": "Defect 01",
+      "label": "Defect 01 \u00b7 Transverse crack",
       "kind": "Transverse crack with edge deterioration",
       "description": "An irregular crack crosses the walking panel, with a visibly broken/open edge toward the left. The opening and any vertical displacement need measurement.",
       "color": "#db7b27",
@@ -1252,30 +1252,12 @@
             1.0,
             0.06939754635095596
           ]
-        },
-        {
-          "frame": 230,
-          "box": [
-            0.0,
-            0.952451229095459,
-            1.0,
-            0.047548770904541016
-          ]
-        },
-        {
-          "frame": 231,
-          "box": [
-            0.0,
-            0.975095272064209,
-            1.0,
-            0.024904727935791016
-          ]
         }
       ]
     },
     {
       "id": "defect-02",
-      "label": "Defect 02",
+      "label": "Defect 02 \u00b7 Branched crack",
       "kind": "Branched crack near panel joint",
       "description": "A transverse defect near the panel boundary includes a branching fragment on the right. This may be localized edge deterioration; depth, movement and level difference are unmeasured.",
       "color": "#4776b4",
@@ -2290,7 +2272,7 @@
     },
     {
       "id": "defect-03",
-      "label": "Defect 03",
+      "label": "Defect 03 \u00b7 Diagonal crack",
       "kind": "Diagonal transverse crack",
       "description": "An irregular diagonal crack crosses another walking panel. No vertical displacement is established from this view; inspect width, edge stability and movement before selecting treatment.",
       "color": "#9460a3",
@@ -3245,15 +3227,6 @@
             0.9573712348937988,
             1.0,
             0.04262876510620117
-          ]
-        },
-        {
-          "frame": 371,
-          "box": [
-            0.0,
-            0.9833089709281921,
-            1.0,
-            0.016691017895936966
           ]
         }
       ]

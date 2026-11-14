@@ -28,7 +28,7 @@ function enumerate(s: Survey): Treatment[][] {
     if (index === areas.length) { combinations.push([...selected]); return; }
     visit(index + 1, selected);
     for (const option of s.treatments) {
-      if (option.workAreaId === areas[index].id && option.cost.status === 'estimated') {
+      if (option.workAreaId === areas[index].id && option.cost.status === 'estimated' && option.method !== 'inspect') {
         selected.push(option); visit(index + 1, selected); selected.pop();
       }
     }
@@ -173,8 +173,19 @@ describe('Developer D independent area-choice budget oracle', () => {
     const s = fresh();
     for (const a of s.workAreas) s.treatments.push({ ...s.treatments.find(t => t.workAreaId === a.id)!,
       id: `${a.id}-inspection`, method: 'inspect', durability: 0, cost: money(1000, 2000) });
-    expect(s.treatments).toHaveLength(12); expect(enumerate(s)).toHaveLength(64);
+    expect(s.treatments).toHaveLength(12); expect(enumerate(s)).toHaveLength(27);
     compare(s, [0, 1999, 2000, 5999, 6000, 47800, 95600, 143400, 184800, 267600]);
+  });
+  it('keeps inspection-only needs unresolved and does not award repair coverage', () => {
+    const s = fresh(); s.treatments.forEach(t => { t.method = 'inspect'; t.cost = money(0); });
+    compare(s, [0, 100_000_000]);
+    for (const plan of buildRepairPlans(s, 100_000_000)) {
+      expect(plan.optionIds).toEqual([]);
+      expect(plan.workAreaIds).toEqual([]);
+      expect(plan.deferredWorkAreaIds).toHaveLength(3);
+      expect(plan.pendingChecks.length).toBeGreaterThan(0);
+      expect(plan.coverage).toEqual({high:0,medium:0,low:0,unassessed:0});
+    }
   });
   it.each([-1, 0.5, NaN, Infinity, 100_000_001])('rejects invalid budget %s without source mutation', budget => {
     const s = fresh(), before = JSON.stringify(s);
@@ -227,9 +238,8 @@ describe('Developer D evidence/unknown boundary review', () => {
     f.track = f.track.filter(k => k.frame !== Math.floor(f.evidenceTime * s.media.fps));
     expect(getBoxAtTime(f, f.evidenceTime, s.media.fps)).toBeNull();
   });
-  // D1-01: expected failure is an explicit open finding, NOT acceptance. After
-  // root corrects the validator, remove .fails; an unexpected pass fails CI.
-  it.fails('D1-01 rejects a missing evidence frame even when neighboring track frames remain', () => {
+  // D1-01 corrected by root3062e863; retained as a regular regression.
+  it('D1-01 rejects a missing evidence frame even when neighboring track frames remain', () => {
     const s = fresh(), f = s.findings[0];
     f.track = f.track.filter(k => k.frame !== Math.floor(f.evidenceTime * s.media.fps));
     expect(SurveySchema.safeParse(s).success).toBe(false);

@@ -1,5 +1,5 @@
 {
-  "method": "AI visual inspection of the complete 0.5-second contact sheet and full-resolution evidence frames; LK optical-flow tracking is run separately. Human field review is pending.",
+  "method": "AI visual proposals from contact sheets and full-resolution anchors; subsequent all-419-frame overview and all tracked-frame crop review. LK optical-flow tracking is separate. Human field review is pending.",
   "model": "Codex assistant vision (exact model build not exposed)",
   "createdAt": "2026-11-14T07:33:00-05:00",
   "sourceSha256": "30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a",
@@ -7,11 +7,11 @@
   "findings": [
     {
       "id": "defect-01",
-      "label": "Defect 01",
+      "label": "Defect 01 \u00b7 Transverse crack",
       "kind": "Transverse crack with edge deterioration",
       "seedFrame": 210,
       "startFrame": 105,
-      "endFrame": 231,
+      "endFrame": 229,
       "seedBoxPixels": [
         20,
         805,
@@ -22,7 +22,7 @@
     },
     {
       "id": "defect-02",
-      "label": "Defect 02",
+      "label": "Defect 02 \u00b7 Branched crack",
       "kind": "Branched crack near panel joint",
       "seedFrame": 285,
       "startFrame": 195,
@@ -37,11 +37,11 @@
     },
     {
       "id": "defect-03",
-      "label": "Defect 03",
+      "label": "Defect 03 \u00b7 Diagonal crack",
       "kind": "Diagonal transverse crack",
       "seedFrame": 360,
       "startFrame": 270,
-      "endFrame": 387,
+      "endFrame": 370,
       "seedBoxPixels": [
         0,
         985,

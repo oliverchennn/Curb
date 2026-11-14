@@ -20,4 +20,3 @@ Cost references are benchmarks with visible dates and assumptions. The sealing b
 # Local map context
 
 `site-context.svg` is rendered by `scripts/curb/render_context.py` from the retained `src/data/curb/surveys/robertson-context.geojson`. Public OpenStreetMap extract retrieved 2026-11-14 from `https://api.openstreetmap.org/api/0.6/map?bbox=-74.6562,40.3468,-74.6527,40.3501`. © OpenStreetMap contributors, [Open Database License 1.0](https://www.openstreetmap.org/copyright). The retained extract omits contributor account metadata. Buildings/streets/paths provide context only; no defect coordinates, traversal assessment or accessible route is inferred. The phone GPS marker is a single approximate clip-level tag. The app makes no live tile requests.
-

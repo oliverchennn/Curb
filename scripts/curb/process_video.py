@@ -125,7 +125,7 @@ def render():
             if box is None: continue
             x, y, bw, bh = [box[0]*w, box[1]*h, box[2]*w, box[3]*h]
             draw.rectangle((x,y,x+bw,y+bh), outline=f['color'], width=3)
-            label = f["label"] + ' / ' + ('Branched crack' if f['id']=='defect-02' else 'Transverse crack' if f['id']=='defect-01' else 'Diagonal crack')
+            label = f["label"]
             bounds=draw.textbbox((0,0),label,font=font);tw=bounds[2]+20
             tx=max(5,min(x,w-tw-5));ty=max(82,y-35)
             draw.rectangle((tx,ty,tx+tw,ty+32),fill='#173e35')

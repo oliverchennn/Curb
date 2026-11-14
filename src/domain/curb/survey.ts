@@ -22,7 +22,9 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
   const active = new Set(s.findings.filter(f => f.review.status !== 'rejected').map(f => f.id));
   const areas = s.workAreas.filter(a => a.repairWorthy && a.findingIds.some(id => active.has(id)));
   const areaIds = new Set(areas.map(a => a.id));
-  const candidates = s.treatments.filter(t => areaIds.has(t.workAreaId));
+  // Inspection can establish scope, but does not itself address a repair need.
+  // Keep those needs deferred/pending instead of awarding repair coverage.
+  const candidates = s.treatments.filter(t => areaIds.has(t.workAreaId) && t.method !== 'inspect');
 
   function make(id: PlanId, selected: Treatment[], budget: number | null = null): RepairPlan {
     const selectedAreas = new Set(selected.map(t => t.workAreaId));
@@ -49,9 +51,10 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
     };
   }
   const options = (id: string) => candidates.filter(t => t.workAreaId === id);
-  const essential = areas.filter(a => a.nearTerm).map(a => options(a.id).sort(cheapest)[0]);
-  const balanced = areas.map(a => options(a.id).find(t => t.id === a.recommendedOptionId)!);
-  const durable = areas.map(a => options(a.id).sort((a, b) => b.durability - a.durability || cheapest(a, b))[0]);
+  const present = (t: Treatment | undefined): t is Treatment => t !== undefined;
+  const essential = areas.filter(a => a.nearTerm).map(a => options(a.id).sort(cheapest)[0]).filter(present);
+  const balanced = areas.map(a => options(a.id).find(t => t.id === a.recommendedOptionId)).filter(present);
+  const durable = areas.map(a => options(a.id).sort((a, b) => b.durability - a.durability || cheapest(a, b))[0]).filter(present);
   const result = [make('essential', essential), make('balanced', balanced), make('durable', durable)];
   if (budgetCents !== undefined) {
     const priced = candidates.filter(t => t.cost.status === 'estimated');
