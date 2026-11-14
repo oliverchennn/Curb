@@ -1,15 +1,15 @@
-# Current release queue
+# Current production verification and visual upgrade queue
 
-Root / Oliver desktop is the sole integration and merge owner. [Live board](https://github.com/oliverchennn/Curb/issues/1) and [release checkpoint](demo/CURB_RELEASE_CHECKPOINT.md) supersede the historical rows below.
+The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merges the completed hardening work while those disjoint tasks proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
 
 | Owner | Current scope | State |
 | --- | --- | --- |
-| Root | Shared product, source integration, final checks, offline backup, reviewed merge and branch archive | Combined product ec57fb0 passed718 tests/build, local HTTP and actual browser checks; final artifacts and release pending |
-| B / Vincent recovery | Read-only hosting preflight, no tracked writes or hosting mutations yet | Collection f76457c released/integrated; hosting assignment6883967983, await actual ACK |
-| C / Landau | No active write scope | Explorer QA7e0d289 released/integrated; three observations corrected by root1c6f1ce |
-| D / Oliver cloud | No active write scope | Released abbc64b, integrated cb9b217;90 browser checks pass, all five findings closed; no active writes |
+| Root | PR8, accepted audits/fixes, backend/shared files, archives and integration | Running; hardening checks passed, merge pending |
+| B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | READY 6885539290; graphics addendum 6885549275; actual ACK on board |
+| C / Landau | EXPLORER-DESIGN-V2/1: independent design critique and comparison, only EXPLORER_UPGRADE_PROPOSAL.md | READY 6885550039; design first, implementation after synthesis |
+| D / Oliver cloud | No active scope | Stopped |
 
-The old B laptop writer is not claimed stopped; preserve any later candidate. Hosting uses Vincent's account only, no paid upgrades. Root supplies the exact merged source before deployment. No measurements, field passability or hardware claims may be inferred from the concepts.
+Both new tasks start from exact `2fb49f710085732a7ac20f63680925b8db06dba5` in isolated branches. B owns the collection paths listed in its assignment. C has design-document ownership only. No product changes outside those scopes, no paid actions, no duplicate writers. All previous hosted audit and candidate regression reports are STOPPED/RELEASED and integrated. Final feature deployment is assigned to Vincent only after root acceptance and exact merge. Historical tables below are history, not current assignments.
 
 ---
 

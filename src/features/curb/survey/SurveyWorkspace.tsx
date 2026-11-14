@@ -158,7 +158,7 @@ export function SurveyWorkspace() {
         <button type="button" className={styles.secondaryButton} aria-disabled={!edited} onClick={restore}>Restore original</button>
       </div>
       {edited ? <p className={styles.sessionNote}>Edits stay in this browser tab only and are lost on reload. To keep them, use Export report, then Download JSON.</p> : null}
-      <p role="status" aria-live="polite" className={styles.small} hidden={!notice}>{notice}</p>
+      <p role="status" aria-live="polite" aria-atomic="true" className={styles.small}>{notice}</p>
     </div>
 
     <div className={styles.desk}>

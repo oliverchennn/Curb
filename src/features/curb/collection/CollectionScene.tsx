@@ -13,10 +13,11 @@ type Props = {
   onPause: () => void;
   onFailure: (reason: string) => void;
   onSensor: (sensor: SensorId) => void;
+  onHiddenSensorFocus: (sensor: SensorId) => void;
   selectedSensor: SensorId;
 };
 
-export default function CollectionScene({ transport, onTime, onPause, onFailure, onSensor, selectedSensor }: Props) {
+export default function CollectionScene({ transport, onTime, onPause, onFailure, onSensor, onHiddenSensorFocus, selectedSensor }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
 
@@ -263,6 +264,9 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
           return true;
         });
         const show = !occluded && projected.z > -1 && projected.z < 1 && Math.abs(projected.x) < 0.99 && Math.abs(projected.y) < 0.99 && normal.dot(cameraDirection) > 0.025;
+        // Preserve the camera action in the tab order before hiding its moving
+        // callout. The parent focuses the matching stable sidebar control.
+        if (!show && labels[i].contains(document.activeElement)) onHiddenSensorFocus(sensor.id);
         labels[i].style.visibility = show ? 'visible' : 'hidden';
         paths[i].style.visibility = show ? 'visible' : 'hidden';
         dots[i].style.visibility = show ? 'visible' : 'hidden';
@@ -317,7 +321,12 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       if (document.hidden) { cancelAnimationFrame(frame); frame = 0; previous = 0; }
       else resume();
     }
-    function contextLost(event: Event) { event.preventDefault(); onFailure('The 3D graphics context was lost.'); }
+    function contextLost(event: Event) {
+      event.preventDefault();
+      const focused = labels.findIndex(label => label.contains(document.activeElement));
+      if (focused !== -1) onHiddenSensorFocus(SENSORS[focused].id);
+      onFailure('The 3D graphics context was lost.');
+    }
     renderer.domElement.addEventListener('webglcontextlost', contextLost);
     document.addEventListener('visibilitychange', visibility);
     const observer = new ResizeObserver(resize); observer.observe(container);
@@ -339,11 +348,11 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       if (!renderer.getContext().isContextLost()) renderer.forceContextLoss();
       renderer.domElement.remove();
     };
-  }, [transport, onTime, onPause, onFailure]);
+  }, [transport, onTime, onPause, onFailure, onHiddenSensorFocus]);
 
   return <div className={styles.scene} ref={overlay}>
     <div className={styles.scene} ref={host} role="img" aria-label="Illustrative six-wheel delivery-style robot moving along a miniature sidewalk with a crack and rough patch, three camera mounts and selected camera coverage." />
     <svg className={styles.leaders} aria-hidden="true">{SENSORS.map(sensor => <g key={sensor.id}><path data-leader={sensor.id} /><circle data-dot={sensor.id} r="3.5" /></g>)}</svg>
-    {SENSORS.map(sensor => <button key={sensor.id} className={`${styles.anchorLabel} ${styles[sensor.id]}`} data-label={sensor.id} aria-pressed={selectedSensor === sensor.id} onClick={() => onSensor(sensor.id)}><span>CAMERA {sensor.number}</span>{sensor.name}</button>)}
+    {SENSORS.map(sensor => <button key={sensor.id} className={`${styles.anchorLabel} ${styles[sensor.id]}`} data-label={sensor.id} aria-label={`Camera ${sensor.number}, ${sensor.name}`} aria-pressed={selectedSensor === sensor.id} onClick={() => onSensor(sensor.id)}><span>CAMERA {sensor.number}</span>{sensor.name}</button>)}
   </div>;
 }

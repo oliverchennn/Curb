@@ -4,6 +4,8 @@ Curb helps campus facilities teams turn sidewalk evidence into disability-access
 
 The Robertson Hall pilot uses an actual 14-second phone video, five AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**, with a sticky video beside the three workspace tabs on desktop. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
 
+The deployed demo is [curb-taupe.vercel.app](https://curb-taupe.vercel.app), hosted through Vincent’s account. See the [hosting runbook](docs/demo/ROBERTSON_HOSTING.md) for the exact release and verification process. Deployments are manual; pushing a branch does not publish it.
+
 ## Run locally
 
 Use Node.js 22.23.0 or newer. No credentials or environment file are required. Install dependencies before arriving at the venue:
@@ -18,7 +20,7 @@ Open `http://127.0.0.1:3000/`. The home page opens `/curb/upload`: choose the su
 
 For development use `npm run dev`; for a different port use `npm run start -- --port 3004`. The production build and committed media/data work with local loopback access and no venue internet. Opening an external source reference requires internet; playback, calculations and exports do not.
 
-`npm run check` runs TypeScript, Vitest and the production Next.js build. Run `npm run test:replay` for the separate synthetic replay regressions. `npm run verify:media` verifies committed media hashes, decoded frames, color metadata and track agreement; this optional media audit requires `ffprobe` on PATH.
+`npm run check` runs TypeScript, Vitest and the production Next.js build. GitHub pull requests and main pushes run those checks, the synthetic replay suite, and compiled API/report/media verification on Node 22.23.0 and 26.x. Run `npm run test:replay` for the separate synthetic replay regressions. `npm run verify:media` verifies committed media hashes, decoded frames, color metadata and track agreement; this optional media audit requires `ffprobe` on PATH.
 
 ## Demo data and editing
 

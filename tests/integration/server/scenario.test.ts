@@ -17,6 +17,21 @@ async function requestScenario(dataset?: string) {
 }
 
 describe('GET /api/curb/scenario', () => {
+  it.each([
+    'dataset=sample&dataset=empty',
+    'dataset=empty&dataset=sample',
+    'dataset=sample&dataset=sample',
+    'dataset=sample&%64ataset=empty',
+  ])('rejects repeated selectors without choosing a winner: %s', async query => {
+    const { GET } = await import('../../../app/api/curb/scenario/route');
+    const response = GET(new Request(`${endpoint}?${query}`));
+    expect(response.status).toBe(404);
+    expect(response.headers.get('cache-control')).toBe('no-store');
+    expect(ScenarioResponseSchema.parse(await response.json())).toMatchObject({
+      ok: false, error: { code: 'DATASET_NOT_FOUND' },
+    });
+  });
+
   it.each(['unknown', '', 'invalid-reference'])('rejects the unsupported dataset "%s"', async (dataset) => {
     expect(await requestScenario(dataset)).toMatchObject({
       status: 404,

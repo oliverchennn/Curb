@@ -9,6 +9,7 @@ import {
 import { buildRepairPlans, validateSurvey } from '../../domain/curb/survey';
 import { renderSurveyHtmlReport } from './surveyHtmlReport';
 import { renderSurveyReport } from './surveyReport';
+import { readJsonBody } from './readJsonBody';
 
 const surveyId = 'robertson-hall';
 const maxReportBytes = 2 * 1024 * 1024;
@@ -90,38 +91,6 @@ function isReviewOf(edited: Survey, saved: Survey): boolean {
   return isDeepStrictEqual({ ...edited, findings, workAreas }, saved);
 }
 
-async function readReportBody(request: Request): Promise<{ body: unknown } | { response: Response }> {
-  const length = request.headers.get('content-length');
-  if (length !== null) {
-    if (!/^\d+$/.test(length)) return { response: fail(400) };
-    if (Number(length) > maxReportBytes) return { response: fail(413) };
-  }
-  const contentType = request.headers.get('content-type')?.split(';', 1)[0].trim().toLowerCase();
-  if (contentType !== 'application/json' || !request.body) return { response: fail(400) };
-
-  const reader = request.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  try {
-    for (;;) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      total += value.byteLength;
-      if (total > maxReportBytes) {
-        // Do not wait on a producer that takes time to acknowledge cancellation.
-        void reader.cancel().catch(() => {});
-        return { response: fail(413) };
-      }
-      chunks.push(value);
-    }
-    return { body: JSON.parse(utf8.decode(Buffer.concat(chunks, total))) };
-  } catch {
-    return { response: fail(400) };
-  } finally {
-    reader.releaseLock();
-  }
-}
-
 async function loadCloseups(saved: Survey): Promise<ReadonlyMap<string, Uint8Array>> {
   const root = await realpath(process.cwd());
   const media = join(root, 'public', 'curb', 'surveys', surveyId);
@@ -144,10 +113,10 @@ export async function postSurveyReportResponse(request: Request): Promise<Respon
     return fail(400, 'Choose one report format: PDF or HTML.');
   }
 
-  const input = await readReportBody(request);
-  if ('response' in input) return input.response;
+  const input = await readJsonBody(request, maxReportBytes);
+  if (!input.ok) return fail(input.reason === 'too-large' ? 413 : 400);
 
-  const parsed = ExportRequestSchema.safeParse(input.body);
+  const parsed = ExportRequestSchema.safeParse(input.value);
   if (!parsed.success) return fail(400);
   const { survey, budgetCents, planId } = parsed.data;
   if (planId === 'budget' && budgetCents === null) return fail(400, 'Choose a budget to export the budget plan.');
