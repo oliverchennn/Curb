@@ -1,15 +1,15 @@
-# Current release queue
+# Current production verification queue
 
-Root / Oliver desktop is the sole integration and merge owner. [Live board](https://github.com/oliverchennn/Curb/issues/1) and [release checkpoint](demo/CURB_RELEASE_CHECKPOINT.md) supersede the historical rows below.
+User-authorized exhaustive deployed-flow audit and root integration. Exact deployed source: `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and newer results.
 
-| Owner | Current scope | State |
+| Owner | Current task and scope | State |
 | --- | --- | --- |
-| Root | Shared product, source integration, final checks, offline backup, reviewed merge and branch archive | Combined product ec57fb0 passed718 tests/build, local HTTP and actual browser checks; final artifacts and release pending |
-| B / Vincent recovery | Read-only hosting preflight, no tracked writes or hosting mutations yet | Collection f76457c released/integrated; hosting assignment6883967983, await actual ACK |
-| C / Landau | No active write scope | Explorer QA7e0d289 released/integrated; three observations corrected by root1c6f1ce |
-| D / Oliver cloud | No active write scope | Released abbc64b, integrated cb9b217;90 browser checks pass, all five findings closed; no active writes |
+| Root / Oliver desktop | Product/backend corrections, released-result review, PRs, merges and archives on codex/production-hardening | Running; owns all product writes |
+| B / Vincent laptop | Hosted backend/API/export/deployment audit; only scripts/curb/audit_hosted_backend.ts and docs/demo/HOSTED_BACKEND_AUDIT.md | READY6884877589; await actual ACK |
+| C / Landau | Hosted per-control UI/browser/NVDA audit; only docs/demo/HOSTED_UI_AUDIT.md | ACK/RUNNING6884895605 |
+| D / Oliver cloud | No active scope | Stopped; prior results integrated |
 
-The old B laptop writer is not claimed stopped; preserve any later candidate. Hosting uses Vincent's account only, no paid upgrades. Root supplies the exact merged source before deployment. No measurements, field passability or hardware claims may be inferred from the concepts.
+Landau's released polish5129765 and Vincent's deployment report9483874 are under root integration. The public alias stays on b010ad0 until audit results are reconciled and root supplies the next exact deployment source. Hosting uses Vincent's account; his cloud worker remains stopped. No paid action, provider security change or duplicate writer. Historical task tables below are preserved as history, not current assignments.
 
 ---
 

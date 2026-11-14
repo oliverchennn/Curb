@@ -1,6 +1,12 @@
 # Current Curb release checkpoint
 
-The release branch is `codex/robertson-release-final`, reviewed through [PR #7](https://github.com/oliverchennn/Curb/pull/7). The prior Robertson release is already on main; this checkpoint adds the prepared upload, wider tabbed workspace, separate collection/explorer pages, independent stress corrections and hosting preparation. Root is the sole integrator. Vincent's account is the authorized hosting target.
+The released application is live at [curb-taupe.vercel.app](https://curb-taupe.vercel.app) on Vincent's account. [PR #7](https://github.com/oliverchennn/Curb/pull/7) merged at **`b010ad02ce9e0cb905e15e5c7c7109713814b36e`**; the archived release branch is no longer active. [Deployment and public verification](VINCENT_HOSTING_RESULT.md). This is a manual CLI deployment: Git pushes alone do not update production.
+
+Root's new `codex/production-hardening` candidate integrates Landau's released collection accessibility polish and Vincent's hosting report, bounds plan/trip JSON reads, removes duplicate report-body parsing, and fixes the empty hosted revision. The candidate passed **744 tests in28 files, TypeScript and a production build** on2026-11-14. Root's subsequent focus-transfer refinement requires its own browser check and fresh build; it is not covered by Landau's earlier NVDA result.
+
+Vincent and Landau are independently auditing the pinned public b010ad0 release. Vincent owns API/deployment/report verification; Landau owns the complete browser control inventory, viewports, keyboard and NVDA checks. Findings, fixes and untested cases remain explicit. The production alias stays unchanged until those audits finish and root accepts a final candidate.
+
+The sections below retain the evidence for the original release and identify which source each check covers.
 
 ## Integrated and checked
 
@@ -9,7 +15,7 @@ The release branch is `codex/robertson-release-final`, reviewed through [PR #7](
 - **Wider workspace:** C's released `d32074ad22449d55d2b8ca1ea87edd0ee5f84b84` is integrated as `a4afbfb`; `28b0b1b0b2ab5d9e8051468493155122db91fc39` combines it with the three modes and shared navigation. Review, Compare and Export panels remain mounted, retaining edits, budgets and in-flight reports. Root observed the selected six-second evidence frame, keyboard tabs, retained reviewer/budget, accept/restore focus, three policies in one row at1366px and four with a budget at1920px. The sticky evidence column measured about713px at1366×768.
 - **Core integration check:** on the product state at `28b0b1b`, `npm run check` passed TypeScript, 683 tests in23 files and a production build. Root stopped development and production servers, built again after the changes, and captured the actual production upload, simulation, review, close-up, inspection, policies, budget and export states. These checks precede the new collection/explorer integration.
 - **Report packaging:** explicit Next.js traces contain the canonical survey and five evidence JPEGs. Root copied only the compiled report route and its130 traced inputs outside the checkout; the real compiled handler returned HTML200 and PDF200 from that isolated package. The deployment smoke payload includes the required nullable budget field. This is local packaging evidence, not a hosted pass.
-- **Historical branches:**42 completed branch tips were preserved under exact archive tags before branch removal. The receipt is [BRANCH_ARCHIVE_2026-11-14.json](BRANCH_ARCHIVE_2026-11-14.json). A further nine stopped stress/layout/core-QA/explorer/collection branches were archived and removed after integration; their exact source and integrated SHAs are in the same receipt.51 completed branch histories are preserved. The release branch remains active until the final merge; old unconfirmed laptop work is untouched.
+- **Historical branches:**42 completed branch tips were preserved under exact archive tags before branch removal. The receipt is [BRANCH_ARCHIVE_2026-11-14.json](BRANCH_ARCHIVE_2026-11-14.json). A further nine stopped stress/layout/core-QA/explorer/collection branches were archived and removed after integration; their exact source and integrated SHAs are in the same receipt.The final release branch was subsequently archived after PR7 merged, bringing the total to52 preserved histories. Both old Vincent collection attempts have now explicitly stopped; they must not restart.
 
 The detailed B/C/D stress reports describe their pinned source and executed checks. They are not claims that later features passed those earlier runs. The actual field inventory still has five pending AI proposals, unknown measurements, no placed defect markers and unknown route impact. No field accessibility verdict or physical hardware validation is asserted.
 
@@ -23,12 +29,12 @@ On the final combined production server, all ten sequential functional probes pa
 
 The refreshed offline backup includes real app/report captures, the complete annotated clip and an actual ten-second browser recording of the robot. All3,600 frames decode successfully over120 seconds; its input hashes and timeline are in the committed demo-backup.json. It is an edited walkthrough, not a continuous live demonstration.
 
-## Remaining release gates
+## Current hardening gates
 
-1. Source, independent review and offline package are accepted. Merge PR7 with its exact final head; only documentation and verified backup media follow the fully checked product.
-2. Merge the checked release. B may perform read-only hosting preflight under6883967983 now, but deployment waits for root's exact merged source. Use Vincent's account, Node24.x and a default URL without paid upgrades.
-3. Verify the real public pages, report photos and media ranges; record actual project/deployment/source/URL. Hosting has not yet occurred at this checkpoint.
+1. Finish the independent hosted backend and UI audits; review their per-control results and reproduce actionable failures. Prior source tests do not substitute for new hosted evidence.
+2. Integrate the released audit reports and necessary fixes on `codex/production-hardening`. Complete current-source checks and changed-flow browser regressions; merge only the exact reviewed head. Preserve completed branch tips under archive tags before removal and leave active audit branches intact.
+3. Give Vincent the exact merged source for the next manual deployment, with non-secret APP_REVISION set to that SHA. Run the current12-request verifier with the expected SHA, then the relevant public browser checks. Record the actual project, deployment, source and URL. [Hosting runbook](ROBERTSON_HOSTING.md).
 
-Physical projector checks, a presenter stopwatch rehearsal, manual assistive-technology testing, measured site inspection and contractor quotes remain separate from these software checks.
+Physical projector checks, a presenter stopwatch rehearsal, measured site inspection and contractor quotes remain separate. Landau's collection NVDA report covers its stated candidate, and the broader hosted assistive-technology audit is still in progress. No universal accessibility certification is asserted.
 
 The final local venue ZIP contains12 files (19,470,795 bytes), SHA-256 `61523fbc9ff14024668f211d37c7eeb01b6bf1f6447beb63324cc75f75fbc202`. Its RELEASE.json identifies9d83ee0 and the checked productec57fb0; later independent-review/coordination documents do not change the packaged app/media. All included report hashes, canonical inventory, annotated/backup hashes and ZIP CRCs passed packaging verification. The kit is a portable report/video package, not a bundled Node runtime.

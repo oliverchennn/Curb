@@ -94,36 +94,10 @@ export function CollectionDemo() {
     wasEnded.current = ended;
   }, [ended, announce]);
 
-  // A canvas callout can be hidden by the scene while it has keyboard focus (view change or robot
-  // movement). Move focus to the matching camera button in the sidebar instead of dropping it to <body>.
-  const stageRef = useRef<HTMLDivElement>(null);
-  const focusedCallout = useRef<string | null>(null);
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    const onFocusIn = (event: FocusEvent) => {
-      focusedCallout.current = (event.target as HTMLElement | null)?.closest<HTMLElement>('[data-label]')?.dataset.label ?? null;
-    };
-    const rescue = () => {
-      const id = focusedCallout.current;
-      if (!id) return;
-      const callout = stage.querySelector<HTMLElement>(`[data-label="${id}"]`);
-      const lost = document.activeElement === document.body || document.activeElement === null;
-      const hidden = !callout || getComputedStyle(callout).visibility === 'hidden';
-      if (hidden && (lost || document.activeElement === callout)) {
-        focusedCallout.current = null;
-        document.querySelector<HTMLButtonElement>(`[data-sensor-button="${id}"]`)?.focus();
-      }
-    };
-    const onFocusOut = (event: FocusEvent) => {
-      if (event.relatedTarget) { focusedCallout.current = null; return; }
-      setTimeout(rescue, 0);
-    };
-    const observer = new MutationObserver(rescue);
-    observer.observe(stage, { subtree: true, attributes: true, attributeFilter: ['style'] });
-    stage.addEventListener('focusin', onFocusIn);
-    stage.addEventListener('focusout', onFocusOut);
-    return () => { observer.disconnect(); stage.removeEventListener('focusin', onFocusIn); stage.removeEventListener('focusout', onFocusOut); };
+  // The scene transfers focus before an occluded camera callout is hidden.
+  const sensorButtons = useRef<Partial<Record<SensorId, HTMLButtonElement | null>>>({});
+  const focusSensorButton = useCallback((id: SensorId) => {
+    sensorButtons.current[id]?.focus();
   }, []);
 
   return <article className={styles.page}>
@@ -141,8 +115,8 @@ export function CollectionDemo() {
           <span><span className={styles.dot} /> {staticMode ? 'Static diagram' : 'Procedural 3D scene'}</span>
           <span>Illustration, not deployed hardware</span>
         </div>
-        <div ref={stageRef} className={styles.stage} data-seconds={seconds.toFixed(2)}>
-          {staticMode ? <StaticDiagram seconds={seconds} sensor={sensor} /> : <Scene transport={transport} onTime={setSeconds} onPause={pause} onFailure={fail} selectedSensor={sensor} onSensor={selectSensor} />}
+        <div className={styles.stage} data-seconds={seconds.toFixed(2)}>
+          {staticMode ? <StaticDiagram seconds={seconds} sensor={sensor} /> : <Scene transport={transport} onTime={setSeconds} onPause={pause} onFailure={fail} selectedSensor={sensor} onSensor={selectSensor} onHiddenSensorFocus={focusSensorButton} />}
           <div className={styles.stageCaption} aria-hidden="true">SIDEWALK STUDY <span>Local scene · no live sensing</span></div>
         </div>
         <div className={styles.controls}>
@@ -176,7 +150,7 @@ export function CollectionDemo() {
       <aside className={styles.details} aria-label="Proposed sensors">
         <div className={styles.detailHeading}><p className={styles.eyebrow}>THREE VIEWS. ONE REVIEWABLE RECORD.</p><h2>What could we capture?</h2><p>Select a camera to see its proposed view.</p></div>
         <div className={styles.sensors} role="group" aria-label="Choose a camera">
-          {SENSORS.map(item => <button key={item.id} data-sensor-button={item.id} aria-pressed={sensor === item.id} onClick={() => selectSensor(item.id)}><span className={styles.sensorNumber}>{item.number}</span><span>{item.name}<small>{item.purpose}</small></span><span aria-hidden="true">{sensor === item.id ? '●' : '○'}</span></button>)}
+          {SENSORS.map(item => <button key={item.id} ref={button => { sensorButtons.current[item.id] = button; }} data-sensor-button={item.id} aria-pressed={sensor === item.id} onClick={() => selectSensor(item.id)}><span className={styles.sensorNumber}>{item.number}</span><span>{item.name}<small>{item.purpose}</small></span><span aria-hidden="true">{sensor === item.id ? '●' : '○'}</span></button>)}
         </div>
         <div className={styles.sensorDetail}><p className={styles.eyebrow}>PROPOSED VIEW {current.number}</p><h3>{current.purpose}</h3><p>{current.description}</p><div className={styles.limit}><strong>What still needs checking</strong><p>{current.limit}</p></div></div>
         <div className={styles.count}><span>Illustrative captures</span><strong>{captures}<span> / 3</span></strong><small>Simulation progress, not AI inference</small></div>

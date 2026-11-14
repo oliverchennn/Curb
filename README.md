@@ -4,6 +4,8 @@ Curb helps campus facilities teams turn sidewalk evidence into disability-access
 
 The Robertson Hall pilot uses an actual 14-second phone video, five AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**, with a sticky video beside the three workspace tabs on desktop. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
 
+The deployed demo is [curb-taupe.vercel.app](https://curb-taupe.vercel.app), hosted through Vincent’s account. See the [hosting runbook](docs/demo/ROBERTSON_HOSTING.md) for the exact release and verification process. Deployments are manual; pushing a branch does not publish it.
+
 ## Run locally
 
 Use Node.js 22.23.0 or newer. No credentials or environment file are required. Install dependencies before arriving at the venue:
