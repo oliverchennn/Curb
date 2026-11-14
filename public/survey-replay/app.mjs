@@ -1,4 +1,4 @@
-import { conditions, validateSurvey, compareRoutes } from './graph.mjs';
+import { conditions, validateSurvey, compareRoutes, isReviewedBlock } from './graph.mjs';
 
 const $ = id => document.getElementById(id);
 const video = $('video');
@@ -18,6 +18,7 @@ let survey;
 let selected = null;
 let repair = 'current';
 let result;
+const results = new Map();
 let frame = 0;
 let marked = '';
 let ready = false;
@@ -62,6 +63,7 @@ function setStep(step) {
 function makeMapBackground() {
   const background = svg(artwork, 'g', { 'aria-hidden': 'true' });
   svg(background, 'rect', { width, height, fill: '#edf0e5' });
+  if (!survey.sample) return addMapLayers();
   for (const [x, y, w, h] of [[21, 22, 118, 165], [191, 25, 104, 55], [351, 21, 117, 54],
     [526, 20, 105, 102], [347, 119, 124, 93], [525, 194, 106, 36],
     [22, 274, 115, 92], [190, 279, 103, 91], [347, 277, 126, 92], [535, 276, 95, 88]]) {
@@ -90,7 +92,11 @@ function makeMapBackground() {
   }
   svg(background, 'path', { d: 'M620 37l6-16 6 16-6-3z', fill: '#617162' });
   svg(background, 'text', { x: 626, y: 16, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#4a5e50' }, 'N');
-  return ['segments', 'routes', 'selection', 'places'].map(id => svg(artwork, 'g', { id }));
+  addMapLayers();
+}
+
+function addMapLayers() {
+  for (const id of ['segments', 'routes', 'selection', 'places']) svg(artwork, 'g', { id });
 }
 
 function edgeLine(group, edge, attributes) {
@@ -102,7 +108,7 @@ function edgeLine(group, edge, attributes) {
 
 function place(group, node, label, status, iconType) {
   const point = svg(group, 'g', { transform: 'translate(' + node.x + ' ' + node.y + ')' });
-  const theme = status === 'blocked' ? '#895044' : (status === 'restored' ? '#14715a' : '#3b5b46');
+  const theme = status === 'blocked' ? '#895044' : (status === 'restored' ? '#14715a' : status === 'neutral' ? '#5f665c' : '#3b5b46');
   const background = status === 'blocked' ? '#fff4ec' : '#fafff4';
   svg(point, 'circle', { r: 13, fill: background, stroke: theme, 'stroke-width': 2.2 });
   const glyphs = {
@@ -111,7 +117,7 @@ function place(group, node, label, status, iconType) {
     clinic: 'M-2-7h4v5h5v4H2v5h-4V2h-5v-4h5Z',
     pharmacy: 'M0-6v12M-4-2l4-4 4 4M-6 6H6',
   };
-  svg(point, 'path', { d: glyphs[iconType] ?? 'M-5 0H5', fill: 'none', stroke: theme, 'stroke-width': 1.4, 'stroke-linejoin': 'round' });
+  svg(point, 'path', { d: Object.hasOwn(glyphs, iconType) ? glyphs[iconType] : 'M-5 0H5', fill: 'none', stroke: theme, 'stroke-width': 1.4, 'stroke-linejoin': 'round' });
   const isBus = iconType === 'bus';
   const x = isBus ? 0 : 19;
   const y = isBus ? 37 : 5;
@@ -122,10 +128,11 @@ function place(group, node, label, status, iconType) {
 
 function drawMap(animate = false) {
   for (const id of ['segments', 'routes', 'places']) $(id).replaceChildren();
-  const used = new Set(result.destinations.flatMap(({ route }) => route?.edges ?? []));
+  const used = new Set(result?.destinations.flatMap(({ route }) => route?.edges ?? []) ?? []);
   for (const edge of survey.segments) {
-    const blocked = result.blocked.has(edge.id);
-    const finding = survey.findings.find(item => item.segment === edge.id && item.id !== repair && item.assessment?.reviewed && item.assessment.stepFree === 'blocked');
+    const blocked = result?.blocked.has(edge.id) ?? false;
+    const finding = blocked && survey.findings.find(item =>
+      item.segment === edge.id && item.id !== repair && isReviewedBlock(item.assessment));
     edgeLine($('segments'), edge, { 'data-segment': edge.id, 'data-blocked': String(blocked),
       stroke: blocked ? color(finding) : '#94a28e', 'stroke-width': blocked ? 4 : 2.6,
       ...(blocked ? { 'stroke-dasharray': '7 7' } : {}) });
@@ -135,9 +142,11 @@ function drawMap(animate = false) {
         pathLength: 1, ...(changed && animate ? { class: 'route-new' } : {}) });
     }
   }
-  place($('places'), nodeById.get(survey.origin), nodeById.get(survey.origin).label ?? 'Start', 'reachable', 'bus');
-  for (const { node, label, route, restored } of result.destinations) {
-    place($('places'), nodeById.get(node), label, !route ? 'blocked' : restored ? 'restored' : 'reachable', node);
+  place($('places'), nodeById.get(survey.origin), nodeById.get(survey.origin).label ?? 'Start', 'neutral', 'bus');
+  for (const { node, label } of survey.destinations) {
+    const comparison = result?.destinations.find(item => item.node === node);
+    const status = comparison ? (!comparison.route ? 'blocked' : comparison.restored ? 'restored' : 'reachable') : 'neutral';
+    place($('places'), nodeById.get(node), label, status, node);
   }
   drawSelection();
 }
@@ -153,10 +162,10 @@ function drawSelection() {
 
 function renderResults() {
   const restored = result.destinations.filter(item => item.restored);
-  const distance = result.destinations.reduce((sum, item) => sum + item.saved, 0);
+
   const metrics = element('div', 'metrics');
   for (const [value, label] of [[restored.length ? '+' + restored.length : '0', 'Newly reachable destinations'],
-    [distance + ' m', 'Distance saved on existing routes']]) {
+    [result.distanceSaved + ' m', 'Distance saved on existing routes']]) {
     const block = element('div', 'metric');
     block.append(element('strong', '', value), element('span', '', label));
     metrics.append(block);
@@ -174,7 +183,7 @@ function renderResults() {
 
 function setRepair(id) {
   repair = id;
-  result = compareRoutes(survey, id);
+  result = results.get(id);
   for (const button of $('repair-controls').children) {
     button.setAttribute('aria-pressed', String(button.dataset.repair === id));
   }
@@ -209,11 +218,13 @@ function updateFindingDetail() {
   const text = element('div', '');
   const assessment = finding.assessment;
   const source = finding.source === 'model' ? 'Model annotation' : 'Manual annotation';
-  const review = assessment?.reviewed ? 'Reviewed · ' + (assessment.stepFree === 'blocked' ? 'Step-free block' : 'Step-free passable') : 'Review pending';
+  const review = assessment?.reviewed === true
+    ? 'Reviewed · ' + (isReviewedBlock(assessment) ? 'Step-free block' : 'Step-free passable')
+    : 'Review pending · Passability unknown';
   const measurement = finding.measurement ? ' · ' + finding.measurement.value + ' ' + finding.measurement.unit + ' measured rise' : '';
   text.append(element('strong', '', finding.label + ' · ' + finding.location),
     element('p', '', source + ' · ' + review + measurement));
-  if (assessment?.reviewed && assessment.reason) text.append(element('p', '', assessment.reason));
+  if (assessment?.reviewed === true && assessment.reason) text.append(element('p', '', assessment.reason));
   detail.append(text);
 }
 
@@ -221,7 +232,7 @@ function selectFinding(finding) {
   if (!ready || finding.start >= video.duration) return;
   selected = finding.id;
   video.pause();
-  video.currentTime = Math.min(finding.start + .08, video.duration, finding.end - .001);
+  video.currentTime = finding.start + Math.min(.08, (Math.min(finding.end, video.duration) - finding.start) / 2);
   setStep('review');
   updateFindingDetail();
   drawSelection();
@@ -237,7 +248,12 @@ function addFinding(finding) {
   label.append(element('i', 'finding-dot'), element('b', '', finding.label));
   button.append(label, element('time', '', timecode(finding.start)));
   button.addEventListener('click', () => selectFinding(finding));
-  $('finding-list').append(button);
+  const row = element('div', 'finding-row');
+  const message = element('p', 'finding-unavailable', 'Start time is outside the loaded video.');
+  message.id = 'finding-unavailable-' + finding.id;
+  message.hidden = true;
+  row.append(button, message);
+  $('finding-list').append(row);
   findingRows.set(finding.id, button);
 
   const pin = element('button', 'map-pin');
@@ -329,9 +345,14 @@ function updateReadiness(isReady) {
   seek.disabled = !ready;
   play.disabled = !ready;
   for (const finding of survey.findings) {
-    const available = ready && finding.start < video.duration;
-    findingRows.get(finding.id).disabled = !available;
-    pins.get(finding.id).disabled = !available;
+    const outsideVideo = ready && finding.start >= video.duration;
+    const button = findingRows.get(finding.id);
+    const message = $('finding-unavailable-' + finding.id);
+    button.disabled = !ready || outsideVideo;
+    message.hidden = !outsideVideo;
+    if (outsideVideo) button.setAttribute('aria-describedby', message.id);
+    else button.removeAttribute('aria-describedby');
+    pins.get(finding.id).disabled = button.disabled;
   }
   if (ready) {
     seek.max = video.duration;
@@ -350,7 +371,11 @@ function updateReadiness(isReady) {
 
 function wireMedia() {
   video.addEventListener('waiting', () => { if (!video.paused) showMediaMessage('Buffering video…'); });
-  video.addEventListener('loadeddata', () => { showMediaMessage(''); updateReadiness(true); });
+  video.addEventListener('loadeddata', () => {
+    const hasDuration = Number.isFinite(video.duration) && video.duration > 0;
+    showMediaMessage(hasDuration ? '' : 'The local survey video has no usable duration.');
+    updateReadiness(hasDuration);
+  });
   video.addEventListener('playing', () => { showMediaMessage(''); playbackState(); cancelAnimationFrame(frame); frameLoop(); });
   for (const event of ['pause', 'ended', 'seeked', 'timeupdate']) {
     video.addEventListener(event, () => {
@@ -385,6 +410,13 @@ async function init() {
     const response = await fetch('./survey.json');
     if (!response.ok) throw new Error('Could not load survey.json.');
     survey = validateSurvey(await response.json());
+    if (survey.sample) {
+      for (const { id } of conditions) {
+        if (id === 'current' || survey.findings.some(finding => finding.id === id)) {
+          results.set(id, compareRoutes(survey, id));
+        }
+      }
+    }
   } catch (error) {
     $('data-state').textContent = 'Survey unavailable. ' + error.message;
     return;
@@ -396,12 +428,16 @@ async function init() {
   $('media-label').textContent = survey.video.label;
   $('map-label').textContent = survey.label + (survey.sample ? ' · Sample geography' : '');
   $('footnote').textContent = survey.sample
-    ? 'Sample geography and hypothetical repairs. Route distances are illustrative.'
-    : 'Repairs and route changes are hypothetical.';
+    ? 'Synthetic fixed-scenario demonstration. Repairs and distances are illustrative. Use surveyed evidence and separate assessment for real trips.'
+    : 'Video, annotations, and mapped finding locations are available for review.';
+  $('sample-profile').hidden = !survey.sample;
+  $('map-legend').hidden = !survey.sample;
+  $('comparison-assumptions').hidden = !survey.sample;
+  $('repair-controls').hidden = !survey.sample;
   $('finding-count').textContent = String(survey.findings.length);
   makeMapBackground();
   for (const finding of survey.findings) addFinding(finding);
-  for (const { id, label } of conditions) {
+  for (const { id, label } of conditions.filter(({ id }) => results.has(id))) {
     const button = element('button', '', label);
     button.type = 'button';
     button.dataset.repair = id;
@@ -412,11 +448,12 @@ async function init() {
   $('step-review').addEventListener('click', () => { setStep('review'); play.focus(); });
   $('step-compare').addEventListener('click', () => {
     setStep('compare');
-    $('repair-controls').querySelector('[aria-pressed=true]').focus();
+    ($('repair-controls').querySelector('[aria-pressed=true]') ?? $('map-results')).focus();
   });
-  result = compareRoutes(survey, repair);
+  result = results.get(repair);
   drawMap();
-  renderResults();
+  if (result) renderResults();
+  else $('map-results').textContent = 'Comparison unavailable for replacement geography. Continue reviewing video and findings.';
   updateFindingDetail();
   updateReadiness(false);
   wireMedia();
