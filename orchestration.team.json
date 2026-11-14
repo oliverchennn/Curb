@@ -26,27 +26,42 @@
       "name": "Oliver / desktop orchestrator",
       "github": "oliverchennn",
       "session": "01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9",
-      "task": "ROBERTSON-CORE-MEDIA/1",
-      "branch": "codex/robertson-access-repair",
-      "state": "RUNNING",
+      "task": "ROBERTSON-FINAL-RELEASE/1",
+      "branch": "codex/robertson-release-final",
+      "state": "RUNNING; integration, cleanup and hosted verification",
       "scope": "docs/demo/ROBERTSON_IMPLEMENTATION.md: root scope"
     },
     {
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-DEMO-QA/1",
-      "branch": "codex/robertson-demo-qa",
-      "state": "READY; awaiting ACK",
-      "scope": "docs/demo/ROBERTSON_JUDGE_QA.md only; all other files read-only",
-      "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879789783",
-      "baseSha": "3bcc6f63e49eae883a428c505421851db0125718",
+      "task": "CURB-COLLECTION-DEMO/1",
+      "branch": "codex/collection-robot-demo-recovery",
+      "state": "ACK/RUNNING recovery attempt2; WIP published, not released",
+      "scope": "app/curb/collection/page.tsx; src/features/curb/collection/**; public/curb/collection/**; docs/demo/COLLECTION_ROBOT_RESULT.md",
+      "session": "6af8bfb9-50b8-8191-bb64-258bab4200f8",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883587803",
+      "baseSha": "6b2b11040eed8d3d620743bc4e12e112f9ebfa90",
       "previousResult": {
-        "task": "ROBERTSON-MERGED-RELEASE-SMOKE/1",
-        "sha": "660df76abb04b860a598dd7337c89792ad5c3ac2",
-        "state": "STOPPED/RELEASED; reviewed and integrated in follow-up",
-        "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879512942"
+        "task": "ROBERTSON-STRESS-B/1",
+        "sha": "4063a3d0716e02a3a59c5a9e4c0485675deb0693",
+        "state": "STOPPED/RELEASED; integrated as9e09295"
+      },
+      "recovery": {
+        "session": "6af8bfb9-50b8-8191-bb64-258bab4200f8",
+        "state": "Vincent explicitly directed takeover although old writer is not stopped; isolated branch, root reconciles candidates",
+        "url": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883581551"
+      },
+      "previousSession": {
+        "session": "01a1db77-0c6c-7e53-a5af-b5fae92dbda3",
+        "state": "Not confirmed stopped; explicit Vincent-directed recovery takeover; preserve any later candidate",
+        "branch": "codex/collection-robot-demo"
+      },
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883667040",
+      "wipCheckpoint": {
+        "sha": "67c3edc8bf8890b8fe1bae1f5d34b25167f2a8ad",
+        "state": "RUNNING; root read-only review, not released",
+        "url": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883710065"
       }
     },
     {
@@ -54,31 +69,39 @@
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-OVERLAY-FINISH/1",
-      "branch": "codex/robertson-overlay-finish",
-      "state": "STOPPED / RELEASED and integrated",
-      "scope": "VideoEvidence.tsx, SurveyWorkspace.module.css and docs/demo/ROBERTSON_OVERLAY_FINISH.md; root released these files",
-      "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878700641",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878876233",
-      "resultSha": "86cfb2a91d17b787ac22271ac90cb4278b21df92",
-      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879040996"
+      "task": "CURB-EXPLORER-INTEGRATION-QA/1",
+      "branch": "codex/curb-explorer-integration-qa",
+      "state": "STOPPED/RELEASED; report integrated as0f9efc8; root corrections verified at1c6f1ce",
+      "scope": "",
+      "baseSha": "08855c746b38ced0a4fe0ffb2e4f4b422777c60a",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883518793",
+      "previousResult": {
+        "task": "ROBERTSON-INTEGRATED-SURVEY-QA/1",
+        "sha": "9661fae0556257b75df4a1360448a0d3150be2a0",
+        "state": "STOPPED/RELEASED; integrated as8a0112a"
+      },
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883602281",
+      "resultSha": "7e0d2897d47c778abbd54922b3df9bb29bfe915b",
+      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883660464"
     },
     {
       "lane": "D",
       "name": "Oliver / existing cloud chat",
       "github": "oliverchennn",
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "task": "ROBERTSON-FINAL-GATE/1",
-      "branch": "codex/robertson-final-gate",
-      "state": "STOPPED / RELEASED; final gate integrated; D6-01 independently closed",
-      "scope": "docs/demo/ROBERTSON_FINAL_GATE.md only; product read-only",
-      "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878746888",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878771480",
-      "resultSha": "650640933d744f72668abf5f1bd0e5db29602838",
-      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878901888",
-      "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878950138"
+      "task": "CURB-COLLECTION-INDEPENDENT-QA/1",
+      "branch": "codex/collection-independent-qa",
+      "state": "ACK/RUNNING; independent robot candidate QA, product read-only",
+      "scope": "docs/demo/COLLECTION_INDEPENDENT_QA.md",
+      "baseSha": "67c3edc8bf8890b8fe1bae1f5d34b25167f2a8ad",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883735516",
+      "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882978608",
+      "previousResult": {
+        "task": "CURB-ROUTE-EXPLORER/1",
+        "sha": "2b3f8282fa2f065d4eba285c1de70e417009ce00",
+        "state": "STOPPED/RELEASED; integrated b10808a+5e35729"
+      },
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883762372"
     }
   ],
   "board": {
@@ -86,9 +109,9 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6879789783"
+    "lastReadCommentId": "6883870324"
   },
-  "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
+  "currentSlice": "Robertson disability-access workspace, simulated upload, collection concept and route explorer; final integration and Vincent hosting pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -272,8 +295,10 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "Root docs-only pilot/smoke record merge",
-      "B presenter Q&A and backup explanation (6879789783)"
+      "B collection robot, then final Vincent-account hosting",
+      "C available for bounded combined-page QA once root publishes B/D integration",
+      "D route and evidence explorer",
+      "Root source review, integration, backup, serialized merge and hosted verification"
     ]
   },
   "historicalR2Developers": [
@@ -400,6 +425,7 @@
     "mergedMainSha": "3bcc6f63e49eae883a428c505421851db0125718",
     "verifiedHead": "a6f9a20c12d67d616fb24709a409097b2a29fabd",
     "applicationTests": 676,
-    "state": "merged; no deployment"
-  }
+    "state": "merged local product; final stress/hosting requested by user"
+  },
+  "hostingAuthority": "Oliver explicitly selected Vincent\u2019s hosting account (board6882804873). B confirmed scope vzhu08 and no existing linked Curb project; exact project/team and post-stress base required before deployment. No paid upgrades or spending."
 }

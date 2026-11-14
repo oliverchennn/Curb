@@ -1,0 +1,8 @@
+.nav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 6px !important; }
+.nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 12px; color: #40594a; border: 1px solid transparent; border-radius: 8px; font-size: 14px; font-weight: 550; text-decoration: none !important; }
+.nav a:hover { background: #e9eee3; }
+.nav a[aria-current='page'] { background: #e6eddf; border-color: #c6d1bb; color: #193b2b; font-weight: 750; }
+@media (max-width: 760px) {
+  .nav { justify-content: flex-start; width: 100%; }
+  .nav a { padding: 8px 10px; min-height: 44px; font-size: 13px; }
+}

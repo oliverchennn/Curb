@@ -2,11 +2,15 @@
   "kind": "edited walkthrough from actual captures and annotated footage",
   "durationSeconds": 120,
   "output": "demo-backup.mp4",
-  "sha256": "fb30922f4e31f42165447230ede7955607eb152c426b1fb2cf3a64730546c20b",
+  "sha256": "4c1264159273fa6b0d19e8ec246505df1c809935a71ed05051cb54686feb70da",
   "inputs": [
     {
+      "path": "walkthrough-00-upload.jpg",
+      "sha256": "7f9a2fe93c62d34c067af27c1888031ba71f0372186f58218e7d45f41d593b86"
+    },
+    {
       "path": "walkthrough-01-survey.jpg",
-      "sha256": "231290dd506b72d13f2e74834077359f4f22db98b473e2a4e4193ea74ddf6aaf"
+      "sha256": "8de877781f45b864a761dc571e5959f227b2612aeef3e89e05ba8801fbafd377"
     },
     {
       "path": "annotated.mp4",
@@ -14,29 +18,92 @@
     },
     {
       "path": "walkthrough-02-evidence.jpg",
-      "sha256": "7eb6aa9712cd24a260db2dbc3bac7b9ac1d63b6415789ddfd0cdaea40ddac87a"
+      "sha256": "155f475042da01f5d7dacf71aee87a48b234b2c94395d793f61fd7e814a1c080"
     },
     {
       "path": "walkthrough-03-inspection.jpg",
-      "sha256": "470f818e1222b3feb95fe2ae9803900fa6b18ea711da5aa3aa03373e225c6496"
+      "sha256": "273e70e8b8f9e3fb0573a5dc6f9eef21025c0ebd9cdaa9c8efaf1f8ac37dd46f"
     },
     {
       "path": "walkthrough-04-plans.jpg",
-      "sha256": "682aab9a4a9a52e1197095482f595c294f80fd8fddce5ae30d047faffeee79fd"
+      "sha256": "51a7036d60e8b79f9b29a08801026ec5dd278bc7e7d27fbbdf02f78564980776"
     },
     {
       "path": "walkthrough-05-budget.jpg",
-      "sha256": "1ccf36ee9b21fa24d823a55078ad4db3706c45dcfa17da5cb194d96c47f9a313"
+      "sha256": "6ab188b4ce3d225d3aecb2fbe596e302e812e37bceb3405fca65363cbb3fb53d"
     },
     {
       "path": "walkthrough-06-exports.jpg",
-      "sha256": "08dfa64458d170bc191241195115c06541aab0366aff0d8dea84ed03d43e4c94"
+      "sha256": "007c15d7f3d3113eef646ead40ca7efb1bca8a2bdbfab0dffd03237d178489eb"
+    },
+    {
+      "path": "collection-browser-recording.mp4",
+      "sha256": "4a5cd36f2e8725107833c3052c1eb4e2cb26a03efb46e51dc08a0411ae7cf8d7"
+    },
+    {
+      "path": "walkthrough-09-explorer.jpg",
+      "sha256": "06794031b91b03a7c75eb937fb8cd2074367786365e805aba49d01cd53a05495"
     },
     {
       "path": "walkthrough-07-report.jpg",
-      "sha256": "1fe51d60d5c767196724203aacb7548c7b5e6bfc1b1da90e019d28dbda628e16"
+      "sha256": "197898dfe8526c696d9f89de2768001482409374f7d1a1bf9e787df3825c10af"
     }
   ],
-  "surveyUiCheckpoint": "1dbb59f1ce87c675299973ea3a359f3844254d48",
-  "notes": "Actual captured UI states and report page plus complete annotated footage; not a continuous live screen recording. Other unchanged captures predate the final overlay finish. No narration."
+  "recordedAt": "2026-11-14T20:48:36.553012+00:00",
+  "combinedProduct": "ec57fb0f523fab6bccaee2ec0391b1d3c85dc04a",
+  "frames": 3600,
+  "fullDecode": "pass",
+  "notes": "Edited actual captured UI states and a verified default report page, complete annotated source footage, and a ten-second recording sampled from actual robot playback. Not a continuous live screen recording. No narration. Survey captures from the unchanged final core; explorer capture after history corrections.",
+  "collectionRecording": {
+    "source": "ec57fb0f523fab6bccaee2ec0391b1d3c85dc04a",
+    "sourceScreenshots": 101,
+    "durationSeconds": 10,
+    "method": "CUA screenshots sampled over actual wall-clock playback; no motion interpolation."
+  },
+  "segments": [
+    {
+      "start": 0,
+      "kind": "upload"
+    },
+    {
+      "start": 10,
+      "kind": "survey"
+    },
+    {
+      "start": 18,
+      "kind": "annotated clip"
+    },
+    {
+      "start": 32,
+      "kind": "evidence"
+    },
+    {
+      "start": 42,
+      "kind": "inspection"
+    },
+    {
+      "start": 54,
+      "kind": "repair plans"
+    },
+    {
+      "start": 68,
+      "kind": "budget"
+    },
+    {
+      "start": 82,
+      "kind": "exports"
+    },
+    {
+      "start": 92,
+      "kind": "collection recording"
+    },
+    {
+      "start": 102,
+      "kind": "route explorer"
+    },
+    {
+      "start": 112,
+      "kind": "report page"
+    }
+  ]
 }

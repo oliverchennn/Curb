@@ -1,0 +1,102 @@
+{
+  "source": "ec57fb0f523fab6bccaee2ec0391b1d3c85dc04a",
+  "fullCheck": {
+    "command": "npm run check",
+    "result": "pass",
+    "tests": 718,
+    "files": 26,
+    "typecheck": "pass",
+    "productionBuild": "pass"
+  },
+  "bSource": "f76457c26bb063938687039fb2869f8c97246f6b",
+  "bProduct": "5e23a63f93ce15e0d364bff1d8c026bb5a1a971c",
+  "bHashMatch": {
+    "product": 7,
+    "artifacts": 22
+  },
+  "functionalSmoke": {
+    "checkedAt": "2026-11-14T20:45:36.134Z",
+    "origin": "http://127.0.0.1:3004",
+    "checks": [
+      {
+        "path": "/curb/upload",
+        "status": 200,
+        "bytes": 9039
+      },
+      {
+        "path": "/curb/surveys/robertson-hall",
+        "status": 200,
+        "bytes": 8003
+      },
+      {
+        "path": "/curb/collection",
+        "status": 200,
+        "bytes": 13853
+      },
+      {
+        "path": "/curb/explore",
+        "status": 200,
+        "bytes": 77430
+      },
+      {
+        "path": "/api/curb/survey",
+        "status": 200,
+        "bytes": 95271
+      },
+      {
+        "path": "/api/curb/survey/report?format=html",
+        "status": 200,
+        "bytes": 346899
+      },
+      {
+        "path": "/api/curb/survey/report?format=pdf",
+        "status": 200,
+        "bytes": 260004
+      },
+      {
+        "path": "/curb/surveys/robertson-hall/survey.mp4",
+        "status": 206,
+        "bytes": 32
+      },
+      {
+        "path": "/curb/surveys/robertson-hall/annotated.mp4",
+        "status": 206,
+        "bytes": 32
+      },
+      {
+        "path": "/curb/surveys/robertson-hall/source/IMG_0699.MOV",
+        "status": 206,
+        "bytes": 32
+      }
+    ],
+    "pdfPages": 12,
+    "result": "pass",
+    "scope": "10 sequential functional requests; not browser, load, or accessibility certification"
+  },
+  "browser": {
+    "tool": "CUA in-app browser; actual rendered WebGL",
+    "checks": [
+      "Play advances actual scene and timeline; Pause stops it",
+      "Capture card seeks to 12 seconds and shows 2/3 captures",
+      "Backward keyboard scrub to 11.9 seconds returns surface capture to Upcoming and 1/3",
+      "Follow, Side and Overhead controls switch views",
+      "Surface sensor selection updates camera callout and explanation; coverage toggles",
+      "Static diagram removes canvas and retains timeline/sensor content; 3D remount succeeds at reset time",
+      "1366x768 initial Play bottom at661.14px, no horizontal overflow",
+      "390x844 actual WebGL and keyboard Static selection, no horizontal overflow",
+      "Shared Route explorer navigation and Back return to functional collection page",
+      "No console error/warning entries returned"
+    ],
+    "limits": [
+      "Root did not inject context loss or change motion preference; those cases are covered separately by B and D receipts",
+      "No physical robot, screen-reader, projector or physical touch-hardware validation"
+    ]
+  },
+  "captures": {
+    "walkthrough-08-collection.jpg": "9a110ced2b5fca4b40b0befbbd2eb062df0a581ad89bb3684bfd1011dbbec842",
+    "collection-mobile-static.jpg": "a2e6f760fa898780941d437a5e2035507bce037a32bdb933189539caea2f0635",
+    "walkthrough-09-explorer.jpg": "06794031b91b03a7c75eb937fb8cd2074367786365e805aba49d01cd53a05495",
+    "walkthrough-07-report.jpg": "197898dfe8526c696d9f89de2768001482409374f7d1a1bf9e787df3825c10af"
+  },
+  "recordedAt": "2026-11-14T20:48:19.970584+00:00"
+}

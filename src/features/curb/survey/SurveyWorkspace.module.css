@@ -178,13 +178,16 @@
 .chipSelected { border-color: var(--forest) !important; background: var(--forest-tint) !important; box-shadow: inset 0 0 0 2px var(--forest); }
 .swatch { display: inline-block; flex: none; width: 14px; height: 14px; border: 1px solid rgba(0, 0, 0, .35); border-radius: 4px; }
 .routeNote { margin-bottom: 10px; padding: 12px 14px; border: 1px solid #ecd39a; border-radius: 10px; background: var(--amber-soft); color: #553804; font-size: 15px; }
-.routeNote summary { cursor: pointer; }
+.routeNote summary { display: flex; align-items: center; min-height: 32px; cursor: pointer; }
+.routeNote summary::before { content: '▸' / ''; margin-right: 6px; }
+.routeNote[open] summary::before { content: '▾' / ''; }
+.routeNote summary::-webkit-details-marker { display: none; }
 .routeNote p { margin: 8px 0 0; }
 
 /* ---------- Review ---------- */
 .inlineLabel { grid-template-columns: auto minmax(0, 240px); align-items: center; }
-.reviewLayout { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 14px; }
-.findingList { position: sticky; top: 76px; display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.reviewLayout { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 14px; }
+.findingList { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .findingButton, .findingButtonSelected {
   display: grid !important; gap: 3px; width: 100%; padding: 12px 14px !important; text-align: left;
   border-color: var(--rule) !important; background: var(--paper-2) !important; color: var(--ink) !important; font-weight: 650 !important;
@@ -252,6 +255,68 @@
 .exportItem h3 { color: var(--forest); }
 .hash { font-size: 12px; word-break: break-all; }
 
+/* ---------- Workspace desk: evidence column + tabbed work pane ---------- */
+.desk { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+.evidenceColumn { display: grid; gap: 12px; min-width: 0; }
+.workColumn { display: grid; gap: 12px; min-width: 0; container-type: inline-size; }
+.tabList {
+  position: sticky; top: 8px; z-index: 6;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px;
+  border: 1px solid rgba(255, 255, 255, .75); border-radius: 16px;
+  background: rgba(255, 253, 248, .92); box-shadow: var(--shadow-1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
+}
+.workspace .tabList button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 8px 12px;
+  border-color: transparent; background: transparent; color: var(--forest); font-size: 17px; font-weight: 750; text-align: left;
+}
+.workspace .tabList button:hover { background: var(--forest-tint); }
+.workspace .tabList button[aria-selected='true'] { background: var(--forest); color: #fff; box-shadow: var(--shadow-1); }
+.tabNumber { display: inline-grid; flex: none; place-items: center; width: 28px; height: 28px; border: 2px solid currentColor; border-radius: 50%; font-size: 14px; }
+.tabPanel { min-width: 0; }
+.tabPanel > section > h2 { font-size: 24px; }
+
+.jumpBar { display: grid; gap: 6px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: var(--radius-md); background: var(--paper); box-shadow: var(--shadow-1); }
+.jumpTitle { margin: 0; color: var(--muted-ink); font-size: 14px; font-weight: 750; }
+.jumpBar ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.workspace .jump, .workspace .jumpSelected {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-height: 44px; padding: 6px 4px;
+  border-color: var(--rule-strong); background: var(--paper-2); color: var(--ink); font-size: 15px; font-weight: 750; font-variant-numeric: tabular-nums;
+}
+.workspace .jump:hover { background: var(--forest-tint); }
+.workspace .jumpSelected { border-color: var(--forest); background: var(--forest-tint); box-shadow: inset 0 0 0 2px var(--forest); }
+.jumpRejected { text-decoration: line-through; }
+
+.sessionNote { flex-basis: 100%; margin: 0; color: #5e3d05; font-size: 15px; font-weight: 650; }
+.workspace button[aria-disabled='true']:not([aria-busy='true']) { cursor: not-allowed; }
+.workspace .decided { opacity: .55; }
+
+/* Review pane: findings list and local map share the left of the pane. */
+.reviewAside { display: grid; gap: 14px; min-width: 0; }
+.reviewAside .sitePanel { padding: 14px; border-radius: var(--radius-md); background: var(--paper-2); box-shadow: none; }
+.reviewAside .schematic { max-width: none; margin: 8px 0 4px; }
+.siteHeading { margin-bottom: 2px !important; color: var(--forest); font-size: 18px !important; }
+.reviewAside .siteName { font-size: 17px; }
+.mapCredit { margin: 0 0 8px; color: var(--muted-ink); font-size: 13px; }
+.unplacedNote { margin: 0 0 10px; color: var(--muted-ink); font-size: 14px; }
+.tabPanel .closeup { max-height: 280px; }
+
+/* Plans: compact cards side by side; full repair detail is one disclosure away. */
+.workspace .planSelect { width: 100%; margin: 4px 0 12px; }
+.planFacts { display: grid; gap: 4px; margin: 0 0 10px; font-size: 14px; }
+.planFacts div { display: flex; flex-wrap: wrap; gap: 0 6px; }
+.planFacts dt { color: var(--muted-ink); font-weight: 750; }
+.planFacts dt::after { content: ':'; }
+.planFacts dd { margin: 0; }
+.deferredNote { margin: 0 0 8px; padding: 6px 10px; border-left: 4px solid var(--amber-ring); border-radius: 0 8px 8px 0; background: var(--amber-soft); color: #553804; font-size: 14px; }
+.tabPanel .planGrid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.tabPanel .planCard, .tabPanel .planCardSelected { padding: 16px; }
+.tabPanel .planCost { font-size: 24px; }
+
+@container (max-width: 760px) {
+  .reviewLayout { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* ---------- Layout breakpoints ---------- */
 @media (min-width: 1500px) {
   .workspace { font-size: 19px; }
@@ -262,11 +327,35 @@
 @media (min-width: 1200px) and (min-height: 1000px) {
   @supports (aspect-ratio: 1) { .videoFrame { height: min(52vh, 720px); } }
 }
-@media (max-width: 1080px) {
-  .stage { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); }
+/* Desktop desk: the workspace uses the window width (beyond the 1200px page column) and keeps
+ * the portrait replay in a sticky column sized to fit one screen beside the tabbed pane. */
+@media (min-width: 1100px) {
+  .workspace {
+    --desk-width: min(1640px, calc(100vw - 64px));
+    /* Picture width stays in ranges whose labels were swept frame by frame: under 240px
+     * (compact "Defect NN" labels) on short screens, at least 320px on taller ones. */
+    --frame-h: clamp(320px, calc(100vh - 345px), 420px);
+    width: var(--desk-width);
+    margin-inline: calc((100% - var(--desk-width)) / 2);
+  }
+  .header { padding: 10px 22px; }
+  .header h1 { font-size: clamp(30px, 2.6vw, 40px); }
+  .lede { font-size: 18px; }
+  @media (min-height: 900px) { .workspace { --frame-h: clamp(570px, calc(100vh - 330px), 720px); } }
+  .desk { grid-template-columns: max(360px, calc(var(--frame-h) * 0.5625 + 40px)) minmax(0, 1fr); }
+  .evidenceColumn { position: sticky; top: 8px; }
+  .evidenceColumn .videoPanel { padding: 14px 16px; }
+  .evidenceColumn .panelHeading { margin-bottom: 10px; gap: 8px; }
+  .evidenceColumn .videoPanel h2 { font-size: 22px; }
+  .evidenceColumn .segmented button { padding: 6px 10px; }
+  .evidenceColumn .videoPanel .small { margin-bottom: 4px; font-size: 14px; }
+  .evidenceColumn .pendingChecks { margin-block: 2px 0; }
+  .evidenceColumn .videoFrame { max-height: none; }
+  @supports (aspect-ratio: 1) { .evidenceColumn .videoFrame { height: var(--frame-h); } }
 }
 @media (max-width: 960px) {
   .stage, .reviewLayout { grid-template-columns: minmax(0, 1fr); }
+  .tabList { top: 0; }
   .findingList { position: static; }
   .videoFrame { height: min(70vh, 700px); }
 }
@@ -287,6 +376,9 @@
   .moneyInput input { width: 100%; }
   .planCost { font-size: 26px; }
   .videoFrame { height: min(62vh, 600px); }
+  .workspace .tabList button { flex-direction: column; gap: 2px; min-height: 56px; padding: 6px 4px; font-size: 14px; text-align: center; }
+  .tabNumber { width: 24px; height: 24px; font-size: 13px; }
+  .jumpBar { padding: 10px 12px; }
 }
 
 /* ---------- Preferences and fallbacks ---------- */
@@ -294,16 +386,18 @@
   .workspace *, .workspace *::before, .workspace *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .header, .summaryBar, .steps { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .header, .summaryBar, .steps, .tabList { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .header, .summaryBar, .steps { background: var(--paper); }
+  .header, .summaryBar, .steps, .tabList { background: var(--paper); }
 }
 @media (forced-colors: active) {
   .box, .boxSelected, .pin, .pinSelected { forced-color-adjust: none; }
   .workspace::before { display: none; }
 }
 @media print {
-  .workspace::before, .steps { display: none; }
+  .workspace::before, .steps, .tabList, .jumpBar { display: none; }
+  .tabPanel[hidden] { display: block; }
+  .evidenceColumn { position: static; }
   .card, .sitePanel, .videoPanel, .header, .summaryBar { box-shadow: none; backdrop-filter: none; }
 }

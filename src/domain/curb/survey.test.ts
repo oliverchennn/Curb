@@ -99,6 +99,34 @@ describe('Robertson maintenance planning', () => {
     expect(costRange({...c,rateLowCents:101,rateHighCents:103,quantityLow:1.1,quantityHigh:1.1})).toEqual({lowCents:111,highCents:114});
     expect(costRange({status:'quote_required',reason:'Unmeasured'})).toBeNull();
   });
+  it.each([
+    [100, 1.1, 110, 110],
+    [100, 0.29, 29, 29],
+    [100_000_000, 1e-7, 10, 10],
+    [100, 1.0000000000000002, 100, 101],
+    [3, 0.1, 0, 1],
+    [0, 1.1, 0, 0],
+  ])('rounds decimal quantity costs exactly: %s cents × %s', (rate, quantity, lowCents, highCents) => {
+    const c = fresh().treatments[0].cost;
+    if (c.status !== 'estimated') throw Error('fixture');
+    expect(costRange({ ...c, rateLowCents: rate, rateHighCents: rate, quantityLow: quantity, quantityHigh: quantity }))
+      .toEqual({ lowCents, highCents });
+  });
+  it('funds an exactly priced decimal quantity at its cent boundary', () => {
+    const s = fresh();
+    s.findings = s.findings.slice(0, 1);
+    s.workAreas = s.workAreas.slice(0, 1);
+    const option = s.treatments[0];
+    if (option.cost.status !== 'estimated') throw Error('fixture');
+    s.treatments = [{ ...option, cost: { ...option.cost, rateLowCents: 100, rateHighCents: 100, quantityLow: 1.1, quantityHigh: 1.1 } }];
+    s.workAreas[0].recommendedOptionId = option.id;
+    s.sharedCosts = [];
+    expect(buildRepairPlans(s, 109)[3].optionIds).toEqual([]);
+    const exact = buildRepairPlans(s, 110)[3];
+    expect(exact.optionIds).toEqual([option.id]);
+    expect(exact.cost).toMatchObject({ lowCents: 110, highCents: 110, isComplete: true });
+    expect(exact.budgetFit).toBe('within');
+  });
 });
 
 describe('time-driven evidence',()=>{

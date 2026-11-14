@@ -1,0 +1,345 @@
+{
+  "startedAt": "2026-11-14T20:01:36.666233+00:00",
+  "baseUrl": "http://127.0.0.1:3186",
+  "implementationBase": "6b2b11040eed8d3d620743bc4e12e112f9ebfa90",
+  "head": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d",
+  "checks": [
+    "desktop-1366-production: no page horizontal overflow",
+    "desktop-1366-production: primary name, type and snapshot date labels at least 14px",
+    "desktop-1366-production: fitted source features remain visible below map controls",
+    "Reduced-motion preference is active",
+    "No active explorer animations",
+    "witherspoon: record, geometry and traversal counts",
+    "witherspoon: fitted source features remain visible below map controls",
+    "nassau-east: record, geometry and traversal counts",
+    "nassau-east: fitted source features remain visible below map controls",
+    "nassau-west: record, geometry and traversal counts",
+    "nassau-west: fitted source features remain visible below map controls",
+    "robertson: record, geometry and traversal counts",
+    "examples: record, geometry and traversal counts",
+    "Conflict cards are side by side",
+    "Separate withheld and unavailable example copy",
+    "Searching one conflicting ID retains both records",
+    "Stable source ID search finds exactly the target",
+    "Type filter preserves an eligible selected identity",
+    "Hidden unplaced/conflict counts remain explicit",
+    "No-results reset restores every collection",
+    "An unplaced entrance is selectable without inventing a marker",
+    "Next snapshot changes identity",
+    "Previous snapshot restores identity",
+    "Previous snapshot wraps to last record",
+    "Selected snapshot scrolls within strip",
+    "Marker Enter selects exact source",
+    "Marker Space selects exact source",
+    "Pointer marker selection",
+    "Zoom in changes extent only",
+    "Fit restores collection extent",
+    "Keyboard pan changes extent",
+    "Keyboard plus zooms",
+    "Home fits collection",
+    "Pointer drag pans without selecting another record",
+    "Collection arrow and Enter keyboard equivalent",
+    "Collection change fits its own extent",
+    "Robertson photo 1 loads locally without a marker",
+    "Robertson photo 2 loads locally without a marker",
+    "Robertson photo 3 loads locally without a marker",
+    "Robertson photo 4 loads locally without a marker",
+    "Robertson photo 5 loads locally without a marker",
+    "desktop-1366-production: pageErrors empty",
+    "desktop-1366-production: consoleErrors empty",
+    "desktop-1366-production: externalRequests empty",
+    "desktop-1366-production: failedRequests empty",
+    "Actual media-fragment clip navigation reaches a local video",
+    "Real survey page navigation",
+    "Existing survey handoff has no page exception or external request",
+    "Existing survey handoff has no resource failure except its known missing root favicon",
+    "1920-production: no page horizontal overflow",
+    "1920-production: primary name, type and snapshot date labels at least 14px",
+    "1920-production: fitted source features remain visible below map controls",
+    "1920-production: pageErrors empty",
+    "1920-production: consoleErrors empty",
+    "1920-production: externalRequests empty",
+    "1920-production: failedRequests empty",
+    "390-production: no page horizontal overflow",
+    "390-production: primary name, type and snapshot date labels at least 14px",
+    "390-production: fitted source features remain visible below map controls",
+    "Mobile arrow selects and focuses next tab",
+    "Mobile tabs support Home and End",
+    "390: witherspoon: fitted source features remain visible below map controls",
+    "390: witherspoon selection keeps keyboard focus visible",
+    "390: witherspoon collection and evidence reachable",
+    "390-production: no page horizontal overflow",
+    "390: nassau-east: fitted source features remain visible below map controls",
+    "390: nassau-east selection keeps keyboard focus visible",
+    "390: nassau-east collection and evidence reachable",
+    "390-production: no page horizontal overflow",
+    "390: nassau-west: fitted source features remain visible below map controls",
+    "390: nassau-west selection keeps keyboard focus visible",
+    "390: nassau-west collection and evidence reachable",
+    "390-production: no page horizontal overflow",
+    "390: robertson selection keeps keyboard focus visible",
+    "390: robertson collection and evidence reachable",
+    "390-production: no page horizontal overflow",
+    "390: examples selection keeps keyboard focus visible",
+    "390: examples collection and evidence reachable",
+    "390-production: no page horizontal overflow",
+    "Mobile full record list exposes every field frame",
+    "390-production: pageErrors empty",
+    "390-production: consoleErrors empty",
+    "390-production: externalRequests empty",
+    "390-production: failedRequests empty",
+    "actual-200-percent-zoom: no page horizontal overflow",
+    "Actual 200% browser zoom doubles devicePixelRatio",
+    "200% zoom navigation and evidence reachable",
+    "actual-200-percent-zoom: pageErrors empty",
+    "actual-200-percent-zoom: consoleErrors empty",
+    "actual-200-percent-zoom: externalRequests empty",
+    "actual-200-percent-zoom: failedRequests empty",
+    "Broken local photo shows honest failure and no substitute image",
+    "Injected failure is local and produces no page exception"
+  ],
+  "runs": [
+    {
+      "label": "desktop-1366-production",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "externalRequests": [],
+      "failedRequests": [],
+      "cancelledRequests": [
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=rUorKRZZNtCPx98T",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=qVPY3kRm7snYsWPN",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "viewport": {
+        "innerWidth": 1366,
+        "innerHeight": 768,
+        "outerWidth": 1366,
+        "outerHeight": 768,
+        "dpr": 1,
+        "scrollWidth": 1366
+      },
+      "primaryFontPixels": [
+        16,
+        14
+      ]
+    },
+    {
+      "label": "existing-survey-and-media-handoff",
+      "pageErrors": [],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "location": {
+            "url": "http://127.0.0.1:3186/favicon.ico",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "externalRequests": [],
+      "failedRequests": [],
+      "cancelledRequests": [
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall/survey.mp4",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall/survey.mp4",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall/survey.mp4",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall/survey.mp4",
+          "failure": "net::ERR_ABORTED"
+        }
+      ]
+    },
+    {
+      "label": "1920-production",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "externalRequests": [],
+      "failedRequests": [],
+      "cancelledRequests": [],
+      "viewport": {
+        "innerWidth": 1920,
+        "innerHeight": 1080,
+        "outerWidth": 1920,
+        "outerHeight": 1080,
+        "dpr": 1,
+        "scrollWidth": 1920
+      },
+      "primaryFontPixels": [
+        15,
+        14
+      ]
+    },
+    {
+      "label": "390-production",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "externalRequests": [],
+      "failedRequests": [],
+      "cancelledRequests": [
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=rUorKRZZNtCPx98T",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=qVPY3kRm7snYsWPN",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "viewport": {
+        "innerWidth": 390,
+        "innerHeight": 844,
+        "outerWidth": 500,
+        "outerHeight": 844,
+        "dpr": 1,
+        "scrollWidth": 390
+      },
+      "primaryFontPixels": [
+        16,
+        14
+      ]
+    },
+    {
+      "label": "actual-200-percent-zoom",
+      "pageErrors": [],
+      "consoleErrors": [],
+      "externalRequests": [],
+      "failedRequests": [],
+      "cancelledRequests": [
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=rUorKRZZNtCPx98T",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=qVPY3kRm7snYsWPN",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "viewport": {
+        "innerWidth": 683,
+        "innerHeight": 340,
+        "outerWidth": 1366,
+        "outerHeight": 768,
+        "dpr": 2,
+        "scrollWidth": 683
+      }
+    },
+    {
+      "label": "injected-local-photo-failure",
+      "pageErrors": [],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_FAILED",
+          "location": {
+            "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall/defect-01.jpg",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "externalRequests": [],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall/defect-01.jpg",
+          "failure": "net::ERR_FAILED"
+        }
+      ],
+      "cancelledRequests": [
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=rUorKRZZNtCPx98T",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:3186/curb/surveys/robertson-hall?_rsc=qVPY3kRm7snYsWPN",
+          "failure": "net::ERR_ABORTED"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    "desktop-1366.png",
+    "conflicting-examples.png",
+    "robertson-field-detail.png",
+    "desktop-1920.png",
+    "mobile-map.png",
+    "mobile-conflicts.png",
+    "mobile-field-detail.png",
+    "zoom-200-percent.png"
+  ],
+  "productSha256": {
+    "src/features/curb/explore/Evidence.tsx": "9301115dd34ea38fcf55f349918522a48b8701d568240841225b132840f7718b",
+    "src/features/curb/explore/Explorer.module.css": "44a69f00e277fa3548a60d523cda693569fde5a5650998c36ce63a2eed2ff674",
+    "src/features/curb/explore/Explorer.tsx": "8b6664813e2ec7e1cfbd854a2588f24d2aa38754b5c7badf033bbd00f739f063",
+    "src/features/curb/explore/MapCanvas.tsx": "8ad5ddfee8bc8531c2e12b449303dbc36bc2847052066acf19a41d009d185276",
+    "src/features/curb/explore/archive.json": "0fde909f7f75386ea5db5e0ad0d8a7c87f97207963c959d2d0ce1495b60ebd32",
+    "src/features/curb/explore/data.ts": "a0afb78280cad783670a79ae64d0dc93fbc94aee97af8eb95be5bfabbaf63e24",
+    "src/features/curb/explore/model.ts": "10824f7873f6d8ae2218ca595c484e27564f7c4bd5a0a93fa8e5be6c74466dab",
+    "app/curb/explore/page.tsx": "c7cb89642908a1a1c2778bccabdefc4cace25801cd116a38aac5f99474488fb5"
+  },
+  "browser": "156.0.8078.79",
+  "nativeZoomMetrics": {
+    "layoutViewport": {
+      "pageX": 0,
+      "pageY": 384,
+      "clientWidth": 1366,
+      "clientHeight": 681
+    },
+    "visualViewport": {
+      "offsetX": 0,
+      "offsetY": 0,
+      "pageX": 0,
+      "pageY": 192,
+      "clientWidth": 1366,
+      "clientHeight": 681,
+      "scale": 1,
+      "zoom": 2
+    },
+    "contentSize": {
+      "x": 0,
+      "y": 0,
+      "width": 1366,
+      "height": 2454
+    },
+    "cssLayoutViewport": {
+      "pageX": 0,
+      "pageY": 192,
+      "clientWidth": 683,
+      "clientHeight": 340
+    },
+    "cssVisualViewport": {
+      "offsetX": 0,
+      "offsetY": 0,
+      "pageX": 0,
+      "pageY": 192,
+      "clientWidth": 683,
+      "clientHeight": 340.5,
+      "scale": 1,
+      "zoom": 2
+    },
+    "cssContentSize": {
+      "x": 0,
+      "y": 0,
+      "width": 683,
+      "height": 1227
+    }
+  },
+  "outcome": "passed",
+  "completedAt": "2026-11-14T20:01:47.257393+00:00",
+  "checkCount": 93
+}

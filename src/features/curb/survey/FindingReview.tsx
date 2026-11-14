@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { PrioritySchema, type Priority, type Survey } from '../../../contracts/curb/survey';
 import {
   areaForFinding,
@@ -14,12 +14,14 @@ import {
 } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
-export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange }: {
+export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext }: {
   survey: Survey;
   editedIds: string[];
   selectedFindingId: string | null;
   onSelectFinding: (findingId: string) => void;
   onChange: (survey: Survey, message: string) => void;
+  /** Local map context, shown beside the finding list so map and selection stay connected. */
+  siteContext?: ReactNode;
 }) {
   const [reviewer, setReviewer] = useState('');
   const [message, setMessage] = useState<string | null>(null);
@@ -27,14 +29,18 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
   const area = finding ? areaForFinding(survey, finding.id) : undefined;
   const sources = new Map(survey.sources.map((source) => [source.id, source]));
 
-  function apply(result: { ok: true; survey: Survey } | { ok: false; message: string }, done: string) {
+  // A message belongs to the finding it was raised for; selecting another finding clears it.
+  useEffect(() => setMessage(null), [selectedFindingId]);
+
+  function apply(result: { ok: true; survey: Survey } | { ok: false; message: string }, done: string): boolean {
     if (!result.ok) {
       setMessage(result.message);
       if (result.message.startsWith('Enter a reviewer')) document.getElementById('survey-reviewer')?.focus();
-      return;
+      return false;
     }
     setMessage(null);
     onChange(result.survey, done);
+    return true;
   }
 
   return <section className={styles.card} aria-labelledby="survey-review-heading">
@@ -42,12 +48,13 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
       <h2 id="survey-review-heading"><span className={styles.stepNumber}>1</span> Review findings</h2>
       <label className={styles.inlineLabel} htmlFor="survey-reviewer">Reviewer
         <input id="survey-reviewer" value={reviewer} autoComplete="name" placeholder="Your name"
-          onChange={(event) => setReviewer(event.target.value)} />
+          onChange={(event) => { setReviewer(event.target.value); if (event.target.value.trim()) setMessage((current) => current?.startsWith('Enter a reviewer') ? null : current); }} />
       </label>
     </div>
     <p className={styles.small}>Findings are AI-assisted suggestions until a person reviews them. Selecting one jumps the video to its evidence frame. Decisions and corrections are recorded as manual review.</p>
 
     <div className={styles.reviewLayout}>
+      <div className={styles.reviewAside}>
       <ol className={styles.findingList} aria-label="Findings">
         {survey.findings.map((item, index) => {
           const selected = item.id === selectedFindingId;
@@ -66,6 +73,8 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
           </li>;
         })}
       </ol>
+      {siteContext}
+      </div>
 
       {finding ? <article className={styles.findingDetail} aria-labelledby="survey-finding-heading">
         <h3 id="survey-finding-heading" tabIndex={-1}>{finding.label}</h3>
@@ -85,21 +94,30 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <ul className={styles.plainList}>{finding.assessment.accessImpacts.map((impact) => <li key={impact}>{impact}</li>)}</ul>
         <h4>Needs measuring</h4>
         <ul className={styles.plainList}>{finding.assessment.measurementNeeds.map((need) => <li key={need}>{need}</li>)}</ul>
-        <h4>Standards checks (not a compliance verdict)</h4>
-        <ul className={styles.plainList}>{finding.assessment.checks.map((check, index) => {
-          const source = sources.get(check.sourceId);
-          return <li key={index}>
-            <strong>{check.status === 'needs_measurement' ? 'Needs measurement' : 'Not assessed'}</strong> · {source?.title ?? check.sourceId} §{check.section}. {check.note}
-          </li>;
-        })}</ul>
+        <details className={styles.pendingChecks}>
+          <summary>Standards checks ({finding.assessment.checks.length}): need measurement or not assessed. Not a compliance verdict.</summary>
+          <ul className={styles.plainList}>{finding.assessment.checks.map((check, index) => {
+            const source = sources.get(check.sourceId);
+            return <li key={index}>
+              <strong>{check.status === 'needs_measurement' ? 'Needs measurement' : 'Not assessed'}</strong> · {source?.title ?? check.sourceId} §{check.section}. {check.note}
+            </li>;
+          })}</ul>
+        </details>
 
+        {/* aria-disabled rather than disabled: the used button keeps keyboard focus instead of dropping it to the page. */}
         <div className={styles.actions} role="group" aria-label="Review decision">
-          <button type="button" disabled={finding.review.status === 'accepted'}
-            onClick={() => apply(setReviewStatus(survey, finding.id, 'accepted', reviewer), `Accepted “${finding.label}”.`)}>Accept finding</button>
-          <button type="button" className={styles.secondaryButton} disabled={finding.review.status === 'rejected'}
-            onClick={() => apply(setReviewStatus(survey, finding.id, 'rejected', reviewer), `Rejected “${finding.label}”. It stays in the record and is excluded from plans.`)}>Reject finding</button>
+          <button type="button" id="survey-accept" className={finding.review.status === 'accepted' ? styles.decided : undefined}
+            aria-disabled={finding.review.status === 'accepted'}
+            onClick={() => { if (finding.review.status !== 'accepted') apply(setReviewStatus(survey, finding.id, 'accepted', reviewer), `Accepted “${finding.label}”.`); }}>Accept finding</button>
+          <button type="button" className={`${styles.secondaryButton} ${finding.review.status === 'rejected' ? styles.decided : ''}`}
+            aria-disabled={finding.review.status === 'rejected'}
+            onClick={() => { if (finding.review.status !== 'rejected') apply(setReviewStatus(survey, finding.id, 'rejected', reviewer), `Rejected “${finding.label}”. It stays in the record and is excluded from plans.`); }}>Reject finding</button>
           {finding.review.status !== 'pending' ? <button type="button" className={styles.textButton}
-            onClick={() => apply(setReviewStatus(survey, finding.id, 'pending', reviewer), `Returned “${finding.label}” to pending.`)}>Mark pending</button> : null}
+            onClick={() => {
+              const done = apply(setReviewStatus(survey, finding.id, 'pending', reviewer), `Returned “${finding.label}” to pending.`);
+              // This button disappears once the finding is pending; keep focus on the decision group.
+              if (done) setTimeout(() => document.getElementById('survey-accept')?.focus(), 0);
+            }}>Mark pending</button> : null}
         </div>
 
         <CorrectionForm key={`${finding.id}:${finding.label}:${finding.kind}:${finding.description}`} finding={finding}

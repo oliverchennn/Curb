@@ -1,0 +1,353 @@
+{
+  "main": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
+  "branches": [
+    {
+      "branch": "codex/cloud-takeover",
+      "sha": "fe38a136171cc09e9ddae76943677811af746def",
+      "archiveTag": "archive/2026-11-14/codex/cloud-takeover",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/princeton-field-prep",
+      "sha": "414214b83330d318ebc5402e6f78c258142fc095",
+      "archiveTag": "archive/2026-11-14/codex/princeton-field-prep",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/princeton-scout-map",
+      "sha": "4ba01d89396bc864ba31884ed298e1e4993d131a",
+      "archiveTag": "archive/2026-11-14/codex/princeton-scout-map",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/r1-contract-api",
+      "sha": "3c1f3576ca7d7de0543ffb4412e400dbf0bb4f9e",
+      "archiveTag": "archive/2026-11-14/codex/r1-contract-api",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r1-domain",
+      "sha": "c1349e3e6fb9a45026849b45e76ff366585bb98c",
+      "archiveTag": "archive/2026-11-14/codex/r1-domain",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r1-ui",
+      "sha": "6f5a61309f11a28ca45cad054bdd99f4c6cdc3f8",
+      "archiveTag": "archive/2026-11-14/codex/r1-ui",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r2-contract-api",
+      "sha": "84161110be92e04436568d4080c9afab6aa7575d",
+      "archiveTag": "archive/2026-11-14/codex/r2-contract-api",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r2-coordination",
+      "sha": "9f1b1817a114c5bf35376474b20d0ca98f3311cc",
+      "archiveTag": "archive/2026-11-14/codex/r2-coordination",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r2-demo-brief",
+      "sha": "93d5e2509febd63fd718b92ad04909d0d99a8f2d",
+      "archiveTag": "archive/2026-11-14/codex/r2-demo-brief",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r2-domain",
+      "sha": "67d54131f89e8ad09144136ce1d32169f0f2583d",
+      "archiveTag": "archive/2026-11-14/codex/r2-domain",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r2-ui",
+      "sha": "2ff4478b9b2f84399f3ee66ff357f6c976f3c6dd",
+      "archiveTag": "archive/2026-11-14/codex/r2-ui",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r2-verify",
+      "sha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
+      "archiveTag": "archive/2026-11-14/codex/r2-verify",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/r3-boundary-prep",
+      "sha": "f9aeda43a3ee8fa899939e4ba7ed6b8b3c89b345",
+      "archiveTag": "archive/2026-11-14/codex/r3-boundary-prep",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/r3-evidence-ux-prep",
+      "sha": "ed6472de87d19703f8f9a69768ca532f37015748",
+      "archiveTag": "archive/2026-11-14/codex/r3-evidence-ux-prep",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/replay-correction",
+      "sha": "ce0a66fe753a55150dbbecf910fe57440aea50f0",
+      "archiveTag": "archive/2026-11-14/codex/replay-correction",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/replay-domain-review",
+      "sha": "ebc35b07590ad07ca990299da1d3b077190987d6",
+      "archiveTag": "archive/2026-11-14/codex/replay-domain-review",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/replay-ui-review",
+      "sha": "ebc35b07590ad07ca990299da1d3b077190987d6",
+      "archiveTag": "archive/2026-11-14/codex/replay-ui-review",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-access-repair",
+      "sha": "a6f9a20c12d67d616fb24709a409097b2a29fabd",
+      "archiveTag": "archive/2026-11-14/codex/robertson-access-repair",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-accessible-export",
+      "sha": "da70021ff71737c2095d758d3723f31d697ba6f2",
+      "archiveTag": "archive/2026-11-14/codex/robertson-accessible-export",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-demo-qa",
+      "sha": "e08f132357e32468959e6b320239eafcde8d2b91",
+      "archiveTag": "archive/2026-11-14/codex/robertson-demo-qa",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-demo-script",
+      "sha": "0ce7d73510c2de5d45523ee445316d0f9fe4571b",
+      "archiveTag": "archive/2026-11-14/codex/robertson-demo-script",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-export-access-review",
+      "sha": "33e3c7279578f67721c0159ffae741eb33eec6af",
+      "archiveTag": "archive/2026-11-14/codex/robertson-export-access-review",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-export-adversarial",
+      "sha": "3ddf231f6f565dadede98129a6282669dd289865",
+      "archiveTag": "archive/2026-11-14/codex/robertson-export-adversarial",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-final-gate",
+      "sha": "650640933d744f72668abf5f1bd0e5db29602838",
+      "archiveTag": "archive/2026-11-14/codex/robertson-final-gate",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-five-export-qa",
+      "sha": "0118a7bf4d4939ce5f5ff99ec1f92c84a36c2785",
+      "archiveTag": "archive/2026-11-14/codex/robertson-five-export-qa",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-five-media-review",
+      "sha": "72188d5a654dc4bfa1872513d3d8e1c6bdb8ce7f",
+      "archiveTag": "archive/2026-11-14/codex/robertson-five-media-review",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-independent-review",
+      "sha": "ae583471dcdd60455ccf1746e3a13459fe03bcac",
+      "archiveTag": "archive/2026-11-14/codex/robertson-independent-review",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-media-corrections",
+      "sha": "e625e6fb57d44d60c5684f9a3334915e6f71c33a",
+      "archiveTag": "archive/2026-11-14/codex/robertson-media-corrections",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-merged-smoke",
+      "sha": "660df76abb04b860a598dd7337c89792ad5c3ac2",
+      "archiveTag": "archive/2026-11-14/codex/robertson-merged-smoke",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-overlay-finish",
+      "sha": "86cfb2a91d17b787ac22271ac90cb4278b21df92",
+      "archiveTag": "archive/2026-11-14/codex/robertson-overlay-finish",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-pilot-validation",
+      "sha": "a6a96f7da4c5914297ddf44bb0f4a5db0c72a41e",
+      "archiveTag": "archive/2026-11-14/codex/robertson-pilot-validation",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-portable-report-release",
+      "sha": "690bc4ffb0abca0290334444821d8b8d19c8d675",
+      "archiveTag": "archive/2026-11-14/codex/robertson-portable-report-release",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-release-audit",
+      "sha": "4f30ebbb0b1c65300d9d68e6c04d46c567e9b9bd",
+      "archiveTag": "archive/2026-11-14/codex/robertson-release-audit",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-release-notes",
+      "sha": "a7abd062d8d41d55f3da7ae9a00c839ec33e993d",
+      "archiveTag": "archive/2026-11-14/codex/robertson-release-notes",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-report-api",
+      "sha": "5aab3c0177684350a26b801fd6f441d86b8d0b88",
+      "archiveTag": "archive/2026-11-14/codex/robertson-report-api",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-report-qa",
+      "sha": "14aec0a61322c4304c2280e806dd84ba63349a71",
+      "archiveTag": "archive/2026-11-14/codex/robertson-report-qa",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-survey-ui",
+      "sha": "598c262bacd7903a90b6eb7d771f9f659b37fd28",
+      "archiveTag": "archive/2026-11-14/codex/robertson-survey-ui",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-ui-corrections",
+      "sha": "0f0fcf51d3cd5e7353790eafecfad27be4f70589",
+      "archiveTag": "archive/2026-11-14/codex/robertson-ui-corrections",
+      "fullyMergedByAncestry": false
+    },
+    {
+      "branch": "codex/robertson-ui-qa",
+      "sha": "4f7e130211dadd77488acd752636aa47f2f7e785",
+      "archiveTag": "archive/2026-11-14/codex/robertson-ui-qa",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/robertson-ui-visual",
+      "sha": "09e32f457951ef0d717ef253bf36367f5710d7f8",
+      "archiveTag": "archive/2026-11-14/codex/robertson-ui-visual",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/survey-replay-demo",
+      "sha": "ebc35b07590ad07ca990299da1d3b077190987d6",
+      "archiveTag": "archive/2026-11-14/codex/survey-replay-demo",
+      "fullyMergedByAncestry": true
+    },
+    {
+      "branch": "codex/vincent-handoff",
+      "sha": "f03c9574dcc1c254c3b61b051cdffcb3ac727703",
+      "archiveTag": "archive/2026-11-14/codex/vincent-handoff",
+      "fullyMergedByAncestry": true
+    }
+  ],
+  "archivesVerified": true,
+  "deletedRemoteBranches": 42,
+  "remainingAtCleanup": {
+    "refs/heads/main": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90"
+  },
+  "followupCleanups": [
+    {
+      "recordedAt": "2026-11-14T20:01:48.559187+00:00",
+      "reason": "Stopped/released results reviewed and cherry-picked into release-final; main merge remains pending.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 4,
+      "branches": [
+        {
+          "branch": "codex/robertson-stress-b",
+          "sha": "4063a3d0716e02a3a59c5a9e4c0485675deb0693",
+          "archiveTag": "archive/2026-11-14/codex/robertson-stress-b",
+          "integratedOnReleaseBranch": "9e09295a97a5dc0762e50a0ffc28e8c78da31bbd"
+        },
+        {
+          "branch": "codex/robertson-stress-c",
+          "sha": "e57a37195c89cc794ff7691fe19ed9b850cdbc3e",
+          "archiveTag": "archive/2026-11-14/codex/robertson-stress-c",
+          "integratedOnReleaseBranch": "4acf58c65c333c9ff78ef63379a8fa12dc583420"
+        },
+        {
+          "branch": "codex/robertson-stress-d",
+          "sha": "61584001e0ffda5a7ce947e074836674a6480030",
+          "archiveTag": "archive/2026-11-14/codex/robertson-stress-d",
+          "integratedOnReleaseBranch": "e11c68ab741b01ba454f87c49c5b911196ef6b49"
+        },
+        {
+          "branch": "codex/robertson-workspace-layout",
+          "sha": "d32074ad22449d55d2b8ca1ea87edd0ee5f84b84",
+          "archiveTag": "archive/2026-11-14/codex/robertson-workspace-layout",
+          "integratedOnReleaseBranch": "a4afbfb37f42a92db37dd3c8775cb32a0776f742"
+        }
+      ],
+      "remainingAtCleanup": {
+        "refs/heads/main": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
+        "refs/heads/codex/robertson-release-final": "b34a7ac39f2caecfa56d5856d25f7a2a551ac11e",
+        "refs/heads/codex/route-evidence-explorer": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d"
+      }
+    },
+    {
+      "recordedAt": "2026-11-14T20:18:56.248302+00:00",
+      "reason": "Completed C core QA and D explorer reviewed and cherry-picked into release-final; main merge remains pending. Current C explorer QA and B recovery scopes untouched.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 2,
+      "branches": [
+        {
+          "branch": "codex/robertson-integrated-survey-qa",
+          "sha": "9661fae0556257b75df4a1360448a0d3150be2a0",
+          "archiveTag": "archive/2026-11-14/codex/robertson-integrated-survey-qa",
+          "integratedOnReleaseBranch": "8a0112a2d897ffd96c1ab246abb4a4a3cb17102d"
+        },
+        {
+          "branch": "codex/route-evidence-explorer",
+          "sha": "2b3f8282fa2f065d4eba285c1de70e417009ce00",
+          "archiveTag": "archive/2026-11-14/codex/route-evidence-explorer",
+          "integratedOnReleaseBranch": [
+            "b10808a93ddaf0c0d57dc4a873239479de0bf05d",
+            "5e3572918e192d7c20b2b4351182065492f164e0"
+          ]
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T20:51:18.867904+00:00",
+      "reason": "All three results STOPPED/released, reviewed and integrated into release-final; exact archive tags remotely verified before deleting only these refs. Old unconfirmed laptop candidate untouched.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 3,
+      "branches": [
+        {
+          "branch": "codex/collection-robot-demo-recovery",
+          "sha": "f76457c26bb063938687039fb2869f8c97246f6b",
+          "archiveTag": "archive/2026-11-14/codex/collection-robot-demo-recovery",
+          "integratedOnReleaseBranch": "ec57fb0f523fab6bccaee2ec0391b1d3c85dc04a"
+        },
+        {
+          "branch": "codex/curb-explorer-integration-qa",
+          "sha": "7e0d2897d47c778abbd54922b3df9bb29bfe915b",
+          "archiveTag": "archive/2026-11-14/codex/curb-explorer-integration-qa",
+          "integratedOnReleaseBranch": "0f9efc8"
+        },
+        {
+          "branch": "codex/collection-independent-qa",
+          "sha": "abbc64bdb2d2981df6109a11a0cd91d720faf26b",
+          "archiveTag": "archive/2026-11-14/codex/collection-independent-qa",
+          "integratedOnReleaseBranch": "cb9b217c09ca2e32cd081a855c11e00537be1e06"
+        }
+      ]
+    }
+  ]
+}

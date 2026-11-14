@@ -76,6 +76,12 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
   </section>;
 }
 
+/** "Name (id): reason" -> "Name" for the always-visible quote list. */
+function quoteItemName(text: string): string {
+  const head = text.split(/:\s/, 1)[0].replace(/\s*\([a-z0-9-]+\)\s*$/i, '').trim();
+  return head || text;
+}
+
 function plural(count: number, one: string) {
   return `${count} ${one}${count === 1 ? '' : 's'}`;
 }
@@ -99,8 +105,13 @@ function PlanCard({ survey, plan, selected, highlightAreaId, selectedExcluded, o
       <span>{cost.isComplete ? 'estimated range' : 'partial — known items only'}</span>
     </p>
     {!cost.isComplete ? <div className={styles.quoteNote}>
+      {/* Every quote-required item stays listed by name; the longer reason is one disclosure away. */}
       <strong>Not in the total — needs a quote ({cost.unpricedItems.length}):</strong>
-      <ul className={styles.plainList}>{cost.unpricedItems.map((item) => <li key={item}>{labelForId(survey, item)}</li>)}</ul>
+      <ul className={styles.plainList}>{cost.unpricedItems.map((item) => <li key={item}>{quoteItemName(labelForId(survey, item))}</li>)}</ul>
+      {cost.unpricedItems.some((item) => quoteItemName(labelForId(survey, item)) !== labelForId(survey, item)) ? <details className={styles.pendingChecks}>
+        <summary>Why these need a quote</summary>
+        <ul className={styles.plainList}>{cost.unpricedItems.map((item) => <li key={item}>{labelForId(survey, item)}</li>)}</ul>
+      </details> : null}
     </div> : null}
     {plan.budgetCents !== null ? <p className={styles[`fit_${plan.optionIds.length === 0 ? 'not_set' : plan.budgetFit}`]}>
       {plan.optionIds.length === 0 ? (plan.deferredWorkAreaIds.length ? 'No priced repair fits this budget' : 'No eligible repair areas in this review') : BUDGET_FIT_LABELS[plan.budgetFit]} · {formatCents(plan.budgetCents)}
@@ -114,11 +125,18 @@ function PlanCard({ survey, plan, selected, highlightAreaId, selectedExcluded, o
             ? 'Defers the selected evidence’s work area'
             : 'Does not include the selected evidence’s work area'}
     </p> : null}
-    <dl className={styles.facts}>
+    <button type="button" className={selected ? styles.planSelect : `${styles.secondaryButton} ${styles.planSelect}`} aria-pressed={selected} onClick={onSelect}>
+      {selected ? 'Selected for report' : 'Use for report'}
+    </button>
+    <dl className={styles.planFacts}>
       <div><dt>Areas covered</dt><dd>High {coverage.high} · Medium {coverage.medium} · Low {coverage.low} · Unassessed {coverage.unassessed}</dd></div>
-      <div><dt>Durability</dt><dd>{plan.durability} total across {plural(treatments.length, 'repair')} (each option rated 0–3)</dd></div>
+      <div><dt>Durability</dt><dd>{plan.durability} across {plural(treatments.length, 'repair')} (each rated 0–3)</dd></div>
     </dl>
-    {treatments.length === 0 ? <p className={styles.small}>No repairs selected.</p> : <ul className={styles.plainList}>
+    {plan.deferredWorkAreaIds.length > 0 ? <p className={styles.deferredNote}><strong>Deferred:</strong> {plan.deferredWorkAreaIds.map((id) => labelForId(survey, id)).join(', ')}</p> : null}
+    {plan.excludedFindingIds.length > 0 ? <p className={styles.small}>Excluded (rejected): {plan.excludedFindingIds.map((id) => labelForId(survey, id)).join(', ')}</p> : null}
+    {treatments.length === 0 ? <p className={styles.small}>No repairs selected.</p> : <details className={styles.pendingChecks}>
+      <summary>Repairs in this plan ({treatments.length})</summary>
+      <ul className={styles.plainList}>
       {treatments.map((treatment) => <li key={treatment.id} className={treatment.workAreaId === highlightAreaId ? styles.highlightItem : undefined}>
         <strong>{labelForId(survey, treatment.workAreaId)}:</strong> {treatment.label}
         <span className={styles.small}> · {treatment.cost.status === 'quote_required' ? 'quote required' : `${treatment.cost.quantityLow}–${treatment.cost.quantityHigh} ${treatment.cost.unit} (assumed)`}</span>
@@ -133,14 +151,10 @@ function PlanCard({ survey, plan, selected, highlightAreaId, selectedExcluded, o
           </> : <p className={styles.small}>{treatment.cost.reason}</p>}
         </details>
       </li>)}
-    </ul>}
-    {plan.deferredWorkAreaIds.length > 0 ? <p className={styles.small}>Deferred: {plan.deferredWorkAreaIds.map((id) => labelForId(survey, id)).join(', ')}</p> : null}
-    {plan.excludedFindingIds.length > 0 ? <p className={styles.small}>Excluded (rejected): {plan.excludedFindingIds.map((id) => labelForId(survey, id)).join(', ')}</p> : null}
+      </ul>
+    </details>}
     {plan.pendingChecks.length > 0 ? <details className={styles.pendingChecks}><summary>Still to check ({plan.pendingChecks.length})</summary>
       <ul className={styles.plainList}>{plan.pendingChecks.map((check) => <li key={check}>{check}</li>)}</ul></details> : null}
     <p className={styles.small}>Route impact: unknown.</p>
-    <button type="button" className={selected ? undefined : styles.secondaryButton} aria-pressed={selected} onClick={onSelect}>
-      {selected ? 'Selected for report' : 'Use for report'}
-    </button>
   </article>;
 }

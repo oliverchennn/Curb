@@ -18,15 +18,13 @@ export function SiteContext({ survey, selectedFindingId, onSelectFinding }: {
   const { placed, unplaced } = splitByPlacement(survey);
   const selectedArea = selectedFindingId ? areaForFinding(survey, selectedFindingId) : undefined;
   return <section className={styles.sitePanel} aria-labelledby="survey-site-heading">
-    <h2 id="survey-site-heading">Site context</h2>
+    <h3 id="survey-site-heading" className={styles.siteHeading}>Site context</h3>
     <p className={styles.siteName}>{survey.site.name}</p>
     <details className={styles.pendingChecks}>
       <summary>{SITE_KIND_LABELS[survey.site.kind]} · approximate location</summary>
       <p className={styles.small}>{survey.site.latitude.toFixed(5)}, {survey.site.longitude.toFixed(5)}. {survey.site.locationNote}</p>
     </details>
 
-    <div className={styles.contextGrid}>
-    <div>
     <div className={styles.schematic} style={{height:'auto',aspectRatio:'720 / 580'}} role="group" aria-label="Local map context and reviewed approximate placements">
       <img src="/curb/surveys/robertson-hall/site-context.svg" alt="Robertson Hall, Washington Road and Prospect Avenue. Approximate phone GPS; mapped paths are unverified for accessibility." style={{display:'block',width:'100%',height:'100%',borderRadius:12}} />
       {placed.map((finding) => {
@@ -40,21 +38,13 @@ export function SiteContext({ survey, selectedFindingId, onSelectFinding }: {
         </button>;
       })}
     </div>
-    <p className={styles.small}>Local map · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · Retrieved 14 Nov 2026</p>
-    </div>
+    <p className={styles.mapCredit}>Local map · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · Retrieved 14 Nov 2026</p>
 
-    {unplaced.length > 0 ? <div>
-      <h3 className={styles.subheading}>Not placed on the map ({unplaced.length})</h3>
-      <ul className={styles.chipList}>{unplaced.map((finding) => <li key={finding.id}>
-        <button type="button" className={finding.id === selectedFindingId ? styles.chipSelected : styles.chip}
-          aria-label={`${survey.findings.indexOf(finding) + 1}. ${finding.label}`}
-          aria-pressed={finding.id === selectedFindingId} onClick={() => onSelectFinding(finding.id)}>
-          <span className={styles.swatch} style={{ background: finding.color }} aria-hidden="true" />
-          {finding.label.replace(/^Defect /, '')}
-        </button>
-      </li>)}</ul>
-    </div> : null}
-    </div>
+    {/* Unplaced findings are listed, not drawn: positions are unverified, so no pin is invented.
+        They stay selectable from the findings list and the evidence buttons under the video. */}
+    {unplaced.length > 0 ? <p className={styles.unplacedNote}>
+      <strong>Not placed on the map ({unplaced.length}):</strong> {unplaced.map((finding) => finding.label.replace(/ · .*$/, '')).join(', ')}. Per-defect positions are not verified.
+    </p> : null}
 
     <details className={styles.routeNote}>
       <summary><strong>Route impact: unknown</strong></summary>

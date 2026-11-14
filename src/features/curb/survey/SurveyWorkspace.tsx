@@ -1,12 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
 import { buildRepairPlans, costRange, fetchSurvey } from './services';
 import { ExportPanel } from './ExportPanel';
 import { FindingReview } from './FindingReview';
 import { PlanCompare } from './PlanCompare';
-import { editedFindingIds, isEdited, parseBudgetInput, PLAN_ORDER, sliderMaxCents } from './presentation';
+import { editedFindingIds, formatTime, isEdited, parseBudgetInput, PLAN_ORDER, sliderMaxCents } from './presentation';
 import { SiteContext } from './SiteContext';
 import { VideoEvidence, type SeekRequest } from './VideoEvidence';
 import styles from './SurveyWorkspace.module.css';
@@ -23,6 +23,20 @@ function loadErrorMessage(error: unknown): string {
   return 'The survey could not be loaded. Retry, or check that the Robertson Hall survey data is published.';
 }
 
+type WorkTab = 'review' | 'plans' | 'export';
+const WORK_TABS: { id: WorkTab; number: number; label: string; heading: string }[] = [
+  { id: 'review', number: 1, label: 'Review findings', heading: 'survey-review-heading' },
+  { id: 'plans', number: 2, label: 'Compare repairs', heading: 'survey-plans-heading' },
+  { id: 'export', number: 3, label: 'Export report', heading: 'survey-export-heading' },
+];
+
+/** Tab for an earlier in-page anchor such as #survey-plans-heading, so old links still open the right pane. */
+function tabForHash(hash: string): WorkTab | null {
+  let id = hash.replace(/^#/, '');
+  try { id = decodeURIComponent(id); } catch { /* keep raw */ }
+  return WORK_TABS.find((item) => item.heading === id)?.id ?? null;
+}
+
 export function SurveyWorkspace() {
   const [load, setLoad] = useState<LoadState>({ status: 'loading' });
   const [survey, setSurvey] = useState<Survey | null>(null);
@@ -31,6 +45,7 @@ export function SurveyWorkspace() {
   const [budgetText, setBudgetText] = useState('');
   const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('balanced');
   const [notice, setNotice] = useState('');
+  const [tab, setTab] = useState<WorkTab>('review');
   const generationRef = useRef(0);
   const controllerRef = useRef<AbortController | null>(null);
 
@@ -66,6 +81,14 @@ export function SurveyWorkspace() {
       controllerRef.current?.abort();
     };
   }, [loadSurvey]);
+
+  // Earlier in-page anchors (#survey-plans-heading and so on) open the matching tab.
+  useEffect(() => {
+    const follow = () => { const next = tabForHash(window.location.hash); if (next) setTab(next); };
+    follow();
+    window.addEventListener('hashchange', follow);
+    return () => window.removeEventListener('hashchange', follow);
+  }, []);
 
   const budget = parseBudgetInput(budgetText);
   const budgetCents = budget.ok ? budget.cents : null;
@@ -110,6 +133,7 @@ export function SurveyWorkspace() {
   }
 
   function restore() {
+    if (!edited) return;
     setSurvey(original);
     setNotice('Restored the original analysis. All review edits were discarded.');
   }
@@ -130,31 +154,96 @@ export function SurveyWorkspace() {
       </details>
       <div className={styles.actions}>
         {edited ? <span className={styles.editedTag}>Edited — {editedIds.length} finding{editedIds.length === 1 ? '' : 's'} changed</span> : <span className={styles.small}>Original analysis</span>}
-        <button type="button" className={styles.secondaryButton} disabled={!edited} onClick={restore}>Restore original</button>
+        {/* aria-disabled (not disabled) so keyboard focus stays on the button after it is used. */}
+        <button type="button" className={styles.secondaryButton} aria-disabled={!edited} onClick={restore}>Restore original</button>
       </div>
+      {edited ? <p className={styles.sessionNote}>Edits stay in this browser tab only and are lost on reload. To keep them, use Export report, then Download JSON.</p> : null}
       <p role="status" aria-live="polite" className={styles.small} hidden={!notice}>{notice}</p>
     </div>
 
-    <div className={styles.stage}>
-      <VideoEvidence survey={survey} selectedFindingId={selectedFindingId} seek={seek} edited={edited} />
-      <SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />
+    <div className={styles.desk}>
+      <div className={styles.evidenceColumn}>
+        <VideoEvidence survey={survey} selectedFindingId={selectedFindingId} seek={seek} edited={edited} />
+        <EvidenceJump survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />
+      </div>
+
+      <div className={styles.workColumn}>
+        <WorkTabs active={tab} onChange={setTab} />
+        {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
+        <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
+          <FindingReview survey={survey} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+            onChange={(next, message) => { setSurvey(next); setNotice(message); }}
+            siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />
+        </div>
+        <div role="tabpanel" id="survey-panel-plans" aria-labelledby="survey-tab-plans" hidden={tab !== 'plans'} className={styles.tabPanel}>
+          <PlanCompare survey={survey} plans={planResult.plans} planError={planResult.error} budgetText={budgetText} budget={budget}
+            sliderMax={sliderMax} selectedFindingId={selectedFindingId} selectedPlanId={effectivePlanId}
+            onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId} />
+        </div>
+        <div role="tabpanel" id="survey-panel-export" aria-labelledby="survey-tab-export" hidden={tab !== 'export'} className={styles.tabPanel}>
+          <ExportPanel survey={survey} edited={edited} plan={selectedPlan} budgetCents={budgetCents} />
+        </div>
+      </div>
     </div>
-
-    <nav className={styles.steps} aria-label="Workflow">
-      <a href="#survey-review-heading">1 Review findings</a>
-      <a href="#survey-plans-heading">2 Compare repairs</a>
-      <a href="#survey-export-heading">3 Export report</a>
-    </nav>
-
-    <FindingReview survey={survey} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
-      onChange={(next, message) => { setSurvey(next); setNotice(message); }} />
-    <PlanCompare survey={survey} plans={planResult.plans} planError={planResult.error} budgetText={budgetText} budget={budget}
-      sliderMax={sliderMax} selectedFindingId={selectedFindingId} selectedPlanId={effectivePlanId}
-      onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId} />
-    <ExportPanel survey={survey} edited={edited} plan={selectedPlan} budgetCents={budgetCents} />
 
     <p className={styles.footerNote}>AI-assisted findings from one walk-through video. Not a measured survey, an ADA compliance determination, a cost quote or a record of completed repairs. Route impact is unknown because no reviewed route graph exists for this site.</p>
   </div>;
+}
+
+/** WAI-ARIA tabs with automatic activation: arrow keys, Home and End move focus and select. */
+function WorkTabs({ active, onChange }: { active: WorkTab; onChange: (tab: WorkTab) => void }) {
+  const refs = useRef<Partial<Record<WorkTab, HTMLButtonElement | null>>>({});
+  const listRef = useRef<HTMLDivElement>(null);
+
+  function select(id: WorkTab, focus: boolean) {
+    onChange(id);
+    if (focus) refs.current[id]?.focus();
+    // If the pane top has scrolled above the viewport, bring the tabs back into view (no smooth scrolling).
+    const list = listRef.current;
+    if (list && list.getBoundingClientRect().top < 0) list.scrollIntoView({ block: 'start' });
+  }
+
+  function move(event: KeyboardEvent<HTMLDivElement>) {
+    const index = WORK_TABS.findIndex((item) => item.id === active);
+    const next = event.key === 'ArrowRight' ? (index + 1) % WORK_TABS.length
+      : event.key === 'ArrowLeft' ? (index + WORK_TABS.length - 1) % WORK_TABS.length
+        : event.key === 'Home' ? 0
+          : event.key === 'End' ? WORK_TABS.length - 1 : -1;
+    if (next < 0) return;
+    event.preventDefault();
+    select(WORK_TABS[next].id, true);
+  }
+
+  return <div ref={listRef} className={styles.tabList} role="tablist" aria-label="Survey workflow" onKeyDown={move}>
+    {WORK_TABS.map((item) => <button key={item.id} ref={(node) => { refs.current[item.id] = node; }} type="button" role="tab"
+      id={`survey-tab-${item.id}`} aria-controls={`survey-panel-${item.id}`} aria-selected={active === item.id}
+      tabIndex={active === item.id ? 0 : -1} onClick={() => select(item.id, false)}>
+      <span className={styles.tabNumber} aria-hidden="true">{item.number}</span> {item.label}
+    </button>)}
+  </div>;
+}
+
+/** Compact evidence selector under the video, so any pane can jump the replay to a finding. */
+function EvidenceJump({ survey, selectedFindingId, onSelectFinding }: {
+  survey: Survey;
+  selectedFindingId: string | null;
+  onSelectFinding: (findingId: string) => void;
+}) {
+  return <nav className={styles.jumpBar} aria-label="Jump to finding evidence">
+    <p className={styles.jumpTitle} aria-hidden="true">Jump to evidence</p>
+    <ul>{survey.findings.map((finding, index) => {
+      const selected = finding.id === selectedFindingId;
+      const status = finding.review.status === 'pending' ? 'pending' : finding.review.status;
+      return <li key={finding.id}>
+        <button type="button" className={selected ? styles.jumpSelected : styles.jump} aria-pressed={selected}
+          aria-label={`${String(index + 1).padStart(2, '0')} ${finding.label}, evidence at ${formatTime(finding.evidenceTime)}, ${status}`}
+          title={`${finding.label} · ${formatTime(finding.evidenceTime)}`} onClick={() => onSelectFinding(finding.id)}>
+          <span className={styles.swatch} style={{ background: finding.color }} aria-hidden="true" />
+          <span className={finding.review.status === 'rejected' ? styles.jumpRejected : undefined}>{String(index + 1).padStart(2, '0')}</span>
+        </button>
+      </li>;
+    })}</ul>
+  </nav>;
 }
 
 function Header({ survey }: { survey?: Survey }) {
