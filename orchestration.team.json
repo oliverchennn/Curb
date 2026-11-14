@@ -45,16 +45,14 @@
       "branch": "codex/r2-verify",
       "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876147806",
-      "resultSha": null,
-      "currentAvailability": "Active verification only; ACK 6876162160; no application writer, child or implementation scope",
+      "resultSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
+      "currentAvailability": "R2-VERIFY-CORE accepted/stopped/released; no writer, child, application scope or preview",
       "previousResult": {
         "task": "R2-A/1 accepted/stopped/released",
         "resultSha": "84161110be92e04436568d4080c9afab6aa7575d"
       },
       "writeScope": [],
-      "verificationScope": [
-        ".curb-local/r2-verification/ (ignored artifacts in assigned isolated checkout)"
-      ]
+      "verificationScope": []
     },
     {
       "lane": "B",
@@ -128,9 +126,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6876190198"
+    "lastReadCommentId": "6876269112"
   },
-  "currentSlice": "R2: A/B accepted; production core verification active; C assignment awaiting 06:00 owner return/ACK",
+  "currentSlice": "R2 core verified; Landau UI assignment awaits return/ACK; final UI/browser gate pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -239,6 +237,23 @@
       "localHeartbeat": "PAUSED",
       "successorAccess": "oliverchennn authenticated; WRITE independently verified during cloud takeover 2026-11-14",
       "resumeGate": "Oliver accepted cloud takeover and selected R1, now verified complete. All R1 writers stopped/released; another product slice needs new user direction."
+    }
+  ],
+  "verifiedR2CoreSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
+  "parallelTasks": [
+    {
+      "task": "SURVEY-REPLAY/1",
+      "state": "Vincent authorized parallel scope; existing survey writer identity and literal-file ACK pending",
+      "proposedOwner": "Author of board comment 6876198246 under oliverchennn; not the stopped R2-B session",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876269112",
+      "branch": "codex/survey-replay-demo",
+      "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
+      "allowedBoundary": [
+        "public/survey-replay/",
+        "demo/survey-replay/"
+      ],
+      "writeScope": [],
+      "instructions": "docs/tasks/SURVEY_REPLAY.md"
     }
   ]
 }

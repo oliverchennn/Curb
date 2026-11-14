@@ -74,3 +74,12 @@ A documented seam or test harness may exercise empty/error states; do not add pr
 ## Later demo-ready gate
 
 Use implementation-plan section 13 only after Vincent selects those slices. Required evidence includes the complementary-repair regression, same-budget comparison, honest source assumptions, usable repair summary and repeatable two-minute demo. A deployment and any live provider path require separate observation; fixture success does not establish either.
+
+
+## R2 core checkpoint — UI acceptance pending
+
+On `64f004c5e0ea7062d29165d8dfc5acfde7fa04b2`, agent-a completed `npm run check` (typecheck, 469 tests in 14 files, production build) and an independent production HTTP oracle. It matched complete repair-plan outputs across 16 budget breakpoints, all 160 R1 trip combinations and foundation sample/empty responses. Typed failures, no-store, repeats, immutability and actual singleton/omission effects passed. [Released result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876215111); [coordinator acceptance](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876234859); [portable evidence and reproduction](message-board/R2_CORE_CHECKPOINT.md).
+
+At the illustrative 400-cent budget, condition-first selects C and restores Hall; exact selects A+B and restores Library and Student center. Neither A nor B alone, nor either omission, restores a new destination. Unknown Studio coverage and disconnected Archive remain unresolved; Cafe was already reachable. These are synthetic assumptions and hypothetical outcomes.
+
+The coordinator reviewed the actual harness/logs and verified the remote source SHA, archive hash and every constituent manifest entry. This checkpoint is **not completed R2 acceptance**: Landau's UI, real browser walkthrough and the final integrated full check remain pending. No field observations, hosted deployment, CI run or production-scale latency is claimed. The temporary loopback server was stopped.
