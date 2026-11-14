@@ -2,7 +2,7 @@
 
 Curb helps campus facilities teams turn sidewalk evidence into disability-access repair priorities and budget options.
 
-The Robertson Hall pilot uses an actual 14-second phone video, three AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
+The Robertson Hall pilot uses an actual 14-second phone video, five AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
 
 ## Run locally
 

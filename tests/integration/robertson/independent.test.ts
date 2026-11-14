@@ -8,7 +8,7 @@ import { SurveySchema, type Cost, type Survey, type Treatment } from '../../../s
 import { buildRepairPlans, getBoxAtTime } from '../../../src/domain/curb/survey';
 
 // Independent test implementation: Cartesian recursion over work areas, not
-// production's bitmask over treatments. No production cost/scoring helpers.
+// production's iterative compatible-scope expansion. No production cost/scoring helpers.
 const fresh = (): Survey => SurveySchema.parse(structuredClone(fixture));
 const priorities = ['high', 'medium', 'low', 'unassessed'] as const;
 const sorted = (xs: string[]) => [...xs].sort();
@@ -93,15 +93,15 @@ function compare(s: Survey, budgets = boundaryBudgets(s)) {
 
 describe('Developer D independent area-choice budget oracle', () => {
   it('matches all authored affordability boundaries and documented policy subtotals', () => {
-    const s = fresh(); expect(enumerate(s)).toHaveLength(27);
+    const s = fresh(); expect(enumerate(s)).toHaveLength(162);
     expect(compare(s)).toBeGreaterThan(20);
     const [essential, balanced, durable] = buildRepairPlans(s);
-    expect(essential.optionIds).toEqual(['panel-01-seal', 'panel-02-seal']);
-    expect(balanced.optionIds).toEqual(['panel-01-seal', 'panel-02-patch', 'panel-03-seal']);
-    expect(durable.optionIds).toEqual(['panel-01-replace', 'panel-02-replace', 'panel-03-replace']);
+    expect(essential.optionIds).toEqual(['panel-01-seal', 'panel-02-seal','panel-04-replace']);
+    expect(balanced.optionIds).toEqual(['panel-01-seal', 'panel-02-patch', 'panel-03-seal','panel-04-patch','panel-05-seal']);
+    expect(durable.optionIds).toEqual(['panel-01-replace', 'panel-02-replace', 'panel-03-replace','panel-04-replace','panel-05-replace']);
     expect([essential, balanced, durable].map(p => [p.cost.lowCents, p.cost.highCents,
       p.cost.isComplete, p.cost.unpricedItems.length])).toEqual([
-      [14400, 95600, false, 1], [14400, 95600, false, 2], [33750, 267600, false, 1],
+      [29400, 229400, false, 1], [21600, 143400, false, 3], [60000, 490600, false, 1],
     ]);
   });
   it('charges multiple known/unknown shared items once, including fractional outward rounding', () => {
@@ -124,7 +124,7 @@ describe('Developer D independent area-choice budget oracle', () => {
     expect(buildRepairPlans(s, 999999)[3].workAreaIds).not.toContain('panel-01');
   });
   it('covers every review mask, repair-worthy exclusion and manual priority edit', () => {
-    for (let mask = 0; mask < 8; mask++) {
+    for (let mask = 0; mask < 32; mask++) {
       const s = fresh();
       s.findings.forEach((f, i) => { if (Math.floor(mask / 2 ** i) % 2) f.review.status = 'rejected'; });
       compare(s, [0, 47799, 47800, 95600, 184800, 267600]);
@@ -169,11 +169,11 @@ describe('Developer D independent area-choice budget oracle', () => {
       compare(s, [0, 124, 125, 400, 700, 1000, 1500, 2500, 5000]);
     }
   });
-  it('exercises the maximum 12 treatment boundary using four choices per work area', () => {
+  it('exercises the maximum 18 treatment boundary without awarding inspection coverage', () => {
     const s = fresh();
-    for (const a of s.workAreas) s.treatments.push({ ...s.treatments.find(t => t.workAreaId === a.id)!,
+    for (const a of s.workAreas.slice(0,4)) s.treatments.push({ ...s.treatments.find(t => t.workAreaId === a.id)!,
       id: `${a.id}-inspection`, method: 'inspect', durability: 0, cost: money(1000, 2000) });
-    expect(s.treatments).toHaveLength(12); expect(enumerate(s)).toHaveLength(27);
+    expect(s.treatments).toHaveLength(18); expect(enumerate(s)).toHaveLength(162);
     compare(s, [0, 1999, 2000, 5999, 6000, 47800, 95600, 143400, 184800, 267600]);
   });
   it('keeps inspection-only needs unresolved and does not award repair coverage', () => {
@@ -182,7 +182,7 @@ describe('Developer D independent area-choice budget oracle', () => {
     for (const plan of buildRepairPlans(s, 100_000_000)) {
       expect(plan.optionIds).toEqual([]);
       expect(plan.workAreaIds).toEqual([]);
-      expect(plan.deferredWorkAreaIds).toHaveLength(3);
+      expect(plan.deferredWorkAreaIds).toHaveLength(5);
       expect(plan.pendingChecks.length).toBeGreaterThan(0);
       expect(plan.coverage).toEqual({high:0,medium:0,low:0,unassessed:0});
     }

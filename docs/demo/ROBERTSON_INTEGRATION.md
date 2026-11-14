@@ -38,3 +38,13 @@ Returning to Current conditions restores the baseline. This is explicitly synthe
 The locally rendered OSM context SVG was inspected in the browser. It labels Robertson Hall, nearby streets/buildings, the approximate clip GPS, attribution and unverified path access. No per-defect pin is invented.
 
 The complete survey page, real HTTP exports, final keyboard/responsive flow, offline operation and production build still require integrated verification. C's earlier UI harness used stand-ins and is not evidence of the real API/PDF flow.
+
+## Revision 2 — user-identified omissions
+
+The user supplied screenshots of the connected cracked/deteriorated area and the terminal transverse crack missing from the initial inventory. The first three-finding coverage is superseded. Revision 2 retains IDs 01–03 and adds Defect 04 (surface breakup, evidence at 6 s) and Defect 05 (final transverse crack, evidence at frame 418 / 13.933333 s). This correction is not a claim of complete automated detection.
+
+Defect 04 uses explicit visual correction anchors over LK optical flow to address perspective drift, retains frames 0–301, and stops when only an unreliable edge sliver remains. Defect 05 retains frames 330–418. Root checked contact frames across the clip, full-resolution anchors and the right-edge exit sequence. Independent review of the expanded tracks remains pending. The corrected annotated MP4 has 419 frames and SHA-256 `8e31dfab044cfa10788715f83368a75bbe5aa00f124f755d98ef118007ac1d59`; source and normalized media are unchanged. The browser seek clamp now allows the final evidence frame.
+
+The connected damage is grouped as one work area, without crack sealing as an eligible treatment. Fourteen conditional options across five areas fit the revised 18-option / 4,096-compatible-scope bound. Actual domain results: Essential $294–$2,294 plus shared quote; Balanced $216–$1,434 plus two localized-repair quotes and shared quote; Durable $600–$4,906 plus shared quote/exclusions. These are partial benchmarks using assumptions, not measured quantities or contractor quotes.
+
+Observed before integration of B's released API/report source: 56 targeted contract/domain/independent tests passed; the media verifier passed for all five findings and both BT.709, 419-frame MP4s. Final UI/report/offline/build acceptance is still a separate gate.

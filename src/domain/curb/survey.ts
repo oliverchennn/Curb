@@ -65,9 +65,14 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
       if (a.cost.highCents !== b.cost.highCents) return a.cost.highCents < b.cost.highCents;
       return lexical(a.optionIds.join('|'), b.optionIds.join('|')) < 0;
     }
-    for (let mask = 1; mask < 2 ** priced.length; mask++) {
-      const selected = priced.filter((_, i) => mask & (1 << i));
-      if (new Set(selected.map(t => t.workAreaId)).size !== selected.length) continue;
+    // Build only compatible scopes. The contract bounds the product at 4096;
+    // arbitrary treatment subsets would waste work on incompatible choices.
+    let scopes: Treatment[][] = [[]];
+    for (const area of areas) {
+      const choices = priced.filter(t => t.workAreaId === area.id);
+      scopes = scopes.flatMap(selected => [selected, ...choices.map(option => [...selected, option])]);
+    }
+    for (const selected of scopes) {
       const plan = make('budget', selected, budgetCents);
       if (plan.cost.highCents <= budgetCents && better(plan, best)) best = plan;
     }

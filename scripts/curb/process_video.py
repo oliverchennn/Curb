@@ -19,7 +19,7 @@ ASSETS = ROOT / "public/curb/surveys/robertson-hall"
 DATA = ROOT / "src/data/curb/surveys"
 LOCAL = ROOT / ".curb-local/frames"
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
-COLORS = ["#db7b27", "#4776b4", "#9460a3"]
+COLORS = ["#db7b27", "#4776b4", "#9460a3", "#2b8a75", "#c24e4b"]
 
 
 def normalize():
@@ -94,6 +94,27 @@ def track():
         for end in [finding["startFrame"], finding["endFrame"]]:
             values, notes = track_direction(frames, finding["seedFrame"], end, quad.copy())
             keys.update(values); diagnostics.extend(notes)
+        # Correct perspective drift against explicit, visually reviewed anchors.
+        # Preserve optical-flow motion between anchors by interpolating residuals,
+        # rather than drawing a stationary box or inventing intermediate detections.
+        corrections = finding.get("correctedKeyframes", [])
+        if corrections:
+            anchors = {finding["seedFrame"]: [x, y, w, h]}
+            anchors.update({a["frame"]: a["boxPixels"] for a in corrections})
+            for edge in [min(keys), max(keys)]:
+                if edge not in anchors:
+                    anchors[edge] = (np.array(keys[edge]) * [width, height, width, height]).tolist()
+            anchor_frames = sorted(anchors)
+            residuals = np.array([np.array(anchors[n]) / [width, height, width, height] - keys[n] for n in anchor_frames])
+            for n, box in keys.items():
+                corrected = np.array(box) + [np.interp(n, anchor_frames, residuals[:, j]) for j in range(4)]
+                left, top, bw, bh = corrected
+                right, bottom = min(1, left + bw), min(1, top + bh)
+                left, top = max(0, left), max(0, top)
+                if right <= left or bottom <= top:
+                    raise ValueError(f'Invalid corrected box: {finding["id"]} frame {n}')
+                keys[n] = [float(left), float(top), float(right-left), float(bottom-top)]
+            diagnostics.append({"reason": "AI visual keyframe corrections applied to optical-flow residuals", "frames": anchor_frames})
         result.append({**finding, "color": COLORS[index], "track": [{"frame": n, "box": keys[n]} for n in sorted(keys)], "diagnostics": diagnostics})
     (DATA / "robertson-tracks.json").write_text(json.dumps({"fps": 30, "frameCount": len(frames), "width": width, "height": height, "method": "Pyramidal Lucas-Kanade, forward/backward check and RANSAC local similarity; AI-reviewed anchor boxes", "findings": result}, separators=(",", ":")) + "\n")
     print(json.dumps([{ "id": f["id"], "frames": len(f["track"]), "start": f["track"][0]["frame"], "end": f["track"][-1]["frame"], "diagnostics": f["diagnostics"]} for f in result], indent=2))

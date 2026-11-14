@@ -52,7 +52,7 @@ export const SurveySchema = z.strictObject({
   workAreas: z.array(z.strictObject({ id: Id, label: Text, findingIds: z.array(Id).min(1),
     priority: PrioritySchema, nearTerm: z.boolean(), repairWorthy: z.boolean(), rationale: Text,
     recommendedOptionId: Id })).max(12),
-  treatments: z.array(TreatmentSchema).max(12),
+  treatments: z.array(TreatmentSchema).max(18),
   sharedCosts: z.array(z.strictObject({ id: Id, label: Text, cost: CostSchema })).max(12),
   routeAssessment: z.strictObject({ status: z.literal('unknown'), note: Text }),
 }).superRefine((s, ctx) => {
@@ -64,6 +64,8 @@ export const SurveySchema = z.strictObject({
   const areas = new Set(s.workAreas.map(a => a.id));
   const sources = new Set(s.sources.map(x => x.id));
   const assigned = new Set<string>();
+  const combinations = s.workAreas.reduce((count, area) => count * (1 + s.treatments.filter(t => t.workAreaId === area.id && t.method !== 'inspect').length), 1);
+  if (combinations > 4096) fail('Repair catalog exceeds 4096 compatible scope combinations');
   for (const f of s.findings) {
     if (f.evidenceTime >= s.media.durationSeconds) fail(`Evidence outside video: ${f.id}`);
     const evidenceFrame = Math.floor(f.evidenceTime * s.media.fps + 1e-6);

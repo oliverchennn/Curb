@@ -21,9 +21,11 @@ for i, f in enumerate(tracks['findings']):
         ['The open, irregular edge may interrupt smooth travel for small wheelchair or walker wheels.', 'Uneven footing or a cane-tip catch is possible; the video does not establish the opening or level difference.'],
         ['A branching or loose edge may affect wheel contact and stable foot placement.', 'Check whether the fragment moves and whether there is a continuous clear passage around it.'],
         ['A cross-path crack may affect wheel or cane contact if the opening or level difference is significant.', 'The visible line alone does not establish a blocked route.'],
+        ['The broad irregular surface and broken edges may interrupt stable wheel contact or footing.', 'Check loose material, cane-tip contact and clear passage through this junction; visible deterioration does not establish a blocked route.'],
+        ['An irregular cross-panel edge may affect small wheels, cane tips or footing.', 'The final crack is still visible when the clip ends; its opening and level difference need on-site measurement.'],
     ][i]
     needs = ['Measure opening width at the widest point.', 'Measure vertical level difference and edge stability.', 'Record affected area, remaining clear width and running/cross slope.']
-    priority = 'high' if i < 2 else 'medium'
+    priority = 'high' if i in (0, 1, 3) else 'medium'
     findings.append(dict(id=f['id'], label=f['label'], kind=f['kind'], description=f['description'], color=f['color'], evidenceTime=f['seedFrame']/30,
         closeupSrc=MEDIA+f['id']+'.jpg', review=dict(status='pending', reviewer='Codex AI-assisted visual review', method='ai', note='Proposed from the actual footage; human field review and measurements pending.'),
         assessment=dict(priority=priority, rationale='Provisional inspection/repair priority based on visible irregular edges crossing the walking line; not a measured hazard or ADA finding.', accessImpacts=impacts, measurementNeeds=needs,
@@ -33,9 +35,9 @@ for i, f in enumerate(tracks['findings']):
 areas, treatments = [], []
 for i, f in enumerate(findings):
     area = f'panel-{i+1:02}'
-    areas.append(dict(id=area, label=f'Work area {i+1:02}', findingIds=[f['id']], priority=f['assessment']['priority'], nearTerm=i<2, repairWorthy=True,
-        rationale='Proposed work area defined by the visible panel. Verify actual panel boundaries, condition and dimensions on site before procurement.',
-        recommendedOptionId=f'{area}-patch' if i==1 else f'{area}-seal'))
+    areas.append(dict(id=area, label=f'Work area {i+1:02}', findingIds=[f['id']], priority=f['assessment']['priority'], nearTerm=i in (0,1,3), repairWorthy=True,
+        rationale='Provisional area for one connected damaged surface, grouped to avoid duplicate replacement charges. Verify actual boundaries, condition and dimensions on site before procurement.' if i==3 else 'Proposed work area defined by the visible panel. Verify actual panel boundaries, condition and dimensions on site before procurement.',
+        recommendedOptionId=f'{area}-patch' if i in (1,3) else f'{area}-seal'))
     treatments.extend([
         dict(id=f'{area}-seal', workAreaId=area, label='Prepare and seal suitable cracks', method='seal', durability=1,
             eligibilityNote='Conditional: only if inspection finds sound, stable edges and no level change requiring a different treatment. Sealing does not correct displacement or restore a loose fragment.',
@@ -51,13 +53,19 @@ for i, f in enumerate(findings):
                 assumptions=['Assumed 1.5-4 square yards per panel (13.5-36 square feet); not measured from the video.', 'Four-inch sidewalk bid item is a pricing reference, not a specified thickness for this site.'],
                 exclusions=['Removal and disposal unless included in the confirmed quote', 'Base/root/drainage remediation', 'Mobilization and small-job minimum', 'Temporary accessible passage during works']))
     ])
+    if i == 3:
+        # Broad surface breakup is not eligible for simple crack sealing.
+        treatments[:] = [t for t in treatments if t['id'] != f'{area}-seal']
+        renewal = treatments[-1]['cost']
+        renewal.update(quantityLow=2, quantityHigh=6)
+        renewal['assumptions'][0] = 'Assumed 2-6 square yards for one connected damaged area (18-54 square feet); not measured from the video. Verify panel boundaries before avoiding or combining replacement scope.'
 
-survey = dict(contractVersion='curb-survey-v1',id='robertson-hall',revision=1,title='Robertson Hall sidewalk survey',
+survey = dict(contractVersion='curb-survey-v1',id='robertson-hall',revision=2,title='Robertson Hall sidewalk survey',
     site=dict(name='Robertson Hall, Princeton',kind='campus_path',latitude=40.3482,longitude=-74.6541,
         locationNote='Location supplied by Oliver, with one approximate phone GPS tag. Exact surveyed path, property boundary and per-defect positions are not yet verified.'),
     media=dict(src=MEDIA+'survey.mp4',sourceSrc=MEDIA+'source/IMG_0699.MOV',annotatedSrc=MEDIA+'annotated.mp4',posterSrc=MEDIA+'poster.jpg',durationSeconds=tracks['frameCount']/30,fps=30,width=720,height=1280,originalSha256=analysis['sourceSha256']),
     analysis=dict(method='AI visual proposals followed by forward/backward-checked optical-flow tracking and visual contact-sheet review. Local preprocessed analysis; no live inference.',model=analysis['model'],createdAt=analysis['createdAt'],
-        note='Three distinct cross-path findings selected from the full clip. Ordinary control joints excluded. All priorities and treatment options are provisional. Dimensions, damage cause, route passability and ADA compliance were not inferred.'),
+        note='Five proposed findings, including the user-identified broad surface deterioration and final transverse crack omitted from revision 1. Straight control joints are excluded. Review coverage remains fallible; all priorities and treatment options are provisional. Dimensions, cause, route passability and ADA compliance were not inferred.'),
     sources=sources,findings=findings,workAreas=areas,treatments=treatments,
     sharedCosts=[dict(id='site-setup',label='Site verification, mobilization and accessible work-zone provision',cost=dict(status='quote_required',reason='One shared allowance requires a site quote; it is not counted once per defect.'))],
     routeAssessment=dict(status='unknown',note='No complete surveyed graph or reviewed traversal assessment exists for this clip. Proposed maintenance is not a verified route opening.'))

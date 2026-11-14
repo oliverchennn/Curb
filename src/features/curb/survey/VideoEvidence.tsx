@@ -79,10 +79,10 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     const video = videoRef.current;
     if (!video || !seek) return;
     video.pause();
-    resumeTimeRef.current = Math.min(seek.seconds, Math.max(0, media.durationSeconds - 0.05));
+    resumeTimeRef.current = Math.min(seek.seconds, Math.max(0, media.durationSeconds - 1 / media.fps));
     if (video.readyState >= 1) video.currentTime = resumeTimeRef.current;
     setTime(resumeTimeRef.current);
-  }, [seek, media.durationSeconds]);
+  }, [seek, media.durationSeconds, media.fps]);
 
   useEffect(() => setMediaError(null), [src]);
 

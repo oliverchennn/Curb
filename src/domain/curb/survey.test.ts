@@ -2,9 +2,28 @@ import { describe, expect, it } from 'vitest';
 import fixture from '../../data/curb/surveys/robertson-hall.json';
 import { buildRepairPlans, costRange, getBoxAtTime, validateSurvey } from './survey';
 
-const fresh = () => validateSurvey(structuredClone(fixture));
+const fullSurvey = () => validateSurvey(structuredClone(fixture));
+// Preserve the original three-area pricing scenario as a regression fixture.
+const fresh = () => {
+  const s = fullSurvey();
+  s.findings = s.findings.slice(0,3); s.workAreas = s.workAreas.slice(0,3);
+  s.treatments = s.treatments.filter(t => s.workAreas.some(a => a.id === t.workAreaId));
+  return validateSurvey(s);
+};
 
 describe('Robertson maintenance planning', () => {
+  it('includes both user-identified omissions as separate grouped scopes', () => {
+    const s=fullSurvey(); expect(s.findings.map(f=>f.id)).toEqual(['defect-01','defect-02','defect-03','defect-04','defect-05']);
+    expect(s.treatments.some(t=>t.id==='panel-04-seal')).toBe(false);
+    const [essential,balanced,durable]=buildRepairPlans(s);
+    expect(essential.optionIds).toEqual(['panel-01-seal','panel-02-seal','panel-04-replace']);
+    expect(essential.cost).toMatchObject({lowCents:29400,highCents:229400,isComplete:false});
+    expect(balanced.optionIds).toEqual(['panel-01-seal','panel-02-patch','panel-03-seal','panel-04-patch','panel-05-seal']);
+    expect(balanced.cost).toMatchObject({lowCents:21600,highCents:143400,isComplete:false});
+    expect(balanced.cost.unpricedItems).toHaveLength(3);
+    expect(durable.workAreaIds).toHaveLength(5);
+    expect(durable.cost).toMatchObject({lowCents:60000,highCents:490600,isComplete:false});
+  });
   it('computes distinct policy scopes and honest partial subtotals from actual data', () => {
     const [essential, balanced, durable] = buildRepairPlans(fresh());
     expect(essential.optionIds).toEqual(['panel-01-seal', 'panel-02-seal']);
@@ -82,7 +101,7 @@ describe('Robertson maintenance planning', () => {
 
 describe('time-driven evidence',()=>{
   it('seeks to each finding evidence and returns that exact frame box',()=>{
-    const s=fresh();for(const f of s.findings){
+    const s=fullSurvey();for(const f of s.findings){
       const frame=Math.floor(f.evidenceTime*s.media.fps);
       expect(getBoxAtTime(f,f.evidenceTime,s.media.fps)).toEqual(f.track.find(k=>k.frame===frame)?.box);
       expect(getBoxAtTime(f,(f.track[0].frame-1)/30,30)).toBeNull();

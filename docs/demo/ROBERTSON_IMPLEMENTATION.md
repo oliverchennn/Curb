@@ -49,3 +49,7 @@ Downloads: annotated MP4/source MOV local links, JSON Blob of current validated 
 Own `src/contracts/curb/survey.ts` and its tests; `src/domain/curb/survey.ts` and its tests; `src/data/curb/surveys/`; `public/curb/surveys/robertson-hall/`; `scripts/curb/`; this document; dependency files; root navigation/shell; bounded existing R2 empty-plan wording correction. Analysis/tracking provenance and source hashes remain inspectable. Final integration checks cover all 469 baseline tests, added tests, standalone replay goldens, browser video seeking/review/budgets/downloads, media decoding, PDF rendering and offline use. Do not start duplicate B/C workers while their assignments are live. Future pilots, live inference services and work orders are outside this demo checkpoint.
 
 Original footage: supplied for GitHub publication by Oliver, Robertson Hall, Princeton; no dimensional measurements supplied. Original SHA-256: `30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a`.
+
+## Revision 2 inventory expansion
+
+The user identified the connected surface breakup and final transverse crack omitted from revision 1. Revision 2 retains IDs 01–03 and adds 04–05 with their own work areas. The compatible catalog is bounded to 18 treatments and 4,096 possible work-area scopes (one treatment or none per area). The evaluator enumerates compatible scopes directly. API/DTO shape remains `curb-survey-v1`; findings and approved local images must remain data-driven.
