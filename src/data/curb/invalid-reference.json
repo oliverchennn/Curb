@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "synthetic-invalid-reference",
+  "revision": 1,
+  "title": "Synthetic dangling edge",
+  "dataKind": "synthetic",
+  "nodes": [
+    {
+      "id": "northwest-corner",
+      "coordinate": [
+        -74.6546,
+        40.349
+      ],
+      "label": "Northwest corner"
+    }
+  ],
+  "edges": [
+    {
+      "id": "dangling-edge",
+      "fromNodeId": "northwest-corner",
+      "toNodeId": "missing-node",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6546,
+            40.349
+          ],
+          [
+            -74.6542,
+            40.349
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": []
+    }
+  ],
+  "destinations": [],
+  "barriers": [],
+  "evidence": []
+}
