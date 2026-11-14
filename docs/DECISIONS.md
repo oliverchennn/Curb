@@ -24,8 +24,8 @@ Preparation date: 2026-11-13, America/New_York. These are setup decisions, not e
 
 Open facts:
 
-- Landau's session/readiness acknowledgement remains pending; `landautzou` accepted write access is verified. Oliver's `oliverchennn` write invitation remains pending; temporary B operator is verified `vzhu08`.
-- F0 SHA, frozen schema exports, check script availability and native-child execution remain unverified until actual implementation checks. Shared preparation SHA is recorded above; later kickoff snapshots are recorded on the board.
+- Landau's C-READY is acknowledged in comment 6871867809, with the Claude exception in D15. Oliver's `oliverchennn` write invitation remains pending; temporary B operator is verified `vzhu08` and B-READY is complete.
+- F0 SHA, frozen schema exports and application check results remain pending. Native child staging ran and completed under A; revision 2 resumes that same serial child on 33 approved files. Successful kit installation/generation is not an application pass. Later checkpoints are recorded on the live board.
 - Event deadline/sponsor details are carried from the supplied plan; original event packets have not been independently reread in this setup. No sponsor is selected.
 
 Append future decisions with owner, reason, evidence, affected task IDs, and reconsideration trigger. Record actual approvals already given; do not ask the user to repeat them.

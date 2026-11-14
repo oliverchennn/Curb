@@ -16,10 +16,11 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "F0/1 stage-only revision 1",
+      "task": "F0/1 adoption revision 2",
       "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f0-bootstrap\\Curb",
       "branch": "codex/f0-bootstrap",
-      "baseSha": "aed56a3935408ed139a13e56fe42a589368e1e19"
+      "baseSha": "aed56a3935408ed139a13e56fe42a589368e1e19",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6872004050"
     },
     {
       "lane": "B",
@@ -57,7 +58,7 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6871913196"
+    "lastReadCommentId": "6872022645"
   },
   "currentSlice": "foundation",
   "verifiedFoundationSha": null,

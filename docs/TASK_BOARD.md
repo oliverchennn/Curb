@@ -1,6 +1,6 @@
 # Foundation task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1), created and read back at kickoff. This file is a snapshot, not a distributed lock. Current sessions and exact reservations: [kickoff checkpoint](message-board/KICKOFF.md). Last recorded cursor: `6871779642` (sync policy); read newer comments before claiming work.
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1), created and read back at kickoff. This file is a snapshot, not a distributed lock. Current sessions and exact reservations: [kickoff checkpoint](message-board/KICKOFF.md). Last recorded cursor: `6872022645` (merge-policy integration and F0 revision 2 status); read newer comments before claiming work.
 
 Repository: `vzhu08/Curb`. Inspected initial HEAD: `95732cca8eaef9bb41a4c7311c9442cf3dd9b1e6` (README-only initial commit). This is **not** the future documentation checkpoint or verified F0 base. Resolve actual SHAs at dispatch; never substitute this initial SHA for a missing build checkpoint.
 
@@ -8,7 +8,7 @@ Shared setup SHA: `eee48e553de92072b4cb53148f9fd12c957514f0`, pushed to `main`. 
 
 | ID | Visible result | Human / agent | State | Dependency and base gate | Card |
 |---|---|---|---|---|---|
-| F0 | Reproducible web+maps skeleton, v0 schemas, golden fixtures, compiling seams | Vincent / separate `agent-a` | Running; ACK 6871868844; stage-only revision 1 | Base `aed56a3935408ed139a13e56fe42a589368e1e19`; isolated checkout; inventory approval before adoption | [F0](tasks/F0.md) |
+| F0 | Reproducible web+maps skeleton, v0 schemas, golden fixtures, compiling seams | Vincent / separate `agent-a` | Running; adoption revision 2; ACK 6872008472 | Base `aed56a3935408ed139a13e56fe42a589368e1e19`; isolated checkout; exact 33 files approved in comment 6872004050 | [F0](tasks/F0.md) |
 | F1A | Validated real API and browser transport | Vincent / `agent-a` | Blocked | F0 verified; exact common F0 SHA + frozen `curb-v0` | [F1A](tasks/F1A.md) |
 | F1B | Correct relationships, counts, evidence lookup and fixtures | Vincent / `agent-b-temp`, covering unavailable Oliver | Blocked; B-READY is read-only | F0 verified; same F0 SHA + frozen `curb-v0`; explicit scope ACK | [F1B](tasks/F1B.md) |
 | F1C | Usable map/list/evidence screen and all load states | Landau (`landautzou`) / `agent-c` | Blocked; C-READY acknowledged; Claude exception approved | F0 verified + frozen `curb-v0`; explicit assignment and ACK | [F1C](tasks/F1C.md) |
