@@ -51,4 +51,12 @@ Event packet, sponsor eligibility, source-library links and legal context remain
 
 ## Verification boundary
 
-Preparation checks verify source integrity, internal document links, team config, task dependencies/scopes and Git whitespace. Application checks await F0. Live GitHub board startup, cross-machine/native-child behavior and deployment are not verified by documentation.
+Preparation checks verify source integrity, internal document links, team config, task dependencies/scopes and Git whitespace. F0 application evidence is in [acceptance](ACCEPTANCE.md); documentation alone does not verify browser behavior or deployment.
+
+## F0 application adoption
+
+Reviewed result `7e56583774b9723a6ce8b6c25def915c08e76217` selectively adopts 15 generated targets plus 18 Curb source/test/notice files. Of 73 staged outputs (71 project files and two cache files), 58 were excluded. Existing prompts, coordination docs and Git history were preserved. Root MIT and third-party notices remain present. `kit.project.json` retains 14 selected upstream hashes under `upstreamHashes`; these identify provenance, not equality of adapted current bytes.
+
+Imported maps are the pure schema/helper entry and credential-free GeoMap component. Provider/Mapbox adapters, environment files, deployment configuration, generated instructions/docs, custom agent runtime and unrelated examples were excluded. No provider dependency is required.
+
+The first clean generated dependency build failed with a security error. Coordinator approved Next.js 16.4.1 and Zod 4.6.6 plus required transitives in [F0 revision 3](https://github.com/vzhu08/Curb/issues/1#issuecomment-6872178792). Other direct versions stayed fixed: React/React DOM 19.3.0, TypeScript 6.0.3, tsx 4.23.15 and Vitest 5.0.3. The lockfile is version 3 and retains Sharp 0.35.5. A fresh archive install/full check and zero-findings app audit passed; the integrated application check also passed. These patches do not update the pinned upstream documentation snapshot.

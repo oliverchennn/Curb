@@ -11,17 +11,19 @@
 
 ## F1 lane checks
 
-F0 must ensure these commands are supported and discover actual tests, or document precise replacements before dispatch. Never report a no-tests exit as a pass.
+Frozen commands below discover actual tests. F0 result `7e56583774b9723a6ce8b6c25def915c08e76217` passed a fresh archive install, typecheck, 23 tests across four files and production build. Coordinator independently ran `npm ci --prefer-offline --cache .curb-local/npm-cache` and `npm run check` on integration commit `d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1` on 2026-11-14 UTC: exit 0, 23/23 tests, production build passed. Installation reported zero vulnerabilities. Native serial child execution and stop were reported and reviewed. Browser evidence remains pending F2.
+
+Never report a no-tests exit as a pass. Vitest does not use `passWithNoTests`. No DOM testing framework is installed; C records useful browser evidence and type/build results instead of inventing a UI-test pass.
 
 | Check ID | Intended command / observation |
 |---|---|
 | types | `npm run typecheck` |
-| api | `npx vitest run tests/integration/server` |
-| transport | `npx vitest run tests/integration/client` |
-| domain | `npx vitest run src/domain/curb` |
-| data | `npx vitest run src/data/curb` |
+| api | `npx --no-install vitest run tests/integration/server` (F0: 6 tests) |
+| transport | `npx --no-install vitest run tests/integration/client` (F0: 6 tests) |
+| domain | `npx --no-install vitest run src/domain/curb` (F0: 7 tests) |
+| data | `npx --no-install vitest run src/data/curb` (F0: 4 tests) |
 | ui | `npx vitest run src/features/curb` if the generated environment supports useful UI tests; otherwise record browser evidence and types/build, do not add a framework just for mirrored tests |
-| full | `npm run check` (generated script includes typecheck/tests/build; inspect actual script) |
+| full | `npm run check` = typecheck, tests, then `next build --webpack` |
 
 Each lane runs relevant targeted checks and typechecking. F2 runs full integrated checks after the final integration change; no need to duplicate the full build in every child.
 

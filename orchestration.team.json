@@ -16,7 +16,7 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "F0/1 adoption revision 2",
+      "task": "F0/1 accepted; F1A awaiting explicit assignment",
       "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f0-bootstrap\\Curb",
       "branch": "codex/f0-bootstrap",
       "baseSha": "aed56a3935408ed139a13e56fe42a589368e1e19",
@@ -36,7 +36,7 @@
         "github": "vzhu08",
         "session": "01a1d853-781e-7ce1-9082-ac04a68d3782",
         "hostId": "local",
-        "state": "readiness-complete-awaiting-F0",
+        "state": "ready-for-F1B-assignment",
         "writeScope": []
       }
     },
@@ -47,7 +47,7 @@
       "github": "landautzou",
       "focus": "UI, accessibility, demo",
       "access": "accepted-write",
-      "readiness": "read-only-acknowledged-awaiting-F0",
+      "readiness": "ready-for-F1C-assignment",
       "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221",
       "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb",
       "modelException": "Vincent permits existing Claude Code session"
@@ -58,13 +58,13 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6872022645"
+    "lastReadCommentId": "6872753548"
   },
   "currentSlice": "foundation",
   "verifiedFoundationSha": null,
   "contracts": {
     "version": "curb-v0",
-    "status": "draft-until-F0"
+    "status": "frozen"
   },
   "delegation": {
     "maxCodingChildrenPerLane": 2,
@@ -94,5 +94,6 @@
     "appliesTo": "all worker chats and coding children",
     "astra": "coordinator only",
     "exception": "Landau may continue independently started Claude Code session"
-  }
+  },
+  "verifiedF0Sha": "d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1"
 }

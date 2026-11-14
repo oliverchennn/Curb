@@ -25,7 +25,11 @@ Preparation date: 2026-11-13, America/New_York. These are setup decisions, not e
 Open facts:
 
 - Landau's C-READY is acknowledged in comment 6871867809, with the Claude exception in D15. Oliver's `oliverchennn` write invitation remains pending; temporary B operator is verified `vzhu08` and B-READY is complete.
-- F0 SHA, frozen schema exports and application check results remain pending. Native child staging ran and completed under A; revision 2 resumes that same serial child on 33 approved files. Successful kit installation/generation is not an application pass. Later checkpoints are recorded on the live board.
+- F0 result `7e56583774b9723a6ce8b6c25def915c08e76217` is reviewed and integrated at `d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1`; independent install/full check passed (23 tests). Child stopped; `curb-v0` imports, fixtures and commands are frozen. F1 assignments record the final common published base. Browser evidence remains pending F2.
 - Event deadline/sponsor details are carried from the supplied plan; original event packets have not been independently reread in this setup. No sponsor is selected.
 
 Append future decisions with owner, reason, evidence, affected task IDs, and reconsideration trigger. Record actual approvals already given; do not ask the user to repeat them.
+
+2026-11-14, coordinator: accepted F0 revision 3 with exact Next.js 16.4.1 / Zod 4.6.6 patches after a clean-build security failure; [approval](https://github.com/vzhu08/Curb/issues/1#issuecomment-6872178792), [reviewed result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6872294726). The remaining direct dependency versions and upstream provenance stay pinned. Revisit only for an evidenced compatibility/security issue through a serial A maintenance assignment.
+
+2026-11-14, coordinator: Landau's [sponsor proposal](https://github.com/vzhu08/Curb/issues/1#issuecomment-6872534480) is a post-F2 candidate for Vincent's choice. It does not authorize provider integrations, credentials, spending, field research or a change to foundation scope.

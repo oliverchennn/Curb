@@ -1,23 +1,21 @@
 # Foundation task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1), created and read back at kickoff. This file is a snapshot, not a distributed lock. Current sessions and exact reservations: [kickoff checkpoint](message-board/KICKOFF.md). Last recorded cursor: `6872022645` (merge-policy integration and F0 revision 2 status); read newer comments before claiming work.
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work; this file is a snapshot, not a lock. Cursor: `6872753548`. [Session checkpoint](message-board/KICKOFF.md).
 
-Repository: `vzhu08/Curb`. Inspected initial HEAD: `95732cca8eaef9bb41a4c7311c9442cf3dd9b1e6` (README-only initial commit). This is **not** the future documentation checkpoint or verified F0 base. Resolve actual SHAs at dispatch; never substitute this initial SHA for a missing build checkpoint.
+F0 result: `7e56583774b9723a6ce8b6c25def915c08e76217`. Integration checkpoint: `d9d2c56b86c1bf7dda6d2d0819d00d7816cc76e1`, independently passed install, typecheck, 23 tests and production build. `curb-v0` is frozen in [CONTRACTS](CONTRACTS.md). F1 assignments record one final common SHA containing the freeze; no lane may substitute a different base.
 
-Shared setup SHA: `eee48e553de92072b4cb53148f9fd12c957514f0`, pushed to `main`. Kickoff changes use `codex/coordination-kickoff`; F0's dispatch records the full current documentation SHA. No F0 result exists yet. All new/started worker chats and coding children use `gpt-6.1-sol` with `xhigh` reasoning per Vincent; Astra is reserved for the coordinator.
+| ID | Visible result | Owner | State / gate | Card |
+|---|---|---|---|---|
+| F0 | Reproducible web+maps skeleton, schemas, fixtures, compiling seams | Vincent / separate agent-a | Accepted; final child stopped; scope released on acceptance board record | [F0](tasks/F0.md) |
+| F1A | Validated real API and browser transport | Vincent / agent-a | Ready; explicit assignment/ACK and common base required | [F1A](tasks/F1A.md) |
+| F1B | Correct relationships, counts, evidence lookup and fixtures | Vincent / agent-b-temp, covering unavailable Oliver | Ready; explicit assignment/ACK and common base required | [F1B](tasks/F1B.md) |
+| F1C | Map/list/evidence screen and load states | Landau / landautzou / Claude Code | Ready; explicit assignment/ACK and common base required | [F1C](tasks/F1C.md) |
+| F2 | Integrated foundation with browser walkthrough | Vincent / separate A integration agent | Blocked until reviewed F1 results and confirmed stopped writers | [F2](tasks/F2.md) |
 
-| ID | Visible result | Human / agent | State | Dependency and base gate | Card |
-|---|---|---|---|---|---|
-| F0 | Reproducible web+maps skeleton, v0 schemas, golden fixtures, compiling seams | Vincent / separate `agent-a` | Running; adoption revision 2; ACK 6872008472 | Base `aed56a3935408ed139a13e56fe42a589368e1e19`; isolated checkout; exact 33 files approved in comment 6872004050 | [F0](tasks/F0.md) |
-| F1A | Validated real API and browser transport | Vincent / `agent-a` | Blocked | F0 verified; exact common F0 SHA + frozen `curb-v0` | [F1A](tasks/F1A.md) |
-| F1B | Correct relationships, counts, evidence lookup and fixtures | Vincent / `agent-b-temp`, covering unavailable Oliver | Blocked; B-READY is read-only | F0 verified; same F0 SHA + frozen `curb-v0`; explicit scope ACK | [F1B](tasks/F1B.md) |
-| F1C | Usable map/list/evidence screen and all load states | Landau (`landautzou`) / `agent-c` | Blocked; C-READY acknowledged; Claude exception approved | F0 verified + frozen `curb-v0`; explicit assignment and ACK | [F1C](tasks/F1C.md) |
-| F2 | Integrated foundation with repeatable browser walkthrough | Vincent / separate A integration agent | Blocked | F1B, F1A, F1C reviewed; stopped writers; actual integration candidate SHA | [F2](tasks/F2.md) |
+All coordinator-created workers/children use GPT-6.1 Sol / extra-high; Landau retains his approved Claude Code exception. Astra is coordinator-only. Ordinary native children only, no custom kit worker runtime.
 
-States follow the kit: Planned → Ready → Running → Review → Queued → Merged → Verified; Blocked records a precise dependency. Queued means reviewed and ready for the recorded integration action. No state implies push, merge, deployment or successful checks. Rejected/stopped attempts remain in the message history and get a new attempt ID.
+Dispatch records include task/attempt, owner/login, session, full base, contract, branch/checkout, literal scopes, checks, non-goals, timebox and remote authority. Running requires ACK. Silence does not release scope. Scoped commits/pushes follow [GIT_SYNC](GIT_SYNC.md), including actual remote verification and safe checkpoints about every 15 minutes.
 
-Dispatch records contain: task/attempt ID, owner/login, session, full base SHA, contract version, branch/checkout, literal scopes, checks, non-goals, timebox and remote action authority. Running requires the owner's acknowledgement. Scope persists through a blocker until a stop/release is confirmed.
+F2 integrates B → A → C, checks the exact candidate and records browser evidence before main publication. Orchestrator owns routine reviewed merges under [standing delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956). No status implies deployment or successful checks.
 
-F1 uses one common F0 SHA. The integration candidate advances sequentially B → A → C. F2 verifies the resulting commit; later tasks use that newly verified SHA.
-
-R1–R5 and sponsor additions are deferred choices. After F2, Vincent selects one next outcome. Use the live board for current verification evidence and report the verified remote SHA of task checkpoints. The orchestrator handles routine merges to `main` after review and required checks. [Merge delegation decision](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956).
+Stop feature dispatch after F2. Landau's sponsor proposal is recorded for Vincent's subsequent choice; R1–R5 and sponsor work remain unassigned.
