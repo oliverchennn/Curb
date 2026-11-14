@@ -6,31 +6,39 @@ Root revision-2 update: the user identified two omissions in the three-finding s
 
 ## Two-minute script
 
-The six timed cues include time for clicks and short pauses. Start at `/curb/upload`; choose the original Robertson Hall MOV or **Use Robertson Hall demo**. The explicitly labeled 10-second processing simulation opens the prepared survey with original data, an empty budget and the video paused. `/curb/surveys/robertson-hall` remains a direct entry when skipping the introduction. Cues are operator instructions; quoted paragraphs are spoken copy. Rehearse the timing on the final tabbed workspace.
+The eight proposed cues include time for clicks and short pauses. Start at `/curb/upload`; choose the original Robertson Hall MOV or **Use Robertson Hall demo**. The explicitly labeled 10-second processing simulation opens the prepared survey with original data, an empty budget and the video paused. `/curb/surveys/robertson-hall` remains a direct entry when skipping the introduction. Cues are operator instructions; quoted paragraphs are spoken copy. The last two cues require the combined collection/explorer release. Check the [current release gates](CURB_RELEASE_CHECKPOINT.md) and rehearse the timing on the final build; these allocations are not a recorded stopwatch result.
 
-**0:00–0:18 — Start the prepared demo; let the processing simulation open Survey replay.**
+**0:00–0:16 — Start the prepared demo; let the processing simulation open Survey replay.**
 
 > Curb connects sidewalk footage to repair decisions for disability access. This ten-second walkthrough opens analysis prepared from our Robertson Hall clip. We can inspect the evidence, compare repair choices, and carry the unanswered questions into a facilities report.
 
-**0:18–0:36 — Play briefly; select Defect 02 to seek to 9.5 seconds.**
+**0:16–0:34 — Play briefly; select Defect 04 to seek to 6 seconds.**
 
-> This is the actual fourteen-second clip. Five stable defect IDs connect the visible cracks to their close-ups and tracked frames. Selecting Defect 02 returns to its evidence. These are AI-assisted proposals, with human field review still pending.
+> This is the actual fourteen-second clip. Five stable defect IDs connect the cracks and surface breakup to their close-ups and tracked frames. Defect 04 is one connected repair area. These are AI-assisted proposals, with human field review still pending.
 
-**0:36–0:54 — Show the finding's inspection needs and unknown route impact.**
+**0:34–0:47 — Show the finding's possible access effects and inspection needs.**
 
-> The irregular edges suggest possible effects on wheel contact, cane tips and footing. Width, height difference, slope and clear passage still need measurement. Curb keeps those questions visible. This incomplete survey does not establish ADA compliance or an accessible route.
+> Irregular edges may affect small wheels, cane tips and footing. Width, level difference and clear passage still need measurement. Those open questions stay visible; this video does not establish ADA compliance or route availability.
 
-**0:54–1:18 — Show the three policy cards and quote-required items.**
+**0:47–1:10 — Select Compare repairs; show the three policy cards and quote-required items.**
 
 > Essential's priced subtotal is $294 to $2,294. Balanced shows $216 to $1,434 plus two patch quotes. Durable renews five work areas. These estimates use assumed quantities and omit unpriced setup. Sealing rates are selected 2021 bids; replacement references come from a 2026 bid.
 
-**1:18–1:42 — Enter $500; then enter a reviewer and reject Defect 02.**
+**1:10–1:25 — Enter $500 and select the budget plan.**
 
-> A $500 budget selects one high-priority sealing option, with a $72 to $478 priced subtotal. Setup still needs a quote, so the fit remains partial. A reviewer can reject a finding or correct its description. The proposed work and export data must follow those decisions.
+> A $500 budget selects one high-priority sealing option, with a $72 to $478 priced subtotal. Setup still needs a quote, so the fit is partial. The four deferred areas remain visible. A smaller budget does not erase an access concern.
 
-**1:42–2:00 — Restore original; show export controls and a previously verified PDF.**
+**1:25–1:40 — Select Export report; start the PDF download and show the saved, verified budget report.**
 
-> After review, export the current findings and assumptions for a facilities discussion. JSON, CSV, PDF and accessible HTML reflect the edits; the downloaded annotated video retains its original analysis labels. The next step is field inspection and a qualified quote, with uncertainties carried forward.
+> The report carries the selected work, deferred needs, evidence and quote checklist into a facilities discussion. JSON, CSV, PDF and accessible HTML reflect the review. The annotated video is a fixed export of the original analysis.
+
+**1:40–1:50 — Open Collection demo; show the moving camera callouts or select a sensor.**
+
+> This simulated robot shows our proposed collection approach: context, surface and curb views feeding a review queue. It illustrates the concept; calibrated measurements and hardware validation are future work.
+
+**1:50–2:00 — Open Route explorer; switch an archive corridor to Robertson Hall snapshots.**
+
+> The explorer connects source geometry to its records. Archive data and real field photos stay distinct. Unplaced findings remain in the inventory, and current traversal stays unknown.
 
 ## One-page rehearsal checklist
 
@@ -45,7 +53,8 @@ Use this checklist for each final presenter rehearsal. The boxes are operator ch
 - [ ] **Exports:** explicitly download an edited and restored JSON/CSV/PDF; compare IDs, reviews, selected plan, amounts and unpriced items with the screen. Inspect every PDF page. Confirm fixed annotated-video labels are disclosed after edits.
 - [ ] **Usability:** rehearse keyboard focus, video controls and errors; inspect 390px and projector viewport; verify readable contrast, no horizontal overflow and reduced-motion behavior.
 - [ ] **Offline/errors:** with the local server running, disconnect external networking and reload. Confirm local media/context/exports work; simulate missing video and failed GET/PDF, check actionable recovery without substituted data.
-- [ ] **Timing:** run the six cues with a stopwatch. Save the checked PDF beforehand for the final cue. If exports or any dependency remain unavailable, disclose that limit and show the inspected footage/cost discussion without claiming a successful live report.
+- [ ] **New pages:** the collection simulation loads locally; its pause, sensor and static-diagram controls work. The explorer switches from archive geometry to all five Robertson snapshots without drawing invented finding positions. Label the concept and archive limits aloud.
+- [ ] **Timing:** run the eight cues with a stopwatch. Save the checked $500 budget PDF beforehand for the export cue. If exports or any dependency remain unavailable, disclose that limit and show the inspected footage/cost discussion without claiming a successful live report. Skip the two concept/explorer cues if their combined release is not verified.
 
 Rehearsal record: commit ______ · browser/viewport ______ · timestamp ______ · elapsed ______ · operator ______ · screenshots/PDF/logs ______ · unresolved issues ______.
 
