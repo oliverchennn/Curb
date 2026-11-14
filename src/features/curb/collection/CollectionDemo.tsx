@@ -41,7 +41,7 @@ export function CollectionDemo() {
   const [announcement, setAnnouncement] = useState('');
   const announceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { inspection, count } = poseAt(seconds);
-  const sensor = activeSensor(seconds, manualSensor, autoInspect, reducedMotion || staticMode);
+  const sensor = activeSensor(seconds, manualSensor, autoInspect, reducedMotion);
   const wholeSeconds = Math.floor(seconds);
   const target = inspection ?? CAPTURES.find(item => seconds < item.start);
 
@@ -117,10 +117,6 @@ export function CollectionDemo() {
 
   function seekToCapture(capture: Capture) {
     scrub(capture.at);
-    if (staticMode && !reducedMotion && autoInspect) {
-      transport.current.manualSensor = 'surface';
-      setManualSensor('surface');
-    }
     announce('Paused at ' + secondsText(capture.at) + '. ' + capture.id + ', ' + capture.label + '. All three views are available.');
   }
 
@@ -182,7 +178,7 @@ export function CollectionDemo() {
       <section className={styles.scenePanel} aria-label="Rover inspection">
         <div className={styles.stageHeader}>
           <span><span className={styles.dot} /> {staticMode ? 'Static route diagram' : 'Procedural 3D scene'}</span>
-          <span>{inspection ? 'Inspecting ' + inspection.id : target ? 'Approaching ' + target.id : ended ? 'Run complete' : 'Returning to end of route'}</span>
+          <span>{inspection ? 'Inspecting ' + inspection.id : target ? 'Approaching ' + target.id : ended ? 'Run complete' : 'Finishing route'}</span>
         </div>
         <div className={styles.stage} data-seconds={seconds.toFixed(2)}>
           {staticMode ? <StaticDiagram seconds={seconds} sensor={sensor} /> :
@@ -228,7 +224,7 @@ export function CollectionDemo() {
           <p>{staticMode ? 'Scrub to move between inspection stops.' : 'Drag the scene to orbit. Touch swipes scroll.'}</p>
         </div>
         {message ? <p className={styles.notice} role="status">{message} The static views are ready.</p> : null}
-        {reducedMotion ? <p className={styles.notice}>Reduced motion keeps playback paused and camera changes manual.</p> : null}
+        {reducedMotion ? <p className={styles.notice}>Reduced motion starts paused and keeps camera changes manual.</p> : null}
       </section>
 
       <div className={styles.inspectionSide}>
@@ -238,7 +234,7 @@ export function CollectionDemo() {
         <div className={styles.inspectionNote} data-inspecting={Boolean(inspection)}>
           <div><strong>{inspection ? inspection.id + ' · ' + inspection.label : target ? 'Next: ' + target.label : 'Inspection run complete'}</strong>
             <span>{inspection ? (seconds >= inspection.at ? 'Captured at ' : 'Capture at ') + secondsText(inspection.at) :
-              target ? 'Automatic close-up at ' + secondsText(target.start) : secondsText(DURATION)}</span></div>
+              target ? (autoInspect && !reducedMotion ? 'Automatic close-up at ' : 'Scheduled stop at ') + secondsText(target.start) : secondsText(DURATION)}</span></div>
           <p>{inspection?.note ?? 'Open an inspection stop to revisit all three angles.'}</p>
         </div>
       </div>
