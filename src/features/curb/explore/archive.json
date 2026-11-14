@@ -1,0 +1,1848 @@
+{
+  "archiveSha256": "a1757bb7c964f9e6f4e178b86742b3994e299d7c1b2af67de220f4c445d43475",
+  "snapshotDate": "2026-11-13",
+  "crs": "EPSG:4326",
+  "attribution": {
+    "required_dvrpc_credit": "Delaware Valley Regional Planning Commission (DVRPC)",
+    "dvrpc_terms_url": "https://catalog.dvrpc.org/dvrpc_data_license.html",
+    "project_sidewalk_terms_url": "https://sidewalk-pittsburgh.cs.washington.edu/api#data-license-provenance",
+    "other_sources": "Princeton Public Library; Princeton University Princetoniana and Facilities; AccessAble USA Princeton University access guide. Linked source facts retain attribution; no source photos republished."
+  },
+  "sources": [
+    {
+      "file": "princeton_paths_crossings.geojson",
+      "provider": "DVRPC",
+      "source_url": "https://arcgis.dvrpc.org/portal/rest/services/transportation/PedestrianNetwork_lines/FeatureServer/0/query?f=geojson&where=1%3D1&geometry=-74.6628%2C40.3478%2C-74.6563%2C40.3524&geometryType=esriGeometryEnvelope&inSR=4326&outSR=4326&spatialRel=esriSpatialRelIntersects&outFields=objectid%2Cline_type%2Cfeat_type%2Cmaterial%2Cwidth%2Ccaptured%2Ccond_date%2Ccross_slope&returnGeometry=true",
+      "note": "Regional GIS geometry, aerial-derived",
+      "feature_count": 148,
+      "sha256": "99c086c61fc02a8c9e9d4308acb143844cad90e0e277192812010a67c9406065",
+      "geometry_counts": {
+        "LineString": 148
+      },
+      "status_counts": {}
+    },
+    {
+      "file": "princeton_ramp_inventory.geojson",
+      "provider": "DVRPC",
+      "source_url": "https://arcgis.dvrpc.org/portal/rest/services/transportation/pedestriannetwork_points/FeatureServer/0/query?f=geojson&where=1%3D1&geometry=-74.6628%2C40.3478%2C-74.6563%2C40.3524&geometryType=esriGeometryEnvelope&inSR=4326&outSR=4326&spatialRel=esriSpatialRelIntersects&outFields=objectid%2Cstatus%2Cposition%2Ccaptured%2Cada_comp%2Cdws&returnGeometry=true",
+      "note": "Ramp inventory, aerial-derived",
+      "feature_count": 83,
+      "sha256": "62fbe2547ae1cf4ff1b332f55634667d301df932bf5ce8199c512d5dc9c18d3d",
+      "geometry_counts": {
+        "Point": 83
+      },
+      "status_counts": {
+        "ASSUMED": 29,
+        "EXISTING": 54
+      }
+    }
+  ],
+  "lines": [
+    {
+      "type": "Feature",
+      "id": 809875,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65972313499998,
+            40.34980137200006
+          ],
+          [
+            -74.66015111999997,
+            40.350826364000056
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 809875,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 834108,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65961625499995,
+            40.34958759700004
+          ],
+          [
+            -74.65970085899994,
+            40.349770199000034
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 834108,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 834112,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66019683699994,
+            40.35093590900004
+          ],
+          [
+            -74.66015111999997,
+            40.350826364000056
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 834112,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 889957,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66019683699994,
+            40.35093590900004
+          ],
+          [
+            -74.66038395399994,
+            40.351313608000055
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 889957,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 942676,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65961625499995,
+            40.34958759700004
+          ],
+          [
+            -74.65976971199996,
+            40.349542333000045
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 942676,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 951724,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65848707099997,
+            40.34987448000004
+          ],
+          [
+            -74.65876936399997,
+            40.349814826000056
+          ],
+          [
+            -74.65961625499995,
+            40.34958759700004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 951724,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 957434,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65987534699997,
+            40.34972499700007
+          ],
+          [
+            -74.65976971199996,
+            40.349542333000045
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 957434,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 986574,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65970085899994,
+            40.349770199000034
+          ],
+          [
+            -74.65972313499998,
+            40.34980137200006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 986574,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1004047,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65987534699997,
+            40.34972499700007
+          ],
+          [
+            -74.65987615599994,
+            40.34976106100004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1004047,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1010009,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65972313499998,
+            40.34980137200006
+          ],
+          [
+            -74.65987615599994,
+            40.34976106100004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1010009,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    }
+  ],
+  "ramps": [
+    {
+      "type": "Feature",
+      "id": 448038,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.66019683699994,
+          40.35093590900004
+        ]
+      },
+      "properties": {
+        "objectid": 448038,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 454485,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.66015111999997,
+          40.350826364000056
+        ]
+      },
+      "properties": {
+        "objectid": 454485,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 461092,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65970085899994,
+          40.349770199000034
+        ]
+      },
+      "properties": {
+        "objectid": 461092,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 478465,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65848707099997,
+          40.34987448000004
+        ]
+      },
+      "properties": {
+        "objectid": 478465,
+        "status": "ASSUMED",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 496163,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65972313499998,
+          40.34980137200006
+        ]
+      },
+      "properties": {
+        "objectid": 496163,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 501839,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65987534699997,
+          40.34972499700007
+        ]
+      },
+      "properties": {
+        "objectid": 501839,
+        "status": "ASSUMED",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 554811,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65961625499995,
+          40.34958759700004
+        ]
+      },
+      "properties": {
+        "objectid": 554811,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 562921,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65987615599994,
+          40.34976106100004
+        ]
+      },
+      "properties": {
+        "objectid": 562921,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 568004,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.66038395399994,
+          40.351313608000055
+        ]
+      },
+      "properties": {
+        "objectid": 568004,
+        "status": "EXISTING",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 577885,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.65976971199996,
+          40.349542333000045
+        ]
+      },
+      "properties": {
+        "objectid": 577885,
+        "status": "ASSUMED",
+        "position": "SINGLE DIRECTION",
+        "captured": "AERIAL",
+        "ada_comp": null,
+        "dws": null
+      }
+    }
+  ],
+  "contextLines": [
+    {
+      "type": "Feature",
+      "id": 806017,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66052046699997,
+            40.35121103400007
+          ],
+          [
+            -74.66047333099993,
+            40.35110470200004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 806017,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 806018,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65870500999995,
+            40.35136094500007
+          ],
+          [
+            -74.65882856099995,
+            40.35132698500007
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 806018,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 809872,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65857854799998,
+            40.35008391900004
+          ],
+          [
+            -74.65970085899994,
+            40.349770199000034
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 809872,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 809875,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65972313499998,
+            40.34980137200006
+          ],
+          [
+            -74.66015111999997,
+            40.350826364000056
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 809875,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 828863,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66105318499996,
+            40.35094228500003
+          ],
+          [
+            -74.66057937699998,
+            40.34998858200004
+          ],
+          [
+            -74.66095145999998,
+            40.349901310000064
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 828863,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 834108,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65961625499995,
+            40.34958759700004
+          ],
+          [
+            -74.65970085899994,
+            40.349770199000034
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 834108,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 834112,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66019683699994,
+            40.35093590900004
+          ],
+          [
+            -74.66015111999997,
+            40.350826364000056
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 834112,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 851813,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66015111999997,
+            40.350826364000056
+          ],
+          [
+            -74.66033674899995,
+            40.35079739300005
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 851813,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 862510,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65890773399997,
+            40.35119635400008
+          ],
+          [
+            -74.65890866399997,
+            40.35115574500003
+          ],
+          [
+            -74.65879971699997,
+            40.350930015000074
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 862510,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 867942,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66112131499995,
+            40.35105618600005
+          ],
+          [
+            -74.66105318499996,
+            40.35094228500003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 867942,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 880481,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66015111999997,
+            40.350826364000056
+          ],
+          [
+            -74.65951505999993,
+            40.35101328200005
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 880481,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 880555,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65857701699997,
+            40.350109658000065
+          ],
+          [
+            -74.65857854799998,
+            40.35008391900004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 880555,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 886074,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66092255599995,
+            40.34946312400007
+          ],
+          [
+            -74.66079620599999,
+            40.34949707900006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 886074,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 886077,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65903551199995,
+            40.35115811500003
+          ],
+          [
+            -74.65890773399997,
+            40.35119635400008
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 886077,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 889957,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66019683699994,
+            40.35093590900004
+          ],
+          [
+            -74.66038395399994,
+            40.351313608000055
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 889957,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 889978,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66064567799998,
+            40.34931964800006
+          ],
+          [
+            -74.66069191199995,
+            40.34932622000008
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 889978,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "MIXED",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 891400,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66109461399998,
+            40.34987169400006
+          ],
+          [
+            -74.66095145999998,
+            40.349901310000064
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 891400,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 923940,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66047333099993,
+            40.35110470200004
+          ],
+          [
+            -74.66105318499996,
+            40.35094228500003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 923940,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 924759,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65956304599996,
+            40.35110950500007
+          ],
+          [
+            -74.66019683699994,
+            40.35093590900004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 924759,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 924761,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65882856099995,
+            40.35132698500007
+          ],
+          [
+            -74.65907574299996,
+            40.35124297400006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 924761,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 929916,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66095145999998,
+            40.349901310000064
+          ],
+          [
+            -74.66101399199994,
+            40.35001305000003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 929916,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 938420,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65848707099997,
+            40.34987448000004
+          ],
+          [
+            -74.65857854799998,
+            40.35008391900004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 938420,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 942579,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66052046699997,
+            40.35121103400007
+          ],
+          [
+            -74.66053839199998,
+            40.35127115500006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 942579,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 942676,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65961625499995,
+            40.34958759700004
+          ],
+          [
+            -74.65976971199996,
+            40.349542333000045
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 942676,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 943111,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65907574299996,
+            40.35124297400006
+          ],
+          [
+            -74.65956304599996,
+            40.35110950500007
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 943111,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 948724,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65951505999993,
+            40.35101328200005
+          ],
+          [
+            -74.65956304599996,
+            40.35110950500007
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 948724,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 951724,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65848707099997,
+            40.34987448000004
+          ],
+          [
+            -74.65876936399997,
+            40.349814826000056
+          ],
+          [
+            -74.65961625499995,
+            40.34958759700004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 951724,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 951726,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66112131499995,
+            40.35105618600005
+          ],
+          [
+            -74.66052046699997,
+            40.35121103400007
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 951726,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 957434,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65987534699997,
+            40.34972499700007
+          ],
+          [
+            -74.65976971199996,
+            40.349542333000045
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 957434,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 957435,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65857701699997,
+            40.350109658000065
+          ],
+          [
+            -74.65850776999997,
+            40.35012459700005
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 957435,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 986571,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66075703599995,
+            40.34947980100003
+          ],
+          [
+            -74.65987534699997,
+            40.34972499700007
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 986571,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 986574,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65970085899994,
+            40.349770199000034
+          ],
+          [
+            -74.65972313499998,
+            40.34980137200006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 986574,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 995148,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66079620599999,
+            40.34949707900006
+          ],
+          [
+            -74.66075703599995,
+            40.34947980100003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 995148,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 997886,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65907574299996,
+            40.35124297400006
+          ],
+          [
+            -74.65903551199995,
+            40.35115811500003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 997886,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1004045,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65976971199996,
+            40.349542333000045
+          ],
+          [
+            -74.66049199499997,
+            40.349362076000034
+          ],
+          [
+            -74.66053055499998,
+            40.34935149000006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1004045,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1004047,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65987534699997,
+            40.34972499700007
+          ],
+          [
+            -74.65987615599994,
+            40.34976106100004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1004047,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1010008,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66053055499998,
+            40.34935149000006
+          ],
+          [
+            -74.66064567799998,
+            40.34931964800006
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1010008,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1010009,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65972313499998,
+            40.34980137200006
+          ],
+          [
+            -74.65987615599994,
+            40.34976106100004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1010009,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1010011,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66053839199998,
+            40.35127115500006
+          ],
+          [
+            -74.66038395399994,
+            40.351313608000055
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1010011,
+        "line_type": 2,
+        "feat_type": "DECORATIVE",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1013409,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66107420499998,
+            40.349416372000064
+          ],
+          [
+            -74.66099204599993,
+            40.349441701000046
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1013409,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1013410,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66099204599993,
+            40.349441701000046
+          ],
+          [
+            -74.66092255599995,
+            40.34946312400007
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1013410,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1013591,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65951505999993,
+            40.35101328200005
+          ],
+          [
+            -74.65903551199995,
+            40.35115811500003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1013591,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1013592,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65903551199995,
+            40.35115811500003
+          ],
+          [
+            -74.65857701699997,
+            40.350109658000065
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1013592,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1018643,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66069191199995,
+            40.34932622000008
+          ],
+          [
+            -74.66075703599995,
+            40.34947980100003
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1018643,
+        "line_type": 2,
+        "feat_type": "CONTINENTAL",
+        "material": "N/A",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1036950,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.66033674899995,
+            40.35079739300005
+          ],
+          [
+            -74.66047333099993,
+            40.35110470200004
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1036950,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1037266,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.65987615599994,
+            40.34976106100004
+          ],
+          [
+            -74.66033674899995,
+            40.35079739300005
+          ]
+        ]
+      },
+      "properties": {
+        "objectid": 1037266,
+        "line_type": 1,
+        "feat_type": "PATH",
+        "material": "CONCRETE",
+        "width": null,
+        "captured": "AERIAL",
+        "cond_date": null,
+        "cross_slope": null
+      }
+    }
+  ],
+  "primarySources": [
+    {
+      "id": "library-location",
+      "requestedUrl": "https://princetonlibrary.org/about-us/location-hours-book-drops/",
+      "checkedAtUtc": "2026-11-14T11:27:36.319958+00:00",
+      "status": 200,
+      "finalUrl": "https://princetonlibrary.org/about-us/location-hours-book-drops/",
+      "bytes": 245496,
+      "sha256": "ff43b572dcf1f5f0c8bd3efac95dd0219b9fc6dddda5582db705047b2128747b",
+      "facts_or_limitations": [
+        "Official library address: Sands Library Building, 65 Witherspoon Street.",
+        "Published opening hours require confirmation before a planned visit; page retrieval is not live door status."
+      ],
+      "field_observed_at": null,
+      "source_observation_date": null,
+      "retrieval_scope": "HTTP response and page text inspected; no field observation"
+    },
+    {
+      "id": "library-plaza",
+      "requestedUrl": "https://princetonlibrary.org/exhibition/hinds-plaza-gates/",
+      "checkedAtUtc": "2026-11-14T11:27:36.320648+00:00",
+      "status": 200,
+      "finalUrl": "https://princetonlibrary.org/exhibition/hinds-plaza-gates/",
+      "bytes": 232482,
+      "sha256": "cfeaf8ad645cec6eaaa3218db021003a5e704db59123e660c346510625b44854",
+      "facts_or_limitations": [
+        "Official library page locates Hinds Plaza beside the library and one pair of plaza gates outside its front door."
+      ],
+      "field_observed_at": null,
+      "source_observation_date": null,
+      "retrieval_scope": "HTTP response and page text inspected; no field observation"
+    },
+    {
+      "id": "fitzrandolph-gate",
+      "requestedUrl": "https://princetoniana.princeton.edu/campus/landmarks/fitzrandolph-gate",
+      "checkedAtUtc": "2026-11-14T11:27:36.321126+00:00",
+      "status": 200,
+      "finalUrl": "https://princetoniana.princeton.edu/campus/landmarks/fitzrandolph-gate",
+      "bytes": 52274,
+      "sha256": "6da666010b2c6f0fdfa216462a77947b08116b3589a0487cd51a3920041af34d",
+      "facts_or_limitations": [
+        "University historical page identifies the gate as an official entrance and describes regular use since 1970; it does not verify current clearance or obstructions."
+      ],
+      "field_observed_at": null,
+      "source_observation_date": null,
+      "retrieval_scope": "HTTP response and page text inspected; no field observation"
+    },
+    {
+      "id": "nassau-access",
+      "requestedUrl": "https://www.accessableusa.com/princeton-university/access-guides/nassau-hall",
+      "checkedAtUtc": "2026-11-14T11:27:36.321575+00:00",
+      "status": 200,
+      "finalUrl": "https://www.accessableusa.com/princeton-university/access-guides/nassau-hall",
+      "bytes": 139847,
+      "sha256": "08e566605ac10ee5995870f6070ca5e19136f2a03557ede289a843c540644a85",
+      "facts_or_limitations": [
+        "The guide distinguishes the west-side accessible entrance to level G elevator lobby / West Wing elevator from the separately named west entrance with stepped access.",
+        "The accessible entrance is described as having a key fob/card reader, single automatic door opening toward the user and a push plate/sensor.",
+        "North, east and west entrances are described as stepped with manual doors. Guide measurements are source claims, not measurements by this project."
+      ],
+      "field_observed_at": null,
+      "source_observation_date": null,
+      "retrieval_scope": "HTTP response and page text inspected; no field observation"
+    },
+    {
+      "id": "facilities-maps",
+      "requestedUrl": "https://facilities.princeton.edu/maps",
+      "checkedAtUtc": "2026-11-14T11:27:36.322186+00:00",
+      "status": 200,
+      "finalUrl": "https://facilities.princeton.edu/maps",
+      "bytes": 44077,
+      "sha256": "68f7dcd57eb7c1d8608b8285bc01487789e26d3bc648f3a8fb08c9efb36fd638",
+      "facts_or_limitations": [
+        "Official university maps page links step-free directions and AccessAble guidance; use as a scouting reference, not a verified imported route."
+      ],
+      "field_observed_at": null,
+      "source_observation_date": null,
+      "retrieval_scope": "HTTP response and page text inspected; no field observation"
+    }
+  ]
+}
