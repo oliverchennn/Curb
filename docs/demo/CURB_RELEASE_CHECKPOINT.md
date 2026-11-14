@@ -2,9 +2,9 @@
 
 The released application is live at [curb-taupe.vercel.app](https://curb-taupe.vercel.app) on Vincent's account. [PR #7](https://github.com/oliverchennn/Curb/pull/7) merged at **`b010ad02ce9e0cb905e15e5c7c7109713814b36e`**; the archived release branch is no longer active. [Deployment and public verification](VINCENT_HOSTING_RESULT.md). This is a manual CLI deployment: Git pushes alone do not update production.
 
-Root's new `codex/production-hardening` candidate integrates Landau's released collection accessibility polish and Vincent's hosting report, bounds plan/trip JSON reads, removes duplicate report-body parsing, and fixes the empty hosted revision. The candidate passed **744 tests in28 files, TypeScript and a production build** on2026-11-14. Root's subsequent focus-transfer refinement passed a fresh build and actual browser checks; it is not covered by Landau's earlier NVDA result. [Root verification and passing CI](PRODUCTION_HARDENING.md).
+Root's `codex/production-hardening` candidate integrates the released audits and collection accessibility polish, bounds JSON request bodies, rejects duplicate dataset selectors, fixes hosted source identity and adds two-runtime CI. Audit-driven UI fixes preserve focus at map limits, announce first review decisions and enlarge controls. The candidate at `2fb49f710085732a7ac20f63680925b8db06dba5` passed **748 tests, TypeScript and a production build**. [Root verification](PRODUCTION_HARDENING.md), [backend regression](HARDENING_BACKEND_REGRESSION.md), [collection regression](HARDENING_UI_REGRESSION.md), [final UI delta](FINAL_UI_DELTA.md).
 
-Vincent and Landau are independently auditing the pinned public b010ad0 release. Vincent owns API/deployment/report verification; Landau owns the complete browser control inventory, viewports, keyboard and NVDA checks. Findings, fixes and untested cases remain explicit. The production alias stays unchanged until those audits finish and root accepts a final candidate.
+Both pinned public audits are finished and reviewed. C independently confirmed the first Accept/Reject/Restore announcements with NVDA; root verified the final map-focus and 44px Reset corrections in Chrome. The user subsequently requested richer three-camera rover graphics and an explorer redesign. B owns the collection upgrade; C first proposes an independent explorer plan for synthesis. These are separate tasks after the verified hardening baseline. The existing public deployment remains unchanged until root supplies Vincent an exact accepted merged source.
 
 The sections below retain the evidence for the original release and identify which source each check covers.
 
@@ -29,12 +29,12 @@ On the final combined production server, all ten sequential functional probes pa
 
 The refreshed offline backup includes real app/report captures, the complete annotated clip and an actual ten-second browser recording of the robot. All3,600 frames decode successfully over120 seconds; its input hashes and timeline are in the committed demo-backup.json. It is an edited walkthrough, not a continuous live demonstration.
 
-## Current hardening gates
+## Current integration gates
 
-1. Finish the independent hosted backend and UI audits; review their per-control results and reproduce actionable failures. Prior source tests do not substitute for new hosted evidence.
-2. Integrate the released audit reports and necessary fixes on `codex/production-hardening`. Complete current-source checks and changed-flow browser regressions; merge only the exact reviewed head. Preserve completed branch tips under archive tags before removal and leave active audit branches intact.
-3. Give Vincent the exact merged source for the next manual deployment, with non-secret APP_REVISION set to that SHA. Run the current12-request verifier with the expected SHA, then the relevant public browser checks. Record the actual project, deployment, source and URL. [Hosting runbook](ROBERTSON_HOSTING.md).
+1. Merge the reviewed hardening head after its two-runtime CI completes. Keep exact-source audit reports and archive completed task tips before removal.
+2. Review B's rover upgrade and compare C's independent explorer proposal with root's plan before assigning the explorer implementation. Integrate only released, checked work, then run changed-flow browser acceptance and the integrated production check.
+3. Give Vincent the exact merged source for the next manual deployment, with non-secret APP_REVISION at build and runtime. Run the 12-request release verifier and 31-request API audit with the expected full SHA, plus relevant Chrome flows. Record actual project/deployment/source/URL. [Hosting runbook](ROBERTSON_HOSTING.md).
 
-Physical projector checks, a presenter stopwatch rehearsal, measured site inspection and contractor quotes remain separate. Landau's collection NVDA report covers its stated candidate, and the broader hosted assistive-technology audit is still in progress. No universal accessibility certification is asserted.
+Physical projector/touch checks, measured site inspection and contractor quotes remain separate. NVDA and browser reports cover their stated candidates; no universal accessibility certification is asserted. The historical backup media retain their recorded source metadata.
 
 The final local venue ZIP contains12 files (19,470,795 bytes), SHA-256 `61523fbc9ff14024668f211d37c7eeb01b6bf1f6447beb63324cc75f75fbc202`. Its RELEASE.json identifies9d83ee0 and the checked productec57fb0; later independent-review/coordination documents do not change the packaged app/media. All included report hashes, canonical inventory, annotated/backup hashes and ZIP CRCs passed packaging verification. The kit is a portable report/video package, not a bundled Node runtime.

@@ -395,6 +395,65 @@
         }
       ],
       "boardReceipt": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885066480"
+    },
+    {
+      "recordedAt": "2026-11-14T22:54:17.789956+00:00",
+      "reason": "All four audit scopes explicitly STOPPED/released, fully reviewed and integrated into published PR8. Final UI delta scope is separate and remains active.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 4,
+      "branches": [
+        {
+          "branch": "codex/hosted-backend-audit",
+          "sha": "f16f176d97945b37e68e9e557fc60f08c0601002",
+          "archiveTag": "archive/2026-11-14/codex/hosted-backend-audit",
+          "integratedOnReleaseBranch": [
+            "16f1b36",
+            "3d9a36e"
+          ]
+        },
+        {
+          "branch": "codex/hosted-ui-audit",
+          "sha": "7409514bdc93f5c87b6882140c6cc4a540a1b1a3",
+          "archiveTag": "archive/2026-11-14/codex/hosted-ui-audit",
+          "integratedOnReleaseBranch": [
+            "a3c18f6"
+          ]
+        },
+        {
+          "branch": "codex/hardening-backend-regression",
+          "sha": "c35ebe10268dc3511eef93b86994b900bcca32a5",
+          "archiveTag": "archive/2026-11-14/codex/hardening-backend-regression",
+          "integratedOnReleaseBranch": [
+            "9ef771b"
+          ]
+        },
+        {
+          "branch": "codex/hardening-ui-regression",
+          "sha": "d1f0b58959522a4386d7f20ea22212d1e9b71917",
+          "archiveTag": "archive/2026-11-14/codex/hardening-ui-regression",
+          "integratedOnReleaseBranch": [
+            "a21ffdb"
+          ]
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:00:41.409788+00:00",
+      "reason": "Final UI delta report explicitly stopped/released, reviewed and integrated as 2fb49f7; exact archive tag verified before deletion. New explorer design scope is separate.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/final-ui-delta",
+          "sha": "08163308f90d5071be6eb8a095c31d0f2f4ba263",
+          "archiveTag": "archive/2026-11-14/codex/final-ui-delta",
+          "integratedOnReleaseBranch": [
+            "2fb49f7"
+          ]
+        }
+      ]
     }
   ]
 }

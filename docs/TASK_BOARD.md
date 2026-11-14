@@ -1,15 +1,15 @@
-# Current production verification queue
+# Current production verification and visual upgrade queue
 
-User-authorized exhaustive deployed-flow audit and root integration. Exact deployed source: `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and newer results.
+The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merges the completed hardening work while those disjoint tasks proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
 
-| Owner | Current task and scope | State |
+| Owner | Current scope | State |
 | --- | --- | --- |
-| Root / Oliver desktop | Product/backend corrections, released-result review, PRs, merges and archives on codex/production-hardening | Running; owns all product writes |
-| B / Vincent laptop | Hosted backend/API/export/deployment audit; only scripts/curb/audit_hosted_backend.ts and docs/demo/HOSTED_BACKEND_AUDIT.md | READY6884877589; await actual ACK |
-| C / Landau | Hosted per-control UI/browser/NVDA audit; only docs/demo/HOSTED_UI_AUDIT.md | ACK/RUNNING6884895605 |
-| D / Oliver cloud | No active scope | Stopped; prior results integrated |
+| Root | PR8, accepted audits/fixes, backend/shared files, archives and integration | Running; hardening checks passed, merge pending |
+| B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | READY 6885539290; graphics addendum 6885549275; actual ACK on board |
+| C / Landau | EXPLORER-DESIGN-V2/1: independent design critique and comparison, only EXPLORER_UPGRADE_PROPOSAL.md | READY 6885550039; design first, implementation after synthesis |
+| D / Oliver cloud | No active scope | Stopped |
 
-Landau's released polish5129765 and Vincent's deployment report9483874 are under root integration. The public alias stays on b010ad0 until audit results are reconciled and root supplies the next exact deployment source. Hosting uses Vincent's account; his cloud worker remains stopped. No paid action, provider security change or duplicate writer. Historical task tables below are preserved as history, not current assignments.
+Both new tasks start from exact `2fb49f710085732a7ac20f63680925b8db06dba5` in isolated branches. B owns the collection paths listed in its assignment. C has design-document ownership only. No product changes outside those scopes, no paid actions, no duplicate writers. All previous hosted audit and candidate regression reports are STOPPED/RELEASED and integrated. Final feature deployment is assigned to Vincent only after root acceptance and exact merge. Historical tables below are history, not current assignments.
 
 ---
 
