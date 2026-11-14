@@ -1,8 +1,8 @@
 # Curb orchestration
 
-## Current return handoff
+## Current R2 coordination
 
-The user designated Vincent (`vzhu08`) to resume as orchestrator after cloud R1 completion; Oliver's cloud session `6af808fa-83dc-8191-bd58-80697dbe50c9` continues as Dev B ready/unassigned. Vincent's resumed session/ACK is pending. [Resume packet](message-board/VINCENT_HANDOFF.md) and [Dev B brief](message-board/DEV_B_CONTINUATION.md) supersede the historical kickoff sequence below. The outgoing cloud coordinator owns only final handoff publication, then releases coordination. All previous coding leads/children stopped; no application scope is reserved. Read the final board handoff and ACK with actual identity/session/base before dispatch. Existing write access for Oliver and Landau was verified; the kickoff invitation-pending text below is historical. No paused laptop agents or background watchers are automatically restarted.
+Vincent (`vzhu08`) has resumed coordinator session `01a1d84f-5fd1-71b0-a1d3-c9952d311e7a`, accepted Oliver's published/released handoff, and selected R2. [Resume ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713); [R2 task](tasks/R2.md). Local implementation agents are Dev A only. Oliver's cloud session `6af808fa-83dc-8191-bd58-80697dbe50c9` is actual Dev B; Landau is Dev C. Earlier temporary B/C coverage is superseded. A's serial contract scope is active; B/C code waits for the reviewed common freeze and exact ACKs. The existing native local board checker is active every five minutes; it does not install a kit runtime or automatically wake remote chats. Historical kickoff and handoff records below do not restart completed tasks.
 
 ## Team and selected mode
 

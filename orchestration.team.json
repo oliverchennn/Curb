@@ -6,11 +6,11 @@
   "coordinator": {
     "name": "Vincent",
     "github": "vzhu08",
-    "session": null,
-    "state": "designated-awaiting-resume-ack"
+    "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
+    "state": "active; R2 selected"
   },
   "handoff": {
-    "state": "ready-for-vincent-ack",
+    "state": "accepted-by-vincent",
     "authorizedBy": "User request in Oliver's cloud conversation",
     "reason": "Package completed R1 for Vincent to resume orchestration and this cloud conversation to continue as Dev B.",
     "outgoingSession": "6af808fa-83dc-8191-bd58-80697dbe50c9",
@@ -18,18 +18,19 @@
     "incomingCoordinator": {
       "name": "Vincent",
       "github": "vzhu08",
-      "session": null,
-      "ackObserved": false
+      "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
+      "ackObserved": true
     },
     "checkpoint": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875515894",
     "instructions": "docs/message-board/VINCENT_HANDOFF.md",
     "devBInstructions": "docs/message-board/DEV_B_CONTINUATION.md",
     "baseSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
     "publicationBranch": "codex/vincent-handoff",
-    "finalPublication": "Read final HANDOFF-VINCENT RESULT on board #1 for actual PR/main SHA and readiness worktree base.",
-    "localHeartbeat": "PAUSED",
+    "finalPublication": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612; https://github.com/vzhu08/Curb/issues/1#issuecomment-6875649929",
+    "localHeartbeat": "ACTIVE; every five minutes",
     "preview": "STOPPED",
-    "resumeGate": "Vincent reads current main/board and ACKs his actual session; Dev B ACKs an exact selected-slice task/base/contract before code starts."
+    "resumeGate": "Vincent resumed, accepted handoff and selected R2. B/C code starts only after reviewed R2 contract freeze and exact assignments/ACKs.",
+    "acceptance": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713"
   },
   "developers": [
     {
@@ -39,13 +40,21 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "F2/1 and M-DEV/1 verified; stopped/released",
-      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f2-foundation\\Curb",
-      "branch": "codex/f2-foundation",
-      "baseSha": "bcbd3aa93e573f512baf96d5960cf049288adc10",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6873087590",
-      "resultSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
-      "currentAvailability": "unconfirmed; previous recorded work stopped/released"
+      "task": "R2-CONTRACT/1",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-r2-contract-api\\Curb",
+      "branch": "codex/r2-contract-api",
+      "baseSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864",
+      "resultSha": null,
+      "currentAvailability": "active; ACK 6875667787; sole writer, no child",
+      "previousResult": {
+        "task": "F2/1 and M-DEV/1 verified; stopped/released",
+        "resultSha": "fc12e86c85394ab8126db1be485aaf0e7845c087"
+      },
+      "writeScope": [
+        "src/contracts/curb/plans.ts",
+        "tests/integration/contracts/plans.test.ts"
+      ]
     },
     {
       "lane": "B",
@@ -54,14 +63,14 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "ready as Dev B in current cloud conversation; no application assignment",
+      "availability": "Oliver actual Dev B ready; awaiting reviewed R2 freeze and exact assignment",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
         "github": "vzhu08",
         "session": "01a1d853-781e-7ce1-9082-ac04a68d3782",
         "hostId": "local",
-        "state": "F1B verified; stopped/released",
+        "state": "Historical F1B complete; retired from current coverage; do not restart",
         "writeScope": [],
         "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f1b-domain\\Curb",
         "branch": "codex/f1b-domain",
@@ -74,7 +83,7 @@
       "branch": "codex/dev-b-ready",
       "task": null,
       "writeScope": [],
-      "readinessBase": "Final handoff main; exact SHA recorded in final board RESULT",
+      "readinessBase": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612",
       "instructions": "docs/message-board/DEV_B_CONTINUATION.md"
     },
     {
@@ -100,9 +109,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6875515894"
+    "lastReadCommentId": "6875693713"
   },
-  "currentSlice": "R1-complete; return-handoff",
+  "currentSlice": "R2-selected; serial contract in progress",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -112,12 +121,21 @@
       "status": "frozen",
       "contractSha": "c271c4fee62b3f05e7909df450a66f263db213ea",
       "implementationBaseSha": "d561c30f10b6e3f34300093cea343346a87b9678"
+    },
+    "plans": {
+      "version": "curb-r2",
+      "status": "draft; awaiting reviewed A result",
+      "assignment": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864"
     }
   },
   "delegation": {
     "maxCodingChildrenPerLane": 2,
     "maxChildDepth": 1,
-    "optionalReadOnlyReviewer": true
+    "optionalReadOnlyReviewer": true,
+    "localImplementationLanes": [
+      "A"
+    ],
+    "localSubstitutePolicy": "Vincent explicitly restricts local agents to Dev A. Oliver owns B and Landau owns C; no local B/C substitutes."
   },
   "timezone": "America/New_York",
   "eventStart": "2026-11-13T20:00:00-05:00",
@@ -135,7 +153,7 @@
     "decision": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956"
   },
   "documentationBaseSha": "eee48e553de92072b4cb53148f9fd12c957514f0",
-  "coordinatorBranch": null,
+  "coordinatorBranch": "codex/r2-coordination",
   "workerModel": {
     "model": "gpt-6.1-sol",
     "reasoningEffort": "xhigh",

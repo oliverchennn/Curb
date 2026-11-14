@@ -1,5 +1,7 @@
 # Ownership
 
+Current R2 policy: Vincent's local implementation agents handle **A only**. Oliver owns B; Landau owns C. The previous temporary B/C coverage is superseded. Oliver released the return-handoff documentation in [6875649929](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875649929); Vincent accepted it in [6875693713](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713). A's serial R2 contract is the only current application write scope until a reviewed freeze and new exact lane assignments. Historical roster entries below do not grant current ownership.
+
 Vincent (`vzhu08`) is the human lead, Dev A and contract steward. The orchestrator owns routine merge decisions and may designate one integration agent to execute each merge. Oliver owns Dev B domain and evidence. Landau owns Dev C UI and demo. Verify each developer's GitHub account and access before dispatch.
 
 The live issue's coordinator assignments reserve task scopes. Before kickoff, no application writer is active. `TASK_BOARD.md` is a snapshot. A lane steward may not edit files delegated to a child.

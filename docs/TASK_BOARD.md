@@ -1,6 +1,6 @@
 # Task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Return-handoff cursor: `6875515894`. All prior local and R1 cloud coding writers are stopped/released. No application scope is currently assigned. Vincent is designated incoming coordinator (ACK pending); Oliver's cloud session continues as Dev B ready/unassigned. [Resume packet](message-board/VINCENT_HANDOFF.md).
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Resume cursor: `6875693713`. Vincent's coordinator is active and R2 is selected. Oliver released the handoff documentation and is Dev B; Landau remains Dev C. Local agents handle A only. [R2 task](tasks/R2.md); [resume ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713).
 
 **Foundation F0 → F1A/F1B/F1C → F2 and R1 are verified.** R1 browser/full-check application SHA: `03d89572c207b88bc02d80c6f3a745aad1895391`; published R1 main: `db6ceb603e06ecf9ee8319ad0b2aa76eff840df2`, [PR #3](https://github.com/vzhu08/Curb/pull/3). Final documentation-package publication is recorded on the live board. [Acceptance evidence](ACCEPTANCE.md).
 
@@ -14,13 +14,13 @@ Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read 
 
 All historical foundation leads and children stopped and released their write scopes. Their laptop preview and heartbeat were stopped at handoff. Current cloud ownership is below. No branch state grants a new task.
 
-Foundation contracts stay frozen at `curb-v0`. The separate `curb-r1` contract is frozen at `c271c4fee62b3f05e7909df450a66f263db213ea`; existing fixtures/imports remain intact. R2–R5 and sponsors remain unassigned. [Git sync](GIT_SYNC.md), exclusive ownership and [standing merge delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956) continue to apply.
+Foundation contracts stay frozen at `curb-v0`. The separate `curb-r1` contract is frozen at `c271c4fee62b3f05e7909df450a66f263db213ea`; existing fixtures/imports remain intact. R2 is selected; R3–R5 and sponsors remain unassigned. [Git sync](GIT_SYNC.md), exclusive ownership and [standing merge delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956) continue to apply.
 
 All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau retains his approved Claude Code exception; Astra is coordinator-only.
 
-## Current cloud iteration
+## Historical cloud R1 iteration
 
-This section records completed R1 history. The current task is the documentation/package return handoff above, not a new application iteration.
+This section records completed R1 history; the current R2 iteration is listed below.
 
 [Takeover audit](message-board/CLOUD_TAKEOVER.md); [R1 card](tasks/R1.md). User Oliver selected R1 after the audit. Authenticated account `oliverchennn` has verified WRITE access. Coordinator session `6af808fa-83dc-8191-bd58-80697dbe50c9`, branch `codex/cloud-takeover`, checkout `/workspace/curb`, baseline `1992c53778c4374c7b2400f2a201f02dcac8c260`.
 
@@ -35,7 +35,7 @@ This section records completed R1 history. The current task is the documentation
 
 Common implementation base was `d561c30f10b6e3f34300093cea343346a87b9678`; [exact assignments](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873769585). A's transport child and B's fixture child stopped before their leads' Git operations; C had no child. Final publication follows the standing merge delegation. This completes only R1; no autonomous background worker, deployment or later feature iteration is scheduled.
 
-## Resume ownership
+## Historical handoff readiness
 
 | Role / task | State | Next action |
 |---|---|---|
@@ -44,3 +44,15 @@ Common implementation base was `d561c30f10b6e3f34300093cea343346a87b9678`; [exac
 | Oliver / this cloud session as Dev B | Ready, no code task or active file scope | Follow `START_DEV_B.txt`; use prepared `/workspace/curb-dev-b`; await exact task/base/contract |
 | A / C | Historical work stopped; present availability unconfirmed | Coordinator confirms availability before assigning paths |
 | R2 | Recommendation only | Vincent selects next outcome; A freezes new contract before B/A/C implementation |
+
+
+## Current R2 iteration
+
+| Task | Owner / scope | State |
+|---|---|---|
+| R2-CONTRACT/1 | Local agent-a; `src/contracts/curb/plans.ts`, `tests/integration/contracts/plans.test.ts` | Running; [assignment](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875642864), [ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875667787); exact base `db6ceb603e06ecf9ee8319ad0b2aa76eff840df2`; isolated `codex/r2-contract-api`; no child |
+| R2-B | Oliver / `oliverchennn` | Readiness only; no code scope until reviewed common freeze |
+| R2-C | Landau / `landautzou` | Availability requested on board; no code scope yet |
+| R2 coordination | Vincent | `codex/r2-coordination`; exact documentation reservation in resume ACK; no application edits |
+
+The existing native local checker is ACTIVE every five minutes. It does not wake Oliver or Landau's separate chats. No temporary B/C agent is authorized under Vincent's latest instruction.
