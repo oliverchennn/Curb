@@ -43,6 +43,8 @@ No dimensions were measured from this footage. Accessibility effects are qualifi
 
 [Integrated evidence and open gates](docs/demo/ROBERTSON_INTEGRATION.md) · [Independent domain/media review](docs/demo/ROBERTSON_REVIEW.md) · [Exact implementation boundaries](docs/demo/ROBERTSON_IMPLEMENTATION.md) · [Live team board](https://github.com/oliverchennn/Curb/issues/1).
 
+For the next step, use the [pilot validation packet](docs/demo/ROBERTSON_PILOT_VALIDATION.md): voluntary sessions with disabled campus users and facilities staff, an inspection/quote worksheet, observable decision criteria and an evidence-based follow-up backlog. These are proposed future sessions, not completed research or field inspections.
+
 Oliver's desktop chat coordinates integration and owns core/media/planning. Vincent is Developer B (API and reports), Landau is Developer C (workspace and visual QA), and Oliver's existing cloud chat is Developer D (independent review and demo support). The live board records exact branches, bases, writable paths and releases. Follow the current block in [AGENTS.md](AGENTS.md) before the preserved historical handoff records. Routine reviewed integration is serialized; no deployment or spending is part of this checkpoint.
 
 Kit application foundations originate from [`oliverchennn/hackathon-kit` at `22a5f44`](https://github.com/oliverchennn/hackathon-kit/tree/22a5f44a27375e88ac2cd1754f6976704f725bc5); [provenance](docs/KIT_IMPORT.md). Local map geometry © OpenStreetMap contributors, [ODbL 1.0](https://www.openstreetmap.org/copyright).

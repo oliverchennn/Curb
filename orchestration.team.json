@@ -35,19 +35,18 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-PILOT-VALIDATION/1",
-      "branch": "codex/robertson-pilot-validation",
-      "state": "ACK / RUNNING",
-      "scope": "docs/demo/ROBERTSON_PILOT_VALIDATION.md only",
+      "task": "ROBERTSON-DEMO-QA/1",
+      "branch": "codex/robertson-demo-qa",
+      "state": "READY; awaiting ACK",
+      "scope": "docs/demo/ROBERTSON_JUDGE_QA.md only; all other files read-only",
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879039357",
-      "baseSha": "1ea205d6630eee001e4f827c456cf828567ec9ea",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879107131",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879789783",
+      "baseSha": "3bcc6f63e49eae883a428c505421851db0125718",
       "previousResult": {
-        "task": "ROBERTSON-PORTABLE-REPORT-RELEASE/1",
-        "sha": "690bc4ffb0abca0290334444821d8b8d19c8d675",
-        "state": "STOPPED/RELEASED and integrated",
-        "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879078298"
+        "task": "ROBERTSON-MERGED-RELEASE-SMOKE/1",
+        "sha": "660df76abb04b860a598dd7337c89792ad5c3ac2",
+        "state": "STOPPED/RELEASED; reviewed and integrated in follow-up",
+        "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879512942"
       }
     },
     {
@@ -87,7 +86,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6879107131"
+    "lastReadCommentId": "6879789783"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -273,8 +272,8 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "Root final package and serialized PR/main merge",
-      "B scoped post-demo pilot-validation packet (6879107131)"
+      "Root docs-only pilot/smoke record merge",
+      "B presenter Q&A and backup explanation (6879789783)"
     ]
   },
   "historicalR2Developers": [
@@ -395,5 +394,12 @@
     "outgoingState": "Handoff-only publication, then STOPPED/RELEASED",
     "activationGate": "B scout-map STOP recorded6877084218; after outgoing final release Oliver verifies actual access/main/checkout and posts COORDINATOR ACK before coordinator writes",
     "healthyWorkers": "A/B/C have published STOPPED/RELEASED results; no new writer or assignment implied"
+  },
+  "release": {
+    "pullRequest": "https://github.com/oliverchennn/Curb/pull/5",
+    "mergedMainSha": "3bcc6f63e49eae883a428c505421851db0125718",
+    "verifiedHead": "a6f9a20c12d67d616fb24709a409097b2a29fabd",
+    "applicationTests": 676,
+    "state": "merged; no deployment"
   }
 }
