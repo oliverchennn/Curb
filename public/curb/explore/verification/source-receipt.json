@@ -1,0 +1,40 @@
+{
+  "zipSha256": "a1757bb7c964f9e6f4e178b86742b3994e299d7c1b2af67de220f4c445d43475",
+  "zipIntegrity": "pass",
+  "members": [
+    {
+      "name": "README.md",
+      "sha256": "c18a3d421d8e1394e849bc8ed31b833397096f13e2c29cef363d16c22f12c0ca",
+      "bytes": 12093
+    },
+    {
+      "name": "pittsburgh_missing_ramp_clusters.geojson",
+      "sha256": "d49d89406c37f1bc31ac30d28746e4c081adf437687ad81c586f33851dd4a13b",
+      "bytes": 24692
+    },
+    {
+      "name": "princeton_paths_crossings.geojson",
+      "sha256": "99c086c61fc02a8c9e9d4308acb143844cad90e0e277192812010a67c9406065",
+      "bytes": 48923
+    },
+    {
+      "name": "princeton_ramp_inventory.geojson",
+      "sha256": "62fbe2547ae1cf4ff1b332f55634667d301df932bf5ce8199c512d5dc9c18d3d",
+      "bytes": 20062
+    },
+    {
+      "name": "princeton_survey_lead.geojson",
+      "sha256": "26cf96b37b8aab1c9e8e6458970485d23e9747bcd3260f8d2ab77327d28a8499",
+      "bytes": 283
+    },
+    {
+      "name": "sources.json",
+      "sha256": "4239163204e19852a546b918cfb310ef751113961e845bbb4ff5283c9b730dd7",
+      "bytes": 3163
+    }
+  ],
+  "selectedLines": 10,
+  "selectedRamps": 10,
+  "contextLines": 46,
+  "rawFeatureEquality": "All selected and context features exactly equal their original ZIP features."
+}
