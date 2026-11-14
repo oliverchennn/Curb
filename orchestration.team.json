@@ -35,24 +35,24 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-FIVE-EXPORT-QA/1",
-      "branch": "codex/robertson-five-export-qa",
-      "state": "READY; API/report and first QA released and integrated",
-      "scope": "docs/demo/ROBERTSON_FIVE_EXPORT_QA.md only; assignment6877763962",
+      "task": "ROBERTSON-ACCESSIBLE-EXPORT/1",
+      "branch": "codex/robertson-accessible-export",
+      "state": "ACK / RUNNING",
+      "scope": "Exact transferred ExportPanel/server/report paths in6877959673; no root writes",
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877448524",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877763962"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878001740",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877959673"
     },
     {
       "lane": "C",
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-UI-VISUAL/1",
-      "branch": "codex/robertson-ui-visual",
-      "state": "ACK / RUNNING",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877630448",
-      "scope": "src/features/curb/survey/SurveyWorkspace.module.css only; assignment6877481456"
+      "task": "ROBERTSON-UI-QA/1",
+      "branch": "codex/robertson-ui-qa",
+      "state": "STOPPED / RELEASED; CSS and QA integrated",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877899282",
+      "scope": "No active product scope; root owns released CSS"
     },
     {
       "lane": "D",
@@ -61,9 +61,9 @@
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
       "task": "ROBERTSON-FIVE-MEDIA-REVIEW/1",
       "branch": "codex/robertson-five-media-review",
-      "state": "ACK / RUNNING",
+      "state": "STOPPED / RELEASED; expanded media review integrated",
       "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877806264",
-      "scope": "docs/demo/ROBERTSON_FIVE_MEDIA_REVIEW.md only; product/media/tests read-only"
+      "scope": "No active write scope; corrective media review queued"
     }
   ],
   "board": {
@@ -71,7 +71,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6877821345"
+    "lastReadCommentId": "6878016797"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -257,10 +257,10 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "Root final browser/production/offline integration and corrections",
-      "B five-finding export QA followed by export accessibility review; exact scopes6877763962",
-      "C CSS polish then real-source UI QA after STOP/RELEASE",
-      "D expanded track and bounded planner review"
+      "Root final integration, video correction and offline backup capture",
+      "B accessible exports, then exact-base adversarial matrix, then portable document release (6878016797)",
+      "C final integrated visual correction review after exact checkpoint",
+      "D corrective rendered-media review after exact checkpoint"
     ]
   },
   "historicalR2Developers": [

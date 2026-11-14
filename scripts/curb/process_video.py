@@ -126,7 +126,6 @@ def render():
     w, h = tracks["width"], tracks["height"]
     font_path = Path('/System/Library/Fonts/Supplemental/Arial.ttf')
     font = ImageFont.truetype(str(font_path), 23) if font_path.exists() else ImageFont.load_default(size=23)
-    small = ImageFont.truetype(str(font_path), 19) if font_path.exists() else ImageFont.load_default(size=19)
     proc = subprocess.Popen([FFMPEG, '-y', '-hide_banner', '-loglevel', 'warning', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{w}x{h}', '-r', '30', '-i', '-', '-an',
         '-vf', 'scale=out_color_matrix=bt709:out_range=tv,format=yuv420p,setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709',
         '-c:v', 'libx264', '-crf', '20', '-preset', 'fast', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709',
@@ -138,17 +137,31 @@ def render():
         if not ok: break
         raw = Image.fromarray(cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB))
         image = raw.copy(); draw = ImageDraw.Draw(image)
-        draw.rectangle((0, 0, w, 80), fill='#173e35')
-        draw.text((20, 12), 'CURB  /  Robertson Hall', font=font, fill='white')
-        draw.text((20, 46), 'AI-assisted review - measurements pending', font=small, fill='#dbe9e2')
+        # Keep every evidence pixel visible: no fixed title bar over the footage.
+        occupied = []
+        for f in tracks['findings']:
+            box = lookup[f['id']].get(n)
+            if box:
+                x,y,bw,bh=box[0]*w,box[1]*h,box[2]*w,box[3]*h
+                occupied.append((x-4,y-4,x+bw+4,y+bh+4))
         for f in tracks['findings']:
             box = lookup[f['id']].get(n)
             if box is None: continue
             x, y, bw, bh = [box[0]*w, box[1]*h, box[2]*w, box[3]*h]
             draw.rectangle((x,y,x+bw,y+bh), outline=f['color'], width=3)
-            label = f["label"]
+            label = f["label"] + ' · AI proposal'
             bounds=draw.textbbox((0,0),label,font=font);tw=bounds[2]+20
-            tx=max(5,min(x,w-tw-5));ty=max(82,y-35)
+            tx=max(5,min(x,w-tw-5))
+            candidates=[(tx,y-39),(tx,y+bh+7)]
+            candidates += sorted([(px,py) for py in range(5,h-36,38) for px in [tx,5,w-tw-5]], key=lambda p:abs(p[1]-y))
+            chosen=None
+            for px,py in candidates:
+                r=(px,py,px+tw,py+32)
+                if px<0 or py<0 or r[2]>w or r[3]>h: continue
+                if any(r[0]<b[2] and r[2]>b[0] and r[1]<b[3] and r[3]>b[1] for b in occupied): continue
+                chosen=(px,py);occupied.append(r);break
+            if chosen is None: raise ValueError(f'No unobscured label position for {f["id"]} frame {n}')
+            tx,ty=chosen
             draw.rectangle((tx,ty,tx+tw,ty+32),fill='#173e35')
             draw.text((tx+10,ty+2),label,font=font,fill='white')
             if n == f['seedFrame']:
@@ -156,7 +169,7 @@ def render():
                 crop=raw.crop((max(0,x-margin),max(0,y-margin),min(w,x+bw+margin),min(h,y+bh+margin)))
                 crop.save(ASSETS/f'{f["id"]}.jpg', quality=95)
                 raw.save(ASSETS/f'{f["id"]}-evidence.jpg', quality=93)
-        if n==180: raw.save(ASSETS/'poster.jpg',quality=93)
+        if n==0: raw.save(ASSETS/'poster.jpg',quality=93)
         if n % 15==0:
             thumb=image.copy();thumb.thumbnail((180,320));tile=Image.new('RGB',(180,344),'white');tile.paste(thumb,(0,24));ImageDraw.Draw(tile).text((6,5),f'{n/30:.1f}s / {n}',fill='black');contact.append(tile)
         proc.stdin.write(image.tobytes());n+=1

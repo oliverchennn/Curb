@@ -15,7 +15,8 @@
     "test": "vitest run",
     "check": "npm run typecheck && npm test && npm run build",
     "test:replay": "node --test demo/survey-replay/*.test.mjs",
-    "verify:media": "node --import tsx scripts/curb/verify_assets.ts"
+    "verify:media": "node --import tsx scripts/curb/verify_assets.ts",
+    "verify:flow": "node --import tsx scripts/curb/verify_flow.ts"
   },
   "dependencies": {
     "next": "16.4.1",

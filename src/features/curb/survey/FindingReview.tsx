@@ -76,7 +76,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <dl className={styles.facts}>
           <div><dt>Review</dt><dd><span className={styles[`review_${finding.review.status}`]}>{REVIEW_LABELS[finding.review.status]}</span> · {METHOD_LABELS[finding.review.method]} · {finding.review.reviewer}</dd></div>
           <div><dt>Review note</dt><dd>{finding.review.note}</dd></div>
-          <div><dt>Finding priority</dt><dd>{PRIORITY_LABELS[finding.assessment.priority]} — {finding.assessment.rationale}</dd></div>
+          <div><dt>Proposed finding priority</dt><dd>{PRIORITY_LABELS[finding.assessment.priority]} — {finding.assessment.rationale}</dd></div>
           <div><dt>Measurements</dt><dd>{finding.measurements.length === 0
             ? 'None recorded. Dimensions are unknown until measured on site.'
             : finding.measurements.map((m) => `${m.property}: ${m.value} ${m.unit} (${m.method})`).join('; ')}</dd></div>
@@ -118,7 +118,7 @@ function AreaPriorityForm({area, onSave}: {area: Survey['workAreas'][number]; on
   const [priority, setPriority] = useState(area.priority);
   const [rationale, setRationale] = useState('');
   return <form className={styles.areaBox} onSubmit={(event) => {event.preventDefault(); onSave(priority, rationale);}}>
-    <label htmlFor="survey-area-priority">Work area <strong>{area.label}</strong> priority
+    <label htmlFor="survey-area-priority"><strong>{area.label}</strong> priority
       <select id="survey-area-priority" value={priority} onChange={(event) => setPriority(event.target.value as Priority)}>
         {PrioritySchema.options.map(value => <option key={value} value={value}>{PRIORITY_LABELS[value]}</option>)}
       </select>

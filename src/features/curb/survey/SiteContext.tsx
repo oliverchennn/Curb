@@ -20,9 +20,13 @@ export function SiteContext({ survey, selectedFindingId, onSelectFinding }: {
   return <section className={styles.sitePanel} aria-labelledby="survey-site-heading">
     <h2 id="survey-site-heading">Site context</h2>
     <p className={styles.siteName}>{survey.site.name}</p>
-    <p className={styles.small}>{SITE_KIND_LABELS[survey.site.kind]} · approx. {survey.site.latitude.toFixed(5)}, {survey.site.longitude.toFixed(5)}</p>
-    <p className={styles.small}>{survey.site.locationNote}</p>
+    <details className={styles.pendingChecks}>
+      <summary>{SITE_KIND_LABELS[survey.site.kind]} · approximate location</summary>
+      <p className={styles.small}>{survey.site.latitude.toFixed(5)}, {survey.site.longitude.toFixed(5)}. {survey.site.locationNote}</p>
+    </details>
 
+    <div className={styles.contextGrid}>
+    <div>
     <div className={styles.schematic} style={{height:'auto',aspectRatio:'720 / 580'}} role="group" aria-label="Local map context and reviewed approximate placements">
       <img src="/curb/surveys/robertson-hall/site-context.svg" alt="Robertson Hall, Washington Road and Prospect Avenue. Approximate phone GPS; mapped paths are unverified for accessibility." style={{display:'block',width:'100%',height:'100%',borderRadius:12}} />
       {placed.map((finding) => {
@@ -36,22 +40,26 @@ export function SiteContext({ survey, selectedFindingId, onSelectFinding }: {
         </button>;
       })}
     </div>
-    <p className={styles.small}>Local map snapshot · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · 14 Nov 2026. Context only; no verified route graph.</p>
+    <p className={styles.small}>Local map · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · 14 Nov 2026</p>
+    </div>
 
     {unplaced.length > 0 ? <div>
       <h3 className={styles.subheading}>Not placed on the map ({unplaced.length})</h3>
       <ul className={styles.chipList}>{unplaced.map((finding) => <li key={finding.id}>
         <button type="button" className={finding.id === selectedFindingId ? styles.chipSelected : styles.chip}
+          aria-label={`${survey.findings.indexOf(finding) + 1}. ${finding.label}`}
           aria-pressed={finding.id === selectedFindingId} onClick={() => onSelectFinding(finding.id)}>
           <span className={styles.swatch} style={{ background: finding.color }} aria-hidden="true" />
-          {survey.findings.indexOf(finding) + 1}. {finding.label}
+          {finding.label.replace(/^Defect /, '')}
         </button>
       </li>)}</ul>
     </div> : null}
-
-    <div className={styles.routeNote}>
-      <strong>Route impact: unknown.</strong> {survey.routeAssessment.note}
     </div>
-    {selectedArea ? <p className={styles.small}>Selected evidence belongs to work area <strong>{selectedArea.label}</strong>.</p> : null}
+
+    <details className={styles.routeNote}>
+      <summary><strong>Route impact: unknown</strong></summary>
+      <p>{survey.routeAssessment.note}</p>
+    </details>
+    {selectedArea ? <p className={styles.small}>Selected evidence: <strong>{selectedArea.label}</strong>.</p> : null}
   </section>;
 }

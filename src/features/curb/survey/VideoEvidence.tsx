@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { Finding, Survey } from '../../../contracts/curb/survey';
 import { getBoxAtTime } from './services';
-import { boxToRect, containedRect, formatTime, REVIEW_LABELS, type Rect } from './presentation';
+import { boxToRect, containedRect, formatTime, type Rect } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
 export type SeekRequest = { seconds: number; nonce: number };
@@ -106,36 +106,43 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     <div className={styles.panelHeading}>
       <h2 id="survey-video-heading">Survey replay</h2>
       <div className={styles.segmented} role="group" aria-label="Video version">
-        <button type="button" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Live review overlay</button>
-        <button type="button" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Pre-rendered annotations</button>
+        <button type="button" aria-label="Live review overlay" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Review</button>
+        <button type="button" aria-label="Pre-rendered annotations" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
       </div>
     </div>
     <div ref={frameRef} className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
       <video key={src} ref={videoRef} className={styles.video} src={src} poster={media.posterSrc} controls playsInline preload="metadata"
         aria-describedby="survey-video-note"
         onLoadedMetadata={(event) => { event.currentTarget.currentTime = resumeTimeRef.current; setTime(resumeTimeRef.current); }}
-        onError={() => setMediaError(`The ${mode === 'live' ? 'review' : 'annotated'} video could not be loaded from ${src}. Check that the survey media is published under public/curb/surveys/robertson-hall/, then reload.`)} />
+        onError={() => setMediaError(`The ${mode === 'live' ? 'survey' : 'annotated'} video could not be loaded. Reload the page, or download the original MOV from Export report.`)} />
       <div className={styles.overlay} aria-hidden="true">
-        {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} selected={finding.id === selectedFindingId} />)}
+        {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} picture={picture} selected={finding.id === selectedFindingId} />)}
       </div>
     </div>
     {mediaError ? <p role="alert" className={styles.inlineError}>{mediaError}</p> : null}
     <p id="survey-video-note" className={styles.small}>
       {mode === 'live'
-        ? `${formatTime(time)} · ${visible.length} finding${visible.length === 1 ? '' : 's'} in view. Boxes follow the analysed track frames; a box disappears where the finding is not visible. Rejected findings are hidden.`
+        ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Dashed boxes await review.`
         : edited
           ? 'This pre-rendered video shows the original analysis. Your review edits are not burned into it; the JSON and PDF exports carry them.'
           : 'Pre-rendered from the original analysis.'}
     </p>
+    <details className={styles.pendingChecks}><summary>About the tracks</summary>
+      <p className={styles.small}>Boxes appear only on retained tracked frames; missing boxes do not establish that a defect is absent. Rejected findings are hidden in the live overlay. Measurements and field review are still needed.</p>
+    </details>
   </section>;
 }
 
-function OverlayBox({ finding, rect, selected }: { finding: Finding; rect: Rect; selected: boolean }) {
+function OverlayBox({ finding, rect, picture, selected }: { finding: Finding; rect: Rect; picture: Rect; selected: boolean }) {
   const pending = finding.review.status === 'pending';
+  const labelWidth = Math.min(230, Math.max(0, picture.width - 12));
+  const labelLeft = Math.min(-3, picture.left + picture.width - rect.left - labelWidth - 6);
+  const below = rect.top - picture.top < 65;
   return <div className={selected ? styles.boxSelected : styles.box}
     style={{ left: rect.left, top: rect.top, width: rect.width, height: rect.height, borderColor: finding.color, borderStyle: pending ? 'dashed' : 'solid' }}>
-    <span className={styles.boxLabel} style={{ borderLeftColor: finding.color }}>
-      {finding.label} · {REVIEW_LABELS[finding.review.status]}
+    <span className={styles.boxLabel} style={{ borderLeftColor: finding.color, width: labelWidth, maxWidth: labelWidth, left: labelLeft,
+      ...(below ? { bottom: 'auto', top: 'calc(100% + 6px)', marginBottom: 0 } : {}) }}>
+      {finding.label}
     </span>
   </div>;
 }
