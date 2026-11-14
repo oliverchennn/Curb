@@ -2,10 +2,26 @@ import { SurveySchema, type Survey, type Cost, type Treatment, type RepairPlan, 
 
 export function validateSurvey(input: unknown): Survey { return SurveySchema.parse(input); }
 
+/** Preserve the decimal quantity recorded in JSON, including exponent notation.
+ * Binary multiplication can turn 100 * 1.1 into 110.00000000000001 and reject
+ * a repair at its exact budget. Round only the exact decimal product to cents. */
+function roundedCost(rateCents: number, quantity: number, up: boolean): number {
+  if (!Number.isSafeInteger(rateCents) || rateCents < 0 || !Number.isFinite(quantity) || quantity <= 0) throw new Error('Invalid cost range');
+  const [mantissa, exponent = '0'] = quantity.toString().split('e');
+  const [whole, fraction = ''] = mantissa.split('.');
+  const scale = fraction.length - Number(exponent);
+  const digits = BigInt(whole + fraction);
+  const numerator = BigInt(rateCents) * digits * (scale < 0 ? 10n ** BigInt(-scale) : 1n);
+  const denominator = scale > 0 ? 10n ** BigInt(scale) : 1n;
+  const cents = up ? (numerator + denominator - 1n) / denominator : numerator / denominator;
+  if (cents > BigInt(Number.MAX_SAFE_INTEGER)) throw new Error('Invalid cost range');
+  return Number(cents);
+}
+
 export function costRange(cost: Cost): { lowCents: number; highCents: number } | null {
   if (cost.status === 'quote_required') return null;
-  const lowCents = Math.floor(cost.rateLowCents * cost.quantityLow);
-  const highCents = Math.ceil(cost.rateHighCents * cost.quantityHigh);
+  const lowCents = roundedCost(cost.rateLowCents, cost.quantityLow, false);
+  const highCents = roundedCost(cost.rateHighCents, cost.quantityHigh, true);
   if (![lowCents, highCents].every(Number.isSafeInteger) || lowCents < 0 || highCents < lowCents) throw new Error('Invalid cost range');
   return { lowCents, highCents };
 }
@@ -25,6 +41,9 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
   // Inspection can establish scope, but does not itself address a repair need.
   // Keep those needs deferred/pending instead of awarding repair coverage.
   const candidates = s.treatments.filter(t => areaIds.has(t.workAreaId) && t.method !== 'inspect');
+  // Each immutable catalog cost is converted once for this evaluation, rather
+  // than repeatedly while enumerating up to 4,096 compatible repair scopes.
+  const ranges = new Map([...s.treatments, ...s.sharedCosts].map(item => [item.cost, costRange(item.cost)] as const));
 
   function make(id: PlanId, selected: Treatment[], budget: number | null = null): RepairPlan {
     const selectedAreas = new Set(selected.map(t => t.workAreaId));
@@ -32,7 +51,7 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
     let lowCents = 0, highCents = 0;
     const unpricedItems: string[] = [];
     for (const item of [...selected, ...(selected.length ? s.sharedCosts : [])]) {
-      const r = costRange(item.cost);
+      const r = ranges.get(item.cost);
       if (r) { lowCents += r.lowCents; highCents += r.highCents; }
       else {
         const areaLabel = 'workAreaId' in item ? s.workAreas.find(area => area.id === item.workAreaId)?.label : null;
