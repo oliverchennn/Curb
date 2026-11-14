@@ -4,9 +4,20 @@
   "repository": "vzhu08/Curb",
   "runId": "curb-hackprinceton-f26",
   "coordinator": {
-    "name": "Vincent",
-    "github": "vzhu08",
-    "session": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a"
+    "name": "Oliver",
+    "github": "oliverchennn",
+    "session": "pending-oliver-ack"
+  },
+  "handoff": {
+    "state": "paused-awaiting-successor-ack",
+    "authorizedBy": "Vincent / vzhu08",
+    "reason": "Vincent requested all work paused because his laptop is about to shut down and designated Oliver to take over orchestration.",
+    "outgoingSession": "01a1d84f-5fd1-71b0-a1d3-c9952d311e7a",
+    "checkpoint": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6873532614",
+    "instructions": "docs/message-board/OLIVER_HANDOFF.md",
+    "localHeartbeat": "PAUSED",
+    "successorAccess": "GitHub permission none at handoff; accept repository invitation and verify write access before writes.",
+    "resumeGate": "Oliver acknowledges coordination takeover; product work stays paused until Vincent resumes and selects the next slice."
   },
   "developers": [
     {
@@ -68,9 +79,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6873224948"
+    "lastReadCommentId": "6873532614"
   },
-  "currentSlice": "foundation-verified-awaiting-next-choice",
+  "currentSlice": "paused-handoff-to-oliver",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
