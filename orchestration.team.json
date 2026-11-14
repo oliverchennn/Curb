@@ -40,19 +40,22 @@
       "github": "vzhu08",
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
-      "task": "R2-VERIFY-CORE/1",
-      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-r2-contract-api\\Curb",
-      "branch": "codex/r2-verify",
-      "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876147806",
-      "resultSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
-      "currentAvailability": "R2-VERIFY-CORE accepted/stopped/released; no writer, child, application scope or preview",
+      "task": "REPLAY-UI-REVIEW/1",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-replay-ui-review\\Curb",
+      "branch": "codex/replay-ui-review",
+      "baseSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
+      "resultSha": null,
+      "currentAvailability": "Running independent read-only UI/server review; no children or tracked-file writes",
       "previousResult": {
-        "task": "R2-A/1 accepted/stopped/released",
-        "resultSha": "84161110be92e04436568d4080c9afab6aa7575d"
+        "task": "R2-VERIFY-CORE/1 accepted/stopped/released",
+        "resultSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2"
       },
       "writeScope": [],
-      "verificationScope": []
+      "verificationScope": [
+        ".curb-local/replay-ui-review/ (ignored artifacts)"
+      ],
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876496820"
     },
     {
       "lane": "B",
@@ -61,7 +64,7 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "R2-B accepted/stopped/released; parent and both children stopped; no active code scope",
+      "availability": "Running independent read-only graph/evidence review; planned Sol/xhigh read-only child; no source writer",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -77,15 +80,24 @@
         "resultSha": "a0837c0edbfe973d0fb658b187984e53cde80ed2"
       },
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "checkout": "/workspace/curb-b-r2",
-      "branch": "codex/r2-domain",
-      "task": "R2-B/1",
+      "checkout": "/workspace/curb-replay-domain-review",
+      "branch": "codex/replay-domain-review",
+      "task": "REPLAY-DOMAIN-REVIEW/1",
       "writeScope": [],
       "readinessBase": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612",
       "instructions": "docs/message-board/DEV_B_CONTINUATION.md",
-      "baseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730",
-      "resultSha": "67d54131f89e8ad09144136ce1d32169f0f2583d"
+      "baseSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
+      "resultSha": null,
+      "previousResult": {
+        "task": "R2-B/1 accepted/stopped/released",
+        "resultSha": "67d54131f89e8ad09144136ce1d32169f0f2583d"
+      },
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876489030",
+      "verificationScope": [
+        ".curb-local/replay-domain-review/ (parent artifacts)",
+        ".curb-local/replay-domain-review/graph-review/ (child artifacts)"
+      ]
     },
     {
       "lane": "C",
@@ -126,7 +138,7 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6876402752"
+    "lastReadCommentId": "6876496820"
   },
   "currentSlice": "R2 core verified; Landau UI assignment awaits return/ACK; final UI/browser gate pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -284,6 +296,8 @@
     "immediateReviews": [
       "REPLAY-UI-REVIEW/1 (A) at ebc35b07590ad07ca990299da1d3b077190987d6",
       "REPLAY-DOMAIN-REVIEW/1 (actual B) at ebc35b07590ad07ca990299da1d3b077190987d6"
-    ]
+    ],
+    "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
+    "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8"
   }
 }

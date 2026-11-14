@@ -73,3 +73,6 @@ Vincent requires useful queued work and safe cross-lane help. [Current queue](WO
 
 
 Replay RESULT/STOP/RELEASE [6876360532](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876360532) supplies exact candidate `ebc35b07590ad07ca990299da1d3b077190987d6`. Its owner is desktop session `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9`, not stopped R2-B. Ten files are released. Exact model was not exposed/reported, so it remains unverified. Prioritize A's independent UI/server review and actual B's domain/evidence review before their ready preparation fallbacks; no integration or correction is implied by the worker's result.
+
+
+Ready queue assignments are live at [6876473105](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105), with documentation-preparation base `c952d7de0328bb31ba5f677b9800684b2c6366b8`. A [ACK 6876496820](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876496820) and actual B [ACK 6876489030](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876489030) are Running independent UI/server and domain/evidence reviews of exact replay `ebc35b07590ad07ca990299da1d3b077190987d6`. Tracked files are read-only. After their reviewed RESULT/STOP, A may directly ACK/start its boundary proposal; B may directly ACK/start field preparation, then the demo brief. Read the live board for a higher-priority exact assignment first.
