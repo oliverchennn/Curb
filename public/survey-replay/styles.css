@@ -84,7 +84,7 @@ video{display:block;width:100%;height:100%;object-fit:contain}
 .comparison-title h2{font-size:19px}
 .comparison-title span{color:var(--muted);font-size:12px}
 .repair-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:4px;border-radius:8px;background:#eceee5}
-.repair-controls button{min-height:34px;border:1px solid transparent;background:transparent;border-radius:5px;font-size:13px;font-weight:750;padding:4px 5px}
+.repair-controls button{min-height:44px;border:1px solid transparent;background:transparent;border-radius:5px;font-size:13px;font-weight:750;padding:4px 5px}
 .repair-controls button[aria-pressed=true]{background:var(--white);border-color:#d6dbc9;box-shadow:0 1px 3px #26312516;color:#284634}
 .repair-controls button:hover{background:#fffefa}
 .map-results{margin-top:10px}
