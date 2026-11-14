@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "starter": "web",
+  "selected": [
+    "maps"
+  ],
+  "closure": [
+    "maps"
+  ],
+  "kitRevision": "22a5f44a27375e88ac2cd1754f6976704f725bc5",
+  "upstreamHashes": {
+    "app/api/health/route.ts": "db6530065c971fa9120e6746e3d069c164dd630e16154278bf58eca4fa98c4a2",
+    "app/api/ready/route.ts": "497c9f151b3dd97006e4921bf505b6e1c94e90e00c09ca209f9a59c64b9c2d20",
+    "app/error.tsx": "28cc106325ae0a46a5dd33c726eec6452f24afcc42c78394d656aa281082cbfe",
+    "app/globals.css": "4904d4bdbc8c3a53fa6f691aa99e47bd9395b53daff172a3bc826751a8a554df",
+    "app/layout.tsx": "bbdacc7dd3224c7426b75237c328bd1e7a5e032b02f008005beaa3bfb90d6d37",
+    "app/not-found.tsx": "e64ff1d67041e720bbbd8f5c86f8b531736fd3d20d434024a72a585185e9c64f",
+    "app/page.tsx": "8695dc75d59b49033f636e6d4cf1bee2352fa0d82c4c99f2331e38e9246dc94a",
+    "LICENSE": "ea264827a3dc603570d8fb11e4a4302ac4d7e4d673c4b4699e77f209e273b7e9",
+    "modules/maps/src/components.tsx": "f1b6eb7a9b5ad5e41e5aa65d8769e5f92f58da27d745b43142ca8213dfcbee36",
+    "modules/maps/src/index.ts": "c2fcc24bd4a1f4a6400bc18b42eb25575d8cf61fde2ad75641f3b8045625e424",
+    "next.config.mjs": "e72be02385f809db307f3ccf5c48cb847bfd50dd74f52ee54dad8859d87a0cd8",
+    "package-lock.json": "e5391fb069087897c2a4bbef34c6f988059dc8fe8e6784cac5c97383df7996ed",
+    "package.json": "134bfe662ce703c5b7bab7b95d48f381f7f856d9889761bcb7a8f595697b1ba3",
+    "tsconfig.json": "9a24df5752d277ebb67564071dff49b3fe46ac1e1be47a833b2ea36bc0f3b810"
+  }
+}
