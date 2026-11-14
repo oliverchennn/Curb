@@ -47,7 +47,7 @@ export const SurveySchema = z.strictObject({
     durationSeconds: z.number().positive().max(600), fps: z.number().positive().max(120),
     width: z.number().int().positive(), height: z.number().int().positive(), originalSha256: z.string().regex(/^[a-f0-9]{64}$/) }),
   analysis: z.strictObject({ method: Text, model: Text, createdAt: z.iso.datetime({ offset: true }), note: Text }),
-  sources: z.array(z.strictObject({ id: Id, title: Text, url: z.url(), kind: z.enum(['standard', 'treatment', 'cost', 'context']), asOf: Text, scopeNote: Text })).min(1),
+  sources: z.array(z.strictObject({ id: Id, title: Text, url: z.url().refine(url => /^https?:\/\//.test(url), 'Source must use HTTP or HTTPS'), kind: z.enum(['standard', 'treatment', 'cost', 'context']), asOf: Text, scopeNote: Text })).min(1),
   findings: z.array(FindingSchema).max(50),
   workAreas: z.array(z.strictObject({ id: Id, label: Text, findingIds: z.array(Id).min(1),
     priority: PrioritySchema, nearTerm: z.boolean(), repairWorthy: z.boolean(), rationale: Text,
@@ -66,7 +66,8 @@ export const SurveySchema = z.strictObject({
   const assigned = new Set<string>();
   for (const f of s.findings) {
     if (f.evidenceTime >= s.media.durationSeconds) fail(`Evidence outside video: ${f.id}`);
-    if (!f.track.some(k => Math.abs(k.frame / s.media.fps - f.evidenceTime) < 0.15)) fail(`Evidence needs a visible track: ${f.id}`);
+    const evidenceFrame = Math.floor(f.evidenceTime * s.media.fps + 1e-6);
+    if (!f.track.some(k => k.frame === evidenceFrame)) fail(`Evidence needs a visible track at its exact displayed frame: ${f.id}`);
     let previous = -1;
     for (const k of f.track) {
       if (k.frame <= previous || k.frame / s.media.fps >= s.media.durationSeconds) fail(`Invalid track order/duration: ${f.id}`);

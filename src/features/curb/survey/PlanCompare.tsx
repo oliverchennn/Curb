@@ -93,13 +93,13 @@ function PlanCard({ survey, plan, selected, highlightAreaId, selectedExcluded, o
       <ul className={styles.plainList}>{cost.unpricedItems.map((item) => <li key={item}>{labelForId(survey, item)}</li>)}</ul>
     </div> : null}
     {plan.budgetCents !== null ? <p className={styles[`fit_${plan.optionIds.length === 0 ? 'not_set' : plan.budgetFit}`]}>
-      {plan.optionIds.length === 0 ? 'No priced repair fits this budget' : BUDGET_FIT_LABELS[plan.budgetFit]} · {formatCents(plan.budgetCents)}
+      {plan.optionIds.length === 0 ? (plan.deferredWorkAreaIds.length ? 'No priced repair fits this budget' : 'No eligible repair areas in this review') : BUDGET_FIT_LABELS[plan.budgetFit]} · {formatCents(plan.budgetCents)}
     </p> : null}
     {highlightAreaId !== null ? <p className={includesSelected ? styles.tagIn : styles.tagOut}>
       {includesSelected
         ? 'Includes the selected evidence’s work area'
         : selectedExcluded
-          ? 'Selected finding is rejected, so its work area is excluded'
+          ? 'Selected finding is rejected and excluded from this plan'
           : plan.deferredWorkAreaIds.includes(highlightAreaId)
             ? 'Defers the selected evidence’s work area'
             : 'Does not include the selected evidence’s work area'}
@@ -112,6 +112,16 @@ function PlanCard({ survey, plan, selected, highlightAreaId, selectedExcluded, o
       {treatments.map((treatment) => <li key={treatment.id} className={treatment.workAreaId === highlightAreaId ? styles.highlightItem : undefined}>
         <strong>{labelForId(survey, treatment.workAreaId)}:</strong> {treatment.label}
         <span className={styles.small}> · {treatment.cost.status === 'quote_required' ? 'quote required' : `${treatment.cost.quantityLow}–${treatment.cost.quantityHigh} ${treatment.cost.unit} (assumed)`}</span>
+        <details className={styles.pendingChecks}><summary>Suitability and estimate basis</summary>
+          <p className={styles.small}>{treatment.eligibilityNote}</p>
+          {treatment.cost.status === 'estimated' ? <>
+            <ul className={styles.plainList}>{treatment.cost.assumptions.map(note => <li key={note}>{note}</li>)}</ul>
+            <p className={styles.small}>Outside this rate: {treatment.cost.exclusions.join('; ') || 'See the quoted scope.'}</p>
+            {treatment.cost.sourceIds.map(id => {const source = survey.sources.find(item => item.id === id); return source ? <p className={styles.small} key={id}>
+              <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> · {source.asOf}. {source.scopeNote}
+            </p> : null;})}
+          </> : <p className={styles.small}>{treatment.cost.reason}</p>}
+        </details>
       </li>)}
     </ul>}
     {plan.deferredWorkAreaIds.length > 0 ? <p className={styles.small}>Deferred: {plan.deferredWorkAreaIds.map((id) => labelForId(survey, id)).join(', ')}</p> : null}

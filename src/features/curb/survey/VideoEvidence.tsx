@@ -20,6 +20,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
 }) {
   const videoRef = useRef<VideoWithFrameCallback>(null);
   const frameRef = useRef<HTMLDivElement>(null);
+  const resumeTimeRef = useRef(0);
   const [time, setTime] = useState(0);
   const [picture, setPicture] = useState<Rect>({ left: 0, top: 0, width: 0, height: 0 });
   const [mode, setMode] = useState<'live' | 'annotated'>('live');
@@ -78,11 +79,18 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     const video = videoRef.current;
     if (!video || !seek) return;
     video.pause();
-    video.currentTime = Math.min(seek.seconds, Math.max(0, media.durationSeconds - 0.05));
-    setTime(video.currentTime);
+    resumeTimeRef.current = Math.min(seek.seconds, Math.max(0, media.durationSeconds - 0.05));
+    if (video.readyState >= 1) video.currentTime = resumeTimeRef.current;
+    setTime(resumeTimeRef.current);
   }, [seek, media.durationSeconds]);
 
   useEffect(() => setMediaError(null), [src]);
+
+  function switchMode(next: 'live' | 'annotated') {
+    if (next === mode) return;
+    resumeTimeRef.current = videoRef.current?.currentTime ?? time;
+    setMode(next);
+  }
 
   const visible = mode === 'live'
     ? survey.findings.flatMap((finding) => {
@@ -96,13 +104,14 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     <div className={styles.panelHeading}>
       <h2 id="survey-video-heading">Survey replay</h2>
       <div className={styles.segmented} role="group" aria-label="Video version">
-        <button type="button" aria-pressed={mode === 'live'} onClick={() => setMode('live')}>Live review overlay</button>
-        <button type="button" aria-pressed={mode === 'annotated'} onClick={() => setMode('annotated')}>Pre-rendered annotations</button>
+        <button type="button" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Live review overlay</button>
+        <button type="button" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Pre-rendered annotations</button>
       </div>
     </div>
     <div ref={frameRef} className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
       <video key={src} ref={videoRef} className={styles.video} src={src} poster={media.posterSrc} controls playsInline preload="metadata"
         aria-describedby="survey-video-note"
+        onLoadedMetadata={(event) => { event.currentTarget.currentTime = resumeTimeRef.current; setTime(resumeTimeRef.current); }}
         onError={() => setMediaError(`The ${mode === 'live' ? 'review' : 'annotated'} video could not be loaded from ${src}. Check that the survey media is published under public/curb/surveys/robertson-hall/, then reload.`)} />
       <div className={styles.overlay} aria-hidden="true">
         {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} selected={finding.id === selectedFindingId} />)}

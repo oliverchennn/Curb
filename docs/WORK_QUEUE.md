@@ -5,8 +5,8 @@ The user designated desktop session `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` orche
 | Owner | Current task | Next ready task after release |
 | --- | --- | --- |
 | Root / Oliver desktop | Core, media, accessibility/cost evaluation, shell, integration; RUNNING | Integrate released B/C/D results and resolve reported defects, then complete browser/offline/PDF checks |
-| B / Vincent | API/report/CSV/client; assigned, ACK not yet observed | One-file report/export QA record on its exact released result |
-| C / Landau | Survey workspace; ACK/RUNNING6877298123 | One-file UI/keyboard/offline QA record on its exact released result |
+| B / Vincent | API/report/CSV/client; ACK/RUNNING6877448524 | One-file report/export QA record on its exact released result |
+| C / Landau | Workspace released598c262; CSS-only polish assigned6877481456 | One-file UI/keyboard/offline QA record on its exact released result |
 | D / Oliver cloud | Independent oracle/evidence/cost review; ACK/RUNNING6877392092 | Two-minute script and rehearsal checklist, one new file |
 
 No duplicate writer, silent main integration, fake field measurements, ADA verdict or full-price claim from incomplete costs. A successful checkpoint does not authorize unrelated features. Current interface specification: [ROBERTSON_IMPLEMENTATION](demo/ROBERTSON_IMPLEMENTATION.md).

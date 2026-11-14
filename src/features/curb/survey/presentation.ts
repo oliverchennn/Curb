@@ -136,8 +136,14 @@ export function correctFinding(survey: Survey, findingId: string, correction: Fi
   };
 }
 
-export function setAreaPriority(survey: Survey, areaId: string, priority: Priority): Survey {
-  return { ...survey, workAreas: survey.workAreas.map((area) => area.id === areaId ? { ...area, priority } : area) };
+export function setAreaPriority(survey: Survey, areaId: string, priority: Priority, reviewerName: string, rationaleText: string): EditResult {
+  const reviewer = cleanText(reviewerName);
+  if (!reviewer) return { ok: false, message: 'Enter a reviewer name before recording an accessibility priority.' };
+  const rationale = cleanText(rationaleText);
+  if (!rationale || rationale.length > 3500) return { ok: false, message: 'Explain the access need behind this priority (1–3500 characters).' };
+  if (!survey.workAreas.some(area => area.id === areaId)) return { ok: false, message: 'That work area is no longer in this survey.' };
+  return { ok: true, survey: { ...survey, workAreas: survey.workAreas.map((area) => area.id === areaId
+    ? { ...area, priority, rationale: `Priority reviewed by ${reviewer.slice(0, 400)}: ${rationale}` } : area) } };
 }
 
 export function isEdited(original: Survey, current: Survey): boolean {

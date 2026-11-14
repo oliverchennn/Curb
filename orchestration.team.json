@@ -37,19 +37,21 @@
       "github": "vzhu08",
       "task": "ROBERTSON-API-REPORT/1",
       "branch": "codex/robertson-report-api",
-      "state": "assigned; actual ACK pending",
-      "scope": "docs/demo/ROBERTSON_IMPLEMENTATION.md: B exact paths"
+      "state": "ACK / RUNNING",
+      "scope": "docs/demo/ROBERTSON_IMPLEMENTATION.md: B exact paths",
+      "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877448524"
     },
     {
       "lane": "C",
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-UI/1",
-      "branch": "codex/robertson-survey-ui",
-      "state": "ACK / RUNNING",
+      "task": "ROBERTSON-UI-VISUAL/1",
+      "branch": "codex/robertson-ui-visual",
+      "state": "assigned; UI implementation598c262 released and integrated",
       "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877298123",
-      "scope": "docs/demo/ROBERTSON_IMPLEMENTATION.md: C exact paths"
+      "scope": "src/features/curb/survey/SurveyWorkspace.module.css only; assignment6877481456"
     },
     {
       "lane": "D",
@@ -68,7 +70,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6877400442"
+    "lastReadCommentId": "6877481456"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",

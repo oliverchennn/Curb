@@ -114,8 +114,13 @@ describe('review edits', () => {
   });
 
   it('changes area priority immutably', () => {
-    const next = setAreaPriority(TEST_SURVEY, 'area-a', 'low');
-    expect(next.workAreas[0].priority).toBe('low');
+    expect(setAreaPriority(TEST_SURVEY, 'area-a', 'low', '', 'Alternate path available.').ok).toBe(false);
+    expect(setAreaPriority(TEST_SURVEY, 'area-a', 'low', 'Pat', '').ok).toBe(false);
+    const next = setAreaPriority(TEST_SURVEY, 'area-a', 'low', 'Pat', 'Alternate path available; verify clear width.');
+    expect(next.ok).toBe(true);
+    if (!next.ok) return;
+    expect(next.survey.workAreas[0]).toMatchObject({priority:'low',rationale:'Priority reviewed by Pat: Alternate path available; verify clear width.'});
+    expect(SurveySchema.safeParse(next.survey).success).toBe(true);
     expect(TEST_SURVEY.workAreas[0].priority).toBe('high');
   });
 });

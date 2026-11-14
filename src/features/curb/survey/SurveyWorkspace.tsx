@@ -161,8 +161,8 @@ function Header({ survey }: { survey?: Survey }) {
       <Link href="/curb">← Campus barrier review</Link>
       <Link href="/curb/plans">Budget comparison (synthetic)</Link>
     </nav>
-    <p className={styles.eyebrow}>Survey replay · field video</p>
-    <h1>{survey ? survey.title : 'Robertson Hall access survey'}</h1>
-    <p className={styles.lede}>Review what the walk-through video shows, compare repair policies, and export a report that keeps unknowns visible.</p>
+    <p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p>
+    <h1>Survey replay</h1>
+    <p className={styles.lede}>Turn sidewalk evidence into a repair plan for better disability access.</p>
   </header>;
 }

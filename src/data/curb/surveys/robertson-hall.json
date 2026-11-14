@@ -58,7 +58,7 @@
       "url": "https://nj.gov/transportation/contribute/business/procurement/ConstrServ/documents/BidTabsDP21132_Redacted.pdf",
       "kind": "cost",
       "asOf": "2021-10-05 (historical benchmark)",
-      "scopeNote": "Item 0083 / 456006M, concrete pavement joint/crack cleaning and sealing, 200 LF: published bids $18 and $59.75/LF. Historical roadway benchmark, not a 2026 sidewalk quote; no inflation adjustment or small-job minimum inferred."
+      "scopeNote": "Item 0083 / 456006M, concrete pavement joint/crack cleaning and sealing, 200 LF: page 74 selected bidders 4/5 at $18 and $59.75/LF. This is a selected reference range, not the full spread; page 12 other bidders are $20/$3.35/$74. Historical roadway work, not a 2026 sidewalk quote; no inflation adjustment or small-job minimum inferred."
     },
     {
       "id": "princeton-access",
@@ -67,6 +67,14 @@
       "kind": "context",
       "asOf": "Reference checked 2026-11-14",
       "scopeNote": "Campus context only. This clip does not establish a complete accessible route to any building entrance."
+    },
+    {
+      "id": "osm-context",
+      "title": "OpenStreetMap local buildings, roads and paths",
+      "url": "https://www.openstreetmap.org/copyright",
+      "kind": "context",
+      "asOf": "Local snapshot 2026-11-14",
+      "scopeNote": "Copyright OpenStreetMap contributors, ODbL 1.0. Retained geometry is context only. Paths are not a verified routing graph or access assessment; the single phone GPS tag is approximate, and findings have no accepted map placements."
     }
   ],
   "findings": [

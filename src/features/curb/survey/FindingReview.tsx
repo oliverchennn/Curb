@@ -105,19 +105,30 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <CorrectionForm key={`${finding.id}:${finding.label}:${finding.kind}:${finding.description}`} finding={finding}
           onSave={(correction) => apply(correctFinding(survey, finding.id, correction, reviewer), `Saved corrections to “${correction.label.trim()}”.`)} />
 
-        {area ? <div className={styles.areaBox}>
-          <label htmlFor="survey-area-priority">Work area <strong>{area.label}</strong> priority
-            <select id="survey-area-priority" value={area.priority}
-              onChange={(event) => onChange(setAreaPriority(survey, area.id, event.target.value as Priority), `Set ${area.label} to ${PRIORITY_LABELS[event.target.value as Priority].toLowerCase()}.`)}>
-              {PrioritySchema.options.map((priority) => <option key={priority} value={priority}>{PRIORITY_LABELS[priority]}</option>)}
-            </select>
-          </label>
-          <p className={styles.small}>{area.rationale} {area.nearTerm ? 'Flagged for near-term work.' : 'Not flagged for near-term work.'} {area.repairWorthy ? '' : 'Marked not repair-worthy.'}</p>
-        </div> : <p className={styles.small}>This finding is not grouped into a work area.</p>}
+        {area ? <AreaPriorityForm key={`${area.id}:${area.priority}:${area.rationale}`} area={area}
+          onSave={(priority, rationale) => apply(setAreaPriority(survey, area.id, priority, reviewer, rationale), `Recorded accessibility priority for ${area.label}.`)} />
+          : <p className={styles.small}>This finding is not grouped into a work area.</p>}
         {message ? <p role="alert" className={styles.inlineError}>{message}</p> : null}
       </article> : <p className={styles.small}>Select a finding to review its evidence.</p>}
     </div>
   </section>;
+}
+
+function AreaPriorityForm({area, onSave}: {area: Survey['workAreas'][number]; onSave: (priority: Priority, rationale: string) => void}) {
+  const [priority, setPriority] = useState(area.priority);
+  const [rationale, setRationale] = useState('');
+  return <form className={styles.areaBox} onSubmit={(event) => {event.preventDefault(); onSave(priority, rationale);}}>
+    <label htmlFor="survey-area-priority">Work area <strong>{area.label}</strong> priority
+      <select id="survey-area-priority" value={priority} onChange={(event) => setPriority(event.target.value as Priority)}>
+        {PrioritySchema.options.map(value => <option key={value} value={value}>{PRIORITY_LABELS[value]}</option>)}
+      </select>
+    </label>
+    <p className={styles.small}>{area.rationale} {area.nearTerm ? 'Flagged for near-term work.' : 'Not flagged for near-term work.'}</p>
+    <label htmlFor="survey-area-rationale">Why this priority matters for access
+      <textarea id="survey-area-rationale" rows={2} maxLength={3500} value={rationale} onChange={event => setRationale(event.target.value)} placeholder="Access need, uncertainty, and what the site visit should confirm" />
+    </label>
+    <button type="submit" className={styles.secondaryButton}>Save accessibility priority</button>
+  </form>;
 }
 
 function Closeup({ src, alt }: { src: string; alt: string }) {
