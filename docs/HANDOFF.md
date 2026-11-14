@@ -1,5 +1,7 @@
 # Lane result and coordinator handoff
 
+Current completed-project package: [Vincent resumes orchestration](message-board/VINCENT_HANDOFF.md), [Oliver's cloud session continues as Dev B](message-board/DEV_B_CONTINUATION.md), and [preserved R1 verification artifacts](message-board/r1-evidence/README.md). Use the live board for the final publication SHA and Vincent's actual acceptance; this template is not itself an assignment.
+
 Post a RESULT comment containing:
 
 ```text

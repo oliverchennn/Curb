@@ -1,8 +1,8 @@
 # Task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Cloud verification cursor: `6873942498`. All prior local and R1 cloud coding writers are stopped/released. No application scope is currently assigned.
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Return-handoff cursor: `6875515894`. All prior local and R1 cloud coding writers are stopped/released. No application scope is currently assigned. Vincent is designated incoming coordinator (ACK pending); Oliver's cloud session continues as Dev B ready/unassigned. [Resume packet](message-board/VINCENT_HANDOFF.md).
 
-**Foundation F0 → F1A/F1B/F1C → F2 and R1 are verified.** R1 browser/full-check application SHA: `03d89572c207b88bc02d80c6f3a745aad1895391`. Final main publication SHA is recorded on the board after this documentation checkpoint. [Acceptance evidence](ACCEPTANCE.md).
+**Foundation F0 → F1A/F1B/F1C → F2 and R1 are verified.** R1 browser/full-check application SHA: `03d89572c207b88bc02d80c6f3a745aad1895391`; published R1 main: `db6ceb603e06ecf9ee8319ad0b2aa76eff840df2`, [PR #3](https://github.com/vzhu08/Curb/pull/3). Final documentation-package publication is recorded on the live board. [Acceptance evidence](ACCEPTANCE.md).
 
 | ID | Owner | Result SHA | State / evidence |
 |---|---|---|---|
@@ -20,6 +20,8 @@ All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau re
 
 ## Current cloud iteration
 
+This section records completed R1 history. The current task is the documentation/package return handoff above, not a new application iteration.
+
 [Takeover audit](message-board/CLOUD_TAKEOVER.md); [R1 card](tasks/R1.md). User Oliver selected R1 after the audit. Authenticated account `oliverchennn` has verified WRITE access. Coordinator session `6af808fa-83dc-8191-bd58-80697dbe50c9`, branch `codex/cloud-takeover`, checkout `/workspace/curb`, baseline `1992c53778c4374c7b2400f2a201f02dcac8c260`.
 
 | Task | Owner / checkout | State |
@@ -32,3 +34,13 @@ All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau re
 | R1-VERIFY | Coordinator, `/workspace/curb` | Accepted; B → A → C integration `03d89572c207b88bc02d80c6f3a745aad1895391`; full check, 160 API comparisons, browser and foundation regression passed; [result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873942498) |
 
 Common implementation base was `d561c30f10b6e3f34300093cea343346a87b9678`; [exact assignments](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873769585). A's transport child and B's fixture child stopped before their leads' Git operations; C had no child. Final publication follows the standing merge delegation. This completes only R1; no autonomous background worker, deployment or later feature iteration is scheduled.
+
+## Resume ownership
+
+| Role / task | State | Next action |
+|---|---|---|
+| HANDOFF-VINCENT | Outgoing cloud coordinator; docs/evidence/package only | Publish final reviewed documentation checkpoint and release coordination; final SHA/result on board |
+| Vincent orchestrator | Designated, resumed session/ACK pending | Follow `START_ORCHESTRATOR.txt`; read final board record; ACK before dispatch |
+| Oliver / this cloud session as Dev B | Ready, no code task or active file scope | Follow `START_DEV_B.txt`; use prepared `/workspace/curb-dev-b`; await exact task/base/contract |
+| A / C | Historical work stopped; present availability unconfirmed | Coordinator confirms availability before assigning paths |
+| R2 | Recommendation only | Vincent selects next outcome; A freezes new contract before B/A/C implementation |

@@ -1,0 +1,1130 @@
+{
+  "baseUrl": "http://127.0.0.1:3000",
+  "scenarioId": "synthetic-campus-links",
+  "requests": 160,
+  "comparisons": [
+    {
+      "origin": "arrival",
+      "destination": "library",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "arrival",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "reachable"
+    },
+    {
+      "origin": "arrival",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "arrival",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "arrival",
+      "destination": "cafe",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "arrival",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "arrival",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "arrival",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "arrival",
+      "destination": "studio",
+      "repair": null,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "arrival",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "arrival",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "arrival",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "arrival",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "arrival",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "arrival",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "arrival",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "arrival",
+      "destination": "service",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "arrival",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "arrival",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "arrival",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "library",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "reachable"
+    },
+    {
+      "origin": "commons",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "cafe",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "commons",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "commons",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "commons",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "commons",
+      "destination": "studio",
+      "repair": null,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "commons",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "commons",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "commons",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "commons",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "commons",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "commons",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "commons",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "commons",
+      "destination": "service",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "commons",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "library",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "cafe",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "reachable"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "studio",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "unknown"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "service",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "crossing-east",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "library-door",
+      "destination": "library",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "library-door",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "library-door",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "library-door",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "library-door",
+      "destination": "cafe",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "studio",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "service",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "library-door",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "library",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "reachable"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "cafe",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "studio",
+      "repair": null,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "service",
+      "repair": null,
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "cafe-door",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "blocked",
+      "after": "blocked"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "library",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "cafe",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "studio",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "service",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "studio-door",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "library",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "cafe",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "studio",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "archive",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "service",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "archive-door",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "library",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "library",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "library",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "library",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "cafe",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "cafe",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "cafe",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "cafe",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "studio",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "studio",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "studio",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "studio",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "archive",
+      "repair": null,
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "archive",
+      "repair": "add-library-ramp",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "archive",
+      "repair": "move-service-crate",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "archive",
+      "repair": "resurface-service-entry",
+      "before": "disconnected",
+      "after": "disconnected"
+    },
+    {
+      "origin": "service-door",
+      "destination": "service",
+      "repair": null,
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "service-door",
+      "destination": "service",
+      "repair": "add-library-ramp",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "service-door",
+      "destination": "service",
+      "repair": "move-service-crate",
+      "before": "reachable",
+      "after": "reachable"
+    },
+    {
+      "origin": "service-door",
+      "destination": "service",
+      "repair": "resurface-service-entry",
+      "before": "reachable",
+      "after": "reachable"
+    }
+  ],
+  "badRequests": "passed",
+  "immutability": "passed",
+  "foundation": "passed"
+}

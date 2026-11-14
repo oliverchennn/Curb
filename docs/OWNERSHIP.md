@@ -4,6 +4,8 @@ Vincent (`vzhu08`) is the human lead, Dev A and contract steward. The orchestrat
 
 The live issue's coordinator assignments reserve task scopes. Before kickoff, no application writer is active. `TASK_BOARD.md` is a snapshot. A lane steward may not edit files delegated to a child.
 
+Current return handoff: Vincent is designated coordinator (resumed session/ACK pending); Oliver's current cloud session is Dev B ready/unassigned. All historical temporary B and R1 cloud leads/children stopped/released. The outgoing coordinator retains only the bounded documentation/package publication task, then hands coordination to Vincent. No application scope is active. See [Vincent's handoff](message-board/VINCENT_HANDOFF.md) and [B continuation](message-board/DEV_B_CONTINUATION.md); the kickoff exception below is historical and does not reserve today's B files.
+
 Kickoff exception authorized by Vincent: B is temporarily covered by `agent-b-temp`, session `01a1d853-781e-7ce1-9082-ac04a68d3782`, under Vincent / `vzhu08`. B-READY is read-only with no file ownership; F1B still requires the verified F0 base and an explicit assignment. Oliver's return does not automatically release that agent's future scopes. `landautzou` is Landau's accepted write collaborator account. Current sessions and precise reservations are in the [live board](https://github.com/vzhu08/Curb/issues/1) and [kickoff checkpoint](message-board/KICKOFF.md).
 
 | Scope | Accountable lane / current policy |
