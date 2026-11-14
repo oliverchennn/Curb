@@ -40,7 +40,7 @@ export function SiteContext({ survey, selectedFindingId, onSelectFinding }: {
         </button>;
       })}
     </div>
-    <p className={styles.small}>Local map · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · 14 Nov 2026</p>
+    <p className={styles.small}>Local map · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a> · Retrieved 14 Nov 2026</p>
     </div>
 
     {unplaced.length > 0 ? <div>

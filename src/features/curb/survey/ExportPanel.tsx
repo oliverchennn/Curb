@@ -92,7 +92,7 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
     controllerRef.current = controller;
     const timer = setTimeout(() => controller.abort(), REPORT_TIMEOUT_MS);
     setActiveFormat(format);
-    setStatus({ kind: 'working', message: `Preparing the ${label} report for the ${plan.title} plan…` });
+    setStatus({ kind: 'working', message: `Preparing the ${label} report for ${plan.title}…` });
     try {
       const planId: PlanId = plan.id;
       const query = format === 'html' ? '?format=html' : '';
@@ -118,7 +118,7 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
       controller.signal.throwIfAborted();
       const fileName = exportFileName(data, 'pdf', edited).replace(/\.pdf$/, `.${format}`);
       saveBlob(blob, fileName);
-      setStatus({ kind: 'done', message: `Saved the ${label} report for the ${plan.title} plan.` });
+      setStatus({ kind: 'done', message: `Saved the ${label} report for ${plan.title}.` });
     } catch {
       if (controllerRef.current !== controller) return;
       setStatus({ kind: 'error', message: controller.signal.aborted

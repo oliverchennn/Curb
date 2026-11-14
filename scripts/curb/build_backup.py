@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a two-minute offline walkthrough from actual UI captures and the clip.
+"""Build a two-minute offline walkthrough from actual UI/report captures and the clip.
 
 Capture the named JPEGs with the browser first. This is an edited walkthrough of
 captured states, not a continuous screen recording or a simulated live session.
@@ -49,7 +49,7 @@ def background(title, caption):
     draw.line((64, 952, WIDTH-64, 952), fill='#b3bcad', width=2)
     draw.text((64, 970), title, font=font(30, True), fill='#234336')
     draw.text((64, 1015), caption, font=font(23), fill='#243128')
-    draw.text((64, 1060), 'CURB  ·  Captured app states + source footage  ·  Offline backup walkthrough', font=font(17), fill='#46534a')
+    draw.text((64, 1060), 'CURB  ·  Captured app states, report page and source footage  ·  Offline backup walkthrough', font=font(17), fill='#46534a')
     return image
 
 

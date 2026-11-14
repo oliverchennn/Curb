@@ -35,39 +35,39 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-EXPORT-ADVERSARIAL/1",
-      "branch": "codex/robertson-export-adversarial",
-      "state": "READY; awaiting exact-base ACK",
-      "scope": "tests/integration/server/surveyAdversarial.test.ts and docs/demo/ROBERTSON_EXPORT_ADVERSARIAL.md only; product read-only",
+      "task": "ROBERTSON-PORTABLE-REPORT-RELEASE/1",
+      "branch": "codex/robertson-portable-report-release",
+      "state": "ACK / RUNNING",
+      "scope": "scripts/curb/verify_report_bundle.ts and docs/demo/ROBERTSON_PORTABLE_RELEASE.md only; product read-only",
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878105758",
-      "baseSha": "eb07a83b4097aaa2c45a7583dad3715e58cd49db"
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878700641",
+      "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878787282"
     },
     {
       "lane": "C",
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-UI-CORRECTIONS/1",
-      "branch": "codex/robertson-ui-corrections",
-      "state": "ACK / RUNNING",
-      "scope": "docs/demo/ROBERTSON_UI_CORRECTIONS.md only; product read-only",
-      "baseSha": "f960df5c17db51947529e08374c4bc4dc1440c89",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878089799"
+      "task": "ROBERTSON-OVERLAY-FINISH/1",
+      "branch": "codex/robertson-overlay-finish",
+      "state": "READY; awaiting exact-base ACK",
+      "scope": "VideoEvidence.tsx, SurveyWorkspace.module.css and docs/demo/ROBERTSON_OVERLAY_FINISH.md; root released these files",
+      "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878700641"
     },
     {
       "lane": "D",
       "name": "Oliver / existing cloud chat",
       "github": "oliverchennn",
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "task": "ROBERTSON-MEDIA-CORRECTIONS/1",
-      "branch": "codex/robertson-media-corrections",
+      "task": "ROBERTSON-FINAL-GATE/1",
+      "branch": "codex/robertson-final-gate",
       "state": "ACK / RUNNING",
-      "scope": "docs/demo/ROBERTSON_MEDIA_CORRECTIONS.md only; product/media read-only",
-      "baseSha": "f960df5c17db51947529e08374c4bc4dc1440c89",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878074252",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878087605"
+      "scope": "docs/demo/ROBERTSON_FINAL_GATE.md only; product read-only",
+      "baseSha": "117175a34f3e8ae8dec87ffe80b131453a3b6771",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878746888",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878771480"
     }
   ],
   "board": {
@@ -75,7 +75,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6878110841"
+    "lastReadCommentId": "6878787282"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
