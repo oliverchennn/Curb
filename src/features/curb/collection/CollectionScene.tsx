@@ -4,11 +4,13 @@ import { useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { advance, CAPTURES, DURATION, poseAt, SENSORS, type SensorId, type Transport } from './simulation';
+import { activeSensor, advance, CAPTURES, defectPosition, DURATION, poseAt, routeAt, SENSORS, type SensorId, type Transport } from './simulation';
+import type { FeedCanvases } from './CameraViews';
 import styles from './collection.module.css';
 
 type Props = {
   transport: RefObject<Transport>;
+  feeds: RefObject<FeedCanvases>;
   onTime: (seconds: number) => void;
   onPause: () => void;
   onFailure: (reason: string) => void;
@@ -17,7 +19,7 @@ type Props = {
   selectedSensor: SensorId;
 };
 
-export default function CollectionScene({ transport, onTime, onPause, onFailure, onSensor, onHiddenSensorFocus, selectedSensor }: Props) {
+export default function CollectionScene({ transport, feeds, onTime, onPause, onFailure, onSensor, onHiddenSensorFocus, selectedSensor }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
 
@@ -38,6 +40,7 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
+    renderer.shadowMap.autoUpdate = false;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
@@ -50,6 +53,11 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     scene.background = new THREE.Color('#e7ecdf');
     scene.fog = new THREE.Fog('#e7ecdf', 22, 48);
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    const sensorViews = {
+      forward: new THREE.PerspectiveCamera(61, 16 / 9, 0.016, 45),
+      surface: new THREE.PerspectiveCamera(82, 16 / 9, 0.016, 14),
+      curb: new THREE.PerspectiveCamera(68, 16 / 9, 0.016, 34),
+    };
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = false;
     controls.enablePan = false;
@@ -102,17 +110,50 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       cube(scene, i % 3 === 0 ? palette.darkConcrete : palette.concrete, [i * 1.8, -0.06, 0], [1.78, 0.12, 3.6]);
       cube(scene, palette.curb, [i * 1.8, -0.035, 1.94], [1.78, 0.17, 0.26]);
     }
-    const crackCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.1, 0.007, -1.6), new THREE.Vector3(0.08, 0.007, -1.04),
-      new THREE.Vector3(-0.13, 0.007, -0.65), new THREE.Vector3(0.14, 0.007, -0.1),
-      new THREE.Vector3(0.03, 0.007, 0.3), new THREE.Vector3(0.23, 0.007, 0.9), new THREE.Vector3(0.1, 0.007, 1.6),
-    ]);
-    mesh(geometry(new THREE.TubeGeometry(crackCurve, 32, 0.018, 4, false)), palette.crack, scene, [0, 0, 0]);
-    cube(scene, palette.darkConcrete, [4.2, 0.006, -0.75], [0.9, 0.013, 0.75]);
-    for (let i = 0; i < 28; i++) {
-      const x = 3.8 + ((i * 17) % 29) / 29 * 0.8;
-      const z = -1.05 + ((i * 11) % 31) / 31 * 0.6;
-      cube(scene, i % 2 ? palette.crack : palette.concrete, [x, 0.018, z], [0.04, 0.02, 0.055]);
+    function groundShape(points: readonly (readonly [number, number])[], material: THREE.Material, parent: THREE.Object3D, height: number) {
+      const shape = new THREE.Shape();
+      points.forEach(([x, z], index) => {
+        if (index === 0) shape.moveTo(x, -z);
+        else shape.lineTo(x, -z);
+      });
+      shape.closePath();
+      const feature = mesh(geometry(new THREE.ShapeGeometry(shape)), material, parent, [0, height, 0]);
+      feature.rotation.x = -Math.PI / 2;
+      feature.castShadow = false;
+    }
+    const recessed = material('#605343');
+    const fractureEdge = material('#a39174');
+    const darkPatch = material('#a4997b');
+    const fracture: readonly (readonly [number, number])[] = [
+      [-0.08, -0.48], [-0.01, -0.29], [-0.08, -0.18], [0.035, -0.04],
+      [-0.03, 0.13], [0.065, 0.26], [0.018, 0.38], [0.055, 0.49],
+    ];
+    function crackRibbon(points: readonly (readonly [number, number])[], width: number, mat: THREE.Material, parent: THREE.Object3D, y: number) {
+      const positions = points.map(([x, z], i) => [x - width * (i % 3 === 0 ? 0.45 : 1), z] as const);
+      const otherSide = points.map(([x, z], i) => [x + width * (i % 2 ? 0.74 : 1), z] as const).reverse();
+      groundShape([...positions, ...otherSide], mat, parent, y);
+    }
+    for (const item of CAPTURES) {
+      const pos = defectPosition(item);
+      const feature = new THREE.Group();
+      feature.position.set(pos.x, 0, pos.z);
+      feature.rotation.y = -routeAt(item.fraction).heading;
+      scene.add(feature);
+      if (item.kind === 'crack') {
+        crackRibbon(fracture, 0.022, fractureEdge, feature, 0.004);
+        crackRibbon(fracture, 0.010, recessed, feature, 0.006);
+        crackRibbon([[0.035, -0.04], [0.115, 0.035], [0.19, 0.09], [0.23, 0.19]], 0.009, recessed, feature, 0.007);
+      } else {
+        groundShape([[-0.25, -0.21], [-0.035, -0.28], [0.19, -0.26], [0.27, -0.11], [0.21, 0.13],
+          [0.1, 0.27], [-0.14, 0.23], [-0.24, 0.1]], darkPatch, feature, 0.004);
+        const fleck = geometry(new THREE.IcosahedronGeometry(1, 0));
+        for (let i = 0; i < 25; i++) {
+          const k = (i + 1) * 13.7;
+          const pebble = mesh(fleck, i % 3 === 0 ? recessed : fractureEdge, feature,
+            [Math.sin(k) * 0.21, 0.008, Math.cos(k * 1.13) * 0.21], [0.017, 0.004, 0.013]);
+          pebble.castShadow = false;
+        }
+      }
     }
     // A quiet backdrop keeps the moving robot and its cameras dominant.
     const canopy = geometry(new THREE.IcosahedronGeometry(1, 1));
@@ -130,7 +171,9 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     for (let i = 0; i < 44; i++) mesh(tuft, i % 3 ? palette.leaf : palette.grass, scene, [-10 + i * 0.48, 0.05, -2.2 - (i % 4) * 0.17]);
 
     const robot = new THREE.Group();
-    robot.position.x = poseAt(transport.current.seconds).x;
+    const initialPose = poseAt(transport.current.seconds);
+    robot.position.set(initialPose.x, 0, initialPose.z);
+    robot.rotation.y = -initialPose.heading;
     scene.add(robot);
     const roundedBody = geometry(new RoundedBoxGeometry(1.55, 0.78, 1.05, 4, 0.16));
     cube(robot, palette.rubber, [0, 0.47, 0], [1.43, 0.28, 0.94]);
@@ -202,7 +245,8 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     };
     const trailMaterial = material('#708d59');
     const trail = CAPTURES.map(capture => {
-      const marker = mesh(geometry(new THREE.TorusGeometry(0.15, 0.017, 5, 24)), trailMaterial, scene, [capture.x, 0.035, -1.35]);
+      const { x, z } = defectPosition(capture);
+      const marker = mesh(geometry(new THREE.TorusGeometry(0.14, 0.014, 5, 24)), trailMaterial, scene, [x, 0.03, z - 0.66]);
       marker.rotation.x = Math.PI / 2; return marker;
     });
 
@@ -220,18 +264,87 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       if (object instanceof THREE.Mesh && object.material instanceof THREE.MeshStandardMaterial) occluders.push(object);
     });
     const normals = { forward: new THREE.Vector3(1, 0, 0), surface: new THREE.Vector3(0.5, -0.5, 0.7).normalize(), curb: new THREE.Vector3(0, 0, 1) };
-    let width = 1, height = 1, stopped = false, visible = true, frame = 0, previous = 0, lastPublish = 0;
-    let dirty = true, lastReset = -1, previousTime = -1, lastSensor = '', lastCoverage = false;
-    let orbiting = false;
+    let width = 1, height = 1, stopped = false, visible = true, frame = 0, previous = 0;
+    let dirty = true, lastReset = -1, previousTime = -1, lastFeed = -Infinity, lastPublish = -Infinity, lastPaint = -Infinity;
+    let orbiting = false, drawing = false;
+
+    const feedPose = {
+      forward: [new THREE.Vector3(0.588, 1.85, 0), new THREE.Vector3(4.65, 0.56, 0)],
+      surface: [new THREE.Vector3(0.94, 0.411, 0.43), new THREE.Vector3(1.14, 0.008, 0.43)],
+      curb: [new THREE.Vector3(-0.23, 0.81, 0.66), new THREE.Vector3(0.21, -0.01, 2.11)],
+    } as const;
+    const target = new THREE.Vector3();
+    const previews = feeds.current.previews;
+    const contexts = new WeakMap<HTMLCanvasElement, CanvasRenderingContext2D>();
+
+    function copyFeed(canvas: HTMLCanvasElement | null | undefined, pixelsWide: number, pixelsHigh: number,
+      id: SensorId, pose: ReturnType<typeof poseAt>, isMain: boolean) {
+      if (!canvas) return;
+      let pen = contexts.get(canvas);
+      if (!pen) {
+        pen = canvas.getContext('2d', { alpha: false }) ?? undefined;
+        if (!pen) return;
+        contexts.set(canvas, pen);
+      }
+      const targetWidth = isMain ? pixelsWide : Math.min(168, pixelsWide);
+      const targetHeight = Math.round(targetWidth * 9 / 16);
+      if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+      }
+      pen.drawImage(renderer.domElement, 0, renderer.domElement.height - pixelsHigh, pixelsWide, pixelsHigh,
+        0, 0, targetWidth, targetHeight);
+      canvas.dataset.frameCamera = id;
+      canvas.dataset.frameTime = pose.time.toFixed(3);
+      canvas.dataset.frameInspection = pose.inspection?.id ?? '';
+    }
+
+    function drawFeeds(pose: ReturnType<typeof poseAt>, selected: SensorId, reducedMotion: boolean) {
+      renderer.setScissorTest(true);
+      robot.updateMatrixWorld(true);
+      for (const { id } of SENSORS) {
+        const isMain = id === selected;
+        const cameraFeed = sensorViews[id];
+        const [eye, destination] = feedPose[id];
+        cameraFeed.position.copy(eye);
+        robot.localToWorld(cameraFeed.position);
+        target.copy(destination);
+        robot.localToWorld(target);
+        if (id === 'surface') {
+          const zoom = reducedMotion ? 0 : pose.zoom;
+          if (pose.inspection) {
+            const point = defectPosition(pose.inspection);
+            world.set(point.x, 0.005, point.z);
+            target.lerp(world, zoom);
+          }
+          cameraFeed.up.set(Math.cos(pose.heading), 0, Math.sin(pose.heading));
+          cameraFeed.fov = 84 - 35 * zoom;
+          cameraFeed.updateProjectionMatrix();
+        }
+        cameraFeed.lookAt(target);
+        const viewportWidth = Math.floor(Math.max(16, Math.min(isMain ? 496 : 146, width, height * 16 / 9)));
+        const viewportHeight = Math.max(9, Math.round(viewportWidth * 9 / 16));
+        renderer.setViewport(0, 0, viewportWidth, viewportHeight);
+        renderer.setScissor(0, 0, viewportWidth, viewportHeight);
+        renderer.render(scene, cameraFeed);
+        const ratio = renderer.getPixelRatio();
+        const pixelsWide = Math.round(viewportWidth * ratio);
+        const pixelsHigh = Math.round(viewportHeight * ratio);
+        copyFeed(previews[id], pixelsWide, pixelsHigh, id, pose, false);
+        if (isMain) copyFeed(feeds.current.focus, pixelsWide, pixelsHigh, id, pose, true);
+      }
+      renderer.setScissorTest(false);
+      renderer.setViewport(0, 0, width, height);
+    }
 
     function setView() {
       const config = transport.current;
       const pose = poseAt(config.seconds);
       const aspect = width / height;
       const extra = aspect < 1.3 ? 1.25 : 1;
-      controls.target.set(pose.x + 0.5, 0.45, 0);
-      if (config.view === 'follow') camera.position.set(pose.x + 5.2 * extra, 4.2 * extra, 7.5 * extra);
-      if (config.view === 'side') camera.position.set(pose.x + 0.4, 2.8 * extra, 10 * extra);
+      controls.target.set(pose.x + 0.56, 0.50, pose.z - 0.16);
+      if (config.view === 'follow') camera.position.set(pose.x + 4.45 * extra, 3.45 * extra, pose.z + 6.15 * extra);
+      if (config.view === 'side') camera.position.set(pose.x + 0.24, 2.65 * extra, pose.z + 7.8 * extra);
       if (config.view === 'overhead') { controls.target.set(0, 0, 0); camera.position.set(0.3, aspect < 1.3 ? 23 : 19, 1); }
       camera.lookAt(controls.target); controls.update(); lastReset = config.reset; orbiting = false; dirty = true;
     }
@@ -240,9 +353,10 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       width = Math.max(1, rect.width); height = Math.max(1, rect.height);
       renderer.setSize(width, height, false); camera.aspect = width / height; camera.updateProjectionMatrix();
       setView();
+      changed();
     }
-    function beginOrbit() { orbiting = true; onPause(); dirty = true; }
-    function changed() { dirty = true; }
+    function beginOrbit() { orbiting = true; onPause(); changed(); }
+    function changed() { dirty = true; if (!drawing) resume(); }
     controls.addEventListener('start', beginOrbit);
     controls.addEventListener('change', changed);
 
@@ -283,44 +397,78 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     }
 
     function render(now: number) {
-      if (stopped || !visible || document.hidden) { frame = 0; previous = 0; return; }
-      frame = requestAnimationFrame(render);
+      frame = 0;
+      if (stopped || !visible || document.hidden) { previous = 0; return; }
       const config = transport.current;
-      const delta = previous ? Math.min((now - previous) / 1000, 0.1) : 0;
-      previous = now;
+      if (config.running && now - lastPaint < 1000 / 30) { resume(); return; }
+      drawing = true;
+      lastPaint = now;
+      const delta = config.running && previous ? Math.min((now - previous) / 1000, 0.15) : 0;
+      previous = config.running ? now : 0;
       if (config.running) {
         config.seconds = advance(config.seconds, delta, config.speed);
-        if (config.seconds >= DURATION) { config.running = false; onTime(DURATION); onPause(); }
-        if (now - lastPublish > 120) { onTime(config.seconds); lastPublish = now; }
+        if (config.seconds >= DURATION) {
+          config.running = false;
+          onTime(DURATION);
+          onPause();
+        } else if (now - lastPublish >= 100) {
+          onTime(config.seconds);
+          lastPublish = now;
+        }
       }
       const pose = poseAt(config.seconds);
-      if (pose.time !== previousTime) {
-        const movement = pose.x - robot.position.x;
-        robot.position.x = pose.x;
+      const sensor = activeSensor(pose.time, config.manualSensor, config.autoInspect, config.reducedMotion);
+      const moved = pose.time !== previousTime;
+      if (moved) {
+        const shiftX = pose.x - robot.position.x;
+        const shiftZ = pose.z - robot.position.z;
+        robot.position.set(pose.x, 0, pose.z);
+        robot.rotation.y = -pose.heading;
         wheels.forEach(wheel => { wheel.rotation.z = -pose.wheelAngle; });
-        if (!orbiting && config.view !== 'overhead') { camera.position.x += movement; controls.target.x += movement; controls.update(); }
+        if (!orbiting && config.view !== 'overhead') {
+          camera.position.x += shiftX;
+          camera.position.z += shiftZ;
+          controls.target.x += shiftX;
+          controls.target.z += shiftZ;
+          controls.update();
+        }
         trail.forEach((marker, index) => { marker.visible = pose.time >= CAPTURES[index].at; });
-        previousTime = pose.time; dirty = true;
+        previousTime = pose.time;
       }
       if (config.reset !== lastReset) setView();
-      if (lastSensor !== config.sensor || lastCoverage !== config.coverage) {
+      if (dirty || moved) {
         for (const item of SENSORS) {
-          cones[item.id].visible = config.coverage && item.id === config.sensor;
+          cones[item.id].visible = false;
           const mat = sensors[item.id].material as THREE.MeshStandardMaterial;
-          mat.emissive.set(item.id === config.sensor ? item.color : '#000000');
-          mat.emissiveIntensity = item.id === config.sensor ? 0.25 : 0;
+          mat.emissive.set(item.id === sensor ? item.color : '#000000');
+          mat.emissiveIntensity = item.id === sensor ? 0.2 : 0;
         }
-        lastSensor = config.sensor; lastCoverage = config.coverage; dirty = true;
+        renderer.shadowMap.needsUpdate = true;
+        if (dirty || now - lastFeed >= 90) {
+          drawFeeds(pose, sensor, config.reducedMotion);
+          lastFeed = now;
+        }
+        cones[sensor].visible = config.coverage;
+        renderer.render(scene, camera);
+        leaders();
+        dirty = false;
       }
-      if (dirty) {
-        renderer.render(scene, camera); leaders(); dirty = false;
-      }
+      drawing = false;
+      if (config.running) resume();
     }
-    function resume() { if (!stopped && visible && !document.hidden && !frame) { previous = 0; dirty = true; frame = requestAnimationFrame(render); } }
+    function resume() {
+      if (!stopped && visible && !document.hidden && !frame) frame = requestAnimationFrame(render);
+    }
+    function suspend() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      previous = 0;
+    }
     function visibility() {
-      if (document.hidden) { cancelAnimationFrame(frame); frame = 0; previous = 0; }
-      else resume();
+      if (document.hidden) suspend();
+      else changed();
     }
+    transport.current.invalidate = changed;
     function contextLost(event: Event) {
       event.preventDefault();
       const focused = labels.findIndex(label => label.contains(document.activeElement));
@@ -330,13 +478,20 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     renderer.domElement.addEventListener('webglcontextlost', contextLost);
     document.addEventListener('visibilitychange', visibility);
     const observer = new ResizeObserver(resize); observer.observe(container);
+    const observed = new Map<Element, boolean>();
     const intersection = new IntersectionObserver(entries => {
-      visible = entries[0]?.isIntersecting ?? true;
-      if (visible) resume(); else { cancelAnimationFrame(frame); frame = 0; previous = 0; }
-    }); intersection.observe(container);
+      entries.forEach(entry => observed.set(entry.target, entry.isIntersecting));
+      visible = [...observed.values()].some(Boolean);
+      if (visible) changed(); else suspend();
+    });
+    intersection.observe(container);
+    const feedPanel = feeds.current.focus?.closest('aside');
+    if (feedPanel) intersection.observe(feedPanel);
     resize(); resume();
     return () => {
-      stopped = true; cancelAnimationFrame(frame);
+      stopped = true;
+      suspend();
+      if (transport.current.invalidate === changed) delete transport.current.invalidate;
       observer.disconnect(); intersection.disconnect();
       document.removeEventListener('visibilitychange', visibility);
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
@@ -348,7 +503,7 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       if (!renderer.getContext().isContextLost()) renderer.forceContextLoss();
       renderer.domElement.remove();
     };
-  }, [transport, onTime, onPause, onFailure, onHiddenSensorFocus]);
+  }, [transport, feeds, onTime, onPause, onFailure, onHiddenSensorFocus]);
 
   return <div className={styles.scene} ref={overlay}>
     <div className={styles.scene} ref={host} role="img" aria-label="Illustrative six-wheel delivery-style robot moving along a miniature sidewalk with a crack and rough patch, three camera mounts and selected camera coverage." />
