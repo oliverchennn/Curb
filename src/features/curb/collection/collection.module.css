@@ -1,5 +1,5 @@
 .page { padding-block: 26px 34px; --forest: #214c39; --soft: #edf0e7; }
-.heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 18px; }
 .eyebrow { margin: 0 0 12px; font-size: 12px; font-weight: 700; letter-spacing: .11em; color: #47634f; }
 .eyebrow > span { display: inline-block; width: 7px; height: 7px; margin: 0 6px 1px 0; background: #8b6531; border-radius: 50%; }
 .heading h1 { margin: 0 0 10px; font-size: clamp(28px, 3vw, 43px); line-height: 1.12; letter-spacing: -.045em; font-weight: 600; }
@@ -10,7 +10,7 @@
 .stageHeader { display: flex; justify-content: space-between; gap: 10px; padding: 13px 18px; font-size: 12px; color: #536450; border-bottom: 1px solid #dce2d3; }
 .stageHeader > span:first-child { color: #264d36; font-weight: 600; }
 .dot { width: 6px; height: 6px; display: inline-block; background: #356d50; border-radius: 50%; margin-right: 5px; }
-.stage { position: relative; height: clamp(320px, 32vw, 450px); overflow: hidden; background: #e8ecdf; }
+.stage { position: relative; height: clamp(270px, calc(100dvh - 430px), 440px); overflow: hidden; background: #e8ecdf; }
 .scene { position: absolute; inset: 0; }
 .canvas { width: 100%; height: 100%; display: block; touch-action: pan-y; }
 .leaders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -51,7 +51,7 @@
 .modeRow p { color: #5c6b56; font-size: 11px; max-width: 330px; margin: 0; text-align: right; line-height: 1.5; }
 .notice { background: #f1ead9; color: #645026; margin: 0; padding: 12px 18px; font-size: 13px; line-height: 1.5; }
 .details { display: flex; flex-direction: column; background: #fffef8; border: 1px solid #dce2d3; border-radius: 17px; overflow: hidden; }
-.detailHeading { padding: 22px 20px 13px; }
+.detailHeading { padding: 18px 20px 10px; }
 .detailHeading .eyebrow { font-size: 10px; line-height: 1.6; margin-bottom: 8px; }
 .detailHeading h2 { margin: 0 0 8px; font-size: 23px; line-height: 1.2; letter-spacing: -.025em; font-weight: 600; }
 .detailHeading > p:last-child { font-size: 13px; line-height: 1.5; margin: 0; color: #566852; }
@@ -61,14 +61,14 @@
 .sensors button:hover { background: #f0f2e9; }
 .sensors button > span:last-child { margin-left: auto; }
 .sensorNumber { font-variant-numeric: tabular-nums; font-size: 11px; color: #54704e; padding: 7px 5px; background: #e4eadb; border-radius: 5px; }
-.sensors small { display: block; font-size: 11px; margin-top: 5px; color: #5a6a54; }
-.sensorDetail { padding: 20px; flex: 1; }
+.sensors small { display: none; }
+.sensorDetail { padding: 16px 20px; flex: 1; }
 .sensorDetail .eyebrow { font-size: 10px; margin-bottom: 7px; }
 .sensorDetail h3 { font-size: 17px; margin: 0 0 9px; font-weight: 600; }
 .sensorDetail > p { font-size: 14px; line-height: 1.55; color: #53634e; margin: 0 0 15px; }
 .limit { padding-left: 12px; border-left: 2px solid #c7b27e; font-size: 12px; line-height: 1.5; color: #655f48; }
 .limit p { margin: 5px 0 0; }
-.count { display: flex; align-items: center; flex-wrap: wrap; padding: 14px 20px; border-top: 1px solid #e0e5d7; gap: 6px 12px; font-size: 13px; color: #52644d; }
+.count { display: flex; align-items: center; flex-wrap: wrap; padding: 10px 20px; border-top: 1px solid #e0e5d7; gap: 4px 12px; font-size: 13px; color: #52644d; }
 .count strong { margin-left: auto; color: #274d35; font-size: 24px; font-weight: 600; }
 .count strong span { font-size: 15px; font-weight: 400; color: #7a8972; }
 .count small { flex-basis: 100%; font-size: 10px; }
