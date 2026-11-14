@@ -19,10 +19,13 @@
 
 .map figure > div {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
 .map figure button {
+  min-width: 44px;
+  min-height: 44px;
   background: #ffffff;
   color: #173d35;
   border: 1px solid #b7cfc8;

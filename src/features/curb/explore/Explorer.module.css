@@ -62,7 +62,7 @@
 .collectionNote { margin:0; padding:0 15px 10px; font-size:11px; line-height:1.5; color:var(--quiet); border-bottom:1px solid var(--border); }
 .snapshotsHeader { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:12px 15px 8px; }
 .snapshotsHeader h2 { font-size:14px; margin:0; }.snapshotsHeader h2 span { font-weight:400; font-size:12px; color:var(--quiet); margin-left:8px; }
-.snapshotsHeader p { font-size:12px; margin:4px 0 0; color:var(--quiet); }.snapshotsHeader button { background:transparent; border:1px solid #cbd5c3; color:var(--forest); padding:5px 10px; margin-left:5px; min-height:44px; }.snapshotsHeader button:hover { background:#e5ebdc; }
+.snapshotsHeader p { font-size:12px; margin:4px 0 0; color:var(--quiet); }.snapshotsHeader button { min-width:44px; background:transparent; border:1px solid #cbd5c3; color:var(--forest); padding:5px 10px; margin-left:5px; min-height:44px; }.snapshotsHeader button:hover { background:#e5ebdc; }
 .filmstrip { position:relative; display:flex; gap:8px; padding:4px 15px 14px; overflow-x:auto; flex-shrink:0; scroll-padding:15px; }
 .snapshotButton { flex:0 0 176px; padding:5px; border:1px solid #d9dfd1!important; background:#fffef8; color:var(--forest); text-align:left; display:flex; flex-direction:column; gap:3px; }
 .snapshotButton:hover { background:#ecf0e4; }.snapshotButton[aria-pressed=true] { border:2px solid #4d734d!important; padding:4px; background:#eaf0df; }

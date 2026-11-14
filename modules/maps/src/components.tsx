@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState, type KeyboardEvent } from 'react';
 import { FeatureCollectionSchema, type Coordinate, type FeatureCollection } from './index';
 /** Dependency-free schematic GeoJSON map. Does not request tiles or represent navigational accuracy. */
 export function GeoMap({
@@ -11,7 +11,32 @@ export function GeoMap({
   mode?: 'fixture' | 'live' | 'local';
   attribution?: string;
 }) {
-  const [zoom, setZoom] = useState(1);
+  const [view, setView] = useState({ zoom: 1, x: 0, y: 0 });
+  const helpId = useId();
+  const { zoom, x, y } = view;
+  const clamp = (value: number, limit: number) => Math.max(-limit, Math.min(limit, value));
+  function changeZoom(delta: number) {
+    setView(previous => {
+      const next = Math.max(0.5, Math.min(3, previous.zoom + delta));
+      return { zoom: next, x: clamp(previous.x, 300 * Math.max(0, next - 1)), y: clamp(previous.y, 180 * Math.max(0, next - 1)) };
+    });
+  }
+  function pan(dx: number, dy: number) {
+    setView(previous => ({ ...previous,
+      x: clamp(previous.x + dx, 300 * Math.max(0, previous.zoom - 1)),
+      y: clamp(previous.y + dy, 180 * Math.max(0, previous.zoom - 1)),
+    }));
+  }
+  function reset() { setView({ zoom: 1, x: 0, y: 0 }); }
+  function navigate(event: KeyboardEvent<SVGSVGElement>) {
+    const moves: Record<string, [number, number]> = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 40], ArrowDown: [0, -40] };
+    if (moves[event.key]) pan(...moves[event.key]);
+    else if (event.key === '+' || event.key === '=') changeZoom(0.25);
+    else if (event.key === '-') changeZoom(-0.25);
+    else if (event.key === 'Home') reset();
+    else return;
+    event.preventDefault();
+  }
   const parsed = useMemo(() => FeatureCollectionSchema.safeParse(data), [data]);
   if (!parsed.success)
     return (
@@ -36,8 +61,8 @@ export function GeoMap({
     midLon = (minLon + maxLon) / 2,
     midLat = (minLat + maxLat) / 2;
   const point = ([lon, lat]: Coordinate) => [
-    300 + ((lon - midLon) / spanLon) * 480 * zoom,
-    180 - ((lat - midLat) / spanLat) * 240 * zoom,
+    300 + x + ((lon - midLon) / spanLon) * 480 * zoom,
+    180 + y - ((lat - midLat) / spanLat) * 240 * zoom,
   ];
   return (
     <figure>
@@ -46,25 +71,34 @@ export function GeoMap({
         <button
           type="button"
           aria-label="Zoom out map"
-          onClick={() => setZoom((v) => Math.max(0.5, v - 0.25))}
+          disabled={zoom <= 0.5}
+          onClick={() => changeZoom(-0.25)}
         >
           −
         </button>
-        <button type="button" aria-label="Reset map zoom" onClick={() => setZoom(1)}>
+        <button type="button" aria-label="Reset map view" onClick={reset}>
           Reset
         </button>
         <button
           type="button"
           aria-label="Zoom in map"
-          onClick={() => setZoom((v) => Math.min(3, v + 0.25))}
+          disabled={zoom >= 3}
+          onClick={() => changeZoom(0.25)}
         >
           +
         </button>
+        <button type="button" aria-label="Pan map left" disabled={zoom <= 1 || x >= 300 * (zoom - 1)} onClick={() => pan(60, 0)}>←</button>
+        <button type="button" aria-label="Pan map right" disabled={zoom <= 1 || x <= -300 * (zoom - 1)} onClick={() => pan(-60, 0)}>→</button>
+        <button type="button" aria-label="Pan map up" disabled={zoom <= 1 || y >= 180 * (zoom - 1)} onClick={() => pan(0, 40)}>↑</button>
+        <button type="button" aria-label="Pan map down" disabled={zoom <= 1 || y <= -180 * (zoom - 1)} onClick={() => pan(0, -40)}>↓</button>
       </div>
       <svg
         viewBox="0 0 600 360"
         role="img"
         aria-label="Locations and route schematic"
+        aria-describedby={helpId}
+        tabIndex={0}
+        onKeyDown={navigate}
         style={{ width: '100%', background: '#edf5f1', borderRadius: 12 }}
       >
         <path
@@ -117,6 +151,7 @@ export function GeoMap({
           );
         })}
       </svg>
+      <small id={helpId}>Zoom in, then use the arrow buttons or arrow keys on the map to pan. + / − zoom; Home resets the view.</small>
       <small>
         {attribution}. Projection is schematic; straight-line distance is not travel distance.
       </small>

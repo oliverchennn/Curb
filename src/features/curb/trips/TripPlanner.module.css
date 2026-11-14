@@ -15,7 +15,7 @@
 .profileCard { background: #edf1e9; }
 .profileCard p { font-size: 14px; }
 .profileCard details { margin-block: 18px; font-size: 14px; }
-.profileCard summary { cursor: pointer; font-weight: 650; padding-block: 4px; }
+.profileCard summary { cursor: pointer; font-weight: 650; padding-block: 10px; min-height: 44px; }
 .profileCard ul { padding-left: 20px; }
 .profileCard li + li { margin-top: 8px; }
 .fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin-block: 22px 12px; }
