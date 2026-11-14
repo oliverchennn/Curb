@@ -79,13 +79,19 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6873665200"
+    "lastReadCommentId": "6873769585"
   },
-  "currentSlice": "R1-contract-freeze",
+  "currentSlice": "R1-implementation",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
-    "status": "frozen"
+    "status": "frozen",
+    "trips": {
+      "version": "curb-r1",
+      "status": "frozen",
+      "contractSha": "c271c4fee62b3f05e7909df450a66f263db213ea",
+      "implementationBaseSha": "d561c30f10b6e3f34300093cea343346a87b9678"
+    }
   },
   "delegation": {
     "maxCodingChildrenPerLane": 2,
@@ -126,11 +132,14 @@
     "selectedSlice": "R1 trip reachability and one repair simulation",
     "previousLocalAgents": "paused; no restart",
     "workers": {
-      "A": "/root/r1_a; contract task; /workspace/curb-a-r1; codex/r1-contract-api"
+      "A": "/root/r1_a; API/server and transport; /workspace/curb-a-r1; codex/r1-contract-api",
+      "B": "/root/r1_b; pure domain/data; /workspace/curb-b-r1; codex/r1-domain",
+      "C": "/root/r1_c; trip UI; /workspace/curb-c-r1; codex/r1-ui"
     },
     "activeApplicationScope": [
-      "src/contracts/curb/trips.ts",
-      "tests/integration/contracts/trips.test.ts"
+      "A: six new trip API/server/client/test files in board assignment",
+      "B: trips domain/test and trip-demo data/test files",
+      "C: app/curb/trips/page.tsx, app/curb/page.tsx link, src/features/curb/trips/"
     ]
   }
 }

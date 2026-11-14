@@ -1,6 +1,6 @@
 # Task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Cloud takeover cursor: `6873665200`. Prior local writers are stopped. R1-CONTRACT is assigned to cloud A; other R1 lanes await its reviewed freeze.
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Cloud implementation cursor: `6873769585`. Prior local writers are stopped. R1-CONTRACT is accepted; cloud A/B/C have ACKed their exclusive implementation scopes.
 
 **Foundation F0 → F1A/F1B/F1C → F2 is verified. Oliver has selected R1 in the cloud takeover session.** Browser/full-check application SHA: `fc12e86c85394ab8126db1be485aaf0e7845c087`. Final main publication SHA is recorded on the board after this documentation checkpoint. [Acceptance evidence](ACCEPTANCE.md).
 
@@ -14,7 +14,7 @@ Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read 
 
 All historical foundation leads and children stopped and released their write scopes. Their laptop preview and heartbeat were stopped at handoff. Current cloud ownership is below. No branch state grants a new task.
 
-Foundation contracts stay frozen at `curb-v0`. The separate `curb-r1` contract is being established serially; existing fixtures/imports remain intact. R2–R5 and sponsors remain unassigned. [Git sync](GIT_SYNC.md), exclusive ownership and [standing merge delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956) continue to apply.
+Foundation contracts stay frozen at `curb-v0`. The separate `curb-r1` contract is frozen at `c271c4fee62b3f05e7909df450a66f263db213ea`; existing fixtures/imports remain intact. R2–R5 and sponsors remain unassigned. [Git sync](GIT_SYNC.md), exclusive ownership and [standing merge delegation](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871935956) continue to apply.
 
 All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau retains his approved Claude Code exception; Astra is coordinator-only.
 
@@ -25,6 +25,6 @@ All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau re
 | Task | Owner / checkout | State |
 |---|---|---|
 | CLOUD-TAKEOVER | Coordinator | Baseline audit complete; documentation in progress |
-| R1-CONTRACT | `/root/r1_a`, `/workspace/curb-a-r1`, `codex/r1-contract-api` | ACKed; only new trips contract and contract tests; [assignment](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873665200) |
-| R1-A / R1-B / R1-C | New cloud workers, assigned after freeze | Waiting for reviewed common contract SHA |
+| R1-CONTRACT | `/root/r1_a` | Accepted, 23 tests/typecheck; `c271c4fee62b3f05e7909df450a66f263db213ea` |
+| R1-A / R1-B / R1-C | `/root/r1_a`, `/root/r1_b`, `/root/r1_c` | Running from common `d561c30f10b6e3f34300093cea343346a87b9678`; [exact assignments](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873769585) |
 | R1-VERIFY | Separate verification task after stopped lane results | Waiting for integration |
