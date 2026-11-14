@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "curb-r1",
+  "scenario": {
+    "schemaVersion": 1,
+    "id": "synthetic-campus-links",
+    "revision": 1,
+    "title": "Synthetic campus links",
+    "dataKind": "synthetic",
+    "nodes": [
+      { "id": "arrival", "coordinate": [0, 0], "label": "Welcome court" },
+      { "id": "commons", "coordinate": [0.0004, 0], "label": "Commons junction" },
+      { "id": "crossing-east", "coordinate": [0.00052, 0], "label": "Library crossing east" },
+      { "id": "library-door", "coordinate": [0.0006, 0], "label": "Library entry" },
+      { "id": "cafe-door", "coordinate": [0.0004, 0.0002], "label": "Cafe entry" },
+      { "id": "studio-door", "coordinate": [0.0004, -0.0003], "label": "Studio entry" },
+      { "id": "archive-door", "coordinate": [-0.0003, 0.0003], "label": "Archive entry" },
+      { "id": "service-door", "coordinate": [0.00058, -0.00018], "label": "Service entry" }
+    ],
+    "edges": [
+      {
+        "id": "arrival-walk",
+        "fromNodeId": "arrival",
+        "toNodeId": "commons",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0.0004, 0]] },
+        "lengthMeters": 40,
+        "bidirectional": true,
+        "barrierIds": []
+      },
+      {
+        "id": "library-crossing",
+        "fromNodeId": "commons",
+        "toNodeId": "crossing-east",
+        "geometry": { "type": "LineString", "coordinates": [[0.0004, 0], [0.00052, 0]] },
+        "lengthMeters": 12,
+        "bidirectional": true,
+        "barrierIds": ["library-crossing-curb"]
+      },
+      {
+        "id": "library-entrance",
+        "fromNodeId": "crossing-east",
+        "toNodeId": "library-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.00052, 0], [0.0006, 0]] },
+        "lengthMeters": 8,
+        "bidirectional": false,
+        "barrierIds": []
+      },
+      {
+        "id": "cafe-walk",
+        "fromNodeId": "commons",
+        "toNodeId": "cafe-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0004, 0], [0.0004, 0.0002]] },
+        "lengthMeters": 20,
+        "bidirectional": true,
+        "barrierIds": []
+      },
+      {
+        "id": "studio-walk",
+        "fromNodeId": "commons",
+        "toNodeId": "studio-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0004, 0], [0.0004, -0.0003]] },
+        "lengthMeters": 30,
+        "bidirectional": false,
+        "barrierIds": []
+      },
+      {
+        "id": "service-entrance",
+        "fromNodeId": "commons",
+        "toNodeId": "service-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0004, 0], [0.00058, -0.00018]] },
+        "lengthMeters": 18,
+        "bidirectional": false,
+        "barrierIds": ["service-crate", "service-surface"]
+      }
+    ],
+    "destinations": [
+      { "id": "library", "label": "Library", "nodeId": "library-door" },
+      { "id": "cafe", "label": "Cafe", "nodeId": "cafe-door" },
+      { "id": "studio", "label": "Studio", "nodeId": "studio-door" },
+      { "id": "archive", "label": "Archive", "nodeId": "archive-door" },
+      { "id": "service", "label": "Service", "nodeId": "service-door" }
+    ],
+    "barriers": [
+      {
+        "id": "library-crossing-curb",
+        "edgeId": "library-crossing",
+        "kind": "missing_ramp",
+        "reviewStatus": "accepted",
+        "evidenceIds": ["library-crossing-curb-note"],
+        "note": "The synthetic crossing has a raised curb without a step-free transition. Its accepted review does not set the trip assessment."
+      },
+      {
+        "id": "service-crate",
+        "edgeId": "service-entrance",
+        "kind": "obstruction",
+        "reviewStatus": "rejected",
+        "evidenceIds": ["service-crate-note"],
+        "note": "A crate is an authored blocker at the synthetic service entry. Rejection of this evidence review does not make the entrance passable."
+      },
+      {
+        "id": "service-surface",
+        "edgeId": "service-entrance",
+        "kind": "surface_issue",
+        "reviewStatus": "pending",
+        "evidenceIds": ["service-surface-note"],
+        "note": "An uneven threshold is a separate authored blocker at the synthetic service entry. Moving the crate leaves this blocker in place."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "library-crossing-curb-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic library crossing curb",
+        "note": "Authored illustration: the crossing ends at a raised curb with no ramp. No dimensions or field observations are recorded; the ramp repair is hypothetical.",
+        "attribution": "Curb R1 synthetic fixture authors"
+      },
+      {
+        "id": "service-crate-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic service entry crate",
+        "note": "Authored illustration: a crate occupies the service doorway approach. The example review rejects the note, while the independent step-free assessment still names the crate as a blocker.",
+        "attribution": "Curb R1 synthetic fixture authors"
+      },
+      {
+        "id": "service-surface-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Synthetic service entry surface",
+        "note": "Authored illustration: an uneven threshold spans the service entrance separately from the crate. The surface repair clears only this hypothetical blocker; no measured condition or completed repair is claimed.",
+        "attribution": "Curb R1 synthetic fixture authors"
+      }
+    ]
+  },
+  "profile": {
+    "id": "step-free-demo",
+    "label": "Authored step-free demo",
+    "description": "A synthetic step-free planning example using explicit authored edge assessments. It does not establish accessibility compliance or provide real-world navigation advice."
+  },
+  "assumptions": [
+    "This is an entirely synthetic schematic near coordinate [0, 0], with no field geography, measurements or observations. Edge lengths are authored example distances rather than distances derived from coordinates.",
+    "The step-free demo profile uses an authored assessment for every walkway, crossing and entrance; passability is independent of evidence review status.",
+    "An edge with no listed barriers is passable only when its assessment explicitly says pass. The studio walkway has unknown authored coverage and remains excluded from reachable routes.",
+    "Edge direction is explicit. Visual intersections create no connections, and the archive entry has no connecting edge in this example.",
+    "Each hypothetical repair clears one named blocker in a projection. Other blockers, unknown coverage, original evidence and review records remain unchanged; no completed repair or safe navigation is claimed."
+  ],
+  "edgeAssessments": [
+    {
+      "edgeId": "arrival-walk",
+      "kind": "walkway",
+      "status": "pass",
+      "blockingBarrierIds": [],
+      "reason": "Authored step-free demo assessment permits the synthetic welcome court walk in both directions."
+    },
+    {
+      "edgeId": "library-crossing",
+      "kind": "crossing",
+      "status": "blocked",
+      "blockingBarrierIds": ["library-crossing-curb"],
+      "reason": "The authored step-free assessment blocks the synthetic crossing at its missing ramp, independently of the accepted evidence review."
+    },
+    {
+      "edgeId": "library-entrance",
+      "kind": "entrance",
+      "status": "pass",
+      "blockingBarrierIds": [],
+      "reason": "Authored step-free demo assessment permits the synthetic library entry from the east crossing node."
+    },
+    {
+      "edgeId": "cafe-walk",
+      "kind": "walkway",
+      "status": "pass",
+      "blockingBarrierIds": [],
+      "reason": "Authored step-free demo assessment permits the synthetic cafe walk in both directions."
+    },
+    {
+      "edgeId": "studio-walk",
+      "kind": "walkway",
+      "status": "unknown",
+      "blockingBarrierIds": [],
+      "reason": "The synthetic studio walkway has no authored step-free coverage; an empty barrier list does not establish passability."
+    },
+    {
+      "edgeId": "service-entrance",
+      "kind": "entrance",
+      "status": "blocked",
+      "blockingBarrierIds": ["service-crate", "service-surface"],
+      "reason": "The authored step-free assessment names both the crate and uneven threshold as blockers, independently of their rejected and pending evidence reviews."
+    }
+  ],
+  "repairs": [
+    {
+      "id": "add-library-ramp",
+      "label": "Add library ramp",
+      "barrierId": "library-crossing-curb",
+      "description": "Hypothetically clear the authored missing-ramp blocker at the library crossing without changing its evidence."
+    },
+    {
+      "id": "move-service-crate",
+      "label": "Move service crate",
+      "barrierId": "service-crate",
+      "description": "Hypothetically clear only the service crate blocker. The separate surface blocker still prevents the service trip."
+    },
+    {
+      "id": "resurface-service-entry",
+      "label": "Resurface service entry",
+      "barrierId": "service-surface",
+      "description": "Hypothetically clear only the service surface blocker. The separate crate blocker still prevents the service trip."
+    }
+  ],
+  "defaults": { "originNodeId": "arrival", "destinationId": "library" }
+}
