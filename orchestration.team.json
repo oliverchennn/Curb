@@ -35,12 +35,13 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-API-REPORT/1",
-      "branch": "codex/robertson-report-api",
-      "state": "ACK / RUNNING",
-      "scope": "docs/demo/ROBERTSON_IMPLEMENTATION.md: B exact paths",
+      "task": "ROBERTSON-FIVE-EXPORT-QA/1",
+      "branch": "codex/robertson-five-export-qa",
+      "state": "READY; API/report and first QA released and integrated",
+      "scope": "docs/demo/ROBERTSON_FIVE_EXPORT_QA.md only; assignment6877763962",
       "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877448524"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877448524",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877763962"
     },
     {
       "lane": "C",
@@ -49,8 +50,8 @@
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
       "task": "ROBERTSON-UI-VISUAL/1",
       "branch": "codex/robertson-ui-visual",
-      "state": "assigned; UI implementation598c262 released and integrated",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877298123",
+      "state": "ACK / RUNNING",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877630448",
       "scope": "src/features/curb/survey/SurveyWorkspace.module.css only; assignment6877481456"
     },
     {
@@ -58,11 +59,11 @@
       "name": "Oliver / existing cloud chat",
       "github": "oliverchennn",
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "task": "ROBERTSON-INDEPENDENT-REVIEW/1",
-      "branch": "codex/robertson-independent-review",
+      "task": "ROBERTSON-FIVE-MEDIA-REVIEW/1",
+      "branch": "codex/robertson-five-media-review",
       "state": "ACK / RUNNING",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877392092",
-      "scope": "tests/integration/robertson/independent.test.ts; docs/demo/ROBERTSON_REVIEW.md; existing product files read-only"
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6877806264",
+      "scope": "docs/demo/ROBERTSON_FIVE_MEDIA_REVIEW.md only; product/media/tests read-only"
     }
   ],
   "board": {
@@ -70,7 +71,7 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6877481456"
+    "lastReadCommentId": "6877821345"
   },
   "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -249,22 +250,17 @@
     "taskCard": "docs/tasks/READINESS_QUEUE.md",
     "authority": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876402752",
     "startGate": "Published exact-base READY assignment; prior task and descendants stopped/released; read live board then new exact-scope ACK",
-    "readyPreparation": [
-      "REPLAY-REUSE-PREP/1 (original replay writer after fresh ACK, original base)"
-    ],
-    "blockedPriorities": [
-      "R2 final integration/browser after reviewed C release",
-      "Replay integration after stopped reviewed corrected result and checks"
-    ],
-    "productImplementationExpansion": false,
+    "readyPreparation": [],
+    "blockedPriorities": [],
+    "productImplementationExpansion": true,
     "immediateReviews": [],
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "Oliver coordinator ACK after outgoing final publication/release; B map STOP recorded",
-      "Review stopped R2-C result 2ff4478b9b2f84399f3ee66ff357f6c976f3c6dd and assign final integrated verification",
-      "Review stopped corrected replay ce0a66fe753a55150dbbecf910fe57440aea50f0",
-      "Review stopped A boundary proposal f9aeda43a3ee8fa899939e4ba7ed6b8b3c89b345 and C UX proposal ed6472de87d19703f8f9a69768ca532f37015748; reconcile B map state; refill useful queue"
+      "Root final browser/production/offline integration and corrections",
+      "B five-finding export QA followed by export accessibility review; exact scopes6877763962",
+      "C CSS polish then real-source UI QA after STOP/RELEASE",
+      "D expanded track and bounded planner review"
     ]
   },
   "historicalR2Developers": [

@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
 import { buildRepairPlans, costRange, fetchSurvey } from './services';
@@ -125,12 +124,15 @@ export function SurveyWorkspace() {
     <Header survey={survey} />
     <div className={styles.summaryBar}>
       <p><strong>{survey.findings.length}</strong> findings · {counts.accepted} accepted · {counts.pending} pending · {counts.rejected} rejected · {survey.workAreas.length} work areas</p>
-      <p className={styles.small}>Analysis: {survey.analysis.method} ({survey.analysis.model}). {survey.analysis.note}</p>
+      <details className={styles.pendingChecks}>
+        <summary>Analysis and review status</summary>
+        <p className={styles.small}>{survey.analysis.method} ({survey.analysis.model}). {survey.analysis.note}</p>
+      </details>
       <div className={styles.actions}>
         {edited ? <span className={styles.editedTag}>Edited — {editedIds.length} finding{editedIds.length === 1 ? '' : 's'} changed</span> : <span className={styles.small}>Original analysis</span>}
         <button type="button" className={styles.secondaryButton} disabled={!edited} onClick={restore}>Restore original</button>
       </div>
-      <p role="status" aria-live="polite" className={styles.small}>{notice}</p>
+      <p role="status" aria-live="polite" className={styles.small} hidden={!notice}>{notice}</p>
     </div>
 
     <div className={styles.stage}>
@@ -157,10 +159,6 @@ export function SurveyWorkspace() {
 
 function Header({ survey }: { survey?: Survey }) {
   return <header className={styles.header}>
-    <nav className={styles.navLinks} aria-label="Curb pages">
-      <Link href="/curb">← Campus barrier review</Link>
-      <Link href="/curb/plans">Budget comparison (synthetic)</Link>
-    </nav>
     <p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p>
     <h1>Survey replay</h1>
     <p className={styles.lede}>Turn sidewalk evidence into a repair plan for better disability access.</p>

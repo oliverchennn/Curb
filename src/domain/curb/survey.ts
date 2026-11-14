@@ -34,7 +34,10 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
     for (const item of [...selected, ...(selected.length ? s.sharedCosts : [])]) {
       const r = costRange(item.cost);
       if (r) { lowCents += r.lowCents; highCents += r.highCents; }
-      else unpricedItems.push(`${item.label}: ${item.cost.status === 'quote_required' ? item.cost.reason : ''}`);
+      else {
+        const areaLabel = 'workAreaId' in item ? s.workAreas.find(area => area.id === item.workAreaId)?.label : null;
+        unpricedItems.push(`${areaLabel ? `${areaLabel} · ` : ''}${item.label} (${item.id}): ${item.cost.status === 'quote_required' ? item.cost.reason : ''}`);
+      }
     }
     if (!Number.isSafeInteger(highCents)) throw new Error('Plan total overflow');
     const coverage = { high: 0, medium: 0, low: 0, unassessed: 0 };

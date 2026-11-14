@@ -21,6 +21,8 @@ describe('Robertson maintenance planning', () => {
     expect(balanced.optionIds).toEqual(['panel-01-seal','panel-02-patch','panel-03-seal','panel-04-patch','panel-05-seal']);
     expect(balanced.cost).toMatchObject({lowCents:21600,highCents:143400,isComplete:false});
     expect(balanced.cost.unpricedItems).toHaveLength(3);
+    expect(new Set(balanced.cost.unpricedItems).size).toBe(3);
+    expect(balanced.cost.unpricedItems.join(' ')).toContain('panel-04-patch');
     expect(durable.workAreaIds).toHaveLength(5);
     expect(durable.cost).toMatchObject({lowCents:60000,highCents:490600,isComplete:false});
   });

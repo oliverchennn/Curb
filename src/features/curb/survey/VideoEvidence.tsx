@@ -55,7 +55,9 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
       };
       handle = video.requestVideoFrameCallback(onFrame);
     }
-    const sync = () => setTime(video.currentTime);
+    // Native controls report duration at `ended`, while the picture still shows
+    // the final decoded frame. Keep that frame's evidence visible when paused.
+    const sync = () => setTime(Math.min(video.currentTime, Math.max(0, media.durationSeconds - 1 / media.fps)));
     const tick = () => {
       if (stopped) return;
       sync();
@@ -73,7 +75,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
       video.removeEventListener('seeked', sync);
       video.removeEventListener('play', onPlay);
     };
-  }, [src]);
+  }, [src, media.durationSeconds, media.fps]);
 
   useEffect(() => {
     const video = videoRef.current;
