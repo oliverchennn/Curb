@@ -86,3 +86,22 @@
   .estimateGuide { padding: 13px; }
 }
 @media (max-width: 600px) { .planner { padding: 16px; } }
+
+/* The parent workspace changes width independently of the viewport. */
+.intro .reviewNote { font-size: 14px !important; }
+.small, .policyTop p, .scopeLine, .policyBottom > p, .comparisonNote,
+.budgetRow label, .price > span, .evidenceNote, .breakdownTable,
+.breakdownTable thead th, .method, .deferred, .estimateGuide,
+.source a, .source p, .routeNote { font-size: 14px; }
+@container (min-width: 620px) {
+  .policyGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+  .policyGrid .policyCard { display: flex; flex-direction: column; padding: 14px; }
+  .policyGrid .policyTop { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .policyGrid .policyTop > div:first-child { min-height: 150px; }
+  .policyGrid .price { padding-top: 12px; border-top: 1px solid #dce4da; }
+  .policyGrid .price > b { font-size: 18px; }
+  .policyGrid .scopeLine { margin-top: 15px !important; }
+  .policyGrid .policyBottom { flex-direction: column; align-items: stretch; margin-top: auto; }
+  .policyGrid .policyBottom > p { min-height: 42px; }
+  .policyGrid .policyBottom button { padding-inline: 8px; }
+}

@@ -79,7 +79,7 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
             ? `Priced upper bound: ${formatCents(budgetPlan.cost.highCents)}. ${budgetPlan.cost.isComplete ? 'The selected priced scope fits this amount.' : 'Full budget fit is unconfirmed until the missing costs are quoted.'}`
             : budgetPlan.deferredWorkAreaIds.length ? 'No eligible repair fits the known upper estimates. This does not make the deferred work free.' : 'There are no eligible repairs in this review.'}</p>
           {budgetPlan.workAreaIds.length ? <p><strong>Proposed work:</strong> {names(survey, budgetPlan.workAreaIds)}.</p> : null}
-          <p><strong>Deferred:</strong> {budgetPlan.deferredWorkAreaIds.length ? names(survey, budgetPlan.deferredWorkAreaIds) : 'No eligible areas'}.</p>
+          <p><strong>Deferred:</strong> {budgetPlan.deferredWorkAreaIds.length ? names(survey, budgetPlan.deferredWorkAreaIds) : 'No eligible areas deferred'}.</p>
           {budgetPlan.cost.unpricedItems.length ? <p><strong>Not yet priced:</strong> {budgetPlan.cost.unpricedItems.map(item => item.replace(/\s\([a-z0-9-]+\):[\s\S]*$/, '')).join('; ')}.</p> : null}
         </> : null}
       </div>
@@ -127,7 +127,7 @@ function Estimate({ cost }: { cost: Cost }) {
   if (cost.status === 'quote_required' || !range) return <><strong className={styles.quote}>Quote needed</strong><p>{cost.status === 'quote_required' ? cost.reason : 'Price unavailable.'}</p></>;
   return <><strong>{formatCentsRange(range.lowCents, range.highCents)}</strong>
     <p>{formatCentsRange(cost.rateLowCents, cost.rateHighCents)} / {cost.unit}</p>
-    <p>× {cost.quantityLow === cost.quantityHigh ? cost.quantityLow : `${cost.quantityLow}–${cost.quantityHigh}`} {cost.unit}{cost.quantityHigh === 1 ? '' : 's'} <em>(assumed)</em></p>
+    <p>× {cost.quantityLow === cost.quantityHigh ? cost.quantityLow : `${cost.quantityLow}–${cost.quantityHigh}`} {cost.quantityHigh === 1 ? cost.unit : cost.unit === 'linear foot' ? 'linear feet' : `${cost.unit}s`} <em>(assumed)</em></p>
   </>;
 }
 
@@ -137,6 +137,7 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
   const estimates = items.flatMap(item => item.cost.status === 'estimated' ? [item.cost] : []);
   const sourceIds = new Set(estimates.flatMap(cost => cost.sourceIds));
   const exclusions = [...new Set(estimates.flatMap(cost => cost.exclusions))];
+  const suitability = [...new Map(treatments.map(t => [t.eligibilityNote, t])).values()];
   const deferred = survey.workAreas.filter(area => plan.deferredWorkAreaIds.includes(area.id));
   return <section className={styles.breakdown} aria-labelledby="selected-plan-heading" data-plan-id={plan.id}>
     <div className={styles.sectionHeading}><span aria-hidden="true">3</span><h3 id="selected-plan-heading">{plan.title} · selected for report</h3></div>
@@ -149,11 +150,10 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
     <Price survey={survey} plan={plan} />
     {treatments.length ? <table className={styles.breakdownTable}>
       <caption>Included work and its pricing basis</caption>
-      <thead><tr><th scope="col">Work &amp; suitability</th><th scope="col">Priced portion</th></tr></thead>
+      <thead><tr><th scope="col">Included work</th><th scope="col">Priced portion</th></tr></thead>
       <tbody>{treatments.map(t => <tr key={t.id} className={t.workAreaId === highlightAreaId ? styles.highlightRow : undefined}>
         <th scope="row"><strong>{labelForId(survey, t.workAreaId)}</strong><p>{t.label}</p>
-          <span className={styles.method}>{METHODS[t.method]} · durability {t.durability}/3</span>
-          <p className={styles.small}>{t.eligibilityNote}</p></th>
+          <span className={styles.method}>{METHODS[t.method]} · durability {t.durability}/3</span></th>
         <td><Estimate cost={t.cost} /></td>
       </tr>)}
       {survey.sharedCosts.map(item => <tr key={item.id} className={styles.sharedRow}>
@@ -174,6 +174,7 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
     <section className={styles.estimateGuide} aria-labelledby="estimate-guide-heading">
       <h4 id="estimate-guide-heading">How to read these estimates</h4>
       <p>Each priced row multiplies a published unit-rate range by an <strong>assumed quantity</strong>. These are planning references, not a current campus-job quote. Durability is a relative 0–3 catalog rating, not years of service.</p>
+      {suitability.length ? <><h4>Confirm treatment suitability</h4><ul>{suitability.map(t => <li key={t.eligibilityNote}><strong>{METHODS[t.method]}:</strong> {t.eligibilityNote}</li>)}</ul></> : null}
       {survey.sources.filter(source => sourceIds.has(source.id)).map(source => <div key={source.id} className={styles.source}>
         <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>
         <p><strong>Source date: {source.asOf}.</strong> {source.scopeNote}</p>
@@ -191,6 +192,9 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
         <ul>{plan.pendingChecks.map(check => <li key={check}>{check}</li>)}</ul>
       </details> : null}
     </section>
-    <a className={styles.exportLink} href="#survey-export-heading">Continue to Export report <span aria-hidden="true">→</span></a>
+    <a className={styles.exportLink} href="#survey-export-heading" onClick={() => {
+      // Tab clicks preserve the URL. Re-open Export even when its hash is already current.
+      if (window.location.hash === '#survey-export-heading') window.dispatchEvent(new HashChangeEvent('hashchange'));
+    }}>Continue to Export report <span aria-hidden="true">→</span></a>
   </section>;
 }
