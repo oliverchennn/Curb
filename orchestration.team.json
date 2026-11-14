@@ -41,12 +41,12 @@
       "focus": "bootstrap, API, transport, integration",
       "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
       "task": "REPLAY-CORRECTION/1",
-      "checkout": "Await correction ACK after safe boundary-prep stop/deferral",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-replay-correction-local\\Curb",
       "branch": "codex/replay-correction",
       "baseSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876629908",
       "resultSha": null,
-      "currentAvailability": "Assigned; await exact correction ACK after prior task stop/deferral",
+      "currentAvailability": "Running REPLAY-CORRECTION/1; sole existing A lead, no child; boundary prep unclaimed/deferred",
       "previousResult": {
         "task": "REPLAY-UI-REVIEW/1 accepted/stopped/released; replay corrections required",
         "resultSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
@@ -63,7 +63,7 @@
         "public/survey-replay/styles.css"
       ],
       "verificationScope": [],
-      "ackUrl": null
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876827578"
     },
     {
       "lane": "B",
@@ -72,7 +72,7 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "Running Princeton field preparation; sole documentation writer, no children",
+      "availability": "Assigned ready static field-reference map; actual task ACK required",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -88,25 +88,25 @@
         "resultSha": "a0837c0edbfe973d0fb658b187984e53cde80ed2"
       },
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "checkout": "/workspace/curb-princeton-field-prep",
-      "branch": "codex/princeton-field-prep",
-      "task": "PRINCETON-FIELD-PREP/1",
+      "checkout": "Await scout-map ACK",
+      "branch": "codex/princeton-scout-map",
+      "task": "PRINCETON-SCOUT-MAP/1",
       "writeScope": [
-        "docs/research/PRINCETON_CORRIDOR.md",
-        "docs/research/PRINCETON_FIELD_CHECKLIST.csv",
-        "docs/research/PRINCETON_SOURCE_AUDIT.json"
+        "docs/research/PRINCETON_SCOUT_MAP.svg",
+        "docs/research/PRINCETON_SCOUT_MAP.png",
+        "docs/research/PRINCETON_SCOUT_MAP.md"
       ],
       "readinessBase": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612",
       "instructions": "docs/message-board/DEV_B_CONTINUATION.md",
-      "baseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
+      "baseSha": "2d56e6a0a2ca4e70fd2977009d572e983182fb4c",
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876823930",
       "resultSha": null,
       "previousResult": {
-        "task": "REPLAY-DOMAIN-REVIEW/1 accepted/stopped/released; replay corrections required",
-        "resultSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
-        "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876565135"
+        "task": "R2-DEMO-BRIEF/1 reviewed/stopped/released",
+        "resultSha": "93d5e2509febd63fd718b92ad04909d0d99a8f2d",
+        "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876791620"
       },
-      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876575682",
+      "ackUrl": null,
       "verificationScope": []
     },
     {
@@ -148,7 +148,7 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6876629908"
+    "lastReadCommentId": "6876827578"
   },
   "currentSlice": "R2 core verified; Landau UI assignment awaits return/ACK; final UI/browser gate pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -293,7 +293,7 @@
     "authority": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876402752",
     "startGate": "Published exact-base READY assignment; prior task and descendants stopped/released; read live board then new exact-scope ACK",
     "readyPreparation": [
-      "R2-DEMO-BRIEF/1 (actual B, after FIELD-PREP)",
+      "PRINCETON-SCOUT-MAP/1 (actual B), separate base 2d56e6a0a2ca4e70fd2977009d572e983182fb4c",
       "R3-BOUNDARY-PREP/1 (existing A)",
       "R3-EVIDENCE-UX-PREP/1 (Landau, after R2-C)",
       "REPLAY-REUSE-PREP/1 (existing replay writer, after replay)"
@@ -307,8 +307,8 @@
     "readyAssignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876473105",
     "preparationBaseSha": "c952d7de0328bb31ba5f677b9800684b2c6366b8",
     "activePriorities": [
-      "REPLAY-CORRECTION/1 (A), exact ACK/previous-task stop required",
-      "PRINCETON-FIELD-PREP/1 (B) Running; R2-DEMO-BRIEF is ready fallback"
+      "REPLAY-CORRECTION/1 (A) Running under ACK 6876827578; eight literal paths",
+      "PRINCETON-SCOUT-MAP/1 (B), exact ACK required; assigned three documentation artifacts"
     ]
   }
 }

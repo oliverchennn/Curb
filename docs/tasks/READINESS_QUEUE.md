@@ -55,3 +55,11 @@ Prepare a compact evidence-panel/flow proposal using current components and B's 
 Branch: `codex/replay-reuse-prep`. Exclusive path: `docs/planning/SURVEY_REPLAY_REUSE.md`.
 
 Describe the actual published replay result by full SHA, including annotation/media/pin data shape, sources and limitations. Identify useful reusable parts, duplicate or demo-only logic, fit with the existing R1/R2 graph/evidence contracts, and the smallest optional future integration seam. Distinguish observed checks from proposed work and identify the code that should remain isolated or be discarded. No shared-source edit, additional feature, provider or dependency. This supplies a concrete handoff for A's independent integration review.
+
+## PRINCETON-SCOUT-MAP / 1 — actual Oliver B
+
+[Exact READY assignment](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876823930). Base `2d56e6a0a2ca4e70fd2977009d572e983182fb4c`, branch `codex/princeton-scout-map`, after both original B preparation tasks published and stopped. This new base includes the reviewed field packet and complete endpoint references; it does not alter other queued bases.
+
+Exclusive files: `docs/research/PRINCETON_SCOUT_MAP.svg`, `docs/research/PRINCETON_SCOUT_MAP.png` (optional), and `docs/research/PRINCETON_SCOUT_MAP.md`. All existing source/audit/checklist/application files read-only. Produce a static, legible geographic reference for the existing 18-stop packet, with the four archived crossings, six paths, eight crossing-end ramps, outer endpoint identities and known-coordinate checklist anchors. Use a corner inset/grouped labels where needed. List unknown entrance/campus targets as unlocated; do not invent their pins, draw continuity through unverified gaps or claim navigation/current passability.
+
+Include orientation, source/snapshot/hash reference, DVRPC credit, primary/alternate distinction and current-condition-unknown wording. Preserve geometry/proportions and explain projection/rounding. Use existing rendering tools without repository dependencies or new services. Inspect the rendered artifact, verify IDs/coordinates/stop references and legibility, publish scoped files with remote equality, and deliver RESULT/STOP. No application tests or field observations. A newly published correction/UI review needs its own exact assignment before taking priority.
