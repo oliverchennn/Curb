@@ -13,7 +13,9 @@
     "start": "next start --hostname 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm test && npm run build"
+    "check": "npm run typecheck && npm test && npm run build",
+    "test:replay": "node --test demo/survey-replay/*.test.mjs",
+    "verify:media": "node --import tsx scripts/curb/verify_assets.ts"
   },
   "dependencies": {
     "next": "16.4.1",
