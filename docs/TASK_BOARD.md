@@ -1,8 +1,8 @@
 # Task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Cloud implementation cursor: `6873769585`. Prior local writers are stopped. R1-CONTRACT is accepted; cloud A/B/C have ACKed their exclusive implementation scopes.
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Cloud verification cursor: `6873942498`. All prior local and R1 cloud coding writers are stopped/released. No application scope is currently assigned.
 
-**Foundation F0 → F1A/F1B/F1C → F2 is verified. Oliver has selected R1 in the cloud takeover session.** Browser/full-check application SHA: `fc12e86c85394ab8126db1be485aaf0e7845c087`. Final main publication SHA is recorded on the board after this documentation checkpoint. [Acceptance evidence](ACCEPTANCE.md).
+**Foundation F0 → F1A/F1B/F1C → F2 and R1 are verified.** R1 browser/full-check application SHA: `03d89572c207b88bc02d80c6f3a745aad1895391`. Final main publication SHA is recorded on the board after this documentation checkpoint. [Acceptance evidence](ACCEPTANCE.md).
 
 | ID | Owner | Result SHA | State / evidence |
 |---|---|---|---|
@@ -24,7 +24,11 @@ All coordinator-created workers/children use GPT-6.1 Sol / extra-high. Landau re
 
 | Task | Owner / checkout | State |
 |---|---|---|
-| CLOUD-TAKEOVER | Coordinator | Baseline audit complete; documentation in progress |
+| CLOUD-TAKEOVER | Coordinator | Complete: repo, all prior PRs, board, source/research provenance and baseline checks audited |
 | R1-CONTRACT | `/root/r1_a` | Accepted, 23 tests/typecheck; `c271c4fee62b3f05e7909df450a66f263db213ea` |
-| R1-A / R1-B / R1-C | `/root/r1_a`, `/root/r1_b`, `/root/r1_c` | Running from common `d561c30f10b6e3f34300093cea343346a87b9678`; [exact assignments](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873769585) |
-| R1-VERIFY | Separate verification task after stopped lane results | Waiting for integration |
+| R1-B | `/root/r1_b`, `/workspace/curb-b-r1` | Accepted/stopped; `c1349e3e6fb9a45026849b45e76ff366585bb98c`; 64 domain/data tests; remote equality 07:30:22 UTC |
+| R1-A | `/root/r1_a`, `/workspace/curb-a-r1` | Accepted/stopped; `3c1f3576ca7d7de0543ffb4412e400dbf0bb4f9e`; 118 API/transport tests; remote equality 07:32:55 UTC |
+| R1-C | `/root/r1_c`, `/workspace/curb-c-r1` | Accepted/stopped; `6f5a61309f11a28ca45cad054bdd99f4c6cdc3f8`; combined typecheck/258 tests; remote equality 07:33:51 UTC |
+| R1-VERIFY | Coordinator, `/workspace/curb` | Accepted; B → A → C integration `03d89572c207b88bc02d80c6f3a745aad1895391`; full check, 160 API comparisons, browser and foundation regression passed; [result](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873942498) |
+
+Common implementation base was `d561c30f10b6e3f34300093cea343346a87b9678`; [exact assignments](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873769585). A's transport child and B's fixture child stopped before their leads' Git operations; C had no child. Final publication follows the standing merge delegation. This completes only R1; no autonomous background worker, deployment or later feature iteration is scheduled.

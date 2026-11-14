@@ -17,7 +17,7 @@
     "instructions": "docs/message-board/OLIVER_HANDOFF.md",
     "localHeartbeat": "PAUSED",
     "successorAccess": "oliverchennn authenticated; WRITE independently verified during cloud takeover 2026-11-14",
-    "resumeGate": "Oliver accepted takeover and explicitly selected R1 in the current cloud session. Only R1 is resumed; other slices remain unassigned."
+    "resumeGate": "Oliver accepted cloud takeover and selected R1, now verified complete. All R1 writers stopped/released; another product slice needs new user direction."
   },
   "developers": [
     {
@@ -79,9 +79,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6873769585"
+    "lastReadCommentId": "6873942498"
   },
-  "currentSlice": "R1-implementation",
+  "currentSlice": "R1-complete",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -136,10 +136,32 @@
       "B": "/root/r1_b; pure domain/data; /workspace/curb-b-r1; codex/r1-domain",
       "C": "/root/r1_c; trip UI; /workspace/curb-c-r1; codex/r1-ui"
     },
-    "activeApplicationScope": [
-      "A: six new trip API/server/client/test files in board assignment",
-      "B: trips domain/test and trip-demo data/test files",
-      "C: app/curb/trips/page.tsx, app/curb/page.tsx link, src/features/curb/trips/"
-    ]
-  }
+    "activeApplicationScope": [],
+    "workerState": "All leads and children stopped/released after reviewed R1 results; no background worker scheduled.",
+    "results": {
+      "B": {
+        "sha": "c1349e3e6fb9a45026849b45e76ff366585bb98c",
+        "remoteVerifiedUtc": "2026-11-14T07:30:22Z",
+        "stopped": true
+      },
+      "A": {
+        "sha": "3c1f3576ca7d7de0543ffb4412e400dbf0bb4f9e",
+        "remoteVerifiedUtc": "2026-11-14T07:32:55Z",
+        "stopped": true
+      },
+      "C": {
+        "sha": "6f5a61309f11a28ca45cad054bdd99f4c6cdc3f8",
+        "remoteVerifiedUtc": "2026-11-14T07:33:51Z",
+        "stopped": true
+      },
+      "verification": {
+        "sha": "03d89572c207b88bc02d80c6f3a745aad1895391",
+        "unitTests": 258,
+        "independentApiComparisons": 160,
+        "browserGroups": 15,
+        "acceptance": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6873942498"
+      }
+    }
+  },
+  "verifiedR1Sha": "03d89572c207b88bc02d80c6f3a745aad1895391"
 }
