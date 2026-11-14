@@ -6,10 +6,10 @@ Maintain a current task, one independently ready fallback, and the next dependen
 
 | Lead | Current / immediate work | Ready fallback | Dependency-gated priority |
 |---|---|---|---|
-| Existing A, Sol/xhigh | REPLAY-UI-REVIEW/1 on the published replay candidate | R3-BOUNDARY-PREP/1 evidence boundary decision packet | R2 final integration/browser verification after reviewed C release |
-| Actual Oliver B | REPLAY-DOMAIN-REVIEW/1 on the published replay candidate | PRINCETON-FIELD-PREP/1, then R2-DEMO-BRIEF/1 | Review C's domain-facing presentation when a published candidate exists |
+| Existing A, Sol/xhigh | REPLAY-CORRECTION/1 assigned after accepted reviews; prior prep stop/deferral and new ACK required | R3-BOUNDARY-PREP/1 evidence boundary decision packet | R2 final integration/browser verification after reviewed C release |
+| Actual Oliver B | PRINCETON-FIELD-PREP/1 after accepted/stopped replay domain review | R2-DEMO-BRIEF/1 | Review C's domain-facing presentation when a published candidate exists |
 | Landau C | R2-C/1 UI assignment, owner ACK pending | R3-EVIDENCE-UX-PREP/1 after R2-C STOP/RELEASE | Correct evidenced UI defects and rehearse the reviewed integrated demo |
-| Existing survey replay writer | SURVEY-REPLAY/1; identity/files ACK received, model confirmation pending | REPLAY-REUSE-PREP/1 after replay STOP/RELEASE | Correct reviewed replay defects; no shared-engine edit without a new assignment |
+| Existing survey replay writer | SURVEY-REPLAY/1 stopped/released; candidate under review, exact model unverified | REPLAY-REUSE-PREP/1 ready after its published release and new ACK | Correct reviewed replay defects after exact assignment and model confirmation |
 
 The two read-only reviews and five independent preparation items are defined in [READINESS_QUEUE](tasks/READINESS_QUEUE.md). Their exact bases and branch assignments are published on the board. They are review/documentation/readiness tasks, not permission to implement R3 or change the current R2 path. All developer documentation paths are explicitly transferred for those tasks; coordinator does not write them concurrently.
 
@@ -22,3 +22,5 @@ The two read-only reviews and five independent preparation items are defined in 
 5. Coordinator reviews results, promotes blocked items when their exact sources exist, and replenishes the ready fallback at each meaningful checkpoint. The checker acts on new information without posting empty progress messages.
 
 Cross-lane assistance uses disjoint new paths or an explicit stop/release/reassignment/ACK transfer. It never takes files from an active writer based on speed, silence or an ETA. No new local B/C agent is created; local implementation agents remain A only. No autonomous runtime or extra recurring automation is installed.
+
+B completed and released the domain review in [6876565135](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876565135), with four independently reproduced replay boundary defects. Its [field-prep ACK 6876575682](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876575682) advances the existing queue at the pinned preparation base. A also completed and released the browser/server review in [6876599465](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876599465). Both reviews are accepted as evidence; the candidate needs corrections. [REPLAY-CORRECTION/1](tasks/REPLAY_CORRECTION.md) assigns eight literal files to existing A, after safely stopping/deferring boundary prep and a new exact ACK. No replay or R2-C integration is implied.
