@@ -2,6 +2,8 @@
 
 Accessibility repair planning for campus facilities: connect barrier evidence to the trips a repair could restore.
 
+**Continuing the project:** [Vincent's orchestrator handoff](docs/message-board/VINCENT_HANDOFF.md) · [Dev B continuation](docs/message-board/DEV_B_CONTINUATION.md) · [saved R1 verification evidence](docs/message-board/r1-evidence/README.md).
+
 R1 is verified: choose a trip and compare one hypothetical repair at `/curb/trips`. The real local API returns directed shortest routes or distinct blocked, unknown and disconnected explanations. The original `/curb` barrier review, schematic and linked evidence remain available.
 
 ## Run locally
@@ -18,7 +20,7 @@ Open `http://127.0.0.1:3000/curb` and follow **Plan a trip and compare one repai
 
 `check` runs TypeScript, Vitest and the production Next.js build. Verified application commit: `03d89572c207b88bc02d80c6f3a745aad1895391` (258 tests, build, 160 independent API comparisons and production-browser checks). See the [frozen contracts](docs/CONTRACTS.md), [acceptance evidence](docs/ACCEPTANCE.md), [R1 card](docs/tasks/R1.md) and [takeover audit](docs/message-board/CLOUD_TAKEOVER.md). These are explicitly synthetic planning examples, not a deployment, field survey, navigation tool or compliance determination.
 
-Live team board: [Curb coordination](https://github.com/vzhu08/Curb/issues/1). Oliver (`oliverchennn`, verified write access) accepted cloud orchestration while the prior local agents are paused. R1 coding leads and children have stopped and released their scopes after verification. The board records final publication and any later assignments. R2–R5 and sponsor work remain unassigned.
+Live team board: [Curb coordination](https://github.com/vzhu08/Curb/issues/1). Vincent (`vzhu08`) is designated to resume orchestration; Oliver's cloud conversation continues as Dev B, ready for Vincent's next exact assignment. Vincent's resumed session/ACK is pending. All previous R1 coding leads and children stopped/released. The board records publication, acceptance and later assignments. R2–R5 and sponsor work remain unassigned.
 
 ## Start the team
 
@@ -27,7 +29,7 @@ Live team board: [Curb coordination](https://github.com/vzhu08/Curb/issues/1). O
 - **Oliver, domain/evidence:** [START_DEV_B.txt](START_DEV_B.txt).
 - **Landau, UI/demo:** [START_DEV_C.txt](START_DEV_C.txt).
 
-These are historical kickoff prompts. Read the current task board before using them; do not restart F0 or reopen released scopes without an assignment. The workflow uses one coordinator, scoped coding leads and one GitHub issue; it does not start the kit's custom worker runner.
+These are current resume prompts. Read the handoff and live board first; do not restart F0 or reopen released scopes without an assignment. The workflow uses one coordinator, scoped coding leads and one GitHub issue; it does not start the kit's custom worker runner or wake paused chats automatically.
 
 Read the [orchestration guide](docs/ORCHESTRATION.md), [task board](docs/TASK_BOARD.md), [ownership](docs/OWNERSHIP.md), and [adapted implementation plan](docs/IMPLEMENTATION_PLAN.md). The [docs index](docs/README.md) lists the full package.
 

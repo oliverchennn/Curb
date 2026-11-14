@@ -1,5 +1,7 @@
 # Curb working documents
 
+Resume with [Vincent's orchestrator handoff](message-board/VINCENT_HANDOFF.md) and [Dev B continuation](message-board/DEV_B_CONTINUATION.md). [Saved R1 evidence](message-board/r1-evidence/README.md) is portable with the repository. Older kickoff/handoff documents remain historical records.
+
 | Document | Purpose |
 |---|---|
 | [Implementation plan](IMPLEMENTATION_PLAN.md) | Adapted product scope, foundation, roadmap, deadline and sponsor gates |

@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "repository": "vzhu08/Curb",
+  "testedApplicationSha": "03d89572c207b88bc02d80c6f3a745aad1895391",
+  "publishedR1MainSha": "db6ceb603e06ecf9ee8319ad0b2aa76eff840df2",
+  "executionWindow": "2026-11-14 approximately 02:35-02:38 America/New_York (EST); source logs retain original UTC timestamps",
+  "packagedAt": "2026-11-14T04:59:48.418198-05:00",
+  "provenance": "Exact byte copies from the completed cloud verification; no new application test execution during packaging.",
+  "results": {
+    "npmRunCheck": "passed",
+    "testCount": 258,
+    "testFiles": 9,
+    "apiComparisons": 160,
+    "browserGroups": 15,
+    "foundationRegression": "passed"
+  },
+  "originalHarnessEnvironment": {
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "browser": "Chromium 156.0.8078.79",
+    "browserExecutable": "/usr/bin/chromium",
+    "baseUrl": "http://127.0.0.1:3000",
+    "pythonPackage": "playwright"
+  },
+  "files": [
+    {
+      "path": "api-oracle.json",
+      "sourceAtExecution": "/workspace/scratch/curb-r1-verification/api-oracle.json",
+      "bytes": 26953,
+      "sha256": "52e1b82da4f4ffda98494228d0a2cac60376f348b2fab9cd2a132ed9cd82f7b7"
+    },
+    {
+      "path": "browser-evidence.json",
+      "sourceAtExecution": "/workspace/scratch/curb-r1-verification/browser-evidence.json",
+      "bytes": 1482,
+      "sha256": "58fcbbf6e2c2cb68813b4b706d2f1ccb7f1507c4e9e73710800f82148f321f6f"
+    },
+    {
+      "path": "foundation-evidence.json",
+      "sourceAtExecution": "/workspace/scratch/curb-r1-verification/foundation-evidence.json",
+      "bytes": 155,
+      "sha256": "1cb10bed31afcd94645c17984bb3cc52ce51ed99f0ea1005beb3abfc079739cb"
+    },
+    {
+      "path": "trip-desktop.png",
+      "sourceAtExecution": "/workspace/scratch/curb-r1-verification/trip-desktop.png",
+      "bytes": 310465,
+      "sha256": "e2ad0c31d4eec25b10b52d7f587b52309bd0bc03155719675bb33eca0764e9bc"
+    },
+    {
+      "path": "trip-mobile.png",
+      "sourceAtExecution": "/workspace/scratch/curb-r1-verification/trip-mobile.png",
+      "bytes": 274926,
+      "sha256": "969f6cc1a7e7e5392fd506a6261d8eef96bc7993052688b8d5997a45c482d1ac"
+    },
+    {
+      "path": "foundation-mobile.png",
+      "sourceAtExecution": "/workspace/scratch/curb-r1-verification/foundation-mobile.png",
+      "bytes": 118692,
+      "sha256": "74d4a3a2553a052a73c25ea9ddd64ccb9362d4ba1d5e0ec99e7e3aced00c9231"
+    },
+    {
+      "path": "curb-r1-check.log",
+      "sourceAtExecution": "/tmp/curb-r1-check.log",
+      "bytes": 1277,
+      "sha256": "d8ba716a26fd2e2c9637f17b5c242192ba0e62bae337745de0ac2ef43f70f567"
+    },
+    {
+      "path": "curb-r1-api-check.log",
+      "sourceAtExecution": "/tmp/curb-r1-api-check.log",
+      "bytes": 146,
+      "sha256": "9568547fc331b4aa04d5e348f840388de6370361fae4ae00a79a7b0b2f8bef74"
+    },
+    {
+      "path": "curb-r1-browser-check.log",
+      "sourceAtExecution": "/tmp/curb-r1-browser-check.log",
+      "bytes": 97,
+      "sha256": "2127bfe63b3d2e8309c49ceed8872c5a0ef4e7b67105cb16ee0702337f542eb5"
+    },
+    {
+      "path": "curb-r1-foundation-check.log",
+      "sourceAtExecution": "/tmp/curb-r1-foundation-check.log",
+      "bytes": 115,
+      "sha256": "6c73cb2026eaaf9a37c3ae7ddcee240149d983a99cf9d58f2a6b6ac9d3b9c835"
+    },
+    {
+      "path": "harnesses/verify-curb-trips.py",
+      "sourceAtExecution": "/workspace/scratch/verify-curb-trips.py",
+      "bytes": 6472,
+      "sha256": "36f1e58dc3d1e1ad3a5fe6e62850f4ccdd3fe3da864517190127709dad1ab637"
+    },
+    {
+      "path": "harnesses/verify-curb-trip-browser.py",
+      "sourceAtExecution": "/workspace/scratch/verify-curb-trip-browser.py",
+      "bytes": 13785,
+      "sha256": "9d569510b9400c031969960e95d531bca32c9aba8934fd63693f553b4bf489e7"
+    },
+    {
+      "path": "harnesses/verify-curb-foundation.py",
+      "sourceAtExecution": "/workspace/scratch/verify-curb-foundation.py",
+      "bytes": 3785,
+      "sha256": "7ee9879f26b0a28f9e97afcf88497b8047bf0dda9111ce9f8e6a03fb47604923"
+    }
+  ]
+}

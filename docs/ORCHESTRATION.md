@@ -1,5 +1,9 @@
 # Curb orchestration
 
+## Current return handoff
+
+The user designated Vincent (`vzhu08`) to resume as orchestrator after cloud R1 completion; Oliver's cloud session `6af808fa-83dc-8191-bd58-80697dbe50c9` continues as Dev B ready/unassigned. Vincent's resumed session/ACK is pending. [Resume packet](message-board/VINCENT_HANDOFF.md) and [Dev B brief](message-board/DEV_B_CONTINUATION.md) supersede the historical kickoff sequence below. The outgoing cloud coordinator owns only final handoff publication, then releases coordination. All previous coding leads/children stopped; no application scope is reserved. Read the final board handoff and ACK with actual identity/session/base before dispatch. Existing write access for Oliver and Landau was verified; the kickoff invitation-pending text below is historical. No paused laptop agents or background watchers are automatically restarted.
+
 ## Team and selected mode
 
 Three humans: Vincent (`vzhu08`, Dev A), Oliver (Dev B/domain and evidence), Landau (Dev C/UI and demo). Confirm B/C GitHub logins from their accepted repository access at kickoff. Do not use toolkit authorship as identity proof.
