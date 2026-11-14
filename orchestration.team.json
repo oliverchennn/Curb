@@ -14,7 +14,12 @@
       "agent": "agent-a",
       "name": "Vincent",
       "github": "vzhu08",
-      "focus": "bootstrap, API, transport, integration"
+      "focus": "bootstrap, API, transport, integration",
+      "session": "01a1d85a-6afa-7a03-a025-d095dfbb6e1b",
+      "task": "F0/1 stage-only revision 1",
+      "checkout": "C:\\Users\\vzhu0\\.codex\\worktrees\\curb-f0-bootstrap\\Curb",
+      "branch": "codex/f0-bootstrap",
+      "baseSha": "aed56a3935408ed139a13e56fe42a589368e1e19"
     },
     {
       "lane": "B",
@@ -30,7 +35,7 @@
         "github": "vzhu08",
         "session": "01a1d853-781e-7ce1-9082-ac04a68d3782",
         "hostId": "local",
-        "state": "readiness-only-awaiting-F0",
+        "state": "readiness-complete-awaiting-F0",
         "writeScope": []
       }
     },
@@ -41,7 +46,10 @@
       "github": "landautzou",
       "focus": "UI, accessibility, demo",
       "access": "accepted-write",
-      "readiness": "session-acknowledgement-pending"
+      "readiness": "read-only-acknowledged-awaiting-F0",
+      "session": "Claude Code 06a135c3-65bb-4de0-b273-9d48ab953221",
+      "checkout": "C:\\Users\\Landau\\Desktop\\CS_PROJECTS\\Curb",
+      "modelException": "Vincent permits existing Claude Code session"
     }
   ],
   "board": {
@@ -49,7 +57,7 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6871779642"
+    "lastReadCommentId": "6871913196"
   },
   "currentSlice": "foundation",
   "verifiedFoundationSha": null,
@@ -77,6 +85,7 @@
     "model": "gpt-6.1-sol",
     "reasoningEffort": "xhigh",
     "appliesTo": "all worker chats and coding children",
-    "astra": "coordinator only"
+    "astra": "coordinator only",
+    "exception": "Landau may continue independently started Claude Code session"
   }
 }

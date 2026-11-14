@@ -18,6 +18,8 @@ Preparation date: 2026-11-13, America/New_York. These are setup decisions, not e
 | D12 | Keep generated-file adoption gated on a literal inventory | Only A may run bootstrap; output does not exist at kickoff, so exact generated paths cannot honestly be asserted yet | Coordinator accepts the lead's inventory addendum before copying |
 | D13 | Routine scoped commits/pushes to assigned `codex/*` branches authorized and expected | Vincent instructed the setup chat to keep origin consistently updated and notify active agents; actual user messages verified; [board policy](https://github.com/vzhu08/Curb/issues/1#issuecomment-6871779642) | Vincent changes authority; main integration/PR/release gates remain |
 | D14 | All new/started worker chats and coding children use GPT-6.1 Sol / extra-high (`gpt-6.1-sol`, `xhigh`); Astra only for coordinator | Vincent's explicit instruction in kickoff; temporary B receives a model override and A is created with it | Vincent changes model preference |
+| D15 | Landau may continue his independently started Claude Code session | Vincent explicitly answered "Landau can continue in Claude Code"; C readiness ACK 6871867809; A/B model settings unchanged | Vincent changes the exception |
+| D16 | Publish reviewed docs-only checkpoint `5d05de8e2ae88fc2c22c51e9c562af3e0346113b` to main | Vincent explicitly approved this candidate; it preserves Landau's username commits; actual main push and remote SHA verification succeeded | New main integration requires recorded authority; this is not application approval |
 
 Open facts:
 

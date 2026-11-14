@@ -8,10 +8,10 @@ Shared setup SHA: `eee48e553de92072b4cb53148f9fd12c957514f0`, pushed to `main`. 
 
 | ID | Visible result | Human / agent | State | Dependency and base gate | Card |
 |---|---|---|---|---|---|
-| F0 | Reproducible web+maps skeleton, v0 schemas, golden fixtures, compiling seams | Vincent / separate `agent-a` | Ready; creation/start authorized, awaiting lead ACK | Board active; exact docs base and isolated checkout; inventory approval before adoption | [F0](tasks/F0.md) |
+| F0 | Reproducible web+maps skeleton, v0 schemas, golden fixtures, compiling seams | Vincent / separate `agent-a` | Running; ACK 6871868844; stage-only revision 1 | Base `aed56a3935408ed139a13e56fe42a589368e1e19`; isolated checkout; inventory approval before adoption | [F0](tasks/F0.md) |
 | F1A | Validated real API and browser transport | Vincent / `agent-a` | Blocked | F0 verified; exact common F0 SHA + frozen `curb-v0` | [F1A](tasks/F1A.md) |
 | F1B | Correct relationships, counts, evidence lookup and fixtures | Vincent / `agent-b-temp`, covering unavailable Oliver | Blocked; B-READY is read-only | F0 verified; same F0 SHA + frozen `curb-v0`; explicit scope ACK | [F1B](tasks/F1B.md) |
-| F1C | Usable map/list/evidence screen and all load states | Landau (`landautzou`) / `agent-c` | Blocked | Accepted write access verified; session ACK pending; F0 verified + frozen `curb-v0` | [F1C](tasks/F1C.md) |
+| F1C | Usable map/list/evidence screen and all load states | Landau (`landautzou`) / `agent-c` | Blocked; C-READY acknowledged; Claude exception approved | F0 verified + frozen `curb-v0`; explicit assignment and ACK | [F1C](tasks/F1C.md) |
 | F2 | Integrated foundation with repeatable browser walkthrough | Vincent / separate A integration agent | Blocked | F1B, F1A, F1C reviewed; stopped writers; actual integration candidate SHA | [F2](tasks/F2.md) |
 
 States follow the kit: Planned → Ready → Running → Review → Queued → Merged → Verified; Blocked records a precise dependency. Queued means reviewed and ready for the recorded integration action. No state implies push, merge, deployment or successful checks. Rejected/stopped attempts remain in the message history and get a new attempt ID.
