@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "id": "synthetic-campus-quad",
+  "revision": 1,
+  "title": "Synthetic campus quad",
+  "dataKind": "synthetic",
+  "nodes": [
+    {
+      "id": "northwest-corner",
+      "coordinate": [
+        -74.6546,
+        40.349
+      ],
+      "label": "Northwest corner"
+    },
+    {
+      "id": "library-entrance",
+      "coordinate": [
+        -74.6542,
+        40.349
+      ],
+      "label": "Library entrance"
+    },
+    {
+      "id": "northeast-corner",
+      "coordinate": [
+        -74.6538,
+        40.349
+      ],
+      "label": "Northeast corner"
+    },
+    {
+      "id": "west-walk",
+      "coordinate": [
+        -74.6546,
+        40.3487
+      ],
+      "label": "West walk"
+    },
+    {
+      "id": "quad-center",
+      "coordinate": [
+        -74.6542,
+        40.3487
+      ],
+      "label": "Quad center"
+    },
+    {
+      "id": "student-center-entrance",
+      "coordinate": [
+        -74.6538,
+        40.3487
+      ],
+      "label": "Student center entrance"
+    },
+    {
+      "id": "southwest-corner",
+      "coordinate": [
+        -74.6546,
+        40.3484
+      ],
+      "label": "Southwest corner"
+    },
+    {
+      "id": "science-hall-entrance",
+      "coordinate": [
+        -74.6542,
+        40.3484
+      ],
+      "label": "Science hall entrance"
+    },
+    {
+      "id": "southeast-corner",
+      "coordinate": [
+        -74.6538,
+        40.3484
+      ],
+      "label": "Southeast corner"
+    }
+  ],
+  "edges": [
+    {
+      "id": "northwest-to-library",
+      "fromNodeId": "northwest-corner",
+      "toNodeId": "library-entrance",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6546,
+            40.349
+          ],
+          [
+            -74.6542,
+            40.349
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": [
+        "library-curb"
+      ]
+    },
+    {
+      "id": "library-to-northeast",
+      "fromNodeId": "library-entrance",
+      "toNodeId": "northeast-corner",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6542,
+            40.349
+          ],
+          [
+            -74.6538,
+            40.349
+          ]
+        ]
+      },
+      "lengthMeters": 34,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "west-to-center",
+      "fromNodeId": "west-walk",
+      "toNodeId": "quad-center",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6546,
+            40.3487
+          ],
+          [
+            -74.6542,
+            40.3487
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": [
+        "quad-obstruction"
+      ]
+    },
+    {
+      "id": "center-to-student-center",
+      "fromNodeId": "quad-center",
+      "toNodeId": "student-center-entrance",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6542,
+            40.3487
+          ],
+          [
+            -74.6538,
+            40.3487
+          ]
+        ]
+      },
+      "lengthMeters": 36,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "southwest-to-science",
+      "fromNodeId": "southwest-corner",
+      "toNodeId": "science-hall-entrance",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6546,
+            40.3484
+          ],
+          [
+            -74.6542,
+            40.3484
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "science-to-southeast",
+      "fromNodeId": "science-hall-entrance",
+      "toNodeId": "southeast-corner",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6542,
+            40.3484
+          ],
+          [
+            -74.6538,
+            40.3484
+          ]
+        ]
+      },
+      "lengthMeters": 34,
+      "bidirectional": true,
+      "barrierIds": [
+        "science-surface"
+      ]
+    },
+    {
+      "id": "northwest-to-west",
+      "fromNodeId": "northwest-corner",
+      "toNodeId": "west-walk",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6546,
+            40.349
+          ],
+          [
+            -74.6546,
+            40.3487
+          ]
+        ]
+      },
+      "lengthMeters": 34,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "west-to-southwest",
+      "fromNodeId": "west-walk",
+      "toNodeId": "southwest-corner",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6546,
+            40.3487
+          ],
+          [
+            -74.6546,
+            40.3484
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "library-to-center",
+      "fromNodeId": "library-entrance",
+      "toNodeId": "quad-center",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6542,
+            40.349
+          ],
+          [
+            -74.6542,
+            40.3487
+          ]
+        ]
+      },
+      "lengthMeters": 33,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "center-to-science",
+      "fromNodeId": "quad-center",
+      "toNodeId": "science-hall-entrance",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6542,
+            40.3487
+          ],
+          [
+            -74.6542,
+            40.3484
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "northeast-to-student-center",
+      "fromNodeId": "northeast-corner",
+      "toNodeId": "student-center-entrance",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6538,
+            40.349
+          ],
+          [
+            -74.6538,
+            40.3487
+          ]
+        ]
+      },
+      "lengthMeters": 35,
+      "bidirectional": true,
+      "barrierIds": []
+    },
+    {
+      "id": "student-center-to-southeast",
+      "fromNodeId": "student-center-entrance",
+      "toNodeId": "southeast-corner",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -74.6538,
+            40.3487
+          ],
+          [
+            -74.6538,
+            40.3484
+          ]
+        ]
+      },
+      "lengthMeters": 34,
+      "bidirectional": true,
+      "barrierIds": [
+        "east-walk-unknown"
+      ]
+    }
+  ],
+  "destinations": [
+    {
+      "id": "library",
+      "label": "Library",
+      "nodeId": "library-entrance"
+    },
+    {
+      "id": "student-center",
+      "label": "Student center",
+      "nodeId": "student-center-entrance"
+    },
+    {
+      "id": "science-hall",
+      "label": "Science hall",
+      "nodeId": "science-hall-entrance"
+    }
+  ],
+  "barriers": [
+    {
+      "id": "library-curb",
+      "edgeId": "northwest-to-library",
+      "kind": "missing_ramp",
+      "reviewStatus": "pending",
+      "evidenceIds": [
+        "library-curb-note"
+      ],
+      "note": "The illustration shows a raised curb at the library crossing."
+    },
+    {
+      "id": "quad-obstruction",
+      "edgeId": "west-to-center",
+      "kind": "obstruction",
+      "reviewStatus": "accepted",
+      "evidenceIds": [
+        "quad-obstruction-note",
+        "quad-obstruction-review"
+      ],
+      "note": "The synthetic review retains a report of an obstruction on the west approach."
+    },
+    {
+      "id": "science-surface",
+      "edgeId": "science-to-southeast",
+      "kind": "surface_issue",
+      "reviewStatus": "pending",
+      "evidenceIds": [
+        "science-surface-note"
+      ],
+      "note": "The scenario places an uneven joint near the science hall entrance."
+    },
+    {
+      "id": "east-walk-unknown",
+      "edgeId": "student-center-to-southeast",
+      "kind": "unknown",
+      "reviewStatus": "rejected",
+      "evidenceIds": [
+        "east-walk-review"
+      ],
+      "note": "The synthetic review found too little detail to retain the report."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "library-curb-note",
+      "kind": "note",
+      "origin": "synthetic",
+      "caption": "Library crossing",
+      "note": "Authored example: the curb is drawn without a ramp. Ramp dimensions are unspecified.",
+      "attribution": "Curb synthetic fixture"
+    },
+    {
+      "id": "quad-obstruction-note",
+      "kind": "note",
+      "origin": "synthetic",
+      "caption": "West approach",
+      "note": "Authored example: a maintenance cart sits across part of the walk. Clear width is unknown.",
+      "attribution": "Curb synthetic fixture"
+    },
+    {
+      "id": "quad-obstruction-review",
+      "kind": "note",
+      "origin": "synthetic",
+      "caption": "Obstruction review",
+      "note": "Authored review example: the note describes where the cart appears. No field measurement is recorded.",
+      "attribution": "Curb synthetic fixture"
+    },
+    {
+      "id": "science-surface-note",
+      "kind": "note",
+      "origin": "synthetic",
+      "caption": "Science hall walk",
+      "note": "Authored example: a raised seam crosses the illustrated walk. The height difference is unknown.",
+      "attribution": "Curb synthetic fixture"
+    },
+    {
+      "id": "east-walk-review",
+      "kind": "note",
+      "origin": "synthetic",
+      "caption": "East walk review",
+      "note": "Authored review example: the report lacks enough location context to classify a barrier.",
+      "attribution": "Curb synthetic fixture"
+    }
+  ]
+}
