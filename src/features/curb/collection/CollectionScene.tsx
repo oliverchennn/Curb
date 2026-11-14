@@ -57,8 +57,11 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     controls.maxPolarAngle = Math.PI / 2 - 0.05;
     controls.minPolarAngle = 0.06;
     controls.zoomSpeed = 0.6;
-    // One-finger vertical gestures can still scroll the mobile page.
-    controls.touches.ONE = THREE.TOUCH.ROTATE;
+    // Touch swipes scroll the page; the named viewpoints provide touch access.
+    // OrbitControls otherwise overrides touchAction with 'none' on connect.
+    controls.touches.ONE = null;
+    controls.touches.TWO = null;
+    renderer.domElement.style.touchAction = 'pan-y';
 
     const geometries = new Set<THREE.BufferGeometry>();
     const materials = new Set<THREE.Material>();
@@ -125,7 +128,9 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     const tuft = geometry(new THREE.ConeGeometry(0.1, 0.32, 4));
     for (let i = 0; i < 44; i++) mesh(tuft, i % 3 ? palette.leaf : palette.grass, scene, [-10 + i * 0.48, 0.05, -2.2 - (i % 4) * 0.17]);
 
-    const robot = new THREE.Group(); scene.add(robot);
+    const robot = new THREE.Group();
+    robot.position.x = poseAt(transport.current.seconds).x;
+    scene.add(robot);
     const roundedBody = geometry(new RoundedBoxGeometry(1.55, 0.78, 1.05, 4, 0.16));
     cube(robot, palette.rubber, [0, 0.47, 0], [1.43, 0.28, 0.94]);
     mesh(roundedBody, palette.cream, robot, [0, 0.99, 0]);
@@ -207,6 +212,12 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
     const projected = new THREE.Vector3();
     const normal = new THREE.Vector3();
     const cameraDirection = new THREE.Vector3();
+    const rayDirection = new THREE.Vector3();
+    const raycaster = new THREE.Raycaster();
+    const occluders: THREE.Object3D[] = [];
+    scene.traverse(object => {
+      if (object instanceof THREE.Mesh && object.material instanceof THREE.MeshStandardMaterial) occluders.push(object);
+    });
     const normals = { forward: new THREE.Vector3(1, 0, 0), surface: new THREE.Vector3(0.5, -0.5, 0.7).normalize(), curb: new THREE.Vector3(0, 0, 1) };
     let width = 1, height = 1, stopped = false, visible = true, frame = 0, previous = 0, lastPublish = 0;
     let dirty = true, lastReset = -1, previousTime = -1, lastSensor = '', lastCoverage = false;
@@ -243,7 +254,15 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
         normal.copy(normals[sensor.id]).transformDirection(robot.matrixWorld);
         cameraDirection.copy(camera.position).sub(world).normalize();
         projected.copy(world).project(camera);
-        const show = projected.z > -1 && projected.z < 1 && Math.abs(projected.x) < 0.99 && Math.abs(projected.y) < 0.99 && normal.dot(cameraDirection) > 0.025;
+        rayDirection.copy(world).sub(camera.position);
+        raycaster.set(camera.position, rayDirection.clone().normalize());
+        raycaster.far = Math.max(0, rayDirection.length() - 0.025);
+        const occluded = raycaster.intersectObjects(occluders, false).some(hit => {
+          let object: THREE.Object3D | null = hit.object;
+          while (object) { if (object === sensors[sensor.id]) return false; object = object.parent; }
+          return true;
+        });
+        const show = !occluded && projected.z > -1 && projected.z < 1 && Math.abs(projected.x) < 0.99 && Math.abs(projected.y) < 0.99 && normal.dot(cameraDirection) > 0.025;
         labels[i].style.visibility = show ? 'visible' : 'hidden';
         paths[i].style.visibility = show ? 'visible' : 'hidden';
         dots[i].style.visibility = show ? 'visible' : 'hidden';
@@ -314,7 +333,7 @@ export default function CollectionScene({ transport, onTime, onPause, onFailure,
       renderer.domElement.removeEventListener('webglcontextlost', contextLost);
       controls.removeEventListener('start', beginOrbit); controls.removeEventListener('change', changed); controls.dispose();
       geometries.forEach(item => item.dispose()); materials.forEach(item => item.dispose()); textures.forEach(item => item.dispose());
-      renderer.dispose(); renderer.domElement.remove();
+      sun.shadow.dispose(); renderer.dispose(); renderer.domElement.remove();
     };
   }, [transport, onTime, onPause, onFailure]);
 

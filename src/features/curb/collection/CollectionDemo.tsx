@@ -66,7 +66,7 @@ export function CollectionDemo() {
     <header className={styles.heading}>
       <div><p className={styles.eyebrow}><span /> COLLECTION CONCEPT · SIMULATED SCENE</p>
         <h1>A closer look, from the sidewalk.</h1>
-        <p>A proposed camera-carrying robot, illustrated here. Collect footage for people to review and turn into repair plans.</p>
+        <p>A proposed camera robot, illustrated here. Footage becomes evidence for people to review.</p>
       </div>
       <Link className={styles.textLink} href="/curb/upload">Try the real phone survey <span aria-hidden="true">↗</span></Link>
     </header>
@@ -101,7 +101,7 @@ export function CollectionDemo() {
         </div>
         <div className={styles.modeRow}>
           <div role="group" aria-label="Scene format"><button aria-pressed={!staticMode} onClick={() => chooseMode(false)}>3D scene</button><button aria-pressed={staticMode} onClick={() => chooseMode(true)}>Static diagram</button></div>
-          <p>{staticMode ? 'Scrub to move the illustration. All sensor details remain available.' : 'Drag to orbit · scroll to zoom · viewpoint buttons offer keyboard views'}</p>
+          <p>{staticMode ? 'Scrub to move the illustration. All sensor details remain available.' : 'Mouse drag to orbit · swipe to scroll · buttons offer touch and keyboard views'}</p>
         </div>
         {message ? <p className={styles.notice} role="status">{message} The static diagram is ready; you can still inspect every sensor.</p> : null}
         {reducedMotion ? <p className={styles.notice}>Reduced motion: playback starts paused. Scrub or choose Play when you are ready.</p> : null}
