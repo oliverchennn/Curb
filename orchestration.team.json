@@ -46,7 +46,7 @@
       "baseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730",
       "resultSha": null,
-      "currentAvailability": "Running; ACK 6875927241; lead server plus one native Sol/xhigh transport child",
+      "currentAvailability": "R2-A active; WIP 657a6f9d81a737c37d683781344865d08083a75e; exact reviewed B dependency merge authorized by 6876065350",
       "previousResult": {
         "task": "R2-CONTRACT/1 accepted; stopped/released",
         "resultSha": "c71310539c762a1d893f6e3b7778bdcdd3258a18"
@@ -67,7 +67,7 @@
       "github": "oliverchennn",
       "focus": "domain, data, field evidence",
       "access": "accepted-write",
-      "availability": "Running; ACK 6875922042; two native Sol/xhigh children for disjoint domain and data scopes",
+      "availability": "R2-B accepted/stopped/released; parent and both children stopped; no active code scope",
       "temporaryCoverage": {
         "agent": "agent-b-temp",
         "operator": "Vincent",
@@ -86,18 +86,12 @@
       "checkout": "/workspace/curb-b-r2",
       "branch": "codex/r2-domain",
       "task": "R2-B/1",
-      "writeScope": [
-        "src/domain/curb/plans.ts",
-        "src/domain/curb/plans.test.ts",
-        "src/domain/curb/trips.ts",
-        "src/domain/curb/trips.test.ts",
-        "src/data/curb/plan-demo.json",
-        "src/data/curb/plan-demo.test.ts"
-      ],
+      "writeScope": [],
       "readinessBase": "eaf762d8a23954ca8fc6d3d38ebe3e2339fa8612",
       "instructions": "docs/message-board/DEV_B_CONTINUATION.md",
       "baseSha": "47f7bfa4ac0a68d95050be5dfca1de92699c2e4d",
-      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730"
+      "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6875905730",
+      "resultSha": "67d54131f89e8ad09144136ce1d32169f0f2583d"
     },
     {
       "lane": "C",
@@ -122,9 +116,9 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6875927241"
+    "lastReadCommentId": "6876065350"
   },
-  "currentSlice": "R2 implementation: A/B running from frozen common base; C readiness pending",
+  "currentSlice": "R2: B accepted; A integrating reviewed B dependency; C readiness pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",

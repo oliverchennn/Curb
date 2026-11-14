@@ -1,6 +1,6 @@
 # Task board — snapshot
 
-Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Resume cursor: `6875927241`. Vincent's coordinator is active and R2 is selected. Oliver released the handoff documentation and is Dev B; Landau remains Dev C. Local agents handle A only. [R2 task](tasks/R2.md); [resume ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713).
+Live board: [Curb team board #1](https://github.com/vzhu08/Curb/issues/1). Read newer comments before claiming work. Resume cursor: `6876065350`. Vincent's coordinator is active and R2 is selected. Oliver released the handoff documentation and is Dev B; Landau remains Dev C. Local agents handle A only. [R2 task](tasks/R2.md); [resume ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875693713).
 
 **Foundation F0 → F1A/F1B/F1C → F2 and R1 are verified.** R1 browser/full-check application SHA: `03d89572c207b88bc02d80c6f3a745aad1895391`; published R1 main: `db6ceb603e06ecf9ee8319ad0b2aa76eff840df2`, [PR #3](https://github.com/vzhu08/Curb/pull/3). Final documentation-package publication is recorded on the live board. [Acceptance evidence](ACCEPTANCE.md).
 
@@ -51,8 +51,8 @@ Common implementation base was `d561c30f10b6e3f34300093cea343346a87b9678`; [exac
 | Task | Owner / scope | State |
 |---|---|---|
 | R2-CONTRACT/1 | Local agent-a; two contract/test files released | Accepted/frozen `c71310539c762a1d893f6e3b7778bdcdd3258a18`; [RESULT/STOP/RELEASE](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875814582); independent typecheck and 40 boundary tests passed on merge `ad5e26340a9e25034d126313f2b02f38e57bda5a` |
-| R2-B/1 | Oliver / `oliverchennn`; six domain/data files | Running; [ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875922042); `/workspace/curb-b-r2`, `codex/r2-domain`; two disjoint domain/data children |
-| R2-A/1 | Existing local agent-a; six API/client/test files | Running; [ACK](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875927241); existing isolated `codex/r2-contract-api`; lead server plus one transport child |
+| R2-B/1 | Oliver / `oliverchennn`; six domain/data paths released | Accepted `67d54131f89e8ad09144136ce1d32169f0f2583d`; [RESULT/STOP](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876036553); independent coordinator typecheck and 358 tests passed on merge `80a6655f3b469c425cff114745c5779aaa115c7e` |
+| R2-A/1 | Existing local agent-a; six API/client/test files | Clean WIP `657a6f9d81a737c37d683781344865d08083a75e`, child stopped; [exact B dependency merge authorized](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876065350); real API checks pending |
 | R2-C | Landau / `landautzou` | Availability requested on board; no code scope yet |
 | R2 coordination | Vincent | `codex/r2-coordination`; exact documentation reservation in resume ACK; no application edits |
 
