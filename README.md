@@ -20,7 +20,7 @@ Open `http://127.0.0.1:3000/`. The home page opens `/curb/upload`: choose the su
 
 For development use `npm run dev`; for a different port use `npm run start -- --port 3004`. The production build and committed media/data work with local loopback access and no venue internet. Opening an external source reference requires internet; playback, calculations and exports do not.
 
-`npm run check` runs TypeScript, Vitest and the production Next.js build. Run `npm run test:replay` for the separate synthetic replay regressions. `npm run verify:media` verifies committed media hashes, decoded frames, color metadata and track agreement; this optional media audit requires `ffprobe` on PATH.
+`npm run check` runs TypeScript, Vitest and the production Next.js build. GitHub pull requests and main pushes run those checks, the synthetic replay suite, and compiled API/report/media verification on Node 22.23.0 and 26.x. Run `npm run test:replay` for the separate synthetic replay regressions. `npm run verify:media` verifies committed media hashes, decoded frames, color metadata and track agreement; this optional media audit requires `ffprobe` on PATH.
 
 ## Demo data and editing
 

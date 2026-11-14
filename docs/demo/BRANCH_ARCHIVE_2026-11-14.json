@@ -348,6 +348,21 @@
           "integratedOnReleaseBranch": "cb9b217c09ca2e32cd081a855c11e00537be1e06"
         }
       ]
+    },
+    {
+      "recordedAt": "2026-11-14T22:16:03.460511+00:00",
+      "reason": "Reconciled the already-completed PR7 cleanup: exact archive tag and absent remote branch reverified during production hardening. Local main fast-forwarded to the merged release and its archived local task branch removed.",
+      "archivesVerified": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/robertson-release-final",
+          "sha": "612905a91db76c2642f6c0869085042b0fd51b71",
+          "archiveTag": "archive/2026-11-14/codex/robertson-release-final",
+          "mergedThrough": "b010ad02ce9e0cb905e15e5c7c7109713814b36e",
+          "originalCleanupReceipt": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884044723"
+        }
+      ]
     }
   ]
 }
