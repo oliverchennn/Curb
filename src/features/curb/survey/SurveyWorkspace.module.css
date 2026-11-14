@@ -148,7 +148,9 @@
 .overlay { position: absolute; inset: 0; pointer-events: none; }
 .box, .boxSelected { position: absolute; border: 2px solid; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .6); }
 .boxSelected { border-width: 3px; box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0, 0, 0, .65); }
-.boxLabel { position: absolute; left: -3px; bottom: 100%; max-width: 260px; margin-bottom: 4px; padding: 3px 9px; border-left: 6px solid; border-radius: 4px; background: #fffdf8; color: var(--ink); font-size: 13px; font-weight: 750; line-height: 1.3; white-space: normal; box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
+/* Live labels are overlay siblings placed by VideoEvidence placeLabels (collision-aware).
+ * One line, fixed 24px height (matches LABEL_HEIGHT) so placement maths is exact. */
+.boxLabel { position: absolute; box-sizing: border-box; height: 24px; padding: 3px 8px 3px 7px; overflow: hidden; border-left: 6px solid; border-radius: 4px; background: #fffdf8; color: var(--ink); font-size: 13px; font-weight: 750; line-height: 18px; white-space: nowrap; text-overflow: ellipsis; box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
 
 .sitePanel h2 { margin-bottom: 4px; }
 .contextGrid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; gap: 14px; margin-top: 12px; }
@@ -254,6 +256,11 @@
 @media (min-width: 1500px) {
   .workspace { font-size: 19px; }
   .small { font-size: 16px; }
+}
+/* Tall desktop screens get a larger evidence video; the measured stage still fits one screen.
+ * 1366x768 keeps the compact height, and narrow layouts use their own rules below. */
+@media (min-width: 1200px) and (min-height: 1000px) {
+  @supports (aspect-ratio: 1) { .videoFrame { height: min(52vh, 720px); } }
 }
 @media (max-width: 1080px) {
   .stage { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); }

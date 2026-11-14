@@ -101,13 +101,20 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
       return box ? [{ finding, rect: boxToRect(box, picture) }] : [];
     })
     : [];
+  // Selected evidence is placed first so its label gets the clearest slot.
+  const labels = placeLabels(
+    [...visible].sort((a, b) => Number(b.finding.id === selectedFindingId) - Number(a.finding.id === selectedFindingId) || a.rect.top - b.rect.top)
+      .map(({ finding, rect }) => ({ id: finding.id, rect })),
+    picture,
+  );
 
   return <section className={styles.videoPanel} aria-labelledby="survey-video-heading">
     <div className={styles.panelHeading}>
       <h2 id="survey-video-heading">Survey replay</h2>
       <div className={styles.segmented} role="group" aria-label="Video version">
-        <button type="button" aria-label="Live review overlay" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Review</button>
-        <button type="button" aria-label="Pre-rendered annotations" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
+        {/* Accessible names begin with the visible words (WCAG 2.5.3 Label in Name). */}
+        <button type="button" aria-label="Review: live overlay" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Review</button>
+        <button type="button" aria-label="Annotated: pre-rendered video" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
       </div>
     </div>
     <div ref={frameRef} className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
@@ -116,13 +123,20 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
         onLoadedMetadata={(event) => { event.currentTarget.currentTime = resumeTimeRef.current; setTime(resumeTimeRef.current); }}
         onError={() => setMediaError(`The ${mode === 'live' ? 'survey' : 'annotated'} video could not be loaded. Reload the page, or download the original MOV from Export report.`)} />
       <div className={styles.overlay} aria-hidden="true">
-        {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} picture={picture} selected={finding.id === selectedFindingId} />)}
+        {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} selected={finding.id === selectedFindingId} />)}
+        {visible.map(({ finding }) => {
+          const place = labels.get(finding.id);
+          return place ? <span key={`${finding.id}-label`} className={styles.boxLabel}
+            style={{ left: place.left, top: place.top, width: place.width, borderLeftColor: finding.color }}>
+            {place.compact ? shortLabel(finding.label) : finding.label}
+          </span> : null;
+        })}
       </div>
     </div>
     {mediaError ? <p role="alert" className={styles.inlineError}>{mediaError}</p> : null}
     <p id="survey-video-note" className={styles.small}>
       {mode === 'live'
-        ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Dashed boxes await review.`
+        ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Dashed boxes await review. A missing box does not mean there is no defect.`
         : edited
           ? 'This pre-rendered video shows the original analysis. Your review edits are not burned into it; the JSON and PDF exports carry them.'
           : 'Pre-rendered from the original analysis.'}
@@ -133,16 +147,74 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
   </section>;
 }
 
-function OverlayBox({ finding, rect, picture, selected }: { finding: Finding; rect: Rect; picture: Rect; selected: boolean }) {
+function OverlayBox({ finding, rect, selected }: { finding: Finding; rect: Rect; selected: boolean }) {
   const pending = finding.review.status === 'pending';
-  const labelWidth = Math.min(230, Math.max(0, picture.width - 12));
-  const labelLeft = Math.min(-3, picture.left + picture.width - rect.left - labelWidth - 6);
-  const below = rect.top - picture.top < 65;
   return <div className={selected ? styles.boxSelected : styles.box}
-    style={{ left: rect.left, top: rect.top, width: rect.width, height: rect.height, borderColor: finding.color, borderStyle: pending ? 'dashed' : 'solid' }}>
-    <span className={styles.boxLabel} style={{ borderLeftColor: finding.color, width: labelWidth, maxWidth: labelWidth, left: labelLeft,
-      ...(below ? { bottom: 'auto', top: 'calc(100% + 6px)', marginBottom: 0 } : {}) }}>
-      {finding.label}
-    </span>
-  </div>;
+    style={{ left: rect.left, top: rect.top, width: rect.width, height: rect.height, borderColor: finding.color, borderStyle: pending ? 'dashed' : 'solid' }} />;
+}
+
+/** "Defect 04 · Surface breakup" -> "Defect 04" for narrow pictures. */
+function shortLabel(label: string): string {
+  return label.split(' · ')[0] ?? label;
+}
+
+export type LabelPlacement = { left: number; top: number; width: number; compact: boolean; overlap: number };
+
+const LABEL_HEIGHT = 24; // one line: 13px text, 1.3 line-height, 3px padding, borders
+const LABEL_GAP = 4;
+const EDGE = 2;
+const FULL_WIDTH = 230;
+const COMPACT_WIDTH = 92;
+const COMPACT_BELOW = 240; // picture width under which labels show only the defect number
+
+function overlapArea(a: Rect, b: Rect): number {
+  const w = Math.min(a.left + a.width, b.left + b.width) - Math.max(a.left, b.left);
+  const h = Math.min(a.top + a.height, b.top + b.height) - Math.max(a.top, b.top);
+  return w > 0 && h > 0 ? w * h : 0;
+}
+
+/** Collision-aware label placement, display only: never moves boxes or tracks.
+ * Each label is one line, kept inside the displayed picture, and placed at the
+ * candidate slot (above/below/beside its box, left or right aligned) with the
+ * least overlap against every visible box and every label placed before it.
+ * Ties keep the preferred order, so stable frames keep stable positions. */
+export function placeLabels(items: { id: string; rect: Rect }[], picture: Rect): Map<string, LabelPlacement> {
+  const result = new Map<string, LabelPlacement>();
+  if (picture.width <= 0 || picture.height <= 0) return result;
+  const compact = picture.width < COMPACT_BELOW;
+  const width = Math.max(0, Math.min(compact ? COMPACT_WIDTH : FULL_WIDTH, picture.width - 2 * EDGE));
+  const minX = picture.left + EDGE;
+  const maxX = picture.left + picture.width - EDGE - width;
+  const minY = picture.top + EDGE;
+  const maxY = picture.top + picture.height - EDGE - LABEL_HEIGHT;
+  const clamp = (value: number, low: number, high: number) => Math.min(Math.max(value, low), Math.max(low, high));
+  const boxes = items.map(({ rect }) => rect);
+  const placed: Rect[] = [];
+
+  for (const { id, rect } of items) {
+    const right = rect.left + rect.width;
+    const bottom = rect.top + rect.height;
+    const candidates: [number, number][] = [
+      [rect.left, rect.top - LABEL_HEIGHT - LABEL_GAP], // above, left-aligned
+      [right - width, rect.top - LABEL_HEIGHT - LABEL_GAP], // above, right-aligned
+      [rect.left, bottom + LABEL_GAP], // below, left-aligned
+      [right - width, bottom + LABEL_GAP], // below, right-aligned
+      [rect.left - width - LABEL_GAP, rect.top], // beside, left
+      [right + LABEL_GAP, rect.top], // beside, right
+      [rect.left - width - LABEL_GAP, bottom - LABEL_HEIGHT],
+      [right + LABEL_GAP, bottom - LABEL_HEIGHT],
+    ];
+    let best: { rect: Rect; cost: number } | null = null;
+    for (const [x, y] of candidates) {
+      const candidate = { left: clamp(x, minX, maxX), top: clamp(y, minY, maxY), width, height: LABEL_HEIGHT };
+      const cost = boxes.reduce((sum, box) => sum + overlapArea(candidate, box), 0)
+        + placed.reduce((sum, label) => sum + overlapArea(candidate, label), 0);
+      if (!best || cost < best.cost) best = { rect: candidate, cost };
+      if (cost === 0) break;
+    }
+    if (!best) continue;
+    placed.push(best.rect);
+    result.set(id, { left: best.rect.left, top: best.rect.top, width, compact, overlap: best.cost });
+  }
+  return result;
 }
