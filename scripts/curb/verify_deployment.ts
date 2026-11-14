@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { PDFDocument, PDFDict, PDFName, PDFRawStream } from 'pdf-lib';
-import { SurveyResponseSchema, SurveySchema } from '../../src/contracts/curb/survey';
+import { ExportRequestSchema, SurveyResponseSchema, SurveySchema } from '../../src/contracts/curb/survey';
 
 const base = new URL(process.argv[2] ?? 'http://127.0.0.1:3004');
 assert.ok(!base.username && !base.password && !base.search && !base.hash && base.pathname === '/', 'Pass an origin without credentials, path, query or fragment');
@@ -36,7 +36,7 @@ for (const [path, expected] of [
 const survey = await request('/api/curb/survey', 200);
 assert.equal(survey.response.headers.get('cache-control'), 'no-store');
 assert.deepEqual(SurveyResponseSchema.parse(JSON.parse(survey.text())).data, canonical, 'Hosted survey differs from this checkout');
-const body = JSON.stringify({ survey: canonical, planId: 'balanced' });
+const body = JSON.stringify(ExportRequestSchema.parse({ survey: canonical, planId: 'balanced', budgetCents: null }));
 const init = { method: 'POST', headers: { 'content-type': 'application/json' }, body };
 const html = await request('/api/curb/survey/report?format=html', 200, init);
 assert.equal(html.response.headers.get('cache-control'), 'no-store');
