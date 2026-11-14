@@ -13,6 +13,8 @@ Canonical repository: `oliverchennn/Curb` (1457315187). PR7 merged at **`b010ad0
 - **C / Landau**, existing Claude session `06a135c3-65bb-4de0-b273-9d48ab953221` (approved exception): [CURB-HOSTED-UI-AUDIT/1](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884878483), ACK6884895605, new `codex/hosted-ui-audit` from exact b010ad0. Only `docs/demo/HOSTED_UI_AUDIT.md` writable. Real browser/control/keyboard/NVDA coverage; product read-only. Previous polish scope is released to root.
 - **D / Oliver cloud**, `6af808fa-83dc-8191-bd58-80697dbe50c9`: stopped, no active scope. Its explorer and independent collection QA are integrated.
 
+Queued after their current published STOP/RELEASE: B [backend regression6885096239](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885096239) on exact0cd2cd4, sole write `docs/demo/HARDENING_BACKEND_REGRESSION.md`; C candidate UI/NVDA follow-up is recorded on the live board, sole write `docs/demo/HARDENING_UI_REGRESSION.md`. These use new isolated branches; no deployment until root supplies the final merged source.
+
 Both B laptop and cloud confirmed old collection attempts stopped; no duplicate writer is needed. One writer per file, no children for these audits. Post actual ACK/base/checkout before work and publish/STOP/RELEASE before transferring a scope. Root alone merges accepted changes, assigns an exact final deployment source and checks the public result. Do not change the live alias during pinned audits. Read the live board for subsequent ACKs and results.
 
 ### Product and evidence boundaries
@@ -21,7 +23,7 @@ The user-selected demo is Robertson Hall disability-access repair planning: prep
 
 The five actual findings are AI-assisted proposals, distinct from manual review. Measurements, exact per-finding placement and field route impact remain unknown. Do not invent measurements, ADA verdicts, passability, dated observations, hardware validation or full totals from partial costs. Unplaced evidence stays off maps; archive, field and synthetic records remain explicitly distinct. Quote-required work and deferred access needs remain visible. A visible crack never automatically blocks a route.
 
-52 completed branch histories were preserved under `archive/2026-11-14/<original-branch>` before branch removal ([receipt](docs/demo/BRANCH_ARCHIVE_2026-11-14.json), final release cleanup6884044723). Do not recreate archived task branches. The two newly completed polish/hosting branches may be archived only after root review/integration; current audit branches remain reserved. Current application baseline passed718 tests/build and bounded public checks; candidate checks are recorded separately. [Release checkpoint](docs/demo/CURB_RELEASE_CHECKPOINT.md).
+54 completed branch histories were preserved under `archive/2026-11-14/<original-branch>` before branch removal ([receipt](docs/demo/BRANCH_ARCHIVE_2026-11-14.json), final release cleanup6884044723). Do not recreate archived task branches. The completed polish/hosting branches were reviewed, integrated into published PR8, and archived under exact tags before removal (receipt6885066480); current audit branches remain reserved. Current application baseline passed718 tests/build and bounded public checks; candidate checks are recorded separately. [Release checkpoint](docs/demo/CURB_RELEASE_CHECKPOINT.md).
 
 ## Historical R2 handoff and standing safeguards
 

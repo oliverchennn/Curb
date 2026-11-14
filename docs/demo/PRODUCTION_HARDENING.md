@@ -9,6 +9,8 @@ Application source checked: **5a2d83d9539c4b311c9a850c88d1d421686d88bd**, local 
 - The integrated baseline passed TypeScript, 744 Vitest tests in 28 files and a production build. After the final focus refinement, a fresh build with the full candidate SHA passed. The standalone deployment script also passed its own explicit TypeScript check (including Node types).
 - The compiled local server passed 12 sequential verification requests: four pages, health/readiness with exact revision, canonical survey, HTML/PDF with all five exact evidence images, and three 32-byte media 206 responses. A separate eight-request local boundary check exercised both plan/trip endpoints: exact 16 KiB → 200, one extra byte → 400, wrong Content-Type → 400 and malformed JSON → 400; all matched their response schemas and no-store headers.
 
+- Vincent’s baseline audit identified repeated foundation dataset selectors silently choosing the first value. Candidate 0cd2cd4 preserves all occurrences for schema rejection, retaining typed DATASET_NOT_FOUND/404. Four regressions cover opposing orders, duplicate identical values and an encoded duplicate key; all 13 foundation endpoint tests and TypeScript passed.
+
 ## Actual browser checks
 
 Root used the desktop app's browser on the compiled server. These are real UI interactions; no application-state or DOM mutation was injected.

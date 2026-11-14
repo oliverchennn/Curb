@@ -363,6 +363,38 @@
           "originalCleanupReceipt": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884044723"
         }
       ]
+    },
+    {
+      "recordedAt": "2026-11-14T22:18:19.794996+00:00",
+      "reason": "Stopped/released polish and hosting results reviewed and integrated into published production-hardening PR8; exact tags verified before deleting only the completed refs. Active hosted audit scopes untouched.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 2,
+      "branches": [
+        {
+          "branch": "codex/collection-accessibility-polish",
+          "sha": "5129765da5977cfa4ad52ba6b4887f5b8359b3a9",
+          "archiveTag": "archive/2026-11-14/codex/collection-accessibility-polish",
+          "integratedOnReleaseBranch": [
+            "d5c1f78",
+            "273c2d7"
+          ],
+          "integrationRefinements": [
+            "5a2d83d9539c4b311c9a850c88d1d421686d88bd"
+          ]
+        },
+        {
+          "branch": "codex/vincent-hosting-result",
+          "sha": "94838741512dc2efb08e490ff91c7ca886d0970b",
+          "archiveTag": "archive/2026-11-14/codex/vincent-hosting-result",
+          "integratedOnReleaseBranch": [
+            "73d6eae",
+            "c7373d5",
+            "90e8cb6"
+          ]
+        }
+      ],
+      "boardReceipt": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885066480"
     }
   ]
 }
