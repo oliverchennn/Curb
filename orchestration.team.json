@@ -35,18 +35,17 @@
       "lane": "B",
       "name": "Vincent",
       "github": "vzhu08",
-      "task": "ROBERTSON-STRESS-B/1",
-      "branch": "codex/robertson-stress-b",
+      "task": "CURB-COLLECTION-DEMO/1",
+      "branch": "codex/collection-robot-demo",
       "state": "READY; awaiting ACK",
-      "scope": "scripts/curb/stress_http.ts and docs/demo/ROBERTSON_STRESS_B.md; product read-only; hosting follows exact post-stress base",
-      "session": "01a1da08-cf52-7473-8216-c4a2c7b4c19c",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882750169",
-      "baseSha": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
+      "scope": "app/curb/collection/page.tsx; src/features/curb/collection/**; public/curb/collection/**; docs/demo/COLLECTION_ROBOT_RESULT.md",
+      "session": "01a1db77-0c6c-7e53-a5af-b5fae92dbda3",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883030624",
+      "baseSha": "6b2b11040eed8d3d620743bc4e12e112f9ebfa90",
       "previousResult": {
-        "task": "ROBERTSON-MERGED-RELEASE-SMOKE/1",
-        "sha": "660df76abb04b860a598dd7337c89792ad5c3ac2",
-        "state": "STOPPED/RELEASED; reviewed and integrated in follow-up",
-        "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879512942"
+        "task": "ROBERTSON-STRESS-B/1",
+        "sha": "4063a3d0716e02a3a59c5a9e4c0485675deb0693",
+        "state": "STOPPED/RELEASED; integrated as9e09295"
       }
     },
     {
@@ -54,31 +53,37 @@
       "name": "Landau",
       "github": "landautzou",
       "session": "06a135c3-65bb-4de0-b273-9d48ab953221",
-      "task": "ROBERTSON-STRESS-C/1",
-      "branch": "codex/robertson-stress-c",
+      "task": "ROBERTSON-WORKSPACE-LAYOUT/1",
+      "branch": "codex/robertson-workspace-layout",
       "state": "ACK / RUNNING",
-      "scope": "docs/demo/ROBERTSON_STRESS_C.md only; product read-only",
+      "scope": "SurveyWorkspace.tsx/.module.css; FindingReview.tsx; PlanCompare.tsx; SiteContext.tsx; docs/demo/ROBERTSON_WORKSPACE_LAYOUT.md",
       "baseSha": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882750169",
-      "resultSha": "86cfb2a91d17b787ac22271ac90cb4278b21df92",
-      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6879040996",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882757062"
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882879208",
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882934804",
+      "previousResult": {
+        "task": "ROBERTSON-STRESS-C/1",
+        "sha": "e57a37195c89cc794ff7691fe19ed9b850cdbc3e",
+        "state": "STOPPED/RELEASED; integrated as4acf58c"
+      }
     },
     {
       "lane": "D",
       "name": "Oliver / existing cloud chat",
       "github": "oliverchennn",
       "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
-      "task": "ROBERTSON-STRESS-D/1",
-      "branch": "codex/robertson-stress-d",
+      "task": "CURB-ROUTE-EXPLORER/1",
+      "branch": "codex/route-evidence-explorer",
       "state": "ACK / RUNNING",
-      "scope": "scripts/curb/stress_plans.ts and docs/demo/ROBERTSON_STRESS_D.md; product read-only",
-      "baseSha": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
-      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882750169",
-      "resultSha": "650640933d744f72668abf5f1bd0e5db29602838",
-      "resultUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878901888",
-      "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6878950138",
-      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882768853"
+      "scope": "app/curb/explore/page.tsx; src/features/curb/explore/**; public/curb/explore/**; docs/demo/ROUTE_EXPLORER_RESULT.md",
+      "baseSha": "6b2b11040eed8d3d620743bc4e12e112f9ebfa90",
+      "assignmentUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883030624",
+      "correctionClosureUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6882978608",
+      "previousResult": {
+        "task": "ROBERTSON-STRESS-D/1",
+        "sha": "61584001e0ffda5a7ce947e074836674a6480030",
+        "state": "STOPPED/RELEASED; integrated ase11c68a; decimal fix independently passed"
+      },
+      "ackUrl": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883049425"
     }
   ],
   "board": {
@@ -86,9 +91,9 @@
     "issueNumber": 1,
     "url": "https://github.com/oliverchennn/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6882774221"
+    "lastReadCommentId": "6883049425"
   },
-  "currentSlice": "Robertson Hall disability-access survey, repair plans and reports; root implementation plus disjoint B/C lanes",
+  "currentSlice": "Robertson disability-access workspace, simulated upload, collection concept and route explorer; final integration and Vincent hosting pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
   "contracts": {
     "version": "curb-v0",
@@ -404,5 +409,5 @@
     "applicationTests": 676,
     "state": "merged local product; final stress/hosting requested by user"
   },
-  "hostingAuthority": "User explicitly requested B website integration and hosting after B/C/D stress tests; no paid upgrade or spending authorized."
+  "hostingAuthority": "Oliver explicitly selected Vincent’s hosting account (board6882804873). B confirmed scope vzhu08 and no existing linked Curb project; exact project/team and post-stress base required before deployment. No paid upgrades or spending."
 }

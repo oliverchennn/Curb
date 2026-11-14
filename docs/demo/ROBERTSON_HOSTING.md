@@ -1,0 +1,15 @@
+# Hosting preparation and release target
+
+Oliver selected **Vincent's hosting account**, superseding the failed Oliver-account authorization flow. Vincent confirmed the connected `vzhu08` scope has no visible existing Curb/repository-linked project. Project creation/linking/deployment has not yet occurred. No paid upgrades or domain purchases are authorized. B will identify the exact team/project, canonical Git repository `oliverchennn/Curb` (1457315187), source SHA and Node version before the final deployment.
+
+B's hosting-package scope was released unstarted in [6883016355](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6883016355). Root took over local packaging while Vincent builds the user-selected collection demo. B resumes hosted integration after the combined review, upload, collection and explorer source passes verification.
+
+The Next.js report function dynamically reads five evidence photos. `next.config.mjs` explicitly includes only those five JPGs and the canonical survey JSON in its report trace; GET includes the JSON. Videos stay static assets. This resolves the known missing-input configuration risk, subject to observing the generated trace and actual hosted exports. [Next.js output tracing](https://nextjs.org/docs/app/api-reference/config/next-config-js/output).
+
+`vercel.json` uses the existing locked npm install and webpack production build. Use a supported Node runtime satisfying `package.json` (planned Node 24.x, to be verified in Vincent's project). Local linkage, build output, private staging and environment files stay out of version control/CLI uploads. No app secrets are required for this demo. [Vercel project configuration](https://vercel.com/docs/project-configuration/project-settings).
+
+After deployment, run `node --import tsx scripts/curb/verify_deployment.ts https://<verified-host>` from the exact deployed checkout. It performs ten sequential functional requests: four pages, canonical survey, HTML/PDF exports with all five photo hashes, and three media byte ranges. This is not a load test. Login/protection responses fail rather than being counted as a working public demo. Use the normal authenticated protection workflow when needed; don't put credentials in arguments, reports or board comments.
+
+Record the final team/project IDs, deployment ID, immutable URL, production alias, source SHA, build result and both server/browser checks here after they exist. Until then this document is preparation, not deployment evidence.
+
+Root's local packaging check on November 14 passed the full application check (683 tests, typecheck and production build). The generated report trace had 130 entries and included the canonical JSON plus all five exact evidence JPG paths. The standalone deployment verifier also passed strict TypeScript checking. This closes the observed local trace omission; hosted report generation still requires verification in Vincent's actual project.

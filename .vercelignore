@@ -1,0 +1,9 @@
+.curb-local/
+.kit/
+.git/
+.codex/
+.next/
+node_modules/
+.env
+.env.*
+coverage/
