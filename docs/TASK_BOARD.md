@@ -65,3 +65,11 @@ The existing native local checker is ACTIVE every five minutes. It does not wake
 ## Separately authorized parallel task
 
 Vincent authorized [SURVEY-REPLAY/1](tasks/SURVEY_REPLAY.md), [board assignment](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876269112), from source `64f004c5e0ea7062d29165d8dfc5acfde7fa04b2` on `codex/survey-replay-demo`. The existing writer that posted 6876198246 must identify its actual session/model/checkout and literal files before Running. Oliver's R2-B session explicitly did not start it and remains stopped. Proposed boundary is only `public/survey-replay/` and `demo/survey-replay/`; no R2-C or shared path transfer. R2 continues unchanged, and its UI/browser acceptance remains separate.
+
+
+## Rolling follow-up queue
+
+Vincent requires useful queued work and safe cross-lane help. [Current queue](WORK_QUEUE.md), [five exact readiness task scopes](tasks/READINESS_QUEUE.md), [authority](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876402752). Actual Oliver B can prepare the Princeton field packet, then the R2 demo brief; A can prepare the evidence-boundary proposal; Landau and the replay writer have independent planning follow-ups after their implementation releases. The live READY assignment supplies the exact shared queue base. No implementation file ownership changes through this policy.
+
+
+Replay RESULT/STOP/RELEASE [6876360532](https://github.com/vzhu08/Curb/issues/1#issuecomment-6876360532) supplies exact candidate `ebc35b07590ad07ca990299da1d3b077190987d6`. Its owner is desktop session `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9`, not stopped R2-B. Ten files are released. Exact model was not exposed/reported, so it remains unverified. Prioritize A's independent UI/server review and actual B's domain/evidence review before their ready preparation fallbacks; no integration or correction is implied by the worker's result.

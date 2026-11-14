@@ -20,6 +20,10 @@ Build Curb: evidence-backed accessibility repair planning for campus facilities.
 - Team leads may delegate implementation to at most two coding children, one level deep, after contracts are frozen. F0 uses one serial child. An optional reviewer is read-only. Children cannot spawn grandchildren or take team-level tasks.
 - These delegation instructions apply to assigned implementation, not to unrelated preparation or documentation tasks.
 
+## Rolling queue
+
+Vincent requests useful ready follow-ups for every lead. Follow [WORK_QUEUE](docs/WORK_QUEUE.md): after publishing and stopping the current task, read the live board and ACK the next explicitly READY assignment without waiting for another prompt. Prioritize active-slice blockers and disjoint support; preserve exact bases and ownership. Preparation is not authorization to implement an unselected roadmap slice, and cross-lane file transfers still require stop/release/reassignment/ACK.
+
 ## Ownership
 
 - One active writer per file. Record task ID, session, checkout, base SHA and literal scopes before editing. No broad `app/`, `src/`, `docs/`, or `public/` assignment over active child scopes.

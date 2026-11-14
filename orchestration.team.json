@@ -126,7 +126,7 @@
     "issueNumber": 1,
     "url": "https://github.com/vzhu08/Curb/issues/1",
     "status": "active",
-    "lastReadCommentId": "6876269112"
+    "lastReadCommentId": "6876402752"
   },
   "currentSlice": "R2 core verified; Landau UI assignment awaits return/ACK; final UI/browser gate pending",
   "verifiedFoundationSha": "fc12e86c85394ab8126db1be485aaf0e7845c087",
@@ -243,8 +243,7 @@
   "parallelTasks": [
     {
       "task": "SURVEY-REPLAY/1",
-      "state": "Vincent authorized parallel scope; existing survey writer identity and literal-file ACK pending",
-      "proposedOwner": "Author of board comment 6876198246 under oliverchennn; not the stopped R2-B session",
+      "state": "Published RESULT/STOP/RELEASE received; ten files ready for independent review; original exact coding model remains unverified",
       "assignmentUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876269112",
       "branch": "codex/survey-replay-demo",
       "baseSha": "64f004c5e0ea7062d29165d8dfc5acfde7fa04b2",
@@ -253,7 +252,38 @@
         "demo/survey-replay/"
       ],
       "writeScope": [],
-      "instructions": "docs/tasks/SURVEY_REPLAY.md"
+      "instructions": "docs/tasks/SURVEY_REPLAY.md",
+      "session": "01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9",
+      "github": "oliverchennn",
+      "checkout": "/Users/oliverchen/Documents/random shi/Curb-survey-branch",
+      "prototypeCheckout": "/Users/oliverchen/Documents/random shi/curb-survey-replay",
+      "ackUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876332431",
+      "model": "Reported GPT-6 family only; exact variant/effort unverified; requested Sol/xhigh before further coding",
+      "children": [],
+      "resultSha": "ebc35b07590ad07ca990299da1d3b077190987d6",
+      "resultUrl": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876360532"
     }
-  ]
+  ],
+  "workQueue": {
+    "policy": "docs/WORK_QUEUE.md",
+    "taskCard": "docs/tasks/READINESS_QUEUE.md",
+    "authority": "https://github.com/vzhu08/Curb/issues/1#issuecomment-6876402752",
+    "startGate": "Published exact-base READY assignment; prior task and descendants stopped/released; read live board then new exact-scope ACK",
+    "readyPreparation": [
+      "PRINCETON-FIELD-PREP/1 (actual B)",
+      "R2-DEMO-BRIEF/1 (actual B, after FIELD-PREP)",
+      "R3-BOUNDARY-PREP/1 (existing A)",
+      "R3-EVIDENCE-UX-PREP/1 (Landau, after R2-C)",
+      "REPLAY-REUSE-PREP/1 (existing replay writer, after replay)"
+    ],
+    "blockedPriorities": [
+      "R2 final integration/browser after reviewed C release",
+      "Replay correction only after concrete findings and exact reassignment"
+    ],
+    "productImplementationExpansion": false,
+    "immediateReviews": [
+      "REPLAY-UI-REVIEW/1 (A) at ebc35b07590ad07ca990299da1d3b077190987d6",
+      "REPLAY-DOMAIN-REVIEW/1 (actual B) at ebc35b07590ad07ca990299da1d3b077190987d6"
+    ]
+  }
 }
