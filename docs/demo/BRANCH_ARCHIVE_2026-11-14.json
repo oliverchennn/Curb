@@ -258,5 +258,45 @@
   "deletedRemoteBranches": 42,
   "remainingAtCleanup": {
     "refs/heads/main": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90"
-  }
+  },
+  "followupCleanups": [
+    {
+      "recordedAt": "2026-11-14T20:01:48.559187+00:00",
+      "reason": "Stopped/released results reviewed and cherry-picked into release-final; main merge remains pending.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 4,
+      "branches": [
+        {
+          "branch": "codex/robertson-stress-b",
+          "sha": "4063a3d0716e02a3a59c5a9e4c0485675deb0693",
+          "archiveTag": "archive/2026-11-14/codex/robertson-stress-b",
+          "integratedOnReleaseBranch": "9e09295a97a5dc0762e50a0ffc28e8c78da31bbd"
+        },
+        {
+          "branch": "codex/robertson-stress-c",
+          "sha": "e57a37195c89cc794ff7691fe19ed9b850cdbc3e",
+          "archiveTag": "archive/2026-11-14/codex/robertson-stress-c",
+          "integratedOnReleaseBranch": "4acf58c65c333c9ff78ef63379a8fa12dc583420"
+        },
+        {
+          "branch": "codex/robertson-stress-d",
+          "sha": "61584001e0ffda5a7ce947e074836674a6480030",
+          "archiveTag": "archive/2026-11-14/codex/robertson-stress-d",
+          "integratedOnReleaseBranch": "e11c68ab741b01ba454f87c49c5b911196ef6b49"
+        },
+        {
+          "branch": "codex/robertson-workspace-layout",
+          "sha": "d32074ad22449d55d2b8ca1ea87edd0ee5f84b84",
+          "archiveTag": "archive/2026-11-14/codex/robertson-workspace-layout",
+          "integratedOnReleaseBranch": "a4afbfb37f42a92db37dd3c8775cb32a0776f742"
+        }
+      ],
+      "remainingAtCleanup": {
+        "refs/heads/main": "1ff75a3467b5ccf7a2554ce53e1b46cafe457c90",
+        "refs/heads/codex/robertson-release-final": "b34a7ac39f2caecfa56d5856d25f7a2a551ac11e",
+        "refs/heads/codex/route-evidence-explorer": "29fbfb6d1d3fc6aca8a089db13dff51c08e71e3d"
+      }
+    }
+  ]
 }
