@@ -321,6 +321,33 @@
           ]
         }
       ]
+    },
+    {
+      "recordedAt": "2026-11-14T20:51:18.867904+00:00",
+      "reason": "All three results STOPPED/released, reviewed and integrated into release-final; exact archive tags remotely verified before deleting only these refs. Old unconfirmed laptop candidate untouched.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 3,
+      "branches": [
+        {
+          "branch": "codex/collection-robot-demo-recovery",
+          "sha": "f76457c26bb063938687039fb2869f8c97246f6b",
+          "archiveTag": "archive/2026-11-14/codex/collection-robot-demo-recovery",
+          "integratedOnReleaseBranch": "ec57fb0f523fab6bccaee2ec0391b1d3c85dc04a"
+        },
+        {
+          "branch": "codex/curb-explorer-integration-qa",
+          "sha": "7e0d2897d47c778abbd54922b3df9bb29bfe915b",
+          "archiveTag": "archive/2026-11-14/codex/curb-explorer-integration-qa",
+          "integratedOnReleaseBranch": "0f9efc8"
+        },
+        {
+          "branch": "codex/collection-independent-qa",
+          "sha": "abbc64bdb2d2981df6109a11a0cd91d720faf26b",
+          "archiveTag": "archive/2026-11-14/codex/collection-independent-qa",
+          "integratedOnReleaseBranch": "cb9b217c09ca2e32cd081a855c11e00537be1e06"
+        }
+      ]
     }
   ]
 }

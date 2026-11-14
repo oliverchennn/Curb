@@ -7,7 +7,7 @@ Root / Oliver desktop is the sole integration and merge owner. [Live board](http
 | Root | Shared product, source integration, final checks, offline backup, reviewed merge and branch archive | Combined product ec57fb0 passed718 tests/build, local HTTP and actual browser checks; final artifacts and release pending |
 | B / Vincent recovery | Read-only hosting preflight, no tracked writes or hosting mutations yet | Collection f76457c released/integrated; hosting assignment6883967983, await actual ACK |
 | C / Landau | No active write scope | Explorer QA7e0d289 released/integrated; three observations corrected by root1c6f1ce |
-| D / Oliver cloud | Only docs/demo/COLLECTION_INDEPENDENT_QA.md | Final collection independent review running on B's released product |
+| D / Oliver cloud | No active write scope | Released abbc64b, integrated cb9b217;90 browser checks pass, all five findings closed; no active writes |
 
 The old B laptop writer is not claimed stopped; preserve any later candidate. Hosting uses Vincent's account only, no paid upgrades. Root supplies the exact merged source before deployment. No measurements, field passability or hardware claims may be inferred from the concepts.
 
