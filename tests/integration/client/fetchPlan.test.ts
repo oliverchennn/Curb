@@ -114,6 +114,42 @@ describe('fetchPlanScenario', () => {
     );
   });
 
+  it('round-trips the explicit investment selector and context through both route handlers', async () => {
+    const { GET } = await import('../../../app/api/curb/plan-scenario/route');
+    const { POST } = await import('../../../app/api/curb/plan/route');
+    const fetcher = vi.fn<typeof fetch>(async (input, init) => {
+      const url = new URL(String(input), 'http://localhost');
+      const request = new Request(url, init);
+      if (url.pathname === '/api/curb/plan-scenario' && request.method === 'GET') return GET(request);
+      if (url.pathname === '/api/curb/plan' && request.method === 'POST') return POST(request);
+      throw new Error('Unexpected request for the investment scenario.');
+    });
+    vi.stubGlobal('fetch', fetcher);
+    const { signal } = new AbortController();
+    const scenarioId = 'synthetic-campus-investment';
+
+    const scenario = await fetchPlanScenario(signal, scenarioId);
+    expect(scenario.scenario.id).toBe(scenarioId);
+    expect(scenario.defaultBudgetCents).toBe(1_000_000);
+    expect(fetcher).toHaveBeenNthCalledWith(
+      1, '/api/curb/plan-scenario?scenarioId=synthetic-campus-investment', { signal, cache: 'no-store' },
+    );
+
+    const result = await fetchPlan({
+      contractVersion: scenario.contractVersion,
+      scenarioId: scenario.scenario.id,
+      revision: scenario.scenario.revision,
+      profileId: scenario.profile.id,
+      originNodeId: scenario.originNodeId,
+      budgetCents: scenario.defaultBudgetCents,
+    }, signal);
+    expect(result).toMatchObject({
+      scenarioId,
+      budgetCents: 1_000_000,
+      exact: { selectedRepairIds: ['repair-a', 'repair-b'], restoredDestinationIds: ['library', 'student-center'] },
+    });
+  });
+
   it('rejects a successful response for a different explicit scenario', async () => {
     const fetcher = mockResponse(success(makeScenario()));
 

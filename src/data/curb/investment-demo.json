@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "curb-r2",
+  "scenario": {
+    "schemaVersion": 1,
+    "id": "synthetic-campus-investment",
+    "revision": 1,
+    "title": "Campus investment scenario",
+    "dataKind": "synthetic",
+    "nodes": [
+      { "id": "arrival", "coordinate": [0, 0], "label": "Arrival court" },
+      { "id": "link-mid", "coordinate": [0.00015, 0], "label": "Shared approach midpoint" },
+      { "id": "hub", "coordinate": [0.0003, 0], "label": "Shared destination hub" },
+      { "id": "library-door", "coordinate": [0.00045, 0.00015], "label": "Library entry" },
+      { "id": "student-center-door", "coordinate": [0.00045, -0.00015], "label": "Student center entry" },
+      { "id": "hall-door", "coordinate": [-0.00025, 0], "label": "Hall entry" },
+      { "id": "cafe-door", "coordinate": [0, -0.00015], "label": "Cafe entry" }
+    ],
+    "edges": [
+      {
+        "id": "link-a",
+        "fromNodeId": "arrival",
+        "toNodeId": "link-mid",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0.00015, 0]] },
+        "lengthMeters": 15,
+        "bidirectional": true,
+        "barrierIds": ["link-a-curb"]
+      },
+      {
+        "id": "link-b",
+        "fromNodeId": "link-mid",
+        "toNodeId": "hub",
+        "geometry": { "type": "LineString", "coordinates": [[0.00015, 0], [0.0003, 0]] },
+        "lengthMeters": 15,
+        "bidirectional": true,
+        "barrierIds": ["link-b-surface"]
+      },
+      {
+        "id": "library-walk",
+        "fromNodeId": "hub",
+        "toNodeId": "library-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0003, 0], [0.00045, 0.00015]] },
+        "lengthMeters": 20,
+        "bidirectional": true,
+        "barrierIds": []
+      },
+      {
+        "id": "student-center-walk",
+        "fromNodeId": "hub",
+        "toNodeId": "student-center-door",
+        "geometry": { "type": "LineString", "coordinates": [[0.0003, 0], [0.00045, -0.00015]] },
+        "lengthMeters": 20,
+        "bidirectional": true,
+        "barrierIds": []
+      },
+      {
+        "id": "hall-link",
+        "fromNodeId": "arrival",
+        "toNodeId": "hall-door",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [-0.00025, 0]] },
+        "lengthMeters": 25,
+        "bidirectional": true,
+        "barrierIds": ["hall-surface"]
+      },
+      {
+        "id": "cafe-walk",
+        "fromNodeId": "arrival",
+        "toNodeId": "cafe-door",
+        "geometry": { "type": "LineString", "coordinates": [[0, 0], [0, -0.00015]] },
+        "lengthMeters": 15,
+        "bidirectional": true,
+        "barrierIds": []
+      }
+    ],
+    "destinations": [
+      { "id": "library", "label": "Library", "nodeId": "library-door" },
+      { "id": "student-center", "label": "Student center", "nodeId": "student-center-door" },
+      { "id": "hall", "label": "Hall", "nodeId": "hall-door" },
+      { "id": "cafe", "label": "Cafe", "nodeId": "cafe-door" }
+    ],
+    "barriers": [
+      {
+        "id": "link-a-curb",
+        "edgeId": "link-a",
+        "kind": "missing_ramp",
+        "reviewStatus": "accepted",
+        "evidenceIds": ["link-a-note"],
+        "note": "The illustration assumes a raised curb without a ramp at the start of the shared approach."
+      },
+      {
+        "id": "link-b-surface",
+        "edgeId": "link-b",
+        "kind": "surface_issue",
+        "reviewStatus": "accepted",
+        "evidenceIds": ["link-b-note"],
+        "note": "The illustration assumes a broken section of path between the midpoint and the shared destination hub."
+      },
+      {
+        "id": "hall-surface",
+        "edgeId": "hall-link",
+        "kind": "surface_issue",
+        "reviewStatus": "accepted",
+        "evidenceIds": ["hall-note"],
+        "note": "The illustration assumes more extensive surface damage on the separate Hall approach."
+      }
+    ],
+    "evidence": [
+      {
+        "id": "link-a-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Illustrated curb at the start of the shared approach",
+        "note": "The scenario author placed a curb without a ramp at link A. The accepted review applies to this synthetic note; the route assessment is a separate modeled input.",
+        "attribution": "Curb investment scenario author"
+      },
+      {
+        "id": "link-b-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Illustrated damaged section of shared path",
+        "note": "The scenario author defined a broken section at link B as a blocker for this profile. No campus survey, photograph, or measured surface condition was used.",
+        "attribution": "Curb investment scenario author"
+      },
+      {
+        "id": "hall-note",
+        "kind": "note",
+        "origin": "synthetic",
+        "caption": "Illustrated surface damage at the Hall approach",
+        "note": "The scenario author gave the Hall approach the strongest visual condition rating in this exercise. Its condition, route effect, and cost are assumptions.",
+        "attribution": "Curb investment scenario author"
+      }
+    ]
+  },
+  "profile": {
+    "id": "step-free-demo",
+    "label": "Authored step-free planning profile",
+    "description": "Reachability follows explicit route assessments and hypothetical removal of named blockers. The model establishes neither legal compliance nor safe real-world navigation."
+  },
+  "assumptions": [
+    "The network, evidence, route conditions, coordinates, and lengths are entirely synthetic. Coordinates and lengths describe a schematic, not Princeton geography or field measurements.",
+    "Every destination counts equally. The objective counts destinations newly reachable from Arrival court and does not score partial progress, hazard reduction, or people served.",
+    "Condition scores are authored visual rankings from 1 (least severe) to 5 (most severe). Evidence review status does not determine route passability.",
+    "Costs are assumptions in USD, not contractor estimates. Each repair's amount covers its complete modeled scope, including allocated setup.",
+    "Repairs are hypothetical. Each clears a named blocker in the model without changing source evidence or claiming actual work or route outcomes."
+  ],
+  "edgeAssessments": [
+    { "edgeId": "link-a", "kind": "walkway", "status": "blocked", "blockingBarrierIds": ["link-a-curb"], "reason": "The authored step-free assessment treats the curb without a ramp as a blocker." },
+    { "edgeId": "link-b", "kind": "walkway", "status": "blocked", "blockingBarrierIds": ["link-b-surface"], "reason": "The authored step-free assessment treats this broken section of shared path as a blocker." },
+    { "edgeId": "library-walk", "kind": "entrance", "status": "pass", "blockingBarrierIds": [], "reason": "The authored assessment permits travel between the hub and Library." },
+    { "edgeId": "student-center-walk", "kind": "entrance", "status": "pass", "blockingBarrierIds": [], "reason": "The authored assessment permits travel between the hub and Student center." },
+    { "edgeId": "hall-link", "kind": "entrance", "status": "blocked", "blockingBarrierIds": ["hall-surface"], "reason": "The authored step-free assessment treats the damaged Hall approach as a blocker." },
+    { "edgeId": "cafe-walk", "kind": "walkway", "status": "pass", "blockingBarrierIds": [], "reason": "The authored assessment permits travel between Arrival court and Cafe before any repair." }
+  ],
+  "repairs": [
+    { "id": "repair-a", "label": "A - Add approach ramp", "barrierId": "link-a-curb", "description": "Add a ramp to clear the modeled curb blocker at the start of the shared approach." },
+    { "id": "repair-b", "label": "B - Repair shared path", "barrierId": "link-b-surface", "description": "Repair the broken path section to clear its modeled blocker before the shared destination hub." },
+    { "id": "repair-c", "label": "C - Repair Hall approach", "barrierId": "hall-surface", "description": "Repair the damaged surface to clear the modeled blocker on the separate Hall approach." }
+  ],
+  "originNodeId": "arrival",
+  "destinationIds": ["library", "student-center", "hall", "cafe"],
+  "candidates": [
+    {
+      "repairId": "repair-a",
+      "severity": { "score": 3, "rationale": "The scenario author gave the illustrated missing ramp a moderate visual condition rating." },
+      "cost": { "status": "assumed", "cents": 500000, "source": "Scenario author assumption: $5,000 in USD for the complete modeled ramp repair, including allocated setup." }
+    },
+    {
+      "repairId": "repair-b",
+      "severity": { "score": 2, "rationale": "The scenario author rated this illustrated path damage lower than the other two conditions." },
+      "cost": { "status": "assumed", "cents": 500000, "source": "Scenario author assumption: $5,000 in USD for the complete modeled shared path repair, including allocated setup." }
+    },
+    {
+      "repairId": "repair-c",
+      "severity": { "score": 5, "rationale": "The scenario author rated the illustrated surface damage on the separate Hall approach as the most severe condition." },
+      "cost": { "status": "assumed", "cents": 1000000, "source": "Scenario author assumption: $10,000 in USD for the complete modeled Hall approach repair, including allocated setup." }
+    }
+  ],
+  "defaultBudgetCents": 1000000
+}
