@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "disposition": "inventory_only",
+  "comparisonAllowed": false,
+  "canonicalRepository": "https://github.com/oliverchennn/Curb",
+  "officialSource": {
+    "id": "smcccd-final-2020",
+    "version": "FINAL November 2020",
+    "publisher": "San Mateo County Community College District",
+    "url": "https://smccd.edu/ada2020/19029%20SMCCCD%20ADA%20Self-Evaluation%20and%20Transition%20Plan%20FINAL%20Nov2020%20sm.pdf",
+    "bytes": 111675832,
+    "viewerPages": 4399,
+    "sha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8"
+  },
+  "sourceCandidate": {
+    "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+    "tree": "0617287d6f54933a7aebdac12e92c8d252fea921"
+  },
+  "independentReview": {
+    "commit": "65effc19e03c5f3bd98cbb3e781fcd9ec07c98ab",
+    "tree": "72be2a4f553fc9a3143c409a2ddefecce2609831",
+    "disposition": "inventory_only",
+    "reviewRelease": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893192444"
+  },
+  "reviewedInputs": [
+    {
+      "path": "research/curb/canada-2020/coverage.json",
+      "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+      "sha256": "a3ac00b055dac3c8d38664dc2f0e73e9a5951faecf7d07e1b26d8b79ad0e3e2b"
+    },
+    {
+      "path": "research/curb/canada-2020/graph.json",
+      "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+      "sha256": "4da95bd0a345537783f0371d11d736c3e13111723bb034aa2320896f91b8d68c"
+    },
+    {
+      "path": "research/curb/canada-2020/observations.json",
+      "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+      "sha256": "4cd84a0e2d14c79fe66e2f9ffabbc9b6ced1cd360526540d3f985bf7c21c30a8"
+    },
+    {
+      "path": "research/curb/canada-2020/projects.json",
+      "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+      "sha256": "5f77328b5f296dea3a9bc318babc154c968cecc1a397215610966e6153bb8707"
+    },
+    {
+      "path": "research/curb/canada-2020/sources.json",
+      "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+      "sha256": "cde6dae0160368351381691268a25094f2404758aa2fb88e6e6fb37c43d0deb5"
+    },
+    {
+      "path": "research/curb/canada-2020/feasibility.json",
+      "commit": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+      "sha256": "2ecb03aea77affc6030bc98051dd1b9b6aa6ee0735b16dc7e7f583b6254265b2"
+    }
+  ],
+  "proofArtifacts": [
+    {
+      "path": "docs/research/canada-case/VERIFICATION.md",
+      "sha256": "04778e97241ed9acb0f5ce0b09c1451c3131c46bbb4e2436fd0405dda614ee87"
+    },
+    {
+      "path": "reports/curb/canada-2020/claims.json",
+      "sha256": "658890a06c44f662a8b07e86a5cc369301788b7cb341795d337b2f13b08d49be"
+    },
+    {
+      "path": "reports/curb/canada-2020/readiness.md",
+      "sha256": "e7014b6a158453c9c620e4fb4fc01f95ac780b6680459d97e76123aaabaef263"
+    }
+  ],
+  "notApplicable": {
+    "comparison": "not_applicable",
+    "studyGrid": "not_applicable",
+    "engineOutput": "not_applicable",
+    "sensitivities": "not_applicable",
+    "reason": "The official evidence does not establish an assessed connected case. No strategy comparison ran."
+  },
+  "reviewReceipt": {
+    "path": "research/curb/canada-2020/data-review.json",
+    "commit": "65effc19e03c5f3bd98cbb3e781fcd9ec07c98ab",
+    "sha256": "d618c3d0f84a25537a839a55a4a3f1d78ef0da334fb005fba381d19996a31a43"
+  },
+  "product": {
+    "commit": "ff33cdc9aa7ea4907851dae7aec8351b722e409a",
+    "tree": "644715bad6a556c05b9bc9ad12ca431294a9fc94",
+    "snapshot": {
+      "path": "src/data/curb/cases/canada-college-readiness.json",
+      "commit": "ff33cdc9aa7ea4907851dae7aec8351b722e409a",
+      "sha256": "45a70b5a61a3088a6596ad5645bf4e276b6fb0fbde070e6468d7949608ee4a8a"
+    },
+    "revision": 1,
+    "page": "/curb/case-studies/canada-college",
+    "api": {
+      "method": "GET",
+      "path": "/api/curb/cases/canada-college"
+    },
+    "sourceProjection": "passed",
+    "browserAndDeployment": "pending_at_proof_publication",
+    "reviewEvidence": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893343882"
+  }
+}
