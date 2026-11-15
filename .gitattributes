@@ -1,0 +1,5 @@
+# These files have published byte-level provenance checksums.
+src/data/curb/princeton-campus/osm-source.json text eol=lf
+src/data/curb/princeton-campus/provenance.json text eol=lf
+src/data/curb/princeton-campus/campus.json text eol=lf
+src/data/curb/princeton-campus/campus-index.json text eol=lf

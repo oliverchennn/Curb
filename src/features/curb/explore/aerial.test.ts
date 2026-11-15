@@ -13,9 +13,9 @@ describe('aerial context', () => {
     expect(e.width).toBeCloseTo(metadata.projectionCheck.width, 6);
     expect(e.height).toBeCloseTo(metadata.projectionCheck.height, 6);
   });
-  it('covers every located archive vertex in all three archive collections', () => {
+  it('covers every located archive vertex in all three downtown DVRPC collections', () => {
     const a = createAtlas();
-    const archive = a.collections.filter(c => c.kind === 'archive');
+    const archive = a.collections.filter(c => c.kind === 'archive' && !c.id.startsWith('campus-'));
     expect(archive).toHaveLength(3);
     for (const c of archive) {
       const points = locatedFeatures(a, recordsFor(a, c)).flatMap(vertices) as [number, number][];

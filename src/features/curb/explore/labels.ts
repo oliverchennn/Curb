@@ -1,4 +1,29 @@
 type Pt = [number, number];
+export const SECTION_TARGET_SIZE = 44;
+
+/** Reserve independent screen-sized cells and assign each visible section its nearest free cell.
+ *  Only the code moves; the section box and every source coordinate stay where they are. */
+export function placeSectionTargets(anchors: { id: string; x: number; y: number }[], bounds: BadgeBounds, unit: number) {
+  const step = (SECTION_TARGET_SIZE + 4) * unit;
+  const columns = Math.floor((bounds.right - bounds.left) / step);
+  const rows = Math.floor((bounds.bottom - bounds.top) / step);
+  const x0 = (bounds.left + bounds.right - (columns - 1) * step) / 2;
+  const y0 = (bounds.top + bounds.bottom - (rows - 1) * step) / 2;
+  const cells = Array.from({ length: rows * columns }, (_, i) => ({
+    x: x0 + (i % columns) * step, y: y0 + Math.floor(i / columns) * step,
+  }));
+  const placements = new Map<string, { x: number; y: number }>();
+  for (const a of anchors) {
+    let best = -1, distance = Infinity;
+    for (let i = 0; i < cells.length; i++) {
+      const { x, y } = cells[i], d = (x - a.x) ** 2 + (y - a.y) ** 2;
+      if (d < distance) { best = i; distance = d; }
+    }
+    if (best < 0) break;
+    placements.set(a.id, cells.splice(best, 1)[0]);
+  }
+  return placements;
+}
 export type BadgeBounds = { left: number; top: number; right: number; bottom: number };
 /** Orientation label beside an archive line that names the street: offset perpendicular toward `side`
  *  (a rough direction vector in SVG space) and optionally slid along the street. Never moves geometry. */
@@ -23,11 +48,14 @@ const ANGLES = [-90, -45, -135, 0, 180, -20, -160, 45, 135, 90];
 export function placeBadges(
   anchors: BadgeAnchor[], radius: number, markers: { id: string; x: number; y: number }[] = [],
   bounds?: BadgeBounds,
+  /** Dense maps: a badge with no free position is omitted (counted by the caller), except `keep`, which is never hidden. */
+  options: { hideCrowded?: boolean; keep?: string } = {},
 ): Map<string, BadgePlacement> {
   const placed: { x: number; y: number }[] = [];
   const out = new Map<string, BadgePlacement>();
   const minGap = radius * 2.25, clearance = radius * 2;
   for (const a of anchors) {
+    const hideable = options.hideCrowded && a.id !== options.keep;
     const keepInPlot = bounds && a.x >= bounds.left && a.x <= bounds.right && a.y >= bounds.top && a.y <= bounds.bottom;
     const free = (x: number, y: number) => (
       !keepInPlot || (x - radius >= bounds.left && x + radius <= bounds.right
@@ -36,12 +64,13 @@ export function placeBadges(
       && markers.every(m => m.id === a.id || Math.hypot(m.x - x, m.y - y) >= clearance);
     let spot: BadgePlacement = { x: a.x, y: a.y + a.dy, moved: false };
     if (!free(spot.x, spot.y)) {
-      search: for (const ring of [2.6, 3.7, 4.8, 6]) {
+      search: for (const ring of hideable ? [2.6, 3.4] : [2.6, 3.7, 4.8, 6]) {
         for (const deg of ANGLES) {
           const t = deg * Math.PI / 180, x = a.x + Math.cos(t) * radius * ring, y = a.y + Math.sin(t) * radius * ring;
           if (free(x, y)) { spot = { x, y, moved: true }; break search; }
         }
       }
+      if (!spot.moved && hideable) continue;
       // Preserve the full hit area at the plot edge even when all preferred positions are occupied.
       if (!spot.moved && keepInPlot) {
         spot = {

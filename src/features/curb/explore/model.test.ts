@@ -17,7 +17,8 @@ describe('explorer provenance and semantic boundaries', () => {
     expect(subset.ramps).toHaveLength(10);
   });
   it('has three independent archive chains and keeps every actual Robertson photo unplaced', () => {
-    const a = createAtlas(); expect(a.collections.filter(c => c.kind === 'archive')).toHaveLength(3);
+    // Scoped to the original DVRPC archive; the separately sourced OSM campus sections are covered in campus.test.ts.
+    const a = createAtlas(); expect(a.collections.filter(c => c.kind === 'archive' && !c.id.startsWith('campus-'))).toHaveLength(3);
     const field = recordsFor(a, a.collections.find(c => c.id === 'robertson')!);
     expect(field).toHaveLength(5); expect(locatedFeatures(a, field)).toEqual([]);
     expect(field.map(r => r.media.status === 'available' && r.media.src)).toEqual(survey.findings.map(f => f.closeupSrc));
@@ -32,7 +33,7 @@ describe('explorer provenance and semantic boundaries', () => {
       expect(located.every(f => f.geometry !== null)).toBe(true);
       expect(located.some(f => missing.includes(f))).toBe(false);
     }
-    expect(a.features.filter(f => f.geometry?.type === 'LineString')).toHaveLength(10);
+    expect(a.features.filter(f => f.geometry?.type === 'LineString' && f.sourceId === 'dvrpc-lines')).toHaveLength(10);
   });
   it('does not turn accepted attachment review into traversal or a preferred conflict winner', () => {
     const a = createAtlas(); a.records.forEach(r => { r.attachment = 'accepted'; });
