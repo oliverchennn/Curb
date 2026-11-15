@@ -141,6 +141,7 @@
 .expandButton:hover:not(:disabled) { background: #315b46; }
 .orbitToggle:disabled { opacity: 0.5; cursor: default; }
 
+.modelViewport { position: relative; display: flex; flex: 1; flex-direction: column; min-height: 0; }
 .stage { position: relative; flex: 1; min-height: 0; background: linear-gradient(#eef2eb, #dce4d8); overflow: hidden; }
 .canvasHost { position: absolute; inset: 0; }
 .canvasHost canvas:focus-visible { outline: 2px solid #2f6df6; outline-offset: -2px; }
@@ -189,6 +190,75 @@
 
 /* The stage-scoped callout reset above overrides shared button padding without
    changing global styles or other application controls. */
+
+/* ---- Tour launcher (toolbar) ---- */
+.tourLaunch { background: #244b37; color: #fff; border-color: #244b37; font-weight: 650; }
+.tourLaunch:hover { background: #1c3a2b; }
+
+/* ---- Opening hero card (#1) ---- */
+.introCard {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  max-width: 340px; width: calc(100% - 32px);
+  background: #ffffffee; backdrop-filter: blur(6px);
+  border: 1px solid #c9d5cb; border-radius: 12px; padding: 18px 18px 16px;
+  box-shadow: 0 10px 30px #0c261a26; z-index: 2;
+}
+.introEyebrow { margin: 0 0 4px; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: #6b7a6f; }
+.introTitle { margin: 0 0 8px; font-size: 19px; line-height: 1.2; color: #1c3328; }
+.introBody { margin: 0 0 14px; font-size: 13px; line-height: 1.55; color: #43554a; }
+.introActions { display: flex; flex-wrap: wrap; gap: 8px; }
+.introPrimary {
+  padding: 9px 14px; border: 1px solid #244b37; border-radius: 8px;
+  background: #244b37; color: #fff; font-weight: 650; cursor: pointer;
+}
+.introPrimary:hover { background: #1c3a2b; }
+.introSecondary {
+  padding: 9px 14px; border: 1px solid #2f6df6; border-radius: 8px;
+  background: #fff; color: #1f4fb0; font-weight: 650; cursor: pointer;
+}
+.introSecondary:hover { background: #eef5ff; }
+.introGhost {
+  padding: 9px 12px; border: 1px solid #c3cfc5; border-radius: 8px;
+  background: #fff; color: #4f6255; cursor: pointer;
+}
+.introGhost:hover { background: #eef2eb; }
+
+/* ---- Guided-tour bar (#2 / #5) ---- */
+.tourBar {
+  position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2;
+  display: flex; align-items: center; gap: 14px; justify-content: space-between;
+  background: #20372cf2; color: #fff; border-radius: 12px;
+  padding: 12px 14px; box-shadow: 0 10px 30px #0c261a40;
+}
+.tourText { display: grid; gap: 2px; min-width: 0; }
+.tourStep { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #a9c6b6; }
+.tourTitle { font-size: 15px; line-height: 1.25; }
+.tourBody { font-size: 12.5px; line-height: 1.5; color: #dfeae2; }
+.tourLinks { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; }
+.tourLink { color: #bfe0ff; font-size: 12.5px; font-weight: 650; text-decoration: none; }
+.tourLink:hover { text-decoration: underline; }
+.tourControls { display: flex; align-items: center; gap: 6px; flex: none; }
+.tourBtn {
+  padding: 7px 10px; border: 1px solid #3f6b55; border-radius: 8px;
+  background: #2d5742; color: #fff; cursor: pointer; font-size: 13px; line-height: 1;
+}
+.tourBtn:hover:not(:disabled) { background: #356a4f; }
+.tourBtn:disabled { opacity: 0.4; cursor: default; }
+.tourBtn[aria-pressed='true'] { background: #2f6df6; border-color: #2f6df6; }
+.tourNext { font-weight: 650; }
+.tourExit {
+  padding: 7px 10px; border: 1px solid transparent; border-radius: 8px;
+  background: transparent; color: #cfe0d6; cursor: pointer; font-size: 12.5px;
+}
+.tourExit:hover { background: #ffffff22; color: #fff; }
+
+@media (max-width: 860px) {
+  .modelViewport { flex: 0 0 auto; }
+  .introCard, .tourBar { position: static; margin: 12px; }
+  .introCard { transform: none; width: auto; max-width: none; }
+  .tourBar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .tourControls { flex-wrap: wrap; justify-content: flex-end; }
+}
 
 @media (max-width: 860px) {
   .explorer { grid-template-columns: 1fr; height: auto; }
