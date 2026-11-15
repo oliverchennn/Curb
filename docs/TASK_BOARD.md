@@ -1,15 +1,15 @@
-# Current production verification and visual upgrade queue
+# Current production verification and visual upgrades
 
-The existing deployment remains `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). The user's newer requests add collection graphics/cameras and an explorer redesign. Root merged PR8 at bfd8826; the disjoint visual tasks now proceed. Read the [live board](https://github.com/oliverchennn/Curb/issues/1) for actual ACKs and results.
+The public deployment serves `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). PR9 merged the wider survey replay and removed the oversized footer at `16f5444ace90422cac3ef32548ec35b9bed9fc1f`. [PR10](https://github.com/oliverchennn/Curb/pull/10) integrates the collection, explorer, and budget upgrades.
 
 | Owner | Current scope | State |
 | --- | --- | --- |
-| Root | Replay layout/banner removal, backend/shared files, PR review, archives and integration | Running; PR8 merged and archived |
-| B / Vincent laptop | ROVER-INSPECTION-V2/1: collection 3D graphics, three virtual camera feeds and close-up inspection | ACK/RUNNING 6885609474; graphics addendum 6885549275 |
-| C / Landau | EXPLORER-DESIGN-V2/1: independent design critique and comparison, only EXPLORER_UPGRADE_PROPOSAL.md | READY 6885550039; design first, implementation after synthesis |
-| D / Oliver cloud | BUDGET-CLARITY-V2/1: survey plan presentation and synthetic budget-page explanation | ACK/RUNNING 6885605644; exact disjoint paths in assignment 6885586935 |
+| Merge owner `01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5` | Git, shared integration, Chrome acceptance, archives and release | [Handoff ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886029469) from original orchestrator `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` |
+| B / Vincent laptop | Rover inspection and Vincent-project deployment | [Rover released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885965018) at `352bc300850bacd7360680fc50fe17a1190846e7` and integrated through `e12464c`. [Hosting preflight complete](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886060150). [Timed runbook released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886221603) |
+| C / Landau | Adaptive explorer stage and linked evidence | [Explorer released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886135359) at `1a21afca02bb6794d9eeba1c88c0002d482aceb7` and integrated through `ac90100`. [Independent budget QA released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886366269) and integrated. |
+| D / Oliver cloud | Survey plan presentation and synthetic budget explanation | [Released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886003683) at `cf7210200ebfe47b1f435bdcc136ddd4e2137f6e` and integrated through `7414d40`. [Independent rover QA released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886265932) |
 
-Both new tasks start from exact `2fb49f710085732a7ac20f63680925b8db06dba5` in isolated branches. B owns the collection paths listed in its assignment. C has design-document ownership only. No product changes outside those scopes, no paid actions, no duplicate writers. All previous hosted audit and candidate regression reports are STOPPED/RELEASED and integrated. Final feature deployment is assigned to Vincent only after root acceptance and exact merge. Historical tables below are history, not current assignments.
+B and D used assigned base `2fb49f710085732a7ac20f63680925b8db06dba5`. The original orchestrator owns worker assignments and directs Vincent’s deployment after the merge owner publishes the exact verified main SHA. [Live board](https://github.com/oliverchennn/Curb/issues/1).
 
 ---
 

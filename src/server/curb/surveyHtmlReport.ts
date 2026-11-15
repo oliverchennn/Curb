@@ -7,7 +7,7 @@ const entities: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;
 const pngMagic = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
 
 const policy: Record<PlanId, string> = {
-  essential: 'Lowest-cost suitable repair options for near-term work areas.',
+  essential: 'Lowest-priced options for near-term work areas, subject to field confirmation of suitability.',
   balanced: 'Recommended repair options for eligible work areas.',
   durable: 'Highest-durability repair options for eligible work areas.',
   budget: 'Prioritizes high, then medium, low and unassessed work areas within the known upper cost bound. Quote-only treatments are outside the numerical budget selection.',
@@ -169,7 +169,7 @@ function renderFinding(finding: Finding, area: Survey['workAreas'][number] | und
     '<h4>Recorded measurements</h4>',
     measurements.length ? textList(measurements.map(m => m.property + ' · ' + m.value + ' ' + m.unit + ' · Method ' + m.method))
       : '<p>Measurements unknown. The survey contains no recorded values.</p>',
-    '<h4>Measurements needed</h4>' + textList(assessment.measurementNeeds),
+    '<h4>Site measurement checklist</h4>' + textList(assessment.measurementNeeds),
     '<h4>Technical references and checks</h4>',
     '<ul>' + assessment.checks.map(check => '<li>' + anchor('source', check.sourceId) + ' · ' + escapeHtml(check.section) + ' · '
       + (check.status === 'needs_measurement' ? 'Measurement needed' : 'Not assessed') + '. ' + escapeHtml(check.note) + '</li>').join('') + '</ul>',
@@ -265,6 +265,7 @@ export function renderSurveyHtmlReport(
     '<p>Overall ADA compliance remains undetermined. Confirm applicability, measurements and treatment suitability in the field.</p>',
     pending ? '<p><strong>Provisional plans.</strong> ' + pending + (pending === 1 ? ' finding remains' : ' findings remain') + ' pending review.</p>' : '',
     rejected.length ? '<p><strong>Rejected evidence excluded from planning.</strong> ' + rejected.map(f => anchor('finding', f.id, f.label + ' (' + f.id + ')')).join(', ') + '</p>' : '',
+    orderedPlans.some(plan => plan.cost.unpricedItems.length) ? '<p>Partial subtotals cannot rank full project costs while items still need quotes.</p>' : '',
     ...orderedPlans.map(plan => renderPlan(plan, plan.id === selectedPlanId, areas, treatments, survey.sharedCosts)),
     '</section>',
     '<section id="work-areas" aria-labelledby="work-areas-heading">',

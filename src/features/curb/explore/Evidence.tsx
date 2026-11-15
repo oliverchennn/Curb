@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { dateText, kindLabels, project, vertices, type Atlas, type EvidenceRecord, type Feature, type EvidenceDate } from './model';
+import { archiveAttributes, dateText, kindLabels, project, vertices, type Atlas, type EvidenceRecord, type Feature, type EvidenceDate } from './model';
 import styles from './Explorer.module.css';
 
 export function Snapshot({ record, feature, compact = false }: { record: EvidenceRecord; feature: Feature; compact?: boolean }) {
@@ -22,13 +22,16 @@ export function Snapshot({ record, feature, compact = false }: { record: Evidenc
   </div>;
 }
 function DateValue({ value }: { value: EvidenceDate }) { return value ? <time dateTime={value.value}>{dateText(value)}</time> : <>Unknown</>; }
-export function RecordCard({ atlas, record, comparison = false }: { atlas: Atlas; record: EvidenceRecord; comparison?: boolean }) {
+export function RecordCard({ atlas, record, comparison = false, stop, hidePhoto = false }: { atlas: Atlas; record: EvidenceRecord; comparison?: boolean; stop?: number; hidePhoto?: boolean }) {
   const feature = atlas.features.find(f => f.id === record.featureId)!, source = atlas.sources.find(s => s.id === record.sourceId)!;
+  const attributes = archiveAttributes(feature);
+  // Root's survey deep link: validated canonical finding ID from the field record's feature.
+  const reviewHref = record.kind === 'field' && feature.sourceFeatureId ? `/curb/surveys/robertson-hall?finding=${encodeURIComponent(feature.sourceFeatureId)}` : '/curb/surveys/robertson-hall';
   return <article className={comparison ? styles.comparisonCard : styles.recordCard} data-record={record.id}>
-    <span className={styles.provenance} data-kind={record.kind}>{kindLabels[record.kind]}</span>
+    <span className={styles.provenance} data-kind={record.kind}>{kindLabels[record.kind]}</span>{stop !== undefined && <span className={styles.stopTag}>{record.kind === 'field' ? 'Record' : 'Stop'} {String(stop).padStart(2, '0')} · source order</span>}
     <h3>{record.title}</h3>
     <p className={styles.featureKey}>{feature.id}</p>
-    <Snapshot key={record.id} record={record} feature={feature} />
+    {!hidePhoto && <Snapshot key={record.id} record={record} feature={feature} />}
     <p className={styles.recordNote}>{record.note}</p>
     <dl className={styles.recordMeta}>
       <div><dt>Location</dt><dd>{feature.geometry ? 'Archive source geometry' : 'Location not yet placed'}</dd></div>
@@ -38,8 +41,9 @@ export function RecordCard({ atlas, record, comparison = false }: { atlas: Atlas
       <div><dt>Attachment</dt><dd>{record.attachment === 'source-matched' ? 'Source ID matched' : record.attachment === 'accepted' ? record.kind === 'synthetic' ? 'Accepted (example only)' : 'Accepted attachment' : 'Pending review'}</dd></div>
       {record.clipSeconds !== undefined && <div><dt>Clip position</dt><dd>{record.clipSeconds.toFixed(3)} seconds · not a date</dd></div>}
     </dl>
+    {attributes.length > 0 && <div className={styles.attributes}><h4>Archive metadata</h4><dl>{attributes.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl><p>From the DVRPC archive snapshot. Not a field observation, current condition or passability.</p></div>}
     <p className={styles.unknown}>Current traversal: Unknown</p>
-    {record.kind === 'field' && <div className={styles.evidenceLinks}><a className={styles.actionLink} href={`/curb/surveys/robertson-hall/survey.mp4#t=${record.clipSeconds}`}>Open source clip at this frame →</a><a href="/curb/surveys/robertson-hall">Review Robertson survey →</a></div>}
+    {record.kind === 'field' && <div className={styles.evidenceLinks}><a className={styles.actionLink} href={`/curb/surveys/robertson-hall/survey.mp4#t=${record.clipSeconds}`}>Open source clip at this frame →</a><a href={reviewHref}>Review this finding in the survey →</a></div>}
     <details className={styles.sourceDetails}><summary>Source & record details</summary>
       <dl className={styles.recordMeta}>
         <div><dt>Feature ID</dt><dd>{feature.id}</dd></div><div><dt>Record ID</dt><dd>{record.id}</dd></div>

@@ -66,7 +66,11 @@ export function SurveyWorkspace() {
       if (!isCurrent()) return;
       setLoad({ status: 'ready', original: data });
       setSurvey(data);
-      setSelectedFindingId(data.findings[0]?.id ?? null);
+      // Explorer links identify a finding in this validated survey, never an arbitrary seek time.
+      const requestedId = new URLSearchParams(window.location.search).get('finding');
+      const linkedFinding = data.findings.find((finding) => finding.id === requestedId);
+      setSelectedFindingId(linkedFinding?.id ?? data.findings[0]?.id ?? null);
+      if (linkedFinding) setSeek({ seconds: linkedFinding.evidenceTime, nonce: Date.now() });
     }, (error: unknown) => {
       clearTimeout(timer);
       if (!isCurrent() || (error instanceof DOMException && error.name === 'AbortError')) return;

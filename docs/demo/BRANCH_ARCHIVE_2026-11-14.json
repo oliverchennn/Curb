@@ -469,6 +469,38 @@
           "mergedIntoMain": "bfd8826ea157991514cefc91a9a89cd90a86d187"
         }
       ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:10:21.769024+00:00",
+      "reason": "PR9 reviewed and merged after exact-head CI and Chrome desktop/mobile checks; archive verified before removal. B/C/D upgrades remain separate.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/replay-layout-v2",
+          "sha": "849fa862a1a2f9dd059de4da21ff62df124deb0a",
+          "archiveTag": "archive/2026-11-14/codex/replay-layout-v2",
+          "mergedIntoMain": "16f5444ace90422cac3ef32548ec35b9bed9fc1f"
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:22:27.155696+00:00",
+      "reason": "Landau design scope explicitly stopped and released, reviewed in full and integrated as 9be8143; exact tag and absent branch reverified. Explorer implementation remains on its separately assigned active branch.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/explorer-design-v2",
+          "sha": "85769f45caa0ba4b4dd89d62cddbe9634114b4a6",
+          "archiveTag": "archive/2026-11-14/codex/explorer-design-v2",
+          "integratedOnReleaseBranch": [
+            "9be8143"
+          ]
+        }
+      ]
     }
   ]
 }

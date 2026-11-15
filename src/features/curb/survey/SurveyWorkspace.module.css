@@ -361,6 +361,8 @@
   .videoFrame { height: min(70vh, 700px); }
 }
 @media (max-width: 480px) {
+  /* Leave room for the sticky survey tabs when the browser scrolls keyboard focus into view. */
+  :global(html):has(.workspace) { scroll-padding-block-start: 108px; }
   .workspace { gap: 18px; font-size: 17px; }
   .workspace summary, .segmented button { min-height: 44px; }
   .header { display: block; padding: 18px; }
