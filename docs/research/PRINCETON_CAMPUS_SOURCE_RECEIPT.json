@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "task": "CURB-PRINCETON-CAMPUS-MAP/1",
+  "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
+  "base": "fd697515eecc6e4ba3f8259f7e8cd8b05f78d256",
+  "branch": "codex/princeton-campus-map",
+  "status": "validated data checkpoint; campus UI and attribution pending separate C task",
+  "generatedAtUtc": "2026-11-15T01:30:39.656570+00:00",
+  "scope": "University campus only: source university relation plus Meadows area; not municipality or all University property",
+  "bounds": [
+    -74.669837,
+    40.3192245,
+    -74.6297684,
+    40.3560433
+  ],
+  "counts": {
+    "candidateWays": 2328,
+    "selectedWays": 1188,
+    "sections": 22,
+    "excludedOutsideArea": 1140,
+    "excludedPedestrianAreas": 0,
+    "classes": {
+      "footway": 1077,
+      "path": 22,
+      "pedestrian": 0,
+      "steps": 62,
+      "cycleway": 27
+    },
+    "unknownTags": {
+      "width": 1166,
+      "incline": 1169,
+      "wheelchair": 1187,
+      "surface": 889,
+      "lit": 1159
+    }
+  },
+  "legacyCollectionIds": [
+    "witherspoon",
+    "nassau-east",
+    "nassau-west",
+    "robertson",
+    "examples"
+  ],
+  "artifactSha256": {
+    "campus.json": "8bb4b8cdd2b5e89548195f33df5fa09e23c0e16b44c2e47f2059b47f858da6e1",
+    "provenance.json": "46d8eca512527f0dcd2053c817f778cabe44fde665ade3c3a63d831863e4bcd2",
+    "osm-source.json": "47338cae35eb146e063cc7c0d458123ffde2873ba7ce291ee584ebabb3e5d959",
+    "campus-index.json": "f9cd41fa7e7a790933d46bedce6b6567925ff0e547b43e84e449d52e366a34f5"
+  },
+  "checks": [
+    {
+      "command": "node scripts/import-princeton-campus.mjs --check",
+      "result": "pass; deterministic offline output and hash"
+    },
+    {
+      "command": "npx vitest run src/data/curb/princeton-campus",
+      "result": "11 passed"
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "passed"
+    },
+    {
+      "command": "npx vitest run src/data/curb/princeton-campus src/features/curb/explore/model.test.ts src/features/curb/explore/location.test.ts",
+      "result": "43 passed, 2 stale baseline global-count assertions failed in C-owned model.test.ts (3 archive collections vs25;10 lines vs1198). Reported for source-scoped integration update."
+    },
+    {
+      "command": "npm run build",
+      "result": "sandboxed TypeScript showConfig subprocess returned empty output; normal-access rerun in progress"
+    },
+    {
+      "command": "independent Python Matplotlib path/ring comparison",
+      "result": "same1188 way IDs as JS importer; symmetric difference zero"
+    }
+  ],
+  "browserAcceptance": "Not yet executed on this data checkpoint; old UI is not accepted for campus attribution or22-section navigation. C owns the next UI task.",
+  "collaborationComments": [
+    6887085089,
+    6887105808,
+    6887158950,
+    6887203470,
+    6887277024
+  ],
+  "networkRefreshCommandExecuted": false,
+  "acquisition": "Bounded Python client using exact API requests and hashes in provenance.json. --prepare and --check executed. No OSM writes."
+}
