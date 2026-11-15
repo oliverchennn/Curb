@@ -1,8 +1,19 @@
 {
   "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "sampleRate": 48000,
   "seconds": 116,
+  "team": {
+    "start": 0,
+    "end": 7
+  },
+  "voice": {
+    "start": 7,
+    "end": 112
+  },
   "presenter": {
-    "start": 3.2,
+    "start": 7,
     "end": 112,
     "x": 1544,
     "y": 722,
@@ -12,16 +23,16 @@
   "clips": [
     {
       "key": "intro",
-      "title": "Animated introduction",
-      "file": "01-Curb-intro.mp4",
+      "title": "Team camera · replace before export",
+      "file": "01-Team-camera-placeholder.mp4",
       "start": 0,
-      "end": 3.2
+      "end": 7
     },
     {
       "key": "field",
       "title": "The problem",
       "file": "02-Robertson-footage.mp4",
-      "start": 3.2,
+      "start": 7,
       "end": 15
     },
     {
