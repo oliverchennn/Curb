@@ -20,7 +20,7 @@ The [older campus directory map](https://canadacollege.edu/marketing/docs/map-di
 
 ## Machine-readable candidate
 
-[map-topology.json](map-topology.json) records source-linked nodes, links, approximate drawing coordinates, separately typed inferred building connections, historical ramp-pair candidates and excluded joins. Coordinates are positions on a schematic PDF rendered at 180 dpi, not surveyed ground coordinates or measured travel distances.
+[map-topology.json](map-topology.json) records 18 nodes, 14 mapped links and two conditional/inferred Building 9 links, with source references, approximate drawing coordinates, historical ramp-pair candidates and excluded joins. Coordinates are positions on a schematic PDF rendered at 180 dpi, not surveyed ground coordinates or measured travel distances.
 
 Each map-derived edge retains `accessAssessment: unknown`. This does not erase its cartographic connection: it means the map establishes the path layout while width, grade and current condition have a different evidence status.
 
@@ -34,4 +34,6 @@ The resulting claim would concern a **map-based Cañada planning scenario under 
 
 ## Review status
 
-The existing independent reviewer confirmed the official map's three distinct crossings and separate Building 9 elevator markers. The exact machine-readable candidate is being checked against those traces before publication. No optimizer comparison has been run on this candidate.
+The existing independent reviewer accepted the exact source candidate for bounded publication on November 15, 2026: SHA-256 `908a2c0eabc1edf8aeb49a75f3cbc41026fcff4fba897761047613cf4b499575`. The published Git blob normalizes the final CRLF to LF, retaining identical JSON values: `ffd6d17db589f2e4e762bd951e70609cd923ed7bc832b0e80eb2057dcdaa46fe` (18,752 bytes).
+
+The review confirmed the three separate approaches and the explicit treatment of the two conditional Building 9 links. A map symbol partly obscures the Buildings 18/23 corridor: its map-scale connection is supportable, while the exact passage and level remain unverified. The Building 12 node is an approach area. Historical ramp-to-crossing registrations remain inferred. No optimizer comparison has been run on this candidate, and the original repair-comparison gate is unchanged.
