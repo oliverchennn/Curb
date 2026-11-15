@@ -110,7 +110,7 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
             fill={ink} stroke={halo} strokeWidth={4 * unit} paintOrder="stroke">{s.code}</text>; })()}
         </g>; })}
     </svg>
-    <div className={styles.mapCredit}>{showAerial && <span>Aerial {campusAerial.captureYear} · NJ Office of GIS</span>}<OsmCredit /></div>
+    <div className={styles.mapCredit} data-campus="true">{showAerial && <span>Aerial {campusAerial.captureYear} · NJ Office of GIS</span>}<OsmCredit offerDownload /></div>
     <details className={styles.legend}>
       <summary>
         <span><i className={styles.legendPath} style={{ borderColor: SECTION_COLORS.central }} />OpenStreetMap ways, colored by study area</span>

@@ -206,9 +206,9 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
             lineHeight: height + 'px', textAlign: flip ? 'right' : 'left', paddingInline: 2 * unit }}>{selectedFeature.label}</div>
         </foreignObject>; })()}
     </svg>
-    <div className={styles.mapCredit}>
+    <div className={styles.mapCredit} data-campus={osm || undefined}>
       {showAerial && <span>Aerial {imagery.captureYear} · NJ Office of GIS</span>}
-      {osm && <OsmCredit />}
+      {osm && <OsmCredit offerDownload />}
     </div>
     <details className={styles.legend}>
       <summary>
