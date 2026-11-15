@@ -1,14 +1,14 @@
 {
   "fullDecode": [
     {
-      "file": "01-Curb-intro.mp4",
-      "frames": 96,
-      "durationSeconds": 3.2
+      "file": "01-Team-camera-placeholder.mp4",
+      "frames": 210,
+      "durationSeconds": 7
     },
     {
       "file": "02-Robertson-footage.mp4",
-      "frames": 354,
-      "durationSeconds": 11.8
+      "frames": 240,
+      "durationSeconds": 8
     },
     {
       "file": "03-Review-finding.mp4",
@@ -57,7 +57,17 @@
     }
   ],
   "pictureAudio": "Silent by design",
-  "captions": "Match the cut manifest",
+  "teamSlot": {
+    "frames": 210,
+    "start": 0,
+    "end": 7,
+    "status": "Real team recording pending"
+  },
+  "voiceover": {
+    "start": 7,
+    "end": 112
+  },
+  "captionsAndTeleprompter": "Match the cut manifest",
   "transparentCapturePlates": [
     "review-stage.png",
     "compare-stage.png",

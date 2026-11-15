@@ -1,7 +1,14 @@
 {
-  "version": "Presenter and audited benchmark refresh",
+  "version": "Team camera and separate voiceover recording skeleton",
   "durationSeconds": 116,
   "fps": 30,
+  "team": {
+    "window": [
+      0,
+      7
+    ],
+    "status": "Placeholder. Real team footage and mic audio pending."
+  },
   "statistic": {
     "value": "12.2%",
     "population": "U.S. adults",
@@ -31,5 +38,5 @@
     "claim": "benchmark-proof.json",
     "ledger": "https://github.com/oliverchennn/Curb/blob/deb9c7ccecbbe50491edeac75d98693f617c2fda/docs/evaluation/METRICS_CLAIMS.md"
   },
-  "audio": "Silent picture edit with draft narration and captions. Presenter audio recorded separately."
+  "audio": "Silent picture edit. Team mic 0:00–0:07, separate voiceover 0:07–1:52, silent outro."
 }

@@ -1,8 +1,8 @@
 # Curb Devpost video
 
-The 116-second cut moves from the actual Robertson Hall Presenter review to a separate synthetic Investment comparison and audited benchmark. Add the presenter camera and narration separately.
+The 116-second recording skeleton reserves 0:00–0:07 for a real full-screen team introduction. The separate voiceover runs from 0:07 to 1:52 over the verified Robertson Hall review, synthetic Investment comparison, and audited benchmark.
 
-- [Timed script and recording guide](START_HERE.md)
+- [Read-aloud script](TELEPROMPTER.md), [shot checklist and exact export command](START_HERE.md), and [Windows join helper](join-recording.ps1)
 - [Silent picture edit](Curb-picture-edit.mp4) and [editable timeline](Curb-edit.xml)
 - [Chapter order and timecode](timeline.json), [separate clips](clips), [transparent overlays](overlays), and [draft captions](captions-draft.srt)
 - [Storyboard](Curb-storyboard.jpg), [source record](picture-sources.json), and [video checks](verification.json)
@@ -14,7 +14,7 @@ Use Node 22 or newer, Chrome, and FFmpeg with H.264 encoding support. Install th
 1. Set `CURB_DEMO_URL` to the accepted app URL, `CURB_DEMO_REVISION` to the full SHA from `/api/health`, and `CURB_DEMO_ACCEPTANCE` to the matching board receipt. Run `npm run capture:presenter` for Original, Review, frame 180, and the actual in-tab Accept flow. Run `npm run capture` for Investment. Both capture commands pin the revision before and after the session. If the public alias resets the connection, `CURB_DEMO_IPV4` can select a currently published IPv4 record for the Presenter capture while retaining the original hostname and TLS checks.
 2. Review the generated images and receipts under `captures/`. Run `npm run capture:import-presenter` or `npm run capture:import` as appropriate. Each import checks all image digests, stages a complete immutable set, and atomically switches `active.json`. The previous snapshot remains available. `npm run test:capture` checks that an incomplete or mixed set cannot replace the active one.
 3. Run `npm run render` and `npm run verify`. To render a structural preview with placeholders, run `npm run render:preview`. Its output stays under ignored `.render/`. The release editor requires actual Investment sources. It does not substitute the historical Robertson report for an Investment result.
-4. Import the [editable timeline](Curb-edit.xml) and relink the numbered clips, or run `npm run timeline` to resolve paths for your checkout. The in/out times, narration and generated captions share one [cut manifest](tools/cut.cjs). `npm run render:titles` rebuilds the two motion graphics. After manually replacing a same-length clip, `npm run assemble` rebuilds the master and captions without overwriting the clip. Update the source record for the replacement.
+4. Import the [editable timeline](Curb-edit.xml) and relink the numbered clips, or run `npm run timeline` to resolve paths for your checkout. The in/out times, script and captions share one [cut manifest](tools/cut.cjs). `npm run render:opening` rebuilds the two opening clips and keeps the verified body. `npm run render:titles` rebuilds the team slate and animated outro. Use the join helper or your editor for the final takes. Keep recordings and exports under the ignored `recordings/` folder.
 5. Keep the opening and closing timing, synthetic disclosures, and quote and field assumptions intact. Review the updated frames and once again time the actual spoken take and captions.
 
 ## Current sources

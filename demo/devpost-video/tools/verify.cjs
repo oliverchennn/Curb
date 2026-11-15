@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const sharp = require('sharp');
-const {cut, timeline, subtitles, FPS} = require('./cut.cjs');
+const {cut, timeline, subtitles, teleprompter, FPS} = require('./cut.cjs');
 const {readActive,INVESTMENT_IMAGES,PRESENTER_IMAGES}=require('./capture-store.cjs');
 const proof=require('../benchmark-proof.json');
 
@@ -31,9 +31,14 @@ function decodedFrames(file) {
 
 async function main() {
   const active = timeline();
-  assert.ok(active.seconds < 120,'cut must be below the video cap');
+  assert.equal(active.seconds,116,'cut and four-second headroom');
+  assert.deepEqual(active.team,{start:0,end:7});
+  assert.deepEqual(active.voice,{start:7,end:112});
+  assert.equal(active.clips[0].file,'01-Team-camera-placeholder.mp4');
+  assert.equal(active.clips[2].start,15);
   assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root,'timeline.json'),'utf8')),active);
   assert.equal(fs.readFileSync(path.join(root,'captions-draft.srt'),'utf8').replace(/\r\n/g,'\n'),subtitles());
+  assert.equal(fs.readFileSync(path.join(root,'TELEPROMPTER.md'),'utf8').replace(/\r\n/g,'\n'),teleprompter());
   const expected = [...cut.map(shot=>Math.round(shot.seconds*FPS)),Math.round(active.seconds*FPS)];
   const results = [...paths,clip].map((file,index) => {
     const n = decodedFrames(file);
@@ -69,7 +74,9 @@ async function main() {
   assert.equal(proof.approved,true);
   assert.equal(proof.wins+proof.ties,proof.budgetCases);
   assert.equal(proof.networks*proof.budgetPercent.length,proof.budgetCases);
-  assert.ok(subtitles().includes('Across '+proof.budgetCases+' synthetic budget cases'));
+  assert.deepEqual([proof.wins,proof.ties],[58,62]);
+  assert.match(subtitles(),/fifty-eight synthetic budget cases/);
+  assert.match(subtitles(),/The other sixty-two tied/);
 
   const previews = [];
   for (let i=0;i<stages.length;i++) {
@@ -82,14 +89,15 @@ async function main() {
   const labels = stages.map(([,name],i) => '<text x="'+(32+(i%3)*504)+'" y="'+(406+Math.floor(i/3)*308)+'" fill="#355d4a" font-family="Consolas, monospace" font-weight="700" font-size="15" letter-spacing="1">'+name.replaceAll('&','&amp;')+'</text>').join('');
   const text = '<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'">'
     + '<text x="32" y="63" fill="#1b3024" font-family="Arial,sans-serif" font-size="43" font-weight="700">Curb · Devpost video</text>'
-    + '<text x="34" y="90" fill="#4e6c59" font-family="Arial,sans-serif" font-size="17">Storyboard     /     1:56 picture edit     /     Presenter camera sits in the right rail</text>'
+    + '<text x="34" y="90" fill="#4e6c59" font-family="Arial,sans-serif" font-size="17">Storyboard     /     1:56 picture edit     /     Full-screen team opening and separate voiceover</text>'
     + labels+'</svg>';
   await sharp({create:{width,height,channels:3,background:'#faf8ef'}}).composite([
     ...previews.map((input,i)=>({input,left:32+(i%3)*504,top:111+Math.floor(i/3)*308})),
     {input:Buffer.from(text),top:0,left:0},
   ]).jpeg({quality:90}).toFile(path.join(root,'Curb-storyboard.jpg'));
   fs.writeFileSync(path.join(root,'verification.json'),JSON.stringify({
-    fullDecode:results, pictureAudio:'Silent by design', captions:'Match the cut manifest', transparentCapturePlates:plates,
+    fullDecode:results, pictureAudio:'Silent by design', teamSlot:{frames:210,start:0,end:7,status:'Real team recording pending'},
+    voiceover:{start:7,end:112}, captionsAndTeleprompter:'Match the cut manifest', transparentCapturePlates:plates,
     robertson:{revision:presenter.revision,evidenceSeekSeconds:6,frame:presenter.sourceFrame,
       counts:presenter.counts,fieldImpact:presenter.fieldImpact,overlay:presenter.overlay},
     investment:{revision:investment.revision,basis:investment.basis,at10000:[1,2],removeA:0,removeB:0,at20000:[3,3],brief:'Verified canonical recommendation'},

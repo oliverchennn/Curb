@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const {cut,subtitles,timeline,HOOK_SOURCE}=require('./cut.cjs');
+const {cut,subtitles,teleprompter,timeline,HOOK_SOURCE}=require('./cut.cjs');
 const {readActive,activateCapture,INVESTMENT_IMAGES,PRESENTER_IMAGES}=require('./capture-store.cjs');
 const M=require('./render.cjs');
 const {home,media,temp,brand,rect,line,text,stack,icon,svg,mono,bold,encode,run,png,titleClip,concatenate,segment,cameraFrame,editXml}=M;
@@ -19,6 +19,7 @@ for(const dir of [clips,overlays]) fs.mkdirSync(dir,{recursive:true});
 function metadata(relocatable) {
   editXml(cut,{directory:clips,output:path.join(output,'Curb-edit.xml'),neutral:relocatable});
   fs.writeFileSync(path.join(output,'captions-draft.srt'),subtitles());
+  fs.writeFileSync(path.join(output,'TELEPROMPTER.md'),teleprompter());
   fs.writeFileSync(path.join(output,'timeline.json'),JSON.stringify(timeline(),null,2)+'\n');
 }
 function checkInvestment(receipt) {
@@ -109,6 +110,23 @@ function fieldGraphic() {
     +stack(['of U.S. adults reported serious difficulty','walking or climbing stairs.'],115,720,34,44,whites.heading)
     +line(113,815,886,815,whites.rule,2)+text('CDC  /  2022 BRFSS',113,861,23,brand.light,mono));
 }
+function teamPlaceholder() {
+  return svg(rect(0,0,1920,1080,brand.dark)+rect(0,0,1920,20,'#f3bc65')
+    +icon(124,95,1.1,true)+text('Curb',218,147,46,brand.pale,bold)
+    +text('00:00–00:07   /   FULL SCREEN',126,345,33,'#f3bc65',mono)
+    +text('TEAM CAMERA',118,510,137,brand.pale,bold)
+    +text('Replace this slate with the real team intro and its mic audio.',126,635,44,brand.pale)
+    +line(126,765,1778,765,'#708d7b',2)
+    +text('RECORDING PLACEHOLDER',126,832,27,'#f3bc65',mono));
+}
+async function opening() {
+  await still(teamPlaceholder(),byKey.intro);
+  const field=path.join(temp,'refresh-field.png');
+  await png(fieldGraphic(),field);
+  run(['-i',path.join(media,'survey.mp4'),'-loop','1','-framerate','30','-i',field,'-t',String(byKey.field.seconds),
+    '-filter_complex','[0:v]fps=30,scale=-2:788,setsar=1[phone];[1:v][phone]overlay=991:155:shortest=1,format=yuv420p[v]',
+    '-map','[v]',...encode,path.join(clips,byKey.field.file)]);
+}
 function transitionGraphic(){
   return panel('SYNTHETIC CAMPUS',['BUDGET TEST',['Separate','campus'],['Modeled connections','Assumed repair costs']],
     text('FROM EVIDENCE TO A FUNDING DECISION',120,302,24,brand.light,mono)
@@ -179,7 +197,7 @@ async function main(){
     return;
   }
   if(process.argv.includes('--titles')){
-    await titleClip(byKey.intro.file,byKey.intro.seconds,false,clips);
+    await still(teamPlaceholder(),byKey.intro);
     await titleClip(byKey.outro.file,byKey.outro.seconds,true,clips);
     return;
   }
@@ -190,19 +208,16 @@ async function main(){
     return;
   }
   const sources=preview ? null : activeSources();
-  for(const key of ['intro','outro']){
-    const file=path.join(clips,byKey[key].file);
-    if(!fs.existsSync(file)) {
-      if(key==='intro' && preview) fs.copyFileSync(path.join(M.clips,byKey[key].file),file);
-      else await titleClip(byKey[key].file,byKey[key].seconds,key==='outro',clips);
-    }
+  await opening();
+  if(process.argv.includes('--opening-only')){
+    assert.ok(!preview,'Opening-only render requires the checked body clips');
+    const master=assemble();
+    writeSources(sources);
+    console.log('Rendered new opening and preserved body clips in',master);
+    return;
   }
+  if(!fs.existsSync(path.join(clips,byKey.outro.file))) await titleClip(byKey.outro.file,byKey.outro.seconds,true,clips);
   await png(cameraFrame(),path.join(overlays,'camera-frame-optional.png'));
-  const field=path.join(temp,'refresh-field.png');
-  await png(fieldGraphic(),field);
-  run(['-i',path.join(media,'survey.mp4'),'-loop','1','-framerate','30','-i',field,'-t',String(byKey.field.seconds),
-    '-filter_complex','[0:v]fps=30,scale=-2:788,setsar=1[phone];[1:v][phone]overlay=991:155:shortest=1,format=yuv420p[v]',
-    '-map','[v]',...encode,path.join(clips,byKey.field.file)]);
   await still(transitionGraphic(),byKey.transition);
   const sequences = {
     review:[['original',4.7],['review',4.1],['crop',6.7],['accepted',7.5]],
@@ -218,17 +233,21 @@ async function main(){
   await still(sources?benchmarkGraphic(sources.proof):placeholder('proof'),byKey.proof);
   await still(buyerGraphic(),byKey.buyer);
   const master=assemble();
+  writeSources(sources);
+  console.log('Rendered',master);
+}
+function writeSources(sources) {
   fs.writeFileSync(path.join(output,'picture-sources.json'),JSON.stringify({
-    version:'Presenter and audited benchmark refresh',durationSeconds:seconds,fps:30,
+    version:'Team camera and separate voiceover recording skeleton',durationSeconds:seconds,fps:30,
+    team:{window:[0,7],status:'Placeholder. Real team footage and mic audio pending.'},
     statistic:{value:'12.2%',population:'U.S. adults',year:2022,source:HOOK_SOURCE},
     robertson:{footage:'public/curb/surveys/robertson-hall/survey.mp4',
       ...(sources?describe(sources.presenter):{review:'Editing placeholder pending accepted capture'})},
     investment:sources?describe(sources.investment):{status:'Editing placeholder pending capture'},
     proof:sources?{window:[92,100],claim:'benchmark-proof.json',ledger:sources.proof.ledger}
       :{window:[92,100],content:'Editing placeholder'},
-    audio:'Silent picture edit with draft narration and captions. Presenter audio recorded separately.',
+    audio:'Silent picture edit. Team mic 0:00–0:07, separate voiceover 0:07–1:52, silent outro.',
   },null,2)+'\n');
-  console.log('Rendered',master);
 }
 function describe(snapshot) {
   const {revision,basis,acceptance,source}=snapshot.receipt;

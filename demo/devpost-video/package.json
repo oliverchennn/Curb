@@ -8,6 +8,7 @@
     "capture:import-presenter": "node tools/render-refresh.cjs --import-presenter",
     "test:capture": "node --test tools/capture-store.test.cjs",
     "render": "node tools/render-refresh.cjs",
+    "render:opening": "node tools/render-refresh.cjs --opening-only",
     "assemble": "node tools/render-refresh.cjs --assemble-only",
     "render:preview": "node tools/render-refresh.cjs --preview",
     "render:titles": "node tools/render-refresh.cjs --titles",
