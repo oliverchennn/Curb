@@ -234,3 +234,55 @@
   .recordMeta>div, .attributes dl>div { grid-template-columns:1fr; gap:0; }
 }
 @media (prefers-reduced-motion:reduce) { .explorer *, .explorer *::before, .explorer *::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
+/* Campus archive features share the evidence rail and the current map. */
+.pointControls, .pointLegend, .pointPager { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.pointControls { margin:0 0 10px; }
+.pointControls > span, .pointLabels { color:var(--quiet); font-size:14px; }
+.pointLegend { padding:0; margin:0; list-style:none; }
+.pointLegend li { display:inline-flex; align-items:center; gap:3px; font-size:13px; }
+.pointLegend svg { width:18px; height:18px; color:#244b3a; }
+.pointMapStatus { flex:none; margin:0; padding:6px 10px; color:#395544; background:#f8f8ee; font-size:13px; }
+.pointMarker[data-selectable=true] { cursor:pointer; }
+
+.pointControls button, .pointBrowser button {
+  min-width:44px; min-height:44px; max-width:100%; padding:6px 10px;
+  border:1px solid #c9d2c0; background:#fffef8; color:var(--forest);
+}
+.pointControls button:hover, .pointBrowser button:not(:disabled):hover { background:#e3ebd9; color:var(--forest); }
+.pointControls button[aria-pressed=true] { background:#244b3a; color:#fffef8; }
+.pointBrowser button:disabled { color:#70796d; cursor:default; }
+
+.pointBrowser {
+  min-width:0; overflow:auto; border-left:1px solid var(--border); background:#fffef8;
+  max-height:calc(clamp(560px,calc(100dvh - 190px),860px) + 160px);
+}
+.pointBrowserHeader {
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px;
+  padding:8px 12px; border-bottom:1px solid var(--border);
+}
+.pointBrowser h2, .pointBrowser h3 { font-size:16px; margin:0; overflow-wrap:anywhere; }
+.pointBrowser h2:focus-visible, .pointBrowser h3:focus-visible { outline:3px solid #a66427; outline-offset:3px; }
+.pointBrowserBody { padding:10px 12px; min-width:0; overflow-wrap:anywhere; }
+.pointBrowserBody p { margin:8px 0; }
+.pointBrowserBody section { margin-top:12px; }
+.pointBrowserBody summary { display:flex; align-items:center; min-height:44px; cursor:pointer; text-decoration:underline; }
+.pointFilters { margin:0 0 10px; }
+.pointFilters fieldset { min-width:0; margin:8px 0; border:1px solid var(--border); }
+.pointFilters fieldset label { display:flex; align-items:center; gap:8px; min-height:44px; }
+.pointFilters input[type=checkbox] { accent-color:var(--forest); }
+.pointSearch { display:grid; gap:4px; margin:4px 0 8px; font-size:14px; }
+.pointSearch :is(input, select) {
+  min-width:0; min-height:44px; width:100%; padding:6px 8px;
+  border:1px solid var(--border); background:#fffef8; color:var(--forest);
+}
+.pointRows { display:grid; gap:5px; margin:6px 0 10px; padding:0; list-style:none; }
+.pointRows button { display:block; width:100%; text-align:left; }
+.pointRows .pointLabels { display:block; margin-top:2px; }
+.pointFacts { margin:8px 0; font-size:14px; }
+.pointFacts dt { margin-top:5px; color:var(--quiet); }
+.pointFacts dd { margin:0; }
+.pointFacts a { display:inline-flex; align-items:center; min-height:44px; }
+
+@media (max-width:950px) {
+  .pointBrowser { border-left:0; border-top:1px solid var(--border); max-height:none; }
+}

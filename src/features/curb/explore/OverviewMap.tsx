@@ -6,6 +6,7 @@ import { campusAerial, countFailedTiles, visibleTiles } from './aerial';
 import { campusExtent, campusPaths, sectionExtent, type CampusSection } from './campus';
 import { placeSectionTargets, SECTION_TARGET_SIZE } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
+import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
 import styles from './Explorer.module.css';
 
 type View = [number, number, number, number];
@@ -13,8 +14,9 @@ const SECTION_COLORS: Record<string, string> = { north: '#28715d', west: '#665c9
 
 /** Campus overview: all source ways as one path per section, section codes as the only pointer targets.
  *  Sections are browsing groups of source geometry, not routes or official boundaries. */
-export default function OverviewMap({ atlas, sections, collections, onPick }: {
+export default function OverviewMap({ atlas, sections, collections, onPick, pointLayer }: {
   atlas: Atlas; sections: CampusSection[]; collections: Collection[]; onPick: (collectionId: string) => void;
+  pointLayer?: CampusPointLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const extent = campusExtent();
@@ -45,12 +47,20 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
   const labelSpots = placeSectionTargets(anchors, plotBounds, unit);
   const targets = sections.filter(s => labelSpots.has(s.collectionId));
   const targetSize = SECTION_TARGET_SIZE * unit;
+  const pointLayout = pointLayer && layoutCampusPointMarkers(pointLayer.records, pointLayer.selected,
+    plotBounds, unit, view[2] < fit[2] / 2 && unit <= 1.25, [...labelSpots.values()]);
   const rovingId = focusId && targets.some(s => s.collectionId === focusId) ? focusId : targets[0]?.collectionId;
   useEffect(() => {
     if (!svg.current) return;
     const observer = new ResizeObserver(entries => { const r = entries[0].contentRect; if (r.width && r.height) setSize([r.width, r.height]); });
     observer.observe(svg.current); return () => observer.disconnect();
   }, []);
+  const pointRequest = pointLayer?.request;
+  useEffect(() => {
+    if (!pointRequest) return;
+    setView(viewForCampusPoint(pointRequest.coordinates));
+    if (pointRequest.focusMap) svg.current?.focus();
+  }, [pointRequest]);
   const zoom = (factor: number) => setView(([x, y, w, h]) => {
     const f = Math.max(80 / w, Math.min((fit[2] * 1.6) / w, factor)); return [x + w * (1 - f) / 2, y + h * (1 - f) / 2, w * f, h * f];
   });
@@ -75,6 +85,7 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
     </div>
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every way is unchanged.</p>}
     {!aerialFailed && showAerial && tileFailures > 0 && <p className={styles.mapNotice} role="status">{tileFailures} detail {tileFailures === 1 ? 'tile' : 'tiles'} unavailable — the overview image is shown there.</p>}
+    {pointLayout && <CampusPointMapStatus layout={pointLayout} />}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
       aria-label={`Princeton campus overview on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}: ${targets.length} sections of OpenStreetMap ways. Arrow keys pan, plus and minus zoom, Home fits the campus. Tab once to reach the sections; arrow keys move between them, Home and End jump to the first and last, Enter opens one, Escape returns here.`}
       onKeyDown={e => {
@@ -106,6 +117,8 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
         return Math.hypot(a.x - t.x, a.y - t.y) > 18 * unit && <line key={s.collectionId} x1={a.x} y1={a.y} x2={t.x} y2={t.y}
           stroke={showAerial ? "#faf9f3" : SECTION_COLORS[s.areaId]} strokeOpacity={.7} strokeWidth={1.5} vectorEffect="non-scaling-stroke" />;
       })}</g>
+      {pointLayout && pointLayer && <CampusPointMarkers markers={pointLayout.markers} unit={unit}
+        onSelect={point => { if (!moved.current) pointLayer.onSelect(point); }} />}
       {targets.map(s => { const t = labelSpots.get(s.collectionId)!; const color = SECTION_COLORS[s.areaId];
         return <g key={s.collectionId} ref={el => { if (el) refs.current.set(s.collectionId, el); else refs.current.delete(s.collectionId); }}
           role="button" tabIndex={s.collectionId === rovingId ? 0 : -1} data-section={s.collectionId} className={styles.sectionTarget}
