@@ -5,3 +5,5 @@ src/data/curb/princeton-campus/campus.json text eol=lf
 src/data/curb/princeton-campus/campus-index.json text eol=lf
 src/data/curb/princeton-campus-points/point-source.json text eol=lf
 src/data/curb/princeton-campus-points/catalog.json text eol=lf
+benchmarks/curb-metrics/suite-v1.json text eol=lf
+docs/evidence/metrics/** text eol=lf

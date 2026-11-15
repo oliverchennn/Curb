@@ -1,0 +1,37 @@
+record_type,id,label,from_node,to_node,bidirectional,length_m,coordinate_x,coordinate_y,route_status,barrier_id,evidence_id,assumed_cost_usd_cents,condition_score,review_status,value,notes
+scenario,synthetic-campus-investment,Campus investment scenario,,,,,,,,,,,,,1,Synthetic; study input revision synthetic-campus-investment@1/packet-v1.
+profile,step-free-demo,Authored step-free planning profile,,,,,,,,,,,,,,Reachability follows explicit route assessments and hypothetical removal of named blockers. The model establishes neither legal compliance nor safe real-world navigation.
+origin,arrival,Arrival court,,,,,,,,,,,,,,
+budget,shared-budget,Budget in USD cents,,,,,,,,,,,,,1000000,"Each destination counts once. On equal gain prefer lower spend, fewer repairs, then alphabetical repair IDs."
+baseline,cafe,Cafe,,,,,,,reachable,,,,,,,Baseline access reached from Arrival court before any repair.
+node,arrival,Arrival court,,,,,0,0,,,,,,,,
+node,link-mid,Shared approach midpoint,,,,,0.00015,0,,,,,,,,
+node,hub,Shared destination hub,,,,,0.0003,0,,,,,,,,
+node,library-door,Library entry,,,,,0.00045,0.00015,,,,,,,,
+node,student-center-door,Student center entry,,,,,0.00045,-0.00015,,,,,,,,
+node,hall-door,Hall entry,,,,,-0.00025,0,,,,,,,,
+node,cafe-door,Cafe entry,,,,,0,-0.00015,,,,,,,,
+destination,library,Library,,library-door,,,,,,,,,,,,
+destination,student-center,Student center,,student-center-door,,,,,,,,,,,,
+destination,hall,Hall,,hall-door,,,,,,,,,,,,
+destination,cafe,Cafe,,cafe-door,,,,,,,,,,,,
+edge,link-a,walkway,arrival,link-mid,true,15,,,blocked,link-a-curb,,,,,,The authored step-free assessment treats the curb without a ramp as a blocker.
+edge,link-b,walkway,link-mid,hub,true,15,,,blocked,link-b-surface,,,,,,The authored step-free assessment treats this broken section of shared path as a blocker.
+edge,library-walk,entrance,hub,library-door,true,20,,,pass,,,,,,,The authored assessment permits travel between the hub and Library.
+edge,student-center-walk,entrance,hub,student-center-door,true,20,,,pass,,,,,,,The authored assessment permits travel between the hub and Student center.
+edge,hall-link,entrance,arrival,hall-door,true,25,,,blocked,hall-surface,,,,,,The authored step-free assessment treats the damaged Hall approach as a blocker.
+edge,cafe-walk,walkway,arrival,cafe-door,true,15,,,pass,,,,,,,The authored assessment permits travel between Arrival court and Cafe before any repair.
+barrier,link-a-curb,missing_ramp,,,,,,,,link-a-curb,link-a-note,,,accepted,link-a,The illustration assumes a raised curb without a ramp at the start of the shared approach.
+barrier,link-b-surface,surface_issue,,,,,,,,link-b-surface,link-b-note,,,accepted,link-b,The illustration assumes a broken section of path between the midpoint and the shared destination hub.
+barrier,hall-surface,surface_issue,,,,,,,,hall-surface,hall-note,,,accepted,hall-link,The illustration assumes more extensive surface damage on the separate Hall approach.
+evidence,link-a-note,Illustrated curb at the start of the shared approach,,,,,,,,,,,,,synthetic,The scenario author placed a curb without a ramp at link A. The accepted review applies to this synthetic note; the route assessment is a separate modeled input. Attribution: Curb investment scenario author.
+evidence,link-b-note,Illustrated damaged section of shared path,,,,,,,,,,,,,synthetic,"The scenario author defined a broken section at link B as a blocker for this profile. No campus survey, photograph, or measured surface condition was used. Attribution: Curb investment scenario author."
+evidence,hall-note,Illustrated surface damage at the Hall approach,,,,,,,,,,,,,synthetic,"The scenario author gave the Hall approach the strongest visual condition rating in this exercise. Its condition, route effect, and cost are assumptions. Attribution: Curb investment scenario author."
+repair,repair-a,A - Add approach ramp,,,,,,,,link-a-curb,link-a-note,500000,3,,assumed,"Add a ramp to clear the modeled curb blocker at the start of the shared approach. Scenario author assumption: $5,000 in USD for the complete modeled ramp repair, including allocated setup. The scenario author gave the illustrated missing ramp a moderate visual condition rating."
+repair,repair-b,B - Repair shared path,,,,,,,,link-b-surface,link-b-note,500000,2,,assumed,"Repair the broken path section to clear its modeled blocker before the shared destination hub. Scenario author assumption: $5,000 in USD for the complete modeled shared path repair, including allocated setup. The scenario author rated this illustrated path damage lower than the other two conditions."
+repair,repair-c,C - Repair Hall approach,,,,,,,,hall-surface,hall-note,1000000,5,,assumed,"Repair the damaged surface to clear the modeled blocker on the separate Hall approach. Scenario author assumption: $10,000 in USD for the complete modeled Hall approach repair, including allocated setup. The scenario author rated the illustrated surface damage on the separate Hall approach as the most severe condition."
+assumption,assumption-1,,,,,,,,,,,,,,,"The network, evidence, route conditions, coordinates, and lengths are entirely synthetic. Coordinates and lengths describe a schematic, not Princeton geography or field measurements."
+assumption,assumption-2,,,,,,,,,,,,,,,"Every destination counts equally. The objective counts destinations newly reachable from Arrival court and does not score partial progress, hazard reduction, or people served."
+assumption,assumption-3,,,,,,,,,,,,,,,Condition scores are authored visual rankings from 1 (least severe) to 5 (most severe). Evidence review status does not determine route passability.
+assumption,assumption-4,,,,,,,,,,,,,,,"Costs are assumptions in USD, not contractor estimates. Each repair's amount covers its complete modeled scope, including allocated setup."
+assumption,assumption-5,,,,,,,,,,,,,,,Repairs are hypothetical. Each clears a named blocker in the model without changing source evidence or claiming actual work or route outcomes.
