@@ -1,6 +1,6 @@
 # Curb — three-minute judges demo
 
-*Released presenter script, 287 spoken words. The benchmark claim is approved. The Presenter is deployed at `670f6d80cc139441042957d117ad5eb85d238c6b`. Independent browser acceptance passed. Two clean automated flows took 5.022 and 4.587 seconds without narration; spoken rehearsals and projector verification remain pending. [Production release receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892996974)*
+*Released presenter script, 287 spoken words. The benchmark claim is approved. Full independent Presenter acceptance passed on `670f6d80cc139441042957d117ad5eb85d238c6b`. Two clean automated flows took 5.022 and 4.587 seconds without narration; spoken rehearsals and projector verification remain pending. [Presenter release receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892996974) · [Later case release and regression checks](CANADA_CASE_RESULT.md)*
 
 ## Before the clock
 
@@ -84,6 +84,7 @@ Use a stopwatch from the first spoken word through the close, including clicks a
 
 ## Presenter notes
 
+- **Optional Cañada Q&A after the main flow.** “Curb reviewed 69 historical inventory records for Cañada College’s Lot 1 and Building 9 area, plus related source context. The 2020 report estimated $23,500 for four proposed curb-ramp assemblies. The inventory shows what still needs field verification before comparing repairs, including crossings and the full routes to entrances.” These records include summaries and context, and the estimates are historical. [Approved case claims](../../reports/curb/canada-2020/claims.json) · [Case release and checks](CANADA_CASE_RESULT.md)
 - **Opening statistic.** The figure is from the University of Waterloo’s April 2023 survey of its campus community, in the subgroup of 161 respondents with disabilities. Use the 69 percent line only for that subgroup. [University of Waterloo survey, pp. 130–133](https://uwaterloo.ca/accessibility/sites/default/files/uploads/documents/2023-08-28-inclusive-physical-space-framework_-final_0.pdf)
 - **Budget context for questions.** Gordian’s 2026 North American higher-ed report put capital funding for existing buildings at 73.5% of the level it estimated would keep the backlog from growing. [Gordian campus facilities benchmark](https://www.gordian.com/press/capital-renewal-backlog-rises-higher-education-report/)
 - **Benchmark scope.** The independent audit reproduced 120 budget cases across 30 authored synthetic networks. The separate Investment example was excluded from the aggregate. Curb led condition-first in 58 cases and tied in 62, including every full-budget case. The mean gap was 0.81 additional modeled destinations per case at the same assumed budget. In the $10,000 Investment example, cheapest-first also picks A+B. [Approved claims](https://github.com/oliverchennn/Curb/blob/deb9c7ccecbbe50491edeac75d98693f617c2fda/docs/evaluation/METRICS_CLAIMS.md) · [Verification receipt](https://github.com/oliverchennn/Curb/blob/a8d0a4229285cea65989d92fe7df6decbcb0aff9/docs/evidence/metrics/2026-11-15-suite-v1/verification.md)
