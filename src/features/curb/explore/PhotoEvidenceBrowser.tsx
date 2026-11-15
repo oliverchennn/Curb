@@ -1,6 +1,7 @@
 'use client';
 import { useState, type Ref } from 'react';
 import { PhotoGlyph } from './PhotoEvidenceLayer';
+import { kindLabels } from './model';
 import {
   conditionLabels, photoDateText, photoMarkerLabels, photoPin, type PhotoEvidence,
 } from './photoEvidence';
@@ -23,6 +24,7 @@ function PhotoSummary({ record, onLocate }: { record: PhotoEvidence; onLocate: (
   const { finding, image, location } = record;
   return <article className={styles.detail} aria-labelledby="photo-title">
     <h3 id="photo-title">{record.title}</h3>
+    <p className={styles.limit}>{kindLabels.archive}</p>
     <p className={styles.symbol}>
       {pin && <svg width="23" height="23" viewBox="-13 -13 26 26" aria-hidden="true"><PhotoGlyph kind={pin.kind} /></svg>}
       {pin ? photoMarkerLabels[pin.kind] : 'Unplaced · location review'}
