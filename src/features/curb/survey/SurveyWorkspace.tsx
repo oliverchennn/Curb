@@ -15,8 +15,8 @@ import styles from './SurveyWorkspace.module.css';
 import presenterStyles from './SurveyPresenter.module.css';
 import { canonicalPresenterFrame, resolvePresenterFrames, type PresenterFrame } from './presenter';
 
-// Replaced only with the frame owner's released, audited metadata checkpoint.
-const presenterMetadata: unknown = null;
+// Display-only metadata released by the source-frame owner at 4dce9616.
+import presenterMetadata from '../../../data/curb/surveys/robertson-presenter-frames.json';
 
 type LoadState = { status: 'loading' } | { status: 'error'; message: string } | { status: 'ready'; original: Survey };
 const LOAD_TIMEOUT_MS = 15_000;
@@ -310,7 +310,11 @@ export function SurveyWorkspace() {
         <div ref={scrollRef} className={`${styles.workScroll} ${presenter ? presenterStyles.workScroll : ''}`}>
         {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
         <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
-          <FindingReview compact={presenter} presenterFrame={selectedFindingId ? frames[selectedFindingId] : undefined} resetNonce={restartNonce} survey={survey} original={original} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+          <FindingReview compact={presenter} presenterFrame={selectedFindingId ? frames[selectedFindingId] : undefined} onPresenterFrameFailure={(findingId, failedSrc) => {
+            const finding = survey.findings.find((item) => item.id === findingId);
+            if (finding) setFrames((current) => current[findingId]?.cropSrc === failedSrc
+              ? { ...current, [findingId]: canonicalPresenterFrame(survey, finding, 'Presenter crop unavailable; showing canonical evidence.') } : current);
+          }} resetNonce={restartNonce} survey={survey} original={original} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
             plan={selectedPlan} onMeasure={setMeasure}
             onChange={(next, message) => { setSurvey(next); setNotice(message); }}
             siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />

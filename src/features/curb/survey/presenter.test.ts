@@ -1,4 +1,7 @@
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import releasedMetadata from '../../../data/curb/surveys/robertson-presenter-frames.json';
 import { describe, expect, it, vi } from 'vitest';
 import { SurveySchema, type Survey } from '../../../contracts/curb/survey';
 import sourceSurvey from '../../../data/curb/surveys/robertson-hall.json';
@@ -167,5 +170,28 @@ describe('presenter evidence identity', () => {
     try {
       expect((await resolvePresenterFrames(survey, metadata()))[hero.id].fallbackReason).toMatch(/could not be verified/);
     } finally { vi.unstubAllGlobals(); }
+  });
+});
+
+
+describe('released presenter frame checkpoint', () => {
+  it('matches all five audited source choices against the combined runtime survey', async () => {
+    const before = JSON.stringify(survey);
+    const frames = await resolvePresenterFrames(survey, releasedMetadata);
+    expect(Object.values(frames).map((frame) => frame.frame)).toEqual([195, 264, 326, 180, 398]);
+    expect(Object.values(frames).every((frame) => frame.fallbackReason === null)).toBe(true);
+    expect(frames['defect-02']).toMatchObject({ seconds: 8.8, alternate: true });
+    expect(frames['defect-04']).toMatchObject({ seconds: 6, alternate: false });
+    expect(JSON.stringify(survey)).toBe(before);
+  });
+
+  it('binds the ten committed JPEG assets to the released metadata hashes', () => {
+    for (const frame of releasedMetadata.frames) {
+      for (const [src, expected] of [[frame.fullFrameSrc, frame.fullFrameSha256], [frame.cropSrc, frame.cropSha256]]) {
+        const bytes = readFileSync(resolve(process.cwd(), 'public', src.slice(1)));
+        expect(bytes.subarray(0, 2).toString('hex')).toBe('ffd8');
+        expect(createHash('sha256').update(bytes).digest('hex')).toBe(expected);
+      }
+    }
   });
 });

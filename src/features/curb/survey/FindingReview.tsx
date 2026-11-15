@@ -40,9 +40,10 @@ import styles from './SurveyWorkspace.module.css';
 import presenterStyles from './SurveyPresenter.module.css';
 import { canonicalPresenterFrame, type PresenterFrame } from './presenter';
 
-export function FindingReview({ survey, original, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure, compact = false, presenterFrame, resetNonce = 0 }: {
+export function FindingReview({ survey, original, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure, compact = false, presenterFrame, onPresenterFrameFailure, resetNonce = 0 }: {
   compact?: boolean;
   presenterFrame?: PresenterFrame;
+  onPresenterFrameFailure?: (findingId: string, failedSrc: string) => void;
   resetNonce?: number;
   survey: Survey;
   /** Published baseline shared with JSON import and report validation, never a loaded review. */
@@ -58,7 +59,6 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   siteContext?: ReactNode;
 }) {
   const [reviewer, setReviewer] = useState('');
-  const [failedCrop, setFailedCrop] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const reviewerError = message?.startsWith('Enter a reviewer') ? message : null;
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
@@ -118,14 +118,14 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   ) : null;
 
   if (compact) {
-    const source = finding ? presenterFrame && presenterFrame.cropSrc !== failedCrop ? presenterFrame : canonicalPresenterFrame(survey, finding, failedCrop ? 'Presenter crop unavailable; showing canonical evidence.' : undefined) : null;
+    const source = finding ? presenterFrame ?? canonicalPresenterFrame(survey, finding) : null;
     return <section className={presenterStyles.reviewCard} aria-labelledby="survey-review-heading">
       <div className={presenterStyles.reviewHeading}>
         <h2 id="survey-review-heading">{finding?.label ?? 'Review a finding'}</h2>
       </div>
       {finding && source ? <>
         <div className={presenterStyles.evidence}>
-          <Closeup key={source.cropSrc} src={source.cropSrc} alt={`Extracted source close-up of ${finding.label}, frame ${source.frame}`} compact onFailure={source.cropSrc !== finding.closeupSrc ? () => setFailedCrop(source.cropSrc) : undefined} />
+          <Closeup key={source.cropSrc} src={source.cropSrc} alt={`Extracted source close-up of ${finding.label}, frame ${source.frame}`} compact onFailure={source.cropSrc !== finding.closeupSrc ? () => onPresenterFrameFailure?.(finding.id, source.cropSrc) : undefined} />
           <div className={presenterStyles.evidenceText}>
             <p>{finding.description.split(/(?<=[.!?])\s/)[0]}</p>
             <p className={presenterStyles.sourceLabel}>Source frame {source.frame} · {formatTime(source.seconds)}{source.alternate ? ` (canonical: ${formatTime(finding.evidenceTime)})` : ''}. Static close-up.</p>

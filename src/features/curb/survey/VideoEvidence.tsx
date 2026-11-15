@@ -57,7 +57,9 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited, compact
     if (typeof video.requestVideoFrameCallback === 'function') {
       const onFrame = (_now: number, metadata: { mediaTime: number }) => {
         if (stopped) return;
-        setTime(metadata.mediaTime);
+        // Decoded timestamps may be rounded to microseconds (418/30 becomes
+        // 13.933333). Snap this decoded-frame callback to its exact frame grid.
+        setTime(Math.round(metadata.mediaTime * media.fps) / media.fps);
         handle = video.requestVideoFrameCallback!(onFrame);
       };
       handle = video.requestVideoFrameCallback(onFrame);
@@ -88,7 +90,10 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited, compact
     const video = videoRef.current;
     if (!video || !seek) return;
     video.pause();
-    resumeTimeRef.current = Math.min(seek.seconds, Math.max(0, media.durationSeconds - 1 / media.fps));
+    const target = Math.min(Math.max(0, seek.seconds), Math.max(0, media.durationSeconds - 1 / media.fps));
+    // Seek just inside the requested frame, so the browser's microsecond
+    // rounding cannot land on the previous decoded frame at fractional anchors.
+    resumeTimeRef.current = target === 0 ? 0 : target + 0.000001;
     if (video.readyState >= 1) video.currentTime = resumeTimeRef.current;
     setTime(resumeTimeRef.current);
   }, [seek, media.durationSeconds, media.fps]);
