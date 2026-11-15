@@ -46,6 +46,10 @@ export function RepairPriorities() {
   useEffect(() => {
     if (!focusAfterRetry.current || load.status === 'loading') return;
     focusAfterRetry.current = false;
+    // The request may finish after the user has moved to another live control.
+    // Restore only the focus lost when the original Retry button unmounted.
+    const focused = document.activeElement;
+    if (focused && focused !== document.body && focused !== document.documentElement) return;
     if (load.status === 'ready') queueHeading.current?.focus();
     else retryButton.current?.focus();
   }, [load.status]);
