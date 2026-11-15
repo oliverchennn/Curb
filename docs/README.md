@@ -7,6 +7,7 @@ Start with the [project overview](../README.md) or [live demo](https://curb-taup
 | Present or rehearse the demo | [Demo guide](demo/README.md) · [Three-minute script](demo/INVESTMENT_DEMO_SCRIPT.md) |
 | Inspect the benchmark, field footage, or verification receipts | [Evidence index](evidence/README.md) |
 | Inspect the historical Cañada investigation | [Readiness report](../reports/curb/canada-2020/readiness.md) · [Case release and checks](demo/CANADA_CASE_RESULT.md) |
+| Inspect the separate conditional Cañada map study | [Model, results and assumptions](../reports/curb/canada-map-study/README.md) · [Independent numerical verification](../reports/curb/canada-map-study/verification.json) |
 | Run, verify, or maintain Curb | [Development guide](DEVELOPMENT.md) · [Release runbook](demo/ROBERTSON_HOSTING.md) |
 | Understand data and API boundaries | [Contracts](CONTRACTS.md) · [Implementation plan](IMPLEMENTATION_PLAN.md) |
 | Follow current work and ownership | [Live team board](https://github.com/oliverchennn/Curb/issues/1) · [Active instructions](../AGENTS.md) |

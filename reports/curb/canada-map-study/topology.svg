@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="720" viewBox="0 0 1040 720" role="img" aria-labelledby="map-title map-desc">
+  <title id="map-title">Cañada College conditional curb-ramp study topology</title>
+  <desc id="map-desc">Schematic diagram digitized from the 2026 campus map. The middle Lot 1 crossing requires historical ramps 421 and 422 as a conditional pair. A separate assumed elevator transfer connects the north Building 9 approach to the Building 12 and Buildings 18 and 23 approaches. The southern 404 and 405 pair remains disconnected from these study endpoints. The drawing does not measure routes or establish accessibility.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;fill:#17332c}
+    .heading{font-size:32px;font-weight:700}
+    .subhead{font-size:17px;fill:#415f57}
+    .label{font-size:14px;font-weight:700}
+    .legend{font-size:17px;font-weight:700}
+    .detail{font-size:15px;fill:#415f57}
+    .walk,.pair,.transfer{fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .walk{stroke:#708c81;stroke-width:3.5}
+    .pair{stroke:#684395;stroke-width:8}
+    .transfer{stroke:#a95716;stroke-width:4;stroke-dasharray:5 5}
+    .junction{fill:#f7faf7;stroke:#58786c;stroke-width:1.5}
+    .origin{fill:#1e6652;stroke:#fff;stroke-width:2}
+    .target{fill:#fff;stroke:#1e6652;stroke-width:3}
+    .leader{fill:none;stroke:#8aa296;stroke-width:1.3}
+  </style>
+  <rect width="1040" height="720" fill="#eef4ef"/>
+  <text x="37" y="50" class="heading">Cañada College study topology</text>
+  <text x="38" y="77" class="subhead">Public campus map geometry with conditional 2020 ramp associations</text>
+  <rect x="36" y="101" width="543" height="570" rx="15" fill="#fff" stroke="#c7d6ce"/>
+  <rect x="599" y="101" width="405" height="570" rx="15" fill="#fff" stroke="#c7d6ce"/>
+  <g>
+    <polyline class="walk" points="463.8,525.4 443.1,526.8 421.1,518.5 418.3,513 426.6,478.5 433.5,449.5 430.7,435.7"><title>mid-parking-spur</title></polyline>
+    <polyline class="pair" points="430.7,435.7 411.4,430.2"><title>mid-road-crossing</title></polyline>
+    <polyline class="walk" points="411.4,430.2 401.7,423.3 392.1,404 383.8,391.5 376.9,381.9 356.2,380.5"><title>mid-building-approach</title></polyline>
+    <polyline class="transfer" points="356.2,380.5 321.7,381.9"><title>b9-vertical-design-link</title></polyline>
+    <polyline class="walk" points="321.7,381.9 307.9,390.2 292.7,401.2"><title>b9-quadside-approach</title></polyline>
+    <polyline class="walk" points="292.7,401.2 259.6,431.6 236.1,456.4 225.1,481.2 218.2,500.6"><title>b9-west-diagonal</title></polyline>
+    <polyline class="walk" points="218.2,500.6 189.2,500.6 163,501.9"><title>b12-spur</title></polyline>
+    <polyline class="walk" points="466.6,139 451.4,156.9 450,168 444.5,181.8 441.8,191.4 434.9,190.1 428,191.4"><title>upper-lot1-spur</title></polyline>
+    <polyline class="walk" points="428,191.4 404.5,199.7"><title>upper-lot1-crossing</title></polyline>
+    <polyline class="walk" points="404.5,199.7 397.6,206.6 378.3,208 356.2,208 338.3,208"><title>north-to-b18-hub</title></polyline>
+    <polyline class="walk" points="338.3,208 318.9,210.8 310.7,214.9 296.9,220.4"><title>b18-to-spine</title></polyline>
+    <polyline class="walk" points="296.9,220.4 296.9,250.8 296.9,297.7 295.5,328.1 294.1,365.3 292.7,401.2"><title>spine-to-b9-west</title></polyline>
+    <polyline class="walk" points="407.3,628.9 400.4,623.4 390.7,613.7"><title>south-parking-spur</title></polyline>
+    <polyline class="pair" points="390.7,613.7 368.6,624.8"><title>south-road-crossing</title></polyline>
+    <polyline class="walk" points="368.6,624.8 364.5,622 361.7,617.9 364.5,606.8 368.6,591.6 361.7,583.4 350.7,579.2"><title>south-building-approach</title></polyline>
+    <circle class="origin" cx="463.8" cy="525.4" r="8"><title>Middle Lot 1 designated parking area</title></circle>
+    <circle class="junction" cx="430.7" cy="435.7" r="4"><title>Middle crossing, Lot 1 side</title></circle>
+    <circle class="junction" cx="411.4" cy="430.2" r="4"><title>Middle crossing, Building 9 side</title></circle>
+    <circle class="target" cx="356.2" cy="380.5" r="8"><title>Building 9 north elevator symbol, parking-side approach</title></circle>
+    <circle class="junction" cx="321.7" cy="381.9" r="4"><title>Building 9 north elevator symbol, quad-side approach</title></circle>
+    <circle class="junction" cx="292.7" cy="401.2" r="4"><title>Building 9 west path junction</title></circle>
+    <circle class="junction" cx="218.2" cy="500.6" r="4"><title>Quad path junction beside Buildings 12 and 13</title></circle>
+    <circle class="target" cx="163" cy="501.9" r="8"><title>Building 12 approach at map elevator symbol</title></circle>
+    <circle class="junction" cx="466.6" cy="139" r="4"><title>Upper Lot 1 designated parking area</title></circle>
+    <circle class="junction" cx="428" cy="191.4" r="4"><title>Northern campus crossing, parking side</title></circle>
+    <circle class="junction" cx="404.5" cy="199.7" r="4"><title>Northern campus crossing, Buildings 18 and 23 side</title></circle>
+    <circle class="target" cx="338.3" cy="208" r="8"><title>Dashed path across the Buildings 18 and 23 approach</title></circle>
+    <circle class="junction" cx="296.9" cy="220.4" r="4"><title>Spine between Buildings 17 and 18</title></circle>
+    <circle class="junction" cx="407.3" cy="628.9" r="4"><title>Designated parking at the north edge of Lot 2</title></circle>
+    <circle class="junction" cx="390.7" cy="613.7" r="4"><title>South crossing, parking side</title></circle>
+    <circle class="junction" cx="368.6" cy="624.8" r="4"><title>South crossing, Building 9 side</title></circle>
+    <circle class="junction" cx="350.7" cy="579.2" r="4"><title>Building 9 south elevator symbol approach</title></circle>
+  </g>
+  <path class="leader" d="M461 139 H482"/>
+  <text x="489" y="144" class="label">Upper Lot 1</text>
+  <path class="leader" d="M330 208 H292"/>
+  <text x="285" y="213" class="label" text-anchor="end">Buildings 18/23 approach</text>
+  <path class="leader" d="M163 510 L135 535 H82"/>
+  <text x="81" y="556" class="label">Building 12/13 approach</text>
+  <path class="leader" d="M365 376 L382 347 H397"/>
+  <text x="403" y="342" class="label">Building 9 north</text>
+  <text x="403" y="360" class="label">elevator approach</text>
+  <path class="leader" d="M468 525 L481 552 H500"/>
+  <text x="543" y="573" class="label" text-anchor="end">Middle Lot 1 origin</text>
+  <text x="421" y="637" class="label">Lot 2</text>
+  <text x="74" y="639" class="detail">Separate southern component</text>
+  <text x="627" y="144" class="legend">How to read the map</text>
+  <path class="walk" d="M630 177 H665"/>
+  <text x="681" y="182" class="detail">Mapped path or roadway crossing</text>
+  <path class="pair" d="M630 216 H665"/>
+  <text x="681" y="221" class="detail">Crossing with inferred ramp pair</text>
+  <path class="transfer" d="M630 254 H665"/>
+  <text x="681" y="259" class="detail">Conditional Building 9 transfer</text>
+  <circle class="origin" cx="646" cy="292" r="8"/>
+  <text x="681" y="297" class="detail">Fixed study origin</text>
+  <circle class="target" cx="646" cy="328" r="8"/>
+  <text x="681" y="333" class="detail">Modeled exterior approach point</text>
+  <path d="M627 356 H975" stroke="#d6e2da"/>
+  <text x="627" y="392" class="legend">Middle crossing · 421 + 422</text>
+  <text x="627" y="418" class="detail">Both assemblies are required in the model.</text>
+  <text x="627" y="444" class="detail">The far-side points also require the transfer.</text>
+  <text x="627" y="492" class="legend">Southern crossing · 404 + 405</text>
+  <text x="627" y="518" class="detail">Both projects stay in the budget comparison.</text>
+  <text x="627" y="544" class="detail">Their component has no mapped route from</text>
+  <text x="627" y="567" class="detail">the middle Lot 1 origin.</text>
+  <text x="627" y="624" class="label">The drawing supplies no measured distances.</text>
+  <text x="38" y="701" class="detail">Source drawing digitized at schematic scale. Current access and asset-to-edge assignments remain unverified.</text>
+</svg>
