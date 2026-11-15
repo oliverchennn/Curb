@@ -1,0 +1,703 @@
+{
+  "schemaVersion": 1,
+  "status": "map-supported topology candidate; not a repair benchmark",
+  "scope": "Mapped campus topology and separately sourced level/asset associations. No accessibility or repair benefit calculated.",
+  "coordinateBasis": {
+    "source": "college-map-2026",
+    "viewerPage": 1,
+    "widthPx": 1530,
+    "heightPx": 1980,
+    "dpi": 180,
+    "origin": "top-left",
+    "method": "Visual digitization on rendered schematic map. Coordinates are approximate drawing positions and carry no ground distances or slopes."
+  },
+  "sources": [
+    {
+      "id": "college-map-2026",
+      "when": "2026-10-02, PDF creation metadata",
+      "viewerPages": [
+        1
+      ],
+      "url": "https://www.canadacollege.edu/about/docs/canada-map-directory.pdf",
+      "sha256": "37d2da4afaa774b32bd787e5fb5eef1bbdf863a2695f77e134c91c433fa513b9"
+    },
+    {
+      "id": "catalog-map-2026",
+      "when": "2026–27 catalog, PDF created 2026-08-18",
+      "viewerPages": [
+        1
+      ],
+      "url": "https://catalog.canadacollege.edu/current/map/index.pdf",
+      "sha256": "4b92ae1e373fe76aff3e4ab320e0fae7f6b25e39f1f1cc704ef98113ce3f93e3"
+    },
+    {
+      "id": "college-map-2013",
+      "when": "2013-09-26, PDF creation metadata",
+      "viewerPages": [
+        1
+      ],
+      "url": "https://canadacollege.edu/marketing/docs/map-directory.pdf",
+      "sha256": "ad6b51c6f53fc9b0556e3ab28d0d02bc84fe1a29a738e409afebfa3b9d584969"
+    },
+    {
+      "id": "college-directory-2026",
+      "when": "Current campus directory page",
+      "url": "https://www.canadacollege.edu/about/campusmap.php"
+    },
+    {
+      "id": "building9-district",
+      "when": "2005–07 design and construction description",
+      "url": "https://smccd.edu/facilities/projects/can/canbld9llrc.php"
+    },
+    {
+      "id": "east-landing-2019",
+      "when": "2019-11/12 planned construction",
+      "viewerPages": [
+        1,
+        3
+      ],
+      "url": "https://canadacollege.edu/construction/doc/construction-notice-10-21-19-exteriors-envelope-repair-east-elevation-3rd-floor-terrace-work.pdf"
+    },
+    {
+      "id": "official-audit-2020",
+      "when": "FINAL November 2020; building location figure 2020-09-01",
+      "viewerPages": [
+        2256,
+        2795,
+        2823,
+        2826,
+        2827
+      ],
+      "url": "https://smccd.edu/ada2020/19029%20SMCCCD%20ADA%20Self-Evaluation%20and%20Transition%20Plan%20FINAL%20Nov2020%20sm.pdf",
+      "sha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "mid-lot1-access-area",
+      "label": "Middle Lot 1 designated parking area",
+      "page1Pixel": [
+        977,
+        574
+      ],
+      "originSemantics": "Map symbol area, no individual stall or exact origin surveyed"
+    },
+    {
+      "id": "mid-cross-lot-bank",
+      "label": "Middle crossing, Lot 1 side",
+      "page1Pixel": [
+        953,
+        509
+      ]
+    },
+    {
+      "id": "mid-cross-b9-bank",
+      "label": "Middle crossing, Building 9 side",
+      "page1Pixel": [
+        939,
+        505
+      ]
+    },
+    {
+      "id": "b9-north-elevator-east",
+      "label": "Building 9 north elevator symbol, parking-side approach",
+      "page1Pixel": [
+        899,
+        469
+      ],
+      "level": "Parking-side upper approach. Exact elevator door identification unresolved."
+    },
+    {
+      "id": "b9-north-elevator-west",
+      "label": "Building 9 north elevator symbol, quad-side approach",
+      "page1Pixel": [
+        874,
+        470
+      ],
+      "level": "Quad-side level. Exact elevator door identification unresolved."
+    },
+    {
+      "id": "b9-west-junction",
+      "label": "Building 9 west path junction",
+      "page1Pixel": [
+        853,
+        484
+      ]
+    },
+    {
+      "id": "b12-quad-junction",
+      "label": "Quad path junction beside Buildings 12 and 13",
+      "page1Pixel": [
+        799,
+        556
+      ]
+    },
+    {
+      "id": "b12-approach",
+      "label": "Building 12 approach at map elevator symbol",
+      "page1Pixel": [
+        759,
+        557
+      ]
+    },
+    {
+      "id": "upper-lot1-access-area",
+      "label": "Upper Lot 1 designated parking area",
+      "page1Pixel": [
+        979,
+        294
+      ],
+      "originSemantics": "Separate parking spur north of the middle Lot 1 spur"
+    },
+    {
+      "id": "north-cross-lot-bank",
+      "label": "Northern campus crossing, parking side",
+      "page1Pixel": [
+        951,
+        332
+      ]
+    },
+    {
+      "id": "north-cross-campus-bank",
+      "label": "Northern campus crossing, Buildings 18 and 23 side",
+      "page1Pixel": [
+        934,
+        338
+      ]
+    },
+    {
+      "id": "b18-b23-path",
+      "label": "Dashed path across the Buildings 18 and 23 approach",
+      "page1Pixel": [
+        886,
+        344
+      ]
+    },
+    {
+      "id": "b17-b18-spine",
+      "label": "Spine between Buildings 17 and 18",
+      "page1Pixel": [
+        856,
+        353
+      ]
+    },
+    {
+      "id": "lot2-north-access-area",
+      "label": "Designated parking at the north edge of Lot 2",
+      "page1Pixel": [
+        936,
+        649
+      ],
+      "originSemantics": "Current map depicts the symbol over the Lot 2 edge beside the crossing"
+    },
+    {
+      "id": "south-cross-lot-bank",
+      "label": "South crossing, parking side",
+      "page1Pixel": [
+        924,
+        638
+      ]
+    },
+    {
+      "id": "south-cross-b9-bank",
+      "label": "South crossing, Building 9 side",
+      "page1Pixel": [
+        908,
+        646
+      ]
+    },
+    {
+      "id": "b9-south-elevator",
+      "label": "Building 9 south elevator symbol approach",
+      "page1Pixel": [
+        895,
+        613
+      ],
+      "level": "Distinct map symbol. Exact floor pair and any shared elevator service remain unverified."
+    },
+    {
+      "id": "b9-library-level3",
+      "label": "Library, Building 9 third floor",
+      "page1Pixel": null,
+      "level": "3",
+      "coordinateStatus": "Directory locates the floor. Exact door coordinates are outside the campus map scale."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mid-parking-spur",
+      "from": "mid-lot1-access-area",
+      "to": "mid-cross-lot-bank",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          962,
+          575
+        ],
+        [
+          946,
+          569
+        ],
+        [
+          944,
+          565
+        ],
+        [
+          950,
+          540
+        ],
+        [
+          955,
+          519
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "mid-road-crossing",
+      "from": "mid-cross-lot-bank",
+      "to": "mid-cross-b9-bank",
+      "kind": "mapped-road-crossing",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "historicalPairCandidate": "ramp-422 parking side ↔ ramp-421 building side"
+    },
+    {
+      "id": "mid-building-approach",
+      "from": "mid-cross-b9-bank",
+      "to": "b9-north-elevator-east",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          932,
+          500
+        ],
+        [
+          925,
+          486
+        ],
+        [
+          919,
+          477
+        ],
+        [
+          914,
+          470
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "b9-vertical-design-link",
+      "from": "b9-north-elevator-east",
+      "to": "b9-north-elevator-west",
+      "kind": "documented-building-level-transfer",
+      "confidence": "medium",
+      "sources": [
+        "college-map-2026",
+        "building9-district",
+        "east-landing-2019"
+      ],
+      "intermediatePage1Pixels": [],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "condition": "Use the district-described Building 9 elevator link as a candidate level change. The map’s north icon and exact landing or shaft association require confirmation.",
+      "sameLevel": false,
+      "operationalStatus": "unknown"
+    },
+    {
+      "id": "b9-east-landing-to-library-level",
+      "from": "b9-north-elevator-east",
+      "to": "b9-library-level3",
+      "kind": "inferred-entrance-and-level-association",
+      "confidence": "medium",
+      "sources": [
+        "east-landing-2019",
+        "college-directory-2026",
+        "building9-district"
+      ],
+      "intermediatePage1Pixels": [],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "condition": "Treat the mapped parking-side approach and the 2019 third-floor parking landing as corresponding. Door geometry and indoor continuation are unplotted.",
+      "sameLevel": null
+    },
+    {
+      "id": "b9-quadside-approach",
+      "from": "b9-north-elevator-west",
+      "to": "b9-west-junction",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          864,
+          476
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "b9-west-diagonal",
+      "from": "b9-west-junction",
+      "to": "b12-quad-junction",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          829,
+          506
+        ],
+        [
+          812,
+          524
+        ],
+        [
+          804,
+          542
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "b12-spur",
+      "from": "b12-quad-junction",
+      "to": "b12-approach",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          778,
+          556
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "upper-lot1-spur",
+      "from": "upper-lot1-access-area",
+      "to": "north-cross-lot-bank",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          968,
+          307
+        ],
+        [
+          967,
+          315
+        ],
+        [
+          963,
+          325
+        ],
+        [
+          961,
+          332
+        ],
+        [
+          956,
+          331
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "condition": "Schematic trace follows the mapped parking-side dashed approach."
+    },
+    {
+      "id": "upper-lot1-crossing",
+      "from": "north-cross-lot-bank",
+      "to": "north-cross-campus-bank",
+      "kind": "mapped-road-crossing",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "historicalPairCandidate": null,
+      "condition": "Geographically separate from the Building 9 middle and south crossings."
+    },
+    {
+      "id": "north-to-b18-hub",
+      "from": "north-cross-campus-bank",
+      "to": "b18-b23-path",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          929,
+          343
+        ],
+        [
+          915,
+          344
+        ],
+        [
+          899,
+          344
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "b18-to-spine",
+      "from": "b18-b23-path",
+      "to": "b17-b18-spine",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          872,
+          346
+        ],
+        [
+          866,
+          349
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "spine-to-b9-west",
+      "from": "b17-b18-spine",
+      "to": "b9-west-junction",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          856,
+          375
+        ],
+        [
+          856,
+          409
+        ],
+        [
+          855,
+          431
+        ],
+        [
+          854,
+          458
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "condition": "Mapped quad-side spine west of Building 18 and east of 17. Any grade changes along the line remain unassessed."
+    },
+    {
+      "id": "south-parking-spur",
+      "from": "lot2-north-access-area",
+      "to": "south-cross-lot-bank",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          931,
+          645
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    },
+    {
+      "id": "south-road-crossing",
+      "from": "south-cross-lot-bank",
+      "to": "south-cross-b9-bank",
+      "kind": "mapped-road-crossing",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional",
+      "historicalPairCandidate": "ramp-404 parking side ↔ ramp-405 building side"
+    },
+    {
+      "id": "south-building-approach",
+      "from": "south-cross-b9-bank",
+      "to": "b9-south-elevator",
+      "kind": "mapped-walkway",
+      "confidence": "high",
+      "sources": [
+        "college-map-2026",
+        "catalog-map-2026",
+        "college-map-2013"
+      ],
+      "intermediatePage1Pixels": [
+        [
+          905,
+          644
+        ],
+        [
+          903,
+          641
+        ],
+        [
+          905,
+          633
+        ],
+        [
+          908,
+          622
+        ],
+        [
+          903,
+          616
+        ]
+      ],
+      "accessAssessment": "unknown",
+      "direction": "map is nondirectional"
+    }
+  ],
+  "historicalCrosswalkAlignment": [
+    {
+      "candidateEdge": "mid-road-crossing",
+      "auditMapViewerPage": 2795,
+      "paintViewerPage": 2256,
+      "parkingSide": {
+        "record": "ramp-422",
+        "mapPagePointBottomLeft": [
+          1825.182,
+          1307.154
+        ],
+        "adjacentRoute": "52 W"
+      },
+      "buildingSide": {
+        "record": "ramp-421",
+        "mapPagePointBottomLeft": [
+          1783.782,
+          1287.713
+        ],
+        "adjacentRoute": "28 W"
+      },
+      "locationMatchConfidence": "high at crossing-location level, medium for exact IDs attached to the two ends",
+      "basis": "North of the two B9 crossings on the audit aerial. It appears outside the upper part of B9, on the Building 9-facing middle Lot 1 crossing rather than the distinct farther-north B18/23 crossing. The 2013 directory and both 2026 maps draw the dashed route across this same building-relative crossing. The audit GIS map shows the two symbols on opposite banks in this corridor and has no linework spanning them."
+    },
+    {
+      "candidateEdge": "south-road-crossing",
+      "auditMapViewerPage": 2795,
+      "paintViewerPage": 2256,
+      "parkingSide": {
+        "record": "ramp-404",
+        "mapPagePointBottomLeft": [
+          2023.18,
+          1036.189
+        ],
+        "adjacentRoute": "40 W"
+      },
+      "buildingSide": {
+        "record": "ramp-405",
+        "mapPagePointBottomLeft": [
+          1995.34,
+          989.389
+        ],
+        "adjacentRoutes": [
+          "41 W",
+          "53 W"
+        ]
+      },
+      "locationMatchConfidence": "high at crossing-location level, medium for exact IDs attached to the two ends",
+      "basis": "South of the two B9 crossings on the audit aerial, at the south tip of B9. The 2013 directory and both 2026 maps draw the dashed crossing by the lot boundary. The 2026 map associates the parking spur there with the north edge of Lot 2. Historical ramp/route records are still cited under their original locations."
+    }
+  ],
+  "excludedJoins": [
+    {
+      "from": "b9-south-elevator",
+      "to": "b9-north-elevator-east",
+      "reason": "Two landing symbols are present. The campus drawing does not draw a continuous eastern B9 path between them."
+    },
+    {
+      "from": "b9-south-elevator",
+      "to": "b9-west-junction",
+      "reason": "Published map does not establish a connector from that separate south elevator symbol to the west spine."
+    },
+    {
+      "from": "upper-lot1-access-area",
+      "to": "mid-lot1-access-area",
+      "reason": "Treat separately. The dashed paths are drawn to different crossings and the parking layout does not show a direct continuous dashed connection."
+    },
+    {
+      "from": "b9-north-elevator-east",
+      "to": "b9-north-elevator-west",
+      "reason": "Direct same-level walking link is excluded. A conditional documented-design elevator transfer is separately represented."
+    }
+  ],
+  "releaseGates": {
+    "currentMappedGeometry": "candidate for review",
+    "exactHistoricRampPairing": "inferred, retain caveat",
+    "timeLayer": "2013 and 2026 corroborate the crossing locations; do not substitute modern routes for an observed 2020 baseline",
+    "continuousStepFreeAssessment": "unknown",
+    "costScope": "outside this topology candidate; existing 2020 candidate costs and eligibility remain unaltered",
+    "publishedCase": "untouched"
+  }
+}
