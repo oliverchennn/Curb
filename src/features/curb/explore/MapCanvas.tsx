@@ -5,8 +5,9 @@ import { aerial, campusAerial, countFailedTiles, visibleTiles } from './aerial';
 import AerialLayer, { baseSrc, type AerialSet } from './AerialLayer';
 import { placeBadges, streetLabel } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
-import { campusExtent, fitProjectedView, type ProjectedView } from './campus';
+import { campusExtent, campusWayStyles, campusWayType, fitProjectedView, sectionExtent, type CampusSection, type ProjectedView } from './campus';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
+import { CampusWayLegend } from './OverviewMap';
 import styles from './Explorer.module.css';
 
 type View = ProjectedView;
@@ -33,14 +34,12 @@ function streetLabels(atlas: Atlas) {
   }
   return out;
 }
-const isSteps = (f: Feature) => 'osm_way_id' in f.properties && f.properties.feat_type === 'steps';
-
 /** Archive map stage. Draws only original archive geometry on the existing projection; unplaced records never appear.
  *  `set` chooses the local aerial (downtown corridor or campus tiles); `context` is faint non-interactive geometry. */
-export default function MapCanvas({ atlas, collection, records, selected, onSelect, stops, set = 'corridor', context, osm = false, dense = false, pointLayer }: {
+export default function MapCanvas({ atlas, collection, records, selected, onSelect, stops, set = 'corridor', context, section, osm = false, dense = false, pointLayer }: {
   atlas: Atlas; collection: Collection; records: EvidenceRecord[]; selected: EvidenceRecord | null;
   onSelect: (id: string) => void; stops: Map<string, number>;
-  set?: AerialSet; context?: string; osm?: boolean; dense?: boolean; pointLayer?: CampusPointLayer;
+  set?: AerialSet; context?: string; section?: CampusSection; osm?: boolean; dense?: boolean; pointLayer?: CampusPointLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const [manualView, setManualView] = useState<View | null>(null);
@@ -65,6 +64,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const visibleView: View = [plotLeft, plotTop, size[0] * unit, size[1] * unit];
   const tiles = set === 'campus' && showAerial ? visibleTiles(visibleView, 1 / unit) : [];
   const tileFailures = countFailedTiles(tiles, failed);
+  const outline = section && sectionExtent(section);
   const selectedFeature = selected ? atlas.features.find(f => f.id === selected.featureId && f.geometry) : undefined;
   // Zoom-out cap derived from the content: the old fixed 1200-unit cap cannot show a whole campus section's context.
   const maxWidth = Math.max(1200, collectionFit[2] * 4, collectionFit[3] * 4);
@@ -142,6 +142,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every record is unchanged.</p>}
     {!aerialFailed && tileFailures > 0 && showAerial && <p className={styles.mapNotice} role="status">{tileFailures} detail {tileFailures === 1 ? 'tile' : 'tiles'} unavailable — the overview image is shown there. Every record is unchanged.</p>}
     {dense && hidden > 0 && <p className={styles.mapHint}>{hidden} stop {hidden === 1 ? 'number' : 'numbers'} hidden where they would overlap. Zoom in, or use the record list; every way stays drawn.</p>}
+    {osm && <CampusWayLegend />}
     {pointLayout && <CampusPointMapStatus layout={pointLayout} />}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
       aria-label={`Archive map on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}. Arrow keys pan. Plus and minus zoom. Home fits the collection. Tab once to reach the mapped stops; arrow keys move between them in source order, Enter selects, Escape returns here.`}
@@ -167,17 +168,24 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       {showAerial && <AerialLayer set={set} tiles={tiles} failed={failed}
         onFail={src => setFailed(prev => new Set(prev).add(src))} />}
       {context && <path className={styles.campusContext} d={context} data-base={showAerial ? 'aerial' : 'diagram'} vectorEffect="non-scaling-stroke" aria-hidden="true" />}
+      {outline && <g aria-hidden="true" className={styles.sectionBounds} data-selected-study-area={section?.code}>
+        <rect x={outline.x} y={outline.y} width={outline.width} height={outline.height} fill="none"
+          stroke="#fffef8" strokeWidth={4} vectorEffect="non-scaling-stroke" />
+        <rect x={outline.x} y={outline.y} width={outline.width} height={outline.height} fill="none"
+          stroke="#414b3d" strokeWidth={2} strokeDasharray="6 4" vectorEffect="non-scaling-stroke" />
+      </g>}
       {set === 'corridor' && <g aria-hidden="true">{streetLabels(atlas).map(s => <text key={s.text} x={s.x} y={s.y} textAnchor="middle" transform={s.rotate ? `rotate(${s.rotate} ${s.x} ${s.y})` : undefined}
         fontSize={12 * unit} fontWeight={700} letterSpacing=".08em" fill={ink} stroke={halo} strokeWidth={3.5 * unit} paintOrder="stroke" className={styles.streetLabel}>{s.text}</text>)}</g>}
       {entries.map(({ f, record }) => {
         const active = selected?.featureId === f.id;
         const status = archiveStatus(f);
         const stop = stops.get(record.id);
-        const steps = isSteps(f);
+        const type = osm ? campusWayType(f.properties) : undefined;
+        const appearance = type ? campusWayStyles[type] : undefined;
         const select = () => onSelect(record.id);
         return <g key={f.id} ref={el => { if (el) featureRefs.current.set(f.id, el); else featureRefs.current.delete(f.id); }}
-          role="button" tabIndex={f.id === rovingId ? 0 : -1} aria-pressed={active} data-feature={f.id} data-status={status ?? undefined} data-class={steps ? 'steps' : undefined}
-          aria-label={`Stop ${stop}: ${f.label}${steps ? ', source class steps' : ''}${status ? `, archived status ${status.toLowerCase()}` : ''}`}
+          role="button" tabIndex={f.id === rovingId ? 0 : -1} aria-pressed={active} data-feature={f.id} data-status={status ?? undefined} data-class={type}
+          aria-label={`Stop ${stop}: ${f.label}${appearance ? ', source class ' + appearance.label : ''}${status ? `, archived status ${status.toLowerCase()}` : ''}`}
           className={styles.mapFeature} onClick={e => { e.stopPropagation(); if (!moved.current) select(); }} onFocus={() => setFocusId(f.id)}
           onKeyDown={e => {
             const k = e.key;
@@ -190,8 +198,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
           {f.geometry?.type === 'LineString' ? <>
             <path d={path(f.geometry.coordinates)} stroke="transparent" strokeWidth={STOP_TARGET_DIAMETER} fill="none" vectorEffect="non-scaling-stroke" />
             <path d={path(f.geometry.coordinates)} stroke={showAerial ? '#ffffff' : active ? '#fffdf4' : '#f5f4e9'} strokeWidth={active ? 12 : 9} fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            <path d={path(f.geometry.coordinates)} stroke={collection.color} strokeWidth={active ? 7 : steps ? 6 : 5}
-              strokeDasharray={steps ? '2.5 2.5' : f.type === 'crossing' ? '7 5' : undefined} fill="none" vectorEffect="non-scaling-stroke" />
+            <path d={path(f.geometry.coordinates)} stroke={appearance?.color ?? collection.color} strokeWidth={osm ? (active ? 6 : 4) : (active ? 7 : 5)}
+              strokeDasharray={appearance ? appearance.dash : f.type === 'crossing' ? '7 5' : undefined} fill="none" vectorEffect="non-scaling-stroke" />
           </> : f.geometry?.type === 'Point' ? <g transform={`translate(${project(f.geometry.coordinates).join(',')})`}>
             <circle r={targetRadius} fill="transparent" />
             {active && <circle r={12 * unit} fill="#f3d796" stroke="#8a551a" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />}
@@ -233,11 +241,12 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     </div>
     <details className={styles.legend}>
       <summary>
-        <span><i className={styles.legendPath} style={{ borderColor: collection.color }} />{osm ? 'Footway / path' : 'Path'}</span>
-        <span><i className={styles.legendCrossing} style={{ borderColor: collection.color }} />Crossing</span>
-        {osm ? <span><i className={styles.legendSteps} style={{ borderColor: collection.color }} />Steps (source class)</span> : <>
+        {!osm && <>
+          <span><i className={styles.legendPath} style={{ borderColor: collection.color }} />Path</span>
+          <span><i className={styles.legendCrossing} style={{ borderColor: collection.color }} />Crossing</span>
           <span><i className={styles.legendRamp} style={{ borderColor: collection.color }} />Ramp · EXISTING</span>
-          <span><i className={styles.legendAssumed} style={{ borderColor: collection.color }} />Ramp · ASSUMED</span></>}
+          <span><i className={styles.legendAssumed} style={{ borderColor: collection.color }} />Ramp · ASSUMED</span>
+        </>}
         <span className={styles.legendMore}>Map key &amp; sources</span>
       </summary>
       <div>

@@ -1,9 +1,9 @@
 'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import type { Atlas, Collection } from './model';
+import { useEffect, useRef, useState } from 'react';
+import type { Collection } from './model';
 import AerialLayer, { baseSrc } from './AerialLayer';
 import { campusAerial, countFailedTiles, visibleTiles } from './aerial';
-import { campusCounts, campusOverviewBounds, campusPaths, fitProjectedView, sectionExtent, type CampusSection, type ProjectedView } from './campus';
+import { campusOverviewBounds, campusWayStyles, campusWayTypes, fitProjectedView, sectionExtent, type campusPaths, type CampusSection, type ProjectedView } from './campus';
 import { placeSectionTargets, SECTION_TARGET_SIZE } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
@@ -11,12 +11,29 @@ import styles from './Explorer.module.css';
 
 const overviewBounds = campusOverviewBounds();
 type View = ProjectedView;
-const SECTION_COLORS: Record<string, string> = { north: '#28715d', west: '#665c91', central: '#236d83', east: '#935b2d', south: '#43754a', meadows: '#8b536d' };
 
-/** Campus overview: all source ways as one path per section, section codes as the only pointer targets.
- *  Sections are browsing groups of source geometry, not routes or official boundaries. */
-export default function OverviewMap({ atlas, sections, collections, onPick, pointLayer }: {
-  atlas: Atlas; sections: CampusSection[]; collections: Collection[]; onPick: (collectionId: string) => void;
+type CampusPaths = ReturnType<typeof campusPaths>;
+
+export function CampusWayLegend({ ways }: { ways?: CampusPaths['ways'] }) {
+  return <section aria-label="Campus path legend" className={styles.campusWayLegend}>
+    <p><strong>{ways ? 'Whole campus' : 'Section paths'}</strong> · OpenStreetMap tags</p>
+    <ul>
+      {campusWayTypes.map((type, index) => {
+        const { label, color, dash } = campusWayStyles[type];
+        const count = ways?.[index].count;
+        return <li key={type}>
+          <svg width="30" height="12" aria-hidden="true"><path d="M0 6H30" stroke={color} strokeWidth="3" strokeDasharray={dash} /></svg>
+          <span>{label}{count !== undefined && <> <b>{count}</b></>}</span>
+        </li>;
+      })}
+      <li><i className={styles.legendSection} aria-hidden="true" />{ways ? 'Study area bounds' : 'Selected study area'}</li>
+    </ul>
+  </section>;
+}
+
+/** Campus overview with aggregated source ways and keyboard-accessible section codes. */
+export default function OverviewMap({ paths, sections, collections, onPick, pointLayer }: {
+  paths: CampusPaths; sections: CampusSection[]; collections: Collection[]; onPick: (collectionId: string) => void;
   pointLayer?: CampusPointLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
@@ -30,7 +47,6 @@ export default function OverviewMap({ atlas, sections, collections, onPick, poin
   const [focusId, setFocusId] = useState<string | null>(null);
   const refs = useRef(new Map<string, SVGGElement>());
   const drag = useRef<{ x: number; y: number } | null>(null), moved = useRef(false);
-  const paths = useMemo(() => campusPaths(atlas), [atlas]);
   const aerialFailed = failed.has(baseSrc('campus'));
   const showAerial = base === 'aerial' && !aerialFailed;
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);
@@ -87,6 +103,7 @@ export default function OverviewMap({ atlas, sections, collections, onPick, poin
     </div>
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every way is unchanged.</p>}
     {!aerialFailed && showAerial && tileFailures > 0 && <p className={styles.mapNotice} role="status">{tileFailures} detail {tileFailures === 1 ? 'tile' : 'tiles'} unavailable — the overview image is shown there.</p>}
+    <CampusWayLegend ways={paths.ways} />
     {pointLayout && <CampusPointMapStatus layout={pointLayout} />}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
       aria-label={`Princeton campus overview on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}: ${targets.length} sections of OpenStreetMap ways. Arrow keys pan, plus and minus zoom, Home fits the campus. Tab once to reach the sections; arrow keys move between them, Home and End jump to the first and last, Enter opens one, Escape returns here.`}
@@ -105,23 +122,25 @@ export default function OverviewMap({ atlas, sections, collections, onPick, poin
       onPointerCancel={() => { drag.current = null; }}>
       <title>Princeton campus OpenStreetMap ways · current traversal unknown</title>
       {showAerial && <AerialLayer set="campus" tiles={tiles} failed={failed} onFail={src => setFailed(p => new Set(p).add(src))} />}
-      <g aria-hidden="true">{sections.map(s => <path key={s.collectionId} d={paths.sections.get(s.collectionId)} fill="none"
-        stroke={shown.has(s.collectionId) ? SECTION_COLORS[s.areaId] : '#8b9483'} strokeOpacity={shown.has(s.collectionId) ? 1 : .35}
-        strokeWidth={2} vectorEffect="non-scaling-stroke" className={styles.overviewWays} data-base={showAerial ? 'aerial' : 'diagram'} />)}</g>
+      <g className={styles.overviewWays} aria-hidden="true" data-base={showAerial ? 'aerial' : 'diagram'}>
+        {[...paths.ways].reverse().map(({ type, path }) => path && <path key={type} data-way-type={type} d={path} fill="none"
+          stroke={campusWayStyles[type].color} strokeDasharray={campusWayStyles[type].dash}
+          strokeWidth={type === 'footway' ? 2 : 3} vectorEffect="non-scaling-stroke" />)}
+      </g>
       <g className={styles.sectionBounds} aria-hidden="true">{sections.map(s => {
-        const e = sectionExtent(s), color = SECTION_COLORS[s.areaId];
+        const e = sectionExtent(s);
         return <g key={s.collectionId}>
-          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill={color} fillOpacity={.025} stroke="#fffef8" strokeOpacity={.55} strokeWidth={2.5} vectorEffect="non-scaling-stroke" />
-          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill="none" stroke={color} strokeWidth={1.35} strokeDasharray="5 4" vectorEffect="non-scaling-stroke" />
+          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill="none" stroke="#fffef8" strokeOpacity={.55} strokeWidth={2.5} vectorEffect="non-scaling-stroke" />
+          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill="none" stroke="#414b3d" strokeOpacity={.6} strokeWidth={1.2} strokeDasharray="5 4" vectorEffect="non-scaling-stroke" />
         </g>;
       })}{targets.map(s => {
         const a = anchors.find(a => a.id === s.collectionId)!, t = labelSpots.get(s.collectionId)!;
         return Math.hypot(a.x - t.x, a.y - t.y) > 22 * unit && <line key={s.collectionId} x1={a.x} y1={a.y} x2={t.x} y2={t.y}
-          stroke={showAerial ? "#faf9f3" : SECTION_COLORS[s.areaId]} strokeOpacity={.65} strokeWidth={1.25} vectorEffect="non-scaling-stroke" />;
+          stroke={showAerial ? "#faf9f3" : "#414b3d"} strokeOpacity={.65} strokeWidth={1.25} vectorEffect="non-scaling-stroke" />;
       })}</g>
       {pointLayout && pointLayer && <CampusPointMarkers markers={pointLayout.markers} unit={unit}
         onSelect={point => { if (!moved.current) pointLayer.onSelect(point); }} />}
-      {targets.map(s => { const t = labelSpots.get(s.collectionId)!; const color = SECTION_COLORS[s.areaId];
+      {targets.map(s => { const t = labelSpots.get(s.collectionId)!;
         return <g key={s.collectionId} ref={el => { if (el) refs.current.set(s.collectionId, el); else refs.current.delete(s.collectionId); }}
           role="button" tabIndex={s.collectionId === rovingId ? 0 : -1} data-section={s.collectionId} className={styles.sectionTarget}
           aria-label={`${s.code}: ${s.areaLabel}, section ${s.section} of ${s.sectionsInArea}, ${s.wayCount} ways`}
@@ -135,19 +154,15 @@ export default function OverviewMap({ atlas, sections, collections, onPick, poin
           }}>
           <title>{s.code} · {s.areaLabel} · {s.section}/{s.sectionsInArea}</title>
           <rect data-hit-area x={t.x - targetSize / 2} y={t.y - targetSize / 2} width={targetSize} height={targetSize} fill="transparent" />
-          <rect x={t.x - 19 * unit} y={t.y - 12 * unit} width={38 * unit} height={24 * unit} rx={4 * unit} fill="#fffef8" stroke={color} strokeWidth={2} vectorEffect="non-scaling-stroke" />
+          <rect x={t.x - 19 * unit} y={t.y - 12 * unit} width={38 * unit} height={24 * unit} rx={4 * unit} fill="#fffef8" stroke="#414b3d" strokeWidth={2} vectorEffect="non-scaling-stroke" />
           <text x={t.x} y={t.y + 5 * unit} textAnchor="middle" fontSize={14 * unit} fontWeight={800} fill="#213a2c">{s.code}</text>
         </g>; })}
     </svg>
     <div className={styles.mapCredit} data-campus="true">{showAerial && <span>Aerial {campusAerial.captureYear} · NJ Office of GIS</span>}<OsmCredit offerDownload /></div>
     <details className={styles.legend}>
-      <summary>
-        <span><i className={styles.legendPath} style={{ borderColor: SECTION_COLORS.central }} />OpenStreetMap ways, colored by study area</span>
-        <span><i className={styles.legendSection} />Section bounds · select a code</span>
-        <span className={styles.legendMore}>Map key &amp; sources</span>
-      </summary>
+      <summary><span className={styles.legendMore}>Map key &amp; sources</span></summary>
       <div>
-        <p>Use a map code or the Campus section picker to browse. The archive includes {campusCounts.classes.steps} steps and {campusCounts.classes.cycleway} cycleways.</p>
+        <p>Use a map code or the Campus section picker to browse. Path types come from OpenStreetMap tags. Current traversal is Unknown.</p>
         <p>Sections divide source geometry into groups of at most 63 ways for inspection. They are not routes, official neighborhood boundaries, or proof of complete coverage. Every way appears in exactly one section.</p>
         <p><strong>Map data:</strong> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0). Edit times are source metadata, not observation dates. <a href={OSM_COPYRIGHT} target="_blank" rel="noreferrer">Copyright and license →</a></p>
         <p><strong>Aerial background:</strong> {campusAerial.attribution} Capture year {campusAerial.captureYear}; exact capture date {campusAerial.capturedAt ?? 'Unknown'}. {campusAerial.note} <a href={campusAerial.sourceUrl} target="_blank" rel="noreferrer">Imagery source →</a></p>

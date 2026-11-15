@@ -14,7 +14,7 @@ const clipTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).pad
 export default function EvidenceStage({ atlas, collection, records, record, stops, onSelect, onReset, mapOptions }: {
   atlas: Atlas; collection: Collection | null; records: EvidenceRecord[]; record: EvidenceRecord | null;
   stops: Map<string, number>; onSelect: (id: string) => void; onReset: () => void;
-  mapOptions?: Pick<ComponentProps<typeof MapCanvas>, 'set' | 'context' | 'osm' | 'dense' | 'pointLayer'>;
+  mapOptions?: Pick<ComponentProps<typeof MapCanvas>, 'set' | 'context' | 'section' | 'osm' | 'dense' | 'pointLayer'>;
 }) {
   if (!collection || collection.kind === 'synthetic') return <div className={styles.stageEmpty} data-mode="empty">
     <h3>No matching evidence</h3><p>Search and type filters hide every collection. Nothing has been removed.</p>
@@ -76,7 +76,8 @@ function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | u
       ArrowLeft: () => pan(step, 0), ArrowRight: () => pan(-step, 0), ArrowUp: () => pan(0, step), ArrowDown: () => pan(0, -step) };
     if (map[e.key]) { e.preventDefault(); map[e.key](); }
   };
-  const available = record.media.status === 'available' && !failed;
+  const media = record.media;
+  const available = media.status === 'available' && !failed;
   const canPan = view.s > 1;
   return <div className={styles.photoStage}>
     <div className={styles.photoMain}>
@@ -84,8 +85,7 @@ function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | u
         <div className={styles.photoFrame} tabIndex={0} role="group" onKeyDown={keys}
           aria-label={`${record.title}. Photo inspection: plus and minus zoom, arrow keys pan, 0 resets.`}>
           {available
-            ? <img src={(record.media as { src: string }).src} alt={(record.media as { alt: string }).alt}
-              width={720} height={235} onError={() => setFailed(true)}
+            ? <img src={media.src} alt={media.alt} onError={() => setFailed(true)}
               style={{ transform: `translate(${view.x}%, ${view.y}%) scale(${view.s})` }} draggable={false} />
             : <div className={styles.photoNotice}><span aria-hidden="true">▧</span><p>{record.media.status === 'available' ? 'Photo unavailable — the local file could not be loaded. This record is unchanged.' : record.media.reason}</p></div>}
         </div>

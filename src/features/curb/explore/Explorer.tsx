@@ -11,7 +11,7 @@ import OverviewMap from './OverviewMap';
 import SectionPicker from './SectionPicker';
 import { RecordCard } from './Evidence';
 import { aerial } from './aerial';
-import { campusCounts, campusPaths, campusRetrievedAt } from './campus';
+import { campusCounts, campusPaths, campusRetrievedAt, campusSourceTags } from './campus';
 import { campusSections, collectionsIn, explorerAtlas, groupOf, isCampus, sourceClass, type GroupId } from './groups';
 import { OsmCredit } from './OsmCredit';
 import styles from './Explorer.module.css';
@@ -173,6 +173,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const index = record ? records.findIndex(r => r.id === record.id) : -1;
   const step = (offset: number) => { if (records.length) selectRecord(records[(index + offset + records.length) % records.length].id); };
   const feature = record ? atlas.features.find(f => f.id === record.featureId) : undefined;
+  const sourceTags = feature && isCampus(collection?.id) ? campusSourceTags(feature.properties) : [];
   const chip = feature ? feature.geometry ? feature.properties.status ? `${sourceClass(feature.properties, feature.type)} · ${feature.properties.status}` : sourceClass(feature.properties, feature.type) : 'Not on map' : '';
   useEffect(() => { if (filtered) setFiltersOpen(true); }, [filtered]);
   // A deep link that asks for the evidence opens the details; on phones, bring them into view once.
@@ -237,7 +238,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
             <span className={styles.traversal}>Current traversal: Unknown</span>
           </div>
           <div className={styles.stage} data-mode="overview">
-            <OverviewMap atlas={atlas} sections={campusSections} collections={collections} onPick={pickFromOverview} pointLayer={pointLayer} />
+            <OverviewMap paths={paths} sections={campusSections} collections={collections} onPick={pickFromOverview} pointLayer={pointLayer} />
           </div>
         </> : <>
           <div className={styles.mapHeading}>
@@ -247,7 +248,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
             <span className={styles.traversal}>{collection ? traversalText(collection) : 'Current traversal: Unknown'}</span>
           </div>
           <EvidenceStage atlas={atlas} collection={collection} records={records} record={record} stops={stops} onSelect={selectRecord} onReset={clear}
-            mapOptions={inCampusSection ? { set: 'campus', context: paths.all, osm: true, dense: true, pointLayer } : undefined} />
+            mapOptions={inCampusSection ? { set: 'campus', context: paths.all, section: campusSections.find(section => section.collectionId === collection?.id), osm: true, dense: true, pointLayer } : undefined} />
           {collection && record && <div className={styles.navigator} role="group" aria-label="Selected record">
             <button type="button" aria-label="Previous snapshot" onClick={() => step(-1)}>‹</button>
             <div className={styles.navCurrent} aria-live="off">
@@ -273,6 +274,10 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
         }} aria-label="Hide details">×</button></div>
         {record ? <>
           <RecordCard key={record.id} atlas={atlas} record={record} stop={stops.get(record.id)} hidePhoto={collection?.kind !== 'synthetic'} />
+          {sourceTags.length > 0 && <details key={record.id + ':tags'} className={styles.campusSourceTags}>
+            <summary>All OpenStreetMap tags</summary>
+            <dl>{sourceTags.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl>
+          </details>}
         </> : <div className={styles.empty}><h3>No matching evidence</h3><p>Unplaced evidence remains in its source collection.</p><button type="button" onClick={clear}>Show the complete atlas</button></div>}
         {record && <details className={styles.allRecords}><summary>All {all.length} records in source order</summary>{all.map(r => <button type="button" key={r.id} aria-current={r.id === record.id || undefined} onClick={() => { clear(); selectRecord(r.id); }}><span>#{pad(stops.get(r.id))} {r.title}</span><small>{r.id}{!atlas.features.find(f => f.id === r.featureId)?.geometry && ' · Not on map'}</small></button>)}</details>}
       </aside>

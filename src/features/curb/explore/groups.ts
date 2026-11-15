@@ -1,5 +1,6 @@
 import { campusIndex } from '../../../data/curb/princeton-campus/adapter';
 import type { Atlas, Collection } from './model';
+import { campusWayStyles, campusWayType } from './campus';
 
 export type GroupId = 'campus' | 'downtown' | 'field';
 export const GROUPS: { id: GroupId; label: string; detail: string }[] = [
@@ -28,10 +29,8 @@ export function explorerAtlas(atlas: Atlas): Atlas {
 /** Collections in a group, in atlas order, limited to those the current filters still show. */
 export const collectionsIn = (group: GroupId, visible: Collection[]) => visible.filter(c => groupOf(c.id) === group);
 
-/** Display class for a source feature: OSM highway class when present, otherwise the archive feature type. */
-const CLASS_NAMES: Record<string, string> = { footway: 'Footway', steps: 'Steps', path: 'Path', cycleway: 'Cycleway', pedestrian: 'Pedestrian way' };
+/** Display the source-tag classification for OSM ways and the feature type for other records. */
 export function sourceClass(properties: Record<string, string | number | null>, type: string): string {
-  const highway = typeof properties.feat_type === 'string' && 'osm_way_id' in properties ? properties.feat_type : null;
-  if (highway) return `${CLASS_NAMES[highway] ?? highway}${properties.footway === 'crossing' ? ' · crossing' : ''}`;
+  if ('osm_way_id' in properties) return campusWayStyles[campusWayType(properties)].label;
   return type.charAt(0).toUpperCase() + type.slice(1);
 }

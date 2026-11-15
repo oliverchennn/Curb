@@ -33,20 +33,48 @@ export function campusOverviewBounds(): ProjectedView {
   return [left, top, right - left, bottom - top];
 }
 
-/** One aggregated, non-interactive path per section (and one for the whole campus): the overview draws
- *  every source way without 1,188 separate elements, markers or tab stops. Geometry is not simplified. */
+export const campusWayStyles = {
+  steps: { label: 'Steps', color: '#9b3926', dash: '2 3' },
+  crossing: { label: 'Crossings', color: '#784489', dash: '7 4' },
+  cycleway: { label: 'Cycleways', color: '#225782', dash: '12 3 2 3' },
+  sidewalk: { label: 'Sidewalks', color: '#176451', dash: '4 2' },
+  footway: { label: 'Footways & paths', color: '#63572a', dash: undefined },
+  unclassified: { label: 'Unclassified', color: '#575b60', dash: '10 6' },
+} as const;
+
+export type CampusWayType = keyof typeof campusWayStyles;
+export const campusWayTypes = Object.keys(campusWayStyles) as CampusWayType[];
+type SourceProperties = Atlas['features'][number]['properties'];
+
+export function campusWayType({ highway, footway }: SourceProperties): CampusWayType {
+  if (highway === 'steps') return 'steps';
+  if (highway !== 'footway' && highway !== 'path' && highway !== 'cycleway') return 'unclassified';
+  if (footway === 'crossing') return 'crossing';
+  if (highway === 'cycleway') return 'cycleway';
+  if (footway === 'sidewalk') return 'sidewalk';
+  return 'footway';
+}
+
+const adapterFields = new Set(['osm_way_id', 'osm_version', 'osm_edited_at', 'material', 'feat_type', 'captured']);
+
+export function campusSourceTags(properties: SourceProperties) {
+  return Object.entries(properties).filter(([key, value]) => !adapterFields.has(key) && typeof value === 'string');
+}
+
+/** Aggregate paths by source class. Each source geometry is drawn once in the overview. */
 export function campusPaths(atlas: Atlas) {
-  const byId = new Map(atlas.features.map(f => [f.id, f]));
-  const sections = new Map<string, string>();
-  for (const s of campusIndex.sections) {
-    const parts: string[] = [];
-    for (const id of s.featureIds) {
-      const g = byId.get(id)?.geometry;
-      if (g?.type === 'LineString') parts.push(g.coordinates.map((c, i) => `${i ? 'L' : 'M'}${project(c).map(v => v.toFixed(2)).join(',')}`).join(''));
+  const byId = new Map(atlas.features.map(feature => [feature.id, feature]));
+  const parts = Object.fromEntries(campusWayTypes.map(type => [type, [] as string[]])) as Record<CampusWayType, string[]>;
+  for (const section of campusIndex.sections) {
+    for (const id of section.featureIds) {
+      const feature = byId.get(id);
+      if (feature?.geometry?.type !== 'LineString') continue;
+      parts[campusWayType(feature.properties)].push(feature.geometry.coordinates.map((point, i) =>
+        (i ? 'L' : 'M') + project(point).map(value => value.toFixed(2)).join(',')).join(''));
     }
-    sections.set(s.collectionId, parts.join(''));
   }
-  return { sections, all: [...sections.values()].join('') };
+  const ways = campusWayTypes.map(type => ({ type, count: parts[type].length, path: parts[type].join('') }));
+  return { ways, all: ways.map(way => way.path).join('') };
 }
 
 /** Section membership audit: every selected way is drawn in exactly one section. */

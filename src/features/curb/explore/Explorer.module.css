@@ -123,8 +123,18 @@
 .legendRamp, .legendAssumed { display:inline-block; width:14px; height:14px; border:3px solid; border-radius:50%; background:#fffdf7; }
 .legendRamp { background:#b9c9b4; }
 .legendAssumed { border-style:dashed; border-width:2.5px; }
-.legendSteps { display:inline-block; width:26px; border-top:5px dotted; }
-.legendSection { display:inline-block; width:18px; height:14px; border:2px dashed #236d83; background:#236d8318; }
+.campusWayLegend { flex:none; display:flex; flex-wrap:wrap; align-items:baseline; column-gap:16px; padding:6px 10px; background:#fffef8; border-bottom:1px solid #d7ddcb; color:#344635; font-size:13px; line-height:1.4; }
+.campusWayLegend p { margin:0; }
+.campusWayLegend ul { display:flex; flex-wrap:wrap; gap:2px 14px; list-style:none; margin:0; padding:0; }
+.campusWayLegend li { display:flex; align-items:center; gap:5px; min-height:22px; }
+.campusWayLegend svg { flex:none; }
+.legendSection { box-sizing:border-box; flex:none; width:30px; height:12px; border:1.5px dashed #414b3d; }
+.campusSourceTags { margin:4px 16px 16px; border-top:1px solid var(--border); font-size:14px; }
+.campusSourceTags summary { display:flex; align-items:center; min-height:44px; color:var(--forest); text-decoration:underline; cursor:pointer; }
+.campusSourceTags dl { margin:0; overflow-wrap:anywhere; }
+.campusSourceTags dl>div { display:grid; grid-template-columns:minmax(5rem,1fr) minmax(0,1.4fr); gap:6px 10px; padding:4px 0; }
+.campusSourceTags dt { color:var(--quiet); }
+.campusSourceTags dd { margin:0; }
 
 .tray { flex-shrink:0; max-height:40%; overflow:auto; background:#f6f1e3; border-top:1px dashed #c5b88f; font-size:14px; color:#5f5636; }
 .tray summary { display:flex; flex-wrap:wrap; align-items:center; gap:2px 10px; min-height:44px; padding:6px 14px; cursor:pointer; list-style:none; }.tray summary::-webkit-details-marker { display:none; }.tray summary strong { color:#4c4423; }.trayHint { margin-left:auto; text-decoration:underline; color:#4c4423; }
@@ -153,7 +163,7 @@
 }
 .photoMain { display:grid; gap:8px; min-width:0; }
 .photoEvidence { margin:0; min-width:0; }
-.photoFrame { aspect-ratio:720 / 235; background:#20241e; border-radius:6px; overflow:hidden; display:grid; place-items:center; }
+.photoFrame { background:#20241e; border-radius:6px; overflow:hidden; display:grid; place-items:center; }
 .photoFrame:focus-visible { outline:3px solid #a66427; outline-offset:3px; }
 .photoFrame img { display:block; width:100%; height:auto; transform-origin:center; transition:transform .15s ease-out; user-select:none; }
 .photoFrame .photoNotice { width:80%; }
@@ -235,6 +245,7 @@
   .sectionPicker .sectionSelect { flex-basis:100%; flex-wrap:wrap; }
   .sectionPicker select { flex:1 1 20rem; max-width:100%; }
   .legend>summary { gap:4px 12px; }
+  .campusWayLegend ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; column-gap:6px; }
   .legendMore { margin-left:0; flex-basis:100%; }
   .navigator { flex-wrap:wrap; }
   .navCurrent { order:-1; flex-basis:100%; }
