@@ -134,3 +134,22 @@ The merge owner’s approved attachment route `6786b47e65cbd7eb7125f6d467eb8149c
 - `vincent-390-campus-overview.jpg` — overview codes at 390.
 - `vincent-390-nassau-west-stop-5.jpg` — selected Nassau west #5 at 390.
 - `vincent-1366-campus-detail-tile-failure.jpg` — overview retained under a failed tile.
+
+
+## Scoped mobile sizing and focus correction
+
+CURB-CAMPUS-UI-FIX/1 was tested on `9fadc080ff0768e7401613f0564359cd9cc3fd70` from `d1265c4d07a010dd318f5dc192139c3e63b85b69`. The selector wrapper and native control now shrink within the available width. At narrow widths the label can wrap onto its own line. The picker remains mounted across campus views, so keyboard activation moves focus to it before the activated map control or Back button disappears. Pointer activation keeps the current scroll position.
+
+Installed Chrome 156.0.8078.74 used classic 15 px vertical scrollbars. Independent QA measured x401 against a 375 px document width on the released base. On this workstation the exact base reached x378 with the same 375 px client width. The correction reaches x359 and document scrollWidth equals clientWidth.
+
+| Chrome viewport | Document client / scroll width | Native picker right edge |
+|---|---|---|
+| 390×844 | 375 / 375 px | 359.00 px |
+| 1366×768 | 1351 / 1351 px | 512.20 px |
+| 1920×1080 | 1905 / 1905 px | 624.70 px |
+
+Each width was measured with Archive filtering open in the overview, the 63-way C13 section, and the longest selected option (C03, Graduate College / west campus). The picker retained all 22 options and its controls measured at least 44 px. Document overflow is visible and the remaining 15 px gutter is the vertical scrollbar.
+
+At every width, real Tab, End or arrow keys, and Enter opened C22 and C04. After each Enter and each keyboard Back to campus overview, `document.activeElement` was the labeled `select#campus-section` with `:focus-visible` and a 3 px solid outline on screen. On the base both transitions returned focus to BODY. The Chrome run also verified pointer open/return, the existing C13 source-record deep link, browser Back, Archive state and Reset demo at all three widths.
+
+`npm.cmd run typecheck` and `npm.cmd run build` passed. The before and after Chrome geometry and focus receipts are `correction-base-chrome.json` and `correction-final-chrome.json` in the chat’s local evidence directory. The [390 px keyboard focus capture](../../public/curb/explore/v4/vincent-correction-390-focus.jpg) shows the corrected picker. Chrome used desktop viewport emulation. A physical phone and a screen reader were outside this check.
