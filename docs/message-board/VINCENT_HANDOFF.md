@@ -4,9 +4,9 @@ Prepared November 14, 2026, America/New_York. The user requested Vincent resume 
 
 ## Start here
 
-1. Open a coordinator chat in a current clone and paste [START_ORCHESTRATOR.txt](../../START_ORCHESTRATOR.txt). The prompt resumes the completed project; it does not restart F0.
+1. Open a coordinator chat in a current clone and paste [START_ORCHESTRATOR.txt](../development/START_ORCHESTRATOR.txt). The prompt resumes the completed project; it does not restart F0.
 2. Read [board #1](https://github.com/vzhu08/Curb/issues/1), beginning with the [R1 publication](https://github.com/vzhu08/Curb/issues/1#issuecomment-6873997922), the [return handoff](https://github.com/vzhu08/Curb/issues/1#issuecomment-6875515894), and all newer comments. The final handoff comment records the package PR and actual published SHA.
-3. Verify your identity, current `main`, and clean checkout; post **COORDINATOR ACK** with your real session, checkout, branch, fetched SHA and last board comment read. Update `orchestration.team.json` with your actual session. Do not reuse an old laptop session ID as proof of a running agent.
+3. Verify your identity, current `main`, and clean checkout; post **COORDINATOR ACK** with your real session, checkout, branch, fetched SHA and last board comment read. Update `docs/development/orchestration.team.json` with your actual session. Do not reuse an old laptop session ID as proof of a running agent.
 4. Open the existing demo and inspect the evidence below. Then select the next outcome. **R2 equal-budget repair comparison is the recommendation, not an existing assignment.**
 5. Dispatch exact scopes to available leads. This cloud conversation is Dev B, ready for an assignment; A and C need their availability confirmed. A board comment alone does not wake another machine's paused chat.
 
@@ -85,11 +85,11 @@ Known limits: synthetic data only; optional favicon 404; original foundation fet
 |---|---|---|
 | Vincent / `vzhu08` | Designated incoming orchestrator; new session/ACK pending | Read package and board, ACK, choose next slice |
 | Oliver / `oliverchennn`, this cloud session `6af808fa-83dc-8191-bd58-80697dbe50c9` | Dev B ready, no application assignment | Follow [Dev B continuation](DEV_B_CONTINUATION.md); ACK Vincent's exact assignment before coding |
-| Vincent's separate A coding lead | Previous local and R1 cloud A writers stopped/released | Confirm availability; use current [A prompt](../../START_DEV_A.txt) |
-| Landau / `landautzou` | Previous C work stopped/released; present availability unknown | Confirm availability; use current [C prompt](../../START_DEV_C.txt) |
+| Vincent's separate A coding lead | Previous local and R1 cloud A writers stopped/released | Confirm availability; use current [A prompt](../development/START_DEV_A.txt) |
+| Landau / `landautzou` | Previous C work stopped/released; present availability unknown | Confirm availability; use current [C prompt](../development/START_DEV_C.txt) |
 | R1 cloud workers and children | All completed/stopped; no active write scope | Do not restart without a new task |
 
-Dev B readiness checkout is `/workspace/curb-dev-b`, branch `codex/dev-b-ready`, prepared from final published handoff main. Its actual base is recorded in the final board comment. It is local to this cloud environment, has no unpublished application work and creates no remote task claim. If that environment is gone, use a fresh clone and [START_DEV_B.txt](../../START_DEV_B.txt).
+Dev B readiness checkout is `/workspace/curb-dev-b`, branch `codex/dev-b-ready`, prepared from final published handoff main. Its actual base is recorded in the final board comment. It is local to this cloud environment, has no unpublished application work and creates no remote task claim. If that environment is gone, use a fresh clone and [START_DEV_B.txt](../development/START_DEV_B.txt).
 
 The outgoing coordinator performs only this bounded handoff publication, then releases coordination. Vincent owns subsequent assignments/merges; Dev B has no independent main-integration authority. Previous laptop heartbeat and preview remain stopped. No background board watcher, cross-computer dispatch or durable worker is installed. A paused conversation must be resumed explicitly; do not treat silence as acceptance or release.
 

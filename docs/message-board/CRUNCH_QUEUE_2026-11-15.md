@@ -1,12 +1,12 @@
 # Curb crunch execution queue - 2026-11-15
 
-Snapshot 11:42 UTC. The [live board](https://github.com/oliverchennn/Curb/issues/1) is authoritative. New steering appends or explicitly revises the queue; it does not cancel unfinished tasks. Never merge the historical local coordination branch. The 11:18 UTC new-dispatch window has closed; existing release and verification work continues. Oliver stopped the scheduled heartbeat and directly resumed the existing release owner.
+Snapshot updated for the subsequent user-requested repository organization. The [live board](https://github.com/oliverchennn/Curb/issues/1) is authoritative. New steering appends or explicitly revises the queue; it does not cancel unfinished tasks. Never merge the historical local coordination branch. The 11:18 UTC new-dispatch window has closed; existing release and verification work continues. Oliver stopped the scheduled heartbeat and directly resumed the existing release owner.
 
 ## Authority
 
 Vincent root `01a1de7d-ca0f-7ed2-989d-4aae0850f1ae` owns orchestration, main merges and branch cleanup. Oliver's existing `01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5` owns integration candidates and Vercel releases. All CAD stays on Oliver. Local implementation uses Sol/xhigh; Oliver's direct human-approved Astra/xhigh policy applies on his host. One writer per literal file scope; transfer only after STOP/release. No duplicate coordinator, checker, editor or recurring automation.
 
-Canonical main and latest observed production `e9ec00d0981fd148801d80b29f81d613e19906b4`, tree `3494fcad49cc1bfd027d7ff2cbf4895f41f57bd9`. Vercel succeeded and public health matched the exact source in receipt6893735024. [Public app](https://curb-taupe.vercel.app). PR39 adds the Cañada readiness view; PR40 merged its independent proof at d918a0b. Keep accepted 514b2b5 and 670f6d8 releases available for rollback. Git-triggered automatic Vercel builds now work; the repository is public under Oliver's explicit Devpost instruction.
+Canonical base and last accepted production `c726eb495009f35855ea6ddccf82a208d8c9b522`, tree `be11f66aab077b87ebd4e399ef277df294addf5f`. Vercel and CI43710319513 succeeded. Independent visible Chrome verified exact health/readiness and the unchanged case API hash in receipt6893854564; shell HTTPS had ECONNRESET. Full application acceptance remains on the runtime-identical e9ec00d source. [Public app](https://curb-taupe.vercel.app). PR39 adds the Cañada readiness view; PR40 merged its independent proof at d918a0b. Keep accepted 514b2b5 and 670f6d8 releases available for rollback. Git-triggered automatic Vercel builds now work; the repository is public under Oliver's explicit Devpost instruction.
 
 ## Cumulative queue
 
@@ -26,7 +26,8 @@ Canonical main and latest observed production `e9ec00d0981fd148801d80b29f81d613e
 | CANADA independent gate and proof | Accepted review65effc1; proof0e6de1e STOP6893520034; final snapshot45a70b5... independently verified | Complete and merged PR40. M11done/M1–10open; comparison/sensitivities/benefit outputs N/A. Root independently reran all11 pinned manifest hashes. |
 | CANADA product | PR39 ff33cdc, nine product paths plus review. Independent technical/source review and exact-head1064tests/build/dual CI pass | Merged PR39 at e9ec00d. Writer terminal usage limit was resolved with clean published STOP and existing-checker local verification:11browsercases, realJSON and native2-pageLetterPDF passed6893715226. Automatic production exact-source alive and independent public11-casePASS6893766232 at11:39:45UTC. Integrated CI43709650103 passed. No source changes lost. |
 | Live verification | Same checker01a1de18-2671-7590-b81f-e13bb62d64d9 | Complete: Cañada public11-case matrix, exactJSON, source links, native2-pageLetterPDF and regressions passed on e9ec00d. Prior Presenter/Investment acceptances stand. Final documentation-only deployment requires only source-equivalence/health confirmation. |
-| Main and cleanup | Vincent root; Oliver existing deployment owner | PR40 thenPR39 merged and independently public-accepted; root finaldocumentation-only closeout is the remaining integration step. Thirty-eight completed refs archived/deleted with exact tag checks. Finaldocs ref remains through integration; three unaccepted historical research refs retained. |
+| Main and cleanup | Vincent root; Oliver existing deployment owner | PR40, PR39 and PR41 merged and released. Thirty-nine completed refs archived/deleted with exact tag checks. Three unaccepted historical research refs retained. New user-requested repository organization is the only active implementation scope. |
+| Repository organization | User explicitly requested fewer loose development files; root on codex/repository-organization from c726eb4 | Move startup prompts and team/kit metadata into docs/development, preserve full workflow behind root discovery instructions, and repair links. No application/config/proof changes. Review, CI, merge and release smoke remain. |
 
 ## Reserved outputs
 
@@ -45,3 +46,9 @@ By11:02UTC, ten more stopped incorporated refs were archived/deleted: crunch-clo
 At11:28UTC, four more stopped merged case refs were atomically archived/deleted: canada-case-brief4055a6a, canada-case-data1dbe300, canada-case-review65effc1 and canada-case-proof0e6de1e. Every exact tip was a main ancestor, and all archive tags and branch absences were independently reread. Total37retired refs; readiness and documentation closeout were still active.
 
 After publicPASS6893766232, the stopped readiness tipff33cdc9aa7ea4907851dae7aec8351b722e409a was archived under the same convention and removed, with main ancestry and exact tag/absence verified. Total38retired refs before the finaldocumentation PR. The finaldocumentation branch will be archived after its merge; see the live board for that exact receipt.
+
+## Subsequent user steering
+
+The user requested moving development files out of the repository root. REPOSITORY-ORGANIZATION/1 is explicitly authorized despite the earlier scheduled dispatch cutoff. Full agent workflow and six loose development files now live in `docs/development/`; root discovery and required build/deployment configuration remain. Metadata contents and application bytes are preserved. This follows the completed final handoff at c726eb4; it does not reopen product work.
+
+The user also asked what is needed for a real Cañada benchmark. The reply identified exact endpoints, assessed connectors, complete nonoverlapping repair scope and consistent cost/coverage evidence. Historical records must be reviewed before a historical optimizer adapter, frozen five-budget comparison, independent verifier and sensitivity runs. No new data acquisition, assumed graph or comparative result was authorized by that explanatory question; the accepted inventory-only disposition remains.

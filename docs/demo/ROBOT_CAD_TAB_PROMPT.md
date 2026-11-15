@@ -9,7 +9,7 @@ You are adding a dedicated **Robot** tab to the Curb website (Next.js app, deplo
 ## Read first (required)
 
 1. `AGENTS.md` / `CLAUDE.md` — ownership, one-writer-per-file, Git sync, and evidence rules. They override anything here.
-2. The live board (URL in `orchestration.team.json`) — ACK this task and record your branch, base SHA and literal file scopes before editing. Shared files (`package.json`, lockfile, `next.config.mjs`, `vercel.json`, app shell, `src/features/curb/navigation/AppNavigation.tsx`) belong to the merge owner (`01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5`); request the change or get an explicit transfer before touching them.
+2. The live board (URL in `docs/development/orchestration.team.json`) — ACK this task and record your branch, base SHA and literal file scopes before editing. Shared files (`package.json`, lockfile, `next.config.mjs`, `vercel.json`, app shell, `src/features/curb/navigation/AppNavigation.tsx`) belong to the merge owner (`01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5`); request the change or get an explicit transfer before touching them.
 3. `.curb-local/robot-cad/HANDOFF_BRIEF.md` and `.curb-local/robot-cad/out/BOM.md` — the CAD source. `.curb-local/` is git-ignored and local to Landau's machine.
 4. `docs/demo/VINCENT_HOSTING_RESULT.md` — how production is actually deployed (direct Vercel CLI upload from an exact merged SHA in Vincent's `vzhu08` scope; Git pushes do **not** auto-deploy).
 

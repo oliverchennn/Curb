@@ -4,7 +4,7 @@ The user requested this cloud conversation continue as **Dev B/domain, data and 
 
 ## Resume safely
 
-Read [Vincent's handoff](VINCENT_HANDOFF.md), [AGENTS.md](../../AGENTS.md), [OWNERSHIP.md](../OWNERSHIP.md), [CONTRACTS.md](../CONTRACTS.md), [GIT_SYNC.md](../GIT_SYNC.md), the assigned card and all new [board #1](https://github.com/vzhu08/Curb/issues/1) comments. Use [START_DEV_B.txt](../../START_DEV_B.txt) in a replacement session.
+Read [Vincent's handoff](VINCENT_HANDOFF.md), [AGENTS.md](../../AGENTS.md), [OWNERSHIP.md](../OWNERSHIP.md), [CONTRACTS.md](../CONTRACTS.md), [GIT_SYNC.md](../GIT_SYNC.md), the assigned card and all new [board #1](https://github.com/vzhu08/Curb/issues/1) comments. Use [START_DEV_B.txt](../development/START_DEV_B.txt) in a replacement session.
 
 Preferred cloud checkout: `/workspace/curb-dev-b`, branch `codex/dev-b-ready`. The outgoing coordinator creates it from final handoff main; its exact base and clean state are in the final board RESULT. It is a readiness checkout with no active code ownership and no dependency-install claim. Do not resume the old `/workspace/curb-b-r1` implementation branch as a new task base.
 

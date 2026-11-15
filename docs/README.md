@@ -13,6 +13,8 @@ Start with the [project overview](../README.md) or [live demo](https://curb-taup
 
 ## Contributor reference
 
+Agent instructions, saved role prompts and team/kit metadata are grouped in [development coordination](development/README.md).
+
 - **Coordination.** [Orchestration](ORCHESTRATION.md), [ownership](OWNERSHIP.md), [task board snapshot](TASK_BOARD.md), [task cards](tasks/README.md), [work queue](WORK_QUEUE.md), and [Git sync](GIT_SYNC.md).
 - **Decisions and handoff.** [Decisions](DECISIONS.md), [acceptance criteria](ACCEPTANCE.md), [message format](MESSAGE_BOARD.md), [board issue seed](message-board/ISSUE_BODY.md), and [handoff requirements](HANDOFF.md).
 - **Research and provenance.** [Princeton campus sources](research/PRINCETON_CAMPUS_SOURCES.md), [kit import and source license](KIT_IMPORT.md), [sponsor options](SPONSOR_OPTIONS.md), and [third-party notices](../THIRD_PARTY_NOTICES.md).
@@ -21,4 +23,4 @@ Start with the [project overview](../README.md) or [live demo](https://curb-taup
 
 The [prior coordinator handoff](message-board/VINCENT_HANDOFF.md), [Dev B continuation](message-board/DEV_B_CONTINUATION.md), [cloud takeover audit](message-board/CLOUD_TAKEOVER.md), and [saved R1 verification](message-board/r1-evidence/README.md) record earlier phases. Use the live board for current assignments. The [branch archive inventory](demo/BRANCH_ARCHIVE_2026-11-14.json) records archived branch commits.
 
-The supplied plan is preserved in [source/](source/), with the adapted upstream reference in [vendor/](vendor/). Use the current [orchestrator](../START_ORCHESTRATOR.txt), [Dev A](../START_DEV_A.txt), [Dev B](../START_DEV_B.txt), and [Dev C](../START_DEV_C.txt) prompts with the live board when resuming an assigned lane.
+The supplied plan is preserved in [source/](source/), with the adapted upstream reference in [vendor/](vendor/). Historical [orchestrator](development/START_ORCHESTRATOR.txt), [Dev A](development/START_DEV_A.txt), [Dev B](development/START_DEV_B.txt), and [Dev C](development/START_DEV_C.txt) prompts are retained for reference. Current user instructions and the live board determine assignments.

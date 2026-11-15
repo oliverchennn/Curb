@@ -62,7 +62,7 @@ There are **three humans total**, not an orchestrator plus three additional deve
 | Oliver, Dev B, domain and field-evidence lead | Implementation lead `agent-b` with coding subagents and an optional read-only reviewer | Ground the graph, gather/verify local evidence, challenge the algorithm | Pure domain functions, graph, repair evaluation, data fixtures |
 | Landau, Dev C, experience and demo lead | Implementation lead `agent-c` with coding subagents and an optional read-only reviewer | User workflow, visual quality, accessibility of the interface, demo rehearsal | Product page, evidence/review UI, map presentation, later scenario controls |
 
-Vincent (`vzhu08`) chooses product direction and sponsor scope and owns Dev A. The user assigned Oliver to the team; the setup maps Oliver to Dev B and Landau to Dev C. Confirm their GitHub logins and accepted access at kickoff; do not infer logins from kit authorship. See `orchestration.team.json` for the roster.
+Vincent (`vzhu08`) chooses product direction and sponsor scope and owns Dev A. The user assigned Oliver to the team; the setup maps Oliver to Dev B and Landau to Dev C. Confirm their GitHub logins and accepted access at kickoff; do not infer logins from kit authorship. See `docs/development/orchestration.team.json` for the roster.
 
 **The coordinator does not write application code while coordinating.** It assigns Dev A's implementation work to the separate A worker, just as it assigns B and C. Humans review output and make product decisions; workers implement bounded tasks.
 
@@ -74,14 +74,14 @@ Dev A has two distinct sessions: the team coordinator and A's implementation lea
 
 ## 4. Folder ownership
 
-Use the kit's generated Next.js project layout. Imported kit files stay separate from Curb code. The coordinator records ownership in `docs/OWNERSHIP.md`, and active task state in the single GitHub issue recorded by `orchestration.team.json`; `docs/TASK_BOARD.md` is the checked-in checkpoint snapshot, not an ownership lock.
+Use the kit's generated Next.js project layout. Imported kit files stay separate from Curb code. The coordinator records ownership in `docs/OWNERSHIP.md`, and active task state in the single GitHub issue recorded by `docs/development/orchestration.team.json`; `docs/TASK_BOARD.md` is the checked-in checkpoint snapshot, not an ownership lock.
 
 | Path or exact file | Accountable lane | Rules |
 |---|---|---|
 | `package.json`, `package-lock.json`, root configuration files, `.env.example`, `.gitignore` | A's separate bootstrap/maintenance agent | Serialized changes; no B/C dependency installs that modify tracked files |
 | `.github/`, `.codex/`, `tools/agents/`, `orchestration.json`, `orchestration.install.json` | A maintenance agent | Coordination infrastructure; leave imported runtime unchanged during product work |
 | `src/contracts/curb/` | A contract agent | Versioned Zod schemas and golden examples; reserve after bootstrap |
-| `packages/`, `modules/`, `kit.project.json` | A import steward | Imported kit code is read-only to ordinary feature workers; prefer Curb wrappers |
+| `packages/`, `modules/`, `docs/development/kit.project.json` | A import steward | Imported kit code is read-only to ordinary feature workers; prefer Curb wrappers |
 | `app/layout.tsx`, `app/globals.css`, `app/page.tsx`, `app/error.tsx`, `app/not-found.tsx` | A shell agent | Initial shell only; C uses scoped styles and `/curb` |
 | `app/api/curb/`, `src/server/curb/`, `src/client/curb/` | A worker | HTTP validation, service composition, browser transport, later provider/export boundaries |
 | `src/domain/curb/` | B worker | Pure functions and colocated tests; no React, provider SDKs, or server I/O |
@@ -144,7 +144,7 @@ try {
 } finally { Pop-Location }
 ```
 
-Review generated paths and copy only approved application files. Existing `AGENTS.md`, `CLAUDE.md`, `README.md`, `docs/`, startup prompts and `orchestration.team.json` must not be overwritten. F0 reports exact setup/contract/check additions for the coordinator to incorporate. See [F0](tasks/F0.md).
+Review generated paths and copy only approved application files. Existing `AGENTS.md`, `CLAUDE.md`, `README.md`, `docs/`, startup prompts and `docs/development/orchestration.team.json` must not be overwritten. F0 reports exact setup/contract/check additions for the coordinator to incorporate. See [F0](tasks/F0.md).
 
 Follow the generated README to install/lock the generated app. If a lockfile exists use `npm ci`; if creation has not produced one, generate and review it with `npm install` once, then use `npm ci` on the other machines. Preserve MIT and third-party notices and record kit reuse in the submission. Confirm event reuse requirements with organizers at kickoff; the packet's public-repository rule is not itself blanket permission for every prebuilt feature.
 
@@ -336,10 +336,10 @@ No numeric legal thresholds are needed to win this demo. If the team later adds 
 
 | Computer | Session and prompt | Delegation |
 |---|---|---|
-| A | Team coordinator: `START_ORCHESTRATOR.txt` | Assigns lane outcomes, maintains ownership and decisions; no application-code writing |
-| A | Separate implementation lead: `START_DEV_A.txt` | Serial bootstrap child, then A1 API and A2 client children |
-| B | Implementation lead: `START_DEV_B.txt` | B1 domain and B2 data children |
-| C | Implementation lead: `START_DEV_C.txt` | C1 screen/map and C2 evidence-panel children |
+| A | Team coordinator: `docs/development/START_ORCHESTRATOR.txt` | Assigns lane outcomes, maintains ownership and decisions; no application-code writing |
+| A | Separate implementation lead: `docs/development/START_DEV_A.txt` | Serial bootstrap child, then A1 API and A2 client children |
+| B | Implementation lead: `docs/development/START_DEV_B.txt` | B1 domain and B2 data children |
+| C | Implementation lead: `docs/development/START_DEV_C.txt` | C1 screen/map and C2 evidence-panel children |
 
 Before feature work, each developer verifies actual native child spawning and completion in their installed agent environment using a tiny read-only task. Use the environment's supported subagent configuration; do not copy guessed feature flags from another version. If spawning is unavailable on a machine, explicitly start separate ordinary coding sessions with the same child task cards and scopes, and record that this is manually launched parallel work rather than native spawning. This keeps delivery moving without pretending the capability is enabled.
 

@@ -1,5 +1,7 @@
 # Run and maintain Curb
 
+Agent prompts, coordination instructions and provenance metadata are grouped under [development coordination](development/README.md).
+
 Use Node.js **22.23.0 or newer**. No credentials or environment file are required for the prepared demo.
 
 ```sh
