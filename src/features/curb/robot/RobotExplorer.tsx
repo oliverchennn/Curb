@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
 import {
   collapseGroup,
   GROUP_ROLES,
@@ -10,7 +11,20 @@ import {
 } from './groups';
 import { loadManifest, type ManifestGroup, type RobotManifest } from './manifest';
 import { RobotScene, type SceneMode } from './RobotScene';
+import { buildTour, type TourBeat } from './tour';
 import styles from './robot.module.css';
+
+// Hands-free demo loop cadence (#5): per-beat dwell, and a longer hold on the
+// closing hand-off before the loop restarts.
+const TOUR_STEP_MS = 4800;
+const TOUR_CLOSE_MS = 6500;
+
+// Where the closing hand-off (#6) sends people into the product flow.
+const HANDOFF_LINKS = [
+  { href: '/curb/upload', label: 'Start a survey' },
+  { href: '/curb/surveys/robertson-hall', label: 'Robertson Hall review' },
+  { href: '/curb/plans', label: 'Repair priorities' },
+];
 
 type Status = 'loading' | 'ready' | 'error';
 
@@ -30,6 +44,9 @@ export default function RobotExplorer() {
   const partButtons = useRef(new Map<string, HTMLButtonElement>());
   const returnFocusRef = useRef<{ id: string; element: HTMLElement | null } | null>(null);
   const pendingFocusRef = useRef<'group' | 'back' | 'part' | 'firstPart' | null>(null);
+  const tourActiveRef = useRef(false);
+  const tourStepRef = useRef(0);
+  const explodeOnReadyRef = useRef<string | null>(null);
 
   const [manifest, setManifest] = useState<RobotManifest | null>(null);
   const [status, setStatus] = useState<Status>('loading');
@@ -50,18 +67,26 @@ export default function RobotExplorer() {
   const autoOrbitRef = useRef(autoOrbit);
   autoOrbitRef.current = autoOrbit;
 
+  // Guided tour (#2) / hands-free demo loop (#5) and the opening hero card (#1).
+  const [showIntro, setShowIntro] = useState(true);
+  const [tourActive, setTourActive] = useState(false);
+  const [tourPlaying, setTourPlaying] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
+
   // Keep the latest manifest reachable from stable callbacks.
   const manifestRef = useRef<RobotManifest | null>(null);
   manifestRef.current = manifest;
 
-  const openGroup = useCallback((id: string) => {
+  const openGroup = useCallback((id: string, moveFocus = true) => {
     const group = manifestRef.current?.groups.find(g => g.id === id);
     if (!group) return;
     const collapsed = collapseGroup(group);
-    returnFocusRef.current = { id, element: document.activeElement instanceof HTMLElement ? document.activeElement : null };
+    if (moveFocus) {
+      returnFocusRef.current = { id, element: document.activeElement instanceof HTMLElement ? document.activeElement : null };
+      pendingFocusRef.current = 'back';
+    }
     selectedRef.current = id;
     openKeyRef.current = null;
-    pendingFocusRef.current = 'back';
     setIndexExpanded(true);
     setMode('isolated');
     setSelectedId(id);
@@ -73,11 +98,12 @@ export default function RobotExplorer() {
     if (sceneReadyRef.current) void sceneRef.current?.isolateGroup(group, collapsed);
   }, []);
 
-  const expandGroup = useCallback((indexOnly = false, moveFocus = true) => {
-    if (!selectedRef.current || (!indexOnly && !sceneRef.current?.expandGroup())) return;
+  const expandGroup = useCallback((indexOnly = false, moveFocus = true): boolean => {
+    if (!selectedRef.current || (!indexOnly && !sceneRef.current?.expandGroup())) return false;
     if (moveFocus) pendingFocusRef.current = 'firstPart';
     setIndexExpanded(true);
     setMode('exploded');
+    return true;
   }, []);
 
   const selectEntry = useCallback((key: string) => {
@@ -88,10 +114,10 @@ export default function RobotExplorer() {
     if (next) sceneRef.current?.focusEntry(next);
   }, []);
 
-  const back = useCallback(() => {
+  const back = useCallback((moveFocus = true) => {
     selectedRef.current = null;
     openKeyRef.current = null;
-    pendingFocusRef.current = 'group';
+    pendingFocusRef.current = moveFocus ? 'group' : null;
     setIndexExpanded(true);
     setMode('overview');
     setSelectedId(null);
@@ -106,6 +132,65 @@ export default function RobotExplorer() {
     setHovered(id);
     sceneRef.current?.setHover(id);
   }, []);
+
+  // ---- Guided tour / demo loop ----
+  const beats = useMemo<TourBeat[]>(
+    () => (manifest ? buildTour(manifest.groups.map(g => ({ id: g.id, label: g.label }))) : []),
+    [manifest],
+  );
+  const beatsRef = useRef<TourBeat[]>(beats);
+  beatsRef.current = beats;
+
+  // Drive the scene for a single beat without moving keyboard focus (the tour
+  // controls keep focus so Next/Back stay usable).
+  const applyBeat = useCallback((beat: TourBeat) => {
+    explodeOnReadyRef.current = null;
+    if (beat.kind === 'overview') { back(false); return; }
+    if (!beat.groupId) return;
+    if (beat.kind === 'isolate') { openGroup(beat.groupId, false); return; }
+    // explode: isolate first if needed, then expand once the detail is ready.
+    if (selectedRef.current !== beat.groupId) openGroup(beat.groupId, false);
+    explodeOnReadyRef.current = beat.groupId;
+    if (expandGroup(false, false)) explodeOnReadyRef.current = null;
+  }, [back, openGroup, expandGroup]);
+
+  const goToBeat = useCallback((index: number) => {
+    const list = beatsRef.current;
+    if (!list.length) return;
+    const clamped = Math.max(0, Math.min(index, list.length - 1));
+    tourStepRef.current = clamped;
+    setTourStep(clamped);
+    applyBeat(list[clamped]);
+  }, [applyBeat]);
+
+  const startTour = useCallback((play: boolean) => {
+    if (!beatsRef.current.length) return;
+    tourActiveRef.current = true;
+    setTourActive(true);
+    setShowIntro(false);
+    setTourPlaying(play);
+    goToBeat(0);
+  }, [goToBeat]);
+
+  const exitTour = useCallback(() => {
+    tourActiveRef.current = false;
+    explodeOnReadyRef.current = null;
+    tourStepRef.current = 0;
+    setTourActive(false);
+    setTourPlaying(false);
+    setTourStep(0);
+    back(true);
+  }, [back]);
+
+  const tourNext = useCallback(() => {
+    if (tourStepRef.current >= beatsRef.current.length - 1) return;
+    goToBeat(tourStepRef.current + 1);
+  }, [goToBeat]);
+
+  const tourPrev = useCallback(() => {
+    if (tourStepRef.current <= 0) return;
+    goToBeat(tourStepRef.current - 1);
+  }, [goToBeat]);
 
   // Focus must follow controls that are removed when switching views. On mobile,
   // opening the index also makes the destination visible before it receives focus.
@@ -172,7 +257,14 @@ export default function RobotExplorer() {
             onDetailState: (groupId, state, message) => {
               if (cancelled || selectedRef.current !== groupId) return;
               setDetail({ state, message });
-              if (state === 'ready') sceneRef.current?.highlightEntry(openKeyRef.current);
+              if (state === 'ready') {
+                sceneRef.current?.highlightEntry(openKeyRef.current);
+                // A tour explode beat that was waiting on this geometry fires now.
+                if (explodeOnReadyRef.current === groupId) {
+                  explodeOnReadyRef.current = null;
+                  expandGroup(false, false);
+                }
+              }
             },
             onContextLost: message => {
               if (cancelled) return;
@@ -228,15 +320,32 @@ export default function RobotExplorer() {
   useEffect(() => { sceneRef.current?.setReducedMotion(reduced); }, [reduced]);
   useEffect(() => { sceneRef.current?.setAutoOrbit(autoOrbit); }, [autoOrbit]);
 
-  // Esc returns to the full robot.
+  // Esc exits the tour, or returns to the full robot.
   useEffect(() => {
-    if (mode === 'overview') return;
+    if (mode === 'overview' && !tourActive) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') { event.preventDefault(); back(); }
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      if (tourActiveRef.current) exitTour();
+      else back();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [mode, back]);
+  }, [mode, tourActive, back, exitTour]);
+
+  // Hands-free demo loop (#5): advance on a timer while playing, looping back to
+  // the start after the closing hand-off.
+  useEffect(() => {
+    if (!tourActive || !tourPlaying) return;
+    const list = beatsRef.current;
+    if (list.length < 2) return;
+    const atEnd = tourStep >= list.length - 1;
+    const timer = window.setTimeout(() => {
+      if (tourStepRef.current >= beatsRef.current.length - 1) goToBeat(0);
+      else goToBeat(tourStepRef.current + 1);
+    }, atEnd ? TOUR_CLOSE_MS : TOUR_STEP_MS);
+    return () => window.clearTimeout(timer);
+  }, [tourActive, tourPlaying, tourStep, goToBeat]);
 
   const selectedGroup: ManifestGroup | null = selectedId
     ? manifest?.groups.find(g => g.id === selectedId) ?? null
@@ -244,6 +353,9 @@ export default function RobotExplorer() {
   const groups = manifest ? orderedGroups(manifest) : [];
   const totalParts = manifest ? manifest.groups.reduce((n, g) => n + g.count, 0) : 0;
   const indexOnly = Boolean(fallback) || detail.state === 'error';
+  const currentBeat = tourActive ? beats[tourStep] : undefined;
+  const canTour = beats.length >= 2 && !fallback;
+  const showIntroCard = status === 'ready' && !fallback && mode === 'overview' && !tourActive && showIntro;
 
   if (status === 'error') {
     return (
@@ -300,7 +412,7 @@ export default function RobotExplorer() {
           </>
         ) : (
           <>
-            <button ref={backRef} type="button" className={styles.back} onClick={back}>← Back to full robot</button>
+            <button ref={backRef} type="button" className={styles.back} onClick={() => back()}>← Back to full robot</button>
             {selectedGroup && (
               <div className={styles.indexHead}>
                 <span className={styles.groupTag} style={{ background: selectedGroup.color }}>{selectedGroup.label}</span>
@@ -358,17 +470,28 @@ export default function RobotExplorer() {
             <span className={styles.stageTitle}>Curb survey robot — concept model</span>
           )}
           <div className={styles.toolbarActions}>
-            {mode === 'overview' && !fallback && (
-              <button
-                type="button"
-                className={styles.orbitToggle}
-                aria-pressed={autoOrbit}
-                onClick={() => setAutoOrbit(v => !v)}
-              >
-                {autoOrbit ? '❙❙ Pause orbit' : '▶ Auto-orbit'}
-              </button>
+            {!tourActive && mode === 'overview' && !fallback && (
+              <>
+                {canTour && (
+                  <button
+                    type="button"
+                    className={`${styles.orbitToggle} ${styles.tourLaunch}`}
+                    onClick={() => startTour(false)}
+                  >
+                    ▶ Guided tour
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={styles.orbitToggle}
+                  aria-pressed={autoOrbit}
+                  onClick={() => setAutoOrbit(v => !v)}
+                >
+                  {autoOrbit ? '❙❙ Pause orbit' : '▶ Auto-orbit'}
+                </button>
+              </>
             )}
-            {mode === 'isolated' && (
+            {!tourActive && mode === 'isolated' && (
               <button
                 type="button"
                 className={`${styles.orbitToggle} ${styles.expandButton}`}
@@ -378,8 +501,8 @@ export default function RobotExplorer() {
                 {indexOnly ? 'Show part descriptions' : 'Expand into parts'}
               </button>
             )}
-            {mode !== 'overview' && (
-              <button type="button" className={styles.orbitToggle} onClick={back}>← Full robot</button>
+            {!tourActive && mode !== 'overview' && (
+              <button type="button" className={styles.orbitToggle} onClick={() => back()}>← Full robot</button>
             )}
           </div>
         </div>
@@ -412,7 +535,58 @@ export default function RobotExplorer() {
             <div className={styles.detailError} role="alert">Detail failed to load. {detail.message}</div>
           )}
 
-          {!indexOnly && <p className={styles.hint}>
+          {showIntroCard && (
+            <div className={styles.introCard} role="group" aria-label="Robot demo intro">
+              <p className={styles.introEyebrow}>Curb survey robot</p>
+              <h3 className={styles.introTitle}>See how the robot feeds the survey</h3>
+              <p className={styles.introBody}>
+                A concept sidewalk-survey robot. Take a guided tour through its subsystems — or let it play on its own —
+                then jump into the survey it would feed.
+              </p>
+              <div className={styles.introActions}>
+                <button type="button" className={styles.introPrimary} onClick={() => startTour(false)}>▶ Start guided tour</button>
+                <button type="button" className={styles.introSecondary} onClick={() => startTour(true)}>↻ Play demo loop</button>
+                <button type="button" className={styles.introGhost} onClick={() => setShowIntro(false)}>Explore freely</button>
+              </div>
+            </div>
+          )}
+
+          {tourActive && currentBeat && (
+            <div className={styles.tourBar} role="group" aria-label="Guided tour">
+              <div className={styles.tourText}>
+                <span className={styles.tourStep}>Step {tourStep + 1} / {beats.length}</span>
+                <strong className={styles.tourTitle}>{currentBeat.title}</strong>
+                <span className={styles.tourBody}>{currentBeat.body}</span>
+                {currentBeat.cta && (
+                  <div className={styles.tourLinks}>
+                    {HANDOFF_LINKS.map(link => (
+                      <Link key={link.href} href={link.href} className={styles.tourLink}>{link.label} →</Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className={styles.tourControls}>
+                <button type="button" className={styles.tourBtn} onClick={tourPrev} disabled={tourStep === 0} aria-label="Previous step">‹</button>
+                <button
+                  type="button"
+                  className={styles.tourBtn}
+                  aria-pressed={tourPlaying}
+                  onClick={() => setTourPlaying(p => !p)}
+                  aria-label={tourPlaying ? 'Pause demo loop' : 'Play demo loop'}
+                >
+                  {tourPlaying ? '❙❙' : '▶'}
+                </button>
+                {tourStep < beats.length - 1 ? (
+                  <button type="button" className={`${styles.tourBtn} ${styles.tourNext}`} onClick={tourNext}>Next ›</button>
+                ) : (
+                  <button type="button" className={`${styles.tourBtn} ${styles.tourNext}`} onClick={() => goToBeat(0)}>↻ Restart</button>
+                )}
+                <button type="button" className={styles.tourExit} onClick={exitTour}>Exit</button>
+              </div>
+            </div>
+          )}
+
+          {!indexOnly && !tourActive && <p className={styles.hint}>
             {mode === 'overview' && 'Drag to orbit · scroll to zoom · click a subsystem to isolate it'}
             {mode === 'isolated' && 'Click the model to expand it · Esc returns to the full robot'}
             {mode === 'exploded' && 'Select a part to see its purpose · Esc returns to the full robot'}
