@@ -52,6 +52,10 @@ export function tileExtent(t: { bounds: { west: number; south: number; east: num
   return { x: x1, y: y1, width: x2 - x1, height: y2 - y1 };
 }
 
+export function countFailedTiles(visible: AerialTile[], failed: ReadonlySet<string>): number {
+  return visible.filter(tile => failed.has(tile.src)).length;
+}
+
 /** Screen pixels per SVG unit the overview can supply; detail tiles are only worth loading beyond it. */
 export function overviewResolution(c = campusAerial) {
   return c.overview.width / tileExtent(c.overview).width;

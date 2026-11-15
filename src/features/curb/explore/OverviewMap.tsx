@@ -2,16 +2,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Atlas, Collection } from './model';
 import AerialLayer, { baseSrc } from './AerialLayer';
-import { campusAerial } from './aerial';
+import { campusAerial, countFailedTiles, visibleTiles } from './aerial';
 import { campusExtent, campusPaths, sectionExtent, type CampusSection } from './campus';
-import { placeBadges } from './labels';
+import { placeSectionTargets, SECTION_TARGET_SIZE } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
 import styles from './Explorer.module.css';
 
 type View = [number, number, number, number];
 const SECTION_COLORS: Record<string, string> = { north: '#28715d', west: '#665c91', central: '#236d83', east: '#935b2d', south: '#43754a', meadows: '#8b536d' };
 
-/** Campus overview: all source ways as one path per section, section boxes as the only targets.
+/** Campus overview: all source ways as one path per section, section codes as the only pointer targets.
  *  Sections are browsing groups of source geometry, not routes or official boundaries. */
 export default function OverviewMap({ atlas, sections, collections, onPick }: {
   atlas: Atlas; sections: CampusSection[]; collections: Collection[]; onPick: (collectionId: string) => void;
@@ -29,12 +29,22 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
   const paths = useMemo(() => campusPaths(atlas), [atlas]);
   const aerialFailed = failed.has(baseSrc('campus'));
   const showAerial = base === 'aerial' && !aerialFailed;
-  const tileFailures = [...failed].filter(s => s !== baseSrc('campus')).length;
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);
   const plotLeft = view[0] + (view[2] - size[0] * unit) / 2, plotTop = view[1] + (view[3] - size[1] * unit) / 2;
   const visibleView: View = [plotLeft, plotTop, size[0] * unit, size[1] * unit];
   const shown = new Set(collections.map(c => c.id));
-  const targets = sections.filter(s => shown.has(s.collectionId));
+  const plotBounds = { left: plotLeft, top: plotTop, right: plotLeft + visibleView[2], bottom: plotTop + visibleView[3] };
+  const tiles = showAerial ? visibleTiles(visibleView, 1 / unit) : [];
+  const tileFailures = countFailedTiles(tiles, failed);
+  const anchors = sections.flatMap(s => {
+    const e = sectionExtent(s);
+    return shown.has(s.collectionId) && e.x + e.width > plotBounds.left && e.x < plotBounds.right
+      && e.y + e.height > plotBounds.top && e.y < plotBounds.bottom
+      ? [{ id: s.collectionId, x: e.x + e.width / 2, y: e.y + e.height / 2 }] : [];
+  });
+  const labelSpots = placeSectionTargets(anchors, plotBounds, unit);
+  const targets = sections.filter(s => labelSpots.has(s.collectionId));
+  const targetSize = SECTION_TARGET_SIZE * unit;
   const rovingId = focusId && targets.some(s => s.collectionId === focusId) ? focusId : targets[0]?.collectionId;
   useEffect(() => {
     if (!svg.current) return;
@@ -49,10 +59,6 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
     const i = targets.findIndex(s => s.collectionId === from), next = targets[delta === 'first' ? 0 : delta === 'last' ? targets.length - 1 : (i + delta + targets.length) % targets.length];
     if (next) { setFocusId(next.collectionId); refs.current.get(next.collectionId)?.focus(); }
   };
-  const ink = showAerial ? '#ffffff' : '#213a2c', halo = showAerial ? '#13201a' : '#fffef8';
-  // Section codes go through the same deterministic collision pass as stop badges; a hidden code stays in the picker.
-  const labelSpots = placeBadges(targets.map(s => { const e = sectionExtent(s); return { id: s.collectionId, x: e.x + e.width / 2, y: e.y + e.height / 2, dy: 0 }; }),
-    15 * unit, [], undefined, { hideCrowded: true, keep: focusId ?? undefined });
   return <div className={styles.mapCanvas} data-base={showAerial ? 'aerial' : 'diagram'} data-overview="true">
     <div className={styles.mapToolbar}>
       <div className={styles.mapTools} role="group" aria-label="Map controls">
@@ -68,7 +74,6 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
       <div className={styles.north} aria-hidden="true"><span>↑</span>N</div>
     </div>
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every way is unchanged.</p>}
-    {targets.length - labelSpots.size > 0 && <p className={styles.mapHint}>{targets.length - labelSpots.size} section codes hidden where they would overlap. Zoom in, or use the Campus section list.</p>}
     {!aerialFailed && showAerial && tileFailures > 0 && <p className={styles.mapNotice} role="status">{tileFailures} detail {tileFailures === 1 ? 'tile' : 'tiles'} unavailable — the overview image is shown there.</p>}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
       aria-label={`Princeton campus overview on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}: ${targets.length} sections of OpenStreetMap ways. Arrow keys pan, plus and minus zoom, Home fits the campus. Tab once to reach the sections; arrow keys move between them, Home and End jump to the first and last, Enter opens one, Escape returns here.`}
@@ -86,12 +91,22 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
       onPointerUp={e => { drag.current = null; if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId); }}
       onPointerCancel={() => { drag.current = null; }}>
       <title>Princeton campus OpenStreetMap ways · current traversal unknown</title>
-      {showAerial && <AerialLayer set="campus" view={visibleView} pixelsPerUnit={1 / unit} failed={failed} onFail={src => setFailed(p => new Set(p).add(src))} />}
+      {showAerial && <AerialLayer set="campus" tiles={tiles} failed={failed} onFail={src => setFailed(p => new Set(p).add(src))} />}
       <g aria-hidden="true">{sections.map(s => <path key={s.collectionId} d={paths.sections.get(s.collectionId)} fill="none"
         stroke={shown.has(s.collectionId) ? SECTION_COLORS[s.areaId] : '#8b9483'} strokeOpacity={shown.has(s.collectionId) ? 1 : .35}
         strokeWidth={2.2} vectorEffect="non-scaling-stroke" className={styles.overviewWays} data-base={showAerial ? 'aerial' : 'diagram'} />)}</g>
-      {targets.map(s => { const e = sectionExtent(s), color = SECTION_COLORS[s.areaId];
-        const hitW = Math.max(e.width, 44 * unit), hitH = Math.max(e.height, 44 * unit);
+      <g className={styles.sectionBounds} aria-hidden="true">{sections.map(s => {
+        const e = sectionExtent(s), color = SECTION_COLORS[s.areaId];
+        return <g key={s.collectionId}>
+          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill={color} fillOpacity={.08} stroke="#fffef8" strokeOpacity={.7} strokeWidth={3} vectorEffect="non-scaling-stroke" />
+          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill="none" stroke={color} strokeWidth={2} strokeDasharray="7 4" vectorEffect="non-scaling-stroke" />
+        </g>;
+      })}{targets.map(s => {
+        const a = anchors.find(a => a.id === s.collectionId)!, t = labelSpots.get(s.collectionId)!;
+        return Math.hypot(a.x - t.x, a.y - t.y) > 18 * unit && <line key={s.collectionId} x1={a.x} y1={a.y} x2={t.x} y2={t.y}
+          stroke={showAerial ? "#faf9f3" : SECTION_COLORS[s.areaId]} strokeOpacity={.7} strokeWidth={1.5} vectorEffect="non-scaling-stroke" />;
+      })}</g>
+      {targets.map(s => { const t = labelSpots.get(s.collectionId)!; const color = SECTION_COLORS[s.areaId];
         return <g key={s.collectionId} ref={el => { if (el) refs.current.set(s.collectionId, el); else refs.current.delete(s.collectionId); }}
           role="button" tabIndex={s.collectionId === rovingId ? 0 : -1} data-section={s.collectionId} className={styles.sectionTarget}
           aria-label={`${s.code}: ${s.areaLabel}, section ${s.section} of ${s.sectionsInArea}, ${s.wayCount} ways`}
@@ -103,18 +118,16 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
             else if (ev.key === 'Home' || ev.key === 'End') { ev.preventDefault(); move(s.collectionId, ev.key === 'Home' ? 'first' : 'last'); }
             else if (ev.key === 'Escape') { ev.preventDefault(); svg.current?.focus(); }
           }}>
-          <rect data-hit-area x={e.x + (e.width - hitW) / 2} y={e.y + (e.height - hitH) / 2} width={hitW} height={hitH} fill="transparent" />
-          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill={color} fillOpacity={.1} stroke="#ffffff" strokeOpacity={.8} strokeWidth={4} vectorEffect="non-scaling-stroke" />
-          <rect x={e.x} y={e.y} width={e.width} height={e.height} fill="none" stroke={color} strokeWidth={2} strokeDasharray="7 4" vectorEffect="non-scaling-stroke" />
-          {(() => { const l = labelSpots.get(s.collectionId); return l && <text x={l.x} y={l.y + 5 * unit} textAnchor="middle" fontSize={14 * unit} fontWeight={800}
-            fill={ink} stroke={halo} strokeWidth={4 * unit} paintOrder="stroke">{s.code}</text>; })()}
+          <rect data-hit-area x={t.x - targetSize / 2} y={t.y - targetSize / 2} width={targetSize} height={targetSize} fill="transparent" />
+          <rect x={t.x - 17 * unit} y={t.y - 11 * unit} width={34 * unit} height={22 * unit} rx={4 * unit} fill="#fffef8" stroke={color} strokeWidth={2} vectorEffect="non-scaling-stroke" />
+          <text x={t.x} y={t.y + 4.5 * unit} textAnchor="middle" fontSize={12 * unit} fontWeight={800} fill="#213a2c">{s.code}</text>
         </g>; })}
     </svg>
     <div className={styles.mapCredit} data-campus="true">{showAerial && <span>Aerial {campusAerial.captureYear} · NJ Office of GIS</span>}<OsmCredit offerDownload /></div>
     <details className={styles.legend}>
       <summary>
         <span><i className={styles.legendPath} style={{ borderColor: SECTION_COLORS.central }} />OpenStreetMap ways, colored by study area</span>
-        <span><i className={styles.legendSection} />Section box (click to inspect)</span>
+        <span><i className={styles.legendSection} />Section bounds · select a code</span>
         <span className={styles.legendMore}>Map key &amp; sources</span>
       </summary>
       <div>

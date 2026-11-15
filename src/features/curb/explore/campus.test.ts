@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { createAtlas } from './data';
-import { campusAerial, overviewResolution, tileExtent, visibleTiles } from './aerial';
+import { aerial, campusAerial, countFailedTiles, overviewResolution, tileExtent, visibleTiles } from './aerial';
 import { campusExtent, campusPaths, sectionMembership } from './campus';
 import { GROUPS, campusSectionIds, collectionsIn, groupOf, sourceClass } from './groups';
 import { explorerLocationUrl, readExplorerLocation, searchable } from './location';
-import { placeBadges } from './labels';
+import { placeBadges, placeSectionTargets } from './labels';
 import { locatedFeatures, project, recordsFor, selectionFor, traversalText } from './model';
 
 const atlas = createAtlas();
@@ -90,10 +90,25 @@ describe('campus aerial tiles', () => {
     const corner: [number, number, number, number] = [e.x + e.width - 50, e.y + e.height - 50, 100, 100];
     expect(visibleTiles(corner, ppu).length).toBe(4);
   });
+  it('counts only visible campus tiles, excluding failed corridor and offscreen images', () => {
+    const [visible, offscreen] = campusAerial.tiles;
+    expect(countFailedTiles([visible], new Set([offscreen.src, aerial.src, campusAerial.overview.src]))).toBe(0);
+    expect(countFailedTiles([visible], new Set([visible.src, offscreen.src, aerial.src]))).toBe(1);
+  });
   it('places tiles through the existing projection, edge to edge', () => {
     const [a, b] = [campusAerial.tiles[0], campusAerial.tiles[1]];
     expect(tileExtent(a).x + tileExtent(a).width).toBeCloseTo(tileExtent(b).x, 6);
     expect(tileExtent(a).x).toBeCloseTo(project([a.bounds.west, a.bounds.north])[0], 9);
+  });
+});
+
+describe('overview pointer targets', () => {
+  it('keeps 22 touch targets independent even if section centers coincide', () => {
+    const anchors = Array.from({ length: 22 }, (_, i) => ({ id: String(i), x: 170, y: 140 }));
+    const targets = [...placeSectionTargets(anchors, { left: 0, right: 350, top: 0, bottom: 440 }, 1).values()];
+    expect(targets).toHaveLength(22);
+    expect(targets.every(({ x, y }) => x >= 22 && x <= 328 && y >= 22 && y <= 418)).toBe(true);
+    expect(targets.every((a, i) => targets.slice(0, i).every(b => Math.max(Math.abs(b.x - a.x), Math.abs(b.y - a.y)) >= 44))).toBe(true);
   });
 });
 

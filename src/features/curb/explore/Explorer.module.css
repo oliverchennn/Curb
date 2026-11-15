@@ -99,9 +99,10 @@
 .campusContext[data-base=diagram] { stroke:#9aa594; stroke-opacity:.7; }
 .overviewWays { pointer-events:none; }
 .overviewWays[data-base=aerial] { filter:drop-shadow(0 0 1px #ffffff); }
+.sectionBounds, .sectionTarget :not([data-hit-area]) { pointer-events:none; }
 .sectionTarget { cursor:pointer; outline:none; }
-.sectionTarget:hover rect:not([data-hit-area]), .sectionTarget:focus-visible rect:not([data-hit-area]) { fill-opacity:.22; stroke-width:3; }
-.sectionTarget:focus-visible rect:not([data-hit-area]) { stroke:#f0b46c; }
+.sectionTarget:hover rect:not([data-hit-area]) { fill:#e3ebd9; }
+.sectionTarget:focus-visible rect:not([data-hit-area]) { stroke:#a66427; stroke-width:3; }
 .mapNotice { flex-shrink:0; margin:0; padding:8px 12px; border-radius:6px; background:#fbf0d4; border:1px solid #d4b77b; color:#5f4615; font-size:14px; }
 
 .legend { flex-shrink:0; background:#f8f8eef5; border-top:1px solid #d7ddcb; font-size:14px; color:#3f4f3b; }

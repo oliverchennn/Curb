@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { archiveStatus, fitFeatures, locatedFeatures, project, recordsFor, type Atlas, type Collection, type EvidenceRecord, type Feature } from './model';
-import { aerial, campusAerial } from './aerial';
+import { aerial, campusAerial, countFailedTiles, visibleTiles } from './aerial';
 import AerialLayer, { baseSrc, type AerialSet } from './AerialLayer';
 import { placeBadges, streetLabel } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
@@ -48,7 +48,6 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const [focusId, setFocusId] = useState<string | null>(null);
   const featureRefs = useRef(new Map<string, SVGGElement>());
   const aerialFailed = failed.has(baseSrc(set));
-  const tileFailures = [...failed].filter(s => s !== baseSrc(set) && set === 'campus').length;
   const showAerial = base === 'aerial' && !aerialFailed;
   const drag = useRef<{ x: number; y: number; view: View } | null>(null), moved = useRef(false);
   const features = locatedFeatures(atlas, records);
@@ -58,6 +57,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const plotTop = view[1] + (view[3] - size[1] * unit) / 2;
   const plotBounds = { left: plotLeft, top: plotTop, right: plotLeft + size[0] * unit, bottom: plotTop + size[1] * unit };
   const visibleView: View = [plotLeft, plotTop, size[0] * unit, size[1] * unit];
+  const tiles = set === 'campus' && showAerial ? visibleTiles(visibleView, 1 / unit) : [];
+  const tileFailures = countFailedTiles(tiles, failed);
   const selectedFeature = selected ? atlas.features.find(f => f.id === selected.featureId && f.geometry) : undefined;
   const collectionFit = useMemo(() => fitFeatures(locatedFeatures(atlas, recordsFor(atlas, collection)), 26, 40), [atlas, collection]);
   // Zoom-out cap derived from the content: the old fixed 1200-unit cap cannot show a whole campus section's context.
@@ -145,7 +146,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       {set === 'corridor' && <g className={styles.contextLines} aria-hidden="true">
         {atlas.context.map(f => f.geometry?.type === 'LineString' && <path key={f.id} d={path(f.geometry.coordinates)} vectorEffect="non-scaling-stroke" />)}
       </g>}
-      {showAerial && <AerialLayer set={set} view={visibleView} pixelsPerUnit={1 / unit} failed={failed}
+      {showAerial && <AerialLayer set={set} tiles={tiles} failed={failed}
         onFail={src => setFailed(prev => new Set(prev).add(src))} />}
       {context && <path className={styles.campusContext} d={context} data-base={showAerial ? 'aerial' : 'diagram'} vectorEffect="non-scaling-stroke" aria-hidden="true" />}
       {set === 'corridor' && <g aria-hidden="true">{streetLabels(atlas).map(s => <text key={s.text} x={s.x} y={s.y} textAnchor="middle" transform={s.rotate ? `rotate(${s.rotate} ${s.x} ${s.y})` : undefined}

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { aerial, aerialExtent, campusAerial, tileExtent, visibleTiles } from './aerial';
+import { aerial, aerialExtent, campusAerial, tileExtent, type AerialTile } from './aerial';
 
 export type AerialSet = 'corridor' | 'campus';
 const CORRIDOR = aerialExtent();
@@ -11,8 +11,8 @@ export const baseSrc = (set: AerialSet) => set === 'campus' ? campusAerial.overv
 
 /** Historical aerial context beneath archive geometry. Campus loads the overview always and adds only the
  *  detail tiles the current view needs; a failed tile is dropped, leaving the overview visible beneath it. */
-export default function AerialLayer({ set, view, pixelsPerUnit, failed, onFail }: {
-  set: AerialSet; view: [number, number, number, number]; pixelsPerUnit: number;
+export default function AerialLayer({ set, tiles, failed, onFail }: {
+  set: AerialSet; tiles: AerialTile[];
   failed: ReadonlySet<string>; onFail: (src: string) => void;
 }) {
   const [mounted, setMounted] = useState(false);
@@ -22,11 +22,10 @@ export default function AerialLayer({ set, view, pixelsPerUnit, failed, onFail }
   if (set === 'corridor') return failed.has(aerial.src) ? null
     : <image href={aerial.src} x={CORRIDOR.x} y={CORRIDOR.y} width={CORRIDOR.width} height={CORRIDOR.height}
       preserveAspectRatio="none" onError={() => onFail(aerial.src)} aria-hidden="true" />;
-  const tiles = visibleTiles(view, pixelsPerUnit).filter(t => !failed.has(t.src));
   return <g aria-hidden="true">
     {!failed.has(campusAerial.overview.src) && <image href={campusAerial.overview.src} x={OVERVIEW.x} y={OVERVIEW.y}
       width={OVERVIEW.width} height={OVERVIEW.height} preserveAspectRatio="none" onError={() => onFail(campusAerial.overview.src)} />}
-    {tiles.map(t => { const e = tileExtent(t);
+    {tiles.filter(t => !failed.has(t.src)).map(t => { const e = tileExtent(t);
       return <image key={t.id} href={t.src} data-tile={t.id} x={e.x} y={e.y} width={e.width} height={e.height}
         preserveAspectRatio="none" onError={() => onFail(t.src)} />; })}
   </g>;

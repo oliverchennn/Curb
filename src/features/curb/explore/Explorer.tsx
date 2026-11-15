@@ -118,7 +118,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
           <div className={styles.stage} data-mode="overview">
             <OverviewMap atlas={atlas} sections={campusSections} collections={collections} onPick={pickSection} />
           </div>
-          <p className={styles.overviewHint}>Choose a section on the map or from the list to inspect its ways. Each of the {fmt(campusCounts.selectedWays)} ways belongs to exactly one section; sections are not routes.</p>
+          <p className={styles.overviewHint}>Select a section code on the map or use the Campus section list to inspect its ways. Each of the {fmt(campusCounts.selectedWays)} ways belongs to exactly one section; sections are not routes.</p>
         </> : <>
           <div className={styles.mapHeading}>
             <h2>{collection?.name ?? 'No matching evidence'}</h2>

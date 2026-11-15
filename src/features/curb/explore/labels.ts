@@ -1,4 +1,29 @@
 type Pt = [number, number];
+export const SECTION_TARGET_SIZE = 44;
+
+/** Reserve independent screen-sized cells and assign each visible section its nearest free cell.
+ *  Only the code moves; the section box and every source coordinate stay where they are. */
+export function placeSectionTargets(anchors: { id: string; x: number; y: number }[], bounds: BadgeBounds, unit: number) {
+  const step = (SECTION_TARGET_SIZE + 4) * unit;
+  const columns = Math.floor((bounds.right - bounds.left) / step);
+  const rows = Math.floor((bounds.bottom - bounds.top) / step);
+  const x0 = (bounds.left + bounds.right - (columns - 1) * step) / 2;
+  const y0 = (bounds.top + bounds.bottom - (rows - 1) * step) / 2;
+  const cells = Array.from({ length: rows * columns }, (_, i) => ({
+    x: x0 + (i % columns) * step, y: y0 + Math.floor(i / columns) * step,
+  }));
+  const placements = new Map<string, { x: number; y: number }>();
+  for (const a of anchors) {
+    let best = -1, distance = Infinity;
+    for (let i = 0; i < cells.length; i++) {
+      const { x, y } = cells[i], d = (x - a.x) ** 2 + (y - a.y) ** 2;
+      if (d < distance) { best = i; distance = d; }
+    }
+    if (best < 0) break;
+    placements.set(a.id, cells.splice(best, 1)[0]);
+  }
+  return placements;
+}
 export type BadgeBounds = { left: number; top: number; right: number; bottom: number };
 /** Orientation label beside an archive line that names the street: offset perpendicular toward `side`
  *  (a rough direction vector in SVG space) and optionally slid along the street. Never moves geometry. */
