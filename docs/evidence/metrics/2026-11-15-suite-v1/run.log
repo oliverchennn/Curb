@@ -1,0 +1,5 @@
+node --import tsx scripts/curb/metrics/benchmark.ts --suite benchmarks/curb-metrics/suite-v1.json --out docs/evidence/metrics/2026-11-15-suite-v1
+exitCode=0
+networks=30 cases=120 strategyRows=480 pairedComparisons=360
+controlCases=8 controlRows=32
+audit=pending; report=blocked pending independent audit and separate-checkout rerun
