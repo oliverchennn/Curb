@@ -1,3 +1,4 @@
+import { findPhotoEvidence } from './photoEvidence';
 import { selectionFor, type Atlas, type Filter } from './model';
 import { campusSectionIds, explorerAtlas, groupOf, isCampus } from './groups';
 import { createCampusPointCatalog, findCampusPoint, POINT_CATEGORIES, type CampusPoint, type PointCategory } from '../../../data/curb/princeton-campus-points/adapter';
@@ -29,6 +30,8 @@ export type ExplorerPanel = 'map' | 'routes' | 'evidence';
 export type ExplorerLocation = {
   collectionId: string; recordId: string; filter: Filter; query: string; panel: ExplorerPanel; overview?: true;
   point?: CampusPointLocation;
+  photoId?: string;
+  photoHidden?: true;
 };
 
 /** The catalog’s adjacent record and feature IDs disambiguate a complete OSM way ID from longer IDs. */
@@ -37,7 +40,9 @@ export function searchable(query: string): string {
   return id ? 'record:campus-osm-way:' + id + ' campus-osm-way:' + id : query.replace(/\bway\//gi, 'way:');
 }
 
-export function readExplorerLocation(atlas: Atlas, search: string): ExplorerLocation {
+export function readExplorerLocation(
+  atlas: Atlas, search: string, hasPhoto = (id: string) => Boolean(findPhotoEvidence(id)),
+): ExplorerLocation {
   const params = new URLSearchParams(search);
   const visible = explorerAtlas(atlas);
   const group = params.get('group');
@@ -58,15 +63,20 @@ export function readExplorerLocation(atlas: Atlas, search: string): ExplorerLoca
   const recordId = requested.recordIds.includes(askedRecord) ? askedRecord : requested.recordIds[0];
   const selected = selectionFor(visible, filter, searchable(query), requested.id, recordId);
   const overview = !explicit && !query.trim() && selected.collections.some(c => isCampus(c.id));
-  const point = (!explicit || isCampus(explicit.id)) && (overview || isCampus(selected.collection?.id))
-    ? parsePointLocation(params) : undefined;
+  const campusView = (!explicit || isCampus(explicit.id)) && (overview || isCampus(selected.collection?.id));
+  const photoHidden = campusView && params.get('photos') === 'off';
+  const askedPhoto = params.get('photo');
+  const photoId = campusView && !photoHidden && askedPhoto && hasPhoto(askedPhoto) ? askedPhoto : null;
+  const point = campusView ? parsePointLocation(params) : undefined;
   const panel = params.get('panel');
   return {
     collectionId: selected.collection?.id ?? requested.id,
     recordId: selected.record?.id ?? recordId,
-    filter, query, panel: !overview && (panel === 'routes' || panel === 'evidence') ? panel : 'map',
+    filter, query, panel: !photoId && !overview && (panel === 'routes' || panel === 'evidence') ? panel : 'map',
     ...(overview ? { overview: true as const } : {}),
-    ...(point ? { point: scopeForView(point, overview) } : {}),
+    ...(point ? { point: scopeForView(photoId ? { ...point, node: null } : point, overview) } : {}),
+    ...(photoId ? { photoId } : {}),
+    ...(photoHidden ? { photoHidden: true as const } : {}),
   };
 }
 
@@ -86,13 +96,17 @@ export function explorerLocationUrl(href: string, state: ExplorerLocation): stri
     url.searchParams.set('collection', state.collectionId);
     url.searchParams.set('record', state.recordId);
   }
-  const point = state.point && (state.overview || isCampus(state.collectionId)) ? scopeForView(state.point, Boolean(state.overview) && !state.query.trim()) : undefined;
+  const campusView = state.overview || isCampus(state.collectionId);
+  const photoHidden = campusView && state.photoHidden;
+  const photoId = campusView && !photoHidden ? state.photoId : undefined;
+  const point = state.point && campusView ? scopeForView(state.point, Boolean(state.overview) && !state.query.trim()) : undefined;
   for (const [key, value] of [
-    ['features', point ? '1' : ''], ['node', point?.node?.slice('node/'.length) ?? ''],
+    ['features', point ? '1' : ''], ['node', !photoId ? point?.node?.slice('node/'.length) ?? '' : ''],
+    ['photos', photoHidden ? 'off' : ''], ['photo', photoId ?? ''],
     ['featureKind', point ? POINT_CATEGORIES.filter(category => point.categories.includes(category)).join(',') : ''],
     ['featureScope', point?.scope !== 'all' ? point?.scope ?? '' : ''], ['featureQ', point?.query ?? ''],
     ['type', state.filter === 'all' ? '' : state.filter], ['q', state.query],
-    ['panel', state.panel === 'map' ? '' : state.panel],
+    ['panel', state.panel === 'map' || photoId ? '' : state.panel],
   ]) {
     if (value) url.searchParams.set(key, value); else url.searchParams.delete(key);
   }

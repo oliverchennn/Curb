@@ -1,0 +1,1144 @@
+{
+  "schemaId": "curb-campus-photo-evidence",
+  "schemaVersion": 1,
+  "images": [
+    {
+      "id": "curb-princeton-archive-photo-s04-packet-fwd180",
+      "alt": "Irregular lines cross the light inset paving panels beside the old gallery frontage.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s04-packet-fwd180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s04-packet-fwd0",
+      "alt": "Wide side-branch steps and a bronze tiger beside the two pale stone halls.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s04-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s15-packet-fwd180",
+      "alt": "Nassau Hall front entrance steps between the bronze tigers.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s15-packet-fwd180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s18-supplement-path-180",
+      "alt": "Chapel-side steps, narrow sloped strips, and temporary red-and-white work barriers.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s18-supplement-path-180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Supplied photo supplement; the matching scene in the original archive credits Google Street View",
+        "url": null,
+        "captured": {
+          "precision": "unknown",
+          "value": null
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "The supplement lists September 2017 as typical, matching the original archive month. The date for this view remains unverified."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s19-packet-fwd90",
+      "alt": "Wide entrance stair across Washington Road with low stone side walls.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s19-packet-fwd90.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s28-supplement-path-0",
+      "alt": "Steps at a stone residential doorway and a separate bank stair past the transverse walk.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s28-supplement-path-0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Supplied photo supplement; the matching scene in the original archive credits Google Street View",
+        "url": null,
+        "captured": {
+          "precision": "unknown",
+          "value": null
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "The supplement lists September 2017 as typical. The matching original archive frame lists June 2011. The capture month remains unresolved."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s28-packet-fwd0",
+      "alt": "A short side-entry stair beside the stone hall and a separate bank stair beyond the junction.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s28-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "The original index lists June 2011. The matching supplement lists September 2017 as typical. Both claims are retained."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s01-packet-fwd180",
+      "alt": "A broad stair is visible at the arched entrance beside the bike racks. The through lane continues beside it.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s01-packet-fwd180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s02-packet-fwd180",
+      "alt": "The image shows a marked crossing and an apparently raised edge. Part of the near landing is outside the frame.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s02-packet-fwd180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s06-packet-fwd0",
+      "alt": "Leaves collect in two parallel joints beside an inset strip of paving.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s06-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s07-packet-fwd0",
+      "alt": "A tree branch appears above part of the inset walk near a lamp and hydrant.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s07-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s07-packet-fwd90",
+      "alt": "Stone posts and an iron fence divide the gate approach beside the main walk.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s07-packet-fwd90.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s11-packet-fwd0",
+      "alt": "A broad stair rises from a sidewalk apron near the traffic lights.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s11-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s12-packet-fwd270",
+      "alt": "Treads and rails rise toward the white columns; parked vehicles partly hide the base.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s12-packet-fwd270.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s14-packet-fwd0",
+      "alt": "Broad treads follow the edge of a courtyard terrace with a balustrade.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s14-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s17-packet-fwd180",
+      "alt": "Posts stand across an inset strip of paving near a transverse path.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s17-packet-fwd180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2017-09"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s20-packet-fwd270",
+      "alt": "A short stair leads to a blue door beside an ivy-covered pier.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s20-packet-fwd270.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s21-packet-fwd0",
+      "alt": "Steps rise toward a stone arch; tree trunks partly hide the approach.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s21-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s21-packet-fwd180",
+      "alt": "Temporary mesh and screened fencing line both sides of a paver strip.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s21-packet-fwd180.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s22-packet-fwd0",
+      "alt": "Leaves overhang the path edge next to a low wall.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s22-packet-fwd0.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2011-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s26-packet-fwd90",
+      "alt": "The work fence and a sign mark a driveway closure alongside the pedestrian frontage.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s26-packet-fwd90.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2026-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-photo-s30-packet-fwd90",
+      "alt": "A fence appears beyond a paved crossing near the end of a gravel-looking spur.",
+      "availability": {
+        "status": "available",
+        "path": "/curb/explore/photo-evidence/s30-packet-fwd90.jpg",
+        "permission": {
+          "basis": "Project owner confirmed licensed use of the supplied file.",
+          "licenseUrl": null,
+          "changes": null
+        }
+      },
+      "source": {
+        "kind": "captured-photo",
+        "credit": "Google Street View (credited by the supplied archive)",
+        "url": null,
+        "captured": {
+          "precision": "month",
+          "value": "2026-06"
+        },
+        "retrieved": {
+          "precision": "unknown",
+          "value": null
+        },
+        "captureNote": "Month from the original archive index. Independent capture confirmation is unavailable."
+      }
+    }
+  ],
+  "locations": [
+    {
+      "id": "curb-princeton-archive-viewpoint-s04",
+      "camera": {
+        "coordinates": [
+          -74.6586795,
+          40.3476094
+        ],
+        "basis": "original-capture-location",
+        "note": "McCosh Walk at the south end of Adams Mall. Camera position from the supplied archive index. Scene checked against the NJ aerial and campus map."
+      },
+      "finding": null,
+      "unplacedReason": "The finding position is unverified."
+    },
+    {
+      "id": "curb-princeton-archive-viewpoint-s15",
+      "camera": {
+        "coordinates": [
+          -74.6594254,
+          40.348899
+        ],
+        "basis": "original-capture-location",
+        "note": "Nassau Hall main north approach. Camera position from the supplied archive index. Scene checked against the NJ aerial and campus map."
+      },
+      "finding": null,
+      "unplacedReason": "The finding position is unverified."
+    },
+    {
+      "id": "curb-princeton-archive-viewpoint-s18",
+      "camera": {
+        "coordinates": [
+          -74.6568774,
+          40.3491413
+        ],
+        "basis": "original-capture-location",
+        "note": "North side of University Chapel, between Chapel and Firestone. Camera position from the supplied archive index. Scene checked against the NJ aerial and campus map."
+      },
+      "finding": null,
+      "unplacedReason": "The finding position is unverified."
+    },
+    {
+      "id": "curb-princeton-archive-viewpoint-s19",
+      "camera": {
+        "coordinates": [
+          -74.6560188,
+          40.3489111
+        ],
+        "basis": "original-capture-location",
+        "note": "West sidewalk of Washington Road opposite the former Frick lab main entrance. Camera position from the supplied archive index. Scene checked against the NJ aerial and campus map."
+      },
+      "finding": null,
+      "unplacedReason": "The finding position is unverified."
+    },
+    {
+      "id": "curb-princeton-archive-viewpoint-s28",
+      "camera": {
+        "coordinates": [
+          -74.6601379,
+          40.3468926
+        ],
+        "basis": "original-capture-location",
+        "note": "West-campus residential frontage path south of western McCosh Walk. Camera position from the supplied archive index. Scene checked against the NJ aerial and campus map."
+      },
+      "finding": null,
+      "unplacedReason": "The finding position is unverified."
+    },
+    {
+      "id": "curb-princeton-unplaced-archive-finding",
+      "camera": null,
+      "finding": null,
+      "unplacedReason": "The finding position is unverified. This record remains in location review."
+    }
+  ],
+  "findings": [
+    {
+      "id": "curb-princeton-archive-finding-f01",
+      "visibleCondition": "A broad stair is visible at the arched entrance beside the bike racks. The through lane continues beside it.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Entry stair visible; other entrances are unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f02",
+      "visibleCondition": "The image shows a marked crossing and an apparently raised edge. Part of the near landing is outside the frame.",
+      "condition": "inconclusive",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Possible missing curb ramp at one end of the crossing."
+      },
+      "review": {
+        "status": "inconclusive",
+        "note": "The curb end and the presence of a ramp could not be verified."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f03",
+      "visibleCondition": "Irregular dark lines extend from the seam into light paving panels near the former gallery frontage.",
+      "condition": "damaged-surface",
+      "status": "possible-concern",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The archive view supports a crack observation. Width, depth and current condition are unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f04",
+      "visibleCondition": "Steps rise between pale stone buildings at the Adams Mall branch. A bronze tiger is visible beside the approach.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The landmark and branch were corrected in review. The steps are beside McCosh Walk."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f05",
+      "visibleCondition": "Leaves collect in two parallel joints beside an inset strip of paving.",
+      "condition": "paving-joint",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Possible pavement damage along the longitudinal joints."
+      },
+      "review": {
+        "status": "reviewed",
+        "note": "Reviewed as a paving transition. Fracture and height change remain unconfirmed."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f06",
+      "visibleCondition": "A tree branch appears above part of the inset walk near a lamp and hydrant.",
+      "condition": "clearance-unmeasured",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Possible reduced overhead clearance beneath the branch."
+      },
+      "review": {
+        "status": "inconclusive",
+        "note": "Perspective leaves clearance and the exact footprint unresolved."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f07",
+      "visibleCondition": "Stone posts and an iron fence divide the gate approach beside the main walk.",
+      "condition": "clearance-unmeasured",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The gate spur was identified. Open width and gate swing are unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f08",
+      "visibleCondition": "A broad stair rises from a sidewalk apron near the traffic lights.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Entry stairs visible. The nearby crossing transition remains unverified."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f09",
+      "visibleCondition": "Treads and rails rise toward the white columns; parked vehicles partly hide the base.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Reviewed scene identifies the Robertson frontage. The base remains occluded."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f10",
+      "visibleCondition": "Broad treads follow the edge of a courtyard terrace with a balustrade.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Reviewed as one terrace edge. Its exact extent remains unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f11",
+      "visibleCondition": "The north entrance staircase sits between the bronze tigers at Nassau Hall.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The doorway and stairs were identified. The steps sit beyond the camera point."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f12",
+      "visibleCondition": "A narrow branching line appears inside a foreground slab.",
+      "condition": "inconclusive",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Possible fine crack inside a paving slab."
+      },
+      "review": {
+        "status": "inconclusive",
+        "note": "The view cannot distinguish a fine fracture from surface debris."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f13",
+      "visibleCondition": "Posts stand across an inset strip of paving near a transverse path.",
+      "condition": "clearance-unmeasured",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Post spacing and exact positions remain unmeasured."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f14",
+      "visibleCondition": "Several stair runs and narrow sloping strips run beside the Chapel wall toward Firestone.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The stair passage was identified. The function and accessibility of the side strips remain unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f15",
+      "visibleCondition": "Screened fencing and red-and-white work barriers line the same stair passage.",
+      "condition": "obstruction",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The photo records temporary work barriers. Their duration and present condition are unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f16",
+      "visibleCondition": "A wide stair crosses the entry apron on the east side of Washington Road.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Review places this stair at the former Frick lab entrance. The camera was across the road."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f17",
+      "visibleCondition": "A short stair leads to a blue door beside an ivy-covered pier.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The entry recess is visible. The door’s use and any step-free alternative remain unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f18",
+      "visibleCondition": "Steps rise toward a stone arch; tree trunks partly hide the approach.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Reviewed as a separate stair from the Chapel–Firestone passage. Entrance identity remains uncertain."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f19",
+      "visibleCondition": "Temporary mesh and screened fencing line both sides of a paver strip.",
+      "condition": "obstruction",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The view shows fencing at capture. Its duration and current condition are unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f20",
+      "visibleCondition": "Leaves overhang the path edge next to a low wall.",
+      "condition": "clearance-unmeasured",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Possible reduction in clear width along the hedge."
+      },
+      "review": {
+        "status": "reviewed",
+        "note": "The image shows vegetation along the margin. Effective width and current growth are unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f21",
+      "visibleCondition": "The work fence and a sign mark a driveway closure alongside the pedestrian frontage.",
+      "condition": "obstruction",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Work barrier near the pedestrian frontage."
+      },
+      "review": {
+        "status": "reviewed",
+        "note": "The sign applies to the driveway. The image does not establish a sidewalk closure."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f22",
+      "visibleCondition": "A short stair leads to a stone hall’s side door beside the walk, with railing and bike parking nearby.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "The scene matches residential frontage south of McCosh Walk. The steps are beside the main paving strip."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f23",
+      "visibleCondition": "A second set of steps and a rail rise through the planted bank beyond the transverse walk.",
+      "condition": "stairs",
+      "status": "context",
+      "modelSuggestion": null,
+      "review": {
+        "status": "reviewed",
+        "note": "Review identifies a separate stair beyond the side-entry approach. Exact finding coordinates remain unknown."
+      }
+    },
+    {
+      "id": "curb-princeton-archive-finding-f24",
+      "visibleCondition": "A fence appears beyond a paved crossing near the end of a gravel-looking spur.",
+      "condition": "obstruction",
+      "status": "context",
+      "modelSuggestion": {
+        "source": "Original photo review",
+        "description": "Possible obstruction at the end of the spur."
+      },
+      "review": {
+        "status": "inconclusive",
+        "note": "The exact fence point and the spur’s function remain unresolved."
+      }
+    }
+  ],
+  "records": [
+    {
+      "id": "curb-princeton-archive-record-f03",
+      "title": "McCosh Walk paving cracks",
+      "imageId": "curb-princeton-archive-photo-s04-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f03",
+      "locationId": "curb-princeton-archive-viewpoint-s04"
+    },
+    {
+      "id": "curb-princeton-archive-record-f04",
+      "title": "Adams Mall branch stairs",
+      "imageId": "curb-princeton-archive-photo-s04-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f04",
+      "locationId": "curb-princeton-archive-viewpoint-s04"
+    },
+    {
+      "id": "curb-princeton-archive-record-f11",
+      "title": "Nassau Hall front steps",
+      "imageId": "curb-princeton-archive-photo-s15-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f11",
+      "locationId": "curb-princeton-archive-viewpoint-s15"
+    },
+    {
+      "id": "curb-princeton-archive-record-f14",
+      "title": "Chapel–Firestone passage stairs",
+      "imageId": "curb-princeton-archive-photo-s18-supplement-path-180",
+      "findingId": "curb-princeton-archive-finding-f14",
+      "locationId": "curb-princeton-archive-viewpoint-s18"
+    },
+    {
+      "id": "curb-princeton-archive-record-f15",
+      "title": "Historic work barriers beside the Chapel",
+      "imageId": "curb-princeton-archive-photo-s18-supplement-path-180",
+      "findingId": "curb-princeton-archive-finding-f15",
+      "locationId": "curb-princeton-archive-viewpoint-s18"
+    },
+    {
+      "id": "curb-princeton-archive-record-f16",
+      "title": "Former Frick lab entrance stairs",
+      "imageId": "curb-princeton-archive-photo-s19-packet-fwd90",
+      "findingId": "curb-princeton-archive-finding-f16",
+      "locationId": "curb-princeton-archive-viewpoint-s19"
+    },
+    {
+      "id": "curb-princeton-archive-record-f22",
+      "title": "Residential side-entry stair (supplement)",
+      "imageId": "curb-princeton-archive-photo-s28-supplement-path-0",
+      "findingId": "curb-princeton-archive-finding-f22",
+      "locationId": "curb-princeton-archive-viewpoint-s28"
+    },
+    {
+      "id": "curb-princeton-archive-record-f23",
+      "title": "Bank stair beyond the junction (supplement)",
+      "imageId": "curb-princeton-archive-photo-s28-supplement-path-0",
+      "findingId": "curb-princeton-archive-finding-f23",
+      "locationId": "curb-princeton-archive-viewpoint-s28"
+    },
+    {
+      "id": "curb-princeton-archive-record-f22-original",
+      "title": "Residential side-entry stair (original archive)",
+      "imageId": "curb-princeton-archive-photo-s28-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f22",
+      "locationId": "curb-princeton-archive-viewpoint-s28"
+    },
+    {
+      "id": "curb-princeton-archive-record-f23-original",
+      "title": "Bank stair beyond the junction (original archive)",
+      "imageId": "curb-princeton-archive-photo-s28-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f23",
+      "locationId": "curb-princeton-archive-viewpoint-s28"
+    },
+    {
+      "id": "curb-princeton-archive-record-f01",
+      "title": "Stone frontage stair",
+      "imageId": "curb-princeton-archive-photo-s01-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f01",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f02",
+      "title": "Marked crossing curb transition",
+      "imageId": "curb-princeton-archive-photo-s02-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f02",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f05",
+      "title": "Leaf-filled paving joints",
+      "imageId": "curb-princeton-archive-photo-s06-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f05",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f06",
+      "title": "Branch near the inset walkway",
+      "imageId": "curb-princeton-archive-photo-s07-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f06",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f07",
+      "title": "Stone posts at the gate approach",
+      "imageId": "curb-princeton-archive-photo-s07-packet-fwd90",
+      "findingId": "curb-princeton-archive-finding-f07",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f08",
+      "title": "Entry stair near the signalized crossing",
+      "imageId": "curb-princeton-archive-photo-s11-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f08",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f09",
+      "title": "Robertson colonnade stairs",
+      "imageId": "curb-princeton-archive-photo-s12-packet-fwd270",
+      "findingId": "curb-princeton-archive-finding-f09",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f10",
+      "title": "Courtyard terrace steps",
+      "imageId": "curb-princeton-archive-photo-s14-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f10",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f12",
+      "title": "Dark trace in Nassau Hall paving",
+      "imageId": "curb-princeton-archive-photo-s15-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f12",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f13",
+      "title": "Posts at a cross-path connection",
+      "imageId": "curb-princeton-archive-photo-s17-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f13",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f17",
+      "title": "Blue side-door steps",
+      "imageId": "curb-princeton-archive-photo-s20-packet-fwd270",
+      "findingId": "curb-princeton-archive-finding-f17",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f18",
+      "title": "Stone-arch approach stairs",
+      "imageId": "curb-princeton-archive-photo-s21-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f18",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f19",
+      "title": "Historic work fencing by the paver passage",
+      "imageId": "curb-princeton-archive-photo-s21-packet-fwd180",
+      "findingId": "curb-princeton-archive-finding-f19",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f20",
+      "title": "Hedge along the path edge",
+      "imageId": "curb-princeton-archive-photo-s22-packet-fwd0",
+      "findingId": "curb-princeton-archive-finding-f20",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f21",
+      "title": "Historic driveway work barrier",
+      "imageId": "curb-princeton-archive-photo-s26-packet-fwd90",
+      "findingId": "curb-princeton-archive-finding-f21",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    },
+    {
+      "id": "curb-princeton-archive-record-f24",
+      "title": "Fence at the end of a gravel-looking spur",
+      "imageId": "curb-princeton-archive-photo-s30-packet-fwd90",
+      "findingId": "curb-princeton-archive-finding-f24",
+      "locationId": "curb-princeton-unplaced-archive-finding"
+    }
+  ]
+}

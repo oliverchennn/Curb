@@ -45,6 +45,34 @@ it('defaults to Campus and clears retired example filters without changing unrel
   expect(normalized.hash).toBe('#map');
 });
 
+it('round-trips exact photo selections for overview and section without opening another drawer', () => {
+  const hasPhoto = (id: string) => id === 'photo-a';
+  for (const search of [
+    '?group=campus&photo=photo-a&node=10828764207',
+    '?collection=campus-east-b&photo=photo-a&panel=evidence',
+  ]) {
+    const selected = readExplorerLocation(atlas, search, hasPhoto);
+    expect(selected).toMatchObject({ photoId: 'photo-a', panel: 'map' });
+    expect(selected.point?.node).toBeFalsy();
+    const url = new URL(explorerLocationUrl('https://curb.example/curb/explore?campaign=demo#stage', selected), 'https://curb.example');
+    expect(readExplorerLocation(atlas, url.search, hasPhoto)).toEqual(selected);
+    expect(url.searchParams.get('campaign')).toBe('demo');
+    expect(url.hash).toBe('#stage');
+  }
+});
+
+it('normalizes unknown photo IDs, persists layer-off, and clears photo state outside Campus', () => {
+  const hasPhoto = (id: string) => id === 'photo-a';
+  expect(readExplorerLocation(atlas, '?photo=photo-missing', hasPhoto).photoId).toBeUndefined();
+  const hidden = readExplorerLocation(atlas, '?photos=off&photo=photo-a', hasPhoto);
+  expect(hidden.photoHidden).toBe(true);
+  expect(hidden.photoId).toBeUndefined();
+  const cleanUrl = explorerLocationUrl('https://curb.example/curb/explore?photo=photo-a', hidden);
+  expect(cleanUrl).toBe('/curb/explore?group=campus&photos=off');
+  expect(readExplorerLocation(atlas, '?collection=robertson&photo=photo-a&photos=off', hasPhoto).photoHidden).toBeUndefined();
+  expect(readExplorerLocation(atlas, '?collection=robertson&photo=photo-a', hasPhoto).photoId).toBeUndefined();
+});
+
 it('keeps explicit real groups, Robertson links, way records and point links', () => {
   expect(readExplorerLocation(atlas, '?group=downtown').collectionId).toBe('witherspoon');
   expect(readExplorerLocation(atlas, '?group=field').collectionId).toBe('robertson');
