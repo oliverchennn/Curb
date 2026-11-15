@@ -40,10 +40,13 @@ export default function RobotExplorer() {
   const selectedRef = useRef<string | null>(null);
   const openKeyRef = useRef<string | null>(null);
   const backRef = useRef<HTMLButtonElement>(null);
+  const tourLauncherRef = useRef<HTMLButtonElement>(null);
+  const tourNextRef = useRef<HTMLButtonElement>(null);
+  const stageTitleRef = useRef<HTMLSpanElement>(null);
   const groupButtons = useRef(new Map<string, HTMLButtonElement>());
   const partButtons = useRef(new Map<string, HTMLButtonElement>());
   const returnFocusRef = useRef<{ id: string; element: HTMLElement | null } | null>(null);
-  const pendingFocusRef = useRef<'group' | 'back' | 'part' | 'firstPart' | null>(null);
+  const pendingFocusRef = useRef<'group' | 'back' | 'part' | 'firstPart' | 'tour-next' | 'tour-launcher' | null>(null);
   const tourActiveRef = useRef(false);
   const tourStepRef = useRef(0);
   const explodeOnReadyRef = useRef<string | null>(null);
@@ -107,6 +110,7 @@ export default function RobotExplorer() {
   }, []);
 
   const selectEntry = useCallback((key: string) => {
+    if (tourActiveRef.current) setTourPlaying(false);
     const next = openKeyRef.current === key ? null : key;
     openKeyRef.current = next;
     setOpenKey(next);
@@ -144,14 +148,15 @@ export default function RobotExplorer() {
   // Drive the scene for a single beat without moving keyboard focus (the tour
   // controls keep focus so Next/Back stay usable).
   const applyBeat = useCallback((beat: TourBeat) => {
-    explodeOnReadyRef.current = null;
+    explodeOnReadyRef.current = beat.kind === 'explode' ? beat.groupId ?? null : null;
     if (beat.kind === 'overview') { back(false); return; }
     if (!beat.groupId) return;
-    if (beat.kind === 'isolate') { openGroup(beat.groupId, false); return; }
-    // explode: isolate first if needed, then expand once the detail is ready.
-    if (selectedRef.current !== beat.groupId) openGroup(beat.groupId, false);
-    explodeOnReadyRef.current = beat.groupId;
-    if (expandGroup(false, false)) explodeOnReadyRef.current = null;
+    if (beat.kind === 'explode' && selectedRef.current === beat.groupId && expandGroup(false, false)) {
+      explodeOnReadyRef.current = null;
+      return;
+    }
+    // A failed or still-loading detail is retried through the scene's shared loader.
+    openGroup(beat.groupId, false);
   }, [back, openGroup, expandGroup]);
 
   const goToBeat = useCallback((index: number) => {
@@ -170,17 +175,37 @@ export default function RobotExplorer() {
     setShowIntro(false);
     setTourPlaying(play);
     goToBeat(0);
+    pendingFocusRef.current = 'tour-next';
   }, [goToBeat]);
 
-  const exitTour = useCallback(() => {
+  const stopTour = useCallback(() => {
     tourActiveRef.current = false;
     explodeOnReadyRef.current = null;
     tourStepRef.current = 0;
     setTourActive(false);
     setTourPlaying(false);
     setTourStep(0);
-    back(true);
-  }, [back]);
+  }, []);
+
+  const exitTour = useCallback(() => {
+    stopTour();
+    back(false);
+    pendingFocusRef.current = 'tour-launcher';
+  }, [back, stopTour]);
+
+  const chooseGroup = useCallback((id: string) => {
+    if (tourActiveRef.current) stopTour();
+    openGroup(id);
+  }, [openGroup, stopTour]);
+
+  const expandManually = useCallback((indexOnly = false, moveFocus = true) => {
+    if (expandGroup(indexOnly, moveFocus) && tourActiveRef.current) stopTour();
+  }, [expandGroup, stopTour]);
+
+  const exploreFreely = useCallback(() => {
+    pendingFocusRef.current = 'tour-launcher';
+    setShowIntro(false);
+  }, []);
 
   const tourNext = useCallback(() => {
     if (tourStepRef.current >= beatsRef.current.length - 1) return;
@@ -190,6 +215,7 @@ export default function RobotExplorer() {
   const tourPrev = useCallback(() => {
     if (tourStepRef.current <= 0) return;
     goToBeat(tourStepRef.current - 1);
+    if (tourStepRef.current === 0) pendingFocusRef.current = 'tour-next';
   }, [goToBeat]);
 
   // Focus must follow controls that are removed when switching views. On mobile,
@@ -201,6 +227,8 @@ export default function RobotExplorer() {
     if (pending === 'back') target = backRef.current;
     if (pending === 'part' && openKey) target = partButtons.current.get(openKey);
     if (pending === 'firstPart') target = partButtons.current.values().next().value ?? backRef.current;
+    if (pending === 'tour-next') target = tourNextRef.current;
+    if (pending === 'tour-launcher') target = tourLauncherRef.current ?? stageTitleRef.current;
     if (pending === 'group') {
       const origin = returnFocusRef.current;
       const element = origin?.element;
@@ -212,7 +240,7 @@ export default function RobotExplorer() {
       target.scrollIntoView({ block: 'nearest' });
     }
     pendingFocusRef.current = null;
-  }, [mode, selectedId, openKey, indexExpanded]);
+  }, [mode, selectedId, openKey, indexExpanded, tourActive, tourStep, showIntro]);
 
   // Reduced-motion preference.
   useEffect(() => {
@@ -240,8 +268,8 @@ export default function RobotExplorer() {
         try {
           scene = new RobotScene(stageRef.current, labelRef.current, {
             onHoverGroup: setHovered,
-            onPickGroup: openGroup,
-            onExpand: () => expandGroup(false, false),
+            onPickGroup: chooseGroup,
+            onExpand: () => expandManually(false, false),
             onPickEntry: (groupId, key) => {
               if (selectedRef.current !== groupId) return;
               pendingFocusRef.current = 'part';
@@ -265,12 +293,14 @@ export default function RobotExplorer() {
                   expandGroup(false, false);
                 }
               }
+              if (state === 'error' && tourActiveRef.current) setTourPlaying(false);
             },
             onContextLost: message => {
               if (cancelled) return;
               sceneReadyRef.current = false;
               setFallback(message);
               setDetail({ state: 'idle' });
+              setTourPlaying(false);
               sceneRef.current?.dispose();
               sceneRef.current = null;
             },
@@ -315,7 +345,7 @@ export default function RobotExplorer() {
       sceneRef.current?.dispose();
       sceneRef.current = null;
     };
-  }, [openGroup, expandGroup, selectEntry]);
+  }, [chooseGroup, expandGroup, expandManually, selectEntry]);
 
   useEffect(() => { sceneRef.current?.setReducedMotion(reduced); }, [reduced]);
   useEffect(() => { sceneRef.current?.setAutoOrbit(autoOrbit); }, [autoOrbit]);
@@ -333,28 +363,32 @@ export default function RobotExplorer() {
     return () => window.removeEventListener('keydown', onKey);
   }, [mode, tourActive, back, exitTour]);
 
-  // Hands-free demo loop (#5): advance on a timer while playing, looping back to
-  // the start after the closing hand-off.
+  const currentBeat = tourActive ? beats[tourStep] : undefined;
+  const tourUnavailable = Boolean(fallback) || detail.state === 'error';
+  const tourVisualReady = currentBeat?.kind === 'overview'
+    ? status === 'ready' && mode === 'overview'
+    : !!currentBeat && currentBeat.groupId === selectedId && detail.state === 'ready'
+      && (currentBeat.kind === 'explode' ? mode === 'exploded' : mode === 'isolated');
+
+  // Start the dwell only once this beat's model is on screen.
   useEffect(() => {
-    if (!tourActive || !tourPlaying) return;
-    const list = beatsRef.current;
-    if (list.length < 2) return;
-    const atEnd = tourStep >= list.length - 1;
+    if (!tourPlaying || !tourVisualReady || tourUnavailable) return;
+    const atEnd = tourStep === beats.length - 1;
     const timer = window.setTimeout(() => {
-      if (tourStepRef.current >= beatsRef.current.length - 1) goToBeat(0);
-      else goToBeat(tourStepRef.current + 1);
+      if (tourActiveRef.current && tourStepRef.current === tourStep) {
+        goToBeat(atEnd ? 0 : tourStep + 1);
+      }
     }, atEnd ? TOUR_CLOSE_MS : TOUR_STEP_MS);
     return () => window.clearTimeout(timer);
-  }, [tourActive, tourPlaying, tourStep, goToBeat]);
+  }, [beats.length, goToBeat, tourPlaying, tourStep, tourUnavailable, tourVisualReady]);
 
   const selectedGroup: ManifestGroup | null = selectedId
     ? manifest?.groups.find(g => g.id === selectedId) ?? null
     : null;
   const groups = manifest ? orderedGroups(manifest) : [];
   const totalParts = manifest ? manifest.groups.reduce((n, g) => n + g.count, 0) : 0;
-  const indexOnly = Boolean(fallback) || detail.state === 'error';
-  const currentBeat = tourActive ? beats[tourStep] : undefined;
-  const canTour = beats.length >= 2 && !fallback;
+  const indexOnly = tourUnavailable;
+  const canTour = status === 'ready' && beats.length >= 2 && !fallback;
   const showIntroCard = status === 'ready' && !fallback && mode === 'overview' && !tourActive && showIntro;
 
   if (status === 'error') {
@@ -393,7 +427,7 @@ export default function RobotExplorer() {
                     className={styles.groupButton}
                     ref={element => { if (element) groupButtons.current.set(g.id, element); else groupButtons.current.delete(g.id); }}
                     data-hovered={hovered === g.id || undefined}
-                    onClick={() => openGroup(g.id)}
+                    onClick={() => chooseGroup(g.id)}
                     onPointerEnter={() => hoverGroup(g.id)}
                     onPointerLeave={() => hoverGroup(null)}
                     onFocus={() => hoverGroup(g.id)}
@@ -412,7 +446,7 @@ export default function RobotExplorer() {
           </>
         ) : (
           <>
-            <button ref={backRef} type="button" className={styles.back} onClick={() => back()}>← Back to full robot</button>
+            <button ref={backRef} type="button" className={styles.back} onClick={tourActive ? exitTour : () => back()}>← Back to full robot</button>
             {selectedGroup && (
               <div className={styles.indexHead}>
                 <span className={styles.groupTag} style={{ background: selectedGroup.color }}>{selectedGroup.label}</span>
@@ -467,13 +501,14 @@ export default function RobotExplorer() {
               {selectedGroup.label}{indexOnly ? '' : mode === 'isolated' ? ' — isolated view' : ' — exploded view'}
             </span>
           ) : (
-            <span className={styles.stageTitle}>Curb survey robot — concept model</span>
+            <span ref={stageTitleRef} tabIndex={-1} className={styles.stageTitle}>Curb survey robot — concept model</span>
           )}
           <div className={styles.toolbarActions}>
-            {!tourActive && mode === 'overview' && !fallback && (
+            {mode === 'overview' && !fallback && (
               <>
-                {canTour && (
+                {!tourActive && canTour && (
                   <button
+                    ref={tourLauncherRef}
                     type="button"
                     className={`${styles.orbitToggle} ${styles.tourLaunch}`}
                     onClick={() => startTour(false)}
@@ -491,12 +526,12 @@ export default function RobotExplorer() {
                 </button>
               </>
             )}
-            {!tourActive && mode === 'isolated' && (
+            {mode === 'isolated' && (!tourActive || indexOnly) && (
               <button
                 type="button"
                 className={`${styles.orbitToggle} ${styles.expandButton}`}
                 disabled={!indexOnly && detail.state !== 'ready'}
-                onClick={() => expandGroup(indexOnly)}
+                onClick={() => expandManually(indexOnly)}
               >
                 {indexOnly ? 'Show part descriptions' : 'Expand into parts'}
               </button>
@@ -507,33 +542,41 @@ export default function RobotExplorer() {
           </div>
         </div>
 
-        <div className={styles.stage}>
-          <div ref={stageRef} className={styles.canvasHost} />
-          <div
-            ref={labelRef}
-            className={styles.labelLayer}
-            role={mode === 'isolated' ? undefined : 'group'}
-            aria-label={mode === 'overview' ? 'On-model subsystems' : mode === 'exploded' ? 'On-model parts' : undefined}
-          />
+        <div className={styles.modelViewport}>
+          <div className={styles.stage}>
+            <div ref={stageRef} className={styles.canvasHost} />
+            <div
+              ref={labelRef}
+              className={styles.labelLayer}
+              role={mode === 'isolated' ? undefined : 'group'}
+              aria-label={mode === 'overview' ? 'On-model subsystems' : mode === 'exploded' ? 'On-model parts' : undefined}
+            />
 
-          {fallback ? (
-            <div className={styles.fallback} role="status">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/robot/stills/assembled.png" alt="Assembled Curb survey robot concept model" />
-              <p>{fallback} The subsystem list and part descriptions remain available.</p>
-            </div>
-          ) : status === 'loading' ? (
-            <div className={styles.loading} role="status">
-              Loading model geometry… {progress.loaded}/{progress.total} groups
-            </div>
-          ) : null}
+            {fallback ? (
+              <div className={styles.fallback} role="status">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/robot/stills/assembled.png" alt="Assembled Curb survey robot concept model" />
+                <p>{fallback} The subsystem list and part descriptions remain available.</p>
+              </div>
+            ) : status === 'loading' ? (
+              <div className={styles.loading} role="status">
+                Loading model geometry… {progress.loaded}/{progress.total} groups
+              </div>
+            ) : null}
 
-          {detail.state === 'loading' && (
-            <div className={styles.detailLoading} role="status">Loading full detail…</div>
-          )}
-          {detail.state === 'error' && (
-            <div className={styles.detailError} role="alert">Detail failed to load. {detail.message}</div>
-          )}
+            {detail.state === 'loading' && !tourActive && (
+              <div className={styles.detailLoading} role="status">Loading full detail…</div>
+            )}
+            {detail.state === 'error' && !tourActive && (
+              <div className={styles.detailError} role="alert">Detail failed to load. {detail.message}</div>
+            )}
+
+            {!indexOnly && !tourActive && <p className={styles.hint}>
+              {mode === 'overview' && 'Drag to orbit · scroll to zoom · click a subsystem to isolate it'}
+              {mode === 'isolated' && 'Click the model to expand it · Esc returns to the full robot'}
+              {mode === 'exploded' && 'Zoom in to reveal part numbers · select a part for its purpose · Esc returns'}
+            </p>}
+          </div>
 
           {showIntroCard && (
             <div className={styles.introCard} role="group" aria-label="Robot demo intro">
@@ -546,7 +589,7 @@ export default function RobotExplorer() {
               <div className={styles.introActions}>
                 <button type="button" className={styles.introPrimary} onClick={() => startTour(false)}>▶ Start guided tour</button>
                 <button type="button" className={styles.introSecondary} onClick={() => startTour(true)}>↻ Play demo loop</button>
-                <button type="button" className={styles.introGhost} onClick={() => setShowIntro(false)}>Explore freely</button>
+                <button type="button" className={styles.introGhost} onClick={exploreFreely}>Explore freely</button>
               </div>
             </div>
           )}
@@ -556,8 +599,16 @@ export default function RobotExplorer() {
               <div className={styles.tourText}>
                 <span className={styles.tourStep}>Step {tourStep + 1} / {beats.length}</span>
                 <strong className={styles.tourTitle}>{currentBeat.title}</strong>
-                <span className={styles.tourBody}>{currentBeat.body}</span>
-                {currentBeat.cta && (
+                {tourUnavailable ? (
+                  <span className={styles.tourBody} role="alert">
+                    {fallback ? 'The 3D viewer is unavailable. Exit to browse the subsystem index.' : 'This step’s 3D model could not load. Retry, continue, or open the part descriptions.'}
+                  </span>
+                ) : tourVisualReady ? (
+                  <span className={styles.tourBody}>{currentBeat.body}</span>
+                ) : (
+                  <span className={styles.tourBody} role="status">Loading full detail…</span>
+                )}
+                {currentBeat.cta && tourVisualReady && !tourUnavailable && (
                   <div className={styles.tourLinks}>
                     {HANDOFF_LINKS.map(link => (
                       <Link key={link.href} href={link.href} className={styles.tourLink}>{link.label} →</Link>
@@ -567,30 +618,34 @@ export default function RobotExplorer() {
               </div>
               <div className={styles.tourControls}>
                 <button type="button" className={styles.tourBtn} onClick={tourPrev} disabled={tourStep === 0} aria-label="Previous step">‹</button>
+                {!fallback && detail.state === 'error' && (
+                  <button type="button" className={styles.tourBtn} onClick={() => {
+                    tourNextRef.current?.focus({ preventScroll: true });
+                    applyBeat(currentBeat);
+                  }}>Retry</button>
+                )}
                 <button
                   type="button"
                   className={styles.tourBtn}
                   aria-pressed={tourPlaying}
+                  disabled={tourUnavailable}
                   onClick={() => setTourPlaying(p => !p)}
                   aria-label={tourPlaying ? 'Pause demo loop' : 'Play demo loop'}
                 >
                   {tourPlaying ? '❙❙' : '▶'}
                 </button>
-                {tourStep < beats.length - 1 ? (
-                  <button type="button" className={`${styles.tourBtn} ${styles.tourNext}`} onClick={tourNext}>Next ›</button>
-                ) : (
-                  <button type="button" className={`${styles.tourBtn} ${styles.tourNext}`} onClick={() => goToBeat(0)}>↻ Restart</button>
-                )}
+                <button
+                  ref={tourNextRef}
+                  type="button"
+                  className={`${styles.tourBtn} ${styles.tourNext}`}
+                  onClick={tourStep < beats.length - 1 ? tourNext : () => goToBeat(0)}
+                >
+                  {tourStep < beats.length - 1 ? 'Next ›' : '↻ Restart'}
+                </button>
                 <button type="button" className={styles.tourExit} onClick={exitTour}>Exit</button>
               </div>
             </div>
           )}
-
-          {!indexOnly && !tourActive && <p className={styles.hint}>
-            {mode === 'overview' && 'Drag to orbit · scroll to zoom · click a subsystem to isolate it'}
-            {mode === 'isolated' && 'Click the model to expand it · Esc returns to the full robot'}
-            {mode === 'exploded' && 'Zoom in to reveal part numbers · select a part for its purpose · Esc returns'}
-          </p>}
         </div>
         <p className={styles.concept}>{manifest?.note ?? 'Generic prototype concept model — not validated hardware.'}</p>
       </section>
