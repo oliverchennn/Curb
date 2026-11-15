@@ -59,9 +59,25 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const detailsRef = useRef<HTMLElement>(null);
   const detailsToggle = useRef<HTMLButtonElement>(null);
+  const campusSectionSelect = useRef<HTMLSelectElement>(null);
   const selectRecord = (id: string) => { if (collection) setCollectionId(collection.id); setRecordId(id); setOverview(false); setPanel(p => p === 'map' ? 'evidence' : p); };
   const chooseCollection = (c: Collection) => { setCollectionId(c.id); setRecordId(c.recordIds[0]); setOverview(false); };
   const pickSection = (id: string) => { const c = atlas.collections.find(x => x.id === id); if (c) chooseCollection(c); };
+  const focusCampusPicker = () => {
+    const keyboardFocus = document.activeElement?.matches(':focus-visible');
+    campusSectionSelect.current?.focus({ preventScroll: !keyboardFocus });
+  };
+  const pickFromOverview = (id: string) => {
+    // The selector survives the view change. Move focus before the active map target disappears.
+    if (document.activeElement?.closest('[data-overview="true"]')) focusCampusPicker();
+    pickSection(id);
+  };
+  const returnToOverview = () => {
+    focusCampusPicker();
+    setQuery('');
+    setOverview(true);
+    setPanel('map');
+  };
   const chooseGroup = (g: GroupId) => {
     const options = collectionsIn(g, collections);
     if (g === 'campus' && !query.trim()) { setOverview(true); setPanel('map'); return; }
@@ -104,7 +120,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
     </div>
     {group === 'downtown' && <CollectionChips atlas={atlas} collections={collectionsIn('downtown', collections)} selectedId={collection?.id ?? null} onSelect={chooseCollection} />}
     {group === 'campus' && <SectionPicker sections={campusSections} collections={collections} current={showOverview ? null : collection?.id ?? null}
-      onPick={pickSection} clearsSearch={Boolean(query.trim())} onOverview={() => { setQuery(''); setOverview(true); setPanel('map'); }} />}
+      onPick={pickSection} clearsSearch={Boolean(query.trim())} onOverview={returnToOverview} selectRef={campusSectionSelect} />}
     <div className={styles.workspace} data-details={detailsOpen ? 'open' : 'closed'}>
       <section id="explorer-map" className={styles.mapPanel} aria-label="Evidence stage">
         {/* Wait for the URL so a campus link never first requests the downtown image. */}
@@ -116,7 +132,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
             <span className={styles.traversal}>Current traversal: Unknown</span>
           </div>
           <div className={styles.stage} data-mode="overview">
-            <OverviewMap atlas={atlas} sections={campusSections} collections={collections} onPick={pickSection} />
+            <OverviewMap atlas={atlas} sections={campusSections} collections={collections} onPick={pickFromOverview} />
           </div>
           <p className={styles.overviewHint}>Select a section code on the map or use the Campus section list to inspect its ways. Each of the {fmt(campusCounts.selectedWays)} ways belongs to exactly one section; sections are not routes.</p>
         </> : <>
