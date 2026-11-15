@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import survey from '../../data/curb/surveys/robertson-hall.json';
 import { SurveySchema, workflowIssue, type Survey, type WorkflowStep } from '../../contracts/curb/survey';
-import { canReopen, markReviewed, moveWorkflow, nextWorkflowStatus, repairOf, setEssentialDestination, setOwner, workflowStatus, workflowSummary } from './repair';
+import { appendedWorkflowIssue, canReopen, markReviewed, moveWorkflow, nextWorkflowStatus, repairOf, setEssentialDestination, setOwner, workflowStatus, workflowSummary } from './repair';
 
 const base = SurveySchema.parse(survey);
 const at = (minute: number) => `2026-11-20T10:${String(minute).padStart(2, '0')}:00-05:00`;
@@ -92,5 +92,15 @@ describe('repair fields', () => {
     const bad = structuredClone(base);
     bad.findings[0].repair!.essentialDestination = 'yes';
     expect(SurveySchema.safeParse(bad).success).toBe(false);
+  });
+
+  it('requires a review by a person before new workflow steps are imported', () => {
+    const published = base.findings[0];
+    const pending = structuredClone(published);
+    pending.repair!.workflow.push({ status: 'reviewed', action: 'advance', by: 'X', at: at(1), note: 'n', evidence: null });
+    expect(appendedWorkflowIssue(pending, published)).toMatch(/person's review/);
+    pending.review = { status: 'accepted', reviewer: 'Pat', method: 'manual', note: 'Real.' };
+    expect(appendedWorkflowIssue(pending, published)).toBeNull();
+    expect(appendedWorkflowIssue(published, published)).toBeNull();
   });
 });

@@ -11,6 +11,25 @@ export const ReviewSchema = z.strictObject({
   method: z.enum(['ai', 'manual']),
   note: Text,
 });
+/** Measured properties and their dimension. Lengths compute in inches, slopes in percent. */
+export const MEASURE_DIMENSIONS = {
+  opening: 'length', level: 'length', clearWidth: 'length', crossSlope: 'slope', runningSlope: 'slope',
+} as const;
+export type MeasureDimension = 'length' | 'slope';
+export const CANONICAL_UNITS: Record<MeasureDimension, string> = { length: 'in', slope: '%' };
+/** Supported units: how many of the unit make one canonical unit. Anything else is rejected. */
+export const UNIT_DIVISORS: Record<MeasureDimension, Record<string, number>> = {
+  length: { in: 1, ft: 1 / 12, mm: 25.4, cm: 2.54, m: 0.0254 },
+  slope: { '%': 1 },
+};
+
+/** Value in a supported unit → inches or percent (rounded to 1e-9), or null for an unsupported unit. */
+export function toCanonical(dimension: MeasureDimension, value: number, unit: string): number | null {
+  const divisor = UNIT_DIVISORS[dimension][unit];
+  if (divisor === undefined || !Number.isFinite(value) || value < 0) return null;
+  return Math.round((value / divisor) * 1e9) / 1e9;
+}
+
 export const AccessNeedSchema = z.enum(['mobility_device', 'low_vision_cane', 'walker', 'stroller']);
 export const WorkflowStatusSchema = z.enum(['submitted', 'reviewed', 'planned', 'completed', 'reverified']);
 export const WORKFLOW_ORDER = WorkflowStatusSchema.options;
@@ -119,6 +138,10 @@ export const SurveySchema = z.strictObject({
       previous = k.frame;
     }
     for (const check of f.assessment.checks) if (!sources.has(check.sourceId)) fail(`Unknown standards source: ${check.sourceId}`);
+    for (const m of f.measurements) {
+      const dimension = (MEASURE_DIMENSIONS as Record<string, MeasureDimension | undefined>)[m.property];
+      if (dimension && toCanonical(dimension, m.value, m.unit) === null) fail(`Unsupported unit "${m.unit}" for ${m.property}: ${f.id}`);
+    }
     if (f.repair) {
       const issue = workflowIssue(f.repair.workflow);
       if (issue) fail(`${issue}: ${f.id}`);
@@ -153,7 +176,7 @@ export type Repair = z.infer<typeof RepairSchema>;
 export type WorkflowStep = z.infer<typeof WorkflowStepSchema>;
 export type WorkflowStatus = z.infer<typeof WorkflowStatusSchema>;
 export type AccessNeed = z.infer<typeof AccessNeedSchema>;
-export type PlanId = 'essential' | 'balanced' | 'durable' | 'budget';
+export type PlanId = 'suggested' | 'essential' | 'balanced' | 'durable' | 'budget';
 export interface RepairPlan {
   id: PlanId;
   title: string;
@@ -171,4 +194,4 @@ export interface RepairPlan {
 }
 
 export const SurveyResponseSchema = z.strictObject({ data: SurveySchema });
-export const ExportRequestSchema = z.strictObject({ survey: SurveySchema, budgetCents: Money.nullable(), planId: z.enum(['essential', 'balanced', 'durable', 'budget']) });
+export const ExportRequestSchema = z.strictObject({ survey: SurveySchema, budgetCents: Money.nullable(), planId: z.enum(['suggested', 'essential', 'balanced', 'durable', 'budget']) });

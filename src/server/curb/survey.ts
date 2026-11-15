@@ -7,7 +7,8 @@ import {
   type Survey,
 } from '../../contracts/curb/survey';
 import { buildRepairPlans, validateSurvey } from '../../domain/curb/survey';
-import { REVIEWER_METHOD } from '../../domain/curb/measurements';
+import { ASSUMED_METHOD, buildAllPlans, REVIEWER_METHOD } from '../../domain/curb/measurements';
+import { appendedWorkflowIssue } from '../../domain/curb/repair';
 import { renderSurveyHtmlReport } from './surveyHtmlReport';
 import { renderSurveyReport } from './surveyReport';
 import { readJsonBody } from './readJsonBody';
@@ -63,8 +64,11 @@ function isReviewOf(edited: Survey, saved: Survey): boolean {
     const textChanged = label !== original.label || kind !== original.kind || description !== original.description;
     if ((reviewChanged || textChanged) && review.method !== 'manual') return finding;
 
-    // Reviewer field measurements may be added or removed; recorded ones may not change.
-    const measurements = finding.measurements.filter(m => m.method !== REVIEWER_METHOD);
+    // Assumed dimensions and field measurements are reviewer-editable (units are validated by
+    // the schema); every other recorded measurement must match the published survey.
+    const measurements = finding.measurements.filter(m => m.method !== REVIEWER_METHOD && m.method !== ASSUMED_METHOD);
+    // New workflow steps need a person's review first: a pending AI finding cannot be planned by import.
+    if (appendedWorkflowIssue(finding, original)) return finding;
     // Reviewers may set the owner, location confidence, essential-destination answer and
     // extend the workflow. The obstacle, location text, access needs and professional-review
     // flag come from the published survey, and earlier workflow steps cannot be rewritten.
@@ -141,7 +145,7 @@ export async function postSurveyReportResponse(request: Request): Promise<Respon
     if (!isReviewOf(survey, saved)) {
       return fail(400, 'The submitted review does not match the published survey and allowed review fields.');
     }
-    const plans = buildRepairPlans(survey, budgetCents ?? undefined);
+    const plans = buildAllPlans(survey, budgetCents);
     const closeups = await loadCloseups(saved);
     if (format === 'html') {
       return new Response(renderSurveyHtmlReport(survey, plans, planId, closeups, new URL(request.url).origin), {

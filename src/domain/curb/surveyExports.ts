@@ -1,5 +1,5 @@
 import type { Survey } from '../../contracts/curb/survey';
-import { entriesFromSurvey, priorityRationale, priorityScore } from './measurements';
+import { dimensionSummary, priorityRationale, priorityScore } from './measurements';
 import { repairOf, workflowStatus } from './repair';
 
 const columns = [
@@ -42,6 +42,7 @@ const columns = [
   'priority_rationale',
   'repair_status',
   'repair_history',
+  'dimensions',
 ] as const;
 
 type FindingRow = Record<(typeof columns)[number], string | number>;
@@ -56,10 +57,9 @@ function escapeCsvCell(value: string | number): string {
 
 /** Exports one record per finding. Lists and measurements retain their structure as JSON cells. */
 export function surveyToCsv(survey: Survey): string {
-  const entries = entriesFromSurvey(survey);
   const records = survey.findings.map((finding) => {
     const repair = repairOf(finding, survey);
-    const score = priorityScore(finding, entries);
+    const score = priorityScore(finding);
     const area = survey.workAreas.find((workArea) => workArea.findingIds.includes(finding.id));
     const { assessment, review } = finding;
     const row: FindingRow = {
@@ -102,6 +102,7 @@ export function surveyToCsv(survey: Survey): string {
       priority_rationale: priorityRationale(score),
       repair_status: finding.review.status === 'rejected' ? 'rejected' : workflowStatus(finding),
       repair_history: JSON.stringify(repair.workflow),
+      dimensions: dimensionSummary(finding),
     };
     return columns.map((column) => escapeCsvCell(row[column])).join(',');
   });

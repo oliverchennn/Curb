@@ -26,15 +26,15 @@ export function costRange(cost: Cost): { lowCents: number; highCents: number } |
   return { lowCents, highCents };
 }
 
-const titles = { essential: 'Essential repairs', balanced: 'Balanced plan', durable: 'Durable renewal', budget: 'Your budget' };
+const titles: Record<PlanId, string> = { suggested: 'Suggested plan', essential: 'Essential repairs', balanced: 'Balanced plan', durable: 'Durable renewal', budget: 'Your budget' };
 const lexical = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 const upper = (t: Treatment) => costRange(t.cost)?.highCents ?? Infinity;
 const cheapest = (a: Treatment, b: Treatment) => upper(a) - upper(b) || b.durability - a.durability || lexical(a.id, b.id);
 
-/** Pure, bounded maintenance planning. No visual label changes graph traversal. */
-export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPlan[] {
+/** Shared plan accounting: eligible areas, candidate treatments and `make`, which charges
+ * each selected work area once and every shared cost once for a nonempty selection. */
+export function planContext(input: Survey) {
   const s = validateSurvey(input);
-  if (budgetCents !== undefined && (!Number.isSafeInteger(budgetCents) || budgetCents < 0 || budgetCents > 100_000_000)) throw new Error('Budget must be whole cents between 0 and 100000000');
   const active = new Set(s.findings.filter(f => f.review.status !== 'rejected').map(f => f.id));
   const areas = s.workAreas.filter(a => a.repairWorthy && a.findingIds.some(id => active.has(id)));
   const areaIds = new Set(areas.map(a => a.id));
@@ -72,6 +72,13 @@ export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPla
       routeImpact: { ...s.routeAssessment },
     };
   }
+  return { s, active, areas, candidates, ranges, make };
+}
+
+/** Pure, bounded maintenance planning. No visual label changes graph traversal. */
+export function buildRepairPlans(input: Survey, budgetCents?: number): RepairPlan[] {
+  if (budgetCents !== undefined && (!Number.isSafeInteger(budgetCents) || budgetCents < 0 || budgetCents > 100_000_000)) throw new Error('Budget must be whole cents between 0 and 100000000');
+  const { s, areas, candidates, make } = planContext(input);
   const options = (id: string) => candidates.filter(t => t.workAreaId === id);
   const present = (t: Treatment | undefined): t is Treatment => t !== undefined;
   const essential = areas.filter(a => a.nearTerm).map(a => options(a.id).sort(cheapest)[0]).filter(present);

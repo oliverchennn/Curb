@@ -10,6 +10,7 @@ const entities: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;
 const pngMagic = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
 
 const policy: Record<PlanId, string> = {
+  suggested: 'Each eligible work area once, ranked by access-impact priority; added while the upper total, with shared setup once, fits the budget. Quote-only areas stay deferred.',
   essential: 'Lowest-priced options for near-term work areas, subject to field confirmation of suitability.',
   balanced: 'Recommended repair options for eligible work areas.',
   durable: 'Highest-durability repair options for eligible work areas.',
@@ -203,6 +204,7 @@ function renderHandoff(survey: Survey, plan: RepairPlan, closeupUris: ReadonlyMa
     '<dt>Owner</dt><dd>' + escapeHtml(row.repair.owner ?? 'Unassigned') + '</dd>',
     '<dt>Review and repair status</dt><dd>Review ' + escapeHtml(row.finding.review.status) + ' · Repair ' + escapeHtml(WORKFLOW_LABELS[workflowStatus(row.finding)]) + '</dd>',
     '<dt>Proposed action</dt><dd>' + escapeHtml(row.action) + '</dd>',
+    '<dt>Dimensions</dt><dd>' + escapeHtml(row.dimensions) + '. Assumed values are planning estimates, not field measurements.</dd>',
     '<dt>Priority rationale</dt><dd>' + escapeHtml(row.rationale) + '</dd>',
     '<dt>Cost</dt><dd>' + escapeHtml(row.cost) + '</dd>',
     '</dl>',

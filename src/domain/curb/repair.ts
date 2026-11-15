@@ -127,3 +127,13 @@ export function workflowSummary(survey: Survey): { counts: Record<WorkflowStatus
   if (rejected) parts.push(`${rejected} rejected`);
   return { counts, rejected, text: parts.join(', ') || 'No findings' };
 }
+
+/** Steps added beyond the published history need a person's review of the finding first,
+ * so a pending AI finding cannot become reviewed or planned by importing or posting JSON. */
+export function appendedWorkflowIssue(edited: Finding, published: Finding | undefined): string | null {
+  const before = published ? repairOf(published).workflow.length : 1;
+  const after = repairOf(edited).workflow.length;
+  if (after <= before) return null;
+  if (edited.review.method !== 'manual') return `${edited.label}: repair steps need a person's review first`;
+  return null;
+}

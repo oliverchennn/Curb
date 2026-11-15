@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import type { Finding, Survey } from '../../../contracts/curb/survey';
+import type { Finding, RepairPlan, Survey } from '../../../contracts/curb/survey';
 import type { Repair } from '../../../contracts/curb/survey';
 import { WORKFLOW_ORDER } from '../../../contracts/curb/survey';
 import {
@@ -21,6 +21,10 @@ import {
 import {
   clipFor,
   ESTIMATES,
+  formatMeasure,
+  parseMeasureInput,
+  type Basis,
+  type MeasureResult,
   UNCERTAINTY_LABELS,
   uncertaintyTags,
   type PriorityScore,
@@ -29,15 +33,15 @@ import {
   priorityScore,
   STATUS_LABELS,
   type MeasureKey,
-  type MeasurementEntries,
 } from './measurements';
 import { correctFinding, formatTime, REVIEW_LABELS, setReviewStatus } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
-export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, measurements, onMeasure }: {
+export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure }: {
   survey: Survey;
-  measurements: MeasurementEntries;
-  onMeasure: (findingId: string, key: MeasureKey, text: string) => void;
+  /** The plan shown and exported, so cost tags match it. */
+  plan: RepairPlan | undefined;
+  onMeasure: (findingId: string, key: MeasureKey, input: MeasureInput) => void;
   editedIds: string[];
   selectedFindingId: string | null;
   onSelectFinding: (findingId: string) => void;
@@ -50,7 +54,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
   const reviewerError = message?.startsWith('Enter a reviewer') ? message : null;
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
   const repair = finding ? repairOf(finding, survey) : null;
-  const score = finding ? priorityScore(finding, measurements) : null;
+  const score = finding ? priorityScore(finding) : null;
 
   // A message belongs to the finding it was raised for; selecting another finding clears it.
   useEffect(() => setMessage(null), [selectedFindingId]);
@@ -78,7 +82,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         {reviewerError ? <p id="survey-reviewer-error" role="alert" className={styles.inlineError}>{reviewerError}</p> : null}
       </div>
     </div>
-    <p className={styles.small}>Pick a defect to see it in the video. Accept or reject it, and add measurements if you have them.</p>
+    <p className={styles.small}>Pick a defect to see it in the video. Accept or reject it, and edit the assumed dimensions if you know better.</p>
 
     <div className={styles.reviewLayout}>
       <div className={styles.reviewAside}>
@@ -93,7 +97,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
                 {index + 1}. {item.label}
               </span>
               <span className={styles.findingMeta}>
-                <span className={styles[`priority_${priorityScore(item, measurements).band}`]}>{PRIORITY_WORDS[priorityScore(item, measurements).band]}</span>
+                <span className={styles[`priority_${priorityScore(item).band}`]}>{PRIORITY_WORDS[priorityScore(item).band]}</span>
                 {' '}<span className={styles[`review_${item.review.status}`]}>{REVIEW_LABELS[item.review.status]}</span>
                 {editedIds.includes(item.id) ? ' · edited' : ''}
               </span>
@@ -111,21 +115,21 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <p>{finding.description}</p>
 
         <ul className={styles.tagRow} aria-label="Open questions">
-          {uncertaintyTags(survey, finding, measurements).map((tag) => <li key={tag} className={styles.uncertainTag}>{UNCERTAINTY_LABELS[tag]}</li>)}
+          {uncertaintyTags(survey, finding, plan).map((tag) => <li key={tag} className={styles.uncertainTag}>{UNCERTAINTY_LABELS[tag]}</li>)}
         </ul>
         <dl className={styles.facts}>
           <div><dt>Obstacle</dt><dd><Fact headline={repair.obstacle} detail={finding.description} /></dd></div>
           <div><dt>Location</dt><dd><Fact headline={repair.location} detail={`Location confidence: ${LOCATION_CONFIDENCE_LABELS[repair.locationConfidence]}.`} /></dd></div>
           <div><dt>Impact</dt><dd><Fact headline={repair.accessNeeds.length ? repair.accessNeeds.map((need) => ACCESS_NEED_SHORT[need]).join(' · ') : 'Not recorded'}
             detail={finding.assessment.accessImpacts[0] ?? 'No access effect recorded.'} /></dd></div>
-          <div><dt>Evidence</dt><dd><Fact {...evidenceFact(finding, measurements)} /></dd></div>
+          <div><dt>Evidence</dt><dd><Fact {...evidenceFact(finding)} /></dd></div>
           <div><dt>Owner</dt><dd><Fact headline={repair.owner ?? 'Unassigned'} detail={repair.owner ? 'Responsible for this repair.' : 'Set the person or department responsible below.'} /></dd></div>
           <div><dt>Review status</dt><dd><Fact {...reviewFact(finding)} /></dd></div>
           <div><dt>Priority</dt><dd><PriorityFact score={score} /></dd></div>
-          <div><dt>Measurements</dt><dd><Fact {...measurementFact(finding, measurements)} /></dd></div>
+          <div><dt>Measurements</dt><dd><Fact {...measurementFact(finding)} /></dd></div>
         </dl>
         <p className={styles.notVerdict}>Checks compare values with stated ADA limits. This is not an ADA compliance determination.</p>
-        <MeasureTable finding={finding} entries={measurements} onMeasure={onMeasure} />
+        <MeasureTable finding={finding} onMeasure={onMeasure} />
 
         {/* aria-disabled rather than disabled: the used button keeps keyboard focus instead of dropping it to the page. */}
         <p className={styles.decisionHelp} id="survey-decision-help">
@@ -227,73 +231,103 @@ function PriorityFact({ score }: { score: PriorityScore }) {
   </>;
 }
 
-function evidenceFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
+function evidenceFact(finding: Finding): { headline: string; detail: string } {
   const clip = clipFor(finding.id);
-  const measured = measureResults(finding.id, entries).filter((r) => r.source === 'measured').length;
+  const measured = measureResults(finding).filter((r) => r.basis === 'measured').length;
   return {
     headline: `Video at ${formatTime(finding.evidenceTime)} · close-up photo${clip ? ` · CLIP ${Math.round(clip.damageScore * 100)}% damage` : ''}`,
-    detail: `${measured ? `${measured} field measurement${measured === 1 ? '' : 's'} entered` : 'No field measurements yet'}${clip ? `; CLIP travel impact ${Math.round(clip.impactScore * 100)}%` : ''}.`,
+    detail: `${measured ? `${measured} field measurement${measured === 1 ? '' : 's'} entered` : 'No field measurements yet; dimensions are assumed'}${clip ? `; CLIP travel impact ${Math.round(clip.impactScore * 100)}%` : ''}.`,
   };
 }
 
-function measurementFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
-  const results = measureResults(finding.id, entries);
-  const measured = results.filter((r) => r.source === 'measured').length;
+function measurementFact(finding: Finding): { headline: string; detail: string } {
+  const results = measureResults(finding);
+  const measured = results.filter((r) => r.basis === 'measured').length;
   const fails = results.filter((r) => r.status === 'fails').length;
   const almost = results.filter((r) => r.status === 'almost').length;
   const verdict = fails ? `${fails} check${fails === 1 ? '' : 's'} over the ADA limit` : almost ? `${almost} check${almost === 1 ? '' : 's'} close to the limit` : 'All checks within the limits';
   return {
-    headline: `${verdict} · ${measured === 0 ? 'estimated' : `${measured} of ${results.length} measured`}`,
+    headline: `${verdict} · ${measured === 0 ? 'all assumed' : `${measured} of ${results.length} measured`}`,
     detail: measured === results.length
-      ? 'Every value below was entered by a reviewer.'
-      : 'Values below start as estimates; type over any of them with a real measurement.',
+      ? 'Every value below was measured on site.'
+      : 'Assumed values are planning estimates. Edit them below, and tick “Measured on site” only for real measurements.',
   };
 }
 
-function MeasureTable({ finding, entries, onMeasure }: {
+type MeasureInput = { value: number; unit: string; basis: Basis } | null;
+
+function MeasureTable({ finding, onMeasure }: {
   finding: Finding;
-  entries: MeasurementEntries;
-  onMeasure: (findingId: string, key: MeasureKey, text: string) => void;
+  onMeasure: (findingId: string, key: MeasureKey, input: MeasureInput) => void;
 }) {
-  const results = new Map(measureResults(finding.id, entries).map((r) => [r.spec.key, r]));
+  const results = new Map(measureResults(finding).map((r) => [r.spec.key, r]));
   return <section aria-labelledby="survey-measure-heading">
-    <h4 id="survey-measure-heading">Needs measuring</h4>
-    <p className={styles.measureIntro}>Each box starts with an <strong>estimate</strong> from the video and standard sidewalk construction. Type over it if you have a real measurement.</p>
+    <h4 id="survey-measure-heading">Dimensions</h4>
+    <p className={styles.measureIntro}>Each box starts with an <strong>assumed</strong> value from the video and standard sidewalk construction, used for planning. Edit any value. Tick <strong>Measured on site</strong> only when it is a real measurement. Lengths are in inches (you can type mm, cm, m or ft); slopes are in percent.</p>
     <ul className={styles.measureList}>{MEASURE_GROUPS.map((group) => <li key={group.id}>
       <strong>{group.need}</strong>
       <p className={styles.measureWhy}><span>{group.standard}:</span> {group.why}</p>
       <table className={styles.measureTable}>
         <colgroup><col className={styles.colCheck} /><col className={styles.colNeeds} /><col className={styles.colValue} /><col className={styles.colResult} /></colgroup>
         <thead><tr><th scope="col">Check</th><th scope="col">Needs</th><th scope="col">Value</th><th scope="col">Result</th></tr></thead>
-        <tbody>{group.specs.map((spec) => {
-          const result = results.get(spec.key)!;
-          const estimate = estimateOf(finding.id, spec.key);
-          const id = `measure-${finding.id}-${spec.key}`;
-          // Untouched boxes show the estimate as their value; the reviewer edits it in place.
-          const text = entries[finding.id]?.[spec.key] ?? (estimate === undefined ? '' : String(estimate));
-          return <tr key={spec.key}>
-            <th scope="row"><label htmlFor={id}>{spec.label}</label></th>
-            <td>{spec.rule}</td>
-            <td><span className={styles.measureInput}>
-              <input id={id} inputMode="decimal" autoComplete="off" value={text}
-                placeholder={estimate === undefined ? '—' : String(estimate)} aria-describedby={`${id}-source`}
-                aria-invalid={entries[finding.id]?.[spec.key] !== undefined && result.source !== 'measured' && text.trim() !== '' ? true : undefined}
-                onChange={(event) => onMeasure(finding.id, spec.key, event.target.value)} />
-              <span aria-hidden="true">{spec.unit}</span>
-              <span id={`${id}-source`} className={result.source === 'measured' ? styles.sourceMeasured : styles.sourceEstimate}>
-                {result.source === 'measured' ? 'Measured' : 'Estimate'}
-              </span>
-            </span></td>
-            <td>{result.status ? <span className={styles[`status_${result.status}`]}>{STATUS_LABELS[result.status]}</span> : '—'}</td>
-          </tr>;
-        })}</tbody>
+        <tbody>{group.specs.map((spec) => <MeasureRow key={`${finding.id}:${spec.key}`} finding={finding} result={results.get(spec.key)!} onMeasure={onMeasure} />)}</tbody>
       </table>
     </li>)}</ul>
   </section>;
 }
 
-function estimateOf(findingId: string, key: MeasureKey): number | undefined {
-  return ESTIMATES[findingId]?.[key];
+function storedText(result: MeasureResult): string {
+  if (result.value === null) return '';
+  return result.recorded && !result.recorded.endsWith(` ${result.spec.unit}`) ? result.recorded : String(result.value);
+}
+
+function MeasureRow({ finding, result, onMeasure }: {
+  finding: Finding;
+  result: MeasureResult;
+  onMeasure: (findingId: string, key: MeasureKey, input: MeasureInput) => void;
+}) {
+  const { spec } = result;
+  const [text, setText] = useState(() => storedText(result));
+  const [error, setError] = useState<string | null>(null);
+  const id = `measure-${finding.id}-${spec.key}`;
+  const parsed = parseMeasureInput(text, spec.key);
+  // Follow outside changes (restore, load JSON) without fighting the reviewer's typing.
+  useEffect(() => {
+    if (!(parsed.ok && parsed.canonical === result.value) && !(text.trim() === '' && result.isDefault)) { setText(storedText(result)); setError(null); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result.value, result.recorded, result.isDefault]);
+
+  function change(next: string, basis: Basis = result.basis) {
+    setText(next);
+    if (next.trim() === '') { setError(null); onMeasure(finding.id, spec.key, null); return; }
+    const value = parseMeasureInput(next, spec.key);
+    if (!value.ok) { setError(value.message); return; }
+    setError(null);
+    onMeasure(finding.id, spec.key, { value: value.value, unit: value.unit, basis });
+  }
+
+  return <tr>
+    <th scope="row"><label htmlFor={id}>{spec.label}</label></th>
+    <td>{spec.rule}</td>
+    <td>
+      <span className={styles.measureInput}>
+        <input id={id} inputMode="decimal" autoComplete="off" value={text}
+          placeholder={String(ESTIMATES[finding.id]?.[spec.key] ?? '')} aria-describedby={`${id}-source${error ? ` ${id}-error` : ''}`}
+          aria-invalid={error ? true : undefined} onChange={(event) => change(event.target.value)} />
+        <span aria-hidden="true">{spec.unit}</span>
+      </span>
+      <span id={`${id}-source`} className={result.basis === 'measured' ? styles.sourceMeasured : styles.sourceEstimate}>
+        {result.basis === 'measured' ? 'Measured' : result.isDefault ? 'Assumed' : 'Assumed (edited)'}
+        {parsed.ok && parsed.unit !== spec.unit && result.value !== null ? ` · = ${formatMeasure(result.value, spec)}` : ''}
+      </span>
+      <label className={styles.measuredToggle}>
+        <input type="checkbox" checked={result.basis === 'measured'} disabled={!parsed.ok}
+          onChange={(event) => change(text, event.target.checked ? 'measured' : 'assumed')} /> Measured on site
+      </label>
+      {error ? <span id={`${id}-error`} className={styles.inlineError}>{error}</span> : null}
+    </td>
+    <td>{result.status ? <span className={styles[`status_${result.status}`]}>{STATUS_LABELS[result.status]}</span> : '—'}</td>
+  </tr>;
 }
 
 type EditResult = { ok: true; survey: Survey } | { ok: false; message: string };

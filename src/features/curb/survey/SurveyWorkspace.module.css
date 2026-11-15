@@ -508,3 +508,7 @@
 .workflowForm { display: grid; gap: 8px; }
 .workflowForm .actions { margin-top: 4px; }
 .workflowSummary { color: var(--forest); font-weight: 750; }
+.workspace .measuredToggle { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; font-weight: 650; color: var(--muted-ink); }
+.workspace .measuredToggle input { min-height: 0; width: 16px; height: 16px; padding: 0; accent-color: var(--forest); }
+.measureTable td .sourceEstimate, .measureTable td .sourceMeasured { display: block; margin: 2px 0 0; }
+.measureTable td .inlineError { display: block; margin-top: 2px; font-size: 12px; }

@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
-import { buildRepairPlans, costRange, fetchSurvey } from './services';
+import { costRange, fetchSurvey } from './services';
 import { ExportPanel } from './ExportPanel';
 import { FindingReview } from './FindingReview';
 import { PlanCompare } from './PlanCompare';
 import { editedFindingIds, formatTime, isEdited, parseBudgetInput, PLAN_ORDER, sliderMaxCents } from './presentation';
-import { clipSummary, entriesFromSurvey, withMeasurement, type MeasureKey, type MeasurementEntries } from './measurements';
+import { buildAllPlans, clipSummary, withMeasurement, type Basis, type MeasureKey } from './measurements';
 import { workflowSummary } from '../../../domain/curb/repair';
 import { SiteContext } from './SiteContext';
 import { VideoEvidence, type SeekRequest } from './VideoEvidence';
@@ -45,10 +45,9 @@ export function SurveyWorkspace() {
   const [selectedFindingId, setSelectedFindingId] = useState<string | null>(null);
   const [seek, setSeek] = useState<SeekRequest | null>(null);
   const [budgetText, setBudgetText] = useState('');
-  const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('balanced');
+  const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('suggested');
   const [notice, setNotice] = useState('');
   const [tab, setTab] = useState<WorkTab>('review');
-  const [measurements, setMeasurements] = useState<MeasurementEntries>({});
   const scrollRef = useRef<HTMLDivElement>(null);
   const deskRef = useRef<HTMLDivElement>(null);
   useFitVideoToScreen(deskRef, load.status === 'ready');
@@ -103,19 +102,19 @@ export function SurveyWorkspace() {
   const budget = parseBudgetInput(budgetText);
   const budgetCents = budget.ok ? budget.cents : null;
 
-  // Plans always come from the root evaluator over the current validated survey.
+  // One computation feeds the page and the report: the suggested plan plus the root evaluator's plans.
   const planResult = useMemo((): { plans: RepairPlan[]; error: string | null } => {
     if (!survey) return { plans: [], error: null };
     if (!SurveySchema.safeParse(survey).success) return { plans: [], error: 'The reviewed survey failed validation, so no plans were computed. Restore the original survey.' };
     try {
-      const plans = buildRepairPlans(survey, budgetCents ?? undefined);
+      const plans = buildAllPlans(survey, budgetCents);
       return { plans: [...plans].sort((a, b) => PLAN_ORDER.indexOf(a.id) - PLAN_ORDER.indexOf(b.id)), error: null };
     } catch (error) {
       return { plans: [], error: `Repair plans could not be computed${error instanceof Error ? `: ${error.message}` : '.'}` };
     }
   }, [survey, budgetCents]);
 
-  const effectivePlanId: PlanId = planResult.plans.some((plan) => plan.id === selectedPlanId) ? selectedPlanId : 'balanced';
+  const effectivePlanId: PlanId = planResult.plans.some((plan) => plan.id === selectedPlanId) ? selectedPlanId : 'suggested';
   const selectedPlan = planResult.plans.find((plan) => plan.id === effectivePlanId);
 
   if (load.status !== 'ready' || !survey) {
@@ -142,15 +141,13 @@ export function SurveyWorkspace() {
     setSeek({ seconds: finding.evidenceTime, nonce: Date.now() });
   }
 
-  function setMeasure(findingId: string, key: MeasureKey, text: string) {
-    setMeasurements((current) => ({ ...current, [findingId]: { ...current[findingId], [key]: text } }));
-    // Valid values are also stored on the survey, so exports, reports and reloads keep them.
-    setSurvey((current) => current ? withMeasurement(current, findingId, key, text) : current);
+  /** Dimensions are stored on the survey with their basis, so plans, exports and reloads agree. */
+  function setMeasure(findingId: string, key: MeasureKey, input: { value: number; unit: string; basis: Basis } | null) {
+    setSurvey((current) => current ? withMeasurement(current, findingId, key, input) : current);
   }
 
   function loadReviewed(next: Survey) {
     setSurvey(next);
-    setMeasurements(entriesFromSurvey(next));
     setNotice('Loaded the reviewed survey from JSON.');
   }
 
@@ -162,7 +159,6 @@ export function SurveyWorkspace() {
   function restore() {
     if (!edited) return;
     setSurvey(original);
-    setMeasurements(entriesFromSurvey(original));
     setNotice('Restored the original analysis. All review edits were discarded.');
   }
 
@@ -206,7 +202,7 @@ export function SurveyWorkspace() {
         {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
         <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
           <FindingReview survey={survey} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
-            measurements={measurements} onMeasure={setMeasure}
+            plan={selectedPlan} onMeasure={setMeasure}
             onChange={(next, message) => { setSurvey(next); setNotice(message); }}
             siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />
         </div>
@@ -214,7 +210,7 @@ export function SurveyWorkspace() {
           <PlanCompare survey={survey} plans={planResult.plans} planError={planResult.error} budgetText={budgetText} budget={budget}
             sliderMax={sliderMax} selectedFindingId={selectedFindingId} selectedPlanId={effectivePlanId}
             onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId}
-            measurements={measurements} onSelectFinding={selectFinding} />
+            onSelectFinding={selectFinding} />
         </div>
         <div role="tabpanel" id="survey-panel-export" aria-labelledby="survey-tab-export" hidden={tab !== 'export'} className={styles.tabPanel}>
           <ExportPanel survey={survey} original={original} edited={edited} plan={selectedPlan} budgetCents={budgetCents} onLoad={loadReviewed} />

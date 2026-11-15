@@ -1,12 +1,12 @@
-import type { Finding, Priority, Repair, Survey, Treatment } from '../../contracts/curb/survey';
+import { CANONICAL_UNITS, MEASURE_DIMENSIONS, toCanonical, type Finding, type MeasureDimension, type Priority, type RepairPlan, type Repair, type Survey, type Treatment } from '../../contracts/curb/survey';
 import clipCheck from '../../data/curb/surveys/robertson-clip.json';
-import { costRange } from './survey';
+import { buildRepairPlans, planContext } from './survey';
 import { ACCESS_NEED_COUNT, ACCESS_NEED_SHORT, repairOf } from './repair';
 
 // Measurement checks, priority scoring and the suggested repair plan.
 // Pure helpers: they never change the survey or the root plan evaluator.
 
-export type MeasureKey = 'opening' | 'level' | 'clearWidth' | 'crossSlope' | 'runningSlope';
+export type MeasureKey = keyof typeof MEASURE_DIMENSIONS;
 export type CheckStatus = 'meets' | 'almost' | 'fails';
 
 export type MeasureSpec = {
@@ -59,15 +59,40 @@ export const ESTIMATES: Record<string, Record<MeasureKey, number>> = {
   'defect-05': { opening: 0.3, level: 0.2, clearWidth: 60, crossSlope: 1.9, runningSlope: 3 },
 };
 
-/** Reviewer-entered values: findingId → measure → raw text. Blank means "use the estimate". */
-export type MeasurementEntries = Record<string, Partial<Record<MeasureKey, string>>>;
+/** Planning assumptions are prefilled for every finding and stay labeled Assumed until a
+ * reviewer marks a value as measured on site. Both are stored on the survey's measurements
+ * with their original unit; reads convert to inches (lengths) or percent (slopes). */
+export const ASSUMED_METHOD = 'Assumed planning estimate';
+export const REVIEWER_METHOD = 'Reviewer field measurement';
+export type Basis = 'assumed' | 'measured';
 
-export function parseMeasure(text: string | undefined): number | null {
+export function dimensionOf(key: MeasureKey): MeasureDimension {
+  return MEASURE_DIMENSIONS[key];
+}
+
+export type ParsedMeasure = { ok: true; value: number; unit: string; canonical: number } | { ok: false; message: string };
+
+/** "0.25", "6.35 mm", "0.5ft", "2%" → value in its unit plus the canonical inches/percent. */
+export function parseMeasureInput(text: string, key: MeasureKey): ParsedMeasure {
+  const dimension = dimensionOf(key);
+  const match = /^\s*(\d+(?:\.\d+)?|\.\d+)\s*([a-z%"']*)\s*$/i.exec(text);
+  if (!match) return { ok: false, message: 'Enter a positive number, for example 0.25 or 6.35 mm.' };
+  const value = Number(match[1]);
+  const raw = match[2].toLowerCase();
+  const unit = raw === '' ? CANONICAL_UNITS[dimension] : raw === '"' ? 'in' : raw === "'" ? 'ft' : raw;
+  const canonical = toCanonical(dimension, value, unit);
+  if (canonical === null) {
+    return { ok: false, message: dimension === 'slope' ? 'Slopes use percent, for example 1.8%.' : 'Lengths use in, ft, mm, cm or m.' };
+  }
+  if (canonical > 1000) return { ok: false, message: 'That value is too large.' };
+  return { ok: true, value, unit, canonical };
+}
+
+/** Kept for simple numeric checks: canonical value of plain or unit text, else null. */
+export function parseMeasure(text: string | undefined, key: MeasureKey = 'level'): number | null {
   if (text === undefined) return null;
-  const trimmed = text.trim();
-  if (trimmed === '' || !/^\d+(?:\.\d+)?$|^\.\d+$/.test(trimmed)) return null;
-  const value = Number(trimmed);
-  return Number.isFinite(value) && value <= 1000 ? value : null;
+  const parsed = parseMeasureInput(text, key);
+  return parsed.ok ? parsed.canonical : null;
 }
 
 export function checkStatus(spec: MeasureSpec, value: number): CheckStatus {
@@ -75,15 +100,60 @@ export function checkStatus(spec: MeasureSpec, value: number): CheckStatus {
   return value <= spec.meets ? 'meets' : value <= spec.almost ? 'almost' : 'fails';
 }
 
-export type MeasureResult = { spec: MeasureSpec; value: number | null; source: 'measured' | 'estimate' | 'none'; status: CheckStatus | null };
+export type MeasureResult = {
+  spec: MeasureSpec;
+  /** Canonical value (inches or percent). */
+  value: number | null;
+  basis: Basis;
+  /** True when the value is the untouched default assumption. */
+  isDefault: boolean;
+  /** As recorded, e.g. "6.35 mm", for provenance. */
+  recorded: string | null;
+  status: CheckStatus | null;
+};
 
-export function measureResults(findingId: string, entries: MeasurementEntries): MeasureResult[] {
+function storedEntry(finding: Finding, key: MeasureKey) {
+  return finding.measurements.filter((m) => m.property === key && (m.method === ASSUMED_METHOD || m.method === REVIEWER_METHOD)).at(-1);
+}
+
+export function measureResults(finding: Finding): MeasureResult[] {
   return MEASURE_SPECS.map((spec) => {
-    const measured = parseMeasure(entries[findingId]?.[spec.key]);
-    const estimate = ESTIMATES[findingId]?.[spec.key];
-    const value = measured ?? estimate ?? null;
-    return { spec, value, source: measured !== null ? 'measured' : estimate !== undefined ? 'estimate' : 'none', status: value === null ? null : checkStatus(spec, value) };
+    const stored = storedEntry(finding, spec.key);
+    const converted = stored ? toCanonical(dimensionOf(spec.key), stored.value, stored.unit) : null;
+    const fallback = ESTIMATES[finding.id]?.[spec.key];
+    const value = converted ?? fallback ?? null;
+    return {
+      spec, value,
+      basis: stored?.method === REVIEWER_METHOD && converted !== null ? 'measured' : 'assumed',
+      isDefault: converted === null,
+      recorded: stored && converted !== null ? `${stored.value} ${stored.unit}` : null,
+      status: value === null ? null : checkStatus(spec, value),
+    };
   });
+}
+
+export function formatMeasure(value: number, spec: MeasureSpec): string {
+  return `${Number(value.toFixed(3))}${spec.unit === '%' ? '%' : ' in'}`;
+}
+
+/** "Gap width 0.4 in (assumed) · Height difference 0.9 in (measured, recorded 22.86 mm)". */
+export function dimensionSummary(finding: Finding): string {
+  return measureResults(finding).filter((r) => r.value !== null).map((r) =>
+    `${r.spec.label} ${formatMeasure(r.value!, r.spec)} (${r.basis}${r.recorded && !r.recorded.endsWith(r.spec.unit) ? `, recorded ${r.recorded}` : ''})`).join(' · ');
+}
+
+/** Writes one value with its basis. An unchanged assumption is not stored, so the default stays the default. */
+export function withMeasurement(survey: Survey, findingId: string, key: MeasureKey, input: { value: number; unit: string; basis: Basis } | null): Survey {
+  return { ...survey, findings: survey.findings.map((finding) => {
+    if (finding.id !== findingId) return finding;
+    const rest = finding.measurements.filter((m) => !(m.property === key && (m.method === ASSUMED_METHOD || m.method === REVIEWER_METHOD)));
+    if (!input) return { ...finding, measurements: rest };
+    const canonical = toCanonical(dimensionOf(key), input.value, input.unit);
+    if (canonical === null) throw new Error(`Unsupported unit ${input.unit} for ${key}`);
+    const unchangedAssumption = input.basis === 'assumed' && canonical === ESTIMATES[findingId]?.[key];
+    return { ...finding, measurements: unchangedAssumption ? rest
+      : [...rest, { property: key, value: input.value, unit: input.unit, method: input.basis === 'measured' ? REVIEWER_METHOD : ASSUMED_METHOD }] };
+  }) };
 }
 
 export const STATUS_LABELS: Record<CheckStatus, string> = { meets: 'Meets', almost: 'Almost', fails: 'Does not meet' };
@@ -114,11 +184,11 @@ export type PriorityScore = { score: number; band: Priority; factors: Factor[]; 
 
 const CHECK_WORDS: Record<CheckStatus, string> = { fails: 'does not meet', almost: 'almost meets', meets: 'meets' };
 
-export function priorityScore(finding: Finding, entries: MeasurementEntries): PriorityScore {
+export function priorityScore(finding: Finding): PriorityScore {
   const repair = repairOf(finding);
-  const results = measureResults(finding.id, entries);
+  const results = measureResults(finding);
   const worst = (['fails', 'almost', 'meets'] as const).find((status) => results.some((r) => r.status === status)) ?? null;
-  const worstSource = worst ? (results.find((r) => r.status === worst)!.source === 'measured' ? 'measured' : 'estimate') : null;
+  const worstSource = worst ? results.find((r) => r.status === worst)!.basis : null;
   const clip = clipFor(finding.id);
   const measurementPoints = CHECK_POINTS[worst ?? 'none'];
   const severity = clip ? SEVERITY_MIX.measurement * measurementPoints + SEVERITY_MIX.clip * clip.impactScore * 100 : measurementPoints;
@@ -146,12 +216,12 @@ export function priorityScore(finding: Finding, entries: MeasurementEntries): Pr
 
 /** How sure the ranking is. Low confidence never lowers severity; it is shown beside the score. */
 export function confidenceOf(finding: Finding, results: MeasureResult[], repair: Repair = repairOf(finding)): Confidence {
-  const measured = results.filter((r) => r.source === 'measured').length;
+  const measured = results.filter((r) => r.basis === 'measured').length;
   const checked = finding.review.status === 'accepted' && finding.review.method === 'manual';
   const points = (measured / Math.max(1, results.length)) * 40 + (checked ? 30 : 0)
     + (repair.locationConfidence === 'confirmed' ? 30 : repair.locationConfidence === 'approximate' ? 15 : 0);
   const reasons = [
-    measured === results.length ? 'all values measured' : measured ? `${measured} of ${results.length} values measured` : 'values are estimates',
+    measured === results.length ? 'all values measured' : measured ? `${measured} of ${results.length} values measured` : 'dimensions are assumed',
     checked ? 'checked by a person' : 'not checked by a person',
     repair.locationConfidence === 'confirmed' ? 'location confirmed on site' : `location ${repair.locationConfidence}`,
   ];
@@ -175,97 +245,67 @@ export const UNCERTAINTY_LABELS: Record<UncertaintyTag, string> = {
   quote_needed: 'Cost unknown – quote needed',
 };
 
-export function uncertaintyTags(survey: Survey, finding: Finding, entries: MeasurementEntries): UncertaintyTag[] {
+export function uncertaintyTags(survey: Survey, finding: Finding, plan?: RepairPlan): UncertaintyTag[] {
   const tags: UncertaintyTag[] = [];
-  if (measureResults(finding.id, entries).some((r) => r.source !== 'measured')) tags.push('needs_measurement');
+  if (measureResults(finding).some((r) => r.basis !== 'measured')) tags.push('needs_measurement');
   if (repairOf(finding).professionalReview) tags.push('professional_review');
   const area = survey.workAreas.find((item) => item.findingIds.includes(finding.id));
-  const recommended = area ? survey.treatments.find((t) => t.id === area.recommendedOptionId) : undefined;
-  if (recommended?.cost.status === 'quote_required') tags.push('quote_needed');
+  // With a plan: unknown cost when the area has no selected treatment, or the selected one needs a quote.
+  const chosen = area && plan ? survey.treatments.find((t) => t.workAreaId === area.id && plan.optionIds.includes(t.id)) : undefined;
+  const reference = plan ? chosen : area ? survey.treatments.find((t) => t.id === area.recommendedOptionId) : undefined;
+  if ((plan && !chosen) || reference?.cost.status === 'quote_required') tags.push('quote_needed');
   return tags;
 }
 
-/** Reviewer measurements stored on the survey, as measurement-table entries. */
-export const REVIEWER_METHOD = 'Reviewer field measurement';
-export function entriesFromSurvey(survey: Survey): MeasurementEntries {
-  const entries: MeasurementEntries = {};
-  for (const finding of survey.findings) {
-    for (const m of finding.measurements) {
-      if (m.method === REVIEWER_METHOD && MEASURE_SPECS.some((spec) => spec.key === m.property)) {
-        (entries[finding.id] ??= {})[m.property as MeasureKey] = String(m.value);
-      }
-    }
-  }
-  return entries;
-}
+// ---------- Suggested plan (work-area based; shared by the page and the reports) ----------
 
-/** Writes one reviewer measurement onto the survey (or removes it when the text is blank or invalid). */
-export function withMeasurement(survey: Survey, findingId: string, key: MeasureKey, text: string): Survey {
-  const spec = MEASURE_SPECS.find((item) => item.key === key)!;
-  const value = parseMeasure(text);
-  return { ...survey, findings: survey.findings.map((finding) => {
-    if (finding.id !== findingId) return finding;
-    const rest = finding.measurements.filter((m) => !(m.method === REVIEWER_METHOD && m.property === key));
-    return { ...finding, measurements: value === null ? rest : [...rest, { property: key, value, unit: spec.unit, method: REVIEWER_METHOD }] };
-  }) };
-}
-
-// ---------- Suggested plan ----------
-
-export type PlanStep = {
-  finding: Finding;
-  areaLabel: string;
-  treatment: Treatment;
+export type AreaRanking = {
+  area: Survey['workAreas'][number];
+  findings: Finding[];
   score: PriorityScore;
-  lowCents: number;
-  highCents: number;
-  included: boolean;
+  /** Priced treatment chosen for this area, or null when every option needs a quote. */
+  treatment: Treatment | null;
 };
 
-export type SuggestedPlan = {
-  steps: PlanStep[];
-  lowCents: number;
-  highCents: number;
-  included: number;
-  skipped: number;
-  sharedQuote: string[];
-};
-
-/** Highest priority first. High priority gets the most durable priced repair; the
- * rest get the cheapest priced repair. With a budget, repairs are added in priority
- * order while the upper estimate still fits; anything that does not fit is left out. */
-export function suggestPlan(survey: Survey, entries: MeasurementEntries, budgetCents: number | null): SuggestedPlan {
-  const candidates = survey.findings
-    .filter((finding) => finding.review.status !== 'rejected')
-    .flatMap((finding) => {
-      const area = survey.workAreas.find((item) => item.findingIds.includes(finding.id));
-      if (!area || !area.repairWorthy) return [];
-      const score = priorityScore(finding, entries);
-      const priced = survey.treatments
-        .filter((t) => t.workAreaId === area.id && t.method !== 'inspect')
-        .flatMap((t) => { const range = costRange(t.cost); return range ? [{ t, range }] : []; });
-      if (priced.length === 0) return [];
-      priced.sort((a, b) => score.band === 'high'
-        ? b.t.durability - a.t.durability || a.range.highCents - b.range.highCents
-        : a.range.highCents - b.range.highCents || b.t.durability - a.t.durability);
-      const pick = priced[0];
-      return [{ finding, areaLabel: area.label, treatment: pick.t, score, lowCents: pick.range.lowCents, highCents: pick.range.highCents }];
-    })
-    .sort((a, b) => b.score.score - a.score.score || survey.findings.indexOf(a.finding) - survey.findings.indexOf(b.finding));
-
-  let spent = 0;
-  let low = 0;
-  const steps: PlanStep[] = candidates.map((step) => {
-    const included = budgetCents === null || spent + step.highCents <= budgetCents;
-    if (included) { spent += step.highCents; low += step.lowCents; }
-    return { ...step, included };
-  });
-  const included = steps.filter((step) => step.included).length;
-  return {
-    steps, lowCents: low, highCents: spent, included, skipped: steps.length - included,
-    sharedQuote: included > 0 ? survey.sharedCosts.filter((c) => c.cost.status === 'quote_required').map((c) => c.label) : [],
-  };
+/** Each eligible physical work area once, ranked by its highest finding priority.
+ * High priority areas get the most durable priced option; others the cheapest.
+ * Deterministic: ties break on area ID, never on input order. */
+export function rankWorkAreas(survey: Survey): AreaRanking[] {
+  const context = planContext(survey);
+  return context.areas.map((area) => {
+    const findings = survey.findings.filter((f) => area.findingIds.includes(f.id) && context.active.has(f.id));
+    const scores = findings.map(priorityScore);
+    const score = scores.reduce((best, next) => next.score > best.score ? next : best, scores[0]);
+    const priced = context.candidates.filter((t) => t.workAreaId === area.id && t.cost.status === 'estimated')
+      .map((t) => ({ t, high: context.ranges.get(t.cost)!.highCents }));
+    priced.sort((x, y) => score.band === 'high'
+      ? y.t.durability - x.t.durability || x.high - y.high || lexical(x.t.id, y.t.id)
+      : x.high - y.high || y.t.durability - x.t.durability || lexical(x.t.id, y.t.id));
+    return { area, findings, score, treatment: priced[0]?.t ?? null };
+  }).sort((x, y) => y.score.score - x.score.score || lexical(x.area.id, y.area.id));
 }
+
+/** The suggested RepairPlan. Areas are added in rank order while the plan's upper total,
+ * including shared setup once, fits the budget. Quote-only areas stay deferred and visible. */
+export function buildSuggestedPlan(survey: Survey, budgetCents: number | null = null): RepairPlan {
+  const context = planContext(survey);
+  let selected: Treatment[] = [];
+  for (const ranked of rankWorkAreas(survey)) {
+    // Use this context's own treatment object so its cost range is found.
+    const treatment = ranked.treatment && context.candidates.find((t) => t.id === ranked.treatment!.id);
+    if (!treatment) continue;
+    const next = [...selected, treatment];
+    if (budgetCents === null || context.make('suggested', next, budgetCents).cost.highCents <= budgetCents) selected = next;
+  }
+  return context.make('suggested', selected, budgetCents);
+}
+
+/** Every plan the page shows and the report can export, from one computation. */
+export function buildAllPlans(survey: Survey, budgetCents: number | null): RepairPlan[] {
+  return [buildSuggestedPlan(survey, budgetCents), ...buildRepairPlans(survey, budgetCents ?? undefined)];
+}
+
+const lexical = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 
 // ---------- CLIP ----------
 

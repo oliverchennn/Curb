@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
 import { surveyToCsv } from './services';
+import { appendedWorkflowIssue } from '../../../domain/curb/repair';
 import { exportFileName, surveyJson } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
@@ -88,6 +89,11 @@ export function ExportPanel({ survey, original, edited, plan, budgetCents, onLoa
     const loaded = parsed.data;
     if (loaded.id !== original.id || loaded.revision !== original.revision || loaded.media.originalSha256 !== original.media.originalSha256) {
       setStatus({ kind: 'error', message: 'That export belongs to a different survey or revision, so it was not loaded.' });
+      return;
+    }
+    const workflowProblem = loaded.findings.map((finding) => appendedWorkflowIssue(finding, original.findings.find((item) => item.id === finding.id))).find(Boolean);
+    if (workflowProblem) {
+      setStatus({ kind: 'error', message: `Not loaded. ${workflowProblem}.` });
       return;
     }
     onLoad(loaded);

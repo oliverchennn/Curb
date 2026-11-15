@@ -23,6 +23,7 @@ const linkColor = rgb(0.11, 0.33, 0.41);
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 const policyDescription: Record<PlanId, string> = {
+  suggested: 'Each eligible work area once, ranked by access-impact priority; added while the upper total, with shared setup once, fits the budget. Quote-only areas stay deferred.',
   essential: 'Lowest-priced options for near-term work areas, subject to field confirmation of suitability.',
   balanced: 'Recommended options for eligible work areas.',
   durable: 'Highest-durability options for eligible work areas.',
@@ -340,6 +341,7 @@ export async function renderSurveyReport(
     layout.text('Video  ' + row.finding.evidenceTime.toFixed(1) + ' s; photo on the finding evidence page', 'planDetail');
     layout.text('Owner  ' + (row.repair.owner ?? 'Unassigned') + '   /   Repair status  ' + WORKFLOW_LABELS[workflowStatus(row.finding)], 'planDetail');
     layout.text('Proposed action  ' + row.action, 'planDetail');
+    layout.text('Dimensions  ' + row.dimensions, 'planDetail');
     layout.text('Priority  ' + row.rationale, 'planDetail');
     layout.text('Cost  ' + row.cost, row.cost.startsWith('Unknown') ? 'planAlert' : 'planDetail');
   }

@@ -1,11 +1,12 @@
 import type { Cost, PlanId, RepairPlan, Survey, Treatment } from '../../../contracts/curb/survey';
 import { areaForFinding, centsToInput, formatCents, formatCentsRange, labelForId, type BudgetParse } from './presentation';
 import { costRange } from './services';
-import { suggestPlan, type MeasurementEntries } from './measurements';
+import { ACCESS_WEIGHTS, rankWorkAreas, SEVERITY_MIX, type AreaRanking } from './measurements';
 import styles from './PlanCompare.module.css';
 import ws from './SurveyWorkspace.module.css';
 
 const POLICY: Record<PlanId, { name: string; purpose: string }> = {
+  suggested: { name: 'Suggested', purpose: 'Each work area once, highest access-impact priority first, within your budget.' },
   essential: { name: 'Essential', purpose: 'Start with near-term work and the lowest priced options. Confirm treatment suitability on site before proceeding.' },
   balanced: { name: 'Balanced', purpose: 'Address every eligible area with its recommended treatment, including repairs that need quotes.' },
   durable: { name: 'Durable', purpose: 'Address every eligible area with its most durable suitable option. Confirm the renewal scope on site.' },
@@ -19,15 +20,16 @@ const treatmentsFor = (survey: Survey, plan: RepairPlan) => plan.optionIds.flatM
   return treatment ? [treatment] : [];
 });
 
-export function PlanCompare({ survey, plans, planError, budgetText, budget, sliderMax, selectedFindingId, selectedPlanId, onBudgetText, onSelectPlan, measurements, onSelectFinding }: {
+export function PlanCompare({ survey, plans, planError, budgetText, budget, sliderMax, selectedFindingId, selectedPlanId, onBudgetText, onSelectPlan, onSelectFinding }: {
   survey: Survey; plans: RepairPlan[]; planError: string | null; budgetText: string; budget: BudgetParse;
   sliderMax: number; selectedFindingId: string | null; selectedPlanId: PlanId;
   onBudgetText: (text: string) => void; onSelectPlan: (planId: PlanId) => void;
-  measurements: MeasurementEntries; onSelectFinding: (findingId: string) => void;
+  onSelectFinding: (findingId: string) => void;
 }) {
   const selectedArea = selectedFindingId ? areaForFinding(survey, selectedFindingId) : undefined;
   const selected = plans.find(plan => plan.id === selectedPlanId);
   const budgetPlan = plans.find(plan => plan.id === 'budget');
+  const suggested = plans.find(plan => plan.id === 'suggested');
   const balanced = plans.find(plan => plan.id === 'balanced');
   const essential = plans.find(plan => plan.id === 'essential');
   const unpricedBalanced = balanced ? treatmentsFor(survey, balanced).filter(t => t.cost.status === 'quote_required').length : 0;
@@ -65,13 +67,14 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
     </section>
 
     <div className={styles.sectionHeading}><span aria-hidden="true">2</span><h3 id="survey-suggested-heading">Suggested plan</h3></div>
-    <SuggestedPlanView survey={survey} measurements={measurements} budgetCents={budget.ok ? budget.cents : null} onSelectFinding={onSelectFinding} />
+    {suggested ? <SuggestedPlanView survey={survey} plan={suggested} selected={selectedPlanId === 'suggested'}
+      onSelect={() => onSelectPlan('suggested')} onSelectFinding={onSelectFinding} /> : null}
 
     <details className={ws.otherPlans}>
       <summary>Other plan options (used for the downloadable report)</summary>
       {planError ? <p role="alert" className={styles.error}>{planError}</p> : <>
         <div className={styles.policyGrid}>
-          {plans.filter(plan => plan.id !== 'budget').map(plan => <PolicyCard key={plan.id} survey={survey} plan={plan}
+          {plans.filter(plan => plan.id !== 'budget' && plan.id !== 'suggested').map(plan => <PolicyCard key={plan.id} survey={survey} plan={plan}
             selected={plan.id === selectedPlanId} onSelect={() => onSelectPlan(plan.id)} />)}
           {budget.ok && budget.cents !== null && budgetPlan ? <PolicyCard survey={survey} plan={budgetPlan}
             selected={selectedPlanId === 'budget'} onSelect={() => onSelectPlan('budget')} /> : null}
@@ -198,34 +201,45 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
 
 const PRIORITY_WORDS = { high: 'High', medium: 'Medium', low: 'Low', unassessed: 'Not set' } as const;
 
-function SuggestedPlanView({ survey, measurements, budgetCents, onSelectFinding }: {
+const percent = (weight: number) => `${Math.round(weight * 100)}%`;
+export const PRIORITY_EXPLANATION = `Ranked by access impact: severity ${percent(ACCESS_WEIGHTS.severity)} (ADA checks ${percent(SEVERITY_MIX.measurement)}, CLIP travel impact ${percent(SEVERITY_MIX.clip)}), essential destination ${percent(ACCESS_WEIGHTS.destination)}, access needs affected ${percent(ACCESS_WEIGHTS.needs)}.`;
+
+/** Renders the suggested RepairPlan itself: the same object the report exports. */
+function SuggestedPlanView({ survey, plan, selected, onSelect, onSelectFinding }: {
   survey: Survey;
-  measurements: MeasurementEntries;
-  budgetCents: number | null;
+  plan: RepairPlan;
+  selected: boolean;
+  onSelect: () => void;
   onSelectFinding: (findingId: string) => void;
 }) {
-  const plan = suggestPlan(survey, measurements, budgetCents);
-  const included = plan.steps.filter((step) => step.included);
-  const left = plan.steps.filter((step) => !step.included);
-  return <section className={ws.suggested} aria-labelledby="survey-suggested-heading">
+  const ranking = rankWorkAreas(survey);
+  const included = ranking.filter((item) => plan.workAreaIds.includes(item.area.id));
+  const left = ranking.filter((item) => plan.deferredWorkAreaIds.includes(item.area.id));
+  const chosen = (item: AreaRanking) => survey.treatments.find((t) => t.workAreaId === item.area.id && plan.optionIds.includes(t.id));
+  const quoted = plan.cost.unpricedItems.map((item) => item.replace(/\s\([a-z0-9-]+\):[\s\S]*$/, ''));
+  return <section className={ws.suggested} aria-labelledby="survey-suggested-heading" data-plan-id={plan.id}>
     <p className={ws.suggestedTotal} role="status">
-      {plan.included === 0 ? 'Nothing fits this budget yet.' : <>{formatCentsRange(plan.lowCents, plan.highCents)} <span>to fix {plan.included} of {plan.steps.length} defects</span></>}
+      {plan.workAreaIds.length === 0 ? 'Nothing fits this budget yet.' : <>{formatCentsRange(plan.cost.lowCents, plan.cost.highCents)} <span>for {plural(plan.workAreaIds.length, 'work area')} of {ranking.length}{plan.cost.isComplete ? '' : ', plus quotes'}</span></>}
     </p>
-    <p className={ws.small}>Ranked by priority: 70% measurements, 30% CLIP-based travel impact.{left.length ? ` ${left.length} left out to stay within budget.` : ''}</p>
+    <p className={ws.small}>{PRIORITY_EXPLANATION} Each work area is charged once; shared setup is charged once.{left.length ? ` ${plural(left.length, 'area')} left out.` : ''}</p>
+    <button type="button" className={selected ? ws.planSelect : `${ws.secondaryButton} ${ws.planSelect}`} aria-pressed={selected} onClick={onSelect}>
+      {selected ? '✓ Used for the report' : 'Use this plan for the report'}
+    </button>
 
     {included.length > 0 ? <details className={ws.collapsible} open>
       <summary>Included work ({included.length})</summary>
-      <ol className={ws.stepList}>{included.map((step) => <PlanStepItem key={step.finding.id} step={step} onSelectFinding={onSelectFinding} />)}</ol>
+      <ol className={ws.stepList}>{included.map((item) => <AreaItem key={item.area.id} item={item} treatment={chosen(item)} onSelectFinding={onSelectFinding} />)}</ol>
     </details> : null}
     {left.length > 0 ? <details className={ws.collapsible}>
       <summary>Left out for now ({left.length})</summary>
-      <ul className={ws.stepList}>{left.map((step) => <PlanStepItem key={step.finding.id} step={step} onSelectFinding={onSelectFinding} />)}</ul>
+      <ul className={ws.stepList}>{left.map((item) => <AreaItem key={item.area.id} item={item} treatment={undefined}
+        reason={item.treatment ? 'Does not fit the budget.' : 'Needs a contractor quote before it can be planned.'} onSelectFinding={onSelectFinding} />)}</ul>
     </details> : null}
-    {plan.sharedQuote.length > 0 ? <p className={ws.small}>Plus a site quote for: {plan.sharedQuote.join(', ').toLowerCase()}.</p> : null}
+    {quoted.length > 0 ? <p className={ws.small}>Not in the total – needs a quote: {quoted.join('; ')}.</p> : null}
 
     <div className={ws.readPrices}>
       <strong>How to read these prices</strong>
-      <p>Each price is a low–high range from recent public bids. A contractor quote sets the final cost.</p>
+      <p>Each price is a low–high range from recent public bids, using assumed sizes. A contractor quote sets the final cost.</p>
       <details className={ws.pendingChecks}>
         <summary>Price sources</summary>
         <ul className={ws.plainList}>{survey.sources.filter((source) => source.kind === 'cost').map((source) => <li key={source.id}>
@@ -236,10 +250,18 @@ function SuggestedPlanView({ survey, measurements, budgetCents, onSelectFinding 
   </section>;
 }
 
-function PlanStepItem({ step, onSelectFinding }: { step: ReturnType<typeof suggestPlan>['steps'][number]; onSelectFinding: (findingId: string) => void }) {
+function AreaItem({ item, treatment, reason, onSelectFinding }: {
+  item: AreaRanking;
+  treatment: Treatment | undefined;
+  reason?: string;
+  onSelectFinding: (findingId: string) => void;
+}) {
+  const range = treatment ? costRange(treatment.cost) : null;
   return <li className={ws.stepItem}>
-    <button type="button" className={ws.textButton} onClick={() => onSelectFinding(step.finding.id)}>{step.finding.label}</button>
-    <span className={styles[`priority_${step.score.band}`]}>{PRIORITY_WORDS[step.score.band]} · {step.score.score}</span>
-    <span className={ws.stepRepair}>{step.treatment.label} · {formatCentsRange(step.lowCents, step.highCents)}</span>
+    <strong>{item.area.label}</strong>
+    <span className={ws[`priority_${item.score.band}`]}>{PRIORITY_WORDS[item.score.band]} · {item.score.score}</span>
+    <span className={ws.stepRepair}>{item.findings.map((finding, index) => <span key={finding.id}>{index ? ', ' : ''}
+      <button type="button" className={ws.textButton} onClick={() => onSelectFinding(finding.id)}>{finding.label}</button></span>)}</span>
+    <span className={ws.stepRepair}>{treatment ? `${treatment.label} · ${range ? formatCentsRange(range.lowCents, range.highCents) : 'quote needed'}` : reason}</span>
   </li>;
 }

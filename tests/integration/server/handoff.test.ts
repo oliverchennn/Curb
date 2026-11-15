@@ -5,7 +5,7 @@ import { POST } from '../../../app/api/curb/survey/report/route';
 import canonical from '../../../src/data/curb/surveys/robertson-hall.json';
 import { SurveySchema, type Survey } from '../../../src/contracts/curb/survey';
 import { buildRepairPlans } from '../../../src/domain/curb/survey';
-import { withMeasurement } from '../../../src/domain/curb/measurements';
+import { ASSUMED_METHOD, buildSuggestedPlan, dimensionSummary, REVIEWER_METHOD, withMeasurement } from '../../../src/domain/curb/measurements';
 import { markReviewed, moveWorkflow, setOwner } from '../../../src/domain/curb/repair';
 import { surveyToCsv } from '../../../src/domain/curb/surveyExports';
 import { renderSurveyHtmlReport } from '../../../src/server/curb/surveyHtmlReport';
@@ -24,13 +24,13 @@ function reviewed(): Survey {
   const planned = moveWorkflow(s, 'defect-04', { action: 'advance', by: 'Pat', note: 'Scheduled with Grounds.', at: '2026-11-20T10:02:00-05:00' });
   if (!planned.ok) throw new Error(planned.message);
   s = setOwner(planned.survey, 'defect-04', 'Facilities – Grounds');
-  return withMeasurement(s, 'defect-04', 'level', '0.9');
+  return withMeasurement(s, 'defect-04', 'level', { value: 0.9, unit: 'in', basis: 'measured' });
 }
 
-function report(survey: unknown, planId = 'balanced') {
+function report(survey: unknown, planId = 'balanced', budgetCents: number | null = null) {
   return POST(new Request('http://curb.test/api/curb/survey/report?format=html', {
     method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ survey, budgetCents: null, planId }),
+    body: JSON.stringify({ survey, budgetCents, planId }),
   }));
 }
 
@@ -93,5 +93,48 @@ describe('facilities handoff report', () => {
     expect(rows[3]).toContain('"Facilities – Grounds"');
     expect(rows[3]).toContain('"planned"');
     expect(rows[2]).toContain('"rejected"');
+  });
+
+  it('exports the same suggested plan the page shows, with the same assumed dimensions', async () => {
+    const s = withMeasurement(reviewed(), 'defect-01', 'opening', { value: 1, unit: 'in', basis: 'assumed' });
+    for (const budget of [null, 60_000]) {
+      const plan = buildSuggestedPlan(s, budget);
+      const html = await (await report(s, 'suggested', budget)).text();
+      expect(html).toContain('<article class="card" id="plan-suggested">');
+      const selected = html.slice(html.indexOf('id="plan-suggested"'), html.indexOf('</article>', html.indexOf('id="plan-suggested"')));
+      expect(selected).toContain('Selected plan for this report');
+      const listed = [...selected.slice(selected.indexOf('Selected treatments')).matchAll(/href="#treatment-([a-z0-9-]+)"/g)].map(m => m[1]);
+      expect(listed.slice(0, plan.optionIds.length)).toEqual(plan.optionIds);
+      const handoff = html.slice(html.indexOf('<section id="handoff"'), html.indexOf('<section id="plans"'));
+      for (const finding of s.findings.filter(f => f.review.status !== 'rejected')) {
+        expect(handoff).toContain('<dt>Dimensions</dt><dd>' + dimensionSummary(finding).replaceAll('&', '&amp;') + '.');
+      }
+    }
+  });
+
+  it('accepts metric input converted to inches, never read as inches', async () => {
+    const s = structuredClone(base);
+    s.findings[1].measurements.push({ property: 'level', value: 0.2, unit: 'm', method: REVIEWER_METHOD });
+    const response = await report(s, 'suggested');
+    expect(response.status).toBe(200);
+    expect(await response.text()).toContain('Height difference 7.874 in (measured, recorded 0.2 m)');
+  });
+
+  it('rejects unsupported or mismatched dimension units', async () => {
+    for (const [property, unit] of [['level', 'kg'], ['crossSlope', 'in']] as const) {
+      const s = structuredClone(base);
+      s.findings[0].measurements.push({ property, value: 1, unit, method: ASSUMED_METHOD });
+      expect((await report(s)).status).toBe(400);
+    }
+  });
+
+  it('refuses to plan a pending AI finding through the report API', async () => {
+    const s = structuredClone(base);
+    s.findings[0].repair!.workflow.push(
+      { status: 'reviewed', action: 'advance', by: 'Someone', at: '2026-11-20T10:01:00-05:00', note: 'x', evidence: null },
+      { status: 'planned', action: 'advance', by: 'Someone', at: '2026-11-20T10:02:00-05:00', note: 'x', evidence: null },
+    );
+    expect(SurveySchema.safeParse(s).success).toBe(true);
+    expect((await report(s)).status).toBe(400);
   });
 });

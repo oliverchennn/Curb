@@ -72,7 +72,7 @@ export const BUDGET_FIT_LABELS: Record<RepairPlan['budgetFit'], string> = {
   over: 'Over budget at the upper estimate',
 };
 
-export const PLAN_ORDER: RepairPlan['id'][] = ['essential', 'balanced', 'durable', 'budget'];
+export const PLAN_ORDER: RepairPlan['id'][] = ['suggested', 'essential', 'balanced', 'durable', 'budget'];
 
 // ---------- Review edits (immutable) ----------
 
