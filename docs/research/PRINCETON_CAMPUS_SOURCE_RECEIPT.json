@@ -4,7 +4,7 @@
   "session": "6af808fa-83dc-8191-bd58-80697dbe50c9",
   "base": "fd697515eecc6e4ba3f8259f7e8cd8b05f78d256",
   "branch": "codex/princeton-campus-map",
-  "status": "validated data checkpoint; campus UI and attribution pending separate C task",
+  "status": "data/research lane complete and released; frozen implementation handed to root/C; campus UI acceptance pending separate task",
   "generatedAtUtc": "2026-11-15T01:30:39.656570+00:00",
   "scope": "University campus only: source university relation plus Meadows area; not municipality or all University property",
   "bounds": [
@@ -66,21 +66,55 @@
     },
     {
       "command": "npm run build",
-      "result": "sandboxed TypeScript showConfig subprocess returned empty output; normal-access rerun in progress"
+      "result": "passed; Next.js 16.4.1 production compilation, TypeScript and all 16 static pages completed. Initial sandboxed attempt returned empty TypeScript --showConfig output; same build passed with normal local subprocess access, without source/config workaround."
     },
     {
       "command": "independent Python Matplotlib path/ring comparison",
-      "result": "same1188 way IDs as JS importer; symmetric difference zero"
+      "result": "same 1,188 way IDs as JS importer; symmetric difference zero"
     }
   ],
-  "browserAcceptance": "Not yet executed on this data checkpoint; old UI is not accepted for campus attribution or22-section navigation. C owns the next UI task.",
+  "browserAcceptance": "Not performed in this data lane. No campus UI, browser or deployment acceptance claimed. C owns the separately assigned overview, selector, visible attribution and browser verification.",
   "collaborationComments": [
     6887085089,
     6887105808,
     6887158950,
     6887203470,
-    6887277024
+    6887277024,
+    6887338128,
+    6887341224
   ],
   "networkRefreshCommandExecuted": false,
-  "acquisition": "Bounded Python client using exact API requests and hashes in provenance.json. --prepare and --check executed. No OSM writes."
+  "acquisition": "Bounded Python client using exact API requests and hashes in provenance.json. --prepare and --check executed. No OSM writes.",
+  "finalizedAtUtc": "2026-11-15T01:35:20.450558+00:00",
+  "implementationCheckpoint": {
+    "sha": "cde54e6a9ddf3602cf8c59dc43331d8c2666b520",
+    "remoteVerifiedAtUtc": "2026-11-15T01:30:51Z",
+    "comment": 6887338128,
+    "frozen": true,
+    "finalFollowupScope": [
+      "docs/research/PRINCETON_CAMPUS_SOURCES.md",
+      "docs/research/PRINCETON_CAMPUS_SOURCE_RECEIPT.json"
+    ]
+  },
+  "fullRepositorySuite": "Not run in this data lane; targeted suite has two documented obsolete global-count assertions, assigned to C for source scoping.",
+  "integrationReportedByMergeOwner": {
+    "sha": "bb9093c71ce9ae7c2114e61e4e6e64f1805f3e92",
+    "comment": 6887365819,
+    "aerialAssetSha": "0ba4535d5a0105bf0ab045460a92e7a79689b93a",
+    "independentlyRuntimeVerifiedByD": false
+  },
+  "uiAssignmentComment": 6887367182,
+  "localEvidence": {
+    "build.log": {
+      "path": ".curb-local/campus-research/build.log",
+      "sha256": "d487f8a0e9ace62bfd1f8eaa7ca5d09a932b125f7c60e645aacc235b8aba9a5c",
+      "committed": false
+    },
+    "targeted-tests.log": {
+      "path": ".curb-local/campus-research/targeted-tests.log",
+      "sha256": "1e77d3d9c54b66d6cb7b7d9d1e3e057adc0d9cef0d0e745389988232a6f1b78e",
+      "committed": false
+    }
+  },
+  "remainingWorkersOrServers": []
 }
