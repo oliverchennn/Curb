@@ -24,7 +24,7 @@ An independent rerun checked **30 authored synthetic networks at four budget lev
 
 ![Curb exact results across 120 pairs per comparator. Condition-first had 58 wins and 62 ties, cheapest-first 39 wins and 81 ties, and marginal-gain greedy 16 wins and 104 ties. There were no losses, and all full-budget cases tied.](docs/assets/judges/benchmark.svg)
 
-The chart counts modeled destinations, and the separately authored Investment example is outside the benchmark. In that $10,000 example, cheapest-first also chooses A+B. [Methods and results](docs/evaluation/METRICS_RESULTS.md) · [Approved claims](docs/evaluation/METRICS_CLAIMS.md) · [Raw evidence and independent rerun](docs/evidence/README.md)
+The chart counts paired budget cases. Each win means more modeled destinations became reachable at the same assumed budget. The separately authored Investment example is outside the benchmark. In that $10,000 example, cheapest-first also chooses A+B. [Methods and results](docs/evaluation/METRICS_RESULTS.md) · [Approved claims](docs/evaluation/METRICS_CLAIMS.md) · [Raw evidence and independent rerun](docs/evidence/README.md)
 
 ## What a real repair decision still needs
 
