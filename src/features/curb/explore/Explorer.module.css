@@ -78,6 +78,37 @@
 .mapSvg:active { cursor:grabbing; }
 .mapSvg:focus-visible { outline:3px solid #f0b46c; outline-offset:-3px; }
 .contextLines { stroke:#c4cebd; stroke-width:2; fill:none; pointer-events:none; }
+.routeDemo { display:grid; gap:9px; padding:13px 14px; scroll-margin-top:12px; background:#f6f9ff; border-bottom:1px solid #d4deee; }
+.routeDemoHeading { display:flex; flex-wrap:wrap; align-items:baseline; gap:5px 14px; }
+.routeDemoHeading h3 { margin:0; font-size:17px; color:#173660; }
+.routeDemoHeading span { color:#526274; font-size:13px; }
+.routeForm { display:flex; gap:8px; flex-wrap:wrap; align-items:end; }
+.routeForm label { display:grid; gap:4px; flex:1 1 180px; min-width:0; font-size:13px; font-weight:650; color:#354c67; }
+.routeForm select { min-width:0; width:100%; min-height:44px; padding:6px 9px; color:#173660; border:1px solid #b4c5db; border-radius:6px; background:#fff; }
+.routeForm button { min-height:44px; padding:6px 14px; color:#fff; background:#174c91; border:1px solid #174c91; font-weight:650; }
+.routeForm button:hover { background:#0c3875; }
+.routeForm .routeClear { color:#21466f; background:#fff; border-color:#b4c5db; }
+.routeForm .routeClear:hover { background:#eaf1ff; }
+.routeResults { display:grid; gap:6px; color:#253b56; font-size:14px; line-height:1.42; }
+.routeResults p { margin:0; }
+.routeResults ul { display:flex; flex-wrap:wrap; gap:6px 16px; padding:0; margin:0; list-style:none; }
+.routeResults li { display:flex; align-items:baseline; gap:5px; }
+.routeBlue, .routeStairs { width:20px; border-top:4px solid #075cae; display:inline-block; flex:none; align-self:center; }
+.routeStairs { border-top:3px dashed #b13526; }
+.routeDetails { font-size:13px; color:#4c5f75; }
+.routeDetails a { color:#174c91; text-underline-offset:2px; }
+.workspace[data-view=campus] .mapCanvas[data-route-open] .mapSvg { aspect-ratio:16 / 9; height:clamp(260px, 55vh, 560px); }
+.routeLines, .campusGapPath { pointer-events:none; fill:none; }
+.routeHalo, .routePath, .stairPath, .campusGapPath { stroke-linecap:round; stroke-linejoin:round; }
+.routeHalo { stroke:#fff; stroke-width:10; }
+.routePath { stroke:#075cae; stroke-width:6; }
+.stairPath { stroke:#b13526; stroke-width:5; stroke-dasharray:5 7; }
+.campusGapPath { stroke:#ac6500; stroke-width:3.5; }
+@media (max-width: 500px) {
+  .routeForm label { flex-basis:100%; }
+  .routeResults li { display:block; }
+  .routeBlue, .routeStairs { margin-right:5px; vertical-align:middle; }
+}
 .streetLabel { font-family:inherit; pointer-events:none; }
 .selectedLabel { pointer-events:none; }
 .selectedLabel div { box-sizing:border-box; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:700; paint-order:stroke fill; }

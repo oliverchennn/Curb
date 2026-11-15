@@ -34,11 +34,11 @@ export function campusOverviewBounds(): ProjectedView {
 }
 
 export const campusWayStyles = {
-  steps: { label: 'Steps', color: '#9b3926', dash: '2 3' },
-  crossing: { label: 'Crossings', color: '#784489', dash: '7 4' },
-  cycleway: { label: 'Cycleways', color: '#225782', dash: '12 3 2 3' },
-  sidewalk: { label: 'Sidewalks', color: '#176451', dash: '4 2' },
-  footway: { label: 'Footways & paths', color: '#63572a', dash: undefined },
+  steps: { label: 'Steps', color: '#b83324', dash: '2 4' },
+  crossing: { label: 'Crossings', color: '#7a36a8', dash: '7 4' },
+  cycleway: { label: 'Cycleways', color: '#2259b6', dash: '12 3 2 3' },
+  sidewalk: { label: 'Sidewalks', color: '#007b87', dash: undefined },
+  footway: { label: 'Footways & paths', color: '#278344', dash: undefined },
   unclassified: { label: 'Unclassified', color: '#575b60', dash: '10 6' },
 } as const;
 

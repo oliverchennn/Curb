@@ -1,0 +1,183 @@
+{
+  "id": "blair-arch",
+  "observedOn": "2026-11-15",
+  "from": {
+    "label": "Blair Arch lower approach",
+    "coordinates": [
+      -74.6610405,
+      40.3473793
+    ]
+  },
+  "to": {
+    "label": "Blair Arch upper landing",
+    "coordinates": [
+      -74.6609082,
+      40.3476057
+    ]
+  },
+  "stepFree": {
+    "source": "Princeton University Facilities",
+    "mapUrl": "https://facilities.princeton.edu/maps",
+    "serviceUrl": "https://facgisprd.princeton.edu/routing/rest/services/Routing/NetworkAnalysis/NAServer/Route",
+    "mode": "Step Free Walking may include steep slopes",
+    "responseSha256": "c7fd776349c3394d323b7c8e8fb8850e470cdb903ac02b798eaa1e599b6dd714",
+    "distanceMeters": 248.55246069458948,
+    "coordinates": [
+      [
+        -74.6610449,
+        40.3473733
+      ],
+      [
+        -74.6610561,
+        40.3473781
+      ],
+      [
+        -74.6610884,
+        40.3473918
+      ],
+      [
+        -74.6611098,
+        40.3473866
+      ],
+      [
+        -74.6612341,
+        40.3473502
+      ],
+      [
+        -74.6613653,
+        40.3473073
+      ],
+      [
+        -74.6613761,
+        40.3473031
+      ],
+      [
+        -74.6615202,
+        40.3472633
+      ],
+      [
+        -74.6618473,
+        40.3471649
+      ],
+      [
+        -74.6618626,
+        40.3471603
+      ],
+      [
+        -74.661871,
+        40.3471705
+      ],
+      [
+        -74.6619396,
+        40.3472659
+      ],
+      [
+        -74.6619657,
+        40.3473004
+      ],
+      [
+        -74.6620206,
+        40.3473708
+      ],
+      [
+        -74.6620795,
+        40.3474486
+      ],
+      [
+        -74.6621136,
+        40.3474918
+      ],
+      [
+        -74.6621388,
+        40.3475257
+      ],
+      [
+        -74.6621123,
+        40.3475345
+      ],
+      [
+        -74.6620833,
+        40.3475441
+      ],
+      [
+        -74.6619563,
+        40.3475955
+      ],
+      [
+        -74.6619366,
+        40.3476046
+      ],
+      [
+        -74.661893,
+        40.3476163
+      ],
+      [
+        -74.661856,
+        40.3476279
+      ],
+      [
+        -74.6611634,
+        40.3478306
+      ],
+      [
+        -74.6610112,
+        40.3477285
+      ],
+      [
+        -74.6609498,
+        40.3476885
+      ],
+      [
+        -74.6609183,
+        40.3476667
+      ],
+      [
+        -74.6608799,
+        40.3476559
+      ],
+      [
+        -74.660901,
+        40.3476198
+      ],
+      [
+        -74.660909,
+        40.347606
+      ]
+    ]
+  },
+  "stairs": {
+    "sourceWayIds": [
+      457121812,
+      428106197
+    ],
+    "coordinates": [
+      [
+        -74.6610405,
+        40.3473793
+      ],
+      [
+        -74.6609792,
+        40.3474842
+      ],
+      [
+        -74.6609082,
+        40.3476057
+      ]
+    ],
+    "guideUrl": "https://accessableusa.com/princeton-university/access-guides/blair-arch"
+  },
+  "google": {
+    "walkingFeet": 92,
+    "walkingInstruction": "Take the stairs",
+    "wheelchairTransitWalkingStepsFeet": [
+      272,
+      164,
+      318,
+      102,
+      23
+    ],
+    "wheelchairTransitSummary": "4 min via University Pl",
+    "walkingUrl": "https://www.google.com/maps/dir/?api=1&origin=40.3473793%2C-74.6610405&destination=40.3476057%2C-74.6609082&travelmode=walking",
+    "transitUrl": "https://www.google.com/maps/dir/?api=1&origin=40.3473793%2C-74.6610405&destination=40.3476057%2C-74.6609082&travelmode=transit"
+  }
+}

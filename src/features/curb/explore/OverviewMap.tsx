@@ -9,6 +9,8 @@ import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
 import { PhotoEvidenceLayer, type PhotoLayer } from './PhotoEvidenceLayer';
 import { layoutPhotoMarkers, photoView } from './photoEvidence';
+import { BlairRouteForm, BlairRouteLines, blairRouteBounds } from './BlairRouteDemo';
+import { CampusGapAttribution, CampusGapLegend, CampusPathSupplement } from './CampusPathSupplement';
 import styles from './Explorer.module.css';
 
 const overviewBounds = campusOverviewBounds();
@@ -28,6 +30,7 @@ export function CampusWayLegend({ ways }: { ways?: CampusPaths['ways'] }) {
           <span>{label}{count !== undefined && <> <b>{count}</b></>}</span>
         </li>;
       })}
+      <CampusGapLegend />
       <li><i className={styles.legendSection} aria-hidden="true" />{ways ? 'Study area bounds' : 'Selected study area'}</li>
     </ul>
   </section>;
@@ -41,9 +44,12 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
   const svg = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState([900, 900]);
   const [manualView, setManualView] = useState<View | null>(null);
+  const [routeShown, setRouteShown] = useState(false);
   const fit = fitProjectedView(overviewBounds, size);
-  const view = manualView ?? fit;
-  const updateView = (update: (view: View) => View) => setManualView(previous => update(previous ?? fit));
+  const initialView = routeShown ? fitProjectedView(blairRouteBounds(), size) : fit;
+  const view = manualView ?? initialView;
+  const updateView = (update: (view: View) => View) => setManualView(previous => update(previous ?? initialView));
+  const fitCampus = () => setManualView(routeShown ? fit : null);
   const [base, setBase] = useState<'aerial' | 'diagram'>('aerial');
   const [failed, setFailed] = useState<ReadonlySet<string>>(new Set());
   const [focusId, setFocusId] = useState<string | null>(null);
@@ -97,12 +103,16 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
     const i = targets.findIndex(s => s.collectionId === from), next = targets[delta === 'first' ? 0 : delta === 'last' ? targets.length - 1 : (i + delta + targets.length) % targets.length];
     if (next) { setFocusId(next.collectionId); refs.current.get(next.collectionId)?.focus(); }
   };
-  return <div className={styles.mapCanvas} data-base={showAerial ? 'aerial' : 'diagram'} data-overview="true">
+  return <div className={styles.mapCanvas} data-base={showAerial ? 'aerial' : 'diagram'} data-overview="true" data-route-open={routeShown || undefined}>
+    <BlairRouteForm shown={routeShown} onShow={() => {
+      setRouteShown(true);
+      setManualView(null);
+    }} onClear={() => { setRouteShown(false); setManualView(null); }} />
     <div className={styles.mapToolbar}>
       <div className={styles.mapTools} role="group" aria-label="Map controls">
         <button type="button" aria-label="Zoom in" onClick={() => zoom(.6)}>+</button>
         <button type="button" aria-label="Zoom out" onClick={() => zoom(1.666667)}>−</button>
-        <button type="button" onClick={() => setManualView(null)}>Fit campus</button>
+        <button type="button" onClick={fitCampus}>Fit campus</button>
       </div>
       <div className={styles.baseToggle} role="group" aria-label="Map background">
         <button type="button" aria-pressed={showAerial} aria-disabled={aerialFailed} onClick={() => { if (!aerialFailed) setBase('aerial'); }}
@@ -120,7 +130,7 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
       onKeyDown={e => {
         if (e.target !== e.currentTarget) return;
         if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(e.key)) {
-          e.preventDefault(); if (e.key === 'Home') setManualView(null); else if (['+', '=', '-'].includes(e.key)) zoom(e.key === '-' ? 1.666667 : .6);
+          e.preventDefault(); if (e.key === 'Home') fitCampus(); else if (['+', '=', '-'].includes(e.key)) zoom(e.key === '-' ? 1.666667 : .6);
           else updateView(([x, y, w, h]) => [x + (e.key === 'ArrowRight' ? w / 8 : e.key === 'ArrowLeft' ? -w / 8 : 0), y + (e.key === 'ArrowDown' ? h / 8 : e.key === 'ArrowUp' ? -h / 8 : 0), w, h]);
         }
       }}
@@ -135,8 +145,10 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
       <g className={styles.overviewWays} aria-hidden="true" data-base={showAerial ? 'aerial' : 'diagram'}>
         {[...paths.ways].reverse().map(({ type, path }) => path && <path key={type} data-way-type={type} d={path} fill="none"
           stroke={campusWayStyles[type].color} strokeDasharray={campusWayStyles[type].dash}
-          strokeWidth={type === 'footway' ? 2 : 3} vectorEffect="non-scaling-stroke" />)}
+          strokeWidth={type === 'footway' || type === 'sidewalk' ? 3.25 : 3.5}
+          strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />)}
       </g>
+      <CampusPathSupplement />
       <g className={styles.sectionBounds} aria-hidden="true">{sections.map(s => {
         const e = sectionExtent(s);
         return <g key={s.collectionId}>
@@ -148,6 +160,7 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
         return Math.hypot(a.x - t.x, a.y - t.y) > 22 * unit && <line key={s.collectionId} x1={a.x} y1={a.y} x2={t.x} y2={t.y}
           stroke={showAerial ? "#faf9f3" : "#414b3d"} strokeOpacity={.65} strokeWidth={1.25} vectorEffect="non-scaling-stroke" />;
       })}</g>
+      {routeShown && <BlairRouteLines unit={unit} />}
       {pointLayout && pointLayer && <CampusPointMarkers markers={pointLayout.markers} unit={unit}
         onSelect={point => { if (!moved.current) pointLayer.onSelect(point); }} />}
       {targets.map(s => { const t = labelSpots.get(s.collectionId)!;
@@ -177,6 +190,7 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
         <p>Use a map code or the Campus section picker to browse. Path types come from OpenStreetMap tags. Current traversal is Unknown.</p>
         <p>Sections divide source geometry into groups of at most 63 ways for inspection. They are not routes, official neighborhood boundaries, or proof of complete coverage. Every way appears in exactly one section.</p>
         <p><strong>Map data:</strong> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0). Edit times are source metadata, not observation dates. <a href={OSM_COPYRIGHT} target="_blank" rel="noreferrer">Copyright and license →</a></p>
+        <CampusGapAttribution />
         <p><strong>Aerial background:</strong> {campusAerial.attribution} Capture year {campusAerial.captureYear}; exact capture date {campusAerial.capturedAt ?? 'Unknown'}. {campusAerial.note} <a href={campusAerial.sourceUrl} target="_blank" rel="noreferrer">Imagery source →</a></p>
       </div>
     </details>

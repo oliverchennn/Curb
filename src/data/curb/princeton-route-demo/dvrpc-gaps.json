@@ -1,0 +1,517 @@
+{
+  "reviewedOn": "2026-11-15",
+  "geometrySource": "DVRPC Pedestrian Network",
+  "sourceUrl": "https://catalog.dvrpc.org/dataset/dvrpc-pedestrian-network",
+  "dataTerms": "https://catalog.dvrpc.org/dvrpc_data_license.html",
+  "reference": "Princeton University Facilities sidewalk and walkway layers",
+  "referenceUrl": "https://facilities.princeton.edu/maps",
+  "method": "DVRPC centerline portions within the OSM campus boundary plus 9 m. Candidate runs must extend at least 12 m beyond a 4 m buffer of existing OSM ways. At least 85 percent of the missing run had to fall within 2 m of the university sidewalk or walkway polygons. The display is planning context and does not establish a traversable connection.",
+  "segments": [
+    {
+      "dvrpcId": 800783,
+      "type": "walkway",
+      "officialMatches": [
+        "14/650",
+        "14/2462"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.659299,
+          40.3475585
+        ],
+        [
+          -74.65935,
+          40.3475933
+        ],
+        [
+          -74.6594829,
+          40.3476618
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 800790,
+      "type": "walkway",
+      "officialMatches": [
+        "14/288"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6405514,
+          40.3487716
+        ],
+        [
+          -74.6411755,
+          40.3484881
+        ],
+        [
+          -74.6412179,
+          40.3484595
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 809904,
+      "type": "walkway",
+      "officialMatches": [
+        "14/2605",
+        "18/18529"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6620006,
+          40.3489426
+        ],
+        [
+          -74.6629127,
+          40.3486746
+        ],
+        [
+          -74.662953,
+          40.3486812
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 809904,
+      "type": "walkway",
+      "officialMatches": [
+        "14/2605"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6613512,
+          40.3491361
+        ],
+        [
+          -74.6614265,
+          40.3491112
+        ],
+        [
+          -74.6620226,
+          40.3489361
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 809913,
+      "type": "walkway",
+      "officialMatches": [
+        "14/3193",
+        "18/24414"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6582287,
+          40.3456981
+        ],
+        [
+          -74.6580981,
+          40.3456496
+        ],
+        [
+          -74.6580219,
+          40.3455882
+        ],
+        [
+          -74.6579526,
+          40.3455074
+        ],
+        [
+          -74.657813,
+          40.3452639
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 818905,
+      "type": "walkway",
+      "officialMatches": [
+        "14/3190",
+        "18/24350"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.649068,
+          40.3473767
+        ],
+        [
+          -74.6491049,
+          40.3473632
+        ],
+        [
+          -74.6492502,
+          40.3473058
+        ],
+        [
+          -74.6494868,
+          40.3472243
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 818905,
+      "type": "walkway",
+      "officialMatches": [
+        "14/3181",
+        "14/3190"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6477471,
+          40.3478585
+        ],
+        [
+          -74.6481299,
+          40.3477233
+        ],
+        [
+          -74.6483298,
+          40.3476499
+        ],
+        [
+          -74.6486901,
+          40.3475146
+        ],
+        [
+          -74.649089,
+          40.347369
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 828858,
+      "type": "walkway",
+      "officialMatches": [
+        "14/633"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6384531,
+          40.3497395
+        ],
+        [
+          -74.6387246,
+          40.3496111
+        ],
+        [
+          -74.6404193,
+          40.3488355
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 851096,
+      "type": "walkway",
+      "officialMatches": [
+        "14/565",
+        "14/3192",
+        "18/24337",
+        "18/24357",
+        "18/24619"
+      ],
+      "matchedPercent": 91,
+      "coordinates": [
+        [
+          -74.6532249,
+          40.3465889
+        ],
+        [
+          -74.6533036,
+          40.3465579
+        ],
+        [
+          -74.6533931,
+          40.3464992
+        ],
+        [
+          -74.6535565,
+          40.3464477
+        ],
+        [
+          -74.6537502,
+          40.3463963
+        ],
+        [
+          -74.6537806,
+          40.3463594
+        ],
+        [
+          -74.6538236,
+          40.3463465
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 872332,
+      "type": "walkway",
+      "officialMatches": [
+        "14/3037"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6482225,
+          40.3504271
+        ],
+        [
+          -74.647874,
+          40.3499867
+        ],
+        [
+          -74.6477699,
+          40.3498708
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 876819,
+      "type": "crossing",
+      "officialMatches": [
+        "14/59",
+        "14/299"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6549663,
+          40.335514
+        ],
+        [
+          -74.6548747,
+          40.3353751
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 880583,
+      "type": "walkway",
+      "officialMatches": [
+        "14/1381",
+        "18/11099",
+        "18/12759",
+        "18/20972"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6612588,
+          40.3458939
+        ],
+        [
+          -74.6617689,
+          40.3456493
+        ],
+        [
+          -74.6622511,
+          40.3454218
+        ],
+        [
+          -74.6623974,
+          40.3453456
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 886099,
+      "type": "crossing",
+      "officialMatches": [
+        "14/382",
+        "14/1283"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.655065,
+          40.3352619
+        ],
+        [
+          -74.6551749,
+          40.3354081
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 924783,
+      "type": "walkway",
+      "officialMatches": [
+        "14/656",
+        "18/22818"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6451003,
+          40.3488565
+        ],
+        [
+          -74.6465677,
+          40.3481997
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 943127,
+      "type": "walkway",
+      "officialMatches": [
+        "14/2814"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.655161,
+          40.3478698
+        ],
+        [
+          -74.6555834,
+          40.3484058
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 951757,
+      "type": "walkway",
+      "officialMatches": [
+        "14/243",
+        "18/20858"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6597739,
+          40.3477916
+        ],
+        [
+          -74.6598294,
+          40.3478175
+        ],
+        [
+          -74.6598869,
+          40.3478732
+        ],
+        [
+          -74.6600296,
+          40.3481303
+        ],
+        [
+          -74.6600204,
+          40.3481721
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 951757,
+      "type": "walkway",
+      "officialMatches": [
+        "14/243",
+        "14/650"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6595794,
+          40.3477007
+        ],
+        [
+          -74.6597703,
+          40.3477899
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 995183,
+      "type": "walkway",
+      "officialMatches": [
+        "14/1564",
+        "18/3186",
+        "18/10389",
+        "18/17408"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6619381,
+          40.347026
+        ],
+        [
+          -74.6631812,
+          40.3464839
+        ],
+        [
+          -74.6631186,
+          40.3464121
+        ],
+        [
+          -74.6630985,
+          40.3464209
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 1004045,
+      "type": "walkway",
+      "officialMatches": [
+        "14/752"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6597697,
+          40.3495423
+        ],
+        [
+          -74.660183,
+          40.3494392
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 1014093,
+      "type": "walkway",
+      "officialMatches": [
+        "14/565"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6548937,
+          40.3477661
+        ],
+        [
+          -74.654819,
+          40.3477746
+        ],
+        [
+          -74.654578,
+          40.3478405
+        ]
+      ]
+    },
+    {
+      "dvrpcId": 1014093,
+      "type": "walkway",
+      "officialMatches": [
+        "14/565"
+      ],
+      "matchedPercent": 100,
+      "coordinates": [
+        [
+          -74.6546001,
+          40.3478344
+        ],
+        [
+          -74.654147,
+          40.3479583
+        ]
+      ]
+    }
+  ]
+}

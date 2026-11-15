@@ -8,6 +8,7 @@ import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
 import { campusExtent, campusWayStyles, campusWayType, fitProjectedView, sectionExtent, type CampusSection, type ProjectedView } from './campus';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
 import { CampusWayLegend } from './OverviewMap';
+import { CampusGapAttribution, CampusPathSupplement } from './CampusPathSupplement';
 import { PhotoEvidenceLayer, type PhotoLayer } from './PhotoEvidenceLayer';
 import { layoutPhotoMarkers, photoView } from './photoEvidence';
 import styles from './Explorer.module.css';
@@ -178,6 +179,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       {showAerial && <AerialLayer set={set} tiles={tiles} failed={failed}
         onFail={src => setFailed(prev => new Set(prev).add(src))} />}
       {context && <path className={styles.campusContext} d={context} data-base={showAerial ? 'aerial' : 'diagram'} vectorEffect="non-scaling-stroke" aria-hidden="true" />}
+      {osm && <CampusPathSupplement />}
       {outline && <g aria-hidden="true" className={styles.sectionBounds} data-selected-study-area={section?.code}>
         <rect x={outline.x} y={outline.y} width={outline.width} height={outline.height} fill="none"
           stroke="#fffef8" strokeWidth={4} vectorEffect="non-scaling-stroke" />
@@ -208,7 +210,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
           {f.geometry?.type === 'LineString' ? <>
             <path d={path(f.geometry.coordinates)} stroke="transparent" strokeWidth={STOP_TARGET_DIAMETER} fill="none" vectorEffect="non-scaling-stroke" />
             <path d={path(f.geometry.coordinates)} stroke={showAerial ? '#ffffff' : active ? '#fffdf4' : '#f5f4e9'} strokeWidth={active ? 12 : 9} fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            <path d={path(f.geometry.coordinates)} stroke={appearance?.color ?? collection.color} strokeWidth={osm ? (active ? 6 : 4) : (active ? 7 : 5)}
+            <path d={path(f.geometry.coordinates)} stroke={appearance?.color ?? collection.color} strokeWidth={osm ? (active ? 6.5 : 4.5) : (active ? 7 : 5)}
               strokeDasharray={appearance ? appearance.dash : f.type === 'crossing' ? '7 5' : undefined} fill="none" vectorEffect="non-scaling-stroke" />
           </> : f.geometry?.type === 'Point' ? <g transform={`translate(${project(f.geometry.coordinates).join(',')})`}>
             <circle r={targetRadius} fill="transparent" />
@@ -264,6 +266,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       <div>
         <p>Numbers follow source order, not travel.{osm ? ' Line classes are OpenStreetMap tags, not measurements; most ways have no width, incline or wheelchair tag.' : ' EXISTING and ASSUMED are archived labels, not current condition or passability.'}</p>
         {osm && <p><strong>Map data:</strong> © OpenStreetMap contributors, available under the Open Database License (ODbL 1.0). Edit times are source metadata, not observation dates. <a href={OSM_COPYRIGHT} target="_blank" rel="noreferrer">Copyright and license →</a></p>}
+        {osm && <CampusGapAttribution />}
         <p><strong>Aerial background:</strong> {imagery.attribution} Capture year {imagery.captureYear}; exact capture date {imagery.capturedAt ?? 'Unknown'}. {imagery.note} <a href={imagery.sourceUrl} target="_blank" rel="noreferrer">Imagery source →</a></p>
         {set === 'corridor' && <p>Street names are approximate orientation labels.</p>}
       </div>

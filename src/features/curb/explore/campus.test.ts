@@ -1,4 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import blair from '../../../data/curb/princeton-route-demo/blair.json';
+import supplement from '../../../data/curb/princeton-route-demo/dvrpc-gaps.json';
+import campus from '../../../data/curb/princeton-campus/campus.json';
 import { createAtlas } from './data';
 import { layoutCampusPointMarkers } from './CampusPointMarkers';
 import { aerial, campusAerial, countFailedTiles, overviewResolution, tileExtent, visibleTiles } from './aerial';
@@ -9,6 +12,35 @@ import { placeBadges, placeSectionTargets } from './labels';
 import { locatedFeatures, project, recordsFor, selectionFor, traversalText } from './model';
 
 const atlas = createAtlas();
+
+describe('Blair Arch route evidence', () => {
+  it('uses the same start and end for both traces and ties the shortcut to a mapped stair', () => {
+    const projectedDistance = (a: number[], b: number[]) => {
+      const first = project([a[0], a[1]]);
+      const second = project([b[0], b[1]]);
+      return Math.hypot(first[0] - second[0], first[1] - second[1]);
+    };
+    expect(blair.stairs.coordinates[0]).toEqual(blair.from.coordinates);
+    expect(blair.stairs.coordinates.at(-1)).toEqual(blair.to.coordinates);
+    expect(projectedDistance(blair.stepFree.coordinates[0], blair.from.coordinates)).toBeLessThan(2);
+    expect(projectedDistance(blair.stepFree.coordinates.at(-1)!, blair.to.coordinates)).toBeLessThan(2);
+    expect(campus.features.find(feature => feature.id === blair.stairs.sourceWayIds[0])?.tags.highway).toBe('steps');
+    const googleMetres = blair.google.wheelchairTransitWalkingStepsFeet.reduce((sum, feet) => sum + feet, 0) * 0.3048;
+    expect(Math.round(googleMetres - blair.stepFree.distanceMeters)).toBe(19);
+  });
+
+  it('requires usable coordinates and Princeton support for each supplemental line', () => {
+    expect(supplement.segments.length).toBeGreaterThan(0);
+    for (const segment of supplement.segments) {
+      expect(segment.coordinates.length).toBeGreaterThan(1);
+      expect(segment.coordinates.every(([lon, lat]) => Number.isFinite(lon) && Number.isFinite(lat)
+        && lon > -74.671 && lon < -74.629 && lat > 40.318 && lat < 40.357)).toBe(true);
+      expect(segment.matchedPercent).toBeGreaterThanOrEqual(85);
+      expect(segment.officialMatches.length).toBeGreaterThan(0);
+      expect(segment.officialMatches.every(id => /^(14|18)\/\d+$/.test(id))).toBe(true);
+    }
+  });
+});
 
 describe('campus sections', () => {
   it('joins all 1,188 source ways through 22 sections exactly once, largest 63', () => {
