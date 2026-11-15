@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { createAtlas } from './data';
 import { layoutCampusPointMarkers } from './CampusPointMarkers';
 import { aerial, campusAerial, countFailedTiles, overviewResolution, tileExtent, visibleTiles } from './aerial';
-import { campusExtent, campusPaths, sectionMembership } from './campus';
-import { GROUPS, campusSectionIds, collectionsIn, groupOf, sourceClass } from './groups';
+import { campusExtent, campusOverviewBounds, campusPaths, fitProjectedView, sectionExtent, sectionMembership } from './campus';
+import { GROUPS, campusSectionIds, campusSections, collectionsIn, groupOf, sourceClass } from './groups';
 import { explorerLocationUrl, getCampusPointRecords, readExplorerLocation, searchable } from './location';
 import { placeBadges, placeSectionTargets } from './labels';
 import { locatedFeatures, project, recordsFor, selectionFor, traversalText } from './model';
@@ -40,10 +40,10 @@ describe('campus sections', () => {
 
 describe('groups', () => {
   it('replaces 27 collection chips with four groups and keeps the five original IDs', () => {
-    expect(GROUPS.map(g => g.id)).toEqual(['downtown', 'campus', 'field', 'examples']);
+    expect(GROUPS.map(g => g.id)).toEqual(['campus', 'downtown', 'field']);
     expect(['witherspoon', 'nassau-east', 'nassau-west'].map(groupOf)).toEqual(['downtown', 'downtown', 'downtown']);
     expect(groupOf('robertson')).toBe('field');
-    expect(groupOf('examples')).toBe('examples');
+    expect(groupOf('examples')).toBeNull();
     expect(collectionsIn('campus', atlas.collections)).toHaveLength(22);
   });
   it('names source classes in words, especially steps', () => {
@@ -70,7 +70,7 @@ describe('campus overview location', () => {
     const section = readExplorerLocation(atlas, '?group=campus&collection=campus-central-aaa');
     expect(section.overview).toBeUndefined();
     expect(section.collectionId).toBe('campus-central-aaa');
-    for (const id of ['witherspoon', 'nassau-east', 'nassau-west', 'robertson', 'examples']) {
+    for (const id of ['witherspoon', 'nassau-east', 'nassau-west', 'robertson']) {
       expect(readExplorerLocation(atlas, `?collection=${id}`).collectionId).toBe(id);
       expect(readExplorerLocation(atlas, `?collection=${id}`).overview).toBeUndefined();
     }
@@ -192,4 +192,18 @@ describe('optional campus point layer', () => {
     }), 'https://curb.example');
     expect([...url.searchParams.keys()]).toEqual(['group']);
   });
+});
+
+it('fits the historical raster and all 22 section extents uniformly in desktop and phone plots', () => {
+  const raster = tileExtent(campusAerial.overview);
+  for (const [width, height] of [[1280,1280], [1754,1754], [1410,1410], [341,426.25]]) {
+    const [x, y, w, h] = fitProjectedView(campusOverviewBounds(), [width,height]);
+    expect(w / width).toBeCloseTo(h / height, 10);
+    for (const extent of [raster, ...campusSections.map(sectionExtent)]) {
+      expect(extent.x).toBeGreaterThan(x);
+      expect(extent.y).toBeGreaterThan(y);
+      expect(extent.x + extent.width).toBeLessThan(x + w);
+      expect(extent.y + extent.height).toBeLessThan(y + h);
+    }
+  }
 });

@@ -1,4 +1,5 @@
 import { campusIndex } from '../../../data/curb/princeton-campus/adapter';
+import { campusAerial, tileExtent } from './aerial';
 import { project, type Atlas } from './model';
 
 type Bounds = [number, number, number, number];
@@ -13,6 +14,24 @@ export function boundsExtent([w, s, e, n]: Bounds) {
 }
 export const campusExtent = () => boundsExtent(campusIndex.bounds as Bounds);
 export const sectionExtent = (s: CampusSection) => boundsExtent(s.bounds as Bounds);
+
+export type ProjectedView = [number, number, number, number];
+
+/** Center the full rectangle using one world-to-screen scale and a screen-space gutter. */
+export function fitProjectedView([x, y, w, h]: ProjectedView, [width, height]: readonly number[]): ProjectedView {
+  const gutter = Math.min(14, width / 8, height / 8);
+  const unit = Math.max(w / (width - gutter * 2), h / (height - gutter * 2));
+  const vw = width * unit, vh = height * unit;
+  return [x + (w - vw) / 2, y + (h - vh) / 2, vw, vh];
+}
+
+export function campusOverviewBounds(): ProjectedView {
+  const raster = tileExtent(campusAerial.overview), ways = campusExtent();
+  const left = Math.min(raster.x, ways.x), top = Math.min(raster.y, ways.y);
+  const right = Math.max(raster.x + raster.width, ways.x + ways.width);
+  const bottom = Math.max(raster.y + raster.height, ways.y + ways.height);
+  return [left, top, right - left, bottom - top];
+}
 
 /** One aggregated, non-interactive path per section (and one for the whole campus): the overview draws
  *  every source way without 1,188 separate elements, markers or tab stops. Geometry is not simplified. */

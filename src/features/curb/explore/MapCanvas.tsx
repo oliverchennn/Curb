@@ -5,11 +5,11 @@ import { aerial, campusAerial, countFailedTiles, visibleTiles } from './aerial';
 import AerialLayer, { baseSrc, type AerialSet } from './AerialLayer';
 import { placeBadges, streetLabel } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
-import { campusExtent } from './campus';
+import { campusExtent, fitProjectedView, type ProjectedView } from './campus';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
 import styles from './Explorer.module.css';
 
-type View = [number, number, number, number];
+type View = ProjectedView;
 type Base = 'aerial' | 'diagram';
 const STOP_TARGET_DIAMETER = 44;
 // Street names are orientation labels placed beside the archive lines that carry them; they are not data.
@@ -43,8 +43,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   set?: AerialSet; context?: string; osm?: boolean; dense?: boolean; pointLayer?: CampusPointLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
-  const [view, setView] = useState<View>([-100, -160, 230, 260]);
-  const [size, setSize] = useState([900, 520]);
+  const [manualView, setManualView] = useState<View | null>(null);
+  const [size, setSize] = useState(() => osm ? [900, 900] : [900, 520]);
   const [base, setBase] = useState<Base>('aerial');
   const [failed, setFailed] = useState<ReadonlySet<string>>(new Set());
   const [focusId, setFocusId] = useState<string | null>(null);
@@ -53,6 +53,10 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const showAerial = base === 'aerial' && !aerialFailed;
   const drag = useRef<{ x: number; y: number; view: View } | null>(null), moved = useRef(false);
   const features = locatedFeatures(atlas, records);
+  const collectionBounds = useMemo(() => fitFeatures(locatedFeatures(atlas, recordsFor(atlas, collection)), 26, 40), [atlas, collection]);
+  const collectionFit = osm ? fitProjectedView(collectionBounds, size) : collectionBounds;
+  const view = manualView ?? collectionFit;
+  const updateView = (update: (view: View) => View) => setManualView(previous => update(previous ?? collectionFit));
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);
   const targetRadius = STOP_TARGET_DIAMETER / 2 * unit;
   const plotLeft = view[0] + (view[2] - size[0] * unit) / 2;
@@ -62,13 +66,16 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const tiles = set === 'campus' && showAerial ? visibleTiles(visibleView, 1 / unit) : [];
   const tileFailures = countFailedTiles(tiles, failed);
   const selectedFeature = selected ? atlas.features.find(f => f.id === selected.featureId && f.geometry) : undefined;
-  const collectionFit = useMemo(() => fitFeatures(locatedFeatures(atlas, recordsFor(atlas, collection)), 26, 40), [atlas, collection]);
   // Zoom-out cap derived from the content: the old fixed 1200-unit cap cannot show a whole campus section's context.
   const maxWidth = Math.max(1200, collectionFit[2] * 4, collectionFit[3] * 4);
-  const fitCollection = () => setView(collectionFit);
-  const fitSelection = () => { if (selectedFeature) setView(fitFeatures([selectedFeature], 30, 30)); };
+  const fitCollection = () => setManualView(null);
+  const fitSelection = () => {
+    if (!selectedFeature) return;
+    const bounds = fitFeatures([selectedFeature], 30, 30);
+    setManualView(osm ? fitProjectedView(bounds, size) : bounds);
+  };
   // Fit only when changing collections; filtering, selection and zoom keep the current view.
-  useEffect(() => { setView(collectionFit); setFocusId(null); }, [collectionFit]);
+  useEffect(() => { setManualView(null); setFocusId(null); }, [collectionBounds]);
   useEffect(() => {
     if (!svg.current) return;
     const observer = new ResizeObserver(entries => { const r = entries[0].contentRect; if (r.width && r.height) setSize([r.width, r.height]); });
@@ -77,10 +84,10 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const pointRequest = pointLayer?.request;
   useEffect(() => {
     if (!pointRequest) return;
-    setView(viewForCampusPoint(pointRequest.coordinates));
+    setManualView(viewForCampusPoint(pointRequest.coordinates));
     if (pointRequest.focusMap) svg.current?.focus();
   }, [pointRequest]);
-  const zoom = (factor: number) => setView(([x, y, w, h]) => {
+  const zoom = (factor: number) => updateView(([x, y, w, h]) => {
     const f = Math.max(12 / w, Math.min(maxWidth / w, factor)); return [x + w * (1 - f) / 2, y + h * (1 - f) / 2, w * f, h * f];
   });
   const path = (coordinates: [number, number][]) => coordinates.map((p, i) => `${i ? 'L' : 'M'}${project(p).join(',')}`).join(' ');
@@ -121,7 +128,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       <div className={styles.mapTools} role="group" aria-label="Map controls">
         <button type="button" aria-label="Zoom in" onClick={() => zoom(.75)}>+</button>
         <button type="button" aria-label="Zoom out" onClick={() => zoom(1.333333)}>−</button>
-        <button type="button" onClick={fitCollection}>{pointLayer ? 'Fit section' : 'Fit collection'}</button>
+        <button type="button" onClick={fitCollection}>{osm ? 'Fit section' : 'Fit collection'}</button>
         <button type="button" aria-disabled={!selectedFeature} onClick={fitSelection}
           title={selectedFeature ? undefined : 'The selected record has no archive geometry'}>Fit selection</button>
       </div>
@@ -142,14 +149,14 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
         if (e.target !== e.currentTarget) return;
         if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(e.key)) {
           e.preventDefault(); if (e.key === 'Home') fitCollection(); else if (['+', '=', '-'].includes(e.key)) zoom(e.key === '-' ? 1.333333 : .75);
-          else setView(([x, y, w, h]) => [x + (e.key === 'ArrowRight' ? w / 8 : e.key === 'ArrowLeft' ? -w / 8 : 0), y + (e.key === 'ArrowDown' ? h / 8 : e.key === 'ArrowUp' ? -h / 8 : 0), w, h]);
+          else updateView(([x, y, w, h]) => [x + (e.key === 'ArrowRight' ? w / 8 : e.key === 'ArrowLeft' ? -w / 8 : 0), y + (e.key === 'ArrowDown' ? h / 8 : e.key === 'ArrowUp' ? -h / 8 : 0), w, h]);
         }
       }}
       onPointerDown={e => { if (e.button !== 0) return; const p = localPoint(e.clientX, e.clientY); drag.current = { x: p.x, y: p.y, view }; moved.current = false; }}
       onPointerMove={e => { if (!drag.current) return; const p = localPoint(e.clientX, e.clientY), d = drag.current;
         const dx = p.x - d.x, dy = p.y - d.y;
         if (Math.abs(dx) + Math.abs(dy) > unit * 3) moved.current = true;
-        if (moved.current) { svg.current?.setPointerCapture(e.pointerId); setView(([x, y, w, h]) => [x - dx, y - dy, w, h]); }
+        if (moved.current) { svg.current?.setPointerCapture(e.pointerId); updateView(([x, y, w, h]) => [x - dx, y - dy, w, h]); }
       }}
       onPointerUp={e => { drag.current = null; if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId); }}
       onPointerCancel={() => { drag.current = null; }} onPointerLeave={() => { if (!moved.current) drag.current = null; }}>
