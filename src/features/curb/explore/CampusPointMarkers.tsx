@@ -104,12 +104,14 @@ export default function CampusPointMarkers({ markers, unit, onSelect }: {
       pointerEvents={interactive ? undefined : 'none'} onClick={interactive ? () => onSelect(point) : undefined}>
       {interactive && <rect data-point-hit-area x={-CAMPUS_POINT_TARGET / 2} y={-CAMPUS_POINT_TARGET / 2}
         width={CAMPUS_POINT_TARGET} height={CAMPUS_POINT_TARGET} fill="transparent" />}
-      {selected && <circle r="12" fill="none" stroke="#f0b46c" strokeWidth="3" />}
-      <circle r="8.5" fill="#fffef8" stroke="#244b3a" strokeWidth="1.5" />
-      <g fill="none" stroke="#244b3a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <CategoryGlyph category={point.categories[0]} />
+      <g pointerEvents="none">
+        {selected && <circle r="12" fill="none" stroke="#f0b46c" strokeWidth="3" />}
+        <circle r="8.5" fill="#fffef8" stroke="#244b3a" strokeWidth="1.5" />
+        <g fill="none" stroke="#244b3a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <CategoryGlyph category={point.categories[0]} />
+        </g>
+        {point.categories.length > 1 && <circle cx="7" cy="-7" r="2.5" fill="#244b3a" stroke="#fffef8" />}
       </g>
-      {point.categories.length > 1 && <circle cx="7" cy="-7" r="2.5" fill="#244b3a" stroke="#fffef8" />}
     </g>)}
   </g>;
 }
