@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
 import { surveyToCsv } from './services';
+import { appendedWorkflowIssue } from '../../../domain/curb/repair';
 import { exportFileName, surveyJson } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
@@ -39,8 +40,10 @@ async function reportError(response: Response): Promise<string> {
     : `The report could not be generated (HTTP ${response.status}).`;
 }
 
-export function ExportPanel({ survey, edited, plan, budgetCents }: {
+export function ExportPanel({ survey, original, edited, plan, budgetCents, onLoad }: {
   survey: Survey;
+  original: Survey;
+  onLoad: (survey: Survey) => void;
   edited: boolean;
   plan: RepairPlan | undefined;
   budgetCents: number | null;
@@ -69,6 +72,32 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
     if (!data) return;
     saveBlob(new Blob([surveyJson(data)], { type: 'application/json' }), exportFileName(data, 'json', edited));
     setStatus({ kind: 'done', message: 'Saved the current reviewed survey as JSON.' });
+  }
+
+  async function loadJson(file: File | undefined) {
+    if (!file) return;
+    let data: unknown;
+    try { data = JSON.parse(await file.text()); } catch {
+      setStatus({ kind: 'error', message: 'That file is not valid JSON.' });
+      return;
+    }
+    const parsed = SurveySchema.safeParse(data);
+    if (!parsed.success) {
+      setStatus({ kind: 'error', message: 'That file is not a valid Curb survey export.' });
+      return;
+    }
+    const loaded = parsed.data;
+    if (loaded.id !== original.id || loaded.revision !== original.revision || loaded.media.originalSha256 !== original.media.originalSha256) {
+      setStatus({ kind: 'error', message: 'That export belongs to a different survey or revision, so it was not loaded.' });
+      return;
+    }
+    const workflowProblem = loaded.findings.map((finding) => appendedWorkflowIssue(finding, original.findings.find((item) => item.id === finding.id))).find(Boolean);
+    if (workflowProblem) {
+      setStatus({ kind: 'error', message: `Not loaded. ${workflowProblem}.` });
+      return;
+    }
+    onLoad(loaded);
+    setStatus({ kind: 'done', message: `Loaded ${file.name}. Review edits, measurements and repair history are restored.` });
   }
 
   function downloadCsv() {
@@ -139,7 +168,7 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
     <div className={styles.exportGrid}>
       <div className={styles.exportItem}>
         <h3>Repair reports</h3>
-        <p className={styles.small}>{plan ? `Plan: ${plan.title}.` : 'Select a plan first.'} Includes all three policies, evidence cards, assumptions and quote-required work. No overall ADA verdict.</p>
+        <p className={styles.small}>{plan ? `Plan: ${plan.title}.` : 'Select a plan first.'} Starts with a facilities handoff: each finding's photo, video link, owner, proposed action, priority rationale and unknown costs. No ADA compliance verdict.</p>
         <p id="survey-report-formats" className={styles.small}>The PDF is untagged. Choose accessible HTML for screen-reader use.</p>
         <div className={styles.actions}>
           <button type="button" aria-describedby="survey-report-formats" aria-disabled={reportUnavailable}
@@ -151,11 +180,15 @@ export function ExportPanel({ survey, edited, plan, budgetCents }: {
       </div>
       <div className={styles.exportItem}>
         <h3>Data</h3>
-        <p className={styles.small}>The reviewed survey, including rejected findings and review notes.</p>
+        <p className={styles.small}>The reviewed survey, including rejected findings, measurements, owners and repair history.</p>
         <div className={styles.actions}>
           <button type="button" className={styles.secondaryButton} onClick={downloadJson}>Download JSON</button>
           <button type="button" className={styles.secondaryButton} onClick={downloadCsv}>Download CSV</button>
         </div>
+        <label htmlFor="survey-load-json" className={styles.small}>Continue a saved review (JSON)
+          <input id="survey-load-json" type="file" accept="application/json,.json"
+            onChange={(event) => { void loadJson(event.target.files?.[0]); event.target.value = ''; }} />
+        </label>
       </div>
       <div className={styles.exportItem}>
         <h3>Video</h3>

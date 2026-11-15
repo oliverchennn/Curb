@@ -16,7 +16,8 @@
     "check": "npm run typecheck && npm test && npm run build",
     "test:replay": "node --test demo/survey-replay/*.test.mjs",
     "verify:media": "node --import tsx scripts/curb/verify_assets.ts",
-    "verify:flow": "node --import tsx scripts/curb/verify_flow.ts"
+    "verify:flow": "node --import tsx scripts/curb/verify_flow.ts",
+    "clip:check": "node --import tsx scripts/curb/clip_check.ts"
   },
   "dependencies": {
     "next": "16.4.1",
@@ -27,6 +28,7 @@
     "zod": "4.6.6"
   },
   "devDependencies": {
+    "@huggingface/transformers": "^4.3.2",
     "@types/node": "26.6.4",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",

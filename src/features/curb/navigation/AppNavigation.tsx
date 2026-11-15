@@ -11,6 +11,7 @@ const LINKS = [
   { href: '/curb/explore', label: 'Route explorer' },
   { href: '/curb/plans', label: 'Repair priorities' },
   { href: '/curb/investment-demo', label: 'Investment demo' },
+  { href: '/curb/robot', label: 'Robot CAD' },
 ];
 
 function resetCurrentPage() {
