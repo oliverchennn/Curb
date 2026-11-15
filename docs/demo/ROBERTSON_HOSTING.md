@@ -1,14 +1,16 @@
 # Curb hosting and verification
 
-The working public release is [curb-taupe.vercel.app](https://curb-taupe.vercel.app), deployed through **Vincent's account** from exact source `b010ad02ce9e0cb905e15e5c7c7109713814b36e`. [Actual project, deployment and verification report](VINCENT_HOSTING_RESULT.md). Earlier approval/import blockers were resolved. The project uses direct CLI upload of a clean Git archive; it is not linked for automatic GitHub deployments. A Git push alone does not update the live site.
+The production site is [curb-taupe.vercel.app](https://curb-taupe.vercel.app). Vincent deployed the original release from exact source `b010ad02ce9e0cb905e15e5c7c7109713814b36e`. Check the live coordination board and the current Vercel dashboard for the active release and account. [Original hosting receipt](VINCENT_HOSTING_RESULT.md).
 
 The recorded release uses Node26.x because the existing `engines.node >=22.23.0` range overrides the project's24.x setting. That runtime built and served the verified release. Root has not changed the runtime range during the audit. No custom domain, app credentials or paid upgrade is required.
 
 ## Releasing an exact revision
 
-Root supplies a merged full source SHA after integrated checks. Vincent uses the already-authorized account/project, stages only the tracked archive of that SHA, and deploys with the committed locked install/webpack build. Local linkage, environment files, build output and credentials remain excluded. Do not upload a developer's working tree or move the alias while another audit is testing a pinned deployment.
+After each merge to canonical `main`, the integration owner records the PR, exact merged SHA and expected changes on the shared board. Queue the existing live deployment checker. Confirm that the existing Vercel project is linked to `oliverchennn/Curb`, uses `main` as the production branch, and starts a production deployment for the exact merged SHA.
 
-For direct uploads, provide the non-secret **APP_REVISION** at build and runtime with that exact source SHA, and retain the existing `curbSourceSha` deployment metadata. The health endpoint prefers a nonempty Git integration SHA, then APP_REVISION; hosted deployments without either report Unknown rather than a misleading local or empty revision. No secret value belongs in that variable. Local development needs no environment file.
+The operator records the READY deployment ID and production URL. The checker confirms that public `/api/health` reports the exact merged SHA, then verifies the changed flows and relevant regressions on desktop and phone. Mark the release complete after the deployment and live checks pass. Record an access, build or verification blocker on the board if any step cannot finish.
+
+If the Git trigger fails and the orchestrator assigns a direct upload, one authorized operator verifies the project ID and production domain, then deploys only the tracked archive of the merged SHA. The archive excludes local linkage, environment files, build output and credentials. Provide the non-secret `APP_REVISION` at build and runtime and preserve the `curbSourceSha` deployment metadata. The health endpoint reports the Git integration SHA when present and otherwise uses `APP_REVISION`.
 
 Run from the matching source checkout:
 
@@ -24,4 +26,4 @@ The verifier makes12 sequential functional requests: four pages, health/readines
 
 For a separately budgeted API regression, `node --import tsx scripts/curb/audit_hosted_backend.ts <origin> <full-source-sha>` makes31 sequential bounded functional requests across all nine authored API routes. It requires the exact release identity and does not retry. CI runs both scripts against a local compiled server; public runs require an explicit coordination assignment so probes are not duplicated. The historical baseline report links its original script commit.
 
-The active B/C audit scopes and root integration gate are in [AGENTS.md](../../AGENTS.md) and the live board. Root is the sole merger; Vincent is the deployment owner. Preserve prior immutable deployments for rollback. No new accounts, paid upgrades or protection changes are part of this process.
+See [AGENTS.md](../../AGENTS.md) and the live board for integration ownership, the assigned Vercel operator and the checker. Preserve the previous immutable production deployment for rollback.
