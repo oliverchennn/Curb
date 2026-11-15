@@ -1,9 +1,9 @@
 {
-  "source": "http://127.0.0.1:3217",
-  "revision": "f15d154e509af2b498b3c362e7db4ce01dac6e2c",
-  "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892557547",
-  "basis": "accepted merged build captured locally",
-  "capturedAt": "2026-11-15T09:56:47.601Z",
+  "source": "https://curb-taupe.vercel.app",
+  "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
+  "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892784591",
+  "basis": "accepted deployed build",
+  "capturedAt": "2026-11-15T10:10:26.074Z",
   "viewport": {
     "width": 1456,
     "height": 819

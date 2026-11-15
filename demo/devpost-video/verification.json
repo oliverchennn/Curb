@@ -69,8 +69,8 @@
     "evidenceSeekSeconds": 6
   },
   "investment": {
-    "revision": "f15d154e509af2b498b3c362e7db4ce01dac6e2c",
-    "basis": "accepted merged build captured locally",
+    "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
+    "basis": "accepted deployed build",
     "at10000": [
       1,
       2

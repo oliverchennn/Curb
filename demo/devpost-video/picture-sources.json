@@ -15,10 +15,10 @@
     "replacement": "Compact survey presenter capture and narration awaiting separate accepted release"
   },
   "investment": {
-    "revision": "f15d154e509af2b498b3c362e7db4ce01dac6e2c",
-    "basis": "accepted merged build captured locally",
-    "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892557547",
-    "source": "http://127.0.0.1:3217",
+    "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
+    "basis": "accepted deployed build",
+    "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892784591",
+    "source": "https://curb-taupe.vercel.app",
     "receipt": "source-captures/investment/receipt.json"
   },
   "proof": {
