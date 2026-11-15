@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "sourceSha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+  "nodes": [],
+  "edges": [],
+  "arrivalNodeId": null,
+  "destinationNodeIds": [],
+  "candidateEndpoints": [
+    {
+      "id": "lot1-arrival",
+      "label": "Lot 1 arrival/access point, exact point unresolved",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      },
+      "status": "candidate_only",
+      "nodeId": null
+    },
+    {
+      "id": "route40-b9-end",
+      "label": "Mapped Route 40 parking-side approach near ramp404; summary names Building 9 as route end, exact endpoint/crossing unresolved",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      },
+      "status": "candidate_only",
+      "nodeId": null,
+      "mappedLocation": "Parking-side approach near ramp404, across the road from Building9; no crossing inferred.",
+      "summaryNamedEndpoint": {
+        "label": "BUILDING 9",
+        "observationId": "route-40-summary",
+        "source": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2793,
+          "printedPage": 2792,
+          "record": "ROUTE 40 ending route label"
+        }
+      },
+      "unresolved": [
+        "Exact relationship of the mapped parking-side approach to the summary-named Building9 end.",
+        "Crossing continuity, assessed crossing condition and precise exterior endpoint identity."
+      ]
+    },
+    {
+      "id": "route41-53-node",
+      "label": "Mapped node near ramp405 and Routes41/53; not an entrance",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      },
+      "status": "candidate_only",
+      "nodeId": null
+    },
+    {
+      "id": "route52-422-end",
+      "label": "Route52 near ramp422; not assumed connected to421",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      },
+      "status": "candidate_only",
+      "nodeId": null
+    },
+    {
+      "id": "b9-west-node",
+      "label": "West Building9 route junction; not assumed connected through building",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      },
+      "status": "candidate_only",
+      "nodeId": null
+    }
+  ],
+  "unresolvedConnections": [
+    {
+      "id": "M1",
+      "description": "Exact fixed arrival/access point and distinct exterior endpoint identities; the shared Building 9 label does not establish a node.",
+      "status": "unresolved",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      }
+    },
+    {
+      "id": "M2",
+      "description": "Source-backed connectors from ramp 421 to Route 28 and ramp 422/Route 52, including matched curb pair and full intervening crossing assessment.",
+      "status": "unresolved",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      }
+    },
+    {
+      "id": "M3",
+      "description": "Supported crossing/connector between ramp 404/Route 40 and ramp 405/Routes 41/53; do not infer from proximity.",
+      "status": "unresolved",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      }
+    },
+    {
+      "id": "M4",
+      "description": "Supported connection from east Building 9 approaches to west Routes 24/25/26/29/9 and any distinct building entrances.",
+      "status": "unresolved",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2795,
+        "printedPage": 2794,
+        "record": "Cañada Path of Travel Routes"
+      }
+    }
+  ],
+  "executable": false,
+  "areaSelection": {
+    "initial": "Lot1 / Building9 east approaches, routes40/41/52/53 and ramps404/405/421/422",
+    "expansion": "One map/summary-only expansion to adjacent Building9 west routes24/25/26/29/9 toward Buildings13/16/18",
+    "selectionBasis": "Source coverage and immediate spatial adjacency before any strategy calculation",
+    "comparisonsPerformed": false,
+    "furtherExpansionAllowed": false
+  },
+  "notes": [
+    "Map contains useful explicit junctions, but none bridge all required missing connections for the chosen arrival.",
+    "Empty executable graph is deliberate; it does not claim no paths physically exist.",
+    "No inferred geometry, distance, entrance, crossed-line junction or hidden connector."
+  ],
+  "supportingMapEvidence": {
+    "source": {
+      "sourceId": "smcccd-final-2020",
+      "pdfPage": 2256,
+      "printedPage": 2255,
+      "record": "B9-0-1 dated9-1-2020"
+    },
+    "finding": "Historical aerial shows crossing paint at both Lot1 approaches; approximate location evidence only, no assessed connection between exact curb IDs."
+  }
+}

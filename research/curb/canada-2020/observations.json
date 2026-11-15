@@ -1,0 +1,4636 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "sourceSha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+  "records": [
+    {
+      "id": "route-12-summary",
+      "assetId": "route-12",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2792,
+        "printedPage": 2791,
+        "record": "route-12-summary"
+      },
+      "raw": {
+        "route": "ROUTE 12",
+        "start": "BUILDING 5",
+        "end": "LOT 8",
+        "directionTraveled": "NW",
+        "total": "$171,900.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$171,900.00",
+        "cents": 17190000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-34-summary",
+      "assetId": "route-34",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2792,
+        "printedPage": 2791,
+        "record": "route-34-summary"
+      },
+      "raw": {
+        "route": "ROUTE 34",
+        "start": "BUILDING 17",
+        "end": "BUILDING 8",
+        "directionTraveled": "W",
+        "total": "$1,440.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$1,440.00",
+        "cents": 144000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-40-summary",
+      "assetId": "route-40",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "route-40-summary"
+      },
+      "raw": {
+        "route": "ROUTE 40",
+        "start": "LOT 1",
+        "end": "BUILDING 9",
+        "directionTraveled": "W",
+        "total": "$26,940.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$26,940.00",
+        "cents": 2694000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-41-summary",
+      "assetId": "route-41",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "route-41-summary"
+      },
+      "raw": {
+        "route": "ROUTE 41",
+        "start": "LOT 1",
+        "end": "BUILDING 9",
+        "directionTraveled": "W",
+        "total": "$4,800.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$4,800.00",
+        "cents": 480000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-52-summary",
+      "assetId": "route-52",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "route-52-summary"
+      },
+      "raw": {
+        "route": "ROUTE 52",
+        "start": "LOT 1",
+        "end": "LOT 1",
+        "directionTraveled": "W",
+        "total": "$28,035.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$28,035.00",
+        "cents": 2803500,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-53-summary",
+      "assetId": "route-53",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "route-53-summary"
+      },
+      "raw": {
+        "route": "ROUTE 53",
+        "start": "LOT 1",
+        "end": "BUILDING 9",
+        "directionTraveled": "W",
+        "total": "$2,700.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$2,700.00",
+        "cents": 270000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-24-summary",
+      "assetId": "route-24",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2792,
+        "printedPage": 2791,
+        "record": "route-24-summary"
+      },
+      "raw": {
+        "route": "ROUTE 24",
+        "start": "BUILDING 9",
+        "end": "BUILDING 13",
+        "directionTraveled": "SW",
+        "total": "$27,900.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$27,900.00",
+        "cents": 2790000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-25-summary",
+      "assetId": "route-25",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2792,
+        "printedPage": 2791,
+        "record": "route-25-summary"
+      },
+      "raw": {
+        "route": "ROUTE 25",
+        "start": "BUILDING 13",
+        "end": "BUILDING 9",
+        "directionTraveled": "E",
+        "total": "$4,500.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$4,500.00",
+        "cents": 450000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-26-summary",
+      "assetId": "route-26",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2792,
+        "printedPage": 2791,
+        "record": "route-26-summary"
+      },
+      "raw": {
+        "route": "ROUTE 26",
+        "start": "BUILDING 9",
+        "end": "BUILDING 9",
+        "directionTraveled": "E",
+        "total": "$24,480.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$24,480.00",
+        "cents": 2448000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-29-summary",
+      "assetId": "route-29",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2792,
+        "printedPage": 2791,
+        "record": "route-29-summary"
+      },
+      "raw": {
+        "route": "ROUTE 29",
+        "start": "BUILDING 18",
+        "end": "BUILDING 9",
+        "directionTraveled": "S",
+        "total": "$65,040.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$65,040.00",
+        "cents": 6504000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "route-9-summary",
+      "assetId": "route-9",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "route-9-summary"
+      },
+      "raw": {
+        "route": "ROUTE 9",
+        "start": "BUILDING 9",
+        "end": "BUILDING 16",
+        "directionTraveled": "N",
+        "total": "$55,920.00"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$55,920.00",
+        "cents": 5592000,
+        "kind": "route_total",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Route endpoint label is not an exact entrance or a shared graph node.",
+        "Route total is not an atomic repair price."
+      ]
+    },
+    {
+      "id": "sidewalk-1352707",
+      "assetId": "sidewalk-row-1352707",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352707"
+      },
+      "raw": {
+        "id": "1352707",
+        "distanceFromRouteStart": "1.2 to 3.6 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "12",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,440",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,440",
+        "cents": 144000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352708",
+      "assetId": "sidewalk-row-1352708",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352708"
+      },
+      "raw": {
+        "id": "1352708",
+        "distanceFromRouteStart": "3.6 to 12.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "46",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$5,520",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$5,520",
+        "cents": 552000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352705",
+      "assetId": "sidewalk-row-1352705",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352705"
+      },
+      "raw": {
+        "id": "1352705",
+        "distanceFromRouteStart": "6.6 to 7.6 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".3",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "5 ft",
+        "quantity": "5",
+        "unit": "REF",
+        "unitCost": "",
+        "total": "",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".3",
+          "unit": "unspecified",
+          "lower": 0.3,
+          "upper": 0.3
+        }
+      ],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "overlap_reference",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches.",
+        "Overlap reference has no additional cost, but owning physical work and full scope must be resolved; not independent free work."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352709",
+      "assetId": "sidewalk-row-1352709",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352709"
+      },
+      "raw": {
+        "id": "1352709",
+        "distanceFromRouteStart": "14.5 to 16.7 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "11",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,320",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,320",
+        "cents": 132000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352710",
+      "assetId": "sidewalk-row-1352710",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352710"
+      },
+      "raw": {
+        "id": "1352710",
+        "distanceFromRouteStart": "16.7 to 23.6 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "35",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$4,140",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$4,140",
+        "cents": 414000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352711",
+      "assetId": "sidewalk-row-1352711",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352711"
+      },
+      "raw": {
+        "id": "1352711",
+        "distanceFromRouteStart": "23.8 to 27.1 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "17",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,980",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,980",
+        "cents": 198000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352712",
+      "assetId": "sidewalk-row-1352712",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352712"
+      },
+      "raw": {
+        "id": "1352712",
+        "distanceFromRouteStart": "27.3 to 30.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "18",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$2,100",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$2,100",
+        "cents": 210000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352713",
+      "assetId": "sidewalk-row-1352713",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352713"
+      },
+      "raw": {
+        "id": "1352713",
+        "distanceFromRouteStart": "31.0 to 32.7 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "9",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,020",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,020",
+        "cents": 102000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352714",
+      "assetId": "sidewalk-row-1352714",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352714"
+      },
+      "raw": {
+        "id": "1352714",
+        "distanceFromRouteStart": "33.7 to 36.1 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "12",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,440",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,440",
+        "cents": 144000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352715",
+      "assetId": "sidewalk-row-1352715",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352715"
+      },
+      "raw": {
+        "id": "1352715",
+        "distanceFromRouteStart": "36.2 to 40.1 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "19",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$2,340",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$2,340",
+        "cents": 234000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352716",
+      "assetId": "sidewalk-row-1352716",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352716"
+      },
+      "raw": {
+        "id": "1352716",
+        "distanceFromRouteStart": "40.8 to 42.9 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "11",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,260",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,260",
+        "cents": 126000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352717",
+      "assetId": "sidewalk-row-1352717",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352717"
+      },
+      "raw": {
+        "id": "1352717",
+        "distanceFromRouteStart": "52.3 to 53.3 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "5",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$600",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$600",
+        "cents": 60000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352718",
+      "assetId": "sidewalk-row-1352718",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352718"
+      },
+      "raw": {
+        "id": "1352718",
+        "distanceFromRouteStart": "53.5 to 59.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "32",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$3,780",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$3,780",
+        "cents": 378000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352706",
+      "assetId": "sidewalk-row-1352706",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352706"
+      },
+      "raw": {
+        "id": "1352706",
+        "distanceFromRouteStart": "58.5 to 59.5 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".3",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "5 ft",
+        "quantity": "5",
+        "unit": "REF",
+        "unitCost": "",
+        "total": "",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".3",
+          "unit": "unspecified",
+          "lower": 0.3,
+          "upper": 0.3
+        }
+      ],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "overlap_reference",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches.",
+        "Overlap reference has no additional cost, but owning physical work and full scope must be resolved; not independent free work."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-40",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352721",
+      "assetId": "sidewalk-row-1352721",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352721"
+      },
+      "raw": {
+        "id": "1352721",
+        "distanceFromRouteStart": "4.9 to 5.9 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".4",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "8 ft",
+        "quantity": "8",
+        "unit": "REF",
+        "unitCost": "",
+        "total": "",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".4",
+          "unit": "unspecified",
+          "lower": 0.4,
+          "upper": 0.4
+        }
+      ],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "overlap_reference",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches.",
+        "Overlap reference has no additional cost, but owning physical work and full scope must be resolved; not independent free work."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-41",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352722",
+      "assetId": "sidewalk-row-1352722",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352722"
+      },
+      "raw": {
+        "id": "1352722",
+        "distanceFromRouteStart": "5.3 to 8.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "8 ft",
+        "quantity": "28",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$3,360",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$3,360",
+        "cents": 336000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-41",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352723",
+      "assetId": "sidewalk-row-1352723",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352723"
+      },
+      "raw": {
+        "id": "1352723",
+        "distanceFromRouteStart": "8.9 to 10.4 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "8 ft",
+        "quantity": "12",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,440",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,440",
+        "cents": 144000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-41",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352684",
+      "assetId": "sidewalk-row-1352684",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352684"
+      },
+      "raw": {
+        "id": "1352684",
+        "distanceFromRouteStart": "1.3 to 2.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "8",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$900",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$900",
+        "cents": 90000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352685",
+      "assetId": "sidewalk-row-1352685",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352685"
+      },
+      "raw": {
+        "id": "1352685",
+        "distanceFromRouteStart": "2.9 to 5.2 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "12",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,380",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,380",
+        "cents": 138000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352686",
+      "assetId": "sidewalk-row-1352686",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352686"
+      },
+      "raw": {
+        "id": "1352686",
+        "distanceFromRouteStart": "4.0 to 6.4 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "12",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,440",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,440",
+        "cents": 144000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352687",
+      "assetId": "sidewalk-row-1352687",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352687"
+      },
+      "raw": {
+        "id": "1352687",
+        "distanceFromRouteStart": "5.8 to 8.7 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "14",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,740",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,740",
+        "cents": 174000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352688",
+      "assetId": "sidewalk-row-1352688",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352688"
+      },
+      "raw": {
+        "id": "1352688",
+        "distanceFromRouteStart": "7.5 to 9.3 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "9",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,080",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,080",
+        "cents": 108000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352689",
+      "assetId": "sidewalk-row-1352689",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352689"
+      },
+      "raw": {
+        "id": "1352689",
+        "distanceFromRouteStart": "8.8 to 10.7 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "9",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,140",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,140",
+        "cents": 114000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352690",
+      "assetId": "sidewalk-row-1352690",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352690"
+      },
+      "raw": {
+        "id": "1352690",
+        "distanceFromRouteStart": "10.6 to 11.6 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "5",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$600",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$600",
+        "cents": 60000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352691",
+      "assetId": "sidewalk-row-1352691",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352691"
+      },
+      "raw": {
+        "id": "1352691",
+        "distanceFromRouteStart": "11.3 to 12.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "8",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$900",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$900",
+        "cents": 90000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352692",
+      "assetId": "sidewalk-row-1352692",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2805,
+        "printedPage": 2804,
+        "record": "sidewalk-1352692"
+      },
+      "raw": {
+        "id": "1352692",
+        "distanceFromRouteStart": "12.5 to 13.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "7",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$780",
+        "visiblePageHeaderRoute": "ROUTE 35",
+        "visiblePageHeaderRunId": "1906050854",
+        "visiblePageHeaderPriority": "132.5"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$780",
+        "cents": 78000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352703",
+      "assetId": "sidewalk-row-1352703",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352703"
+      },
+      "raw": {
+        "id": "1352703",
+        "distanceFromRouteStart": "15.5 to 18.0 feet",
+        "barrierType": "Running Slope",
+        "measurement": "5-6%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "13",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,500",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "5-6%",
+          "unit": "%",
+          "lower": 5.0,
+          "upper": 6.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,500",
+        "cents": 150000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352704",
+      "assetId": "sidewalk-row-1352704",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352704"
+      },
+      "raw": {
+        "id": "1352704",
+        "distanceFromRouteStart": "19.7 to 21.7 feet",
+        "barrierType": "Running Slope",
+        "measurement": "7-8%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "10",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,200",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "7-8%",
+          "unit": "%",
+          "lower": 7.0,
+          "upper": 8.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,200",
+        "cents": 120000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352681",
+      "assetId": "sidewalk-row-1352681",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352681"
+      },
+      "raw": {
+        "id": "1352681",
+        "distanceFromRouteStart": "31.7 to 32.7 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".3",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "5 ft",
+        "quantity": "5",
+        "unit": "LF",
+        "unitCost": "$75",
+        "total": "$375",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".3",
+          "unit": "unspecified",
+          "lower": 0.3,
+          "upper": 0.3
+        }
+      ],
+      "cost": {
+        "raw": "$375",
+        "cents": 37500,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352682",
+      "assetId": "sidewalk-row-1352682",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352682"
+      },
+      "raw": {
+        "id": "1352682",
+        "distanceFromRouteStart": "41.2 to 42.2 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".3",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "5 ft",
+        "quantity": "5",
+        "unit": "REF",
+        "unitCost": "",
+        "total": "",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".3",
+          "unit": "unspecified",
+          "lower": 0.3,
+          "upper": 0.3
+        }
+      ],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "overlap_reference",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches.",
+        "Overlap reference has no additional cost, but owning physical work and full scope must be resolved; not independent free work."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352693",
+      "assetId": "sidewalk-row-1352693",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352693"
+      },
+      "raw": {
+        "id": "1352693",
+        "distanceFromRouteStart": "41.6 to 42.7 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "6",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$660",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$660",
+        "cents": 66000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352694",
+      "assetId": "sidewalk-row-1352694",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352694"
+      },
+      "raw": {
+        "id": "1352694",
+        "distanceFromRouteStart": "42.9 to 44.0 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "6",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$660",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$660",
+        "cents": 66000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352695",
+      "assetId": "sidewalk-row-1352695",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352695"
+      },
+      "raw": {
+        "id": "1352695",
+        "distanceFromRouteStart": "54.0 to 56.0 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "10",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,200",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,200",
+        "cents": 120000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352696",
+      "assetId": "sidewalk-row-1352696",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352696"
+      },
+      "raw": {
+        "id": "1352696",
+        "distanceFromRouteStart": "56.4 to 60.2 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "19",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$2,280",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$2,280",
+        "cents": 228000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352697",
+      "assetId": "sidewalk-row-1352697",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352697"
+      },
+      "raw": {
+        "id": "1352697",
+        "distanceFromRouteStart": "59.9 to 62.1 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "11",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,320",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,320",
+        "cents": 132000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352698",
+      "assetId": "sidewalk-row-1352698",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352698"
+      },
+      "raw": {
+        "id": "1352698",
+        "distanceFromRouteStart": "60.3 to 64.9 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "23",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$2,760",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$2,760",
+        "cents": 276000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352699",
+      "assetId": "sidewalk-row-1352699",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352699"
+      },
+      "raw": {
+        "id": "1352699",
+        "distanceFromRouteStart": "62.1 to 63.6 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "3-4%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "8",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$900",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "3-4%",
+          "unit": "%",
+          "lower": 3.0,
+          "upper": 4.0
+        }
+      ],
+      "cost": {
+        "raw": "$900",
+        "cents": 90000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352700",
+      "assetId": "sidewalk-row-1352700",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352700"
+      },
+      "raw": {
+        "id": "1352700",
+        "distanceFromRouteStart": "63.6 to 65.8 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "11",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,320",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,320",
+        "cents": 132000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352683",
+      "assetId": "sidewalk-row-1352683",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352683"
+      },
+      "raw": {
+        "id": "1352683",
+        "distanceFromRouteStart": "64.3 to 68.7 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".3",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "5 ft",
+        "quantity": "22",
+        "unit": "REF",
+        "unitCost": "",
+        "total": "",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".3",
+          "unit": "unspecified",
+          "lower": 0.3,
+          "upper": 0.3
+        }
+      ],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "overlap_reference",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches.",
+        "Overlap reference has no additional cost, but owning physical work and full scope must be resolved; not independent free work.",
+        "REF interval64.3-68.7ft overlaps multiple priced rows;1352701ends67.0ft and1352702starts67.8ft. These two rows do not cover67.0-67.8ft; no nearest-row/full-scope clearing claim."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352701",
+      "assetId": "sidewalk-row-1352701",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352701"
+      },
+      "raw": {
+        "id": "1352701",
+        "distanceFromRouteStart": "64.9 to 67.0 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "10",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,260",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,260",
+        "cents": 126000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352702",
+      "assetId": "sidewalk-row-1352702",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352702"
+      },
+      "raw": {
+        "id": "1352702",
+        "distanceFromRouteStart": "67.8 to 72.2 feet",
+        "barrierType": "Cross Slope (PAR)",
+        "measurement": "2-3%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "22",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$2,640",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "2-3%",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 3.0
+        }
+      ],
+      "cost": {
+        "raw": "$2,640",
+        "cents": 264000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-52",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352719",
+      "assetId": "sidewalk-row-1352719",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352719"
+      },
+      "raw": {
+        "id": "1352719",
+        "distanceFromRouteStart": "3.3 to 6.5 feet",
+        "barrierType": "Vertical Change",
+        "measurement": ".3",
+        "measurementUnit": "unspecified in this table",
+        "sidewalkWidth": "5 ft",
+        "quantity": "16",
+        "unit": "LF",
+        "unitCost": "$75",
+        "total": "$1,200",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": ".3",
+          "unit": "unspecified",
+          "lower": 0.3,
+          "upper": 0.3
+        }
+      ],
+      "cost": {
+        "raw": "$1,200",
+        "cents": 120000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Measurement unit is not explicit in this table; do not silently assign inches."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-53",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "sidewalk-1352720",
+      "assetId": "sidewalk-row-1352720",
+      "kind": "sidewalk",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2806,
+        "printedPage": 2805,
+        "record": "sidewalk-1352720"
+      },
+      "raw": {
+        "id": "1352720",
+        "distanceFromRouteStart": "7.8 to 10.3 feet",
+        "barrierType": "Running Slope",
+        "measurement": "7-8%",
+        "measurementUnit": "%",
+        "sidewalkWidth": "5 ft",
+        "quantity": "13",
+        "unit": "SF",
+        "unitCost": "$120",
+        "total": "$1,500",
+        "visiblePageHeaderRoute": "ROUTE 52",
+        "visiblePageHeaderRunId": "1906050745",
+        "visiblePageHeaderPriority": "117.25"
+      },
+      "measurements": [
+        {
+          "field": "recordedMeasurement",
+          "raw": "7-8%",
+          "unit": "%",
+          "lower": 7.0,
+          "upper": 8.0
+        }
+      ],
+      "cost": {
+        "raw": "$1,500",
+        "cents": 150000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "surveyed_measurement",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row route/run/priority assignment absent at intervening group boundaries; arithmetic candidate is not accepted provenance.",
+        "Exact association to mapped segment, crossing and exterior endpoint unresolved.",
+        "Displayed quantity times unit price differs from printed total; possible rounding is unconfirmed. Printed total retained."
+      ],
+      "routeAssignment": {
+        "candidateRouteId": "route-53",
+        "status": "unresolved",
+        "basis": "Contiguous row block and printed-cost sum match route summary; no intermediate heading establishes membership."
+      }
+    },
+    {
+      "id": "ramp-404",
+      "assetId": "ramp-404",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2826,
+        "printedPage": 2825,
+        "record": "ramp-404"
+      },
+      "raw": {
+        "locatorNumber": "404",
+        "featuredBarrier": "Ramp Width",
+        "featuredMeasurementOrStatus": "45.0\"",
+        "priority": "111.2\n5",
+        "unitCost": "$6500.00",
+        "surveyStreet": "Lot 1",
+        "crossStreet": "Building 9",
+        "proposedAction": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+        "withinCrosswalk": "YES",
+        "crosswalksServed": "1 X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "width",
+            "raw": "45.0",
+            "unit": "in"
+          },
+          {
+            "feature": "length",
+            "raw": "77.0",
+            "unit": "in"
+          },
+          {
+            "feature": "runningSlope",
+            "raw": "3.7",
+            "unit": "%"
+          },
+          {
+            "feature": "rampCrossSlope",
+            "raw": "1.8",
+            "unit": "%"
+          },
+          {
+            "feature": "topLandingLength",
+            "raw": "48.0",
+            "unit": "in"
+          },
+          {
+            "feature": "topLandingSlope",
+            "raw": "1.9",
+            "unit": "%"
+          },
+          {
+            "feature": "topLandingCrossSlope",
+            "raw": "3.6",
+            "unit": "%"
+          },
+          {
+            "feature": "leftFlare",
+            "raw": "10.5",
+            "unit": "%"
+          },
+          {
+            "feature": "rightFlare",
+            "raw": "0.3",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterSlope",
+            "raw": "2.8",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterCrossSlope",
+            "raw": "2.0",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterLip",
+            "raw": "0.0",
+            "unit": "in"
+          },
+          {
+            "feature": "domeSetback",
+            "raw": "6.0",
+            "unit": "in"
+          },
+          {
+            "feature": "streetGradeLeft",
+            "raw": "2.7",
+            "unit": "%"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "YES",
+          "streetGradeRight": "N/A",
+          "gutterLip": "see numericFeatureTable",
+          "sidewalkWidth": "blank"
+        },
+        "priorityVisible": "111.2",
+        "rampType": "Perpendicular"
+      },
+      "measurements": [
+        {
+          "field": "width",
+          "raw": "45.0",
+          "unit": "in",
+          "lower": 45.0,
+          "upper": 45.0
+        },
+        {
+          "field": "length",
+          "raw": "77.0",
+          "unit": "in",
+          "lower": 77.0,
+          "upper": 77.0
+        },
+        {
+          "field": "runningSlope",
+          "raw": "3.7",
+          "unit": "%",
+          "lower": 3.7,
+          "upper": 3.7
+        },
+        {
+          "field": "rampCrossSlope",
+          "raw": "1.8",
+          "unit": "%",
+          "lower": 1.8,
+          "upper": 1.8
+        },
+        {
+          "field": "topLandingLength",
+          "raw": "48.0",
+          "unit": "in",
+          "lower": 48.0,
+          "upper": 48.0
+        },
+        {
+          "field": "topLandingSlope",
+          "raw": "1.9",
+          "unit": "%",
+          "lower": 1.9,
+          "upper": 1.9
+        },
+        {
+          "field": "topLandingCrossSlope",
+          "raw": "3.6",
+          "unit": "%",
+          "lower": 3.6,
+          "upper": 3.6
+        },
+        {
+          "field": "leftFlare",
+          "raw": "10.5",
+          "unit": "%",
+          "lower": 10.5,
+          "upper": 10.5
+        },
+        {
+          "field": "rightFlare",
+          "raw": "0.3",
+          "unit": "%",
+          "lower": 0.3,
+          "upper": 0.3
+        },
+        {
+          "field": "gutterSlope",
+          "raw": "2.8",
+          "unit": "%",
+          "lower": 2.8,
+          "upper": 2.8
+        },
+        {
+          "field": "gutterCrossSlope",
+          "raw": "2.0",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 2.0
+        },
+        {
+          "field": "gutterLip",
+          "raw": "0.0",
+          "unit": "in",
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "field": "domeSetback",
+          "raw": "6.0",
+          "unit": "in",
+          "lower": 6.0,
+          "upper": 6.0
+        },
+        {
+          "field": "streetGradeLeft",
+          "raw": "2.7",
+          "unit": "%",
+          "lower": 2.7,
+          "upper": 2.7
+        }
+      ],
+      "cost": {
+        "raw": "$6500.00",
+        "cents": 650000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows.",
+        "Extracted priority tokens111.2 and5 are vertically separated; rendered table visibly shows111.2 only. No normalized111.25 inference."
+      ],
+      "scopeRole": "initial_cluster",
+      "normalizedPriority": null,
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "width",
+          "topLandingCrossSlope",
+          "leftFlare"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "perpendicular"
+    },
+    {
+      "id": "ramp-405",
+      "assetId": "ramp-405",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2826,
+        "printedPage": 2825,
+        "record": "ramp-405"
+      },
+      "raw": {
+        "locatorNumber": "405",
+        "featuredBarrier": "Ramp Slope",
+        "featuredMeasurementOrStatus": "2.5%",
+        "priority": "116",
+        "unitCost": "$6500.00",
+        "surveyStreet": "Lot 1",
+        "crossStreet": "Building 9",
+        "proposedAction": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+        "withinCrosswalk": "YES",
+        "crosswalksServed": "1 X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "width",
+            "raw": "48.0",
+            "unit": "in"
+          },
+          {
+            "feature": "length",
+            "raw": "73.0",
+            "unit": "in"
+          },
+          {
+            "feature": "runningSlope",
+            "raw": "6.1",
+            "unit": "%"
+          },
+          {
+            "feature": "rampCrossSlope",
+            "raw": "2.5",
+            "unit": "%"
+          },
+          {
+            "feature": "topLandingLength",
+            "raw": "48.0",
+            "unit": "in"
+          },
+          {
+            "feature": "topLandingSlope",
+            "raw": "0.6",
+            "unit": "%"
+          },
+          {
+            "feature": "topLandingCrossSlope",
+            "raw": "2.5",
+            "unit": "%"
+          },
+          {
+            "feature": "leftFlare",
+            "raw": "7.1",
+            "unit": "%"
+          },
+          {
+            "feature": "rightFlare",
+            "raw": "14.7",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterSlope",
+            "raw": "5.0",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterCrossSlope",
+            "raw": "0.3",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterLip",
+            "raw": "0.5",
+            "unit": "in"
+          },
+          {
+            "feature": "domeSetback",
+            "raw": "6.0",
+            "unit": "in"
+          },
+          {
+            "feature": "streetGradeLeft",
+            "raw": "0.6",
+            "unit": "%"
+          },
+          {
+            "feature": "sidewalkWidth",
+            "raw": "12.0",
+            "unit": "ft"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "YES",
+          "streetGradeRight": "N/A",
+          "gutterLip": "see numericFeatureTable",
+          "sidewalkWidth": "see numericFeatureTable"
+        },
+        "rampType": "Perpendicular"
+      },
+      "measurements": [
+        {
+          "field": "width",
+          "raw": "48.0",
+          "unit": "in",
+          "lower": 48.0,
+          "upper": 48.0
+        },
+        {
+          "field": "length",
+          "raw": "73.0",
+          "unit": "in",
+          "lower": 73.0,
+          "upper": 73.0
+        },
+        {
+          "field": "runningSlope",
+          "raw": "6.1",
+          "unit": "%",
+          "lower": 6.1,
+          "upper": 6.1
+        },
+        {
+          "field": "rampCrossSlope",
+          "raw": "2.5",
+          "unit": "%",
+          "lower": 2.5,
+          "upper": 2.5
+        },
+        {
+          "field": "topLandingLength",
+          "raw": "48.0",
+          "unit": "in",
+          "lower": 48.0,
+          "upper": 48.0
+        },
+        {
+          "field": "topLandingSlope",
+          "raw": "0.6",
+          "unit": "%",
+          "lower": 0.6,
+          "upper": 0.6
+        },
+        {
+          "field": "topLandingCrossSlope",
+          "raw": "2.5",
+          "unit": "%",
+          "lower": 2.5,
+          "upper": 2.5
+        },
+        {
+          "field": "leftFlare",
+          "raw": "7.1",
+          "unit": "%",
+          "lower": 7.1,
+          "upper": 7.1
+        },
+        {
+          "field": "rightFlare",
+          "raw": "14.7",
+          "unit": "%",
+          "lower": 14.7,
+          "upper": 14.7
+        },
+        {
+          "field": "gutterSlope",
+          "raw": "5.0",
+          "unit": "%",
+          "lower": 5.0,
+          "upper": 5.0
+        },
+        {
+          "field": "gutterCrossSlope",
+          "raw": "0.3",
+          "unit": "%",
+          "lower": 0.3,
+          "upper": 0.3
+        },
+        {
+          "field": "gutterLip",
+          "raw": "0.5",
+          "unit": "in",
+          "lower": 0.5,
+          "upper": 0.5
+        },
+        {
+          "field": "domeSetback",
+          "raw": "6.0",
+          "unit": "in",
+          "lower": 6.0,
+          "upper": 6.0
+        },
+        {
+          "field": "streetGradeLeft",
+          "raw": "0.6",
+          "unit": "%",
+          "lower": 0.6,
+          "upper": 0.6
+        },
+        {
+          "field": "sidewalkWidth",
+          "raw": "12.0",
+          "unit": "ft",
+          "lower": 12.0,
+          "upper": 12.0
+        }
+      ],
+      "cost": {
+        "raw": "$6500.00",
+        "cents": 650000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "scopeRole": "initial_cluster",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "rampCrossSlope",
+          "topLandingCrossSlope",
+          "rightFlare",
+          "gutterLip"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "perpendicular"
+    },
+    {
+      "id": "ramp-421",
+      "assetId": "ramp-421",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2827,
+        "printedPage": 2826,
+        "record": "ramp-421"
+      },
+      "raw": {
+        "locatorNumber": "421",
+        "featuredBarrier": "Ramp Slope",
+        "featuredMeasurementOrStatus": "Right: 9.8%",
+        "priority": "118",
+        "unitCost": "$7000.00",
+        "surveyStreet": "Lot 1",
+        "crossStreet": "Building 9",
+        "proposedAction": "Replace complete parallel curb-ramp assembly including warning surfaces and required top and bottom landings",
+        "withinCrosswalk": "YES",
+        "crosswalksServed": "1 X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "leftWidth",
+            "raw": "72.0",
+            "unit": "in"
+          },
+          {
+            "feature": "rightWidth",
+            "raw": "72.0",
+            "unit": "in"
+          },
+          {
+            "feature": "leftLength",
+            "raw": "79.0",
+            "unit": "in"
+          },
+          {
+            "feature": "rightLength",
+            "raw": "76.0",
+            "unit": "in"
+          },
+          {
+            "feature": "leftRunningSlope",
+            "raw": "4.1",
+            "unit": "%"
+          },
+          {
+            "feature": "rightRunningSlope",
+            "raw": "9.8",
+            "unit": "%"
+          },
+          {
+            "feature": "leftRampCrossSlope",
+            "raw": "0.1",
+            "unit": "%"
+          },
+          {
+            "feature": "rightRampCrossSlope",
+            "raw": "1.2",
+            "unit": "%"
+          },
+          {
+            "feature": "leftTopLandingSlope",
+            "raw": "5.6",
+            "unit": "%"
+          },
+          {
+            "feature": "rightTopLandingSlope",
+            "raw": "9.4",
+            "unit": "%"
+          },
+          {
+            "feature": "leftTopLandingCrossSlope",
+            "raw": "1.2",
+            "unit": "%"
+          },
+          {
+            "feature": "rightTopLandingCrossSlope",
+            "raw": "0.9",
+            "unit": "%"
+          },
+          {
+            "feature": "bottomLandingLength",
+            "raw": "60.0",
+            "unit": "in"
+          },
+          {
+            "feature": "bottomLandingSlope",
+            "raw": "0.3",
+            "unit": "%"
+          },
+          {
+            "feature": "bottomLandingCrossSlope",
+            "raw": "0.3",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterSlope",
+            "raw": "2.4",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterCrossSlope",
+            "raw": "1.5",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterLip",
+            "raw": "0.0",
+            "unit": "in"
+          },
+          {
+            "feature": "domeSetback",
+            "raw": "6.0",
+            "unit": "in"
+          },
+          {
+            "feature": "streetGradeLeft",
+            "raw": "8.0",
+            "unit": "%"
+          },
+          {
+            "feature": "sidewalkWidth",
+            "raw": "5.0",
+            "unit": "ft"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "YES",
+          "streetGradeRight": "N/A",
+          "gutterLip": "see numericFeatureTable",
+          "sidewalkWidth": "see numericFeatureTable"
+        },
+        "rampType": "Parallel"
+      },
+      "measurements": [
+        {
+          "field": "leftWidth",
+          "raw": "72.0",
+          "unit": "in",
+          "lower": 72.0,
+          "upper": 72.0
+        },
+        {
+          "field": "rightWidth",
+          "raw": "72.0",
+          "unit": "in",
+          "lower": 72.0,
+          "upper": 72.0
+        },
+        {
+          "field": "leftLength",
+          "raw": "79.0",
+          "unit": "in",
+          "lower": 79.0,
+          "upper": 79.0
+        },
+        {
+          "field": "rightLength",
+          "raw": "76.0",
+          "unit": "in",
+          "lower": 76.0,
+          "upper": 76.0
+        },
+        {
+          "field": "leftRunningSlope",
+          "raw": "4.1",
+          "unit": "%",
+          "lower": 4.1,
+          "upper": 4.1
+        },
+        {
+          "field": "rightRunningSlope",
+          "raw": "9.8",
+          "unit": "%",
+          "lower": 9.8,
+          "upper": 9.8
+        },
+        {
+          "field": "leftRampCrossSlope",
+          "raw": "0.1",
+          "unit": "%",
+          "lower": 0.1,
+          "upper": 0.1
+        },
+        {
+          "field": "rightRampCrossSlope",
+          "raw": "1.2",
+          "unit": "%",
+          "lower": 1.2,
+          "upper": 1.2
+        },
+        {
+          "field": "leftTopLandingSlope",
+          "raw": "5.6",
+          "unit": "%",
+          "lower": 5.6,
+          "upper": 5.6
+        },
+        {
+          "field": "rightTopLandingSlope",
+          "raw": "9.4",
+          "unit": "%",
+          "lower": 9.4,
+          "upper": 9.4
+        },
+        {
+          "field": "leftTopLandingCrossSlope",
+          "raw": "1.2",
+          "unit": "%",
+          "lower": 1.2,
+          "upper": 1.2
+        },
+        {
+          "field": "rightTopLandingCrossSlope",
+          "raw": "0.9",
+          "unit": "%",
+          "lower": 0.9,
+          "upper": 0.9
+        },
+        {
+          "field": "bottomLandingLength",
+          "raw": "60.0",
+          "unit": "in",
+          "lower": 60.0,
+          "upper": 60.0
+        },
+        {
+          "field": "bottomLandingSlope",
+          "raw": "0.3",
+          "unit": "%",
+          "lower": 0.3,
+          "upper": 0.3
+        },
+        {
+          "field": "bottomLandingCrossSlope",
+          "raw": "0.3",
+          "unit": "%",
+          "lower": 0.3,
+          "upper": 0.3
+        },
+        {
+          "field": "gutterSlope",
+          "raw": "2.4",
+          "unit": "%",
+          "lower": 2.4,
+          "upper": 2.4
+        },
+        {
+          "field": "gutterCrossSlope",
+          "raw": "1.5",
+          "unit": "%",
+          "lower": 1.5,
+          "upper": 1.5
+        },
+        {
+          "field": "gutterLip",
+          "raw": "0.0",
+          "unit": "in",
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "field": "domeSetback",
+          "raw": "6.0",
+          "unit": "in",
+          "lower": 6.0,
+          "upper": 6.0
+        },
+        {
+          "field": "streetGradeLeft",
+          "raw": "8.0",
+          "unit": "%",
+          "lower": 8.0,
+          "upper": 8.0
+        },
+        {
+          "field": "sidewalkWidth",
+          "raw": "5.0",
+          "unit": "ft",
+          "lower": 5.0,
+          "upper": 5.0
+        }
+      ],
+      "cost": {
+        "raw": "$7000.00",
+        "cents": 700000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "scopeRole": "initial_cluster",
+      "locationBasis": "Page2826 Lot1/Building9 header carried to421 and corroborated by2827subtotal;422Lot1/Lot1 label from2827subtotal.",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "rightRunningSlope",
+          "leftTopLandingSlope",
+          "rightTopLandingSlope",
+          "domeSetback"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "parallel"
+    },
+    {
+      "id": "ramp-422",
+      "assetId": "ramp-422",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2827,
+        "printedPage": 2826,
+        "record": "ramp-422"
+      },
+      "raw": {
+        "locatorNumber": "422",
+        "featuredBarrier": "Ramp Landing",
+        "featuredMeasurementOrStatus": "2.4%",
+        "priority": "100",
+        "unitCost": "$3500.00",
+        "surveyStreet": "Lot 1",
+        "crossStreet": "Lot 1",
+        "proposedAction": "Replace complete blended transition assembly including warning surfaces and required top and bottom landings",
+        "withinCrosswalk": "YES",
+        "crosswalksServed": "1 X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "bottomLandingLength",
+            "raw": "60.0",
+            "unit": "in"
+          },
+          {
+            "feature": "bottomLandingSlope",
+            "raw": "0.2",
+            "unit": "%"
+          },
+          {
+            "feature": "bottomLandingCrossSlope",
+            "raw": "2.4",
+            "unit": "%"
+          },
+          {
+            "feature": "domeSetback",
+            "raw": "6.0",
+            "unit": "in"
+          },
+          {
+            "feature": "streetGradeLeft",
+            "raw": "2.2",
+            "unit": "%"
+          },
+          {
+            "feature": "sidewalkWidth",
+            "raw": "5.0",
+            "unit": "ft"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "YES",
+          "streetGradeRight": "N/A",
+          "gutterLip": "N/A",
+          "sidewalkWidth": "see numericFeatureTable"
+        },
+        "rampType": "Blended Transition"
+      },
+      "measurements": [
+        {
+          "field": "bottomLandingLength",
+          "raw": "60.0",
+          "unit": "in",
+          "lower": 60.0,
+          "upper": 60.0
+        },
+        {
+          "field": "bottomLandingSlope",
+          "raw": "0.2",
+          "unit": "%",
+          "lower": 0.2,
+          "upper": 0.2
+        },
+        {
+          "field": "bottomLandingCrossSlope",
+          "raw": "2.4",
+          "unit": "%",
+          "lower": 2.4,
+          "upper": 2.4
+        },
+        {
+          "field": "domeSetback",
+          "raw": "6.0",
+          "unit": "in",
+          "lower": 6.0,
+          "upper": 6.0
+        },
+        {
+          "field": "streetGradeLeft",
+          "raw": "2.2",
+          "unit": "%",
+          "lower": 2.2,
+          "upper": 2.2
+        },
+        {
+          "field": "sidewalkWidth",
+          "raw": "5.0",
+          "unit": "ft",
+          "lower": 5.0,
+          "upper": 5.0
+        }
+      ],
+      "cost": {
+        "raw": "$3500.00",
+        "cents": 350000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "scopeRole": "initial_cluster",
+      "locationBasis": "Page2826 Lot1/Building9 header carried to421 and corroborated by2827subtotal;422Lot1/Lot1 label from2827subtotal.",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "bottomLandingCrossSlope"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "blended_transition"
+    },
+    {
+      "id": "ramp-413",
+      "assetId": "ramp-413",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2824,
+        "printedPage": 2823,
+        "record": "ramp-413"
+      },
+      "raw": {
+        "locatorNumber": "413",
+        "featuredBarrier": "Ramp Flare",
+        "featuredMeasurementOrStatus": "Left: 11.6% Right: 14.1%",
+        "priority": "116.5",
+        "unitCost": "$6500.00",
+        "surveyStreet": "Campus Cir",
+        "crossStreet": "Building 3",
+        "proposedAction": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+        "withinCrosswalk": "YES",
+        "crosswalksServed": "1 X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "width",
+            "raw": "48.0",
+            "unit": "in"
+          },
+          {
+            "feature": "length",
+            "raw": "84.0",
+            "unit": "in"
+          },
+          {
+            "feature": "runningSlope",
+            "raw": "7.8",
+            "unit": "%"
+          },
+          {
+            "feature": "rampCrossSlope",
+            "raw": "0.9",
+            "unit": "%"
+          },
+          {
+            "feature": "topLandingLength",
+            "raw": "48.0",
+            "unit": "in"
+          },
+          {
+            "feature": "topLandingSlope",
+            "raw": "0.9",
+            "unit": "%"
+          },
+          {
+            "feature": "topLandingCrossSlope",
+            "raw": "2.1",
+            "unit": "%"
+          },
+          {
+            "feature": "leftFlare",
+            "raw": "11.6",
+            "unit": "%"
+          },
+          {
+            "feature": "rightFlare",
+            "raw": "14.1",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterSlope",
+            "raw": "3.3",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterCrossSlope",
+            "raw": "2.0",
+            "unit": "%"
+          },
+          {
+            "feature": "gutterLip",
+            "raw": "0.0",
+            "unit": "in"
+          },
+          {
+            "feature": "domeSetback",
+            "raw": "8.0",
+            "unit": "in"
+          },
+          {
+            "feature": "streetGradeLeft",
+            "raw": "2.1",
+            "unit": "%"
+          },
+          {
+            "feature": "sidewalkWidth",
+            "raw": "5.0",
+            "unit": "ft"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "YES",
+          "streetGradeRight": "N/A",
+          "gutterLip": "see numericFeatureTable",
+          "sidewalkWidth": "see numericFeatureTable"
+        },
+        "rampType": "Perpendicular"
+      },
+      "measurements": [
+        {
+          "field": "width",
+          "raw": "48.0",
+          "unit": "in",
+          "lower": 48.0,
+          "upper": 48.0
+        },
+        {
+          "field": "length",
+          "raw": "84.0",
+          "unit": "in",
+          "lower": 84.0,
+          "upper": 84.0
+        },
+        {
+          "field": "runningSlope",
+          "raw": "7.8",
+          "unit": "%",
+          "lower": 7.8,
+          "upper": 7.8
+        },
+        {
+          "field": "rampCrossSlope",
+          "raw": "0.9",
+          "unit": "%",
+          "lower": 0.9,
+          "upper": 0.9
+        },
+        {
+          "field": "topLandingLength",
+          "raw": "48.0",
+          "unit": "in",
+          "lower": 48.0,
+          "upper": 48.0
+        },
+        {
+          "field": "topLandingSlope",
+          "raw": "0.9",
+          "unit": "%",
+          "lower": 0.9,
+          "upper": 0.9
+        },
+        {
+          "field": "topLandingCrossSlope",
+          "raw": "2.1",
+          "unit": "%",
+          "lower": 2.1,
+          "upper": 2.1
+        },
+        {
+          "field": "leftFlare",
+          "raw": "11.6",
+          "unit": "%",
+          "lower": 11.6,
+          "upper": 11.6
+        },
+        {
+          "field": "rightFlare",
+          "raw": "14.1",
+          "unit": "%",
+          "lower": 14.1,
+          "upper": 14.1
+        },
+        {
+          "field": "gutterSlope",
+          "raw": "3.3",
+          "unit": "%",
+          "lower": 3.3,
+          "upper": 3.3
+        },
+        {
+          "field": "gutterCrossSlope",
+          "raw": "2.0",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 2.0
+        },
+        {
+          "field": "gutterLip",
+          "raw": "0.0",
+          "unit": "in",
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "field": "domeSetback",
+          "raw": "8.0",
+          "unit": "in",
+          "lower": 8.0,
+          "upper": 8.0
+        },
+        {
+          "field": "streetGradeLeft",
+          "raw": "2.1",
+          "unit": "%",
+          "lower": 2.1,
+          "upper": 2.1
+        },
+        {
+          "field": "sidewalkWidth",
+          "raw": "5.0",
+          "unit": "ft",
+          "lower": 5.0,
+          "upper": 5.0
+        }
+      ],
+      "cost": {
+        "raw": "$6500.00",
+        "cents": 650000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "scopeRole": "source_semantics_control_outside_selected_area",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "topLandingCrossSlope",
+          "leftFlare",
+          "rightFlare"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "perpendicular"
+    },
+    {
+      "id": "ramp-414",
+      "assetId": "ramp-414",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2824,
+        "printedPage": 2823,
+        "record": "ramp-414"
+      },
+      "raw": {
+        "locatorNumber": "414",
+        "featuredBarrier": "Existing Curb Ramp",
+        "featuredMeasurementOrStatus": "Under Construction",
+        "priority": "100",
+        "unitCost": "$0.00",
+        "surveyStreet": "Campus Cir",
+        "crossStreet": "Building 3",
+        "proposedAction": "Construction completion/compliance verification",
+        "withinCrosswalk": "not asserted",
+        "crosswalksServed": "1 X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "sidewalkWidth",
+            "raw": "10.0",
+            "unit": "ft"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "not recorded",
+          "streetGradeRight": "not recorded",
+          "gutterLip": "not recorded",
+          "sidewalkWidth": "see numericFeatureTable"
+        },
+        "rampType": "Under Construction"
+      },
+      "measurements": [
+        {
+          "field": "sidewalkWidth",
+          "raw": "10.0",
+          "unit": "ft",
+          "lower": 10.0,
+          "upper": 10.0
+        }
+      ],
+      "cost": {
+        "raw": "$0.00",
+        "cents": 0,
+        "kind": "construction_zero",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "under_construction",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows.",
+        "Under construction at survey; zero estimate cannot establish completed/passable/free repair."
+      ],
+      "scopeRole": "source_semantics_control_outside_selected_area"
+    },
+    {
+      "id": "ramp-415",
+      "assetId": "ramp-415",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2825,
+        "printedPage": 2824,
+        "record": "ramp-415"
+      },
+      "raw": {
+        "locatorNumber": "415",
+        "featuredBarrier": "Compliant Curb Ramp",
+        "featuredMeasurementOrStatus": "Surveyed features assessed compliant",
+        "priority": "100",
+        "unitCost": "$0.00",
+        "surveyStreet": "Campus Cir",
+        "crossStreet": "Building 3",
+        "proposedAction": "Routine inspection and maintenance",
+        "withinCrosswalk": "not asserted",
+        "crosswalksServed": "No X-walk",
+        "numericFeatureTable": [
+          {
+            "feature": "bottomLandingLength",
+            "raw": "900.0",
+            "unit": "in"
+          },
+          {
+            "feature": "bottomLandingSlope",
+            "raw": "1.0",
+            "unit": "%"
+          },
+          {
+            "feature": "bottomLandingCrossSlope",
+            "raw": "2.0",
+            "unit": "%"
+          },
+          {
+            "feature": "domeSetback",
+            "raw": "6.0",
+            "unit": "in"
+          },
+          {
+            "feature": "streetGradeLeft",
+            "raw": "1.7",
+            "unit": "%"
+          },
+          {
+            "feature": "sidewalkWidth",
+            "raw": "20.0",
+            "unit": "ft"
+          }
+        ],
+        "tableContext": {
+          "stopYieldControl": "No",
+          "teeIntersection": "No",
+          "verticalCurb": "Vertical",
+          "truncatedDomes": "YES",
+          "streetGradeRight": "N/A",
+          "gutterLip": "N/A",
+          "sidewalkWidth": "see numericFeatureTable"
+        },
+        "rampType": "Blended Transition"
+      },
+      "measurements": [
+        {
+          "field": "bottomLandingLength",
+          "raw": "900.0",
+          "unit": "in",
+          "lower": 900.0,
+          "upper": 900.0
+        },
+        {
+          "field": "bottomLandingSlope",
+          "raw": "1.0",
+          "unit": "%",
+          "lower": 1.0,
+          "upper": 1.0
+        },
+        {
+          "field": "bottomLandingCrossSlope",
+          "raw": "2.0",
+          "unit": "%",
+          "lower": 2.0,
+          "upper": 2.0
+        },
+        {
+          "field": "domeSetback",
+          "raw": "6.0",
+          "unit": "in",
+          "lower": 6.0,
+          "upper": 6.0
+        },
+        {
+          "field": "streetGradeLeft",
+          "raw": "1.7",
+          "unit": "%",
+          "lower": 1.7,
+          "upper": 1.7
+        },
+        {
+          "field": "sidewalkWidth",
+          "raw": "20.0",
+          "unit": "ft",
+          "lower": 20.0,
+          "upper": 20.0
+        }
+      ],
+      "cost": {
+        "raw": "$0.00",
+        "cents": 0,
+        "kind": "maintenance_zero",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "assessed_features_compliant",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows.",
+        "Source compliance statement is confined to assessed features; no entire-journey or current-access claim."
+      ],
+      "scopeRole": "source_semantics_control_outside_selected_area"
+    },
+    {
+      "id": "legend-ref",
+      "assetId": "sidewalk-legend",
+      "kind": "legend",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2788,
+        "printedPage": 2787,
+        "record": "legend-ref"
+      },
+      "raw": {
+        "term": "REF",
+        "meaning": "Overlapping issue with no additional mitigation cost"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "unknown",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "context_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Does not identify the owning cost row."
+      ]
+    },
+    {
+      "id": "legend-columns",
+      "assetId": "sidewalk-legend",
+      "kind": "legend",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2787,
+        "printedPage": 2786,
+        "record": "legend-columns"
+      },
+      "raw": {
+        "chainageUnit": "feet",
+        "sidewalkWidthUnit": "feet",
+        "costBasis": "quantity times unit estimate; final mitigation cost may differ",
+        "priorityBasis": "expected use and barrier severity; 0 to 200"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "unknown",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "context_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Printed quantity rounding and missing group headings unresolved."
+      ]
+    },
+    {
+      "id": "method-prow",
+      "assetId": "survey-methodology",
+      "kind": "methodology",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 10,
+        "printedPage": 9,
+        "record": "method-prow"
+      },
+      "raw": {
+        "method": "Curb-ramp checklists and measuring/smart-level equipment; sidewalk profilers capture slopes and surface variation.",
+        "database": "Report describes Excel records and GIS reference maps.",
+        "coverage": "Selected public rights-of-way, not positive all-attribute evidence for every journey."
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "unknown",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "context_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "No continuous positive assessment of crossings, approaches, widths, obstacles and entrance connections for this bounded case."
+      ]
+    },
+    {
+      "id": "method-priority",
+      "assetId": "survey-priority",
+      "kind": "methodology",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 11,
+        "printedPage": 10,
+        "record": "method-priority"
+      },
+      "raw": {
+        "method": "Activity plus barrier score, each 0 to 100; combined priority 0 to 200.",
+        "interpretation": "Scheduling criterion, not a standalone condition or mobility access score.",
+        "appendixQActivityScore": "100 for all campus public-right-of-way features",
+        "appendixQRunBoundary": "A run may end mid-block."
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "",
+        "cents": null,
+        "kind": "unknown",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "context_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Per-row priorities unavailable where route headers do not establish membership."
+      ],
+      "additionalSourceLocators": [
+        {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 4361,
+          "printedPage": 4360,
+          "record": "Activity Score"
+        },
+        {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 4362,
+          "printedPage": 4361,
+          "record": "Barrier Score; run definition"
+        }
+      ]
+    },
+    {
+      "id": "lot1-b9-subtotal",
+      "assetId": "lot1-b9-cost-group",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2827,
+        "printedPage": 2826,
+        "record": "lot1-b9-subtotal"
+      },
+      "raw": {
+        "scope": "Lot 1 and Building 9",
+        "componentRampIds": [
+          "404",
+          "405",
+          "421"
+        ],
+        "arithmetic": "6500 + 6500 + 7000 = 20000"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$20,000.00",
+        "cents": 2000000,
+        "kind": "subtotal",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Not ramp 421 individual cost; no full journey scope."
+      ]
+    },
+    {
+      "id": "lot1-subtotal",
+      "assetId": "lot1-cost-group",
+      "kind": "route_summary",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2827,
+        "printedPage": 2826,
+        "record": "lot1-subtotal"
+      },
+      "raw": {
+        "scope": "Lot 1",
+        "arithmetic": "20000 + 3500 = 23500"
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$23,500.00",
+        "cents": 2350000,
+        "kind": "subtotal",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "summary_only",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Does not include all sidewalk repair or connection costs."
+      ]
+    },
+    {
+      "id": "b9-site2-record-3",
+      "assetId": "b9-southwest-ramp",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2261,
+        "printedPage": 2260,
+        "record": "CAN B9-0-1 / Site2 Ramp on Southwest Corner / record3"
+      },
+      "raw": {
+        "siteLocation": "2 Ramp on Southwest Corner",
+        "recordNumber": "3",
+        "barrierLabel": "Top and Bottom Extension at Ramps",
+        "asBuilt": "10\" long",
+        "quantity": "3",
+        "unit": "JOB",
+        "unitCost": "$510",
+        "total": "$1,530",
+        "priority": "1",
+        "severity": "4",
+        "mitigatedCheckbox": "NO selected in historical source",
+        "proposedAction": "Provide handrail extensions; estimate per extension piece",
+        "landingDescription": null,
+        "proposedSolutionUnitConflict": null
+      },
+      "measurements": [
+        {
+          "field": "handrailExtensionLength",
+          "raw": "10",
+          "unit": "in",
+          "lower": 10,
+          "upper": 10
+        }
+      ],
+      "cost": {
+        "raw": "$1,530",
+        "cents": 153000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Exact relation of this approach to selected Lot1 curb-ramp/sidewalk network remains unresolved.",
+        "Building-facility priority/severity scale differs from public-right-of-way scheduling score; no cross-scale ranking.",
+        "Other exterior site locations and continuous approach coverage not exhaustively transcribed."
+      ],
+      "scopeRole": "bounded_west_expansion_context",
+      "additionalSourceLocators": [
+        {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2256,
+          "printedPage": 2255,
+          "record": "B9-0-1 exterior barrier location map dated9-1-2020; location2"
+        }
+      ]
+    },
+    {
+      "id": "b9-site2-record-4",
+      "assetId": "b9-southwest-ramp",
+      "kind": "ramp",
+      "source": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2261,
+        "printedPage": 2260,
+        "record": "CAN B9-0-1 / Site2 Ramp on Southwest Corner / record4"
+      },
+      "raw": {
+        "siteLocation": "2 Ramp on Southwest Corner",
+        "recordNumber": "4",
+        "barrierLabel": "Ramp",
+        "asBuilt": "Existing exact length not recorded",
+        "quantity": "300",
+        "unit": "SF",
+        "unitCost": "$162",
+        "total": "$48,600",
+        "priority": "1",
+        "severity": "1",
+        "mitigatedCheckbox": "NO selected in historical source",
+        "proposedAction": "Modify bottom landing; source specifies 60 inch length and a conflicting CA-only 72 foot text",
+        "landingDescription": "Change-of-direction landing less than60in; CA-only72in in description",
+        "proposedSolutionUnitConflict": "Description uses72 inches; proposed-solution line prints72 feet. Preserve unresolved, do not normalize a target length."
+      },
+      "measurements": [],
+      "cost": {
+        "raw": "$48,600",
+        "cents": 4860000,
+        "kind": "individual",
+        "baseYear": 2020,
+        "currency": "USD"
+      },
+      "assessmentBasis": "source_assessment",
+      "status": "recorded_barrier",
+      "review": {
+        "pass1": "author_text",
+        "pass2": "author_visual"
+      },
+      "unresolved": [
+        "Exact relation of this approach to selected Lot1 curb-ramp/sidewalk network remains unresolved.",
+        "Building-facility priority/severity scale differs from public-right-of-way scheduling score; no cross-scale ranking.",
+        "Other exterior site locations and continuous approach coverage not exhaustively transcribed.",
+        "Source proposed landing dimension has inch/foot text conflict; existing exact landing length absent."
+      ],
+      "scopeRole": "bounded_west_expansion_context",
+      "additionalSourceLocators": [
+        {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2256,
+          "printedPage": 2255,
+          "record": "B9-0-1 exterior barrier location map dated9-1-2020; location2"
+        }
+      ]
+    }
+  ],
+  "scope": "Bounded evidence inventory; no executable routing snapshot",
+  "measurementPolicy": "Preserve source values/ranges; no midpoint conversion or inferred legal/passability threshold."
+}

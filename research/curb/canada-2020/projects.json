@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "sourceSha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+  "projects": [
+    {
+      "id": "replace-ramp-404",
+      "observationIds": [
+        "ramp-404"
+      ],
+      "physicalWorkGroup": "curb-ramp-404",
+      "action": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+      "costCents": 650000,
+      "costBasis": "published_estimate",
+      "baseYear": 2020,
+      "currency": "USD",
+      "eligible": false,
+      "exclusionReason": "Inventory-only gate: route/crossing/endpoint and full coverage unresolved.",
+      "clearsObservationIds": [],
+      "proposedAddressesObservationIds": [
+        "ramp-404"
+      ],
+      "remainingUnknowns": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows.",
+        "Extracted priority tokens111.2 and5 are vertically separated; rendered table visibly shows111.2 only. No normalized111.25 inference."
+      ],
+      "priorityRaw": "111.2\n5",
+      "normalizedPriority": null,
+      "replacementAssemblyType": "perpendicular"
+    },
+    {
+      "id": "replace-ramp-405",
+      "observationIds": [
+        "ramp-405"
+      ],
+      "physicalWorkGroup": "curb-ramp-405",
+      "action": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+      "costCents": 650000,
+      "costBasis": "published_estimate",
+      "baseYear": 2020,
+      "currency": "USD",
+      "eligible": false,
+      "exclusionReason": "Inventory-only gate: route/crossing/endpoint and full coverage unresolved.",
+      "clearsObservationIds": [],
+      "proposedAddressesObservationIds": [
+        "ramp-405"
+      ],
+      "remainingUnknowns": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "priorityRaw": "116",
+      "replacementAssemblyType": "perpendicular"
+    },
+    {
+      "id": "replace-ramp-421",
+      "observationIds": [
+        "ramp-421"
+      ],
+      "physicalWorkGroup": "curb-ramp-421",
+      "action": "Replace complete parallel curb-ramp assembly including warning surfaces and required top and bottom landings",
+      "costCents": 700000,
+      "costBasis": "published_estimate",
+      "baseYear": 2020,
+      "currency": "USD",
+      "eligible": false,
+      "exclusionReason": "Inventory-only gate: route/crossing/endpoint and full coverage unresolved.",
+      "clearsObservationIds": [],
+      "proposedAddressesObservationIds": [
+        "ramp-421"
+      ],
+      "remainingUnknowns": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "priorityRaw": "118",
+      "replacementAssemblyType": "parallel"
+    },
+    {
+      "id": "replace-ramp-422",
+      "observationIds": [
+        "ramp-422"
+      ],
+      "physicalWorkGroup": "curb-ramp-422",
+      "action": "Replace complete blended transition assembly including warning surfaces and required top and bottom landings",
+      "costCents": 350000,
+      "costBasis": "published_estimate",
+      "baseYear": 2020,
+      "currency": "USD",
+      "eligible": false,
+      "exclusionReason": "Inventory-only gate: route/crossing/endpoint and full coverage unresolved.",
+      "clearsObservationIds": [],
+      "proposedAddressesObservationIds": [
+        "ramp-422"
+      ],
+      "remainingUnknowns": [
+        "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
+        "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
+      ],
+      "priorityRaw": "100",
+      "replacementAssemblyType": "blended_transition"
+    }
+  ],
+  "notes": [
+    "Four supported physical replacement estimates, totaling $23,500, are inventory items only; none enabled for comparison.",
+    "Sidewalk row-to-route and REF ownership unresolved, so no atomic sidewalk candidate invented.",
+    "Construction and maintenance zeros are not selectable repairs."
+  ]
+}

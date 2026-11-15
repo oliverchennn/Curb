@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "authoritativeSourceId": "smcccd-final-2020",
+  "officialLandingPage": "https://smccd.edu/ada2020/",
+  "sources": [
+    {
+      "id": "smcccd-final-2020",
+      "role": "authoritative",
+      "url": "https://smccd.edu/ada2020/19029%20SMCCCD%20ADA%20Self-Evaluation%20and%20Transition%20Plan%20FINAL%20Nov2020%20sm.pdf",
+      "title": "SMCCCD ADA Self-Evaluation and Transition Plan",
+      "publisher": "San Mateo County Community College District",
+      "author": "Sally Swanson Architects, Inc.; project 19029",
+      "reportVersion": "FINAL November 2020",
+      "surveyPeriod": "2019-2020 district evaluation; appendices dated September 2020; exact individual visit date not asserted",
+      "retrievedAt": "2026-11-15T10:17:01Z",
+      "retrievalTimeBasis": "Observed fresh curl transfer completion file timestamp, converted explicitly to UTC; HTTP 200; no cached preexisting file reused",
+      "bytes": 111675832,
+      "sha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+      "pages": 4399,
+      "reuseNote": "Public access is not a redistribution license. Official page says all rights reserved; aerial map includes third-party credits. Publish attributed factual records and source links only; do not commit report, map raster, aerial imagery, or source photographs."
+    },
+    {
+      "id": "smcccd-draft-i",
+      "role": "discovery_only",
+      "url": "https://smccd.edu/ada2020/Appendix%20I%20-%20Canada%20College%20Sidewalks.pdf",
+      "title": "Appendix I: Cañada College Sidewalks",
+      "publisher": "San Mateo County Community College District",
+      "author": "Sally Swanson Architects, Inc.; project 19029",
+      "reportVersion": "DRAFT September 2020",
+      "surveyPeriod": "2019-2020 district evaluation; appendices dated September 2020; exact individual visit date not asserted",
+      "retrievedAt": "2026-11-15T10:19:10Z",
+      "retrievalTimeBasis": "Observed fresh curl transfer completion file timestamp, converted explicitly to UTC; HTTP 200; no cached preexisting file reused",
+      "bytes": 6312531,
+      "sha256": "6929ae3030aeed9f01bd6d277d7a3fa4a30c2ef41fc800bb4dcf04521f1366ff",
+      "pages": 30,
+      "reuseNote": "Public access is not a redistribution license. Official page says all rights reserved; aerial map includes third-party credits. Publish attributed factual records and source links only; do not commit report, map raster, aerial imagery, or source photographs."
+    },
+    {
+      "id": "smcccd-draft-j",
+      "role": "discovery_only",
+      "url": "https://smccd.edu/ada2020/Appendix%20J%20-%20Canada%20College%20Curb%20Ramps.pdf",
+      "title": "Appendix J: Cañada College Curb Ramps",
+      "publisher": "San Mateo County Community College District",
+      "author": "Sally Swanson Architects, Inc.; project 19029",
+      "reportVersion": "DRAFT September 2020",
+      "surveyPeriod": "2019-2020 district evaluation; appendices dated September 2020; exact individual visit date not asserted",
+      "retrievedAt": "2026-11-15T10:19:12Z",
+      "retrievalTimeBasis": "Observed fresh curl transfer completion file timestamp, converted explicitly to UTC; HTTP 200; no cached preexisting file reused",
+      "bytes": 7480991,
+      "sha256": "8ddbafbfe700a832dc85cd8c6fb840589e0ec2f31471c68d684d0b3cd06626d2",
+      "pages": 14,
+      "reuseNote": "Public access is not a redistribution license. Official page says all rights reserved; aerial map includes third-party credits. Publish attributed factual records and source links only; do not commit report, map raster, aerial imagery, or source photographs."
+    }
+  ],
+  "sourceVersionMatchesResearch": true,
+  "metadataCaution": "Embedded PDF Subject says City of San Carlos; identify report by official landing-page link, visible title/version, and exact bytes, not inherited metadata."
+}
