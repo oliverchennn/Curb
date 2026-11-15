@@ -1,0 +1,948 @@
+{
+  "source": {
+    "url": "https://smccd.edu/ada2020/19029%20SMCCCD%20ADA%20Self-Evaluation%20and%20Transition%20Plan%20FINAL%20Nov2020%20sm.pdf",
+    "sha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+    "version": "November 2020 final",
+    "authorProjectNumber": "19029",
+    "tableFooter": "September 2020",
+    "priceCurrency": "USD",
+    "priceYear": 2020
+  },
+  "checks": {
+    "selectedRows": 43,
+    "pricedRows": 38,
+    "pricedExactMatches": 38,
+    "pricedByUnit": {
+      "SF": 36,
+      "LF": 2
+    },
+    "printedMinusDisplayedCostDifferencesUsd": {
+      "0": 19,
+      "-60": 15,
+      "60": 4
+    },
+    "derivedMethod": "Exact decimal chainage difference times displayed sidewalk width, then multiplied by printed unit rate. Numerical match for two LF rows is not a dimensional conversion rule. No author rounding convention or repair scope is inferred.",
+    "candidatePartition": {
+      "candidateRouteIds": [
+        "40",
+        "41",
+        "52",
+        "53"
+      ],
+      "printedSummaryTotalsUsd": [
+        26940,
+        4800,
+        28035,
+        2700
+      ],
+      "summaryPage": 2793,
+      "contiguousCostMatches": [
+        {
+          "cutAfterRowCounts": [
+            13,
+            17,
+            41
+          ],
+          "chainageNondecreasingInEveryBlock": false,
+          "lastRowIdsEachBlock": [
+            "1352718",
+            "1352723",
+            "1352702",
+            "1352720"
+          ]
+        },
+        {
+          "cutAfterRowCounts": [
+            14,
+            17,
+            41
+          ],
+          "chainageNondecreasingInEveryBlock": true,
+          "lastRowIdsEachBlock": [
+            "1352706",
+            "1352723",
+            "1352702",
+            "1352720"
+          ]
+        },
+        {
+          "cutAfterRowCounts": [
+            15,
+            17,
+            41
+          ],
+          "chainageNondecreasingInEveryBlock": false,
+          "lastRowIdsEachBlock": [
+            "1352721",
+            "1352723",
+            "1352702",
+            "1352720"
+          ]
+        }
+      ],
+      "authority": "Inferred using printed order, totals and chainage resets; not original route/run/priority metadata."
+    }
+  },
+  "rowsInPrintedOrder": [
+    {
+      "id": "1352707",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "1.2",
+        "endFeet": "3.6",
+        "sidewalkWidthFeet": 5,
+        "quantity": 12,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1440
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "12.0",
+        "reconstructedTotalUsd": 1440,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352708",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "3.6",
+        "endFeet": "12.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 46,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 5520
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "46.0",
+        "reconstructedTotalUsd": 5520,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352705",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "6.6",
+        "endFeet": "7.6",
+        "sidewalkWidthFeet": 5,
+        "quantity": 5,
+        "unit": "REF",
+        "unitRateUsd": null,
+        "totalUsd": null
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.0",
+        "reconstructedTotalUsd": null,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": null,
+        "printedTotalMatchesReconstruction": null
+      }
+    },
+    {
+      "id": "1352709",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "14.5",
+        "endFeet": "16.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 11,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1320
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "11.0",
+        "reconstructedTotalUsd": 1320,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352710",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "16.7",
+        "endFeet": "23.6",
+        "sidewalkWidthFeet": 5,
+        "quantity": 35,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 4140
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "34.5",
+        "reconstructedTotalUsd": 4140,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352711",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "23.8",
+        "endFeet": "27.1",
+        "sidewalkWidthFeet": 5,
+        "quantity": 17,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1980
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "16.5",
+        "reconstructedTotalUsd": 1980,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352712",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "27.3",
+        "endFeet": "30.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 18,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 2100
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "17.5",
+        "reconstructedTotalUsd": 2100,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352713",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "31.0",
+        "endFeet": "32.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 9,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1020
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "8.5",
+        "reconstructedTotalUsd": 1020,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352714",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "33.7",
+        "endFeet": "36.1",
+        "sidewalkWidthFeet": 5,
+        "quantity": 12,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1440
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "12.0",
+        "reconstructedTotalUsd": 1440,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352715",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "36.2",
+        "endFeet": "40.1",
+        "sidewalkWidthFeet": 5,
+        "quantity": 19,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 2340
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "19.5",
+        "reconstructedTotalUsd": 2340,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352716",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "40.8",
+        "endFeet": "42.9",
+        "sidewalkWidthFeet": 5,
+        "quantity": 11,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1260
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "10.5",
+        "reconstructedTotalUsd": 1260,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352717",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "52.3",
+        "endFeet": "53.3",
+        "sidewalkWidthFeet": 5,
+        "quantity": 5,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 600
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.0",
+        "reconstructedTotalUsd": 600,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352718",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "53.5",
+        "endFeet": "59.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 32,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 3780
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "31.5",
+        "reconstructedTotalUsd": 3780,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352706",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "58.5",
+        "endFeet": "59.5",
+        "sidewalkWidthFeet": 5,
+        "quantity": 5,
+        "unit": "REF",
+        "unitRateUsd": null,
+        "totalUsd": null
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.0",
+        "reconstructedTotalUsd": null,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": null,
+        "printedTotalMatchesReconstruction": null
+      }
+    },
+    {
+      "id": "1352721",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "4.9",
+        "endFeet": "5.9",
+        "sidewalkWidthFeet": 8,
+        "quantity": 8,
+        "unit": "REF",
+        "unitRateUsd": null,
+        "totalUsd": null
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "8.0",
+        "reconstructedTotalUsd": null,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": null,
+        "printedTotalMatchesReconstruction": null
+      }
+    },
+    {
+      "id": "1352722",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "5.3",
+        "endFeet": "8.8",
+        "sidewalkWidthFeet": 8,
+        "quantity": 28,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 3360
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "28.0",
+        "reconstructedTotalUsd": 3360,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352723",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "8.9",
+        "endFeet": "10.4",
+        "sidewalkWidthFeet": 8,
+        "quantity": 12,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1440
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "12.0",
+        "reconstructedTotalUsd": 1440,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352684",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "1.3",
+        "endFeet": "2.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 8,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 900
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "7.5",
+        "reconstructedTotalUsd": 900,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352685",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "2.9",
+        "endFeet": "5.2",
+        "sidewalkWidthFeet": 5,
+        "quantity": 12,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1380
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "11.5",
+        "reconstructedTotalUsd": 1380,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352686",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "4.0",
+        "endFeet": "6.4",
+        "sidewalkWidthFeet": 5,
+        "quantity": 12,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1440
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "12.0",
+        "reconstructedTotalUsd": 1440,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352687",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "5.8",
+        "endFeet": "8.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 14,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1740
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "14.5",
+        "reconstructedTotalUsd": 1740,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352688",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "7.5",
+        "endFeet": "9.3",
+        "sidewalkWidthFeet": 5,
+        "quantity": 9,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1080
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "9.0",
+        "reconstructedTotalUsd": 1080,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352689",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "8.8",
+        "endFeet": "10.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 9,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1140
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "9.5",
+        "reconstructedTotalUsd": 1140,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352690",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "10.6",
+        "endFeet": "11.6",
+        "sidewalkWidthFeet": 5,
+        "quantity": 5,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 600
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.0",
+        "reconstructedTotalUsd": 600,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352691",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "11.3",
+        "endFeet": "12.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 8,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 900
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "7.5",
+        "reconstructedTotalUsd": 900,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352692",
+      "finalPdfViewerPage": 2805,
+      "finalPdfPrintedPage": 2804,
+      "printed": {
+        "startFeet": "12.5",
+        "endFeet": "13.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 7,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 780
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "6.5",
+        "reconstructedTotalUsd": 780,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352703",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "15.5",
+        "endFeet": "18.0",
+        "sidewalkWidthFeet": 5,
+        "quantity": 13,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1500
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "12.5",
+        "reconstructedTotalUsd": 1500,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352704",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "19.7",
+        "endFeet": "21.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 10,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1200
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "10.0",
+        "reconstructedTotalUsd": 1200,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352681",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "31.7",
+        "endFeet": "32.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 5,
+        "unit": "LF",
+        "unitRateUsd": 75,
+        "totalUsd": 375
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.0",
+        "reconstructedTotalUsd": 375,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352682",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "41.2",
+        "endFeet": "42.2",
+        "sidewalkWidthFeet": 5,
+        "quantity": 5,
+        "unit": "REF",
+        "unitRateUsd": null,
+        "totalUsd": null
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.0",
+        "reconstructedTotalUsd": null,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": null,
+        "printedTotalMatchesReconstruction": null
+      }
+    },
+    {
+      "id": "1352693",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "41.6",
+        "endFeet": "42.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 6,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 660
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.5",
+        "reconstructedTotalUsd": 660,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352694",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "42.9",
+        "endFeet": "44.0",
+        "sidewalkWidthFeet": 5,
+        "quantity": 6,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 660
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "5.5",
+        "reconstructedTotalUsd": 660,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352695",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "54.0",
+        "endFeet": "56.0",
+        "sidewalkWidthFeet": 5,
+        "quantity": 10,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1200
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "10.0",
+        "reconstructedTotalUsd": 1200,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352696",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "56.4",
+        "endFeet": "60.2",
+        "sidewalkWidthFeet": 5,
+        "quantity": 19,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 2280
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "19.0",
+        "reconstructedTotalUsd": 2280,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352697",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "59.9",
+        "endFeet": "62.1",
+        "sidewalkWidthFeet": 5,
+        "quantity": 11,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1320
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "11.0",
+        "reconstructedTotalUsd": 1320,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352698",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "60.3",
+        "endFeet": "64.9",
+        "sidewalkWidthFeet": 5,
+        "quantity": 23,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 2760
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "23.0",
+        "reconstructedTotalUsd": 2760,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352699",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "62.1",
+        "endFeet": "63.6",
+        "sidewalkWidthFeet": 5,
+        "quantity": 8,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 900
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "7.5",
+        "reconstructedTotalUsd": 900,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352700",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "63.6",
+        "endFeet": "65.8",
+        "sidewalkWidthFeet": 5,
+        "quantity": 11,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1320
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "11.0",
+        "reconstructedTotalUsd": 1320,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352683",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "64.3",
+        "endFeet": "68.7",
+        "sidewalkWidthFeet": 5,
+        "quantity": 22,
+        "unit": "REF",
+        "unitRateUsd": null,
+        "totalUsd": null
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "22.0",
+        "reconstructedTotalUsd": null,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": null,
+        "printedTotalMatchesReconstruction": null
+      }
+    },
+    {
+      "id": "1352701",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "64.9",
+        "endFeet": "67.0",
+        "sidewalkWidthFeet": 5,
+        "quantity": 10,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1260
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "10.5",
+        "reconstructedTotalUsd": 1260,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 60,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352702",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "67.8",
+        "endFeet": "72.2",
+        "sidewalkWidthFeet": 5,
+        "quantity": 22,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 2640
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "22.0",
+        "reconstructedTotalUsd": 2640,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352719",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "3.3",
+        "endFeet": "6.5",
+        "sidewalkWidthFeet": 5,
+        "quantity": 16,
+        "unit": "LF",
+        "unitRateUsd": 75,
+        "totalUsd": 1200
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "16.0",
+        "reconstructedTotalUsd": 1200,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": 0,
+        "printedTotalMatchesReconstruction": true
+      }
+    },
+    {
+      "id": "1352720",
+      "finalPdfViewerPage": 2806,
+      "finalPdfPrintedPage": 2805,
+      "printed": {
+        "startFeet": "7.8",
+        "endFeet": "10.3",
+        "sidewalkWidthFeet": 5,
+        "quantity": 13,
+        "unit": "SF",
+        "unitRateUsd": 120,
+        "totalUsd": 1500
+      },
+      "derived": {
+        "endMinusStartTimesWidthExactDecimal": "12.5",
+        "reconstructedTotalUsd": 1500,
+        "printedTotalMinusDisplayedQuantityTimesRateUsd": -60,
+        "printedTotalMatchesReconstruction": true
+      }
+    }
+  ]
+}
