@@ -1,0 +1,17 @@
+{
+  "titleAndOutro": "Original animated graphics using the Curb mark and colors.",
+  "robertson": "Real phone video, normalized survey.mp4 from the project repository.",
+  "recordings": {
+    "evidence-click": "Current hosted app interaction recorded by Chrome",
+    "finding": "Current hosted app capture",
+    "inspection": "Current hosted app capture",
+    "budget-click": "Current hosted app interaction recorded by Chrome",
+    "budget": "Current hosted app capture",
+    "deferred": "Current hosted app capture",
+    "export-click": "Current hosted app interaction recorded by Chrome",
+    "report": "Current hosted app capture",
+    "report-detail": "Current hosted app capture"
+  },
+  "durationSeconds": 99,
+  "fps": 30
+}

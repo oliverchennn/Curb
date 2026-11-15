@@ -1,0 +1,15 @@
+{
+  "name": "curb-devpost-video",
+  "private": true,
+  "scripts": {
+    "capture": "node tools/capture.cjs",
+    "render": "node tools/render.cjs",
+    "render:titles": "node tools/render.cjs --titles",
+    "verify": "node tools/verify.cjs",
+    "timeline": "node tools/render.cjs --timeline-only"
+  },
+  "dependencies": {
+    "playwright": "1.64.0",
+    "sharp": "0.35.5"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "source": "https://curb-taupe.vercel.app",
+  "viewport": [
+    1456,
+    819
+  ],
+  "images": {
+    "finding": "finding.png",
+    "inspection": "inspection.png",
+    "plans": "plans.png",
+    "budget": "budget.png",
+    "deferred": "deferred.png",
+    "export": "export.png",
+    "report": "report.png"
+  },
+  "browserClips": {
+    "evidence-click": {
+      "frames": 27,
+      "seconds": 5.190288399999999
+    },
+    "budget-click": {
+      "frames": 34,
+      "seconds": 4.631498
+    },
+    "export-click": {
+      "frames": 22,
+      "seconds": 2.7903833999999987
+    }
+  },
+  "evidenceSecond": 6,
+  "budgetScreen": [
+    "Full project cost: quote needed",
+    "2 areas deferred",
+    "Address every eligible area with its recommended treatment, including repairs that need quotes.",
+    "Full project cost: quote needed",
+    "No eligible areas deferred",
+    "Full project cost: quote needed",
+    "No eligible areas deferred",
+    "Leave this empty to develop a scope first. An amount adds a fourth scenario using priced work; quotes may put the full project over that amount.",
+    "1 area in the $500.00 scenario",
+    "Priced upper bound: $478.00. Full budget fit is unconfirmed until the missing costs are quoted.",
+    "Deferred: Work area 02, Work area 03, Work area 04, Work area 05.",
+    "Prioritize areas within the priced upper bound, then durability. Unpriced treatments cannot be selected by this comparison.",
+    "Full project cost: quote needed",
+    "4 areas deferred",
+    "✓ Selected for report",
+    "Your budget · selected for report",
+    "Work area 04 from the selected evidence is not included.",
+    "Full project cost: quote needed",
+    "Quote needed",
+    "One shared allowance requires a site quote; it is not counted once per defect.",
+    "Deferred needs · 4 areas",
+    "Not selected within the priced upper bound. Access needs remain unresolved.",
+    "Not selected within the priced upper bound. Access needs remain unresolved.",
+    "Not selected within the priced upper bound. Access needs remain unresolved."
+  ],
+  "report": "demo-budget-report.html",
+  "reportScreen": [
+    "Partial subtotals cannot rank full project costs while items still need quotes.",
+    "Selected plan for this report",
+    "Prioritizes high, then medium, low and unassessed work areas within the known upper cost bound. Quote-only treatments are outside the numerical budget selection.",
+    "Partial estimate of $72.00 to $478.00 for known costs, plus required quotes.",
+    "Supplied budget $500.00. The known upper subtotal fits. Budget fit remains partial until quotes are obtained.",
+    "Selected work areas",
+    "Selected treatments",
+    "Deferred work areas",
+    "Items requiring quotes",
+    "Site verification, mobilization and accessible work-zone provision (site-setup): One shared allowance requires a site quote; it is not counted once per defect.",
+    "Partial estimate of $294.00 to $2,294.00 for known costs, plus required quotes.",
+    "Selected work areas",
+    "Selected treatments",
+    "Deferred work areas",
+    "Items requiring quotes",
+    "Site verification, mobilization and accessible work-zone provision (site-setup): One shared allowance requires a site quote; it is not counted once per defect.",
+    "Partial estimate of $216.00 to $1,434.00 for known costs, plus required quotes.",
+    "Selected work areas",
+    "Selected treatments",
+    "Deferred work areas",
+    "Items requiring quotes",
+    "Work area 02 · Localized edge repair after inspection (panel-02-patch): Patch depth, preparation, materials and quantity are unknown; obtain a measured scope and current quote.",
+    "Work area 04 · Localized edge repair after inspection (panel-04-patch): Patch depth, preparation, materials and quantity are unknown; obtain a measured scope and current quote.",
+    "Site verification, mobilization and accessible work-zone provision (site-setup): One shared allowance requires a site quote; it is not counted once per defect."
+  ]
+}

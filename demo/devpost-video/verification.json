@@ -1,0 +1,53 @@
+{
+  "fullDecode": [
+    {
+      "file": "01-Curb-intro.mp4",
+      "frames": 96,
+      "durationSeconds": 3.2
+    },
+    {
+      "file": "02-Robertson-footage.mp4",
+      "frames": 354,
+      "durationSeconds": 11.8
+    },
+    {
+      "file": "03-Review-finding.mp4",
+      "frames": 690,
+      "durationSeconds": 23
+    },
+    {
+      "file": "04-Compare-budget.mp4",
+      "frames": 900,
+      "durationSeconds": 30
+    },
+    {
+      "file": "05-Export-report.mp4",
+      "frames": 810,
+      "durationSeconds": 27
+    },
+    {
+      "file": "06-Curb-outro.mp4",
+      "frames": 120,
+      "durationSeconds": 4
+    },
+    {
+      "file": "Curb-picture-edit.mp4",
+      "frames": 2970,
+      "durationSeconds": 99
+    }
+  ],
+  "transparentCapturePlates": [
+    "review-stage.png",
+    "budget-stage.png",
+    "report-stage.png"
+  ],
+  "report": {
+    "budget": 500,
+    "evidenceSeekSeconds": 6,
+    "pricedSubtotal": [
+      72,
+      478
+    ],
+    "setupQuotePending": true
+  }
+}
