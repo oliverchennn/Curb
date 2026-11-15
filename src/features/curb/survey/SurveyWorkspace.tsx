@@ -71,7 +71,11 @@ export function SurveyWorkspace() {
       if (!isCurrent()) return;
       setLoad({ status: 'ready', original: data });
       setSurvey(data);
-      setSelectedFindingId(data.findings[0]?.id ?? null);
+      // Explorer links identify a finding in this validated survey, never an arbitrary seek time.
+      const requestedId = new URLSearchParams(window.location.search).get('finding');
+      const linkedFinding = data.findings.find((finding) => finding.id === requestedId);
+      setSelectedFindingId(linkedFinding?.id ?? data.findings[0]?.id ?? null);
+      if (linkedFinding) setSeek({ seconds: linkedFinding.evidenceTime, nonce: Date.now() });
     }, (error: unknown) => {
       clearTimeout(timer);
       if (!isCurrent() || (error instanceof DOMException && error.name === 'AbortError')) return;
@@ -176,7 +180,7 @@ export function SurveyWorkspace() {
         <button type="button" className={styles.secondaryButton} aria-disabled={!edited} onClick={restore}>Restore original</button>
       </div>
       {edited ? <p className={styles.sessionNote}>Edits stay in this browser tab only and are lost on reload. To keep them, use Export report, then Download JSON.</p> : null}
-      <p role="status" aria-live="polite" className={styles.small} hidden={!notice}>{notice}</p>
+      <p role="status" aria-live="polite" aria-atomic="true" className={styles.small}>{notice}</p>
     </div>
 
     <div ref={deskRef} className={styles.desk}>
@@ -210,7 +214,6 @@ export function SurveyWorkspace() {
       </div>
     </div>
 
-    <p className={styles.footerNote}>Findings flagged by the CLIP model, which matched close-ups from one walking video to damaged-pavement descriptions. Estimates are not a final ADA ruling or a contractor quote.</p>
   </div>;
 }
 
@@ -302,6 +305,5 @@ function Header({ survey }: { survey?: Survey }) {
   return <header className={styles.header}>
     <p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p>
     <h1>Survey replay</h1>
-    <p className={styles.lede}>A walking video becomes a ranked sidewalk repair plan.</p>
   </header>;
 }

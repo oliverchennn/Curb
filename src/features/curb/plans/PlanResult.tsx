@@ -31,8 +31,15 @@ export function PlanResult({ context, comparison, onViewEvidence }: Props) {
     : `With ${formatCents(comparison.budgetCents)}, the best set newly reaches ${plural(exact.restoredCount, 'destination')}; condition-first newly reaches ${conditionFirst.restoredCount}.`;
 
   return <section className={styles.results} aria-labelledby="plan-results-heading">
-    <p className={styles.eyebrow}>Same budget · same origin · same assumptions</p>
+    <p className={styles.eyebrow}>Synthetic outcome · same example budget</p>
     <h2 id="plan-results-heading">{headline}</h2>
+    <div className={styles.winnerExplanation}>
+      <h3>{exact.restoredCount > conditionFirst.restoredCount ? 'Why this plan wins' : 'What this comparison shows'}</h3>
+      <p>{exact.restoredCount > conditionFirst.restoredCount
+        ? `Choosing repairs together newly reaches ${names(exact.restoredDestinationIds)}. Condition-first ${conditionFirst.restoredCount ? `newly reaches ${names(conditionFirst.restoredDestinationIds)}` : 'does not newly reach a destination'} at the same budget.`
+        : `Both strategies newly reach ${plural(exact.restoredCount, 'destination')}. ${exact.spendCents < conditionFirst.spendCents ? `The best set uses ${formatCents(conditionFirst.spendCents - exact.spendCents)} less of the illustrative budget.` : 'There is no reachability advantage to claim at this budget.'}`}</p>
+      <p className={styles.small}>Best set: {formatCents(exact.spendCents)} of authored cost · Condition-first: {formatCents(conditionFirst.spendCents)}. The named outcomes and repair dependencies below explain the result.</p>
+    </div>
 
     <div className={styles.planGrid}>
       <article className={styles.planCard} aria-labelledby="plan-baseline-heading">
@@ -68,7 +75,7 @@ export function PlanResult({ context, comparison, onViewEvidence }: Props) {
     </section>
 
     <section className={styles.card} aria-labelledby="plan-why-heading">
-      <h3 id="plan-why-heading">Why these repairs matter</h3>
+      <h3 id="plan-why-heading">Which repairs depend on each other?</h3>
       <p className={styles.small}>Computed from the server’s evaluation of each repair alone and of each plan with that repair removed, not from a per-repair score.</p>
       <div className={styles.whyGrid}>
         <RoleList title="Condition-first" roles={repairRoles(comparison, conditionFirst)} context={context} names={names} />

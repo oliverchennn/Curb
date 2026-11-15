@@ -1,6 +1,6 @@
 """Bounded production Chromium acceptance. Uses an already installed Playwright/Chromium.
 
-Start the production server, then run:
+Start the integrated explorer production server (including finding deep links), then run:
   python src/features/curb/explore/verify_browser.py --base http://127.0.0.1:3186
 No hosted service, external source link or collection-page dependency is exercised.
 """
@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import tempfile
 from datetime import datetime, timezone
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 from playwright.sync_api import sync_playwright, expect
 
 parser = argparse.ArgumentParser()
@@ -23,10 +23,9 @@ parser.add_argument('--chromium', default='/usr/bin/chromium')
 args = parser.parse_args()
 assert urlparse(args.base).hostname in ('localhost', '127.0.0.1'), 'Use a local production server.'
 root = Path(__file__).resolve().parents[4]
-out = root / 'public/curb/explore/verification'
+out = root / '.curb-local/verification/explorer-aerial'
 out.mkdir(parents=True, exist_ok=True)
 receipt = {'startedAt': datetime.now(timezone.utc).isoformat(), 'baseUrl': args.base,
-           'implementationBase': '6b2b11040eed8d3d620743bc4e12e112f9ebfa90',
            'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip(),
            'checks': [], 'runs': [], 'screenshots': []}
 receipt['productSha256'] = {str(p.relative_to(root)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -67,18 +66,25 @@ def metrics(page, run):
 
 
 def primary_fonts(page, run):
-    run['primaryFontPixels'] = page.locator('[data-collection] strong, [data-collection] small, [data-snapshot]>strong, [data-snapshot]>span, [data-snapshot]>small, [data-record]>span').evaluate_all('(es)=>[...new Set(es.map(e=>parseFloat(getComputedStyle(e).fontSize)))]')
-    check(run['label'] + ': primary name, type and snapshot date labels at least 14px', min(run['primaryFontPixels']) >= 14)
+    run['primaryFontPixels'] = page.locator('[data-collection] strong, [aria-label="Selected record"] span').evaluate_all('(es)=>[...new Set(es.map(e=>parseFloat(getComputedStyle(e).fontSize)))]')
+    check(run['label'] + ': collection name and selected record labels at least 14px', min(run['primaryFontPixels']) >= 14)
 
 
 def map_clearance(page, label):
-    result = page.locator('svg[aria-label^="Archive map."]').evaluate('''(svg) => {
+    result = page.locator('svg[aria-label^="Archive map on"]').evaluate('''(svg) => {
       const r = svg.getBoundingClientRect();
       const controls = svg.parentElement.querySelector('[aria-label="Map controls"]').getBoundingClientRect();
       const features = [...svg.querySelectorAll('[data-feature]')].map(e => e.getBoundingClientRect());
-      return {count:features.length, clear: features.every(f => f.left>=r.left-1 && f.right<=r.right+1 && f.top>=r.top-1 && f.bottom<=r.bottom+1 && f.top>=controls.bottom)};
+      return {
+        count: features.length,
+        clear: features.every(f => {
+          const inPlot = f.left >= r.left - 1 && f.right <= r.right + 1 && f.top >= r.top - 1 && f.bottom <= r.bottom + 1;
+          const underTools = f.left < controls.right && f.right > controls.left && f.top < controls.bottom && f.bottom > controls.top;
+          return inPlot && !underTools;
+        })
+      };
     }''')
-    check(label + ': fitted source features remain visible below map controls', result['clear'])
+    check(label + ': fitted source features stay within the plot and clear of the map controls', result['clear'])
 
 
 def shot(page, name):
@@ -100,14 +106,16 @@ def clean_run(run):
         check(run['label'] + ': ' + key + ' empty', not run[key])
 
 
-def route(page, name, mobile=False):
-    if mobile:
-        page.get_by_role('tab', name='Collections', exact=True).click()
+def route(page, name):
     page.locator('[data-collection="' + name + '"]').click()
 
 
+def navigator(page):
+    return page.get_by_role('group', name='Selected record', exact=True)
+
+
 def selected(page):
-    return page.locator('[data-snapshot][aria-pressed="true"]').get_attribute('data-snapshot')
+    return parse_qs(urlparse(page.url).query).get('record', [''])[0]
 
 
 try:
@@ -123,44 +131,54 @@ try:
         map_clearance(page, run['label'])
         check('Reduced-motion preference is active', page.evaluate('matchMedia("(prefers-reduced-motion: reduce)").matches'))
         check('No active explorer animations', page.locator('#explorer-map').evaluate('(e)=>e.getAnimations({subtree:true}).length') == 0)
+        svg = page.locator('svg[aria-label^="Archive map on"]')
+        expect(svg.locator('image')).to_have_attribute('href', '/curb/explore/aerial/princeton-2020.jpg')
+        expect(page.get_by_text('Aerial 2020 · NJ Office of GIS', exact=True)).to_be_visible()
+        page.get_by_role('button', name='Diagram', exact=True).click()
+        expect(svg.locator('image')).to_have_count(0)
+        page.get_by_role('button', name='Aerial', exact=True).click()
+        expect(svg.locator('image')).to_have_count(1)
+        check('Aerial shows the local cutout, and Diagram remains available')
         shot(page, 'desktop-1366.png')
         for name, count, markers in [('witherspoon', 8, 7), ('nassau-east', 10, 7), ('nassau-west', 12, 9), ('robertson', 5, 0), ('examples', 2, 0)]:
             route(page, name)
-            expect(page.locator('[data-snapshot]')).to_have_count(count)
+            expect(navigator(page)).to_contain_text(f' / {count}')
             expect(page.locator('[data-feature]')).to_have_count(markers)
             expect(page.locator('#explorer-map').get_by_text('Current traversal: Unknown', exact=True)).to_be_visible()
             check(name + ': record, geometry and traversal counts')
             if markers:
                 map_clearance(page, name)
-        expect(page.locator('[data-record="example:a"]')).to_be_visible()
-        expect(page.locator('[data-record="example:b"]')).to_be_visible()
-        check('Conflict cards are side by side', page.locator('[data-record="example:a"]').bounding_box()['x'] < page.locator('[data-record="example:b"]').bounding_box()['x'])
-        expect(page.get_by_text('Records disagree.', exact=True)).to_be_visible()
-        check('Separate withheld and unavailable example copy', 'withheld' in page.locator('[data-record="example:b"]').inner_text().lower() and 'unavailable' in page.locator('[data-record="example:a"]').inner_text().lower())
+        pair = page.locator('[data-mode="conflict"]')
+        expect(pair.locator('[data-record="example:a"]')).to_be_visible()
+        expect(pair.locator('[data-record="example:b"]')).to_be_visible()
+        check('Conflict cards are side by side', pair.locator('[data-record="example:a"]').bounding_box()['x'] < pair.locator('[data-record="example:b"]').bounding_box()['x'])
+        expect(pair.get_by_text('Records disagree.', exact=True)).to_be_visible()
+        check('Separate withheld and unavailable example copy', 'withheld' in pair.locator('[data-record="example:b"]').inner_text().lower() and 'unavailable' in pair.locator('[data-record="example:a"]').inner_text().lower())
         shot(page, 'conflicting-examples.png')
+        page.get_by_role('button', name='Filter', exact=True).click()
         search = page.get_by_role('searchbox')
         search.fill('example:a')
-        expect(page.locator('[data-snapshot]')).to_have_count(2)
+        expect(navigator(page)).to_contain_text(' / 2')
         check('Searching one conflicting ID retains both records')
         page.get_by_role('button', name='Clear filters', exact=True).click()
         route(page, 'nassau-east')
         search.fill('834108')
-        expect(page.locator('[data-snapshot]')).to_have_count(1)
+        expect(navigator(page)).to_contain_text('1 / 1')
         check('Stable source ID search finds exactly the target', '834108' in selected(page))
         page.get_by_role('combobox').select_option('archive')
         check('Type filter preserves an eligible selected identity', '834108' in selected(page))
-        expect(page.get_by_text('11 unplaced records · 2 illustrative conflict records in the atlas.', exact=False)).to_be_visible()
-        check('Hidden unplaced/conflict counts remain explicit')
+        collection_text = page.locator('#explorer-map').inner_text()
+        check('Full-collection coverage counts remain explicit under filtering', all(text in collection_text for text in ('10 records', '7 on map', '3 not on map')))
         search.fill('no-matching-source-xyz')
-        expect(page.locator('[data-snapshot]')).to_have_count(0)
-        expect(page.locator('#explorer-map').get_by_role('heading', name='No matching records', exact=True).first).to_be_visible()
-        page.get_by_role('button', name='Reset search & filters').first.click()
+        expect(navigator(page)).to_have_count(0)
+        expect(page.locator('#explorer-map').get_by_role('heading', name='No matching evidence', exact=True).first).to_be_visible()
+        page.get_by_role('button', name='Show the complete atlas', exact=True).first.click()
         expect(page.locator('[data-collection]')).to_have_count(5)
         check('No-results reset restores every collection')
         route(page, 'witherspoon')
         search.fill('library-door')
         expect(page.locator('[data-feature]')).to_have_count(0)
-        expect(page.locator('[data-snapshot]')).to_have_count(1)
+        expect(navigator(page)).to_contain_text('1 / 1')
         check('An unplaced entrance is selectable without inventing a marker')
         page.get_by_role('button', name='Clear filters', exact=True).click()
         route(page, 'witherspoon')
@@ -171,7 +189,6 @@ try:
         check('Previous snapshot restores identity', selected(page) == first)
         page.get_by_role('button', name='Previous snapshot', exact=True).click()
         check('Previous snapshot wraps to last record', selected(page) == 'record:unplaced:library-door')
-        check('Selected snapshot scrolls within strip', page.locator('[data-snapshot][aria-pressed="true"]').evaluate('(b)=>{const r=b.getBoundingClientRect(),p=b.parentElement.getBoundingClientRect();return r.left>=p.left&&r.right<=p.right}'))
         marker = page.locator('[data-feature="ramps:568004"]')
         marker.focus(); marker.press('Enter')
         check('Marker Enter selects exact source', selected(page) == 'record:ramps:568004')
@@ -180,7 +197,7 @@ try:
         check('Marker Space selects exact source', selected(page) == 'record:ramps:448038')
         marker.locator('circle').last.click()
         check('Pointer marker selection', selected(page) == 'record:ramps:568004')
-        svg = page.locator('svg[aria-label^="Archive map."]')
+        svg = page.locator('svg[aria-label^="Archive map on"]')
         initial_view = svg.get_attribute('viewBox')
         page.get_by_role('button', name='Zoom in', exact=True).click()
         check('Zoom in changes extent only', float(svg.get_attribute('viewBox').split()[2]) < float(initial_view.split()[2]) and selected(page) == 'record:ramps:568004')
@@ -199,15 +216,16 @@ try:
         check('Pointer drag pans without selecting another record', svg.get_attribute('viewBox') != initial_view and selected(page) == 'record:ramps:568004')
         svg.focus(); svg.press('Home')
         page.locator('[data-collection="witherspoon"]').focus()
-        page.keyboard.press('ArrowDown'); page.keyboard.press('Enter')
+        page.keyboard.press('ArrowRight'); page.keyboard.press('Enter')
         expect(page.locator('[data-collection="nassau-east"]')).to_have_attribute('aria-pressed', 'true')
         check('Collection arrow and Enter keyboard equivalent')
         check('Collection change fits its own extent', svg.get_attribute('viewBox') != initial_view)
         route(page, 'robertson')
         for i in range(5):
-            snapshot = page.locator('[data-snapshot]').nth(i)
-            snapshot.click()
-            image = page.locator('[data-record] img')
+            if i:
+                page.get_by_role('button', name='Next snapshot', exact=True).click()
+            expect(navigator(page)).to_contain_text(f'{i + 1} / 5')
+            image = page.locator('#explorer-map [aria-label*="Photo inspection:"] img')
             expect(image).to_be_visible()
             image.evaluate('(img)=>img.decode()')
             check('Robertson photo ' + str(i + 1) + ' loads locally without a marker', image.evaluate('(img)=>img.complete&&img.naturalWidth>0') and page.locator('[data-feature]').count() == 0)
@@ -217,7 +235,6 @@ try:
             page.remove_listener(event, handler)
         run = watch(page, 'existing-survey-and-media-handoff')
         clip_link = page.locator('[data-record] a').filter(has_text='Open source clip')
-        clip_href = clip_link.get_attribute('href')
         with context.expect_page() as event:
             clip_link.click(modifiers=['Control'])
         video_page = event.value
@@ -227,10 +244,13 @@ try:
         video_page.wait_for_function('document.querySelector("video").readyState >= 1')
         check('Actual media-fragment clip navigation reaches a local video', '#t=' in video_page.url and video.evaluate('(v)=>v.duration') > 13)
         video_page.close()
-        page.locator('[data-record]').get_by_role('link', name='Review Robertson survey', exact=False).click()
+        page.locator('#explorer-evidence [data-record]').get_by_role('link', name='Review this finding in the survey', exact=False).click()
         page.wait_for_load_state('networkidle')
         check('Real survey page navigation', urlparse(page.url).path == '/curb/surveys/robertson-hall')
         expect(page.locator('video')).to_be_visible()
+        check('Field link identifies the canonical final finding', parse_qs(urlparse(page.url).query).get('finding') == ['defect-05'])
+        page.wait_for_function('document.querySelector("video").readyState >= 1 && document.querySelector("video").currentTime > 13.8')
+        check('Field link seeks the matching final evidence frame')
         check('Existing survey handoff has no page exception or external request', not run['pageErrors'] and not run['externalRequests'])
         check('Existing survey handoff has no resource failure except its known missing root favicon', not run['failedRequests'] and all(e['location'].get('url') == args.base + '/favicon.ico' for e in run['consoleErrors']))
         context.close()
@@ -243,36 +263,35 @@ try:
             map_clearance(page, run['label'])
             shot(page, 'desktop-1920.png' if width == 1920 else 'mobile-map.png')
             if width == 390:
-                tab = page.get_by_role('tab', name='Map & snapshots', exact=True)
-                tab.focus(); tab.press('ArrowRight')
-                expect(page.get_by_role('tab', name='Collections', exact=True)).to_be_focused()
-                expect(page.locator('#explorer-routes')).to_be_visible()
-                expect(page.locator('#explorer-map')).not_to_be_visible()
-                check('Mobile arrow selects and focuses next tab')
-                page.keyboard.press('End')
-                expect(page.get_by_role('tab', name='Evidence', exact=True)).to_be_focused()
-                page.keyboard.press('Home')
-                expect(tab).to_be_focused()
-                check('Mobile tabs support Home and End')
                 for name in ('witherspoon', 'nassau-east', 'nassau-west', 'robertson', 'examples'):
-                    route(page, name, True)
-                    expect(page.locator('#explorer-map')).to_be_visible()
+                    route(page, name)
+                    chip = page.locator(f'[data-collection="{name}"]')
+                    expect(chip).to_be_focused()
                     if page.locator('[data-feature]').count():
                         map_clearance(page, '390: ' + name)
-                    expect(page.get_by_role('tab', name='Map & snapshots', exact=True)).to_be_focused()
-                    check('390: ' + name + ' selection keeps keyboard focus visible')
-                    page.get_by_role('button', name='Open selected evidence', exact=False).click()
-                    expect(page.locator('#explorer-evidence')).to_be_visible()
-                    expect(page.get_by_role('tab', name='Evidence', exact=True)).to_be_focused()
-                    check('390: ' + name + ' collection and evidence reachable')
+                    toggle = navigator(page).get_by_role('button', name='Show details', exact=True)
+                    toggle.click()
+                    drawer = page.locator('#explorer-evidence')
+                    expect(drawer).to_be_visible()
+                    drawer.get_by_role('button', name='Hide details', exact=True).click()
+                    expect(drawer).not_to_be_visible()
+                    expect(toggle).to_be_focused()
+                    check('390: ' + name + ' details close returns focus to the navigator')
                     metrics(page, run)
                 shot(page, 'mobile-conflicts.png')
-                route(page, 'robertson', True)
+                route(page, 'robertson')
                 page.get_by_role('button', name='Next snapshot', exact=True).click()
-                page.get_by_role('button', name='Open selected evidence', exact=False).click()
-                page.locator('[data-record] img').evaluate('(img)=>img.decode()')
+                page.locator('#explorer-map [aria-label*="Photo inspection:"] img').evaluate('(img)=>img.decode()')
+                shot(page, 'mobile-field-stage.png')
+                page.get_by_role('button', name='Play clip from', exact=False).click()
+                page.wait_for_function('document.querySelector("#explorer-map video")?.paused === false')
+                video = page.locator('#explorer-map video').element_handle()
+                page.get_by_role('button', name='Next snapshot', exact=True).click()
+                expect(page.locator('#explorer-map video')).to_have_count(0)
+                check('Changing the field record pauses the detached clip', video.evaluate('(clip) => clip.paused'))
                 shot(page, 'mobile-field-detail.png')
-                check('Mobile full record list exposes every field frame', page.locator('#explorer-evidence details').last.locator('button').count() == 5)
+                drawer.locator('summary').filter(has_text='All 5 records in source order').click()
+                check('Mobile full record list exposes every field frame', drawer.locator('details').last.locator('button').count() == 5)
             clean_run(run); context.close()
 
         # Browser preference changes actual page zoom, not CSS scale or a claimed viewport equivalent.
@@ -284,20 +303,32 @@ try:
         page = zoom.pages[0]; run = watch(page, 'actual-200-percent-zoom')
         load(page); metrics(page, run)
         check('Actual 200% browser zoom doubles devicePixelRatio', run['viewport']['dpr'] == 2)
-        route(page, 'nassau-west', True)
-        page.get_by_role('button', name='Open selected evidence', exact=False).click()
+        route(page, 'nassau-west')
+        navigator(page).get_by_role('button', name='Show details', exact=True).click()
         expect(page.locator('#explorer-evidence')).to_be_visible()
         check('200% zoom navigation and evidence reachable')
         shot(page, 'zoom-200-percent.png')
         clean_run(run); zoom.close(); shutil.rmtree(profile)
+
+        context = browser.new_context(viewport={'width': 1366, 'height': 768})
+        context.route('**/princeton-2020.jpg', lambda request: request.abort())
+        page = context.new_page(); run = watch(page, 'injected-local-aerial-failure')
+        load(page)
+        expect(page.get_by_text('Aerial image unavailable', exact=False)).to_be_visible()
+        expect(page.locator('[data-base="diagram"]')).to_be_visible()
+        expect(page.locator('[data-feature]')).to_have_count(7)
+        check('Failed aerial falls back to the diagram with all archive features')
+        check('Injected aerial failure is local', bool(run['failedRequests']) and not run['externalRequests'] and not run['pageErrors'])
+        context.close()
 
         # Deliberately abort the first real photo in a fresh context; record separately from clean runs.
         context = browser.new_context(viewport={'width': 1366, 'height': 768})
         context.route('**/defect-01.jpg', lambda request: request.abort())
         page = context.new_page(); run = watch(page, 'injected-local-photo-failure')
         load(page); route(page, 'robertson')
-        expect(page.locator('[data-record]').get_by_text('Photo unavailable — the local file could not be loaded.', exact=True)).to_be_visible()
-        expect(page.locator('[data-record] img')).to_have_count(0)
+        photo = page.locator('#explorer-map [aria-label*="Photo inspection:"]')
+        expect(photo.get_by_text('Photo unavailable — the local file could not be loaded.', exact=False)).to_be_visible()
+        expect(photo.locator('img')).to_have_count(0)
         check('Broken local photo shows honest failure and no substitute image')
         check('Injected failure is local and produces no page exception', bool(run['failedRequests']) and not run['externalRequests'] and not run['pageErrors'])
         context.close(); browser.close()

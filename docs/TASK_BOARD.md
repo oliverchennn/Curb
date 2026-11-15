@@ -1,15 +1,15 @@
-# Current release queue
+# Current production verification and visual upgrades
 
-Root / Oliver desktop is the sole integration and merge owner. [Live board](https://github.com/oliverchennn/Curb/issues/1) and [release checkpoint](demo/CURB_RELEASE_CHECKPOINT.md) supersede the historical rows below.
+The public deployment serves `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb-taupe.vercel.app](https://curb-taupe.vercel.app). PR9 merged the wider survey replay and removed the oversized footer at `16f5444ace90422cac3ef32548ec35b9bed9fc1f`. [PR10](https://github.com/oliverchennn/Curb/pull/10) integrates the collection, explorer, and budget upgrades.
 
 | Owner | Current scope | State |
 | --- | --- | --- |
-| Root | Shared product, source integration, final checks, offline backup, reviewed merge and branch archive | Combined product ec57fb0 passed718 tests/build, local HTTP and actual browser checks; final artifacts and release pending |
-| B / Vincent recovery | Read-only hosting preflight, no tracked writes or hosting mutations yet | Collection f76457c released/integrated; hosting assignment6883967983, await actual ACK |
-| C / Landau | No active write scope | Explorer QA7e0d289 released/integrated; three observations corrected by root1c6f1ce |
-| D / Oliver cloud | No active write scope | Released abbc64b, integrated cb9b217;90 browser checks pass, all five findings closed; no active writes |
+| Merge owner `01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5` | Git, shared integration, Chrome acceptance, archives and release | [Handoff ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886029469) from original orchestrator `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` |
+| B / Vincent laptop | Rover inspection and Vincent-project deployment | [Rover released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885965018) at `352bc300850bacd7360680fc50fe17a1190846e7` and integrated through `e12464c`. [Hosting preflight complete](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886060150). [Timed runbook released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886221603) |
+| C / Landau | Adaptive explorer stage and linked evidence | [Explorer released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886135359) at `1a21afca02bb6794d9eeba1c88c0002d482aceb7` and integrated through `ac90100`. [Independent budget QA released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886366269) and integrated. |
+| D / Oliver cloud | Survey plan presentation and synthetic budget explanation | [Released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886003683) at `cf7210200ebfe47b1f435bdcc136ddd4e2137f6e` and integrated through `7414d40`. [Independent rover QA released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886265932) |
 
-The old B laptop writer is not claimed stopped; preserve any later candidate. Hosting uses Vincent's account only, no paid upgrades. Root supplies the exact merged source before deployment. No measurements, field passability or hardware claims may be inferred from the concepts.
+B and D used assigned base `2fb49f710085732a7ac20f63680925b8db06dba5`. The original orchestrator owns worker assignments and directs Vincent’s deployment after the merge owner publishes the exact verified main SHA. [Live board](https://github.com/oliverchennn/Curb/issues/1).
 
 ---
 

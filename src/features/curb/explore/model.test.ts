@@ -17,7 +17,8 @@ describe('explorer provenance and semantic boundaries', () => {
     expect(subset.ramps).toHaveLength(10);
   });
   it('has three independent archive chains and keeps every actual Robertson photo unplaced', () => {
-    const a = createAtlas(); expect(a.collections.filter(c => c.kind === 'archive')).toHaveLength(3);
+    // Scoped to the original DVRPC archive; the separately sourced OSM campus sections are covered in campus.test.ts.
+    const a = createAtlas(); expect(a.collections.filter(c => c.kind === 'archive' && !c.id.startsWith('campus-'))).toHaveLength(3);
     const field = recordsFor(a, a.collections.find(c => c.id === 'robertson')!);
     expect(field).toHaveLength(5); expect(locatedFeatures(a, field)).toEqual([]);
     expect(field.map(r => r.media.status === 'available' && r.media.src)).toEqual(survey.findings.map(f => f.closeupSrc));
@@ -32,7 +33,7 @@ describe('explorer provenance and semantic boundaries', () => {
       expect(located.every(f => f.geometry !== null)).toBe(true);
       expect(located.some(f => missing.includes(f))).toBe(false);
     }
-    expect(a.features.filter(f => f.geometry?.type === 'LineString')).toHaveLength(10);
+    expect(a.features.filter(f => f.geometry?.type === 'LineString' && f.sourceId === 'dvrpc-lines')).toHaveLength(10);
   });
   it('does not turn accepted attachment review into traversal or a preferred conflict winner', () => {
     const a = createAtlas(); a.records.forEach(r => { r.attachment = 'accepted'; });
@@ -91,4 +92,35 @@ describe('explorer provenance and semantic boundaries', () => {
     ['conflict hidden in one collection', a => { a.collections.find(c => c.id === 'examples')!.recordIds.pop(); }],
   ];
   it.each(bad)('rejects %s', (_, mutate) => { const a = createAtlas(); mutate(a); expect(atlasSchema.safeParse(a).success).toBe(false); });
+});
+
+describe('explorer v2 coverage, stop numbers and archive metadata', () => {
+  const a = createAtlas();
+  const byId = (id: string) => a.collections.find(c => c.id === id)!;
+  it('derives coverage from the full collection, counting records and unique mapped features', async () => {
+    const { coverage } = await import('./model');
+    expect(coverage(a, byId('witherspoon'))).toEqual({ records: 8, mappedRecords: 7, mappedFeatures: 7, unplacedRecords: 1, photos: 0, conflictRecords: 0 });
+    expect(coverage(a, byId('nassau-east'))).toMatchObject({ records: 10, mappedRecords: 7, unplacedRecords: 3, photos: 0 });
+    expect(coverage(a, byId('nassau-west'))).toMatchObject({ records: 12, mappedRecords: 9, unplacedRecords: 3 });
+    expect(coverage(a, byId('robertson'))).toEqual({ records: 5, mappedRecords: 0, mappedFeatures: 0, unplacedRecords: 5, photos: 5, conflictRecords: 0 });
+    expect(coverage(a, byId('examples'))).toEqual({ records: 2, mappedRecords: 0, mappedFeatures: 0, unplacedRecords: 2, photos: 0, conflictRecords: 2 });
+    for (const c of a.collections) { const k = coverage(a, c); expect(k.mappedRecords + k.unplacedRecords).toBe(k.records); expect(k.mappedFeatures).toBeLessThanOrEqual(k.mappedRecords); }
+  });
+  it('keeps stop numbers stable in source order when filters hide records', async () => {
+    const { stopNumbers } = await import('./model');
+    const c = byId('nassau-west'), stops = stopNumbers(c);
+    expect([...stops.values()]).toEqual(c.recordIds.map((_, i) => i + 1));
+    const filtered = filteredRecords(a, c, 'all', '957434');
+    expect(filtered.length).toBeLessThan(c.recordIds.length);
+    for (const r of filtered) expect(stops.get(r.id)).toBe(c.recordIds.indexOf(r.id) + 1);
+  });
+  it('labels exactly three ASSUMED archive ramps and never exposes compliance-like fields', async () => {
+    const { archiveStatus, archiveAttributes } = await import('./model');
+    expect(a.features.filter(f => archiveStatus(f) === 'ASSUMED')).toHaveLength(3);
+    for (const f of a.features) {
+      const attrs = archiveAttributes(f).map(([k]) => k);
+      expect(attrs.some(k => /ada|compl|dws/i.test(k))).toBe(false);
+      if (f.geometry === null) expect(attrs).toEqual([]);
+    }
+  });
 });

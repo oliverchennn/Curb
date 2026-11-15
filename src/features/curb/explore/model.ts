@@ -86,10 +86,51 @@ export function locatedFeatures(a: Atlas, records: EvidenceRecord[]) {
 export const traversalText = (_collection: Collection) => 'Current traversal: Unknown';
 export const project = ([lon, lat]: [number, number]) => [(lon + 74.6597) * Math.cos(40.35 * Math.PI / 180) * 100000, (40.3502 - lat) * 100000] as [number, number];
 export function vertices(f: Feature) { return f.geometry?.type === 'Point' ? [f.geometry.coordinates] : f.geometry?.coordinates ?? []; }
-export function fitFeatures(features: Feature[]): [number, number, number, number] {
+export function fitFeatures(features: Feature[], pad = 55, min = 65): [number, number, number, number] {
   const points = features.flatMap(vertices).map(project);
   if (!points.length) return [-100, -160, 230, 260];
   const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-  const w = Math.max(65, Math.max(...xs) - Math.min(...xs) + 55), h = Math.max(65, Math.max(...ys) - Math.min(...ys) + 55);
+  const w = Math.max(min, Math.max(...xs) - Math.min(...xs) + pad), h = Math.max(min, Math.max(...ys) - Math.min(...ys) + pad);
   return [(Math.max(...xs) + Math.min(...xs) - w) / 2, (Math.max(...ys) + Math.min(...ys) - h) / 2, w, h];
+}
+
+/** Data-derived coverage for one collection, always over its FULL record list (filters never change it).
+ * Record counts count records; `mappedFeatures` counts unique located features (a shared ramp counts once). */
+export type Coverage = { records: number; mappedRecords: number; mappedFeatures: number; unplacedRecords: number; photos: number; conflictRecords: number };
+export function coverage(a: Atlas, c: Collection): Coverage {
+  const all = recordsFor(a, c);
+  const located = all.filter(r => a.features.find(f => f.id === r.featureId)?.geometry);
+  return {
+    records: all.length,
+    mappedRecords: located.length,
+    mappedFeatures: new Set(located.map(r => r.featureId)).size,
+    unplacedRecords: all.length - located.length,
+    photos: all.filter(r => r.media.status === 'available').length,
+    conflictRecords: all.filter(r => r.conflictGroup).length,
+  };
+}
+
+/** Stable stop numbers from the full collection's SOURCE order (1-based). Filtering never renumbers.
+ * Source order is not chronology and not an observed traversal. */
+export function stopNumbers(c: Collection): Map<string, number> {
+  return new Map(c.recordIds.map((id, i) => [id, i + 1]));
+}
+
+/** Archived DVRPC ramp status; null for anything else. A label from the archive, never current condition. */
+export function archiveStatus(f: Feature | undefined): 'EXISTING' | 'ASSUMED' | null {
+  const s = f?.type === 'ramp' ? f.properties.status : null;
+  return s === 'EXISTING' || s === 'ASSUMED' ? s : null;
+}
+
+/** Display-safe archive metadata (type, material, capture method, status). Excludes compliance-like fields. */
+export function archiveAttributes(f: Feature | undefined): [string, string][] {
+  if (!f || !f.sourceFeatureId || f.geometry === null) return [];
+  const p = f.properties, out: [string, string][] = [];
+  const text = (v: unknown) => (v === null || v === undefined || v === '' ? null : String(v));
+  out.push(['Feature type', f.type === 'ramp' ? 'Curb ramp (point)' : f.type === 'crossing' ? 'Crossing (line)' : 'Path (line)']);
+  const material = text(p.material); if (material && material !== 'N/A') out.push(['Material', material]);
+  const featType = text(p.feat_type); if (featType && f.type !== 'ramp') out.push(['Archive line class', featType]);
+  const captured = text(p.captured); if (captured) out.push(['Capture method', captured]);
+  const status = archiveStatus(f); if (status) out.push(['Archived status', status]);
+  return out;
 }

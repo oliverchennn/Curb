@@ -28,6 +28,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
 }) {
   const [reviewer, setReviewer] = useState('');
   const [message, setMessage] = useState<string | null>(null);
+  const reviewerError = message?.startsWith('Enter a reviewer') ? message : null;
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
 
   // A message belongs to the finding it was raised for; selecting another finding clears it.
@@ -47,10 +48,14 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
   return <section className={styles.card} aria-labelledby="survey-review-heading">
     <div className={styles.panelHeading}>
       <h2 id="survey-review-heading"><span className={styles.stepNumber}>1</span> Review findings</h2>
-      <label className={styles.inlineLabel} htmlFor="survey-reviewer">Reviewer
-        <input id="survey-reviewer" value={reviewer} autoComplete="name" placeholder="Your name"
-          onChange={(event) => { setReviewer(event.target.value); if (event.target.value.trim()) setMessage((current) => current?.startsWith('Enter a reviewer') ? null : current); }} />
-      </label>
+      <div>
+        <label className={styles.inlineLabel} htmlFor="survey-reviewer">Reviewer
+          <input id="survey-reviewer" value={reviewer} autoComplete="name" placeholder="Your name"
+            aria-invalid={reviewerError ? true : undefined} aria-describedby={reviewerError ? 'survey-reviewer-error' : undefined}
+            onChange={(event) => { setReviewer(event.target.value); if (event.target.value.trim()) setMessage((current) => current?.startsWith('Enter a reviewer') ? null : current); }} />
+        </label>
+        {reviewerError ? <p id="survey-reviewer-error" role="alert" className={styles.inlineError}>{reviewerError}</p> : null}
+      </div>
     </div>
     <p className={styles.small}>Pick a defect to see it in the video. Accept or reject it, and add measurements if you have them.</p>
 
@@ -116,7 +121,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <CorrectionForm key={`${finding.id}:${finding.label}:${finding.kind}:${finding.description}`} finding={finding}
           onSave={(correction) => apply(correctFinding(survey, finding.id, correction, reviewer), `Saved corrections to “${correction.label.trim()}”.`)} />
 
-        {message ? <p role="alert" className={styles.inlineError}>{message}</p> : null}
+        {message && !reviewerError ? <p role="alert" className={styles.inlineError}>{message}</p> : null}
       </article> : <p className={styles.small}>Select a finding to review its evidence.</p>}
     </div>
   </section>;

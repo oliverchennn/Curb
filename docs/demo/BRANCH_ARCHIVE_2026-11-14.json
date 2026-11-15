@@ -348,6 +348,159 @@
           "integratedOnReleaseBranch": "cb9b217c09ca2e32cd081a855c11e00537be1e06"
         }
       ]
+    },
+    {
+      "recordedAt": "2026-11-14T22:16:03.460511+00:00",
+      "reason": "Reconciled the already-completed PR7 cleanup: exact archive tag and absent remote branch reverified during production hardening. Local main fast-forwarded to the merged release and its archived local task branch removed.",
+      "archivesVerified": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/robertson-release-final",
+          "sha": "612905a91db76c2642f6c0869085042b0fd51b71",
+          "archiveTag": "archive/2026-11-14/codex/robertson-release-final",
+          "mergedThrough": "b010ad02ce9e0cb905e15e5c7c7109713814b36e",
+          "originalCleanupReceipt": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6884044723"
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T22:18:19.794996+00:00",
+      "reason": "Stopped/released polish and hosting results reviewed and integrated into published production-hardening PR8; exact tags verified before deleting only the completed refs. Active hosted audit scopes untouched.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 2,
+      "branches": [
+        {
+          "branch": "codex/collection-accessibility-polish",
+          "sha": "5129765da5977cfa4ad52ba6b4887f5b8359b3a9",
+          "archiveTag": "archive/2026-11-14/codex/collection-accessibility-polish",
+          "integratedOnReleaseBranch": [
+            "d5c1f78",
+            "273c2d7"
+          ],
+          "integrationRefinements": [
+            "5a2d83d9539c4b311c9a850c88d1d421686d88bd"
+          ]
+        },
+        {
+          "branch": "codex/vincent-hosting-result",
+          "sha": "94838741512dc2efb08e490ff91c7ca886d0970b",
+          "archiveTag": "archive/2026-11-14/codex/vincent-hosting-result",
+          "integratedOnReleaseBranch": [
+            "73d6eae",
+            "c7373d5",
+            "90e8cb6"
+          ]
+        }
+      ],
+      "boardReceipt": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885066480"
+    },
+    {
+      "recordedAt": "2026-11-14T22:54:17.789956+00:00",
+      "reason": "All four audit scopes explicitly STOPPED/released, fully reviewed and integrated into published PR8. Final UI delta scope is separate and remains active.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 4,
+      "branches": [
+        {
+          "branch": "codex/hosted-backend-audit",
+          "sha": "f16f176d97945b37e68e9e557fc60f08c0601002",
+          "archiveTag": "archive/2026-11-14/codex/hosted-backend-audit",
+          "integratedOnReleaseBranch": [
+            "16f1b36",
+            "3d9a36e"
+          ]
+        },
+        {
+          "branch": "codex/hosted-ui-audit",
+          "sha": "7409514bdc93f5c87b6882140c6cc4a540a1b1a3",
+          "archiveTag": "archive/2026-11-14/codex/hosted-ui-audit",
+          "integratedOnReleaseBranch": [
+            "a3c18f6"
+          ]
+        },
+        {
+          "branch": "codex/hardening-backend-regression",
+          "sha": "c35ebe10268dc3511eef93b86994b900bcca32a5",
+          "archiveTag": "archive/2026-11-14/codex/hardening-backend-regression",
+          "integratedOnReleaseBranch": [
+            "9ef771b"
+          ]
+        },
+        {
+          "branch": "codex/hardening-ui-regression",
+          "sha": "d1f0b58959522a4386d7f20ea22212d1e9b71917",
+          "archiveTag": "archive/2026-11-14/codex/hardening-ui-regression",
+          "integratedOnReleaseBranch": [
+            "a21ffdb"
+          ]
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:00:41.409788+00:00",
+      "reason": "Final UI delta report explicitly stopped/released, reviewed and integrated as 2fb49f7; exact archive tag verified before deletion. New explorer design scope is separate.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/final-ui-delta",
+          "sha": "08163308f90d5071be6eb8a095c31d0f2f4ba263",
+          "archiveTag": "archive/2026-11-14/codex/final-ui-delta",
+          "integratedOnReleaseBranch": [
+            "2fb49f7"
+          ]
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:06:33.907696+00:00",
+      "reason": "PR8 reviewed, both CI runtimes passed on exact e36b2a2 head, merged as bfd8826; remote exact archive tag verified before deleting completed hardening branch. New visual upgrade branches remain active.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/production-hardening",
+          "sha": "e36b2a274eecd4c87a2178db0afca1303d28768a",
+          "archiveTag": "archive/2026-11-14/codex/production-hardening",
+          "mergedIntoMain": "bfd8826ea157991514cefc91a9a89cd90a86d187"
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:10:21.769024+00:00",
+      "reason": "PR9 reviewed and merged after exact-head CI and Chrome desktop/mobile checks; archive verified before removal. B/C/D upgrades remain separate.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/replay-layout-v2",
+          "sha": "849fa862a1a2f9dd059de4da21ff62df124deb0a",
+          "archiveTag": "archive/2026-11-14/codex/replay-layout-v2",
+          "mergedIntoMain": "16f5444ace90422cac3ef32548ec35b9bed9fc1f"
+        }
+      ]
+    },
+    {
+      "recordedAt": "2026-11-14T23:22:27.155696+00:00",
+      "reason": "Landau design scope explicitly stopped and released, reviewed in full and integrated as 9be8143; exact tag and absent branch reverified. Explorer implementation remains on its separately assigned active branch.",
+      "archivesVerified": true,
+      "atomicDeletionWithExactShaLeases": true,
+      "deletedRemoteBranches": 1,
+      "branches": [
+        {
+          "branch": "codex/explorer-design-v2",
+          "sha": "85769f45caa0ba4b4dd89d62cddbe9634114b4a6",
+          "archiveTag": "archive/2026-11-14/codex/explorer-design-v2",
+          "integratedOnReleaseBranch": [
+            "9be8143"
+          ]
+        }
+      ]
     }
   ]
 }

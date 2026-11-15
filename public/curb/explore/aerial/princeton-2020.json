@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "curb-aerial-context-v1",
+  "id": "njogis-princeton-2020",
+  "label": "Princeton aerial context",
+  "kind": "aerial_archive_context",
+  "src": "/curb/explore/aerial/princeton-2020.jpg",
+  "width": 3072,
+  "height": 3072,
+  "sha256": "e2571a12dd3965abe3a4fc4f8001e3120bc76482f1b2266213a6fbc058648851",
+  "bytes": 2854838,
+  "crs": "EPSG:4326",
+  "bounds": {
+    "west": -74.66499999999999,
+    "south": 40.346,
+    "east": -74.65499999999999,
+    "north": 40.356
+  },
+  "captureYear": 2020,
+  "capturedAt": null,
+  "retrievedAt": "2026-11-15T00:57:13.538405+00:00",
+  "sourceName": "NJ Office of Information Technology, Office of GIS",
+  "sourceUrl": "https://www.nj.gov/njgin/edata/imagery/",
+  "itemUrl": "https://newjersey.maps.arcgis.com/home/item.html?id=5d558e0ad9274c558ce2cabd19afaed9",
+  "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.665%2C40.346%2C-74.655%2C40.356&bboxSR=4326&imageSR=4326&size=3072%2C3072&format=jpg&transparent=false&dpi=96",
+  "attribution": "Aerial imagery: NJ Office of Information Technology, Office of GIS (2020).",
+  "note": "Aerial archive context only. Exact capture date and time are unknown. This is not a field observation or evidence of current surface condition or passability.",
+  "projectionCheck": {
+    "method": "Existing explorer affine longitude/latitude project()",
+    "x": -403.91491266531045,
+    "y": -580.0000000000693,
+    "width": 762.1036088041278,
+    "height": 1000.0000000005116
+  }
+}

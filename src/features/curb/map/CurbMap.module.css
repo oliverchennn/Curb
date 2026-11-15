@@ -19,10 +19,13 @@
 
 .map figure > div {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
 .map figure button {
+  min-width: 44px;
+  min-height: 44px;
   background: #ffffff;
   color: #173d35;
   border: 1px solid #b7cfc8;
@@ -34,6 +37,11 @@
 
 .map figure button:hover {
   background: #eef6f3;
+}
+
+.map figure button[aria-disabled='true'] {
+  opacity: .55;
+  cursor: not-allowed;
 }
 
 .map :focus-visible {

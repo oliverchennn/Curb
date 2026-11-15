@@ -193,10 +193,15 @@ export function PlanPlanner() {
       <Link href="/curb/trips">One-trip repair comparison</Link>
     </nav>
     <section className={styles.intro} aria-labelledby="plan-heading">
-      <p className={styles.eyebrow}>One budget. Two ways to spend it.</p>
-      <h1 id="plan-heading">Compare repair plans under the same budget.</h1>
-      <p className={styles.lede}>See which destinations become reachable when repairs are chosen by worst condition first, and when the best combination is chosen for the budget.</p>
-      <p className={styles.synthetic}>Synthetic example · Authored costs, ratings and assessments · Not field observations</p>
+      <p className={styles.eyebrow}>Learning lab · Synthetic network</p>
+      <h1 id="plan-heading">Why the combination of repairs matters.</h1>
+      <p className={styles.lede}>Explore how the same example budget can open different connections: fix the worst condition first, or choose repairs together to reach more destinations.</p>
+      <div className={styles.teachingNote}>
+        <strong>These tiny amounts are teaching numbers, not repair prices.</strong>
+        <p>The authored $4 and $8 budgets make the algorithm easy to compare. Costs, ratings and route assessments belong to this synthetic network; they cannot estimate a contractor’s work.</p>
+        <Link href="/curb/surveys/robertson-hall#survey-plans-heading">Plan real Robertson Hall work <span aria-hidden="true">→</span></Link>
+        <p className={styles.small}>Use the actual findings, sourced unit-rate references and quote checklist to develop a repair budget.</p>
+      </div>
     </section>
 
     {state.status === 'loading' ? <section className={styles.card} aria-label="Loading repair-plan example">
@@ -215,12 +220,12 @@ export function PlanPlanner() {
       <div className={styles.workspace}>
         <section className={styles.card} aria-labelledby="plan-budget-heading">
           <div className={styles.sectionHeading}>
-            <h2 id="plan-budget-heading">Set the budget</h2>
+            <h2 id="plan-budget-heading">Try an example budget</h2>
             <button type="button" className={styles.textButton} onClick={reset}>Reset</button>
           </div>
           <p className={styles.small}>{context.scenario.title} · From {nodeLabel(context, context.originNodeId)} (fixed origin) · {context.profile.label}</p>
           <form onSubmit={compare} noValidate>
-            <label htmlFor="plan-budget" className={styles.budgetLabel}>Budget (US dollars)
+            <label htmlFor="plan-budget" className={styles.budgetLabel}>Example budget (illustrative US dollars)
               <span className={styles.budgetInput}>
                 <span aria-hidden="true">$</span>
                 <input id="plan-budget" ref={budgetRef} inputMode="decimal" autoComplete="off" value={budgetText}
@@ -256,8 +261,8 @@ export function PlanPlanner() {
       </div>
 
       <section className={styles.card} aria-labelledby="plan-candidates-heading">
-        <h2 id="plan-candidates-heading">Repair candidates</h2>
-        <p className={styles.small}>Condition ratings run from 1 (least severe) to 5 (most severe). Costs are illustrative US dollar amounts with their stated source.</p>
+        <h2 id="plan-candidates-heading">The pieces in this teaching example</h2>
+        <p className={styles.small}>Authored candidate costs let you inspect the trade-off. A cheap repair can matter only when its companion is also selected. Condition ratings run from 1 (least severe) to 5 (most severe); none of these amounts is a construction quote.</p>
         <ul className={styles.candidateList}>{context.candidates.map((candidate) => <li key={candidate.repairId}>
           <div className={styles.candidateHead}>
             <strong>{repairLabel(context, candidate.repairId)}</strong>
