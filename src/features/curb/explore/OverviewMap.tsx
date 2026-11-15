@@ -7,6 +7,8 @@ import { campusOverviewBounds, campusWayStyles, campusWayTypes, fitProjectedView
 import { placeSectionTargets, SECTION_TARGET_SIZE } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
+import { PhotoEvidenceLayer, type PhotoLayer } from './PhotoEvidenceLayer';
+import { layoutPhotoMarkers, photoView } from './photoEvidence';
 import styles from './Explorer.module.css';
 
 const overviewBounds = campusOverviewBounds();
@@ -32,9 +34,9 @@ export function CampusWayLegend({ ways }: { ways?: CampusPaths['ways'] }) {
 }
 
 /** Campus overview with aggregated source ways and keyboard-accessible section codes. */
-export default function OverviewMap({ paths, sections, collections, onPick, pointLayer }: {
+export default function OverviewMap({ paths, sections, collections, onPick, pointLayer, photoLayer }: {
   paths: CampusPaths; sections: CampusSection[]; collections: Collection[]; onPick: (collectionId: string) => void;
-  pointLayer?: CampusPointLayer;
+  pointLayer?: CampusPointLayer; photoLayer?: PhotoLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const [size, setSize] = useState([900, 900]);
@@ -67,12 +69,20 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
   const targetSize = SECTION_TARGET_SIZE * unit;
   const pointLayout = pointLayer && layoutCampusPointMarkers(pointLayer.records, pointLayer.selected,
     plotBounds, unit, view[2] < fit[2] / 2 && unit <= 1.25, [...labelSpots.values()]);
+  const photoMarkers = photoLayer && layoutPhotoMarkers(photoLayer.records, photoLayer.selectedId,
+    plotBounds, unit, [...labelSpots.values(), ...(pointLayout?.markers ?? [])]);
   const rovingId = focusId && targets.some(s => s.collectionId === focusId) ? focusId : targets[0]?.collectionId;
   useEffect(() => {
     if (!svg.current) return;
     const observer = new ResizeObserver(entries => { const r = entries[0].contentRect; if (r.width && r.height) setSize([r.width, r.height]); });
     observer.observe(svg.current); return () => observer.disconnect();
   }, []);
+  const photoRequest = photoLayer?.request;
+  useEffect(() => {
+    if (!photoRequest) return;
+    setManualView(photoView(photoRequest.coordinates));
+    if (photoRequest.focusMap) svg.current?.focus();
+  }, [photoRequest]);
   const pointRequest = pointLayer?.request;
   useEffect(() => {
     if (!pointRequest) return;
@@ -157,6 +167,8 @@ export default function OverviewMap({ paths, sections, collections, onPick, poin
           <rect x={t.x - 19 * unit} y={t.y - 12 * unit} width={38 * unit} height={24 * unit} rx={4 * unit} fill="#fffef8" stroke="#414b3d" strokeWidth={2} vectorEffect="non-scaling-stroke" />
           <text x={t.x} y={t.y + 5 * unit} textAnchor="middle" fontSize={14 * unit} fontWeight={800} fill="#213a2c">{s.code}</text>
         </g>; })}
+      {photoMarkers && photoLayer && <PhotoEvidenceLayer markers={photoMarkers} unit={unit}
+        onSelect={(id, keyboard) => { if (keyboard || !moved.current) photoLayer.onSelect(id, keyboard); }} />}
     </svg>
     <div className={styles.mapCredit} data-campus="true">{showAerial && <span>Aerial {campusAerial.captureYear} · NJ Office of GIS</span>}<OsmCredit offerDownload /></div>
     <details className={styles.legend}>

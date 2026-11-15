@@ -3,6 +3,10 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { coverage, dateText, kindLabels, recordsFor, selectionFor, stopNumbers, traversalText, type Atlas, type Collection, type Filter } from './model';
 import { DEFAULT_POINT_LOCATION, explorerLocationUrl, getCampusPointRecords, readExplorerLocation, searchable, type CampusPointLocation, type ExplorerPanel } from './location';
 import { countCampusPoints, findCampusPoint, selectCampusPoints, type CampusPoint, type CampusPointFilter } from '../../../data/curb/princeton-campus-points/adapter';
+import { PhotoEvidenceBrowser } from './PhotoEvidenceBrowser';
+import { PhotoLegend, type PhotoLayer } from './PhotoEvidenceLayer';
+import { findPhotoEvidence, getPhotoEvidence, photoPin, type PhotoMarker } from './photoEvidence';
+import photoStyles from './PhotoEvidence.module.css';
 import CampusPointBrowser from './CampusPointBrowser';
 import { CampusPointLegend, type CampusPointLayer } from './CampusPointMarkers';
 import GroupChips, { CollectionChips } from './CollectionCards';
@@ -15,6 +19,14 @@ import { campusCounts, campusPaths, campusRetrievedAt, campusSourceTags } from '
 import { campusSections, collectionsIn, explorerAtlas, groupOf, isCampus, sourceClass, type GroupId } from './groups';
 import { OsmCredit } from './OsmCredit';
 import styles from './Explorer.module.css';
+
+const photoRecords = getPhotoEvidence();
+const markerOrder: PhotoMarker[] = ['viewpoint', 'possible-concern', 'reviewed-barrier'];
+const photoKinds = markerOrder.filter(kind => photoRecords.some(item => photoPin(item)?.kind === kind));
+function photoPinIfSet(id?: string) {
+  const record = id ? findPhotoEvidence(id) : null;
+  return record ? photoPin(record) : null;
+}
 
 function pointInventory(state: CampusPointLocation, section: string | null) {
   const records = getCampusPointRecords();
@@ -48,6 +60,13 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const [pointLocation, setPointLocation] = useState<CampusPointLocation>();
   const [pointBrowserOpen, setPointBrowserOpen] = useState(false);
   const [pointRequest, setPointRequest] = useState<CampusPointLayer['request']>(null);
+  const [photoHidden, setPhotoHidden] = useState(false);
+  const [photoId, setPhotoId] = useState<string | null>(null);
+  const [photoOpen, setPhotoOpen] = useState(false);
+  const [photoRequest, setPhotoRequest] = useState<PhotoLayer['request']>(null);
+  const photoBrowse = useRef<HTMLButtonElement>(null);
+  const photoHeading = useRef<HTMLHeadingElement>(null);
+  const pendingPhotoFocus = useRef<'focus' | 'reveal' | null>(null);
   const browseButton = useRef<HTMLButtonElement>(null);
   const pointHeading = useRef<HTMLHeadingElement>(null);
   const pendingPointFocus = useRef<'heading' | 'scroll' | 'way' | null>(null);
@@ -61,7 +80,10 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const pointSection = !showOverview && collection && isCampus(collection.id) ? collection.id : null;
   const inventory = useMemo(() => activePoints ? pointInventory(activePoints, pointSection) : null, [activePoints, pointSection]);
   const selectedPoint = activePoints?.node ? findCampusPoint(getCampusPointRecords(), activePoints.node) : null;
-  const showPointBrowser = Boolean(activePoints && inventory && pointBrowserOpen);
+  const showPhotos = campusView && photoRecords.length > 0 && !photoHidden;
+  const selectedPhoto = showPhotos ? findPhotoEvidence(photoId) : null;
+  const showPhotoBrowser = showPhotos && photoOpen;
+  const showPointBrowser = Boolean(activePoints && inventory && pointBrowserOpen) && !showPhotoBrowser;
   useEffect(() => {
     const restore = () => {
       if (window.location.pathname !== '/curb/explore') return;
@@ -71,6 +93,12 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
       setPointLocation(saved.point);
       setPointBrowserOpen(Boolean(saved.point?.node));
       setPointRequest(null);
+      setPhotoHidden(Boolean(saved.photoHidden));
+      setPhotoId(saved.photoId ?? null);
+      setPhotoOpen(Boolean(saved.photoId));
+      const pin = photoPinIfSet(saved.photoId);
+      setPhotoRequest(pin ? { coordinates: pin.coordinates } : null);
+      pendingPhotoFocus.current = saved.photoId ? 'reveal' : null;
       setLocationReady(true);
     };
     restore();
@@ -82,18 +110,24 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
     const next = explorerLocationUrl(window.location.href, {
       collectionId: collection?.id ?? collectionId, recordId: record?.id ?? recordId, filter, query, panel,
       ...(showOverview ? { overview: true as const } : {}), point: activePoints,
+      ...(selectedPhoto ? { photoId: selectedPhoto.id } : {}),
+      ...(campusView && photoHidden ? { photoHidden: true as const } : {}),
     });
     if (next !== window.location.pathname + window.location.search + window.location.hash) {
       // Replace this page's entry: scrubbing snapshots must not create dozens of Back steps.
       // Next's native-history bridge retains its router state when passed null.
       window.history.replaceState(null, '', next);
     }
-  }, [locationReady, collection?.id, record?.id, collectionId, recordId, filter, query, panel, showOverview, activePoints]);
+  }, [locationReady, collection?.id, record?.id, collectionId, recordId, filter, query, panel, showOverview, activePoints, selectedPhoto, campusView, photoHidden]);
   useEffect(() => {
     if (!locationReady || campusView) return;
     setPointLocation(undefined);
     setPointBrowserOpen(false);
     setPointRequest(null);
+    setPhotoId(null);
+    setPhotoOpen(false);
+    setPhotoRequest(null);
+    setPhotoHidden(false);
   }, [locationReady, campusView]);
   const all = collection ? recordsFor(atlas, collection) : [];
   const stops = useMemo(() => collection ? stopNumbers(collection) : new Map<string, number>(), [collection]);
@@ -104,7 +138,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const inCampusSection = !showOverview && isCampus(collection?.id);
   // Details are a collapsible side panel ("map" in the URL = details hidden); a URL may also ask for them.
   const detailsOpen = panel !== 'map' && !showOverview;
-  const wayDrawerOpen = detailsOpen && !showPointBrowser;
+  const wayDrawerOpen = detailsOpen && !showPointBrowser && !showPhotoBrowser;
   const [filtersOpen, setFiltersOpen] = useState(false);
   const detailsRef = useRef<HTMLElement>(null);
   const detailsToggle = useRef<HTMLButtonElement>(null);
@@ -116,7 +150,45 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
     if (pending === 'way') detailsToggle.current?.focus();
     pendingPointFocus.current = null;
   }, [showPointBrowser]);
+  function revealPhoto(behavior: 'focus' | 'reveal') {
+    if (behavior === 'focus') photoHeading.current?.focus();
+    else if (window.matchMedia('(max-width: 950px)').matches) photoHeading.current?.scrollIntoView({ block: 'nearest' });
+  }
+  useLayoutEffect(() => {
+    const pending = pendingPhotoFocus.current;
+    if (!pending || !showPhotoBrowser) return;
+    revealPhoto(pending);
+    pendingPhotoFocus.current = null;
+  }, [showPhotoBrowser, photoId]);
+
+  const dismissPhoto = (returnFocus = false) => {
+    setPhotoOpen(false);
+    setPhotoId(null);
+    setPhotoRequest(null);
+    pendingPhotoFocus.current = null;
+    if (returnFocus) photoBrowse.current?.focus();
+  };
+  const openPhoto = () => {
+    setPanel('map');
+    setPointBrowserOpen(false);
+    setPointLocation(previous => previous && { ...previous, node: null });
+    setPointRequest(null);
+    setPhotoOpen(true);
+  };
+  const selectPhoto = (id: string, keyboard: boolean, locate = false) => {
+    openPhoto();
+    const behavior = keyboard ? 'focus' : 'reveal';
+    const pin = photoPinIfSet(id);
+    setPhotoRequest(locate && pin ? { coordinates: pin.coordinates } : null);
+    if (id === photoId && showPhotoBrowser) revealPhoto(behavior);
+    else pendingPhotoFocus.current = behavior;
+    setPhotoId(id);
+  };
+  const photoLayer: PhotoLayer | undefined = showPhotos ? {
+    records: photoRecords, selectedId: selectedPhoto?.id ?? null, request: photoRequest, onSelect: selectPhoto,
+  } : undefined;
   const selectPoint = (point: CampusPoint | null) => {
+    if (point && showPhotoBrowser) dismissPhoto();
     setPointLocation(previous => previous && { ...previous, node: point?.sourceFeatureId ?? null });
     setPointRequest(null);
     if (point) setPointBrowserOpen(true);
@@ -134,12 +206,14 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const selectRecord = (id: string) => {
     if (collection) setCollectionId(collection.id);
     if (showPointBrowser) closePointBrowser(false);
+    if (showPhotoBrowser) dismissPhoto();
     setRecordId(id);
     setOverview(false);
     setPanel(previous => previous === 'map' ? 'evidence' : previous);
   };
   const chooseCollection = (c: Collection) => {
     setPointRequest(null);
+    setPhotoRequest(null);
     setCollectionId(c.id);
     setRecordId(c.recordIds[0]);
     setOverview(false);
@@ -159,6 +233,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
     setQuery('');
     setOverview(true);
     setPanel('map');
+    setPhotoRequest(null);
     setPointRequest(null);
     setPointLocation(previous => previous?.scope === 'section' ? { ...previous, scope: 'all' } : previous);
   };
@@ -178,13 +253,13 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   useEffect(() => { if (filtered) setFiltersOpen(true); }, [filtered]);
   // A deep link that asks for the evidence opens the details; on phones, bring them into view once.
   useEffect(() => {
-    if (!locationReady || panel !== 'evidence' || showPointBrowser || window.matchMedia('(min-width: 951px)').matches) return;
+    if (!locationReady || panel !== 'evidence' || showPointBrowser || showPhotoBrowser || window.matchMedia('(min-width: 951px)').matches) return;
     detailsRef.current?.scrollIntoView({ block: 'start' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationReady]);
   const fmt = (n: number) => n.toLocaleString('en-US');
   const view = campusView ? 'campus' : collection?.kind === 'field' ? 'field' : 'downtown';
-  const railOpen = wayDrawerOpen || showPointBrowser;
+  const railOpen = wayDrawerOpen || showPointBrowser || showPhotoBrowser;
   return <div className={styles.explorer} data-view={view} data-rail={railOpen ? 'open' : 'closed'}>
     <header className={styles.heading}>
       <h1>Route explorer<span className={styles.headingDot}>.</span></h1>
@@ -220,11 +295,31 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
               else if (window.matchMedia('(max-width: 950px)').matches) pointHeading.current?.scrollIntoView({ block: 'nearest' });
               return;
             }
+            if (showPhotoBrowser) dismissPhoto();
             pendingPointFocus.current = keyboard ? 'heading' : 'scroll';
             setPointBrowserOpen(true);
           }}>Browse features</button>
         <span>{inventory.counts.total} archive features</span>
         <CampusPointLegend />
+      </>}
+    </div>}
+    {locationReady && photoRecords.length > 0 && <div className={photoStyles.controls} role="group" aria-label="Campus photo evidence layer">
+      <button type="button" aria-pressed={showPhotos} onClick={() => {
+        if (showPhotos) dismissPhoto();
+        setPhotoHidden(showPhotos);
+      }}>Photo evidence</button>
+      {showPhotos && <>
+        <button type="button" ref={photoBrowse} aria-expanded={showPhotoBrowser}
+          aria-controls={showPhotoBrowser ? 'campus-photo-browser' : undefined}
+          onClick={event => {
+            const behavior = event.detail === 0 ? 'focus' : 'reveal';
+            if (showPhotoBrowser) revealPhoto(behavior);
+            else {
+              pendingPhotoFocus.current = behavior;
+              openPhoto();
+            }
+          }}>Browse photos</button>
+        {photoKinds.length > 0 && <PhotoLegend kinds={photoKinds} />}
       </>}
     </div>}
     </div>}
@@ -238,7 +333,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
             <span className={styles.traversal}>Current traversal: Unknown</span>
           </div>
           <div className={styles.stage} data-mode="overview">
-            <OverviewMap paths={paths} sections={campusSections} collections={collections} onPick={pickFromOverview} pointLayer={pointLayer} />
+            <OverviewMap paths={paths} sections={campusSections} collections={collections} onPick={pickFromOverview} pointLayer={pointLayer} photoLayer={photoLayer} />
           </div>
         </> : <>
           <div className={styles.mapHeading}>
@@ -248,7 +343,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
             <span className={styles.traversal}>{collection ? traversalText(collection) : 'Current traversal: Unknown'}</span>
           </div>
           <EvidenceStage atlas={atlas} collection={collection} records={records} record={record} stops={stops} onSelect={selectRecord} onReset={clear}
-            mapOptions={inCampusSection ? { set: 'campus', context: paths.all, section: campusSections.find(section => section.collectionId === collection?.id), osm: true, dense: true, pointLayer } : undefined} />
+            mapOptions={inCampusSection ? { set: 'campus', context: paths.all, section: campusSections.find(section => section.collectionId === collection?.id), osm: true, dense: true, pointLayer, photoLayer } : undefined} />
           {collection && record && <div className={styles.navigator} role="group" aria-label="Selected record">
             <button type="button" aria-label="Previous snapshot" onClick={() => step(-1)}>‹</button>
             <div className={styles.navCurrent} aria-live="off">
@@ -261,6 +356,7 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
             <button type="button" ref={detailsToggle} className={styles.detailsToggle} aria-expanded={wayDrawerOpen} aria-controls="explorer-evidence"
               onClick={() => {
                 if (showPointBrowser) closePointBrowser(false);
+                if (showPhotoBrowser) dismissPhoto();
                 setPanel(wayDrawerOpen ? 'map' : 'evidence');
               }}>{wayDrawerOpen ? 'Hide details' : 'Show details'}</button>
           </div>}
@@ -292,6 +388,12 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
         onWayDetails={keyboard => {
           if (keyboard) pendingPointFocus.current = 'way';
           closePointBrowser(false);
+        }} />}
+      {showPhotoBrowser && <PhotoEvidenceBrowser records={photoRecords} selected={selectedPhoto} headingRef={photoHeading}
+        onSelect={(id, keyboard) => selectPhoto(id, keyboard, true)} onClose={() => dismissPhoto(true)}
+        onLocate={focusMap => {
+          const pin = selectedPhoto && photoPin(selectedPhoto);
+          if (pin) setPhotoRequest({ coordinates: pin.coordinates, focusMap });
         }} />}
     </div>
     <footer className={styles.attribution}>

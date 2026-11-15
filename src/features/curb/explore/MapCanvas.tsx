@@ -8,6 +8,8 @@ import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
 import { campusExtent, campusWayStyles, campusWayType, fitProjectedView, sectionExtent, type CampusSection, type ProjectedView } from './campus';
 import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
 import { CampusWayLegend } from './OverviewMap';
+import { PhotoEvidenceLayer, type PhotoLayer } from './PhotoEvidenceLayer';
+import { layoutPhotoMarkers, photoView } from './photoEvidence';
 import styles from './Explorer.module.css';
 
 type View = ProjectedView;
@@ -36,10 +38,10 @@ function streetLabels(atlas: Atlas) {
 }
 /** Archive map stage. Draws only original archive geometry on the existing projection; unplaced records never appear.
  *  `set` chooses the local aerial (downtown corridor or campus tiles); `context` is faint non-interactive geometry. */
-export default function MapCanvas({ atlas, collection, records, selected, onSelect, stops, set = 'corridor', context, section, osm = false, dense = false, pointLayer }: {
+export default function MapCanvas({ atlas, collection, records, selected, onSelect, stops, set = 'corridor', context, section, osm = false, dense = false, pointLayer, photoLayer }: {
   atlas: Atlas; collection: Collection; records: EvidenceRecord[]; selected: EvidenceRecord | null;
   onSelect: (id: string) => void; stops: Map<string, number>;
-  set?: AerialSet; context?: string; section?: CampusSection; osm?: boolean; dense?: boolean; pointLayer?: CampusPointLayer;
+  set?: AerialSet; context?: string; section?: CampusSection; osm?: boolean; dense?: boolean; pointLayer?: CampusPointLayer; photoLayer?: PhotoLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const [manualView, setManualView] = useState<View | null>(null);
@@ -81,6 +83,12 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     const observer = new ResizeObserver(entries => { const r = entries[0].contentRect; if (r.width && r.height) setSize([r.width, r.height]); });
     observer.observe(svg.current); return () => observer.disconnect();
   }, []);
+  const photoRequest = photoLayer?.request;
+  useEffect(() => {
+    if (!photoRequest) return;
+    setManualView(photoView(photoRequest.coordinates));
+    if (photoRequest.focusMap) svg.current?.focus();
+  }, [photoRequest]);
   const pointRequest = pointLayer?.request;
   useEffect(() => {
     if (!pointRequest) return;
@@ -113,6 +121,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const hidden = entries.length - badges.size;
   const pointLayout = pointLayer && layoutCampusPointMarkers(pointLayer.records, pointLayer.selected,
     plotBounds, unit, view[2] < campusExtent().width / 2 && unit <= 1.25, [...badges.values()]);
+  const photoMarkers = photoLayer && layoutPhotoMarkers(photoLayer.records, photoLayer.selectedId,
+    plotBounds, unit, [...badges.values(), ...(pointLayout?.markers ?? [])]);
   // One roving tab stop for all mapped stops: arrows move focus in source order, Enter/Space selects, Escape returns to the map.
   const rovingId = (focusId && entries.some(e => e.f.id === focusId) ? focusId : selected?.featureId && entries.some(e => e.f.id === selected.featureId) ? selected.featureId : entries[0]?.f.id) ?? null;
   const moveFocus = (from: string, delta: number | 'first' | 'last') => {
@@ -234,6 +244,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
           <div style={{ color: ink, WebkitTextStroke: (3 * unit) + 'px ' + halo, fontSize: 13 * unit,
             lineHeight: height + 'px', textAlign: flip ? 'right' : 'left', paddingInline: 2 * unit }}>{selectedFeature.label}</div>
         </foreignObject>; })()}
+      {photoMarkers && photoLayer && <PhotoEvidenceLayer markers={photoMarkers} unit={unit}
+        onSelect={(id, keyboard) => { if (keyboard || !moved.current) photoLayer.onSelect(id, keyboard); }} />}
     </svg>
     <div className={styles.mapCredit} data-campus={osm || undefined}>
       {showAerial && <span>Aerial {imagery.captureYear} · NJ Office of GIS</span>}
