@@ -4,6 +4,8 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const sharp = require('sharp');
 const {cut, timeline, subtitles, FPS} = require('./cut.cjs');
+const {readActive,INVESTMENT_IMAGES,PRESENTER_IMAGES}=require('./capture-store.cjs');
+const proof=require('../benchmark-proof.json');
 
 const root = path.resolve(__dirname, '..');
 const ffmpeg = process.env.CURB_DEMO_FFMPEG || 'ffmpeg';
@@ -12,7 +14,7 @@ const frameDir = path.join(root,'.render');
 fs.mkdirSync(frameDir,{ recursive: true });
 const nullDevice = process.platform === 'win32' ? 'NUL' : '/dev/null';
 const paths = cut.map(shot=>path.join(root,'clips',shot.file));
-const sampleTimes = [1.8,9,22,40,57,75,88,96,107,114.3];
+const sampleTimes = [1.8,9,35,40,57,75,88,96,107,114.3];
 const stages = cut.map((shot,i)=>[sampleTimes[i],String(i+1).padStart(2,'0')+'  /  '+shot.title.toUpperCase()]);
 
 function run(args) {
@@ -42,7 +44,7 @@ async function main() {
   assert.equal(info.status,0,info.stderr);
   assert.match(info.stderr,/Stream .*Video:.*1920x1080.*30 fps/);
   assert.doesNotMatch(info.stderr,/Stream .*Audio:/,'the picture edit must be silent for the presenter track');
-  const plates = ['review-stage.png','compare-stage.png','omissions-stage.png','tie-stage.png','proof-stage.png'];
+  const plates = ['review-stage.png','compare-stage.png','omissions-stage.png','tie-stage.png'];
   for (const name of plates) {
     const shot = path.join(root,'overlays',name);
     const m = await sharp(shot).metadata();
@@ -51,15 +53,23 @@ async function main() {
     assert.equal(await alpha(300,300),0,name+' transparent capture opening');
     assert.equal(await alpha(1550,680),255,name+' opaque presenter rail');
   }
-  const receipt = JSON.parse(fs.readFileSync(path.join(root,'capture-receipt.json'),'utf8'));
-  assert.equal(receipt.evidenceSecond,6,'actual evidence seek');
-  const investment = JSON.parse(fs.readFileSync(path.join(root,'source-captures/investment/receipt.json'),'utf8'));
+  const {receipt:presenter}=readActive(path.join(root,'source-captures/presenter'),PRESENTER_IMAGES);
+  assert.ok(Number.isFinite(presenter.evidenceSecond) && Math.abs(presenter.evidenceSecond-6)<0.02,'actual frame-180 seek');
+  assert.equal(presenter.sourceFrame,180);
+  assert.equal(presenter.counts,'1 accepted · 4 pending · 0 rejected');
+  assert.equal(presenter.fieldImpact,'unknown');
+  assert.deepEqual(presenter.overlay,{pending:'dashed',accepted:'solid'});
+  const {receipt:investment}=readActive(path.join(root,'source-captures/investment'),INVESTMENT_IMAGES);
   assert.match(investment.states.compare[0],/1 newly reachable destination.*Hall.*C \$10,000/);
   assert.match(investment.states.compare[1],/2 newly reachable destinations.*Library and Student center.*A \+ B \$10,000/);
   assert.match(investment.states['omit-a'],/without A.*0 newly reachable destinations/);
   assert.match(investment.states['omit-b'],/without B.*0 newly reachable destinations/);
   assert.ok(investment.states.tie.every(t=>/3 newly reachable destinations.*\$20,000 assumed spend/.test(t)));
   assert.match(investment.states.brief,/Synthetic scenario.*\$10,000.*Library and Student center/);
+  assert.equal(proof.approved,true);
+  assert.equal(proof.wins+proof.ties,proof.budgetCases);
+  assert.equal(proof.networks*proof.budgetPercent.length,proof.budgetCases);
+  assert.ok(subtitles().includes('Across '+proof.budgetCases+' synthetic budget cases'));
 
   const previews = [];
   for (let i=0;i<stages.length;i++) {
@@ -80,8 +90,10 @@ async function main() {
   ]).jpeg({quality:90}).toFile(path.join(root,'Curb-storyboard.jpg'));
   fs.writeFileSync(path.join(root,'verification.json'),JSON.stringify({
     fullDecode:results, pictureAudio:'Silent by design', captions:'Match the cut manifest', transparentCapturePlates:plates,
-    robertson:{evidenceSeekSeconds:6},
+    robertson:{revision:presenter.revision,evidenceSeekSeconds:6,frame:presenter.sourceFrame,
+      counts:presenter.counts,fieldImpact:presenter.fieldImpact,overlay:presenter.overlay},
     investment:{revision:investment.revision,basis:investment.basis,at10000:[1,2],removeA:0,removeB:0,at20000:[3,3],brief:'Verified canonical recommendation'},
+    proof:{ledger:proof.ledger,networks:proof.networks,cases:proof.budgetCases,wins:proof.wins,ties:proof.ties},
   },null,2)+'\n');
   console.log(JSON.stringify(results));
 }

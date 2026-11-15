@@ -1,5 +1,6 @@
 const FPS = 30;
 const HOOK_SOURCE = 'https://www.cdc.gov/places/measure-definitions/disability.html';
+const benchmark = require('../benchmark-proof.json');
 
 // Every spoken block, clip and marker shares this clock. Proof copy can be
 // replaced without retiming either side of that slot.
@@ -10,12 +11,13 @@ const cut = [
       [3.3,'Campus teams have limited repair budgets.'],
       [7,'In 2022, about one in eight U.S. adults reported\nserious difficulty walking or climbing stairs.'],
     ] },
-  { key:'review', end:38, file:'03-Review-finding.mp4', title:'Real Robertson Hall evidence',
+  { key:'review', end:38, file:'03-Review-finding.mp4', title:'Robertson Hall · real presenter review',
     cues:[
-      [15,'At Princeton’s Robertson Hall,\nwe filmed a real sidewalk with a phone.'],
-      [20.8,'Clicking Finding Four takes us\nto the broken surface at six seconds.'],
-      [26.2,'The five findings were prepared with AI.'],
-      [30.2,'A reviewer can check the footage\nand flag what still needs a site measurement.'],
+      [15,'Here’s the original footage from Robertson Hall.'],
+      [19.7,'In Review, Curb overlays the prepared AI findings.'],
+      [23.8,'Jump to Surface breakup at six seconds,\nframe 180.'],
+      [29.0,'I can accept the visible damage.'],
+      [33.0,'One accepted, four pending.\nRoute impact stays unknown.'],
     ] },
   { key:'transition', end:42, file:'04-Synthetic-transition.mp4', title:'Separate simulated campus',
     cues:[[38.1,'For the budget test, we switch\nto a separate simulated campus.']] },
@@ -37,8 +39,8 @@ const cut = [
       [81.2,'At twenty thousand dollars,\nboth plans can fund all three repairs.'],
       [87.3,'They tie at three newly reachable destinations.'],
     ] },
-  { key:'proof', end:100, file:'08-Decision-brief.mp4', title:'Replaceable proof slot',
-    cues:[[92.15,'The decision brief keeps the recommended work\nand the model’s assumptions together.']] },
+  { key:'proof', end:100, file:'08-Synthetic-benchmark.mp4', title:'Audited synthetic benchmark',
+    cues:[[92.15,'Across '+benchmark.budgetCases+' synthetic budget cases,\nCurb beat condition-first '+benchmark.wins+' times and tied '+benchmark.ties+'.']] },
   { key:'buyer', end:112, file:'09-Buyer-and-validation.mp4', title:'Buyer and next validation',
     cues:[
       [100.15,'The buyer is campus facilities.'],

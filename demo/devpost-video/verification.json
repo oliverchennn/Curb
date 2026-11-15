@@ -36,7 +36,7 @@
       "durationSeconds": 11
     },
     {
-      "file": "08-Decision-brief.mp4",
+      "file": "08-Synthetic-benchmark.mp4",
       "frames": 240,
       "durationSeconds": 8
     },
@@ -62,11 +62,18 @@
     "review-stage.png",
     "compare-stage.png",
     "omissions-stage.png",
-    "tie-stage.png",
-    "proof-stage.png"
+    "tie-stage.png"
   ],
   "robertson": {
-    "evidenceSeekSeconds": 6
+    "revision": "670f6d80cc139441042957d117ad5eb85d238c6b",
+    "evidenceSeekSeconds": 6,
+    "frame": 180,
+    "counts": "1 accepted · 4 pending · 0 rejected",
+    "fieldImpact": "unknown",
+    "overlay": {
+      "pending": "dashed",
+      "accepted": "solid"
+    }
   },
   "investment": {
     "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
@@ -82,5 +89,12 @@
       3
     ],
     "brief": "Verified canonical recommendation"
+  },
+  "proof": {
+    "ledger": "https://github.com/oliverchennn/Curb/blob/deb9c7ccecbbe50491edeac75d98693f617c2fda/docs/evaluation/METRICS_CLAIMS.md",
+    "networks": 30,
+    "cases": 120,
+    "wins": 58,
+    "ties": 62
   }
 }

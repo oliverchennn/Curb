@@ -10,13 +10,34 @@
   },
   "photographs": "Robertson footage is a separate source.",
   "images": {
-    "compare": "compare.png",
-    "condition": "condition.png",
-    "exact": "exact.png",
-    "omit-a": "omit-a.png",
-    "omit-b": "omit-b.png",
-    "tie": "tie.png",
-    "brief": "brief.png"
+    "compare": {
+      "file": "compare.png",
+      "sha256": "877d93055146877396b06e85e5dc13c8eb34dafcd5851883d30136932884075a"
+    },
+    "condition": {
+      "file": "condition.png",
+      "sha256": "de8e9026a09512b7436b293967c8ba0460278cd93ffa61d169222ae8a13e2c06"
+    },
+    "exact": {
+      "file": "exact.png",
+      "sha256": "673d5b25e6ff9414236ca0d94c19ce657937cdb87ed7ff1f8dfa09e5f8d06837"
+    },
+    "omit-a": {
+      "file": "omit-a.png",
+      "sha256": "770f3ae6a57b33cf75d588e0dd7ad5bf559c85d31cc5767bae2bb5e8bf709ec3"
+    },
+    "omit-b": {
+      "file": "omit-b.png",
+      "sha256": "8f837f0c115110da9647a04d75aba677c345f84bb57f180defb366b3d8f0de67"
+    },
+    "tie": {
+      "file": "tie.png",
+      "sha256": "42120feb2be07fbfe906ab8b569c34ee2687f049589b7f18fe419ce0939fc27b"
+    },
+    "brief": {
+      "file": "brief.png",
+      "sha256": "9d6965ce96b952380db77850ae9381d0cacb8f8c63d4534c6d5844f6b46eb5f5"
+    }
   },
   "states": {
     "compare": [
