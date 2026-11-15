@@ -1,0 +1,37 @@
+# Independent Cañada College data review
+
+**Independent review accepts `inventory_only`.** The bounded 2020 case supports a sourced inventory and four distinct curb-ramp replacement estimates. The report leaves the crossings, endpoint approaches and continuous assessment unresolved. The executable graph remains empty, all four project effects remain disabled, and `comparisonAllowed` is `false`.
+
+| Reviewed item | Identity |
+| --- | --- |
+| Data candidate | `1dbe30033ae46a4b2711bca1b93b0831b675251e` |
+| Candidate tree | `0617287d6f54933a7aebdac12e92c8d252fea921` |
+| Initial reviewed release | `8318518a697cc7ce99ac33f573df0d3127a6f942` |
+| Final November 2020 report | 111,675,832 bytes, 4,399 viewer pages, SHA-256 `01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8` |
+| Independent reviewer | Vincent, session `01a1ddd3-c247-7bd1-b4af-51837eafc5a0` |
+| Checks and exact JSON hashes | [Machine-readable review](../../../research/curb/canada-2020/data-review.json) |
+
+## Source and transcription checks
+
+The independent review fetched the official PDF directly from the district and verified the pinned bytes. The separate 30-page Appendix I and 14-page Appendix J packets both carry DRAFT covers. Their independently downloaded hashes matched the manifest. I matched the extracted table bodies across the two selected sidewalk pages and all four selected curb-ramp pages after omitting page-number and report footer lines. Final viewer pages 2805–2806 correspond to draft I pages 22–23. Final viewer pages 2824–2827 correspond to draft J pages 11–14. All 69 inventory records cite the final report. The citations below use one-based viewer pages. Printed numbers for the cited survey pages are one lower. [District source and final report](https://smccd.edu/ada2020/)
+
+- **43 sidewalk records and 11 route summaries.** I matched 559 raw sidewalk cells and repeated heading fields, plus the associated normalized measurement bounds, cost semantics and locators, against final pages 2805–2806. All 55 summary fields matched pages 2792–2793. The four contiguous candidate groups contain 14, 3, 24 and 2 records and reconcile to the printed Route 40, 41, 52 and 53 totals of $26,940, $4,800, $28,035 and $2,700 respectively. Intermediate page headings are absent. The agreement supports those candidate groups while the individual route, run and priority assignments remain unresolved. The western expansion retains published summaries and two exterior approach records. Detailed western sidewalk rows remain outside the accepted inventory.
+- **Five overlapping records and 19 quantity discrepancies.** Appendix I page 2788 explains `REF` as overlapping work with no added cost. All five retain null independent cost. Interval 1352683 spans 64.3–68.7 ft, and priced rows 1352701 and 1352702 leave the 67.0–67.8 ft portion without a documented shared repair footprint. The 19 displayed quantity-times-rate discrepancies preserve the printed totals. For example, row 1352710 displays 35 SF at $120 while the total is $4,140. Display rounding is plausible and remains unverified. Percentage ranges remain intervals, and the selected table's unlabeled vertical-change decimals retain unspecified units.
+- **Seven curb-ramp records and two subtotal records.** All 78 numeric table fields matched pages 2824–2827. The source's marked dimensions and replacement types are retained as historical assessment and proposed work. Ramps 404 and 405 are perpendicular replacements at $6,500 each, 421 is parallel at $7,000, and 422 is a blended transition at $3,500. The first three reconcile to the $20,000 Lot 1 / Building 9 subtotal. The separate $3,500 Lot 1 / Lot 1 estimate yields $23,500 for those four assemblies. The separate Campus Cir group shows $6,500 for 413, $0 for 414 while under construction, and $0 for routine inspection and maintenance for 415's surveyed features. Ramps 414 and 415 remain unavailable as projects. The visually printed 404 priority is 111.2. The source extraction supplied a separate token, so the normalized priority remains unknown.
+- **Two southwest approach records and four method or legend records.** Page 2261 records an existing 10-inch handrail extension and a landing deficiency at Building 9 site 2. Record 3's $1,530 estimate is 3 JOB at $510. Record 4's $48,600 estimate is 300 SF at $162. The report's landing detail uses inconsistent 72-inch and 72-foot wording and leaves the existing exact length unknown. Neither record resolves the approach or joins the four Lot 1 projects. The legends and methodology at pages 10–11, 2787–2788 and 4361–4362 distinguish observed features, length and cost units, and the report-era scheduling score. The appendix allows runs to end mid-block. No coverage assumption or routing threshold was adopted.
+
+## Topology and feasibility
+
+The route map on page 2795 plots Route 40 on the parking side near ramp 404. The route summary on page 2793 names Building 9 as the end. Routes 41 and 53 meet at a mapped node near 405. Route 52 approaches ramp 422 on its own side of the road. Ramp 421 and mapped Route 28 W lie across the roadway, with Route 28 W absent from the master cost list on page 2790. Building 9's exterior sheet B9-0-1 on page 2256 shows historical crossing paint at both approaches. The figures leave the assessed connections between specific ramp IDs unresolved.
+
+The report and bounded west-side review leave the actual arrival, distinct exterior destinations and east-to-west links unverified. The available feature survey and cost rows do not cover the full sequence of sidewalks, crossings, approaches and entrances. A conditional scenario here would depend on unsupported connector, project-ownership and route-coverage assumptions. The inventory records those gaps and contains no strategy or benefit results. Follow [M1–M10 in the author's feasibility report](FEASIBILITY.md) for the open evidence needs. This receipt resolves M11 for the exact reviewed bytes and the inventory decision.
+
+## Correction and verification receipts
+
+I requested a bounded correction on the initial release to restore ramp 415's printed vertical-curb field, separate the mapped Route 40 location from its summary endpoint, and preserve the source's bold/red measurement flags and specified work types. I verified those changes in the released follow-up. [Independent correction request](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893019697) · [Author correction release](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893153809)
+
+On the corrected data candidate, the official PDF verification and validation of all six committed JSON blobs passed. The independent PDF field check and separate project, graph, coverage and missing-ID assertions passed. The Windows checkout uses CRLF conversion, so byte validation used `git cat-file blob` buffers with `validateBundle`. A fresh checkout with line-ending conversion disabled also preserves the committed LF bytes. In a temporary copy materialized from exact committed blobs, 23 of 24 focused tests passed. The remaining acquisition test failed at file symlink creation with Windows `EPERM`. The author reported all 24 passing on its Mac host.
+
+## Suggested public wording
+
+“Curb reviewed the 2020 Cañada College access survey around Lot 1 and Building 9. The survey priced four curb-ramp assemblies at $23,500 in historical estimates. Assessed crossings and complete routes to building entrances remained unresolved, so the case presents an evidence inventory.”
