@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "sourceSha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+  "records": [
+    {
+      "id": "coverage-route-40",
+      "observationIds": [
+        "route-40-summary",
+        "sidewalk-1352707",
+        "sidewalk-1352708",
+        "sidewalk-1352705",
+        "sidewalk-1352709",
+        "sidewalk-1352710",
+        "sidewalk-1352711",
+        "sidewalk-1352712",
+        "sidewalk-1352713",
+        "sidewalk-1352714",
+        "sidewalk-1352715",
+        "sidewalk-1352716",
+        "sidewalk-1352717",
+        "sidewalk-1352718",
+        "sidewalk-1352706"
+      ],
+      "assessmentBasis": "unresolved",
+      "knownBarrierIds": [
+        "sidewalk-1352707",
+        "sidewalk-1352708",
+        "sidewalk-1352705",
+        "sidewalk-1352709",
+        "sidewalk-1352710",
+        "sidewalk-1352711",
+        "sidewalk-1352712",
+        "sidewalk-1352713",
+        "sidewalk-1352714",
+        "sidewalk-1352715",
+        "sidewalk-1352716",
+        "sidewalk-1352717",
+        "sidewalk-1352718",
+        "sidewalk-1352706"
+      ],
+      "unresolved": [
+        "Row membership is an arithmetic hypothesis; recorded barriers cannot yet be assigned to a supported graph edge.",
+        "No complete crossing/approach/entrance continuity."
+      ],
+      "notes": "Raw row defects exist; association to this route and complete coverage remain unresolved.",
+      "candidatePrintedTotalCents": 2694000,
+      "sourceLocator": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "ROUTE 40"
+      }
+    },
+    {
+      "id": "coverage-route-41",
+      "observationIds": [
+        "route-41-summary",
+        "sidewalk-1352721",
+        "sidewalk-1352722",
+        "sidewalk-1352723"
+      ],
+      "assessmentBasis": "unresolved",
+      "knownBarrierIds": [
+        "sidewalk-1352721",
+        "sidewalk-1352722",
+        "sidewalk-1352723"
+      ],
+      "unresolved": [
+        "Row membership is an arithmetic hypothesis; recorded barriers cannot yet be assigned to a supported graph edge.",
+        "No complete crossing/approach/entrance continuity."
+      ],
+      "notes": "Raw row defects exist; association to this route and complete coverage remain unresolved.",
+      "candidatePrintedTotalCents": 480000,
+      "sourceLocator": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "ROUTE 41"
+      }
+    },
+    {
+      "id": "coverage-route-52",
+      "observationIds": [
+        "route-52-summary",
+        "sidewalk-1352684",
+        "sidewalk-1352685",
+        "sidewalk-1352686",
+        "sidewalk-1352687",
+        "sidewalk-1352688",
+        "sidewalk-1352689",
+        "sidewalk-1352690",
+        "sidewalk-1352691",
+        "sidewalk-1352692",
+        "sidewalk-1352703",
+        "sidewalk-1352704",
+        "sidewalk-1352681",
+        "sidewalk-1352682",
+        "sidewalk-1352693",
+        "sidewalk-1352694",
+        "sidewalk-1352695",
+        "sidewalk-1352696",
+        "sidewalk-1352697",
+        "sidewalk-1352698",
+        "sidewalk-1352699",
+        "sidewalk-1352700",
+        "sidewalk-1352683",
+        "sidewalk-1352701",
+        "sidewalk-1352702"
+      ],
+      "assessmentBasis": "unresolved",
+      "knownBarrierIds": [
+        "sidewalk-1352684",
+        "sidewalk-1352685",
+        "sidewalk-1352686",
+        "sidewalk-1352687",
+        "sidewalk-1352688",
+        "sidewalk-1352689",
+        "sidewalk-1352690",
+        "sidewalk-1352691",
+        "sidewalk-1352692",
+        "sidewalk-1352703",
+        "sidewalk-1352704",
+        "sidewalk-1352681",
+        "sidewalk-1352682",
+        "sidewalk-1352693",
+        "sidewalk-1352694",
+        "sidewalk-1352695",
+        "sidewalk-1352696",
+        "sidewalk-1352697",
+        "sidewalk-1352698",
+        "sidewalk-1352699",
+        "sidewalk-1352700",
+        "sidewalk-1352683",
+        "sidewalk-1352701",
+        "sidewalk-1352702"
+      ],
+      "unresolved": [
+        "Row membership is an arithmetic hypothesis; recorded barriers cannot yet be assigned to a supported graph edge.",
+        "No complete crossing/approach/entrance continuity."
+      ],
+      "notes": "Raw row defects exist; association to this route and complete coverage remain unresolved.",
+      "candidatePrintedTotalCents": 2803500,
+      "sourceLocator": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "ROUTE 52"
+      }
+    },
+    {
+      "id": "coverage-route-53",
+      "observationIds": [
+        "route-53-summary",
+        "sidewalk-1352719",
+        "sidewalk-1352720"
+      ],
+      "assessmentBasis": "unresolved",
+      "knownBarrierIds": [
+        "sidewalk-1352719",
+        "sidewalk-1352720"
+      ],
+      "unresolved": [
+        "Row membership is an arithmetic hypothesis; recorded barriers cannot yet be assigned to a supported graph edge.",
+        "No complete crossing/approach/entrance continuity."
+      ],
+      "notes": "Raw row defects exist; association to this route and complete coverage remain unresolved.",
+      "candidatePrintedTotalCents": 270000,
+      "sourceLocator": {
+        "sourceId": "smcccd-final-2020",
+        "pdfPage": 2793,
+        "printedPage": 2792,
+        "record": "ROUTE 53"
+      }
+    },
+    {
+      "id": "coverage-lot1-ramps",
+      "observationIds": [
+        "ramp-404",
+        "ramp-405",
+        "ramp-421",
+        "ramp-422"
+      ],
+      "assessmentBasis": "source_assessment",
+      "knownBarrierIds": [
+        "ramp-404",
+        "ramp-405",
+        "ramp-421",
+        "ramp-422"
+      ],
+      "unresolved": [
+        "Ramp feature tables do not establish crossing pairing or complete approach coverage."
+      ],
+      "notes": "Each assembly retains separate identity and individual published estimate."
+    },
+    {
+      "id": "coverage-west-expansion",
+      "observationIds": [
+        "route-24-summary",
+        "route-25-summary",
+        "route-26-summary",
+        "route-29-summary",
+        "route-9-summary",
+        "b9-site2-record-3",
+        "b9-site2-record-4"
+      ],
+      "assessmentBasis": "unresolved",
+      "knownBarrierIds": [
+        "b9-site2-record-3",
+        "b9-site2-record-4"
+      ],
+      "unresolved": [
+        "No supported bridge from initial east-side cluster.",
+        "Detailed row inventory and precise entrance identities not completed because connection gate already failed."
+      ],
+      "notes": "One bounded adjacency-based map/summary inspection plus source-backed southwest approach records. Detailed continuous route inventory remains incomplete; no favorable-result search."
+    }
+  ],
+  "policy": {
+    "id": "historical-source-inventory-v1",
+    "description": "Preserve 2020 source barriers and scoped assessments. Do not derive passability, legal compliance or current access. Missing evidence and unresolved intervals stay unresolved.",
+    "noMissingRecordPass": true,
+    "thresholdsApplied": [],
+    "coverageAssumptionAccepted": false
+  },
+  "missingDataIds": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "M10",
+    "M11"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "sourceSha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+  "proposedDisposition": "inventory_only",
+  "independentReview": {
+    "status": "pending",
+    "reviewerSession": "01a1ddd3-c247-7bd1-b4af-51837eafc5a0"
+  },
+  "comparisonAllowed": false,
+  "missingData": [
+    {
+      "id": "M1",
+      "description": "Exact fixed arrival/access point and distinct exterior endpoint identities; the shared Building 9 label does not establish a node."
+    },
+    {
+      "id": "M2",
+      "description": "Source-backed connectors from ramp 421 to Route 28 and ramp 422/Route 52, including matched curb pair and full intervening crossing assessment."
+    },
+    {
+      "id": "M3",
+      "description": "Supported crossing/connector between ramp 404/Route 40 and ramp 405/Routes 41/53; do not infer from proximity."
+    },
+    {
+      "id": "M4",
+      "description": "Supported connection from east Building 9 approaches to west Routes 24/25/26/29/9 and any distinct building entrances."
+    },
+    {
+      "id": "M5",
+      "description": "Original per-row route/run IDs and priorities for sidewalk rows1352681-1352723, resolving missing intermediate table headings."
+    },
+    {
+      "id": "M6",
+      "description": "Authoritative physical work ownership for every REF row, overlapping chainage interval and full nonoverlapping replacement scope."
+    },
+    {
+      "id": "M7",
+      "description": "Reconcile displayed quantities/unit prices with printed totals and document rounding; current quotes are outside this historical estimate case."
+    },
+    {
+      "id": "M8",
+      "description": "Route 28 W record, costs, assessed dimensions and chainage link; absence from master costs is not evidence of compliance."
+    },
+    {
+      "id": "M9",
+      "description": "Positive continuous coverage or a defensible recorded-barrier completion policy for crossing surface, approach grade, clear width, obstructions, entrance access and other unmeasured dimensions."
+    },
+    {
+      "id": "M10",
+      "description": "Complete remaining barrier inventory and full post-repair scope for any proposed end-to-end route; replacement of featured ramp defect does not clear unknowns."
+    },
+    {
+      "id": "M11",
+      "description": "Independent reviewer disposition on the exact published/stopped candidate; author transcription and integrity checks are not that acceptance."
+    }
+  ],
+  "inputHashes": {
+    "coverage.json": "a3ac00b055dac3c8d38664dc2f0e73e9a5951faecf7d07e1b26d8b79ad0e3e2b",
+    "graph.json": "070c28727d3c80b5c931542ceca85f489bd27b52d30a42117c4999f2d619f6ea",
+    "observations.json": "83b757d830bfea5c6e76cb4f8b90d1cb07440bf61842f3b636b8cdb13dccef43",
+    "projects.json": "615844e0d59c9ee0cf107b2bda462e80d9e4434a4bef3d1ef9b397d6e183f55c",
+    "sources.json": "cde6dae0160368351381691268a25094f2404758aa2fb88e6e6fb37c43d0deb5"
+  },
+  "notes": [
+    "Author candidate only; no strategy measurement or benefit headline.",
+    "Four distinct ramp replacements have source prices, but no supported end-to-end network and atomic sidewalk work mapping.",
+    "Conditional-only would require specifying unsupported connector scenarios; this candidate does not invent them."
+  ]
+}
