@@ -1,6 +1,6 @@
 # Curb — three-minute judges demo
 
-*Released presenter script, 287 spoken words. The benchmark claim is approved. The Presenter is deployed at `670f6d80cc139441042957d117ad5eb85d238c6b`. Independent browser acceptance passed. Two clean automated flows took 5.022 and 4.587 seconds without narration; spoken rehearsals and projector verification remain pending. [Production release receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892996974)*
+*Released presenter script, 287 spoken words. The benchmark claim is approved. Full independent Presenter acceptance passed on `670f6d80cc139441042957d117ad5eb85d238c6b`. Two clean automated flows took 5.022 and 4.587 seconds without narration; spoken rehearsals and projector verification remain pending. [Presenter release receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892996974) · [Later case release and regression checks](CANADA_CASE_RESULT.md)*
 
 ## Before the clock
 

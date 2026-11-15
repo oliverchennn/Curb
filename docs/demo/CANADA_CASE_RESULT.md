@@ -25,7 +25,15 @@ Exact implementation `ff33cdc` passed independent technical and source-projectio
 
 The initial local sandbox check could not load temporary transformed modules; its unrestricted rerun passed with no source change. Separately, the source-validation author ran 24/24 on macOS; the independent Windows run passed 23/24 with one symlink-permission error. That platform limitation is retained in the independent receipt.
 
-Production and browser acceptance are pending at this draft checkpoint. The existing Oliver release lane and independent public checker own these remaining checks.
+PR40 merged the proof at `d918a0b83732712a42a285b9ca51e77e91a067c5`; PR39 merged the readiness page at **`e9ec00d0981fd148801d80b29f81d613e19906b4`**, tree `3494fcad49cc1bfd027d7ff2cbf4895f41f57bd9`. The merged application files match the tested implementation; its only additional files are the four proof artifacts.
+
+The existing independent checker passed 11 actual local browser cases at 1280×720 and 390×844: all record choices and costs, keyboard/focus, source links, reset, error/timeout/retry and stale responses, plus adjacent navigation. The real JSON download matched the pinned 6,007-byte snapshot. Native Chrome printed all four records, open requirements and provenance across two Letter pages. [Exact local receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893715226)
+
+The [automatic Vercel deployment](https://vercel.com/oliverzychen-6748/curb/2MW8unzqTaF6PrzVpYDWfdFDuMWD) reported success, and public health returned the exact merged `e9ec00d` revision. [Integrated main CI](https://github.com/oliverchennn/Curb/actions/runs/43709650103) also passed.
+
+**Independent public acceptance passed all 11 browser cases** on that exact source, pinned before and after each case, with final health/readiness at 11:39:45 UTC. Chrome 156 verified 1280×720 and 390×844, record choices, keyboard/focus, reflow, reset, failure recovery, a real 10.114-second timeout and stale responses. Source and independent-review endpoints returned HTTP 200. The actual JSON download matched the snapshot byte for byte. Presenter, Investment, Campus evidence and shared CAD navigation also passed. [Full public receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893766232)
+
+The public native Letter PDF contains all four records, open requirements and provenance across two inspected pages. PDF SHA-256: `c4ae2c59829cad6a773d7f8270f1adc82359fc776b85553d23ee958c2adf29df`. The 6,007-byte JSON download retains the snapshot hash above. Exact-source desktop/phone captures and full browser/print receipts are retained with the independent checker.
 
 ## What the result supports
 
