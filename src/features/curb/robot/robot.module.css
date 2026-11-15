@@ -141,6 +141,7 @@
 .expandButton:hover:not(:disabled) { background: #315b46; }
 .orbitToggle:disabled { opacity: 0.5; cursor: default; }
 
+.modelViewport { position: relative; display: flex; flex: 1; flex-direction: column; min-height: 0; }
 .stage { position: relative; flex: 1; min-height: 0; background: linear-gradient(#eef2eb, #dce4d8); overflow: hidden; }
 .canvasHost { position: absolute; inset: 0; }
 .canvasHost canvas:focus-visible { outline: 2px solid #2f6df6; outline-offset: -2px; }
@@ -252,9 +253,11 @@
 .tourExit:hover { background: #ffffff22; color: #fff; }
 
 @media (max-width: 860px) {
-  .introCard { top: 12px; left: 12px; right: 12px; transform: none; width: auto; max-width: none; }
+  .modelViewport { flex: 0 0 auto; }
+  .introCard, .tourBar { position: static; margin: 12px; }
+  .introCard { transform: none; width: auto; max-width: none; }
   .tourBar { flex-direction: column; align-items: stretch; gap: 10px; }
-  .tourControls { justify-content: flex-end; }
+  .tourControls { flex-wrap: wrap; justify-content: flex-end; }
 }
 
 @media (max-width: 860px) {
