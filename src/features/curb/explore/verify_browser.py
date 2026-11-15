@@ -155,7 +155,7 @@ try:
         expect(pair.get_by_text('Records disagree.', exact=True)).to_be_visible()
         check('Separate withheld and unavailable example copy', 'withheld' in pair.locator('[data-record="example:b"]').inner_text().lower() and 'unavailable' in pair.locator('[data-record="example:a"]').inner_text().lower())
         shot(page, 'conflicting-examples.png')
-        page.locator('summary').filter(has_text='Filter').click()
+        page.get_by_role('button', name='Filter', exact=True).click()
         search = page.get_by_role('searchbox')
         search.fill('example:a')
         expect(navigator(page)).to_contain_text(' / 2')
