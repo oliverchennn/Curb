@@ -1,0 +1,69 @@
+1
+00:00:03,200 --> 00:00:06,500
+We filmed this sidewalk at Robertson Hall.
+
+2
+00:00:06,500 --> 00:00:14,400
+Curb helps campus facilities teams decide
+which access issues to inspect and which repairs to fund.
+
+3
+00:00:15,000 --> 00:00:19,400
+Here’s the surface breaking up near Robertson Hall.
+
+4
+00:00:19,400 --> 00:00:23,800
+Click the finding and Curb jumps straight
+to the frame behind it.
+
+5
+00:00:23,800 --> 00:00:28,000
+We prepared five AI-assisted findings from this clip.
+
+6
+00:00:28,000 --> 00:00:32,600
+The reviewer can check each one against the video
+and see what still needs a site measurement,
+
+7
+00:00:32,600 --> 00:00:37,200
+including the height difference and clear path width.
+
+8
+00:00:38,000 --> 00:00:42,500
+Now suppose facilities has five hundred dollars.
+
+9
+00:00:42,500 --> 00:00:48,600
+Curb compares possible treatments and shows
+what it would fund first.
+
+10
+00:00:48,600 --> 00:00:54,500
+Switch to the budget plan and you can see
+the proposed work,
+
+11
+00:00:54,500 --> 00:01:00,700
+the areas that would have to wait,
+and the costs that still need quotes.
+
+12
+00:01:00,700 --> 00:01:07,200
+That gives the team a starting point
+for deciding where to spend the money.
+
+13
+00:01:08,000 --> 00:01:15,700
+Finally, we export the plan so a facilities team
+can take it to the site.
+
+14
+00:01:15,700 --> 00:01:24,800
+The report keeps the evidence, the proposed work,
+and the open measurements and quotes together.
+
+15
+00:01:24,800 --> 00:01:33,600
+They can use it to walk the site,
+get prices, and decide what to approve.
