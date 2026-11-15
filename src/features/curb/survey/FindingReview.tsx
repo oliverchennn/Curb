@@ -52,12 +52,13 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   onMeasure: (findingId: string, key: MeasureKey, input: MeasureInput) => void;
   editedIds: string[];
   selectedFindingId: string | null;
-  onSelectFinding: (findingId: string) => void;
+  onSelectFinding: (findingId: string, sourceSeconds?: number) => void;
   onChange: (survey: Survey, message: string) => void;
   /** Local map context, shown beside the finding list so map and selection stay connected. */
   siteContext?: ReactNode;
 }) {
   const [reviewer, setReviewer] = useState('');
+  const [failedCrop, setFailedCrop] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const reviewerError = message?.startsWith('Enter a reviewer') ? message : null;
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
@@ -117,18 +118,18 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   ) : null;
 
   if (compact) {
-    const source = finding ? presenterFrame ?? canonicalPresenterFrame(survey, finding) : null;
+    const source = finding ? presenterFrame && presenterFrame.cropSrc !== failedCrop ? presenterFrame : canonicalPresenterFrame(survey, finding, failedCrop ? 'Presenter crop unavailable; showing canonical evidence.' : undefined) : null;
     return <section className={presenterStyles.reviewCard} aria-labelledby="survey-review-heading">
       <div className={presenterStyles.reviewHeading}>
         <h2 id="survey-review-heading">{finding?.label ?? 'Review a finding'}</h2>
       </div>
       {finding && source ? <>
         <div className={presenterStyles.evidence}>
-          <Closeup key={source.cropSrc} src={source.cropSrc} alt={`Extracted source close-up of ${finding.label}, frame ${source.frame}`} compact fallbackSrc={finding.closeupSrc} />
+          <Closeup key={source.cropSrc} src={source.cropSrc} alt={`Extracted source close-up of ${finding.label}, frame ${source.frame}`} compact onFailure={source.cropSrc !== finding.closeupSrc ? () => setFailedCrop(source.cropSrc) : undefined} />
           <div className={presenterStyles.evidenceText}>
             <p>{finding.description.split(/(?<=[.!?])\s/)[0]}</p>
             <p className={presenterStyles.sourceLabel}>Source frame {source.frame} · {formatTime(source.seconds)}{source.alternate ? ` (canonical: ${formatTime(finding.evidenceTime)})` : ''}. Static close-up.</p>
-            <button type="button" className={styles.secondaryButton} onClick={() => onSelectFinding(finding.id)}>Jump to evidence</button>
+            <button type="button" className={styles.secondaryButton} onClick={() => onSelectFinding(finding.id, source.seconds)}>Jump to evidence</button>
           </div>
         </div>
         {source.fallbackReason ? <p className={presenterStyles.fallback}>{source.fallbackReason}</p> : null}
@@ -138,7 +139,7 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
         {reviewerInput}
         {decisionActions}
         <p id="survey-decision-help" className={presenterStyles.nextInspection}>Accept confirms the visible observation only. <strong>Field measurements pending · Route impact unknown.</strong></p>
-        <details className={presenterStyles.nextInspection}><summary>Next on-site inspection</summary><p>{finding.assessment.measurementNeeds.slice(0, 2).join(' ')}</p></details>
+        <p className={presenterStyles.nextInspection}><strong>Next inspection:</strong> {finding.assessment.measurementNeeds[0]}</p>
         {message && !reviewerError ? <p role="alert" className={styles.inlineError}>{message}</p> : null}
       </> : <p>Select a finding to review its evidence.</p>}
     </section>;
@@ -218,17 +219,12 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   </section>;
 }
 
-function Closeup({ src, alt, compact = false, fallbackSrc }: { src: string; alt: string; compact?: boolean; fallbackSrc?: string }) {
+function Closeup({ src, alt, compact = false, onFailure }: { src: string; alt: string; compact?: boolean; onFailure?: () => void }) {
   const [failed, setFailed] = useState(false);
-  const [fallbackFailed, setFallbackFailed] = useState(false);
-  useEffect(() => { setFailed(false); setFallbackFailed(false); }, [src]);
-  if (failed && fallbackSrc && fallbackSrc !== src && !fallbackFailed) return <div>
-    <img className={compact ? presenterStyles.crop : styles.closeup} src={fallbackSrc} alt="Canonical source close-up for the selected finding" onError={() => setFallbackFailed(true)} />
-    <p className={presenterStyles.fallback}>Presenter crop unavailable. Showing the canonical source close-up instead.</p>
-  </div>;
+  useEffect(() => setFailed(false), [src]);
   return failed
     ? <p className={styles.mediaMissing}>Close-up unavailable. Use the selected finding’s video evidence; no substitute image is shown.</p>
-    : <img className={compact ? presenterStyles.crop : styles.closeup} src={src} alt={alt} onError={() => setFailed(true)} />;
+    : <img className={compact ? presenterStyles.crop : styles.closeup} src={src} alt={alt} onError={() => { setFailed(true); onFailure?.(); }} />;
 }
 
 function CorrectionForm({ finding, onSave }: {

@@ -59,6 +59,8 @@ export function SurveyWorkspace() {
   const [restartNonce, setRestartNonce] = useState(0);
   const [linkNotice, setLinkNotice] = useState('');
   const lastFindingQuery = useRef<string | null>(null);
+  const originalFramesRef = useRef<Record<string, PresenterFrame>>({});
+  const frameGenerationRef = useRef(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const deskRef = useRef<HTMLDivElement>(null);
   useFitVideoToScreen(deskRef, load.status === 'ready');
@@ -84,6 +86,7 @@ export function SurveyWorkspace() {
       setLoad({ status: 'ready', original: data });
       setSurvey(data);
       setFrames(resolvedFrames);
+      originalFramesRef.current = resolvedFrames;
       const query = new URLSearchParams(window.location.search);
       const presenting = query.get('present') === '1';
       const requestedId = query.get('finding');
@@ -91,6 +94,7 @@ export function SurveyWorkspace() {
       const linkedFinding = data.findings.find((finding) => finding.id === requestedId);
       const fallback = (presenting ? data.findings.find((finding) => finding.id === 'defect-04') : null) ?? data.findings[0];
       setPresenter(presenting);
+      if (presenting) setTab('review');
       setVideoInitialMode(presenting ? 'original' : 'live');
       setSelectedFindingId(linkedFinding?.id ?? fallback?.id ?? null);
       setLinkNotice(requestedId !== null && !linkedFinding ? 'Requested finding is unavailable. Showing an available finding instead.' : '');
@@ -112,7 +116,12 @@ export function SurveyWorkspace() {
 
   // Earlier in-page anchors (#survey-plans-heading and so on) open the matching tab.
   useEffect(() => {
-    const follow = () => { const next = tabForHash(window.location.hash); if (next) setTab(next); };
+    const follow = () => {
+      // Old full-review anchors cannot hide the compact review card behind a tab.
+      if (new URLSearchParams(window.location.search).get('present') === '1') { setTab('review'); return; }
+      const next = tabForHash(window.location.hash);
+      if (next) setTab(next);
+    };
     follow();
     window.addEventListener('hashchange', follow);
     return () => window.removeEventListener('hashchange', follow);
@@ -176,11 +185,11 @@ export function SurveyWorkspace() {
   let sliderMax = 100_000;
   try { sliderMax = sliderMaxCents(survey, costRange); } catch { /* keep default */ }
 
-  function selectFinding(findingId: string) {
+  function selectFinding(findingId: string, sourceSeconds?: number) {
     const finding = survey!.findings.find((item) => item.id === findingId);
     if (!finding) return;
     setSelectedFindingId(findingId);
-    setSeek({ seconds: presenter ? (frames[finding.id] ?? canonicalPresenterFrame(survey!, finding)).seconds : finding.evidenceTime, nonce: Date.now() });
+    setSeek({ seconds: presenter ? sourceSeconds ?? (frames[finding.id] ?? canonicalPresenterFrame(survey!, finding)).seconds : finding.evidenceTime, nonce: Date.now() });
     setLinkNotice('');
     const url = new URL(window.location.href);
     if (url.searchParams.get('finding') !== findingId) {
@@ -195,10 +204,14 @@ export function SurveyWorkspace() {
     setSurvey((current) => current ? withMeasurement(current, findingId, key, input) : current);
   }
 
-  async function loadReviewed(next: Survey) {
-    const resolvedFrames = await resolvePresenterFrames(next, presenterMetadata);
-    setFrames(resolvedFrames);
+  function loadReviewed(next: Survey) {
+    const generation = ++frameGenerationRef.current;
     setSurvey(next);
+    // Never render the old survey's crop while an imported source is being checked.
+    setFrames(Object.fromEntries(next.findings.map((finding) => [finding.id, canonicalPresenterFrame(next, finding, 'Checking presenter source; showing canonical evidence.')])));
+    void resolvePresenterFrames(next, presenterMetadata).then((resolvedFrames) => {
+      if (generation === frameGenerationRef.current) setFrames(resolvedFrames);
+    });
     setNotice('Loaded the reviewed survey from JSON.');
   }
 
@@ -209,6 +222,8 @@ export function SurveyWorkspace() {
 
   function restore() {
     if (!edited) return;
+    frameGenerationRef.current += 1;
+    setFrames(originalFramesRef.current);
     setSurvey(original);
     setNotice('Restored the original analysis. All review edits were discarded.');
   }
@@ -217,12 +232,14 @@ export function SurveyWorkspace() {
     setPresenter(presenting);
     if (presenting) setTab('review');
     const url = new URL(window.location.href);
-    if (presenting) url.searchParams.set('present', '1');
+    if (presenting) { url.searchParams.set('present', '1'); url.hash = ''; }
     else url.searchParams.delete('present');
     window.history.pushState(null, '', url);
   }
 
   function restartPresenter() {
+    frameGenerationRef.current += 1;
+    setFrames(originalFramesRef.current);
     setSurvey(original);
     setSelectedFindingId(original.findings.find((finding) => finding.id === 'defect-04')?.id ?? original.findings[0]?.id ?? null);
     setSeek({ seconds: 0, nonce: Date.now() });
