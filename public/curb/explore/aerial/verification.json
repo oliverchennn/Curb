@@ -1,0 +1,20 @@
+{
+  "kind": "asset-verification",
+  "status": "passed",
+  "imageSha256": "e2571a12dd3965abe3a4fc4f8001e3120bc76482f1b2266213a6fbc058648851",
+  "checks": {
+    "source": "Official NJ Office of GIS 2020 orthophotography item and export service",
+    "spatialReference": "EPSG:4326 response verified",
+    "dimensions": "3072 x 3072",
+    "allArchiveVerticesInsideImage": 127,
+    "browser": "Chrome local SVG registration preview inspected; unchanged archive lines and ramps visually align with Witherspoon and Nassau sidewalk/crossing locations",
+    "method": "Same project() affine formula applied to existing GeoJSON and image returned extent; preserveAspectRatio=none is intentional geographic reprojection",
+    "networkAtRuntime": "None; image is a local asset"
+  },
+  "limits": [
+    "Source capture year 2020 only; exact capture date and time unknown",
+    "Geometry/imagery co-registration is visual context, not field validation or current passability",
+    "Image covers a bounded Princeton extent; retain diagram outside image or after image failure"
+  ],
+  "qaScreenshot": "registration-check.jpg"
+}
