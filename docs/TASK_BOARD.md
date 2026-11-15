@@ -4,12 +4,12 @@ The public deployment serves `b010ad02ce9e0cb905e15e5c7c7109713814b36e` at [curb
 
 | Owner | Current scope | State |
 | --- | --- | --- |
-| Merge owner `01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5` | Git, shared integration, Chrome acceptance, archives and release | [Handoff ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886029469) from outgoing product coordinator `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` |
-| B / Vincent laptop | Rover inspection and Vincent-project deployment | [Rover released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885965018) at `352bc300850bacd7360680fc50fe17a1190846e7` and integrated through `e12464c`. [Read-only hosting preflight](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885998309) |
-| C / Landau | Adaptive explorer stage and linked evidence | [In progress](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885777369) from `16f5444ace90422cac3ef32548ec35b9bed9fc1f`. See the live board for release |
-| D / Oliver cloud | Survey plan presentation and synthetic budget explanation | [Released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886003683) at `cf7210200ebfe47b1f435bdcc136ddd4e2137f6e` and integrated through `7414d40`. Combined acceptance pending |
+| Merge owner `01a1dc6e-1818-7dd2-ae95-8ac3fcfca3b5` | Git, shared integration, Chrome acceptance, archives and release | [Handoff ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886029469) from original orchestrator `01a1d9ad-21f8-7a10-9a1d-c79fd185a8d9` |
+| B / Vincent laptop | Rover inspection and Vincent-project deployment | [Rover released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6885965018) at `352bc300850bacd7360680fc50fe17a1190846e7` and integrated through `e12464c`. [Hosting preflight complete](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886060150). [Timed runbook released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886221603) |
+| C / Landau | Adaptive explorer stage and linked evidence | [Explorer released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886135359) at `1a21afca02bb6794d9eeba1c88c0002d482aceb7` and integrated through `ac90100`. [Independent budget QA in progress](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886279528) |
+| D / Oliver cloud | Survey plan presentation and synthetic budget explanation | [Released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886003683) at `cf7210200ebfe47b1f435bdcc136ddd4e2137f6e` and integrated through `7414d40`. [Independent rover QA released](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6886265932) |
 
-B and D used assigned base `2fb49f710085732a7ac20f63680925b8db06dba5`. C still holds its assignment until STOP/RELEASE. Vincent receives the exact merged source after integration and verification. [Live board](https://github.com/oliverchennn/Curb/issues/1).
+B and D used assigned base `2fb49f710085732a7ac20f63680925b8db06dba5`. The original orchestrator owns worker assignments and directs Vincent’s deployment after the merge owner publishes the exact verified main SHA. [Live board](https://github.com/oliverchennn/Curb/issues/1).
 
 ---
 

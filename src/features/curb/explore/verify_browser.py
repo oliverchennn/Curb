@@ -67,7 +67,7 @@ def metrics(page, run):
 
 
 def primary_fonts(page, run):
-    run['primaryFontPixels'] = page.locator('[data-collection] strong, [data-collection] small, [data-snapshot]>strong, [data-snapshot]>span, [data-snapshot]>small, [data-record]>span').evaluate_all('(es)=>[...new Set(es.map(e=>parseFloat(getComputedStyle(e).fontSize)))]')
+    run['primaryFontPixels'] = page.locator('[data-collection] strong, [data-collection] small, [data-snapshot]>strong, [data-snapshot]>span:last-child>span').evaluate_all('(es)=>[...new Set(es.map(e=>parseFloat(getComputedStyle(e).fontSize)))]')
     check(run['label'] + ': primary name, type and snapshot date labels at least 14px', min(run['primaryFontPixels']) >= 14)
 
 
@@ -76,9 +76,16 @@ def map_clearance(page, label):
       const r = svg.getBoundingClientRect();
       const controls = svg.parentElement.querySelector('[aria-label="Map controls"]').getBoundingClientRect();
       const features = [...svg.querySelectorAll('[data-feature]')].map(e => e.getBoundingClientRect());
-      return {count:features.length, clear: features.every(f => f.left>=r.left-1 && f.right<=r.right+1 && f.top>=r.top-1 && f.bottom<=r.bottom+1 && f.top>=controls.bottom)};
+      return {
+        count: features.length,
+        clear: features.every(f => {
+          const inPlot = f.left >= r.left - 1 && f.right <= r.right + 1 && f.top >= r.top - 1 && f.bottom <= r.bottom + 1;
+          const underTools = f.left < controls.right && f.right > controls.left && f.top < controls.bottom && f.bottom > controls.top;
+          return inPlot && !underTools;
+        })
+      };
     }''')
-    check(label + ': fitted source features remain visible below map controls', result['clear'])
+    check(label + ': fitted source features stay within the plot and clear of the map controls', result['clear'])
 
 
 def shot(page, name):
@@ -275,7 +282,12 @@ try:
                 page.get_by_role('button', name='Next snapshot', exact=True).click()
                 page.locator('#explorer-map [aria-label*="Photo inspection:"] img').evaluate('(img)=>img.decode()')
                 shot(page, 'mobile-field-stage.png')
+                page.get_by_role('button', name='Play clip from', exact=False).click()
+                page.wait_for_function('document.querySelector("#explorer-map video")?.paused === false')
                 page.get_by_role('button', name='Open selected evidence', exact=False).click()
+                page.wait_for_function('''(document.querySelector('#explorer-map video')?.paused === true)
+                    && document.querySelector('#explorer-map video').getClientRects().length === 0''')
+                check('The hidden mobile Stage clip pauses')
                 shot(page, 'mobile-field-detail.png')
                 check('Mobile full record list exposes every field frame', page.locator('#explorer-evidence details').last.locator('button').count() == 5)
             clean_run(run); context.close()

@@ -112,7 +112,12 @@ function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | u
     <div className={styles.photoSide}>
       {clip && record.clipSeconds !== undefined && <figure className={styles.clip}>
         <video ref={video} src={CLIP} controls playsInline preload="metadata"
-          onLoadedMetadata={e => { e.currentTarget.currentTime = record.clipSeconds!; void e.currentTarget.play().catch(() => undefined); }} />
+          onLoadedMetadata={e => {
+            const element = e.currentTarget;
+            element.currentTime = record.clipSeconds!;
+            // The user can leave the mobile Stage before metadata becomes available.
+            if (element.getClientRects().length) void element.play().catch(() => undefined);
+          }} />
         <figcaption>Actual supplied footage from {clipTime(record.clipSeconds)}. Clip time is not a capture date.</figcaption>
       </figure>}
       <figure className={styles.siteInset}>

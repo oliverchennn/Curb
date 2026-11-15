@@ -11,7 +11,7 @@ The [merge owner](https://github.com/oliverchennn/Curb/issues/1#issuecomment-688
 
 Run the final integrated `npm run check`, standalone replay tests and compiled 12-request release verifier plus 31-request API audit. Check the actual feature UI in Chrome, not only HTTP status. Keep each report's tested source explicit; local checks are not public deployment evidence. Any new actionable regression is fixed and checked before merge.
 
-After accepted merges, give Vincent the exact full source SHA for his existing Vercel project, with APP_REVISION at build/runtime and matching source metadata. Verify the public source and changed flows after deployment; retain all original media, provenance and archive tags. No paid services, fabricated measurements, automatic compliance labels, inferred passability or invented map continuity.
+After the accepted merge, the merge owner publishes the full main SHA on the board. The original orchestrator assigns that source to Vincent’s existing Vercel project, with APP_REVISION at build/runtime and matching source metadata. Verify the public source and changed flows after deployment; retain all original media, provenance and archive tags. No paid services, fabricated measurements, automatic compliance labels, inferred passability or invented map continuity.
 
 ## Root explorer-to-review link checkpoint
 
