@@ -83,19 +83,21 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   }), targetRadius, entries.filter(({ f }) => f.geometry?.type === 'Point').map(({ f, record }) => { const [x, y] = anchor(f); return { id: record.id, x, y }; }), plotBounds);
   const halo = showAerial ? '#13201a' : '#fffef8', ink = showAerial ? '#ffffff' : '#213a2c';
   return <div className={styles.mapCanvas} data-base={showAerial ? 'aerial' : 'diagram'}>
-    <div className={styles.mapTools} role="group" aria-label="Map controls">
-      <button type="button" aria-label="Zoom in" onClick={() => zoom(.75)}>+</button>
-      <button type="button" aria-label="Zoom out" onClick={() => zoom(1.333333)}>−</button>
-      <button type="button" onClick={fitCollection}>Fit collection</button>
-      <button type="button" aria-disabled={!selectedFeature} onClick={fitSelection}
-        title={selectedFeature ? undefined : 'The selected record has no archive geometry'}>Fit selection</button>
+    <div className={styles.mapToolbar}>
+      <div className={styles.mapTools} role="group" aria-label="Map controls">
+        <button type="button" aria-label="Zoom in" onClick={() => zoom(.75)}>+</button>
+        <button type="button" aria-label="Zoom out" onClick={() => zoom(1.333333)}>−</button>
+        <button type="button" onClick={fitCollection}>Fit collection</button>
+        <button type="button" aria-disabled={!selectedFeature} onClick={fitSelection}
+          title={selectedFeature ? undefined : 'The selected record has no archive geometry'}>Fit selection</button>
+      </div>
+      <div className={styles.baseToggle} role="group" aria-label="Map background">
+        <button type="button" aria-pressed={showAerial} aria-disabled={aerialFailed} onClick={() => { if (!aerialFailed) setBase('aerial'); }}
+          title={aerialFailed ? 'Aerial image could not be loaded' : undefined}>Aerial</button>
+        <button type="button" aria-pressed={!showAerial} onClick={() => setBase('diagram')}>Diagram</button>
+      </div>
+      <div className={styles.north} aria-hidden="true"><span>↑</span>N</div>
     </div>
-    <div className={styles.baseToggle} role="group" aria-label="Map background">
-      <button type="button" aria-pressed={showAerial} aria-disabled={aerialFailed} onClick={() => { if (!aerialFailed) setBase('aerial'); }}
-        title={aerialFailed ? 'Aerial image could not be loaded' : undefined}>Aerial</button>
-      <button type="button" aria-pressed={!showAerial} onClick={() => setBase('diagram')}>Diagram</button>
-    </div>
-    <div className={styles.north} aria-hidden="true"><span>↑</span>N</div>
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every record is unchanged.</p>}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
       aria-label={`Archive map on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}. Arrow keys pan. Plus and minus zoom. Home fits the collection. Tab reaches mapped stops in source order. The record navigator includes unplaced records.`}

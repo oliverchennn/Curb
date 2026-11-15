@@ -51,7 +51,7 @@
 .traversal { margin-left:auto; color:#75572b; background:#f3ebd5; border:1px solid #ddd1b3; padding:4px 8px; font-size:14px; line-height:1.4; border-radius:4px; white-space:nowrap; }
 
 .stage { position:relative; flex-shrink:0; display:flex; flex-direction:column; }
-.stage[data-mode=map] { height:clamp(560px,calc(100dvh - 190px),860px); }
+.stage[data-mode=map] { height:clamp(612px,calc(100dvh - 138px),912px); }
 .stageEmpty { padding:64px 24px; text-align:center; color:var(--quiet); font-size:14px; line-height:1.6; }
 .stageEmpty h3 { margin:0 0 8px; font-size:20px; color:var(--forest); }
 .stageEmpty button { min-height:44px; padding:10px 18px; background:var(--forest); color:#fffef8; border:0; font-size:14px; }
@@ -66,18 +66,18 @@
 .badge { cursor:pointer; }
 .badge line { pointer-events:none; }
 .mapFeature { cursor:pointer; outline:none; }.mapFeature:focus-visible { filter:drop-shadow(0 0 4px #f0b46c); }.mapFeature:focus-visible>path:last-child { stroke:#f0b46c; }
-.mapTools, .baseToggle { position:absolute; top:12px; z-index:2; display:flex; border:1px solid #bac7b1; border-radius:6px; background:#fffef8; box-shadow:0 2px 8px #18241a40; overflow:hidden; }
-.mapTools { left:12px; }
-.baseToggle { right:56px; }
+.mapToolbar { display:flex; flex-shrink:0; flex-wrap:wrap; align-items:center; gap:8px; padding:6px 10px; background:#f8f8ee; border-bottom:1px solid #d7ddcb; }
+.mapTools, .baseToggle { display:flex; flex-wrap:wrap; max-width:100%; border:1px solid #bac7b1; border-radius:6px; background:#fffef8; }
+.baseToggle { margin-left:auto; }
 .mapTools button, .baseToggle button { min-height:44px; padding:8px 12px; background:#fffef8; color:#34533d; border-radius:0; border:0; border-right:1px solid #d6dece; font-size:14px; }
 .mapTools button:first-child, .mapTools button:nth-child(2) { font-size:20px; line-height:1; min-width:44px; }
 .mapTools button:last-child, .baseToggle button:last-child { border-right:0; }
 .mapTools button:hover, .baseToggle button:hover { background:#e3ebd9; }
 .mapTools button[aria-disabled=true], .baseToggle button[aria-disabled=true] { color:#7b8274; cursor:not-allowed; }
 .baseToggle button[aria-pressed=true] { background:#244b3a; color:#fffef8; font-weight:600; }
-.north { position:absolute; right:14px; top:12px; z-index:1; display:flex; flex-direction:column; align-items:center; width:32px; padding:2px 0 4px; border-radius:6px; background:#fffef8e6; font-size:12px; font-weight:700; color:#33452f; pointer-events:none; }.north span { font-size:22px; line-height:1.1; }
+.north { display:flex; flex-direction:column; align-items:center; width:32px; padding:2px 0 4px; border-radius:6px; background:#fffef8e6; font-size:12px; font-weight:700; color:#33452f; pointer-events:none; }.north span { font-size:22px; line-height:1.1; }
 .mapCredit { position:absolute; right:8px; bottom:60px; z-index:1; padding:2px 7px; border-radius:4px; background:#141c16cc; color:#f1f1e8; font-size:12px; pointer-events:none; }
-.mapNotice { position:absolute; left:50%; top:66px; transform:translateX(-50%); z-index:2; margin:0; padding:8px 12px; border-radius:6px; background:#fbf0d4; border:1px solid #d4b77b; color:#5f4615; font-size:14px; }
+.mapNotice { flex-shrink:0; margin:0; padding:8px 12px; border-radius:6px; background:#fbf0d4; border:1px solid #d4b77b; color:#5f4615; font-size:14px; }
 
 .legend { flex-shrink:0; background:#f8f8eef5; border-top:1px solid #d7ddcb; font-size:14px; color:#3f4f3b; }
 .legend>summary { display:flex; flex-wrap:wrap; align-items:center; gap:4px 18px; min-height:48px; padding:6px 14px; cursor:pointer; list-style:none; }
@@ -186,9 +186,10 @@
   .mapHeading { padding:10px 12px; }.mapHeading h2 { font-size:17px; }
   .traversal { margin-left:0; }
   .stage[data-mode=map] { height:auto; }
-  .stage[data-mode=map] .mapCanvas { height:min(72vh,560px); flex:none; }
-  .baseToggle { top:64px; right:12px; }
-  .north { top:64px; left:12px; right:auto; }
+  .stage[data-mode=map] .mapCanvas { flex:none; }
+  .mapSvg { height:min(60vh,484px); flex:none; }
+  .baseToggle { margin-left:0; }
+  .north { margin-left:auto; }
   .mapTools button { padding:8px 10px; }
   .mapCredit { position:static; align-self:flex-end; margin:4px 8px 0; background:none; color:var(--quiet); }
   .legend>summary { gap:4px 12px; }
