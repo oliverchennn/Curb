@@ -2,6 +2,8 @@
 
 Public records recovered reproducible cost arithmetic and historical entrance context, but not the assessed crossings and complete repair scope required for a defensible benchmark. **The accepted case stays `inventory_only`; M1–M10 remain open.** The existing synthetic benchmark remains the supported comparison for the demo. The human study remains skipped.
 
+**Subsequent map reconstruction:** the college's public route maps do establish useful path and crossing connectivity. See the [map-based network addendum](MAP_TOPOLOGY_RECONSTRUCTION.md), which separates mapped geometry from unknown field conditions and historical defect-ID matches. The original frozen case above remains unchanged; missing measurements are not a reason to omit clearly mapped paths from a new planning model.
+
 ## Independently checked findings
 
 The existing independent reviewer re-extracted the official report and checked the source researchers' arithmetic, rendered map excerpts and construction records on November 15, 2026. [Coordination receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6894166716).
