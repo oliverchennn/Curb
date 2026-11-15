@@ -115,8 +115,8 @@ OSM edit may concern a name rather than a field visit.
 Selected full-geometry bounds are
 `[-74.669837,40.3192245,-74.6297684,40.3560433]`. Some source ways extend outside
 campus; their complete geometry is retained without claiming those portions
-are University property. Proposed padded imagery extent for root is
-`[-74.672,40.318,-74.628,40.357]`.
+are University property. Root's separately published imagery uses the padded
+extent `[-74.672,40.318,-74.628,40.357]`.
 
 ## Data and UI contract
 
@@ -221,7 +221,52 @@ holes, crossing segments, missing/duplicate inputs, unclosed rings, full source
 coordinate/tag preservation, complete bounded partitions, atlas joins, unknown
 dates and preservation of the old field/conflict collections.
 
-This data handoff is not a deployment claim. Campus UI attribution, overview,
-large-section interaction and the wider aerial are separately owned integration
-dependencies. Exact browser/build results and any stale baseline test assertions
-are recorded in the receipt before final release.
+Executed on the frozen data checkpoint:
+
+| Check | Result |
+| --- | --- |
+| Offline importer reproduction and source/output hashes | PASS |
+| New importer and adapter tests | 11 passed |
+| TypeScript | PASS |
+| Targeted new tests plus existing explorer model/location tests | 43 passed; 2 obsolete global-count assertions failed |
+| Production `npm run build` | PASS; Next.js 16.4.1 compiled and generated all 16 static pages |
+| Independent geometry inclusion comparison | Same 1,188 way IDs; symmetric difference zero |
+
+The two failures are `model.test.ts` assertions for three archive collections
+and ten line features. Adding this source produces 25 archive collections and
+1,198 lines. The original three DVRPC collections and ten DVRPC lines remain
+unchanged; the assertions need source scoping, with separate campus assertions.
+That test file is outside D's scope. Root explicitly assigned the updates to C
+in [6887367182](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6887367182).
+The full repository suite was not run or claimed green in this data lane.
+
+An initial sandboxed build failed because TypeScript's `--showConfig` subprocess
+returned empty output. Repeating the same build with normal local subprocess
+access passed; no source/config workaround was applied. Local build and targeted
+test logs are preserved under `.curb-local/campus-research/`; their hashes are in
+the receipt. Browser acceptance was not performed in this data lane. The old UI
+is not accepted for campus-scale navigation or visible OSM attribution.
+
+## Published handoff and ownership
+
+The immutable implementation checkpoint is
+[`cde54e6a9ddf3602cf8c59dc43331d8c2666b520`](https://github.com/oliverchennn/Curb/commit/cde54e6a9ddf3602cf8c59dc43331d8c2666b520)
+on `codex/princeton-campus-map`, verified against the canonical remote at
+2026-11-15T01:30:51Z and handed off in
+[6887338128](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6887338128).
+Root accepted it for draft integration, froze/released D's importer, data and
+adapter ownership, and restricted this final followup to the report and receipt.
+These final documentation edits do not change the frozen implementation.
+
+The merge owner reports that checkpoint combined with the separate root aerial
+asset commit `0ba4535d5a0105bf0ab045460a92e7a79689b93a` in implementation base
+`bb9093c71ce9ae7c2114e61e4e6e64f1805f3e92`
+([6887365819](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6887365819)).
+This is a coordinator-reported integration, not D's combined runtime acceptance.
+C owns the compact campus selector, overview, source attribution, image loading,
+focused browsing and browser verification. D's five retained collection IDs are
+`witherspoon`, `nassau-east`, `nassau-west`, `robertson` and `examples`.
+
+D's data/research lane is complete and released. No application server, browser,
+import job or child worker remains running for this task. There is no deployment
+claim; the campus UI and combined release remain separately owned work.
