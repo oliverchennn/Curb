@@ -14,13 +14,13 @@ Four lead chats: Vincent's coordinator, Vincent's separate `agent-a` coding lead
 
 The shared message board is **one GitHub issue in `vzhu08/Curb`**. The coordinator reserves scopes and records assignments; leads acknowledge and report through comments. This follows the kit's manual collaboration conventions while preserving the supplied plan's subagents. It supplies no automatic cross-computer dispatch, locks, notifications to offline agents, heartbeat service or lease fencing.
 
-Do not run `npm run agents -- init/chat/worker`: that optional runtime is absent and its pinned worker disables children. `orchestration.team.json` is a human-readable team record, NOT an input to that runtime. Upstream `/approve`, `/status` and handoff commands belong only to its custom terminal; use ordinary conversation and board records here.
+Do not run `npm run agents -- init/chat/worker`: that optional runtime is absent and its pinned worker disables children. `docs/development/orchestration.team.json` is a human-readable team record, NOT an input to that runtime. Upstream `/approve`, `/status` and handoff commands belong only to its custom terminal; use ordinary conversation and board records here.
 
 ## Kickoff sequence
 
 1. Inspect status, current HEAD, remote and this package. Preserve edits. Commit/share the coordination package through Vincent's intended Git workflow before other machines depend on it. Record the resulting real docs SHA; the README-only initial SHA is not sufficient.
 2. Verify GitHub identity and repository issue access using the connected GitHub tool, or `gh api user --jq .login` and `gh repo view vzhu08/Curb --json nameWithOwner,hasIssuesEnabled,viewerPermission`. Coordinator must use `vzhu08` or a successor explicitly designated by Vincent. B/C verify their own accounts; invitations may still be pending.
-3. Read `orchestration.team.json`. If a board URL/number exists, read that issue and all comments before changing anything. If absent, search all states for the exact title `Curb team board | curb-hackprinceton-f26`. Resume an existing matching board; do not create a second board on retry. Multiple candidates require reconciliation before assignment.
+3. Read `docs/development/orchestration.team.json`. If a board URL/number exists, read that issue and all comments before changing anything. If absent, search all states for the exact title `Curb team board | curb-hackprinceton-f26`. Resume an existing matching board; do not create a second board on retry. Multiple candidates require reconciliation before assignment.
 4. If no board exists, create the issue with `docs/message-board/ISSUE_BODY.md`, then read it back. Record its number/URL in the team config and `docs/TASK_BOARD.md`. The kickoff prompt explicitly authorizes this issue and task/status comments. Do not contact people outside the board.
 5. Post a coordinator START record with actual UTC time, identity, current docs SHA, selected foundation, roster, no active claims and the fixed event deadline. Report B/C accounts as pending when unverified. Freeze remains Sunday 02:00 and hard deadline Sunday 08:00 America/New_York; a late start does not reset them.
 6. Prepare the F0 assignment, including exact paths and checks, from [F0](tasks/F0.md). Publish it and start/hand off to Vincent's separate coding lead. Do not wait for B/C accounts to finish F0. Keep parallel application dispatch blocked until F0's verified SHA and contract exist.
@@ -48,7 +48,7 @@ gh issue create --repo vzhu08/Curb --title 'Curb team board | curb-hackprinceton
 Once the returned issue number has been written into the config:
 
 ```powershell
-$curbTeam = Get-Content -Raw orchestration.team.json | ConvertFrom-Json
+$curbTeam = Get-Content -Raw docs/development/orchestration.team.json | ConvertFrom-Json
 if (-not $curbTeam.board.issueNumber) { throw 'Record the verified board number first.' }
 gh issue view $curbTeam.board.issueNumber --repo vzhu08/Curb --json number,url,title,state,body
 gh api --paginate "repos/vzhu08/Curb/issues/$($curbTeam.board.issueNumber)/comments" --jq '.[] | {id,html_url,user:.user.login,created_at,body}'

@@ -1,6 +1,6 @@
 # Shared message board
 
-One issue, title `Curb team board | curb-hackprinceton-f26`, repository `vzhu08/Curb`. Its canonical URL is `orchestration.team.json` → `board.url`: [issue #1](https://github.com/vzhu08/Curb/issues/1), created and read back at kickoff. [Startup procedure](ORCHESTRATION.md) and unchanged [seed body](message-board/ISSUE_BODY.md).
+One issue, title `Curb team board | curb-hackprinceton-f26`, repository `vzhu08/Curb`. Its canonical URL is `docs/development/orchestration.team.json` → `board.url`: [issue #1](https://github.com/vzhu08/Curb/issues/1), created and read back at kickoff. [Startup procedure](ORCHESTRATION.md) and unchanged [seed body](message-board/ISSUE_BODY.md).
 
 ## Authority
 

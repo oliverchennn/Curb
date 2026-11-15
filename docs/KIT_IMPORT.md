@@ -55,7 +55,7 @@ Preparation checks verify source integrity, internal document links, team config
 
 ## F0 application adoption
 
-Reviewed result `7e56583774b9723a6ce8b6c25def915c08e76217` selectively adopts 15 generated targets plus 18 Curb source/test/notice files. Of 73 staged outputs (71 project files and two cache files), 58 were excluded. Existing prompts, coordination docs and Git history were preserved. Root MIT and third-party notices remain present. `kit.project.json` retains 14 selected upstream hashes under `upstreamHashes`; these identify provenance, not equality of adapted current bytes.
+Reviewed result `7e56583774b9723a6ce8b6c25def915c08e76217` selectively adopts 15 generated targets plus 18 Curb source/test/notice files. Of 73 staged outputs (71 project files and two cache files), 58 were excluded. Existing prompts, coordination docs and Git history were preserved. Root MIT and third-party notices remain present. `docs/development/kit.project.json` retains 14 selected upstream hashes under `upstreamHashes`; these identify provenance, not equality of adapted current bytes.
 
 Imported maps are the pure schema/helper entry and credential-free GeoMap component. Provider/Mapbox adapters, environment files, deployment configuration, generated instructions/docs, custom agent runtime and unrelated examples were excluded. No provider dependency is required.
 

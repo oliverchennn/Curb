@@ -57,8 +57,8 @@ Common implementation base was `d561c30f10b6e3f34300093cea343346a87b9678`; [exac
 | Role / task | State | Next action |
 |---|---|---|
 | HANDOFF-VINCENT | Outgoing cloud coordinator; docs/evidence/package only | Publish final reviewed documentation checkpoint and release coordination; final SHA/result on board |
-| Vincent orchestrator | Designated, resumed session/ACK pending | Follow `START_ORCHESTRATOR.txt`; read final board record; ACK before dispatch |
-| Oliver / this cloud session as Dev B | Ready, no code task or active file scope | Follow `START_DEV_B.txt`; use prepared `/workspace/curb-dev-b`; await exact task/base/contract |
+| Vincent orchestrator | Designated, resumed session/ACK pending | Follow `docs/development/START_ORCHESTRATOR.txt`; read final board record; ACK before dispatch |
+| Oliver / this cloud session as Dev B | Ready, no code task or active file scope | Follow `docs/development/START_DEV_B.txt`; use prepared `/workspace/curb-dev-b`; await exact task/base/contract |
 | A / C | Historical work stopped; present availability unconfirmed | Coordinator confirms availability before assigning paths |
 | R2 | Recommendation only | Vincent selects next outcome; A freezes new contract before B/A/C implementation |
 

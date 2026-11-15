@@ -14,12 +14,12 @@ Kickoff exception authorized by Vincent: B is temporarily covered by `agent-b-te
 
 | Scope | Accountable lane / current policy |
 |---|---|
-| `AGENTS.md`, `CLAUDE.md`, `README.md`, `START_ORCHESTRATOR.txt`, `START_DEV_A.txt`, `START_DEV_B.txt`, `START_DEV_C.txt`, `orchestration.team.json` | Coordinator; README setup section may be transferred serially to F0 |
+| `AGENTS.md`, `CLAUDE.md`, `README.md`, `docs/development/AGENT_WORKFLOW.md`, `docs/development/README.md`, `docs/development/START_ORCHESTRATOR.txt`, `docs/development/START_DEV_A.txt`, `docs/development/START_DEV_B.txt`, `docs/development/START_DEV_C.txt`, `docs/development/orchestration.team.json` | Coordinator; README setup section may be transferred serially to F0 |
 | `docs/README.md`, `docs/IMPLEMENTATION_PLAN.md`, `docs/ORCHESTRATION.md`, `docs/MESSAGE_BOARD.md`, `docs/OWNERSHIP.md`, `docs/TASK_BOARD.md`, `docs/DECISIONS.md`, `docs/HANDOFF.md`, `docs/ACCEPTANCE.md`, `docs/CONTRACTS.md`, `docs/KIT_IMPORT.md`, `docs/KIT_IMPORT_MANIFEST.json`, `docs/SPONSOR_OPTIONS.md`, `docs/tasks/`, `docs/message-board/` | Coordinator documentation; F0 proposes contract/check changes in its report, coordinator records them |
 | `docs/source/`, `docs/vendor/` | Preserved references; import steward only |
 | `package.json`, `package-lock.json`, root application config files, `.env.example`, `.env.kit.example`, `.gitignore`, root license/notices | A serial bootstrap/maintenance task; enumerate actual config files before work |
 | `.github/`, `.codex/`, `tools/agents/`, `orchestration.json`, `orchestration.install.json` | A maintenance only; managed runner paths are reserved, not present or authorized to install |
-| `src/contracts/curb/`, `packages/`, `modules/`, `kit.project.json` | A bootstrap/contract/import steward; frozen after F0 |
+| `src/contracts/curb/`, `packages/`, `modules/`, `docs/development/kit.project.json` | A bootstrap/contract/import steward; frozen after F0 |
 | `app/layout.tsx`, `app/globals.css`, `app/page.tsx`, `app/error.tsx`, `app/not-found.tsx`, generated `app/kit/` | A shell/bootstrap task |
 | `app/api/curb/`, `src/server/curb/`, `src/client/curb/` | A implementation lane |
 | `tests/integration/`, `tests/e2e/` | A verification lane; narrower A1/A2 children below |

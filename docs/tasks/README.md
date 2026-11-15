@@ -23,4 +23,4 @@ Use `codex/` branches. Children receive the same fields plus a parent task ID an
 
 For every child, the lane lead records child ID, session, checkout, paths, start/status, actual checks and result SHA/patch. Children return [the handoff](../HANDOFF.md) to their parent. Parent inspects their combined diff and reports one reviewed lane result on the board. No grandchildren.
 
-Shared paths prohibited in F1: root package/lock/config files; `.github/`; `.codex/`; `tools/agents/`; `orchestration.team.json`; `src/contracts/curb/`; `packages/`; `modules/`; `kit.project.json`; A-owned shell; coordination docs/prompts; other lanes' paths. Post a change request instead.
+Shared paths prohibited in F1: root package/lock/config files; `.github/`; `.codex/`; `tools/agents/`; `docs/development/orchestration.team.json`; `src/contracts/curb/`; `packages/`; `modules/`; `docs/development/kit.project.json`; A-owned shell; coordination docs/prompts; other lanes' paths. Post a change request instead.
