@@ -589,7 +589,7 @@ export default function RobotExplorer() {
           {!indexOnly && !tourActive && <p className={styles.hint}>
             {mode === 'overview' && 'Drag to orbit · scroll to zoom · click a subsystem to isolate it'}
             {mode === 'isolated' && 'Click the model to expand it · Esc returns to the full robot'}
-            {mode === 'exploded' && 'Select a part to see its purpose · Esc returns to the full robot'}
+            {mode === 'exploded' && 'Zoom in to reveal part numbers · select a part for its purpose · Esc returns'}
           </p>}
         </div>
         <p className={styles.concept}>{manifest?.note ?? 'Generic prototype concept model — not validated hardware.'}</p>
