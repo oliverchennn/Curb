@@ -52,6 +52,16 @@ describe('badge placement', () => {
     expect(Math.hypot(line.x - ramp.x, line.y - ramp.y)).toBeGreaterThanOrEqual(44 - 1e-9);
     expect(line.moved).toBe(true);
   });
+  it('keeps a visible stop badge target inside the plot', () => {
+    const badge = placeBadges([{ id: 'stop', x: 145, y: 25, dy: -22 }], 22, [], {
+      left: 0, top: 0, right: 300, bottom: 200,
+    }).get('stop')!;
+    expect(badge.moved).toBe(true);
+    expect(badge.y).toBeGreaterThanOrEqual(22);
+    expect(badge.y).toBeLessThanOrEqual(178);
+    expect(badge.x).toBeGreaterThanOrEqual(22);
+    expect(badge.x).toBeLessThanOrEqual(278);
+  });
   it('is deterministic', () => {
     const anchors = [{ id: 'a', x: 0, y: 0, dy: -10 }, { id: 'b', x: 2, y: 1, dy: -10 }, { id: 'c', x: 1, y: 3, dy: -10 }];
     expect([...placeBadges(anchors, 8)]).toEqual([...placeBadges(anchors, 8)]);

@@ -46,6 +46,9 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const features = locatedFeatures(atlas, records);
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);
   const targetRadius = STOP_TARGET_DIAMETER / 2 * unit;
+  const plotLeft = view[0] + (view[2] - size[0] * unit) / 2;
+  const plotTop = view[1] + (view[3] - size[1] * unit) / 2;
+  const plotBounds = { left: plotLeft, top: plotTop, right: plotLeft + size[0] * unit, bottom: plotTop + size[1] * unit };
   const selectedFeature = selected ? atlas.features.find(f => f.id === selected.featureId && f.geometry) : undefined;
   // Tighter than the overview default, leaving room above the top stop for its number badge.
   const fit = (f: Feature[]) => fitFeatures(f, 26, 40);
@@ -73,11 +76,11 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   };
   const entries = features.map(f => ({ f, record: records.find(r => r.featureId === f.id)! }))
     .sort((a, b) => (stops.get(a.record.id) ?? 0) - (stops.get(b.record.id) ?? 0));
-  // Selected badge is placed first so it always keeps its natural position.
+  // Place the selected badge first so it gets the nearest available position.
   const order = [...entries].sort((a, b) => Number(b.f.id === selected?.featureId) - Number(a.f.id === selected?.featureId));
   const badges = placeBadges(order.map(({ f, record }) => {
     const [x, y] = anchor(f); return { id: record.id, x, y, dy: -targetRadius };
-  }), targetRadius, entries.filter(({ f }) => f.geometry?.type === 'Point').map(({ f, record }) => { const [x, y] = anchor(f); return { id: record.id, x, y }; }));
+  }), targetRadius, entries.filter(({ f }) => f.geometry?.type === 'Point').map(({ f, record }) => { const [x, y] = anchor(f); return { id: record.id, x, y }; }), plotBounds);
   const halo = showAerial ? '#13201a' : '#fffef8', ink = showAerial ? '#ffffff' : '#213a2c';
   return <div className={styles.mapCanvas} data-base={showAerial ? 'aerial' : 'diagram'}>
     <div className={styles.mapTools} role="group" aria-label="Map controls">
