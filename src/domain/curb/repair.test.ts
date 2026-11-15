@@ -60,6 +60,33 @@ describe('remediation workflow', () => {
     expect(workflowSummary(s).text).toBe('4 submitted, 1 rejected');
   });
 
+  it.each([
+    ['pending', 'ai'], ['pending', 'manual'], ['accepted', 'ai'], ['rejected', 'manual'],
+  ] as const)('blocks %s/%s progress at every stage without erasing history', (status, method) => {
+    let progressed = accepted(base, 'defect-01');
+    const stages = [base, progressed];
+    for (let minute = 2; minute <= 4; minute++) {
+      progressed = ok(moveWorkflow(progressed, 'defect-01', {
+        action: 'advance', by: 'Pat', note: 'Recorded step.', evidence: 'New measurement reference.', at: at(minute),
+      }));
+      stages.push(progressed);
+    }
+    for (const stage of stages) {
+      const s = structuredClone(stage);
+      const finding = s.findings[0];
+      finding.review = { status, method, reviewer: 'Pat', note: 'Review updated.' };
+      const history = structuredClone(finding.repair!.workflow);
+      expect(nextWorkflowStatus(finding)).toBeNull();
+      expect(canReopen(finding)).toBe(false);
+      for (const action of ['advance', 'reopen'] as const) {
+        expect(moveWorkflow(s, finding.id, { action, by: 'Pat', note: 'Proceed.', evidence: 'New photo.', at: at(5) }))
+          .toEqual({ ok: false, message: expect.stringMatching(status === 'rejected' ? /Rejected/ : /Accept.*manual review/) });
+      }
+      expect(finding.repair!.workflow).toEqual(history);
+      expect(markReviewed(s, finding.id, 'Pat', at(5))).toBe(s);
+    }
+  });
+
   it('rejects skipped, backward or out-of-order histories in the contract', () => {
     const step = (status: WorkflowStep['status'], minute: number, action: WorkflowStep['action'] = 'advance', evidence: string | null = null): WorkflowStep =>
       ({ status, action, by: 'Pat', at: at(minute), note: 'n', evidence });
@@ -94,13 +121,38 @@ describe('repair fields', () => {
     expect(SurveySchema.safeParse(bad).success).toBe(false);
   });
 
-  it('requires a review by a person before new workflow steps are imported', () => {
+  it.each([
+    ['pending', 'ai', false], ['pending', 'manual', false], ['accepted', 'ai', false], ['accepted', 'manual', true],
+  ] as const)('validates new %s/%s history at the shared import/report guard', (status, method, allowed) => {
     const published = base.findings[0];
-    const pending = structuredClone(published);
-    pending.repair!.workflow.push({ status: 'reviewed', action: 'advance', by: 'X', at: at(1), note: 'n', evidence: null });
-    expect(appendedWorkflowIssue(pending, published)).toMatch(/person's review/);
-    pending.review = { status: 'accepted', reviewer: 'Pat', method: 'manual', note: 'Real.' };
-    expect(appendedWorkflowIssue(pending, published)).toBeNull();
-    expect(appendedWorkflowIssue(published, published)).toBeNull();
+    const edited = structuredClone(published);
+    edited.repair!.workflow.push(
+      { status: 'reviewed', action: 'advance', by: 'Pat', at: at(1), note: 'Reviewed.', evidence: null },
+      { status: 'planned', action: 'advance', by: 'Pat', at: at(2), note: 'Scheduled.', evidence: null },
+    );
+    edited.review = { status, method, reviewer: 'Pat', note: 'Review updated.' };
+    expect(SurveySchema.safeParse({ ...base, findings: [edited, ...base.findings.slice(1)] }).success).toBe(true);
+    expect(appendedWorkflowIssue(edited, published)).toEqual(allowed ? null : expect.stringMatching(/accepted manual review/));
+    expect(appendedWorkflowIssue(edited, undefined)).toEqual(allowed ? null : expect.stringMatching(/accepted manual review/));
+  });
+
+  it.each(['pending', 'rejected'] as const)('preserves published history after a later %s review', (status) => {
+    const s = ok(moveWorkflow(accepted(base, 'defect-01'), 'defect-01', { action: 'advance', by: 'Pat', note: 'Scheduled.', at: at(2) }));
+    const published = s.findings[0];
+    const edited = structuredClone(published);
+    edited.review.status = status;
+    expect(appendedWorkflowIssue(edited, published)).toBeNull();
+    expect(edited.repair!.workflow).toEqual(published.repair!.workflow);
+    expect(nextWorkflowStatus(edited)).toBeNull();
+    expect(canReopen(edited)).toBe(false);
+  });
+
+  it('preserves a later manual rejection with local history while keeping it out of active progress', () => {
+    const s = ok(moveWorkflow(accepted(base, 'defect-01'), 'defect-01', { action: 'advance', by: 'Pat', note: 'Scheduled.', at: at(2) }));
+    s.findings[0].review.status = 'rejected';
+    expect(appendedWorkflowIssue(s.findings[0], base.findings[0])).toBeNull();
+    expect(workflowSummary(s).text).toBe('4 submitted, 1 rejected');
+    expect(nextWorkflowStatus(s.findings[0])).toBeNull();
+    expect(canReopen(s.findings[0])).toBe(false);
   });
 });

@@ -44,16 +44,17 @@ export function workflowStatus(finding: Finding): WorkflowStatus {
 
 /** Statuses a finding can move to next (forward one step), and whether it can be reopened. */
 export function nextWorkflowStatus(finding: Finding): WorkflowStatus | null {
-  if (finding.review.status === 'rejected') return null;
+  if (!hasAcceptedManualReview(finding)) return null;
   const current = WORKFLOW_ORDER.indexOf(workflowStatus(finding));
-  const next = WORKFLOW_ORDER[current + 1] ?? null;
-  // Reviewed means a person accepted the finding.
-  if (next === 'reviewed' && finding.review.status !== 'accepted') return null;
-  return next;
+  return WORKFLOW_ORDER[current + 1] ?? null;
 }
 
 export function canReopen(finding: Finding): boolean {
-  return finding.review.status !== 'rejected' && WORKFLOW_ORDER.indexOf(workflowStatus(finding)) >= WORKFLOW_ORDER.indexOf('planned');
+  return hasAcceptedManualReview(finding) && WORKFLOW_ORDER.indexOf(workflowStatus(finding)) >= WORKFLOW_ORDER.indexOf('planned');
+}
+
+function hasAcceptedManualReview(finding: Finding): boolean {
+  return finding.review.status === 'accepted' && finding.review.method === 'manual';
 }
 
 export type WorkflowEdit = { ok: true; survey: Survey } | { ok: false; message: string };
@@ -81,8 +82,8 @@ export function moveWorkflow(survey: Survey, findingId: string, input: {
   if (!status) {
     return { ok: false, message: finding.review.status === 'rejected'
       ? 'Rejected findings are out of the repair workflow.'
-      : input.action === 'reopen' ? 'Only planned or later repairs can be reopened.'
-        : workflowStatus(finding) === 'submitted' ? 'Accept the finding first; that marks it reviewed.' : 'This repair is already re-verified.' };
+      : !hasAcceptedManualReview(finding) ? 'Accept the finding by manual review before changing its repair status.'
+        : input.action === 'reopen' ? 'Only planned or later repairs can be reopened.' : 'This repair is already re-verified.' };
   }
   const evidence = clean(input.evidence);
   if (status === 'reverified' && !evidence) return { ok: false, message: 'Re-verifying needs fresh evidence: a new measurement or a photo/video reference.' };
@@ -128,12 +129,16 @@ export function workflowSummary(survey: Survey): { counts: Record<WorkflowStatus
   return { counts, rejected, text: parts.join(', ') || 'No findings' };
 }
 
-/** Steps added beyond the published history need a person's review of the finding first,
- * so a pending AI finding cannot become reviewed or planned by importing or posting JSON. */
+/** New active progress needs an accepted manual review at both import and report boundaries.
+ * Preserve published history and manual rejection records: v1 records only the current review,
+ * so a later rejection cannot be distinguished from rejection before the recorded steps.
+ * Rejected findings remain excluded from plans and cannot advance or reopen. */
 export function appendedWorkflowIssue(edited: Finding, published: Finding | undefined): string | null {
   const before = published ? repairOf(published).workflow.length : 1;
   const after = repairOf(edited).workflow.length;
   if (after <= before) return null;
-  if (edited.review.method !== 'manual') return `${edited.label}: repair steps need a person's review first`;
+  if (!hasAcceptedManualReview(edited) && !(edited.review.status === 'rejected' && edited.review.method === 'manual')) {
+    return `${edited.label}: new repair steps need an accepted manual review first`;
+  }
   return null;
 }

@@ -22,12 +22,21 @@ export const UNIT_DIVISORS: Record<MeasureDimension, Record<string, number>> = {
   length: { in: 1, ft: 1 / 12, mm: 25.4, cm: 2.54, m: 0.0254 },
   slope: { '%': 1 },
 };
+export const ASSUMED_METHOD = 'Assumed planning estimate';
+export const REVIEWER_METHOD = 'Reviewer field measurement';
 
-/** Value in a supported unit → inches or percent (rounded to 1e-9), or null for an unsupported unit. */
+/** Value in a supported unit → finite inches or percent (rounded to 1e-9), or null. */
 export function toCanonical(dimension: MeasureDimension, value: number, unit: string): number | null {
-  const divisor = UNIT_DIVISORS[dimension][unit];
-  if (divisor === undefined || !Number.isFinite(value) || value < 0) return null;
-  return Math.round((value / divisor) * 1e9) / 1e9;
+  if (!Object.hasOwn(UNIT_DIVISORS, dimension) || !Number.isFinite(value) || value < 0) return null;
+  const units = UNIT_DIVISORS[dimension];
+  if (!Object.hasOwn(units, unit)) return null;
+  const divisor = units[unit];
+  if (!Number.isFinite(divisor) || divisor <= 0) return null;
+  const converted = value / divisor;
+  const scaled = converted * 1e9;
+  if (!Number.isFinite(converted) || !Number.isFinite(scaled)) return null;
+  const result = Math.round(scaled) / 1e9;
+  return Number.isFinite(result) ? result : null;
 }
 
 export const AccessNeedSchema = z.enum(['mobility_device', 'low_vision_cane', 'walker', 'stroller']);
@@ -139,8 +148,14 @@ export const SurveySchema = z.strictObject({
     }
     for (const check of f.assessment.checks) if (!sources.has(check.sourceId)) fail(`Unknown standards source: ${check.sourceId}`);
     for (const m of f.measurements) {
-      const dimension = (MEASURE_DIMENSIONS as Record<string, MeasureDimension | undefined>)[m.property];
-      if (dimension && toCanonical(dimension, m.value, m.unit) === null) fail(`Unsupported unit "${m.unit}" for ${m.property}: ${f.id}`);
+      if (!Object.hasOwn(MEASURE_DIMENSIONS, m.property)) {
+        // Other v1 measurements are immutable published evidence. Only the known
+        // dimension properties may use the two reviewer-editable methods.
+        if (m.method === ASSUMED_METHOD || m.method === REVIEWER_METHOD) fail(`Unsupported measurement property "${m.property}": ${f.id}`);
+        continue;
+      }
+      const dimension = MEASURE_DIMENSIONS[m.property as keyof typeof MEASURE_DIMENSIONS];
+      if (toCanonical(dimension, m.value, m.unit) === null) fail(`Invalid value or unit "${m.unit}" for ${m.property}: ${f.id}`);
     }
     if (f.repair) {
       const issue = workflowIssue(f.repair.workflow);

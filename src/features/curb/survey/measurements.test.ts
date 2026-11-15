@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import survey from '../../../data/curb/surveys/robertson-hall.json';
-import { SurveySchema, toCanonical, type Survey } from '../../../contracts/curb/survey';
+import { SurveySchema, toCanonical, UNIT_DIVISORS, type MeasureDimension, type Survey } from '../../../contracts/curb/survey';
 import { buildRepairPlans, costRange } from '../../../domain/curb/survey';
 import {
   ASSUMED_METHOD, buildAllPlans, buildSuggestedPlan, checkStatus, clipFor, clipSummary, dimensionSummary, MEASURE_SPECS,
   measureResults, parseMeasure, parseMeasureInput, priorityRationale, priorityScore, rankWorkAreas, REVIEWER_METHOD,
-  reviewerPriority, uncertaintyTags, withMeasurement,
+  reviewerPriority, uncertaintyTags, withMeasurement, type MeasureKey,
 } from './measurements';
 import { PRIORITY_EXPLANATION } from './PlanCompare';
 
@@ -67,6 +67,62 @@ describe('assumed dimensions', () => {
 });
 
 describe('units', () => {
+  it.each(['constructor', 'toString', '__proto__', 'hasOwnProperty'])('rejects inherited unit keys (%s)', (unit) => {
+    expect(toCanonical('length', 2, unit)).toBeNull();
+    expect(toCanonical('slope', 2, unit)).toBeNull();
+    const bad = clone();
+    finding('defect-01', bad).measurements.push({ property: 'level', value: 2, unit, method: ASSUMED_METHOD });
+    expect(SurveySchema.safeParse(bad).success).toBe(false);
+    expect(withMeasurement(s, 'defect-01', 'level', { value: 2, unit, basis: 'assumed' })).toBe(s);
+  });
+
+  it.each(['constructor', 'toString', '__proto__', 'weight'])('rejects unsupported editable property keys without throwing (%s)', (property) => {
+    for (const method of [ASSUMED_METHOD, REVIEWER_METHOD]) {
+      const bad = clone();
+      finding('defect-01', bad).measurements.push({ property, value: 2, unit: 'in', method });
+      expect(SurveySchema.safeParse(bad).success).toBe(false);
+    }
+    const key = property as MeasureKey;
+    expect(parseMeasureInput('2 in', key)).toMatchObject({ ok: false });
+    expect(parseMeasureInput('2', key)).toMatchObject({ ok: false });
+    expect(withMeasurement(s, 'defect-01', key, { value: 2, unit: 'in', basis: 'measured' })).toBe(s);
+    expect(withMeasurement(s, 'defect-01', key, null)).toBe(s);
+    expect(toCanonical(property as MeasureDimension, 2, 'in')).toBeNull();
+  });
+
+  it('preserves generic v1 measurements without interpreting prototype property names as dimensions', () => {
+    const recorded = clone();
+    for (const property of ['Slope', 'constructor', 'toString', '__proto__']) {
+      finding('defect-01', recorded).measurements.push({ property, value: 4, unit: '%', method: 'Survey instrument record' });
+    }
+    const reloaded = SurveySchema.parse(JSON.parse(JSON.stringify(recorded)));
+    expect(finding('defect-01', reloaded).measurements).toEqual(finding('defect-01', recorded).measurements);
+    const updated = withMeasurement(reloaded, 'defect-01', 'level', { value: 6.35, unit: 'mm', basis: 'measured' });
+    expect(finding('defect-01', updated).measurements.slice(0, 4)).toEqual(finding('defect-01', recorded).measurements);
+  });
+
+  it.each([[1e308, 'm'], [1e300, 'in'], [Infinity, 'in'], [NaN, 'in'], [-1, 'in']] as const)(
+    'rejects nonfinite, negative and overflowing conversions (%s %s)', (value, unit) => {
+      expect(toCanonical('length', value, unit)).toBeNull();
+      const bad = clone();
+      finding('defect-01', bad).measurements.push({ property: 'level', value, unit, method: REVIEWER_METHOD });
+      expect(SurveySchema.safeParse(bad).success).toBe(false);
+      expect(withMeasurement(s, 'defect-01', 'level', { value, unit, basis: 'measured' })).toBe(s);
+    },
+  );
+
+  it('refuses invalid divisors instead of turning them into a finite-looking measurement', () => {
+    const original = UNIT_DIVISORS.length.in;
+    try {
+      for (const divisor of [0, -1, Infinity, NaN]) {
+        UNIT_DIVISORS.length.in = divisor;
+        expect(toCanonical('length', 2, 'in')).toBeNull();
+      }
+    } finally {
+      UNIT_DIVISORS.length.in = original;
+    }
+  });
+
   it('treats 0.25 in, 6.35 mm, 0.635 cm and 0.00635 m as the same threshold value', () => {
     for (const [value, unit] of [[0.25, 'in'], [6.35, 'mm'], [0.635, 'cm'], [0.00635, 'm']] as const) {
       expect(toCanonical('length', value, unit)).toBe(0.25);
@@ -98,6 +154,10 @@ describe('units', () => {
     expect(parseMeasureInput('2 in', 'crossSlope').ok).toBe(false);
     expect(parseMeasureInput('2%', 'level').ok).toBe(false);
     expect(parseMeasureInput('-1', 'level').ok).toBe(false);
+    expect(parseMeasureInput('2 constructor', 'level').ok).toBe(false);
+    expect(parseMeasureInput(`${'9'.repeat(300)} in`, 'level').ok).toBe(false);
+    expect(parseMeasureInput(`${'9'.repeat(309)} m`, 'level').ok).toBe(false);
+    expect(parseMeasureInput('0 in', 'level')).toMatchObject({ ok: true, canonical: 0 });
   });
 });
 

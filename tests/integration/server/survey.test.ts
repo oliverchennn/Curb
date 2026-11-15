@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { GET } from '../../../app/api/curb/survey/route';
 import { POST } from '../../../app/api/curb/survey/report/route';
 import canonical from '../../../src/data/curb/surveys/robertson-hall.json';
-import { SurveyResponseSchema, SurveySchema } from '../../../src/contracts/curb/survey';
+import { ASSUMED_METHOD, REVIEWER_METHOD, SurveyResponseSchema, SurveySchema } from '../../../src/contracts/curb/survey';
 import { setAreaPriority } from '../../../src/features/curb/survey/presentation';
 
 vi.mock('node:fs/promises', async (original) => {
@@ -58,6 +58,52 @@ describe('Robertson survey GET', () => {
 });
 
 describe('Robertson report POST', () => {
+  it.each(['?format=html', '?format=pdf'])('returns validation errors for invalid editable dimensions (%s)', async query => {
+    const invalid = [
+      ...['constructor', 'toString', '__proto__', 'hasOwnProperty'].map(unit => ({ property: 'level', value: 2, unit })),
+      ...['constructor', 'toString', '__proto__', 'weight'].map(property => ({ property, value: 2, unit: 'in' })),
+      { property: 'level', value: 1e308, unit: 'm' },
+      { property: 'level', value: 1e300, unit: 'in' },
+      { property: 'crossSlope', value: 2, unit: 'in' },
+    ];
+    for (const method of [ASSUMED_METHOD, REVIEWER_METHOD]) {
+      for (const measurement of invalid) {
+        const edited = structuredClone(survey);
+        edited.findings[0].measurements.push({ ...measurement, method });
+        await expectError(await report({ ...payload, survey: edited }, query), 400, 'INVALID_REQUEST');
+      }
+    }
+    expect(vi.mocked(readFile)).not.toHaveBeenCalled();
+  });
+
+  it.each(['?format=html', '?format=pdf'])('accepts valid converted dimensions with their original units and basis (%s)', async query => {
+    const edited = structuredClone(survey);
+    edited.findings[0].measurements.push(
+      { property: 'level', value: 6.35, unit: 'mm', method: REVIEWER_METHOD },
+      { property: 'clearWidth', value: 5, unit: 'ft', method: ASSUMED_METHOD },
+      { property: 'crossSlope', value: 1.8, unit: '%', method: ASSUMED_METHOD },
+    );
+    const reloaded = SurveySchema.parse(JSON.parse(JSON.stringify(edited)));
+    expect(reloaded.findings[0].measurements).toEqual(edited.findings[0].measurements);
+    const response = await report({ ...payload, survey: reloaded }, query);
+    expect(response.status).toBe(200);
+    if (query === '?format=html') {
+      const text = (await response.text()).replace(/<[^>]*>/g, '');
+      expect(text).toContain('recorded 6.35 mm');
+      expect(text).not.toMatch(/NaN|Infinity/);
+    } else {
+      expect((await PDFDocument.load(await response.arrayBuffer())).getPageCount()).toBeGreaterThan(0);
+    }
+  });
+
+  it.each(['?format=html', '?format=pdf'])('preserves published generic measurements and rejects client additions (%s)', async query => {
+    const recorded = structuredClone(survey);
+    recorded.findings[0].measurements.push({ property: 'Slope', value: 4, unit: '%', method: 'Survey instrument record' });
+    vi.mocked(readFile).mockResolvedValueOnce(Buffer.from(JSON.stringify(recorded)));
+    expect((await report({ ...payload, survey: recorded }, query)).status).toBe(200);
+    await expectError(await report({ ...payload, survey: recorded }, query), 400, 'INVALID_REQUEST');
+  });
+
   it.each(['?format=html', '?format=pdf'])('requires a named priority rationale at the API boundary (%s)', async query => {
     for (const rationale of [survey.workAreas[0].rationale, 'Unattributed change', 'Priority reviewed by : Recheck access.', 'Priority reviewed by Facilities: ']) {
       const edited = structuredClone(survey);

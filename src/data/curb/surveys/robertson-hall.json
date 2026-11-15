@@ -94,7 +94,7 @@
       },
       "assessment": {
         "priority": "low",
-        "rationale": "One crack the path can still be crossed; it may jolt small wheels.",
+        "rationale": "A visible crack may jolt small wheels; measurements and traversal conditions remain unknown.",
         "accessImpacts": [
           "Small wheelchair or walker wheels may jolt on the broken edge.",
           "A cane tip could catch in the gap."
@@ -1295,7 +1295,7 @@
       },
       "assessment": {
         "priority": "low",
-        "rationale": "A small, local crack; most people can cross it without trouble.",
+        "rationale": "A small, local crack is visible; measurements and traversal conditions remain unknown.",
         "accessImpacts": [
           "A loose piece could shift under a wheel or foot."
         ],
@@ -2332,7 +2332,7 @@
       },
       "assessment": {
         "priority": "low",
-        "rationale": "A thin crack; most people can cross it without trouble.",
+        "rationale": "A thin crack is visible; measurements and traversal conditions remain unknown.",
         "accessImpacts": [
           "May bump small wheels or catch a cane tip if it widens."
         ],
@@ -6110,7 +6110,7 @@
       },
       "assessment": {
         "priority": "low",
-        "rationale": "One crack the path can still be crossed; it may jolt small wheels.",
+        "rationale": "A visible crack may jolt small wheels; measurements and traversal conditions remain unknown.",
         "accessImpacts": [
           "May bump small wheels or catch a cane tip."
         ],

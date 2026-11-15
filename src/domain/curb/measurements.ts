@@ -1,4 +1,4 @@
-import { CANONICAL_UNITS, MEASURE_DIMENSIONS, toCanonical, type Finding, type MeasureDimension, type Priority, type RepairPlan, type Repair, type Survey, type Treatment } from '../../contracts/curb/survey';
+import { ASSUMED_METHOD, CANONICAL_UNITS, MEASURE_DIMENSIONS, REVIEWER_METHOD, toCanonical, type Finding, type MeasureDimension, type Priority, type RepairPlan, type Repair, type Survey, type Treatment } from '../../contracts/curb/survey';
 import clipCheck from '../../data/curb/surveys/robertson-clip.json';
 import { buildRepairPlans, planContext } from './survey';
 import { ACCESS_NEED_COUNT, ACCESS_NEED_SHORT, repairOf } from './repair';
@@ -62,12 +62,11 @@ export const ESTIMATES: Record<string, Record<MeasureKey, number>> = {
 /** Planning assumptions are prefilled for every finding and stay labeled Assumed until a
  * reviewer marks a value as measured on site. Both are stored on the survey's measurements
  * with their original unit; reads convert to inches (lengths) or percent (slopes). */
-export const ASSUMED_METHOD = 'Assumed planning estimate';
-export const REVIEWER_METHOD = 'Reviewer field measurement';
+export { ASSUMED_METHOD, REVIEWER_METHOD };
 export type Basis = 'assumed' | 'measured';
 
-export function dimensionOf(key: MeasureKey): MeasureDimension {
-  return MEASURE_DIMENSIONS[key];
+export function dimensionOf(key: MeasureKey): MeasureDimension | null {
+  return Object.hasOwn(MEASURE_DIMENSIONS, key) ? MEASURE_DIMENSIONS[key] : null;
 }
 
 export type ParsedMeasure = { ok: true; value: number; unit: string; canonical: number } | { ok: false; message: string };
@@ -75,6 +74,7 @@ export type ParsedMeasure = { ok: true; value: number; unit: string; canonical: 
 /** "0.25", "6.35 mm", "0.5ft", "2%" → value in its unit plus the canonical inches/percent. */
 export function parseMeasureInput(text: string, key: MeasureKey): ParsedMeasure {
   const dimension = dimensionOf(key);
+  if (dimension === null) return { ok: false, message: 'Choose a supported measurement property.' };
   const match = /^\s*(\d+(?:\.\d+)?|\.\d+)\s*([a-z%"']*)\s*$/i.exec(text);
   if (!match) return { ok: false, message: 'Enter a positive number, for example 0.25 or 6.35 mm.' };
   const value = Number(match[1]);
@@ -119,7 +119,8 @@ function storedEntry(finding: Finding, key: MeasureKey) {
 export function measureResults(finding: Finding): MeasureResult[] {
   return MEASURE_SPECS.map((spec) => {
     const stored = storedEntry(finding, spec.key);
-    const converted = stored ? toCanonical(dimensionOf(spec.key), stored.value, stored.unit) : null;
+    const dimension = dimensionOf(spec.key);
+    const converted = stored && dimension !== null ? toCanonical(dimension, stored.value, stored.unit) : null;
     const fallback = ESTIMATES[finding.id]?.[spec.key];
     const value = converted ?? fallback ?? null;
     return {
@@ -142,14 +143,17 @@ export function dimensionSummary(finding: Finding): string {
     `${r.spec.label} ${formatMeasure(r.value!, r.spec)} (${r.basis}${r.recorded && !r.recorded.endsWith(r.spec.unit) ? `, recorded ${r.recorded}` : ''})`).join(' · ');
 }
 
-/** Writes one value with its basis. An unchanged assumption is not stored, so the default stays the default. */
+/** Writes one parsed value with its basis. Invalid runtime inputs leave the survey unchanged;
+ * callers display parseMeasureInput's validation error before attempting an update. */
 export function withMeasurement(survey: Survey, findingId: string, key: MeasureKey, input: { value: number; unit: string; basis: Basis } | null): Survey {
+  const dimension = dimensionOf(key);
+  if (dimension === null) return survey;
+  const canonical = input ? toCanonical(dimension, input.value, input.unit) : null;
+  if (input && (canonical === null || (input.basis !== 'assumed' && input.basis !== 'measured'))) return survey;
   return { ...survey, findings: survey.findings.map((finding) => {
     if (finding.id !== findingId) return finding;
     const rest = finding.measurements.filter((m) => !(m.property === key && (m.method === ASSUMED_METHOD || m.method === REVIEWER_METHOD)));
     if (!input) return { ...finding, measurements: rest };
-    const canonical = toCanonical(dimensionOf(key), input.value, input.unit);
-    if (canonical === null) throw new Error(`Unsupported unit ${input.unit} for ${key}`);
     const unchangedAssumption = input.basis === 'assumed' && canonical === ESTIMATES[findingId]?.[key];
     return { ...finding, measurements: unchangedAssumption ? rest
       : [...rest, { property: key, value: input.value, unit: input.unit, method: input.basis === 'measured' ? REVIEWER_METHOD : ASSUMED_METHOD }] };

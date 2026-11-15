@@ -400,6 +400,8 @@ function RepairPanel({ survey, finding, reviewer, onChange }: {
     </ol>
     {rejected ? null : status === 'submitted'
       ? <p className={styles.small}>Accept the finding to mark it reviewed.</p>
+      : finding.review.status !== 'accepted' || finding.review.method !== 'manual'
+      ? <p className={styles.small}>Accept the finding by manual review before changing its repair status. Its existing repair history is kept.</p>
       : <div className={styles.workflowForm}>
         <label htmlFor="survey-workflow-note">{next === 'completed' ? 'Completion note (what was done)' : 'Note for this step'}
           <input id="survey-workflow-note" value={note} maxLength={400} onChange={(event) => setNote(event.target.value)}

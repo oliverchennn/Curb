@@ -27,8 +27,8 @@ function reviewed(): Survey {
   return withMeasurement(s, 'defect-04', 'level', { value: 0.9, unit: 'in', basis: 'measured' });
 }
 
-function report(survey: unknown, planId = 'balanced', budgetCents: number | null = null) {
-  return POST(new Request('http://curb.test/api/curb/survey/report?format=html', {
+function report(survey: unknown, planId = 'balanced', budgetCents: number | null = null, format: 'html' | 'pdf' = 'html') {
+  return POST(new Request(`http://curb.test/api/curb/survey/report?format=${format}`, {
     method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ survey, budgetCents, planId }),
   }));
@@ -128,13 +128,44 @@ describe('facilities handoff report', () => {
     }
   });
 
-  it('refuses to plan a pending AI finding through the report API', async () => {
+  it.each([
+    ['pending', 'ai', 400], ['pending', 'manual', 400], ['accepted', 'ai', 400], ['accepted', 'manual', 200],
+  ] as const)('checks %s/%s new progress at both report formats', async (status, method, expected) => {
     const s = structuredClone(base);
+    s.findings[0].review = { status, method, reviewer: 'Pat', note: 'Review metadata.' };
     s.findings[0].repair!.workflow.push(
       { status: 'reviewed', action: 'advance', by: 'Someone', at: '2026-11-20T10:01:00-05:00', note: 'x', evidence: null },
       { status: 'planned', action: 'advance', by: 'Someone', at: '2026-11-20T10:02:00-05:00', note: 'x', evidence: null },
     );
     expect(SurveySchema.safeParse(s).success).toBe(true);
-    expect((await report(s)).status).toBe(400);
+    for (const format of ['html', 'pdf'] as const) {
+      const response = await report(s, 'balanced', null, format);
+      expect(response.status).toBe(expected);
+      if (expected === 400) expect(await response.json()).toMatchObject({ error: { code: 'INVALID_REQUEST' } });
+    }
+  });
+
+  it('preserves exports after a planned finding is later rejected', async () => {
+    const s = reviewed();
+    const history = structuredClone(s.findings[3].repair!.workflow);
+    s.findings[3].review = { status: 'rejected', method: 'manual', reviewer: 'Pat', note: 'Later review rejected this finding.' };
+    for (const format of ['html', 'pdf'] as const) {
+      const response = await report(s, 'balanced', null, format);
+      expect(response.status).toBe(200);
+      if (format === 'html') {
+        const html = await response.text();
+        const excluded = html.match(/<strong>Rejected, not handed off:<\/strong>([^<]*)/)?.[1];
+        expect(excluded).toContain(s.findings[2].label);
+        expect(excluded).toContain(s.findings[3].label);
+        expect(html.includes('id="handoff-defect-04"')).toBe(false);
+      }
+    }
+    expect(s.findings[3].repair!.workflow).toEqual(history);
+  });
+
+  it.each(['pending', 'rejected'] as const)('exports a manual %s review without new repair progress', async status => {
+    const s = structuredClone(base);
+    s.findings[0].review = { status, method: 'manual', reviewer: 'Pat', note: 'Review updated without changing repair history.' };
+    expect((await report(s)).status).toBe(200);
   });
 });

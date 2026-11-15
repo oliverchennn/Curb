@@ -445,7 +445,7 @@
 .measureInput { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; }
 .workspace .measureInput input { width: 72px; min-height: 36px; padding: 4px 8px; font-size: 14px; }
 .workspace .measureInput input[aria-invalid='true'] { border-color: var(--danger); }
-.status_meets, .status_almost, .status_fails { padding: 1px 8px; border: 1px solid; border-radius: 6px; font-size: 13px; font-weight: 750; white-space: nowrap; }
+.status_meets, .status_almost, .status_fails { display: inline-block; max-width: 100%; padding: 1px 8px; border: 1px solid; border-radius: 6px; font-size: 13px; font-weight: 750; white-space: normal; }
 .status_meets { border-color: #a9cfb4; background: #e3f0e6; color: #1b5230; }
 .status_almost { border-color: #e7c77d; background: var(--amber-soft); color: #5e3d05; }
 .status_fails { border-color: #e1b1a4; background: #f8e3dc; color: var(--danger); }
@@ -512,3 +512,20 @@
 .workspace .measuredToggle input { min-height: 0; width: 16px; height: 16px; padding: 0; accent-color: var(--forest); }
 .measureTable td .sourceEstimate, .measureTable td .sourceMeasured { display: block; margin: 2px 0 0; }
 .measureTable td .inlineError { display: block; margin-top: 2px; font-size: 12px; }
+
+@media (max-width: 600px) {
+  /* Keep each check and its threshold together, with room below for editing and feedback. */
+  .measureTable colgroup { display: none; }
+  .measureTable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .measureTable tbody { display: block; }
+  .measureTable tbody tr { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); border-bottom: 1px solid var(--rule); }
+  .measureTable tbody th, .measureTable td { min-width: 0; padding: 8px 6px; border-bottom: 0; }
+  .measureTable tbody th { align-self: end; }
+  .measureTable td:nth-child(2) { align-self: end; }
+  .measureTable td:nth-child(2)::before { content: 'Needs: '; color: var(--muted-ink); font-size: 12px; }
+  .measureTable td:last-child { align-self: start; }
+  .measureTable td:last-child::before { content: 'Result'; display: block; margin-bottom: 4px; color: var(--muted-ink); font-size: 12px; }
+  .workspace .measureInput input { width: 100%; min-width: 0; max-width: 10rem; min-height: 44px; }
+  .workspace .measuredToggle { min-height: 44px; }
+  .workspace .measuredToggle input { flex: 0 0 20px; width: 20px; height: 20px; }
+}
