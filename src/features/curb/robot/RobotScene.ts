@@ -16,6 +16,11 @@ const SELECTION_BLUE = 0x2f6df6;
 const EXPLODE_SCALE = 0.5;
 const EXPAND_RATE = 1.8;
 const CAMERA_KEYS = ['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'];
+// Group names live only in the left index, not pinned on the 3D model.
+const SHOW_GROUP_LABELS = false;
+// A numbered callout only appears once the camera is within this multiple of the
+// exploded group's radius of the part — i.e. after you zoom in close to it.
+const CALLOUT_REVEAL_FACTOR = 1.05;
 
 export type SceneMode = 'overview' | 'isolated' | 'exploded';
 
@@ -90,6 +95,8 @@ export class RobotScene {
   }>();
   private readonly calloutCenter = new THREE.Vector3();
   private readonly calloutCenterOffset = new THREE.Vector3();
+  private calloutRevealDistance = Infinity;
+  private activeCallout: string | null = null;
 
   private hovered: string | null = null;
   private pointerInside = false;
@@ -213,7 +220,9 @@ export class RobotScene {
         position: 'absolute', left: '0', top: '0', height: '1px',
         background: '#547363', transformOrigin: '0 0', pointerEvents: 'none',
       });
-      this.labelLayer.append(connector, label);
+      // Group names are shown only in the left index, so the labels stay out of
+      // the DOM. The elements are still kept for hover-class and disposal paths.
+      if (SHOW_GROUP_LABELS) this.labelLayer.append(connector, label);
 
       this.groups.set(group.id, { group, root, overlay, pickMeshes, label, connector });
       // The index is usable while previews load. Preserve a hover/focus that
@@ -371,14 +380,21 @@ export class RobotScene {
 
   private buildCallouts(group: ManifestGroup, entries: IndexEntry[]): void {
     this.clearCallouts();
+    this.activeCallout = null;
     this.calloutCenter.set(0, 0, 0);
     this.calloutCenterOffset.set(0, 0, 0);
+    const revealBox = new THREE.Box3();
     const byName = new Map(group.parts.map(part => [part.name, part]));
     for (const e of entries) {
       const anchor = new THREE.Vector3();
       for (const member of e.members) {
         const part = byName.get(member);
-        if (part) anchor.add(v(part.center));
+        if (!part) continue;
+        anchor.add(v(part.center));
+        const exploded = v(part.center).addScaledVector(v(part.explode), EXPLODE_SCALE);
+        const half = v(part.bbox).multiplyScalar(0.5);
+        revealBox.expandByPoint(exploded.clone().sub(half));
+        revealBox.expandByPoint(exploded.clone().add(half));
       }
       anchor.divideScalar(e.members.length);
       const offset = v(e.anchor).sub(anchor).multiplyScalar(EXPLODE_SCALE);
@@ -409,6 +425,8 @@ export class RobotScene {
       this.calloutCenter.divideScalar(entries.length);
       this.calloutCenterOffset.divideScalar(entries.length);
     }
+    const sphere = revealBox.isEmpty() ? null : revealBox.getBoundingSphere(new THREE.Sphere());
+    this.calloutRevealDistance = sphere ? sphere.radius * CALLOUT_REVEAL_FACTOR : Infinity;
   }
 
   private clearCallouts(): void {
@@ -417,6 +435,7 @@ export class RobotScene {
   }
 
   highlightEntry(key: string | null): void {
+    this.activeCallout = key;
     const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
     if (!detail) return;
     const members = key
@@ -727,6 +746,7 @@ export class RobotScene {
     };
     if (!w || !h) return;
     if (this.mode === 'overview') {
+      if (!SHOW_GROUP_LABELS) return; // group names live in the index only
       // Separate the six labels in screen space as the camera orbits. Keep a
       // leader to each projected subsystem centre so displaced labels remain
       // visibly anchored to their geometry.
@@ -776,14 +796,19 @@ export class RobotScene {
           slots.push({ x: left + column * spacing, y: inset + row * spacing, occupied: false });
         }
       }
-      for (const { el, connector, anchor, offset } of this.callouts.values()) {
-        const point = project(anchor.clone().addScaledVector(offset, this.explodeT));
+      for (const [key, { el, connector, anchor, offset }] of this.callouts) {
+        const world = anchor.clone().addScaledVector(offset, this.explodeT);
+        // A number appears only once the camera is close to its part — or when
+        // that part is the actively selected one.
+        const near = key === this.activeCallout
+          || this.camera.position.distanceTo(world) <= this.calloutRevealDistance;
+        const point = project(world);
         const outwardX = point.x - center.x;
         const outwardY = point.y - center.y;
         const spread = 54 / (Math.hypot(outwardX, outwardY) || 1);
         const preferredX = point.x + outwardX * spread;
         const preferredY = point.y + outwardY * spread;
-        const onScreen = point.visible && point.x >= 0 && point.x <= w
+        const onScreen = near && point.visible && point.x >= 0 && point.x <= w
           && point.y >= 0 && point.y <= h;
         let nearest: typeof slots[number] | undefined;
         let distance = Infinity;
