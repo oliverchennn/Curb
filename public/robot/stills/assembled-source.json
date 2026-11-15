@@ -1,0 +1,16 @@
+{
+  "source": {
+    "algorithm": "sha256",
+    "geometry_files": {
+      "curb_robot.py": "43f2997d33a83f4f383b8ab12de0237b6740582ac784604dba02d18fd887c905",
+      "camera_module.py": "5f69a96f8f3fd077de4ec521b3033e8a891081eebf54f1ce5d811debd28d2556",
+      "drive_module.py": "0e3da4a495ccd0366c03c099a250dcf661737cb626aeca54fae646d0174de64f",
+      "power_module.py": "98e1141eb9a0c703a09642e772b87e64ed2e8df22686ed3de5d37bb15a51541b",
+      "compute_module.py": "0b1bd7823552320647a3b66ace72144773f9a7bbd0fc163d6fac7d5e75fbdc35",
+      "enclosure_module.py": "f6e18d22fb545e97063dd7a808c98c908978ec6114955ad1506a5c967936c9cd",
+      "harness_module.py": "9d804015b1768c519a25d5139e0e5c7b94add8d3b8219aeca445258f89ef2ec4"
+    },
+    "geometry_digest": "baebf97c74b452895dad142f24c7e4b70625c30d30d84b9954c4c9e6458d042d"
+  },
+  "sha256": "b520a3a1c9c1304a669ceb9421508dcfbf5125b3284b5fa2092480709770b82a"
+}

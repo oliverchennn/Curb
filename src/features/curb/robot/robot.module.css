@@ -1,0 +1,167 @@
+.explorer {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 0;
+  height: min(78vh, 760px);
+  min-height: 460px;
+  border: 1px solid #d6dfd7;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f7f9f5;
+  color: #20372c;
+  font-size: 14px;
+}
+
+.initial {
+  padding: 48px;
+  border: 1px solid #d6dfd7;
+  border-radius: 12px;
+  background: #fff8ee;
+}
+
+/* ---- Left index ---- */
+.index {
+  border-right: 1px solid #d6dfd7;
+  padding: 16px;
+  overflow: auto;
+  background: #f2f5ef;
+}
+.indexHead h2 { font-size: 18px; margin: 0 0 6px; }
+.indexHead p { margin: 0 0 10px; font-size: 12.5px; line-height: 1.5; color: #4f6255; }
+.collapseNote { font-size: 11.5px !important; color: #647468 !important; }
+
+.groupList, .partList { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.partList { counter-reset: part; }
+
+.groupButton {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #cdd8ce;
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+}
+.groupButton:hover, .groupButton[data-hovered] { border-color: #2f6df6; box-shadow: 0 0 0 2px #2f6df633; }
+.swatch { width: 14px; height: 14px; border-radius: 4px; margin-top: 2px; flex: none; }
+.groupText { display: grid; gap: 2px; }
+.groupText strong { font-size: 14px; }
+.groupText small { color: #69786d; font-size: 11px; }
+.role { font-size: 11.5px; color: #55675b; line-height: 1.45; margin-top: 2px; }
+
+.back {
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border: 1px solid #244b37;
+  border-radius: 8px;
+  background: #244b37;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 650;
+}
+.back:hover { background: #1c3a2b; }
+
+.groupTag {
+  display: inline-block;
+  color: #fff;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.partButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  padding: 8px 9px;
+  border: 1px solid #cdd8ce;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.partButton:hover, .partButton[data-open] { border-color: #2f6df6; }
+.partButton[data-open] { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.partNumber {
+  flex: none;
+  width: 24px; height: 24px;
+  display: grid; place-items: center;
+  border: 2px solid #244b37;
+  border-radius: 50%;
+  font-size: 12px; font-weight: 700;
+  background: #fff;
+}
+.partName { flex: 1; font-size: 13px; }
+.qty { font-size: 11px; color: #647468; background: #e7eee8; border-radius: 4px; padding: 1px 6px; }
+.chevron { color: #647468; font-size: 11px; }
+
+.partDetail {
+  border: 1px solid #2f6df6;
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+  padding: 10px;
+  background: #f4f8ff;
+  font-size: 12.5px;
+}
+.partDetail p { margin: 0 0 8px; line-height: 1.5; color: #35463b; }
+.partDetail dl { margin: 0; display: grid; gap: 4px; }
+.partDetail dl > div { display: flex; gap: 6px; }
+.partDetail dt { font-weight: 650; min-width: 64px; }
+.partDetail dd { margin: 0; }
+.partDetail code { font-size: 11px; background: #e7eef9; padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.genericNote { font-size: 11px !important; color: #70594a !important; margin-top: 8px !important; }
+
+/* ---- Stage ---- */
+.stageWrap { display: flex; flex-direction: column; min-width: 0; }
+.toolbar {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 10px 14px; border-bottom: 1px solid #d6dfd7; background: #eef2eb;
+}
+.stageTitle { font-weight: 650; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.toolbarActions { display: flex; gap: 6px; }
+.orbitToggle {
+  border: 1px solid #b7c6bc; background: #fff; color: #20372c;
+  padding: 6px 11px; border-radius: 7px; cursor: pointer; font-size: 13px;
+}
+.orbitToggle:hover { background: #e7eee8; }
+.orbitToggle[aria-pressed='true'] { background: #244b37; color: #fff; border-color: #244b37; }
+.orbitToggle:disabled { opacity: 0.5; cursor: default; }
+
+.stage { position: relative; flex: 1; min-height: 0; background: linear-gradient(#eef2eb, #dce4d8); overflow: hidden; }
+.canvasHost { position: absolute; inset: 0; }
+.labelLayer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.loading, .detailLoading, .detailError {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  background: #ffffffe8; border: 1px solid #c3cfc5; border-radius: 8px;
+  padding: 10px 16px; font-size: 13px;
+}
+.detailLoading { top: auto; bottom: 46px; }
+.detailError { top: auto; bottom: 46px; border-color: #bc7932; background: #fff8ee; }
+
+.fallback { position: absolute; inset: 0; overflow: auto; padding: 18px; display: grid; gap: 12px; place-content: center; text-align: center; }
+.fallback img { max-width: 100%; border-radius: 8px; border: 1px solid #c3cfc5; }
+.fallback p { font-size: 13px; line-height: 1.5; max-width: 520px; margin: 0 auto; }
+
+.hint {
+  position: absolute; left: 12px; bottom: 10px; margin: 0;
+  background: #ffffffdd; border-radius: 6px; padding: 5px 9px; font-size: 11.5px; color: #4f6255;
+  pointer-events: none;
+}
+.concept { margin: 0; padding: 8px 14px; font-size: 11px; color: #70594a; background: #f6f1e8; border-top: 1px solid #e3dccb; }
+
+/* Scene-created HTML chips (.robot-label / .robot-callout) are styled globally
+   in app/globals.css, because the three.js scene sets plain class names on them. */
+
+@media (max-width: 860px) {
+  .explorer { grid-template-columns: 1fr; height: auto; }
+  .index { border-right: 0; border-bottom: 1px solid #d6dfd7; max-height: 44vh; }
+  .stage { height: 56vh; }
+}

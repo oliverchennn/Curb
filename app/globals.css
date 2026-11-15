@@ -113,3 +113,52 @@ body > header nav a:hover { text-decoration: underline; }
 @media (max-width: 760px) {
   .brand { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* Robot explorer scene-created chips: plain class names set by three.js
+   (src/features/curb/robot/RobotScene.ts), positioned imperatively each frame. */
+.robot-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 650;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: #ffffffea;
+  color: #20372c;
+  border: 1px solid #448461;
+  cursor: pointer;
+  pointer-events: auto;
+  font-family: inherit;
+}
+.robot-label:hover,
+.robot-label.is-hovered {
+  background: #2f6df6;
+  color: #fff;
+  border-color: #2f6df6;
+}
+.robot-callout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  background: #ffffffee;
+  color: #20372c;
+  border: 1.5px solid #244b37;
+  cursor: pointer;
+  pointer-events: auto;
+  font-family: inherit;
+}
+.robot-callout:hover,
+.robot-callout.is-active {
+  background: #2f6df6;
+  color: #fff;
+  border-color: #2f6df6;
+}
