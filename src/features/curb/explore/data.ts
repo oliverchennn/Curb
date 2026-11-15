@@ -1,5 +1,6 @@
 import archive from './archive.json';
 import survey from '../../../data/curb/surveys/robertson-hall.json';
+import { campusAtlasEntries } from '../../../data/curb/princeton-campus/adapter';
 import { atlasSchema, featureSchema, type EvidenceRecord, type Feature } from './model';
 
 const repository = 'https://github.com/oliverchennn/Curb';
@@ -55,11 +56,13 @@ export function createAtlas() {
     media: { status: i ? 'withheld' : 'unavailable', reason: i ? 'Photo withheld pending publication review — illustrative state; no photo is stored.' : 'Photo unavailable — illustrative missing-file state; no photo is stored.' } })));
   const ids = (...features: string[]) => features.map(id => `record:${id}`);
   const campus = ['unplaced:fitzrandolph-gate', 'unplaced:campus-approach', 'unplaced:nassau-elevator'];
+  const campusArchive = campusAtlasEntries();
   return atlasSchema.parse({ sources: [...sources.map(s => ({ ...s, catalogDate: s.catalogDate || null })),
     { id: 'robertson-clip', title: 'Robertson Hall · supplied video', kind: 'field', url: `${pinned}/public/curb/surveys/robertson-hall/source/IMG_0699.MOV`,
       credit: 'Video supplied by Oliver; local AI-assisted proposals, human review pending.', sha256: survey.media.originalSha256, catalogDate: null },
     { id: 'example-guide', title: 'Evidence UI worked examples', kind: 'synthetic', url: `${repository}/blob/ed6472de87d19703f8f9a69768ca532f37015748/docs/planning/R3_EVIDENCE_UX.md`,
-      credit: 'Curb · clearly illustrative interaction examples, adapted from the historical UX proposal.', sha256: null, catalogDate: null }], features, records,
+      credit: 'Curb · clearly illustrative interaction examples, adapted from the historical UX proposal.', sha256: null, catalogDate: null }, ...campusArchive.sources],
+    features: [...features, ...campusArchive.features], records: [...records, ...campusArchive.records],
     context: archive.contextLines.map(f => ({ id: `lines:${f.id}`, geometry: f.geometry })),
     collections: [
       { id: 'witherspoon', code: '01', name: 'Library / Witherspoon', subtitle: 'Plaza approach → Spring Street', kind: 'archive', color: '#27745e', traversal: 'unknown',
@@ -75,5 +78,6 @@ export function createAtlas() {
         note: 'A separate field-media collection. All five finding positions are unknown. Photographs are not attached to Nassau or Witherspoon geometry.', recordIds: survey.findings.map(f => `record:robertson:${f.id}`) },
       { id: 'examples', code: '05', name: 'Evidence examples', subtitle: 'Illustrative conflict & photo states', kind: 'synthetic', color: '#68766a', traversal: 'unknown',
         note: 'Synthetic UI examples only, with no real coordinates or photographs. Conflicting records are shown together; neither is treated as current.', recordIds: ['example:a', 'example:b'] },
+      ...campusArchive.collections,
     ] });
 }
