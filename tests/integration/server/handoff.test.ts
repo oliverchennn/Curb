@@ -1,13 +1,17 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { POST } from '../../../app/api/curb/survey/report/route';
 import canonical from '../../../src/data/curb/surveys/robertson-hall.json';
 import { SurveySchema, type Survey } from '../../../src/contracts/curb/survey';
 import { buildRepairPlans } from '../../../src/domain/curb/survey';
 import { ASSUMED_METHOD, buildSuggestedPlan, dimensionSummary, REVIEWER_METHOD, withMeasurement } from '../../../src/domain/curb/measurements';
-import { markReviewed, moveWorkflow, setOwner } from '../../../src/domain/curb/repair';
+import { appendedWorkflowIssue, markReviewed, moveWorkflow, setOwner } from '../../../src/domain/curb/repair';
 import { surveyToCsv } from '../../../src/domain/curb/surveyExports';
+import { FindingReview } from '../../../src/features/curb/survey/FindingReview';
+import { setReviewStatus } from '../../../src/features/curb/survey/presentation';
 import { renderSurveyHtmlReport } from '../../../src/server/curb/surveyHtmlReport';
 
 const base = SurveySchema.parse(canonical);
@@ -167,5 +171,81 @@ describe('facilities handoff report', () => {
     const s = structuredClone(base);
     s.findings[0].review = { status, method: 'manual', reviewer: 'Pat', note: 'Review updated without changing repair history.' };
     expect((await report(s)).status).toBe(200);
+  });
+});
+
+describe('pending review controls preserve exportable repair history', () => {
+  const id = 'defect-01';
+
+  function decide(s: Survey, status: 'accepted' | 'rejected' | 'pending'): Survey {
+    const result = setReviewStatus(s, id, status, 'Pat');
+    if (!result.ok) throw new Error(result.message);
+    return result.survey;
+  }
+
+  function acceptAndProgress(planned: boolean): Survey {
+    const accepted = markReviewed(decide(base, 'accepted'), id, 'Pat', '2026-11-20T10:01:00-05:00');
+    if (!planned) return accepted;
+    const result = moveWorkflow(accepted, id, { action: 'advance', by: 'Pat', note: 'Scheduled.', at: '2026-11-20T10:02:00-05:00' });
+    if (!result.ok) throw new Error(result.message);
+    return result.survey;
+  }
+
+  function reviewMarkup(survey: Survey, original: Pick<Survey, 'findings'> = base) {
+    return renderToStaticMarkup(createElement(FindingReview, {
+      survey, original, plan: undefined, editedIds: [id], selectedFindingId: id,
+      onSelectFinding: () => {}, onChange: () => {}, onMeasure: () => {},
+    }));
+  }
+
+  function pendingButtonAttributes(html: string) {
+    const attributes = html.match(/<button\b([^>]*)>Mark pending<\/button>/)?.[1];
+    expect(attributes).toBeDefined();
+    return attributes!;
+  }
+
+  it.each([
+    ['Accept auto-review', false, false],
+    ['Accept then Plan', true, false],
+    ['Plan then Reject', true, true],
+  ] as const)('explains why Mark pending is unavailable after %s and preserves valid exports', async (_label, planned, rejected) => {
+    const progressed = acceptAndProgress(planned);
+    const current = rejected ? decide(progressed, 'rejected') : progressed;
+    const saved = SurveySchema.parse(JSON.parse(JSON.stringify(current)));
+    const finding = saved.findings[0];
+    expect(appendedWorkflowIssue(finding, base.findings[0])).toBeNull();
+
+    const html = reviewMarkup(saved);
+    const attributes = pendingButtonAttributes(html);
+    expect(attributes).toContain('aria-disabled="true"');
+    const descriptionId = attributes.match(/aria-describedby="([^"]+)"/)?.[1];
+    expect(descriptionId).toBeDefined();
+    const description = html.match(new RegExp(`<[^>]+id="${descriptionId}"[^>]*>([\\s\\S]*?)</[^>]+>`))?.[1];
+    expect(description).toContain('new repair steps');
+
+    const pending = decide(saved, 'pending');
+    expect(appendedWorkflowIssue(pending.findings[0], base.findings[0])).toMatch(/accepted manual review/);
+    for (const format of ['html', 'pdf'] as const) expect((await report(saved, 'balanced', null, format)).status).toBe(200);
+    expect(saved).toEqual(current);
+  });
+
+  it('allows fresh Reject → Mark pending while keeping JSON and both report formats valid', async () => {
+    const rejected = decide(base, 'rejected');
+    expect(pendingButtonAttributes(reviewMarkup(rejected))).not.toContain('aria-disabled="true"');
+    const pending = decide(rejected, 'pending');
+    const restored = SurveySchema.parse(JSON.parse(JSON.stringify(pending)));
+    expect(appendedWorkflowIssue(restored.findings[0], base.findings[0])).toBeNull();
+    expect(restored.findings[0].repair!.workflow).toEqual(base.findings[0].repair!.workflow);
+    for (const format of ['html', 'pdf'] as const) expect((await report(restored, 'balanced', null, format)).status).toBe(200);
+  });
+
+  it('allows Mark pending when progressed history already belongs to the published survey', () => {
+    const published = acceptAndProgress(true);
+    const current = decide(published, 'rejected');
+    expect(pendingButtonAttributes(reviewMarkup(current, published))).not.toContain('aria-disabled="true"');
+    const pending = decide(current, 'pending');
+    expect(appendedWorkflowIssue(pending.findings[0], published.findings[0])).toBeNull();
+    expect(pending.findings[0].repair!.workflow).toEqual(published.findings[0].repair!.workflow);
+    expect(published.findings[0].review.status).toBe('accepted');
   });
 });

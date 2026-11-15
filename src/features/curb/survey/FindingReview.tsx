@@ -6,6 +6,7 @@ import type { Repair } from '../../../contracts/curb/survey';
 import { WORKFLOW_ORDER } from '../../../contracts/curb/survey';
 import {
   ACCESS_NEED_SHORT,
+  appendedWorkflowIssue,
   canReopen,
   LOCATION_CONFIDENCE_LABELS,
   markReviewed,
@@ -37,8 +38,10 @@ import {
 import { correctFinding, formatTime, REVIEW_LABELS, setReviewStatus } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
-export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure }: {
+export function FindingReview({ survey, original, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure }: {
   survey: Survey;
+  /** Published baseline shared with JSON import and report validation, never a loaded review. */
+  original: Pick<Survey, 'findings'>;
   /** The plan shown and exported, so cost tags match it. */
   plan: RepairPlan | undefined;
   onMeasure: (findingId: string, key: MeasureKey, input: MeasureInput) => void;
@@ -55,6 +58,10 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
   const repair = finding ? repairOf(finding, survey) : null;
   const score = finding ? priorityScore(finding) : null;
+  const pendingIssue = finding && appendedWorkflowIssue(
+    { ...finding, review: { ...finding.review, status: 'pending', method: 'manual' } },
+    original.findings.find((item) => item.id === finding.id),
+  ) ? 'This finding has new repair steps, so it cannot be marked pending. Keep it accepted to continue repairs, or rejected to exclude it from plans. Its history is preserved.' : null;
 
   // A message belongs to the finding it was raised for; selecting another finding clears it.
   useEffect(() => setMessage(null), [selectedFindingId]);
@@ -148,12 +155,15 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
             aria-disabled={finding.review.status === 'rejected'}
             onClick={() => { if (finding.review.status !== 'rejected') apply(setReviewStatus(survey, finding.id, 'rejected', reviewer), `Rejected “${finding.label}”. It stays in the record and is excluded from plans.`); }}>Reject finding</button>
           {finding.review.status !== 'pending' ? <button type="button" className={styles.textButton}
+            aria-disabled={pendingIssue !== null} aria-describedby={pendingIssue ? 'survey-pending-help' : undefined}
             onClick={() => {
-              const done = apply(setReviewStatus(survey, finding.id, 'pending', reviewer), `Returned “${finding.label}” to pending.`);
+              const result = setReviewStatus(survey, finding.id, 'pending', reviewer);
+              const done = apply(result.ok && pendingIssue ? { ok: false, message: pendingIssue } : result, `Returned “${finding.label}” to pending.`);
               // This button disappears once the finding is pending; keep focus on the decision group.
               if (done) setTimeout(() => document.getElementById('survey-accept')?.focus(), 0);
             }}>Mark pending</button> : null}
         </div>
+        {finding.review.status !== 'pending' && pendingIssue ? <p id="survey-pending-help" className={styles.small}>{pendingIssue}</p> : null}
 
         <RepairPanel key={`${finding.id}:${repair.owner}:${repair.essentialDestination}:${repair.destinationNote}`} survey={survey} finding={finding} reviewer={reviewer}
           onChange={(result, done) => apply(result, done)} />

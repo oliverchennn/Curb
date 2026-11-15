@@ -201,7 +201,7 @@ export function SurveyWorkspace() {
         <div ref={scrollRef} className={styles.workScroll}>
         {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
         <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
-          <FindingReview survey={survey} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+          <FindingReview survey={survey} original={original} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
             plan={selectedPlan} onMeasure={setMeasure}
             onChange={(next, message) => { setSurvey(next); setNotice(message); }}
             siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />
