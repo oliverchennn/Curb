@@ -14,6 +14,7 @@ import {
   labelForId,
   MAX_BUDGET_CENTS,
   parseBudgetInput,
+  reviewedAreaPriorityReason,
   setAreaPriority,
   setReviewStatus,
   sliderMaxCents,
@@ -122,6 +123,19 @@ describe('review edits', () => {
     expect(next.survey.workAreas[0]).toMatchObject({priority:'low',rationale:'Priority reviewed by Pat: Alternate path available; verify clear width.'});
     expect(SurveySchema.safeParse(next.survey).success).toBe(true);
     expect(TEST_SURVEY.workAreas[0].priority).toBe('high');
+
+    const rationale = reviewedAreaPriorityReason(next.survey.workAreas[0].rationale);
+    const second = setAreaPriority(next.survey, 'area-a', 'medium', 'Pat', rationale);
+    expect(second.ok && second.survey.workAreas[0]).toMatchObject({
+      priority: 'medium',
+      rationale: 'Priority reviewed by Pat: Alternate path available; verify clear width.',
+    });
+  });
+
+  it('distinguishes a recorded review reason from a proposed rationale', () => {
+    expect(reviewedAreaPriorityReason(TEST_SURVEY.workAreas[0].rationale)).toBe('');
+    expect(reviewedAreaPriorityReason('Priority reviewed by : trip hazard')).toBe('');
+    expect(reviewedAreaPriorityReason('Priority reviewed by Pat: First: verify width.')).toBe('First: verify width.');
   });
 });
 
