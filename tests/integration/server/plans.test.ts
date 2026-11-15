@@ -9,6 +9,7 @@ import {
   matchesPlanScenario,
   type PlanRequest,
 } from '../../../src/contracts/curb/plans';
+import investmentDemo from '../../../src/data/curb/investment-demo.json';
 import planDemo from '../../../src/data/curb/plan-demo.json';
 
 const fixture = PlanScenarioSchema.parse(planDemo);
@@ -19,6 +20,17 @@ const request: PlanRequest = {
   profileId: fixture.profile.id,
   originNodeId: fixture.originNodeId,
   budgetCents: 400,
+};
+const investmentFixture = PlanScenarioSchema.parse(investmentDemo);
+const investmentScenarioId = 'synthetic-campus-investment';
+const investmentQuery = '?scenarioId=' + investmentScenarioId;
+const investmentRequest: PlanRequest = {
+  ...request,
+  scenarioId: investmentScenarioId,
+  revision: investmentFixture.scenario.revision,
+  profileId: investmentFixture.profile.id,
+  originNodeId: investmentFixture.originNodeId,
+  budgetCents: investmentFixture.defaultBudgetCents,
 };
 const internalFailure = {
   status: 500,
@@ -54,6 +66,7 @@ const comparison = (input: unknown = request) => rawComparison(JSON.stringify(in
 
 afterEach(() => {
   vi.doUnmock('../../../src/data/curb/plan-demo.json');
+  vi.doUnmock('../../../src/data/curb/investment-demo.json');
   vi.doUnmock('../../../src/domain/curb/plans');
   vi.resetModules();
 });
@@ -66,8 +79,16 @@ describe('GET /api/curb/plan-scenario', () => {
     expect(await context('?' + query)).toEqual({ status: 200, body });
   });
 
-  it('returns not found for an unsupported scenario', async () => {
-    expect(await context('?scenarioId=unsupported-plan')).toMatchObject({
+  it('opts in to the investment fixture by its explicit ID', async () => {
+    expect(await context(investmentQuery)).toEqual({
+      status: 200,
+      body: { contractVersion: PLAN_CONTRACT_VERSION, ok: true, data: investmentFixture },
+    });
+    expect(await context()).toMatchObject({ status: 200, body: { ok: true, data: fixture } });
+  });
+
+  it.each(['unsupported-plan', '__proto__', 'constructor'])('returns not found for %s', async (scenarioId) => {
+    expect(await context('?' + new URLSearchParams({ scenarioId }))).toMatchObject({
       status: 404, body: { ok: false, error: { code: 'SCENARIO_NOT_FOUND' } },
     });
   });
@@ -114,6 +135,40 @@ describe('POST /api/curb/plan', () => {
     expect(result.exact.withoutRepair.map(({ restoredDestinationIds }) => restoredDestinationIds)).toEqual([[], []]);
     expect(result.excludedUnknownCostRepairIds).toEqual(['repair-studio']);
     expect(result.search).toEqual({ enumeratedSubsetCount: 8, feasibleSubsetCount: 5 });
+  });
+
+  it('uses the investment scenario on POST while preserving the original selection', async () => {
+    const { status, body } = await comparison(investmentRequest);
+
+    expect(status).toBe(200);
+    if (!body.ok) throw new Error('Expected a successful investment comparison.');
+    expect(matchesPlanRequest(body.data, investmentRequest)).toBe(true);
+    expect(matchesPlanScenario(body.data, investmentFixture)).toBe(true);
+    expect(body.data).toMatchObject({
+      conditionFirst: {
+        selectedRepairIds: ['repair-c'], spendCents: 1_000_000, restoredDestinationIds: ['hall'],
+      },
+      exact: {
+        selectedRepairIds: ['repair-a', 'repair-b'],
+        spendCents: 1_000_000,
+        restoredDestinationIds: ['library', 'student-center'],
+      },
+      excludedUnknownCostRepairIds: [],
+    });
+    expect(await comparison()).toMatchObject({
+      status: 200, body: { ok: true, data: { scenarioId: request.scenarioId, excludedUnknownCostRepairIds: ['repair-studio'] } },
+    });
+  });
+
+  it.each([
+    [{ scenarioId: '__proto__' }, 404, 'SCENARIO_NOT_FOUND'],
+    [{ revision: 0 }, 409, 'STALE_SCENARIO'],
+    [{ budgetCents: 1_000_000.5 }, 400, 'INVALID_REQUEST'],
+    [{ originNodeId: 'hub' }, 400, 'INVALID_REQUEST'],
+  ] as const)('enforces the selection contract for an investment request %#', async (patch, status, code) => {
+    expect(await comparison({ ...investmentRequest, ...patch })).toMatchObject({
+      status, body: { ok: false, error: { code } },
+    });
   });
 
   it('keeps a zero-budget comparison and later requests isolated', async () => {
@@ -185,6 +240,15 @@ describe('invalid internal planning data', () => {
     expect(await comparison(null)).toMatchObject({
       status: 400, body: { ok: false, error: { code: 'INVALID_REQUEST' } },
     });
+  });
+
+  it('rejects a registered fixture with the wrong identity without affecting the default', async () => {
+    vi.doMock('../../../src/data/curb/investment-demo.json', () => ({ default: planDemo }));
+
+    expect(await context(investmentQuery)).toEqual(internalFailure);
+    expect(await comparison(investmentRequest)).toEqual(internalFailure);
+    expect(await context()).toMatchObject({ status: 200, body: { ok: true, data: fixture } });
+    expect(await comparison()).toMatchObject({ status: 200, body: { ok: true, data: { scenarioId: request.scenarioId } } });
   });
 
   it('maps request-shaped errors during context loading to generic 500', async () => {
