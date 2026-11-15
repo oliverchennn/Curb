@@ -1,0 +1,36 @@
+{
+  "source": "https://curb-taupe.vercel.app",
+  "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
+  "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892784591",
+  "basis": "accepted deployed build",
+  "capturedAt": "2026-11-15T10:10:26.074Z",
+  "viewport": {
+    "width": 1456,
+    "height": 819
+  },
+  "photographs": "Robertson footage is a separate source.",
+  "images": {
+    "compare": "compare.png",
+    "condition": "condition.png",
+    "exact": "exact.png",
+    "omit-a": "omit-a.png",
+    "omit-b": "omit-b.png",
+    "tie": "tie.png",
+    "brief": "brief.png"
+  },
+  "states": {
+    "compare": [
+      "HIGHEST CONDITION SCORE FIRST Condition-first 1 newly reachable destination Hall C $10,000 assumed spend Submitted budget $10,000",
+      "MAXIMIZE NEW CONNECTIONS Curb recommendation 2 newly reachable destinations Library and Student center A + B $10,000 assumed spend Submitted budget $10,000"
+    ],
+    "condition": "Condition-first · 1 newly reachable destination · $10,000 assumed spend · Hall",
+    "exact": "Curb recommendation · 2 newly reachable destinations · $10,000 assumed spend · Library and Student center",
+    "omit-a": "Recommendation without A · 0 newly reachable destinations · $5,000 assumed spend",
+    "omit-b": "Recommendation without B · 0 newly reachable destinations · $5,000 assumed spend",
+    "tie": [
+      "HIGHEST CONDITION SCORE FIRST Condition-first 3 newly reachable destinations Library, Student center and Hall C + A + B $20,000 assumed spend Submitted budget $20,000",
+      "MAXIMIZE NEW CONNECTIONS Curb recommendation 3 newly reachable destinations Library, Student center and Hall A + B + C $20,000 assumed spend Submitted budget $20,000"
+    ],
+    "brief": "CURB · DECISION BRIEF Recommended investment Synthetic scenario · assumed costs and route conditions Campus investment scenario · synthetic-campus-investment · Revision 1 Authored step-free planning profile (step-free-demo) · From Arrival court Submitted budget $10,000 Assumed spend $10,000 New destinations 2 Newly reachable: Library and Student center. Cafe remains baseline access and is not counted as a new benefit. Recommended repairs and assumed costs Repair Assumed cost A - Add approach ramp $5,000 B - Repair shared path $5,000 Condition-first comparison: C, $10,000 assumed spend, 1 newly reachable destination (Hall). This is a simple authored comparator, not a claim about campus practice. Why the combination matters Repair A needs other recommended repairs to restore Library and Student center. On its own, it restores no new destinations; omitting it loses Library and Student center. Repair B needs other recommended repairs to restore Library and Student center. On its own, it restores no new destinations; omitting it loses Library and Student center. Scenario assumptions The network, evidence, route conditions, coordinates, and lengths are entirely synthetic. Coordinates and lengths describe a schematic, not Princeton geography or field measurements. Every destination counts equally. The objective counts destinations newly reachable from Arrival court and does not score partial progress, hazard reduction, or people served. Condition scores are authored visual rankings from 1 (least severe) to 5 (most severe). Evidence review status does not determine route passability. Costs are assumptions in USD, not contractor estimates. Each repair's amount covers its complete modeled scope, including allocated setup. Repairs are hypothetical. Each clears a named blocker in the model without changing source evidence or claiming actual work or route outcomes. Next field inputs: verified route assessments, user destination priorities, measured repair scopes, and current prices. These modeled gains are not measured repair outcomes or a finding of legal compliance. This brief always presents the canonical recommendation, even while the map displays an omission preview."
+  }
+}

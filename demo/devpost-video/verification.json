@@ -16,38 +16,71 @@
       "durationSeconds": 23
     },
     {
-      "file": "04-Compare-budget.mp4",
-      "frames": 900,
-      "durationSeconds": 30
+      "file": "04-Synthetic-transition.mp4",
+      "frames": 120,
+      "durationSeconds": 4
     },
     {
-      "file": "05-Export-report.mp4",
-      "frames": 810,
-      "durationSeconds": 27
+      "file": "05-Investment-10000.mp4",
+      "frames": 690,
+      "durationSeconds": 23
     },
     {
-      "file": "06-Curb-outro.mp4",
+      "file": "06-Investment-omissions.mp4",
+      "frames": 480,
+      "durationSeconds": 16
+    },
+    {
+      "file": "07-Investment-20000.mp4",
+      "frames": 330,
+      "durationSeconds": 11
+    },
+    {
+      "file": "08-Decision-brief.mp4",
+      "frames": 240,
+      "durationSeconds": 8
+    },
+    {
+      "file": "09-Buyer-and-validation.mp4",
+      "frames": 360,
+      "durationSeconds": 12
+    },
+    {
+      "file": "10-Curb-outro.mp4",
       "frames": 120,
       "durationSeconds": 4
     },
     {
       "file": "Curb-picture-edit.mp4",
-      "frames": 2970,
-      "durationSeconds": 99
+      "frames": 3480,
+      "durationSeconds": 116
     }
   ],
+  "pictureAudio": "Silent by design",
+  "captions": "Match the cut manifest",
   "transparentCapturePlates": [
     "review-stage.png",
-    "budget-stage.png",
-    "report-stage.png"
+    "compare-stage.png",
+    "omissions-stage.png",
+    "tie-stage.png",
+    "proof-stage.png"
   ],
-  "report": {
-    "budget": 500,
-    "evidenceSeekSeconds": 6,
-    "pricedSubtotal": [
-      72,
-      478
+  "robertson": {
+    "evidenceSeekSeconds": 6
+  },
+  "investment": {
+    "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
+    "basis": "accepted deployed build",
+    "at10000": [
+      1,
+      2
     ],
-    "setupQuotePending": true
+    "removeA": 0,
+    "removeB": 0,
+    "at20000": [
+      3,
+      3
+    ],
+    "brief": "Verified canonical recommendation"
   }
 }
