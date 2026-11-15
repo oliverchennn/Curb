@@ -1,25 +1,23 @@
-# Curb working documents
+# Curb documentation
 
-Resume with [Vincent's orchestrator handoff](message-board/VINCENT_HANDOFF.md) and [Dev B continuation](message-board/DEV_B_CONTINUATION.md). [Saved R1 evidence](message-board/r1-evidence/README.md) is portable with the repository. Older kickoff/handoff documents remain historical records.
+Start with the [project overview](../README.md) or [live demo](https://curb-taupe.vercel.app/curb/surveys/robertson-hall?present=1). This index connects the current demo, reproducible evidence, and contributor reference.
 
-| Document | Purpose |
-|---|---|
-| [Implementation plan](IMPLEMENTATION_PLAN.md) | Adapted product scope, foundation, roadmap, deadline and sponsor gates |
-| [Orchestration](ORCHESTRATION.md) | Four lead chats, three humans, board startup, assignment and recovery |
-| [Message board](MESSAGE_BOARD.md) | Authority, message formats and operating cadence |
-| [Git sync](GIT_SYNC.md) | Required checkpoint pushes, remote verification and safe integration |
-| [Board issue body](message-board/ISSUE_BODY.md) | Exact seed body for the live GitHub issue |
-| [Task board](TASK_BOARD.md) | Checked-in snapshot and dependency gates |
-| [Task cards](tasks/README.md) / [R1](tasks/R1.md) | Foundation history and completed trip/one-repair scope |
-| [Ownership](OWNERSHIP.md) | Exclusive file scopes and shared stewards |
-| [Contracts](CONTRACTS.md) | Frozen curb-v0 and curb-r1 boundaries |
-| [Acceptance](ACCEPTANCE.md) | Verified R1/foundation checkpoints and future demo criteria |
-| [Cloud takeover audit](message-board/CLOUD_TAKEOVER.md) | Repository/PR/board audit, provenance, baseline checks and limits |
-| [Decisions](DECISIONS.md) | Decisions, rationale and unresolved facts |
-| [Handoff](HANDOFF.md) | Evidence required from each lane and coordinator successor |
-| [Sponsor options](SPONSOR_OPTIONS.md) | Supplied discussion appendix; all options deferred |
-| [Kit import](KIT_IMPORT.md) | Pinned source, imported documents and deliberate adaptations |
+| If you want to… | Start here |
+| --- | --- |
+| Present or rehearse the demo | [Demo guide](demo/README.md) · [Three-minute script](demo/INVESTMENT_DEMO_SCRIPT.md) |
+| Inspect the benchmark, field footage, or verification receipts | [Evidence index](evidence/README.md) |
+| Run, verify, or maintain Curb | [Development guide](DEVELOPMENT.md) · [Release runbook](demo/ROBERTSON_HOSTING.md) |
+| Understand data and API boundaries | [Contracts](CONTRACTS.md) · [Implementation plan](IMPLEMENTATION_PLAN.md) |
+| Follow current work and ownership | [Live team board](https://github.com/oliverchennn/Curb/issues/1) · [Active instructions](../AGENTS.md) |
 
-Root startup prompts: [orchestrator](../START_ORCHESTRATOR.txt), [Dev A](../START_DEV_A.txt), [Dev B](../START_DEV_B.txt), [Dev C](../START_DEV_C.txt).
+## Contributor reference
 
-`source/` preserves the supplied plan; `vendor/` preserves upstream documentation. These are reference archives, not active task queues. Current Curb docs and the user's instructions control execution. Event/sponsor claims from the supplied plan have not been independently revalidated in this setup.
+- **Coordination.** [Orchestration](ORCHESTRATION.md), [ownership](OWNERSHIP.md), [task board snapshot](TASK_BOARD.md), [task cards](tasks/README.md), [work queue](WORK_QUEUE.md), and [Git sync](GIT_SYNC.md).
+- **Decisions and handoff.** [Decisions](DECISIONS.md), [acceptance criteria](ACCEPTANCE.md), [message format](MESSAGE_BOARD.md), [board issue seed](message-board/ISSUE_BODY.md), and [handoff requirements](HANDOFF.md).
+- **Research and provenance.** [Princeton campus sources](research/PRINCETON_CAMPUS_SOURCES.md), [kit import and source license](KIT_IMPORT.md), [sponsor options](SPONSOR_OPTIONS.md), and [third-party notices](../THIRD_PARTY_NOTICES.md).
+
+## Historical records
+
+The [prior coordinator handoff](message-board/VINCENT_HANDOFF.md), [Dev B continuation](message-board/DEV_B_CONTINUATION.md), [cloud takeover audit](message-board/CLOUD_TAKEOVER.md), and [saved R1 verification](message-board/r1-evidence/README.md) record earlier phases. Use the live board for current assignments. The [branch archive inventory](demo/BRANCH_ARCHIVE_2026-11-14.json) records archived branch commits.
+
+The supplied plan is preserved in [source/](source/), with the adapted upstream reference in [vendor/](vendor/). Use the current [orchestrator](../START_ORCHESTRATOR.txt), [Dev A](../START_DEV_A.txt), [Dev B](../START_DEV_B.txt), and [Dev C](../START_DEV_C.txt) prompts with the live board when resuming an assigned lane.
