@@ -2,7 +2,7 @@
 //
 // Every part in the CAD manifest is assigned to exactly one of six functional
 // subsystems by the geometry export. This module re-exposes that grouping in a
-// typed form and collapses identical repeated hardware (e.g. the 120 rotor
+// typed form and collapses repeated named components (e.g. the 120 rotor
 // magnets) into a single numbered index entry with a quantity, so the per-group
 // parts index stays readable. The coverage of this grouping is asserted by
 // `groups.test.ts`.
@@ -36,11 +36,18 @@ export const GROUP_ROLES: Record<GroupId, string> = {
 /** A position prefix the geometry attaches to repeated parts (wheel corner / side). */
 const POSITION_PREFIX = /^(RL|RR|ML|MR|FL|FR|L|R)\s+/;
 
+// These source labels contain placement coordinates, not part identifiers.
+// Keep the rule narrow: numbers in labels such as "sensor pcb c1" identify
+// components and must not be stripped as if they were instance counters.
+const COORDINATE_LABEL_KINDS: ReadonlySet<string> = new Set([
+  'cmp_screw', 'cmp_standoff', 'drv_screw', 'holddown',
+]);
+
 /** One collapsed, numbered entry in a group's parts index. */
 export interface IndexEntry {
   /** 1-based number shown in the index and on the 3D callout. */
   number: number;
-  /** Stable key — the part family (`kind`). */
+  /** Stable semantic identity, independent of the entry's display number. */
   key: string;
   kind: string;
   /** Family label with any position prefix removed. */
@@ -57,7 +64,13 @@ export interface IndexEntry {
 }
 
 function familyLabel(part: ManifestPart): string {
-  const cleaned = part.label.replace(POSITION_PREFIX, '').trim();
+  let cleaned = part.label.replace(POSITION_PREFIX, '').trim();
+  if (COORDINATE_LABEL_KINDS.has(part.kind)) {
+    cleaned = cleaned.replace(/(?:\s+-?\d+(?:\.\d+)?)+$/, '');
+  }
+  // Only these source families use a trailing corner/side as placement.
+  if (part.kind === 'fan_screw') cleaned = cleaned.replace(/\s+(BR|TR|BL|TL)$/, '');
+  if (part.kind === 'bolt') cleaned = cleaned.replace(/\s+(L|R)$/, '');
   return cleaned || part.kind.replace(/_/g, ' ');
 }
 
@@ -66,37 +79,53 @@ function add(a: Vec3, b: Vec3): Vec3 {
 }
 
 /**
- * Collapse a group's parts into numbered family entries. Identical repeated
- * hardware (same `kind`) becomes one entry with a quantity. Entry order follows
- * each family's first appearance, which tracks the build stage.
+ * Collapse only matching named components within a source family. `kind` is
+ * often a broad assembly category: for example, bat_bms contains screws, a
+ * board, ICs and connectors. Matching kinds alone do not establish identity.
+ * Keep source descriptions in the identity too, so differing purpose metadata
+ * cannot be silently replaced by the first member's description. This is a
+ * model index, not a claim that the parts are physically interchangeable.
+ * Entry order follows first appearance, which tracks the build stage.
  */
 export function collapseGroup(group: ManifestGroup): IndexEntry[] {
   const order: string[] = [];
-  const byKind = new Map<string, ManifestPart[]>();
+  const byIdentity = new Map<string, ManifestPart[]>();
+  const labelsByKind = new Map<string, Set<string>>();
   for (const part of group.parts) {
-    let bucket = byKind.get(part.kind);
+    const label = familyLabel(part);
+    const labels = labelsByKind.get(part.kind) ?? new Set<string>();
+    labels.add(label);
+    labelsByKind.set(part.kind, labels);
+    const key = JSON.stringify([group.id, part.kind, label, part.description]);
+    let bucket = byIdentity.get(key);
     if (!bucket) {
       bucket = [];
-      byKind.set(part.kind, bucket);
-      order.push(part.kind);
+      byIdentity.set(key, bucket);
+      order.push(key);
     }
     bucket.push(part);
   }
-  return order.map((kind, index) => {
-    const members = byKind.get(kind)!;
+  return order.map((key, index) => {
+    const members = byIdentity.get(key)!;
+    const first = members[0];
     let sum: Vec3 = [0, 0, 0];
     for (const p of members) sum = add(sum, add(p.center, p.explode));
     const n = members.length;
     const anchor: Vec3 = [sum[0] / n, sum[1] / n, sum[2] / n];
     return {
       number: index + 1,
-      key: kind,
-      kind,
-      label: familyLabel(members[0]),
-      description: members[0].description,
+      key,
+      kind: first.kind,
+      label: familyLabel(first),
+      // The exporter supplies family-level text. When that family contains
+      // several component identities, do not present it as an exact account
+      // of this individual item (e.g. a fan nut labelled "Fan mounting screw").
+      description: labelsByKind.get(first.kind)!.size > 1
+        ? `CAD family context: ${first.description}`
+        : first.description,
       quantity: n,
       members: members.map(p => p.name),
-      color: members[0].color,
+      color: first.color,
       anchor,
     };
   });

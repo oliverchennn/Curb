@@ -26,6 +26,9 @@
   overflow: auto;
   background: #f2f5ef;
 }
+.indexToggle { display: none; }
+.indexBody { min-width: 0; }
+.explorer button:focus-visible { outline: 3px solid #1b58d6; outline-offset: 3px; }
 .indexHead h2 { font-size: 18px; margin: 0 0 6px; }
 .indexHead p { margin: 0 0 10px; font-size: 12.5px; line-height: 1.5; color: #4f6255; }
 .collapseNote { font-size: 11.5px !important; color: #647468 !important; }
@@ -43,11 +46,12 @@
   border: 1px solid #cdd8ce;
   border-radius: 9px;
   background: #fff;
+  color: #20372c;
   cursor: pointer;
 }
-.groupButton:hover, .groupButton[data-hovered] { border-color: #2f6df6; box-shadow: 0 0 0 2px #2f6df633; }
+.groupButton:hover, .groupButton[data-hovered] { background: #f4f8ff; border-color: #2f6df6; box-shadow: 0 0 0 2px #2f6df633; }
 .swatch { width: 14px; height: 14px; border-radius: 4px; margin-top: 2px; flex: none; }
-.groupText { display: grid; gap: 2px; }
+.groupText { display: grid; gap: 2px; min-width: 0; }
 .groupText strong { font-size: 14px; }
 .groupText small { color: #69786d; font-size: 11px; }
 .role { font-size: 11.5px; color: #55675b; line-height: 1.45; margin-top: 2px; }
@@ -84,9 +88,10 @@
   border: 1px solid #cdd8ce;
   border-radius: 8px;
   background: #fff;
+  color: #20372c;
   cursor: pointer;
 }
-.partButton:hover, .partButton[data-open] { border-color: #2f6df6; }
+.partButton:hover, .partButton[data-open] { background: #f4f8ff; border-color: #2f6df6; }
 .partButton[data-open] { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
 .partNumber {
   flex: none;
@@ -97,7 +102,7 @@
   font-size: 12px; font-weight: 700;
   background: #fff;
 }
-.partName { flex: 1; font-size: 13px; }
+.partName { flex: 1; min-width: 0; font-size: 13px; overflow-wrap: anywhere; }
 .qty { font-size: 11px; color: #647468; background: #e7eee8; border-radius: 4px; padding: 1px 6px; }
 .chevron { color: #647468; font-size: 11px; }
 
@@ -118,14 +123,14 @@
 .genericNote { font-size: 11px !important; color: #70594a !important; margin-top: 8px !important; }
 
 /* ---- Stage ---- */
-.stageWrap { display: flex; flex-direction: column; min-width: 0; }
+.stageWrap { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
 .toolbar {
   display: flex; justify-content: space-between; align-items: center; gap: 8px;
   padding: 10px 14px; border-bottom: 1px solid #d6dfd7; background: #eef2eb;
 }
 .stageTitle { font-weight: 650; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; }
 .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-.toolbarActions { display: flex; gap: 6px; }
+.toolbarActions { display: flex; gap: 6px; flex-shrink: 0; }
 .orbitToggle {
   border: 1px solid #b7c6bc; background: #fff; color: #20372c;
   padding: 6px 11px; border-radius: 7px; cursor: pointer; font-size: 13px;
@@ -137,6 +142,15 @@
 .stage { position: relative; flex: 1; min-height: 0; background: linear-gradient(#eef2eb, #dce4d8); overflow: hidden; }
 .canvasHost { position: absolute; inset: 0; }
 .labelLayer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.labelLayer :global(.robot-callout) {
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  line-height: 1;
+}
 
 .loading, .detailLoading, .detailError {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
@@ -147,21 +161,32 @@
 .detailError { top: auto; bottom: 46px; border-color: #bc7932; background: #fff8ee; }
 
 .fallback { position: absolute; inset: 0; overflow: auto; padding: 18px; display: grid; gap: 12px; place-content: center; text-align: center; }
-.fallback img { max-width: 100%; border-radius: 8px; border: 1px solid #c3cfc5; }
+.fallback img { max-width: 100%; max-height: 32vh; object-fit: contain; border-radius: 8px; border: 1px solid #c3cfc5; }
 .fallback p { font-size: 13px; line-height: 1.5; max-width: 520px; margin: 0 auto; }
 
 .hint {
-  position: absolute; left: 12px; bottom: 10px; margin: 0;
+  position: absolute; left: 12px; right: 12px; bottom: 10px; margin: 0;
   background: #ffffffdd; border-radius: 6px; padding: 5px 9px; font-size: 11.5px; color: #4f6255;
   pointer-events: none;
 }
 .concept { margin: 0; padding: 8px 14px; font-size: 11px; color: #70594a; background: #f6f1e8; border-top: 1px solid #e3dccb; }
 
-/* Scene-created HTML chips (.robot-label / .robot-callout) are styled globally
-   in app/globals.css, because the three.js scene sets plain class names on them. */
+/* The stage-scoped callout reset above overrides shared button padding without
+   changing global styles or other application controls. */
 
 @media (max-width: 860px) {
   .explorer { grid-template-columns: 1fr; height: auto; }
-  .index { border-right: 0; border-bottom: 1px solid #d6dfd7; max-height: 44vh; }
-  .stage { height: 56vh; }
+  .index { border-right: 0; border-bottom: 1px solid #d6dfd7; padding: 12px; overflow: visible; }
+  .indexToggle {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    width: 100%; padding: 10px; border: 1px solid #b7c6bc; border-radius: 7px;
+    background: #fff; color: #20372c; text-align: left; font-weight: 650;
+  }
+  .indexToggle:hover { background: #e7eee8; }
+  .indexBody { max-height: 34vh; overflow: auto; padding: 4px; margin-top: 8px; }
+  .indexBody[data-expanded='false'] { display: none; }
+  .stage { flex: 0 0 auto; height: clamp(340px, 56vh, 580px); min-height: 340px; }
+  .toolbar { flex-wrap: wrap; padding: 10px 12px; }
+  .stageTitle { font-size: 13px; }
+  .concept { flex-shrink: 0; }
 }

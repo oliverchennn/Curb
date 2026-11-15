@@ -39,7 +39,9 @@ interface GroupEntry {
     meshesByPart: Map<string, THREE.Mesh[]>;
     pickMeshes: THREE.Mesh[];
   };
+  detailPromise?: Promise<NonNullable<GroupEntry['detail']>>;
   label: HTMLButtonElement;
+  connector: HTMLDivElement;
 }
 
 function v(p: Vec3): THREE.Vector3 {
@@ -60,11 +62,21 @@ export class RobotScene {
   private readonly overlayMaterial: THREE.MeshBasicMaterial;
 
   private manifest: RobotManifest | null = null;
+  private overviewReady = false;
+  private pendingSelection: { group: ManifestGroup; entries: IndexEntry[] } | null = null;
+  private selectionVersion = 0;
+  private cssWidth = 0;
+  private cssHeight = 0;
+  private lastFit: { target: THREE.Vector3; radius: number; iso: boolean } | null = null;
   private groups = new Map<string, GroupEntry>();
   private mode: 'overview' | 'exploded' = 'overview';
   private selected: string | null = null;
   private selectedEntries: IndexEntry[] = [];
-  private callouts = new Map<string, { el: HTMLButtonElement; anchor: THREE.Vector3 }>();
+  private callouts = new Map<string, {
+    el: HTMLButtonElement;
+    connector: HTMLDivElement;
+    anchor: THREE.Vector3;
+  }>();
   private highlightKey: string | null = null;
 
   private hovered: string | null = null;
@@ -140,6 +152,10 @@ export class RobotScene {
       if (this.disposed) return;
       const url = assetUrl(group.preview || group.glb);
       const gltf = await this.loader.loadAsync(url);
+      if (this.disposed) {
+        this.disposeObject(gltf.scene);
+        return;
+      }
       const root = new THREE.Group();
       root.name = `preview:${group.id}`;
       root.rotation.x = Math.PI / 2; // GLB wrapper is Y-up; restore CAD Z-up.
@@ -177,13 +193,29 @@ export class RobotScene {
       label.addEventListener('click', () => this.cb.onPickGroup(group.id));
       label.addEventListener('pointerenter', () => this.setHover(group.id));
       label.addEventListener('pointerleave', () => this.setHover(null));
-      this.labelLayer.appendChild(label);
+      label.addEventListener('focus', () => this.setHover(group.id));
+      label.addEventListener('blur', () => this.setHover(null));
+      const connector = document.createElement('div');
+      connector.setAttribute('aria-hidden', 'true');
+      Object.assign(connector.style, {
+        position: 'absolute', left: '0', top: '0', height: '1px',
+        background: '#547363', transformOrigin: '0 0', pointerEvents: 'none',
+      });
+      this.labelLayer.append(connector, label);
 
-      this.groups.set(group.id, { group, root, overlay, pickMeshes, label });
+      this.groups.set(group.id, { group, root, overlay, pickMeshes, label, connector });
+      // The index is usable while previews load. Preserve a hover/focus that
+      // began before this particular subsystem's geometry arrived.
+      overlay.visible = this.mode === 'overview' && this.hovered === group.id;
+      label.classList.toggle('is-hovered', overlay.visible);
       loaded += 1;
       this.cb.onProgress(loaded, total);
     }
+    this.overviewReady = true;
     this.frameOverview();
+    const pending = this.pendingSelection;
+    this.pendingSelection = null;
+    if (pending) void this.explodeGroup(pending.group, pending.entries);
   }
 
   private tuneMaterial(mesh: THREE.Mesh): void {
@@ -196,6 +228,7 @@ export class RobotScene {
   }
 
   setReducedMotion(reduced: boolean): void {
+    if (reduced && !this.reduced) this.autoOrbit = false;
     this.reduced = reduced;
     this.controls.enableDamping = !reduced;
     if (reduced) this.explodeT = this.mode === 'exploded' ? 1 : 0;
@@ -206,40 +239,64 @@ export class RobotScene {
   }
 
   async explodeGroup(group: ManifestGroup, entries: IndexEntry[]): Promise<void> {
+    if (this.disposed) return;
+    if (!this.overviewReady) {
+      this.pendingSelection = { group, entries };
+      return;
+    }
     const entry = this.groups.get(group.id);
     if (!entry) return;
+    const version = ++this.selectionVersion;
+    this.highlightEntry(null);
+    this.clearCallouts();
     this.mode = 'exploded';
     this.selected = group.id;
     this.selectedEntries = entries;
     this.setHover(null);
 
-    // Hide every preview group while one group is isolated.
+    // Every previous view is hidden immediately, including a cached detail view.
     for (const g of this.groups.values()) {
       g.root.visible = false;
       g.overlay.visible = false;
+      if (g.detail) g.detail.root.visible = false;
       g.label.style.display = 'none';
+      g.connector.style.display = 'none';
     }
 
+    const isCurrent = () => !this.disposed && this.mode === 'exploded'
+      && this.selected === group.id && this.selectionVersion === version;
     if (!entry.detail) {
       this.cb.onDetailState(group.id, 'loading');
+      // Reopening the same group shares its in-flight request; each selection
+      // still has a separate token so older continuations cannot publish state.
+      entry.detailPromise ??= this.buildDetail(group)
+        .then(detail => { entry.detail = detail; return detail; })
+        .finally(() => { entry.detailPromise = undefined; });
       try {
-        entry.detail = await this.buildDetail(group);
-        this.cb.onDetailState(group.id, 'ready');
+        await entry.detailPromise;
       } catch (err) {
-        this.cb.onDetailState(group.id, 'error', err instanceof Error ? err.message : String(err));
+        if (isCurrent()) {
+          this.cb.onDetailState(group.id, 'error', err instanceof Error ? err.message : String(err));
+        }
         return;
       }
     }
-    if (this.disposed || this.selected !== group.id) return;
+    if (!isCurrent() || !entry.detail) return;
 
     entry.detail.root.visible = true;
     this.explodeT = this.reduced ? 1 : 0;
-    this.buildCallouts(entries);
-    this.frameExploded(group, entries);
+    this.buildCallouts(group.id, entries);
+    this.frameExploded(group);
+    this.highlightEntry(this.highlightKey);
+    this.cb.onDetailState(group.id, 'ready');
   }
 
   private async buildDetail(group: ManifestGroup): Promise<NonNullable<GroupEntry['detail']>> {
     const gltf = await this.loader.loadAsync(assetUrl(group.glb));
+    if (this.disposed) {
+      this.disposeObject(gltf.scene);
+      throw new Error('The model viewer was closed.');
+    }
     const root = new THREE.Group();
     root.name = `detail:${group.id}`;
     root.rotation.x = Math.PI / 2;
@@ -270,7 +327,7 @@ export class RobotScene {
     return { root, parts, meshesByPart, pickMeshes };
   }
 
-  private buildCallouts(entries: IndexEntry[]): void {
+  private buildCallouts(groupId: string, entries: IndexEntry[]): void {
     this.clearCallouts();
     for (const e of entries) {
       const el = document.createElement('button');
@@ -278,14 +335,26 @@ export class RobotScene {
       el.className = 'robot-callout';
       el.textContent = String(e.number);
       el.setAttribute('aria-label', `Part ${e.number}: ${e.label}`);
-      el.addEventListener('click', () => this.cb.onPickEntry(this.selected!, e.key));
-      this.labelLayer.appendChild(el);
-      this.callouts.set(e.key, { el, anchor: v(e.anchor) });
+      el.dataset.entryKey = e.key;
+      el.dataset.groupId = groupId;
+      el.addEventListener('click', () => {
+        if (this.selected === groupId) this.cb.onPickEntry(groupId, e.key);
+      });
+      el.style.zIndex = '1';
+      const connector = document.createElement('div');
+      connector.setAttribute('aria-hidden', 'true');
+      Object.assign(connector.style, {
+        position: 'absolute', left: '0', top: '0', height: '1px',
+        background: '#547363', opacity: '0.45', transformOrigin: '0 0',
+        pointerEvents: 'none', zIndex: '0',
+      });
+      this.labelLayer.append(connector, el);
+      this.callouts.set(e.key, { el, connector, anchor: v(e.anchor) });
     }
   }
 
   private clearCallouts(): void {
-    for (const { el } of this.callouts.values()) el.remove();
+    for (const { el, connector } of this.callouts.values()) { el.remove(); connector.remove(); }
     this.callouts.clear();
   }
 
@@ -306,21 +375,38 @@ export class RobotScene {
     }
     for (const [k, c] of this.callouts) {
       c.el.classList.toggle('is-active', k === key);
+      c.el.setAttribute('aria-pressed', String(k === key));
+      c.connector.style.background = k === key ? '#2f6df6' : '#547363';
+      c.connector.style.opacity = k === key ? '1' : '0.45';
+      c.connector.style.height = k === key ? '2px' : '1px';
     }
   }
 
   focusEntry(key: string): void {
     const entry = this.selectedEntries.find(e => e.key === key);
-    if (!entry) return;
+    const group = this.selected ? this.groups.get(this.selected)?.group : undefined;
+    if (!entry || !group) return;
     this.highlightEntry(key);
-    // The group root rotation restores manifest CAD coordinates, so anchors are
-    // used directly (no extra rotation).
-    const anchor = v(entry.anchor);
-    const radius = Math.max(40, 2.4 * Math.cbrt(Math.max(1, entry.quantity)) * 30);
-    this.fit(anchor, radius, true);
+    // Fit the actual members rather than guessing size from quantity: a single
+    // case lid can be larger than hundreds of repeated electronic components.
+    const members = new Set(entry.members);
+    const box = new THREE.Box3();
+    for (const part of group.parts) {
+      if (!members.has(part.name)) continue;
+      const center = v(part.center).add(v(part.explode));
+      const half = v(part.bbox).multiplyScalar(0.5);
+      box.expandByPoint(center.clone().sub(half));
+      box.expandByPoint(center.clone().add(half));
+    }
+    if (box.isEmpty()) return;
+    const target = box.getCenter(new THREE.Vector3());
+    const radius = Math.max(20, box.getSize(new THREE.Vector3()).length() * 0.5);
+    this.fit(target, radius, true);
   }
 
   reset(): void {
+    this.selectionVersion += 1;
+    this.pendingSelection = null;
     this.mode = 'overview';
     const previous = this.selected;
     this.selected = null;
@@ -343,13 +429,14 @@ export class RobotScene {
     for (const g of this.groups.values()) {
       g.root.visible = true;
       g.label.style.display = '';
+      g.connector.style.display = '';
     }
     this.setHover(null);
     this.explodeT = 0;
     this.frameOverview();
   }
 
-  private setHover(id: string | null): void {
+  setHover(id: string | null): void {
     if (this.mode !== 'overview') id = null;
     if (id === this.hovered) return;
     this.hovered = id;
@@ -366,11 +453,12 @@ export class RobotScene {
     const min = v(this.manifest.envelope.min);
     const max = v(this.manifest.envelope.max);
     const size = max.clone().sub(min);
-    const radius = 0.5 * Math.max(size.x, size.y, size.z);
-    this.fit(v(this.manifest.robotCenter), radius, false);
+    // A sphere encloses the entire envelope for every auto-orbit angle.
+    const radius = 0.5 * size.length();
+    this.fit(min.add(max).multiplyScalar(0.5), radius, false);
   }
 
-  private frameExploded(group: ManifestGroup, entries: IndexEntry[]): void {
+  private frameExploded(group: ManifestGroup): void {
     const box = new THREE.Box3();
     for (const part of group.parts) {
       const centre = v(part.center).add(v(part.explode));
@@ -380,14 +468,17 @@ export class RobotScene {
     }
     const center = box.getCenter(new THREE.Vector3());
     const extent = box.getSize(new THREE.Vector3());
-    const radius = 0.5 * Math.max(extent.x, extent.y, extent.z);
-    void entries;
+    const radius = 0.5 * extent.length();
     this.fit(center, radius, true);
   }
 
   private fit(target: THREE.Vector3, radius: number, iso: boolean): void {
     const dir = (iso ? new THREE.Vector3(1, -1.2, 0.8) : new THREE.Vector3(1.1, -1, 0.55)).normalize();
-    const dist = Math.max(45, radius * 2.8);
+    this.lastFit = { target: target.clone(), radius, iso };
+    const verticalHalfFov = THREE.MathUtils.degToRad(this.camera.fov / 2);
+    const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * this.camera.aspect);
+    const limitingHalfFov = Math.min(verticalHalfFov, horizontalHalfFov);
+    const dist = Math.max(45, radius / Math.sin(limitingHalfFov) * 1.12);
     this.camera.position.copy(target).addScaledVector(dir, dist);
     this.controls.target.copy(target);
     this.camera.updateProjectionMatrix();
@@ -395,11 +486,22 @@ export class RobotScene {
   }
 
   private readonly handleResize = (): void => {
-    const w = this.host.clientWidth || 1;
-    const h = this.host.clientHeight || 1;
+    const w = this.host.clientWidth;
+    const h = this.host.clientHeight;
+    if (!w || !h) return;
+    const ratio = Math.min(window.devicePixelRatio, 1.5);
+    const sizeChanged = w !== this.cssWidth || h !== this.cssHeight;
+    if (ratio !== this.renderer.getPixelRatio()) this.renderer.setPixelRatio(ratio);
+    if (!sizeChanged) return;
+    this.cssWidth = w;
+    this.cssHeight = h;
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
+    if (this.lastFit) {
+      const { target, radius, iso } = this.lastFit;
+      this.fit(target, radius, iso);
+    }
   };
 
   private readonly handlePointerMove = (event: PointerEvent): void => {
@@ -426,18 +528,21 @@ export class RobotScene {
     if (!press) return;
     const moved = Math.hypot(event.clientX - press.x, event.clientY - press.y);
     if (moved > 6 || performance.now() - press.time > 500) return; // a drag, not a click
-    if (this.mode === 'overview') {
-      if (this.hovered) this.cb.onPickGroup(this.hovered);
-      return;
-    }
-    const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
-    if (!detail) return;
     const rect = this.renderer.domElement.getBoundingClientRect();
     this.pointer.set(
       ((event.clientX - rect.left) / rect.width) * 2 - 1,
       -((event.clientY - rect.top) / rect.height) * 2 + 1,
     );
     this.raycaster.setFromCamera(this.pointer, this.camera);
+    if (this.mode === 'overview') {
+      const meshes = [...this.groups.values()].flatMap(g => g.root.visible ? g.pickMeshes : []);
+      const hit = this.raycaster.intersectObjects(meshes, false)[0];
+      const id = hit?.object.userData.groupId as string | undefined;
+      if (id) this.cb.onPickGroup(id);
+      return;
+    }
+    const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
+    if (!detail) return;
     const hit = this.raycaster.intersectObjects(detail.pickMeshes, false)[0];
     const name = hit?.object.userData.partName as string | undefined;
     if (!name) return;
@@ -447,6 +552,8 @@ export class RobotScene {
 
   private readonly handleContextLost = (event: Event): void => {
     event.preventDefault();
+    this.selectionVersion += 1;
+    this.pendingSelection = null;
     this.cb.onContextLost('The 3D graphics context was lost. Reload to continue.');
   };
 
@@ -480,19 +587,80 @@ export class RobotScene {
     const h = rect.clientHeight;
     const project = (point: THREE.Vector3): { x: number; y: number; visible: boolean } => {
       const p = point.clone().project(this.camera);
-      return { x: (p.x * 0.5 + 0.5) * w, y: (-p.y * 0.5 + 0.5) * h, visible: p.z < 1 };
+      return { x: (p.x * 0.5 + 0.5) * w, y: (-p.y * 0.5 + 0.5) * h, visible: p.z >= -1 && p.z <= 1 };
     };
+    if (!w || !h) return;
     if (this.mode === 'overview') {
-      for (const g of this.groups.values()) {
-        const { x, y, visible } = project(v(g.group.center));
-        g.label.style.transform = `translate(-50%,-120%) translate(${x}px,${y}px)`;
-        g.label.style.visibility = visible ? 'visible' : 'hidden';
+      // Separate the six labels in screen space as the camera orbits. Keep a
+      // leader to each projected subsystem centre so displaced labels remain
+      // visibly anchored to their geometry.
+      const margin = 8;
+      const bottom = Math.max(margin, h - 44); // leave the gesture hint clear
+      const labels = [...this.groups.values()].map(g => {
+        const point = project(v(g.group.center));
+        const width = g.label.offsetWidth;
+        const height = g.label.offsetHeight;
+        return { g, point, width, height, top: point.y - height * 1.2 };
+      }).sort((a, b) => a.point.y - b.point.y);
+      let nextTop = margin;
+      for (const label of labels) {
+        label.top = Math.max(nextTop, Math.min(label.top, bottom - label.height));
+        nextTop = label.top + label.height + 6;
+      }
+      let nextBottom = bottom;
+      for (let i = labels.length - 1; i >= 0; i -= 1) {
+        const label = labels[i];
+        label.top = Math.min(label.top, nextBottom - label.height);
+        nextBottom = label.top - 6;
+      }
+      for (const { g, point, width, height, top } of labels) {
+        const x = THREE.MathUtils.clamp(point.x, width / 2 + margin, w - width / 2 - margin);
+        const y = Math.max(margin, top) + height / 2;
+        g.label.style.transform = `translate(${x - width / 2}px,${y - height / 2}px)`;
+        g.label.style.visibility = point.visible ? 'visible' : 'hidden';
+        const dx = x - point.x;
+        const dy = y - point.y;
+        g.connector.style.width = `${Math.hypot(dx, dy)}px`;
+        g.connector.style.transform = `translate(${point.x}px,${point.y}px) rotate(${Math.atan2(dy, dx)}rad)`;
+        g.connector.style.visibility = point.visible ? 'visible' : 'hidden';
       }
     } else {
-      for (const { el, anchor } of this.callouts.values()) {
-        const { x, y, visible } = project(anchor);
-        el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px)`;
-        el.style.visibility = visible ? 'visible' : 'hidden';
+      // Dense electronics can share the same projected anchor. Assign each
+      // visible number its nearest free grid position in stable index order,
+      // keeping all 22px buttons disjoint and leaving the bottom hint clear.
+      const slots: { x: number; y: number; occupied: boolean }[] = [];
+      const spacing = 28;
+      const inset = 19;
+      const columns = Math.max(1, Math.floor((w - inset * 2) / spacing) + 1);
+      const rows = Math.max(1, Math.floor((h - 64 - inset) / spacing) + 1);
+      const left = (w - (columns - 1) * spacing) / 2;
+      for (let row = 0; row < rows; row += 1) {
+        for (let column = 0; column < columns; column += 1) {
+          slots.push({ x: left + column * spacing, y: inset + row * spacing, occupied: false });
+        }
+      }
+      for (const { el, connector, anchor } of this.callouts.values()) {
+        const point = project(anchor);
+        const onScreen = point.visible && point.x >= 0 && point.x <= w
+          && point.y >= 0 && point.y <= h;
+        let nearest: typeof slots[number] | undefined;
+        let distance = Infinity;
+        if (onScreen) {
+          for (const slot of slots) {
+            if (slot.occupied) continue;
+            const squared = (slot.x - point.x) ** 2 + (slot.y - point.y) ** 2;
+            if (squared < distance) { distance = squared; nearest = slot; }
+          }
+        }
+        el.style.visibility = nearest ? 'visible' : 'hidden';
+        connector.style.visibility = nearest ? 'visible' : 'hidden';
+        if (!nearest) continue;
+        nearest.occupied = true;
+        el.style.transform = `translate(-50%,-50%) translate(${nearest.x}px,${nearest.y}px)`;
+        const dx = nearest.x - point.x;
+        const dy = nearest.y - point.y;
+        connector.style.width = `${Math.max(0, Math.hypot(dx, dy) - 11)}px`;
+        connector.style.transform = `translate(${point.x}px,${point.y}px) rotate(${Math.atan2(dy, dx)}rad)`;
       }
     }
   }
@@ -505,11 +673,9 @@ export class RobotScene {
     const dt = Math.min(0.05, (now - this.lastTime) / 1000);
     this.lastTime = now;
 
-    if (this.host.clientWidth && this.renderer.domElement.width !== this.host.clientWidth) {
-      this.handleResize();
-    }
-    const spin = this.autoOrbit && !this.reduced && this.mode === 'overview'
-      && !this.dragging && !(this.pointerInside && this.hovered);
+    this.handleResize();
+    const spin = this.autoOrbit && this.mode === 'overview'
+      && !this.dragging && !this.pointerInside && !this.hovered;
     this.controls.autoRotate = spin;
 
     this.updateHover();
@@ -521,11 +687,22 @@ export class RobotScene {
 
   dispose(): void {
     this.disposed = true;
+    this.selectionVersion += 1;
+    this.pendingSelection = null;
     cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.handleResize);
     this.clearCallouts();
-    for (const g of this.groups.values()) g.label.remove();
-    this.scene.traverse(node => {
+    for (const g of this.groups.values()) { g.label.remove(); g.connector.remove(); }
+    this.disposeObject(this.scene);
+    this.overlayMaterial.dispose();
+    this.controls.dispose();
+    this.renderer.dispose();
+    this.renderer.domElement.remove();
+    this.groups.clear();
+  }
+
+  private disposeObject(object: THREE.Object3D): void {
+    object.traverse(node => {
       const mesh = node as THREE.Mesh;
       if (mesh.isMesh) {
         mesh.geometry?.dispose();
@@ -534,15 +711,10 @@ export class RobotScene {
         else mat?.dispose();
       }
     });
-    this.overlayMaterial.dispose();
-    this.controls.dispose();
-    this.renderer.dispose();
-    this.renderer.domElement.remove();
-    this.groups.clear();
   }
 
-  /** True once the first overview group is in the scene. */
+  /** True once every overview group is in the scene. */
   get ready(): boolean {
-    return this.groups.size > 0;
+    return this.overviewReady && !this.disposed;
   }
 }
