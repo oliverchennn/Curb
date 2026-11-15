@@ -253,6 +253,5 @@ function Header({ survey }: { survey?: Survey }) {
   return <header className={styles.header}>
     <p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p>
     <h1>Survey replay</h1>
-    <p className={styles.lede}>Turn sidewalk evidence into a repair plan for better disability access.</p>
   </header>;
 }
