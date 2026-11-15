@@ -2,18 +2,18 @@
 import { useEffect, useRef, useState, type ComponentProps, type KeyboardEvent } from 'react';
 import { type Atlas, type Collection, type EvidenceRecord } from './model';
 import MapCanvas from './MapCanvas';
+import RobertsonInspection from './RobertsonInspection';
 import styles from './Explorer.module.css';
 
-const SITE_CONTEXT = '/curb/surveys/robertson-hall/site-context.svg';
 const CLIP = '/curb/surveys/robertson-hall/survey.mp4';
 const MAX_SCALE = 4;
 
 const clipTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, '0')}`;
 
 /** One stage for the archive map and Robertson field photographs. */
-export default function EvidenceStage({ atlas, collection, records, record, stops, onSelect, onReset, mapOptions }: {
+export default function EvidenceStage({ atlas, collection, records, record, stops, onSelect, onInspect, onReset, mapOptions }: {
   atlas: Atlas; collection: Collection | null; records: EvidenceRecord[]; record: EvidenceRecord | null;
-  stops: Map<string, number>; onSelect: (id: string) => void; onReset: () => void;
+  stops: Map<string, number>; onSelect: (id: string) => void; onInspect: (id: string) => void; onReset: () => void;
   mapOptions?: Pick<ComponentProps<typeof MapCanvas>, 'set' | 'context' | 'section' | 'osm' | 'dense' | 'pointLayer'>;
 }) {
   if (!collection || collection.kind === 'synthetic') return <div className={styles.stageEmpty} data-mode="empty">
@@ -26,7 +26,9 @@ export default function EvidenceStage({ atlas, collection, records, record, stop
     {unplaced.length > 0 && <UnplacedTray key={collection.id} unplaced={unplaced} record={record} stops={stops} onSelect={onSelect} />}
   </div>;
   return <div className={styles.stage} data-mode="photo">
-    {record ? <FieldPhoto key={record.id} record={record} stop={stops.get(record.id)} /> : null}
+    {record ? <RobertsonInspection records={records} record={record} stops={stops} onInspect={onInspect}>
+      <FieldPhoto key={record.id} record={record} stop={stops.get(record.id)} />
+    </RobertsonInspection> : null}
   </div>;
 }
 
@@ -45,7 +47,7 @@ function UnplacedTray({ unplaced, record, stops, onSelect }: {
   </details>;
 }
 
-/** Large field photograph with bounded zoom/pan, an on-request clip and approximate site context. */
+/** Field photograph with bounded zoom/pan and an on-request clip. */
 function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | undefined }) {
   const [view, setView] = useState({ s: 1, x: 0, y: 0 });
   const [failed, setFailed] = useState(false);
@@ -79,45 +81,39 @@ function FieldPhoto({ record, stop }: { record: EvidenceRecord; stop: number | u
   const media = record.media;
   const available = media.status === 'available' && !failed;
   const canPan = view.s > 1;
-  return <div className={styles.photoStage}>
-    <div className={styles.photoMain}>
-      <figure className={styles.photoEvidence}>
-        <div className={styles.photoFrame} tabIndex={0} role="group" onKeyDown={keys}
-          aria-label={`${record.title}. Photo inspection: plus and minus zoom, arrow keys pan, 0 resets.`}>
-          {available
-            ? <img src={media.src} alt={media.alt} onError={() => setFailed(true)}
-              style={{ transform: `translate(${view.x}%, ${view.y}%) scale(${view.s})` }} draggable={false} />
-            : <div className={styles.photoNotice}><span aria-hidden="true">▧</span><p>{record.media.status === 'available' ? 'Photo unavailable — the local file could not be loaded. This record is unchanged.' : record.media.reason}</p></div>}
-        </div>
-        <figcaption className={styles.photoBadge}>{stop !== undefined ? `Record ${String(stop).padStart(2, '0')} · ` : ''}Actual clip frame · location not yet placed</figcaption>
-      </figure>
-      <div className={styles.photoTools} role="group" aria-label="Photo inspection controls">
-        <button type="button" aria-label="Zoom in on photo" aria-disabled={!available || view.s >= MAX_SCALE} onClick={() => available && zoom(.5)}>+</button>
-        <button type="button" aria-label="Zoom out of photo" aria-disabled={!available || view.s <= 1} onClick={() => available && zoom(-.5)}>−</button>
-        <button type="button" aria-disabled={!available || (view.s === 1 && !view.x && !view.y)} onClick={reset}>Reset</button>
-        <button type="button" aria-label="Pan photo left" aria-disabled={!canPan} onClick={() => pan(12, 0)}>←</button>
-        <button type="button" aria-label="Pan photo right" aria-disabled={!canPan} onClick={() => pan(-12, 0)}>→</button>
-        <button type="button" aria-label="Pan photo up" aria-disabled={!canPan} onClick={() => pan(0, 12)}>↑</button>
-        <button type="button" aria-label="Pan photo down" aria-disabled={!canPan} onClick={() => pan(0, -12)}>↓</button>
-        <span className={styles.zoomReadout} aria-live="off">{Math.round(view.s * 100)}%</span>
-        {record.clipSeconds !== undefined && <button type="button" className={styles.clipButton} aria-expanded={clip}
-          onClick={() => { if (clip) video.current?.pause(); setClip(!clip); }}>
-          {clip ? 'Close clip' : `Play clip from ${clipTime(record.clipSeconds)}`}</button>}
+  return <div className={styles.photoMain}>
+    <figure className={styles.photoEvidence}>
+      <div className={styles.photoFrame} tabIndex={0} role="group" onKeyDown={keys}
+        aria-label={`${record.title}. Photo inspection: plus and minus zoom, arrow keys pan, 0 resets.`}>
+        {available
+          ? <img src={media.src} alt={media.alt} onError={() => setFailed(true)}
+            style={{ transform: `translate(${view.x}%, ${view.y}%) scale(${view.s})` }} draggable={false} />
+          : <div className={styles.photoNotice}><span aria-hidden="true">▧</span><p>{record.media.status === 'available' ? 'Photo unavailable — the local file could not be loaded. This record is unchanged.' : record.media.reason}</p></div>}
       </div>
-      {clip && record.clipSeconds !== undefined && <figure className={styles.clip}>
-          <video ref={video} src={CLIP} controls playsInline preload="metadata"
-            onLoadedMetadata={e => {
-              const element = e.currentTarget;
-              element.currentTime = record.clipSeconds!;
-              // The user can leave the mobile Stage before metadata becomes available.
-              if (element.getClientRects().length) void element.play().catch(() => undefined);
-            }} />
-          <figcaption>Actual supplied footage from {clipTime(record.clipSeconds)}. Clip time is not a capture date.</figcaption>
-        </figure>}
-    </div>
-    <figure className={styles.siteInset}>
-      <img src={SITE_CONTEXT} width={720} height={580} alt="Robertson Hall and nearby campus streets with one approximate phone GPS tag." />
-      <figcaption>Approximate site location from one phone GPS tag. All five defects are unplaced.</figcaption>
+      <figcaption className={styles.photoBadge}>{stop !== undefined ? `Record ${String(stop).padStart(2, '0')} · ` : ''}Actual clip frame · location not yet placed</figcaption>
     </figure>
+    <div className={styles.photoTools} role="group" aria-label="Photo inspection controls">
+      <button type="button" aria-label="Zoom in on photo" aria-disabled={!available || view.s >= MAX_SCALE} onClick={() => available && zoom(.5)}>+</button>
+      <button type="button" aria-label="Zoom out of photo" aria-disabled={!available || view.s <= 1} onClick={() => available && zoom(-.5)}>−</button>
+      <button type="button" aria-disabled={!available || (view.s === 1 && !view.x && !view.y)} onClick={reset}>Reset</button>
+      <button type="button" aria-label="Pan photo left" aria-disabled={!canPan} onClick={() => pan(12, 0)}>←</button>
+      <button type="button" aria-label="Pan photo right" aria-disabled={!canPan} onClick={() => pan(-12, 0)}>→</button>
+      <button type="button" aria-label="Pan photo up" aria-disabled={!canPan} onClick={() => pan(0, 12)}>↑</button>
+      <button type="button" aria-label="Pan photo down" aria-disabled={!canPan} onClick={() => pan(0, -12)}>↓</button>
+      <span className={styles.zoomReadout} aria-live="off">{Math.round(view.s * 100)}%</span>
+      {record.clipSeconds !== undefined && <button type="button" className={styles.clipButton} aria-expanded={clip}
+        onClick={() => { if (clip) video.current?.pause(); setClip(!clip); }}>
+        {clip ? 'Close clip' : `Play clip from ${clipTime(record.clipSeconds)}`}</button>}
+    </div>
+    {clip && record.clipSeconds !== undefined && <figure className={styles.clip}>
+        <video ref={video} src={CLIP} controls playsInline preload="metadata"
+          onLoadedMetadata={e => {
+            const element = e.currentTarget;
+            element.currentTime = record.clipSeconds!;
+            // The user can leave the mobile Stage before metadata becomes available.
+            if (element.getClientRects().length) void element.play().catch(() => undefined);
+          }} />
+        <figcaption>Actual supplied footage from {clipTime(record.clipSeconds)}. Clip time is not a capture date.</figcaption>
+      </figure>}
   </div>;
 }

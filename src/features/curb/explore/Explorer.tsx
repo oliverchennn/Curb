@@ -131,12 +131,15 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const pointLayer: CampusPointLayer | undefined = inventory ? {
     records: inventory.results, selected: selectedPoint, request: pointRequest, onSelect: selectPoint,
   } : undefined;
-  const selectRecord = (id: string) => {
+  const selectRecord = (id: string, revealDetails = true) => {
     if (collection) setCollectionId(collection.id);
     if (showPointBrowser) closePointBrowser(false);
     setRecordId(id);
     setOverview(false);
-    setPanel(previous => previous === 'map' ? 'evidence' : previous);
+    setPanel(previous => {
+      if (!revealDetails) return 'map';
+      return previous === 'map' ? 'evidence' : previous;
+    });
   };
   const chooseCollection = (c: Collection) => {
     setPointRequest(null);
@@ -174,7 +177,9 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
   const step = (offset: number) => { if (records.length) selectRecord(records[(index + offset + records.length) % records.length].id); };
   const feature = record ? atlas.features.find(f => f.id === record.featureId) : undefined;
   const sourceTags = feature && isCampus(collection?.id) ? campusSourceTags(feature.properties) : [];
-  const chip = feature ? feature.geometry ? feature.properties.status ? `${sourceClass(feature.properties, feature.type)} · ${feature.properties.status}` : sourceClass(feature.properties, feature.type) : 'Not on map' : '';
+  const fieldCollection = collection?.kind === 'field';
+  const chip = feature ? feature.geometry ? feature.properties.status ? `${sourceClass(feature.properties, feature.type)} · ${feature.properties.status}` : sourceClass(feature.properties, feature.type)
+    : fieldCollection ? 'Exact location unverified' : 'Not on map' : '';
   useEffect(() => { if (filtered) setFiltersOpen(true); }, [filtered]);
   // A deep link that asks for the evidence opens the details; on phones, bring them into view once.
   useEffect(() => {
@@ -243,11 +248,15 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
         </> : <>
           <div className={styles.mapHeading}>
             <h2>{collection?.name ?? 'No matching evidence'}</h2>
-            {counts && <span className={styles.coverage}><b>{counts.records}</b> {inCampusSection ? 'ways' : 'records'} · <b>{counts.mappedRecords}</b> on map · <b>{counts.unplacedRecords}</b> not on map{counts.conflictRecords > 0 && <> · <b>{counts.conflictRecords}</b> in conflict</>}
+            {counts && <span className={styles.coverage}><b>{counts.records}</b> {inCampusSection ? 'ways' : 'records'} · {fieldCollection
+              ? <><b>{counts.mappedRecords}</b> verified locations</>
+              : <><b>{counts.mappedRecords}</b> on map · <b>{counts.unplacedRecords}</b> not on map</>}
+              {counts.conflictRecords > 0 && <> · <b>{counts.conflictRecords}</b> in conflict</>}
               {records.length < all.length && <> · {records.length} match <button type="button" onClick={clear}>Show all</button></>}</span>}
             <span className={styles.traversal}>{collection ? traversalText(collection) : 'Current traversal: Unknown'}</span>
           </div>
-          <EvidenceStage atlas={atlas} collection={collection} records={records} record={record} stops={stops} onSelect={selectRecord} onReset={clear}
+          <EvidenceStage atlas={atlas} collection={collection} records={records} record={record} stops={stops} onSelect={selectRecord}
+            onInspect={id => selectRecord(id, false)} onReset={clear}
             mapOptions={inCampusSection ? { set: 'campus', context: paths.all, section: campusSections.find(section => section.collectionId === collection?.id), osm: true, dense: true, pointLayer } : undefined} />
           {collection && record && <div className={styles.navigator} role="group" aria-label="Selected record">
             <button type="button" aria-label="Previous snapshot" onClick={() => step(-1)}>‹</button>
@@ -301,6 +310,6 @@ export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
       <span>Local catalog · no live updates</span>
     </footer>
     <p className={styles.srOnly} role="status" aria-live="polite">{showOverview ? `Princeton campus overview: ${campusCounts.selectedWays} OpenStreetMap ways in ${campusCounts.sections} sections. Current traversal unknown.`
-      : collection ? `${collection.name}, ${records.length} matching records. ${record ? `Record ${stops.get(record.id)}: ${record.title}` : ''}. Current traversal unknown. ${counts?.unplacedRecords ?? 0} records not on the map in this collection.` : 'No matching evidence. Show the complete atlas to restore all collections.'}</p>
+      : collection ? `${collection.name}, ${records.length} matching records. ${record ? `Record ${stops.get(record.id)}: ${record.title}` : ''}. Current traversal unknown. ${counts?.unplacedRecords ?? 0} records ${fieldCollection ? 'without verified locations' : 'not on the map'}.` : 'No matching evidence. Show the complete atlas to restore all collections.'}</p>
   </div>;
 }

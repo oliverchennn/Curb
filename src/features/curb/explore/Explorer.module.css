@@ -155,12 +155,8 @@
 .navigator>.detailsToggle { font-size:14px; padding:6px 14px; background:#30563b; border-color:#30563b; color:#fffef8; }
 .navigator>.detailsToggle:hover { background:#24432d; }
 
-/* Field evidence keeps the source crop beside the full site map. */
+/* Field evidence sizes its columns to the available stage, including when the drawer is open. */
 .stage[data-mode=photo] { container-type:inline-size; }
-.photoStage { display:grid; gap:14px; padding:12px 14px 14px; align-items:start; }
-@container (min-width:780px) {
-  .photoStage { grid-template-columns:minmax(0,2.2fr) minmax(0,1fr); }
-}
 .photoMain { display:grid; gap:8px; min-width:0; }
 .photoEvidence { margin:0; min-width:0; }
 .photoFrame { background:#20241e; border-radius:6px; overflow:hidden; display:grid; place-items:center; }
@@ -175,11 +171,10 @@
 .zoomReadout { min-width:52px; text-align:center; font-size:14px; font-variant-numeric:tabular-nums; color:var(--quiet); }
 .photoTools .clipButton { margin-left:auto; font-size:14px; background:#30563b; border-color:#30563b; color:#fffef8; }
 .photoTools .clipButton:hover { background:#24432d; }
-.clip, .siteInset { margin:0; border:1px solid var(--border); border-radius:6px; background:#fffef8; overflow:hidden; }
+.clip { margin:0; border:1px solid var(--border); border-radius:6px; background:#fffef8; overflow:hidden; }
 .clip { width:min(100%,22rem); }
 .clip video { display:block; width:100%; height:auto; max-height:360px; object-fit:contain; background:#111; }
-.siteInset img { display:block; width:100%; height:auto; background:#eef0e5; }
-.clip figcaption, .siteInset figcaption { padding:7px 9px; font-size:14px; line-height:1.45; color:#56634f; }
+.clip figcaption { padding:7px 9px; font-size:14px; line-height:1.45; color:#56634f; }
 .conflictBanner { margin:12px 14px 0; padding:11px 13px; background:#fbf0d4; border:1px solid #d4b77b; border-radius:5px; font-size:14px; line-height:1.55; color:#5f4615; }
 .stagePair { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px 14px 15px; }
 .stagePair .comparisonCard { padding:12px; background:#fffef8; }
@@ -252,7 +247,7 @@
   .navCount { margin-right:auto; }
   .drawer { border-left:0; border-top:1px solid var(--border); max-height:none; }
   .drawerHeading { position:static; }
-  .photoStage { padding:12px; }.photoTools .clipButton { margin-left:0; flex-basis:100%; }
+  .photoTools .clipButton { margin-left:0; flex-basis:100%; }
   .stagePair { grid-template-columns:1fr; }
   .recordMeta>div, .attributes dl>div { grid-template-columns:1fr; gap:0; }
 }

@@ -1,0 +1,130 @@
+.layout {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+  padding: 14px;
+}
+
+@container (min-width: 760px) {
+  .layout { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); }
+}
+
+.mapPanel, .inspector {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #d6decd;
+  border-radius: 9px;
+  background: #fffef8;
+}
+
+.panelHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panelHeading h3, .inspectorHeading h3 { margin: 0; color: #213a2c; font-size: 21px; line-height: 1.2; }
+.panelHeading p, .mapStatus, .reviewNote { margin: 5px 0 0; color: #56634f; font-size: 14px; line-height: 1.45; }
+.fit, .findings button {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid #c6d0bd;
+  border-radius: 6px;
+  background: #fffef8;
+  color: #244432;
+  font-size: 14px;
+  font-weight: 700;
+}
+.fit:hover, .findings button:hover { background: #e9efe1; }
+.placement { margin: 10px 0; padding: 7px 9px; border-radius: 5px; background: #f7ecd2; color: #593f1b; font-size: 13px; line-height: 1.4; }
+.map {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #687757;
+  background: #3c4a38;
+}
+.aerial { display: block; width: 100%; height: 100%; }
+.leaders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.leaders line { stroke: #fff4bd; stroke-width: 2; filter: drop-shadow(0 0 1px #1b221a) drop-shadow(0 1px 1px #1b221a); }
+.annotation { display: contents; }
+.map .marker, .map .callout { border-radius: 0; }
+.hallOutline { fill: #dce8cf18; stroke: #f5f8df; stroke-width: 1.5; pointer-events: none; }
+.mapLabel, .hallLabel {
+  position: absolute;
+  padding: 4px 7px;
+  background: #14251e;
+  color: #fffef8;
+  font-size: 12px;
+  font-weight: 650;
+  pointer-events: none;
+}
+.mapLabel { inset: 8px auto auto 8px; }
+.hallLabel { transform: translate(-50%, -50%); white-space: nowrap; }
+.marker {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  color: #ffe600;
+}
+.marker svg { width: 23px; height: 23px; pointer-events: none; }
+.marker:hover, .marker[aria-pressed='true'] { color: #fff44a; background: transparent; }
+.marker:focus-visible { outline: 3px solid #fff59b; outline-offset: 2px; }
+.map[data-zoom='site'] .marker { width: min(1.6%, 12px); height: auto; aspect-ratio: 1; }
+.map[data-zoom='site'] .marker svg { width: 100%; height: 100%; }
+.map[data-zoom='site'] .annotation[data-finding='robertson:defect-04'] .marker svg { width: 135%; height: 135%; }
+.map[data-zoom='finding'] .marker svg { width: 28px; height: 28px; }
+.callout {
+  position: absolute;
+  width: clamp(57px, 23%, 120px);
+  min-height: 38px;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  border: 2px solid #ffdc87;
+  background: #20241e;
+  box-shadow: 0 1px 5px #171a13;
+}
+.callout:hover, .callout[aria-pressed='true'] { border-color: #fff59b; background: #20241e; }
+.callout:focus-visible { outline: 3px solid #fff59b; outline-offset: 2px; }
+.callout img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.callout span {
+  position: absolute;
+  inset: 0 auto auto 0;
+  padding: 2px 4px;
+  background: #ffdc87;
+  color: #251612;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.credit { margin: 6px 0 10px; font-size: 12px; }
+.findings { display: flex; flex-wrap: wrap; gap: 6px; }
+.findings button[aria-pressed='true'] { border-color: #244432; background: #244432; color: #fffef8; }
+.inspector { display: grid; align-content: start; gap: 10px; }
+.inspectorHeading p { margin: 0 0 4px; color: #56634f; font-size: 12px; font-weight: 750; text-transform: uppercase; letter-spacing: .055em; }
+.inspectorHeading h3 { scroll-margin-top: 14px; }
+.findingDetail { display: grid; gap: 8px; border-top: 1px solid #e3e8d9; padding-top: 10px; color: #374d3c; font-size: 14px; line-height: 1.5; }
+.findingDetail p { margin: 0; }
+.findingDetail summary { width: fit-content; min-height: 44px; padding-block: 10px; cursor: pointer; font-weight: 650; }
+.findingDetail ul { margin: 0; padding-inline-start: 21px; }
+.findingDetail a { justify-self: start; display: flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 650; }
+
+@media (max-width: 480px) {
+  .layout { padding: 10px; }
+  .mapPanel, .inspector { padding: 10px; }
+}
+
+@media (max-width: 360px) {
+  .callout { min-height: 34px; }
+}

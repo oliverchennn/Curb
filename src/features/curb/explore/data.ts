@@ -5,6 +5,8 @@ import { atlasSchema, featureSchema, type EvidenceRecord, type Feature } from '.
 
 const repository = 'https://github.com/oliverchennn/Curb';
 const pinned = `${repository}/blob/6b2b11040eed8d3d620743bc4e12e112f9ebfa90`;
+export const robertsonSite = survey.site;
+export const robertsonFindings = new Map(survey.findings.map(finding => [`robertson:${finding.id}`, finding]));
 const titles: Record<string, string> = {
   '889957': 'Plaza approach sidewalk', '834112': 'Spring Street crossing', '809875': 'East Witherspoon sidewalk',
   '986574': 'Northeast corner link', '834108': 'Nassau east crossing', '1010009': 'Witherspoon crossing',
