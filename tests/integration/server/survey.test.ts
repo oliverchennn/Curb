@@ -107,9 +107,10 @@ describe('Robertson report POST', () => {
     expect(text).toContain('裂缝检查 &lt;em&gt;A &amp; B&lt;/em&gt;');
     expect(text).toContain('王小明');
     expect(text).not.toContain('<em>A & B</em>');
-    expect(text.match(/<img\b/g)).toHaveLength(5);
-    expect(text.match(/src="data:image\/jpeg;base64,/g)).toHaveLength(5);
-    expect(text.match(/<figcaption\b/g)).toHaveLength(5);
+    // One photo per evidence card (5), plus one per active finding in the facilities handoff (4; one is rejected).
+    expect(text.match(/<img\b/g)).toHaveLength(9);
+    expect(text.match(/src="data:image\/jpeg;base64,/g)).toHaveLength(9);
+    expect(text.match(/<figcaption\b/g)).toHaveLength(9);
     expect(text).toContain('Provisional finding priority');
     expect(text).toContain('Work-area planning priority');
     expect(text).toContain('panel-01');

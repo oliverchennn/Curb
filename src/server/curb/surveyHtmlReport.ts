@@ -1,6 +1,9 @@
 import { Buffer } from 'node:buffer';
 import type { Cost, Finding, PlanId, RepairPlan, Survey } from '../../contracts/curb/survey';
 import { costRange } from '../../domain/curb/survey';
+import { UNCERTAINTY_LABELS } from '../../domain/curb/measurements';
+import { ACCESS_NEED_LABELS, LOCATION_CONFIDENCE_LABELS, WORKFLOW_LABELS, workflowStatus, workflowSummary } from '../../domain/curb/repair';
+import { buildHandoff, type HandoffRow } from './handoff';
 
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 const entities: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -159,7 +162,7 @@ function renderFinding(finding: Finding, area: Survey['workAreas'][number] | und
       + evidenceTime + ' seconds, displayed frame ' + frame + ' · ' + escapeHtml(finding.id) + '</figcaption></figure>',
     '<h4>Finding review</h4>',
     '<dl><dt>Review status</dt><dd>' + escapeHtml(review.status)
-      + '</dd><dt>Review method</dt><dd>' + (review.method === 'ai' ? 'AI-assisted' : 'Manual')
+      + '</dd><dt>Review method</dt><dd>' + (review.method === 'ai' ? 'CLIP model' : 'Manual')
       + '</dd><dt>Reviewer</dt><dd>' + escapeHtml(review.reviewer)
       + '</dd><dt>Review note</dt><dd>' + escapeHtml(review.note) + '</dd></dl>',
     review.status === 'rejected' ? '<p>Excluded from repair selection. Evidence retained for review.</p>' : '',
@@ -175,6 +178,57 @@ function renderFinding(finding: Finding, area: Survey['workAreas'][number] | und
       + (check.status === 'needs_measurement' ? 'Measurement needed' : 'Not assessed') + '. ' + escapeHtml(check.note) + '</li>').join('') + '</ul>',
     '<p>' + (finding.mapPosition ? 'Approximate map position. ' + escapeHtml(finding.mapPosition.note) : 'Finding position on map unknown.') + '</p>',
     '</article>',
+  ].join('\n');
+}
+
+function videoTime(seconds: number): string {
+  const whole = Math.floor(seconds);
+  return Math.floor(whole / 60) + ':' + String(whole % 60).padStart(2, '0');
+}
+
+/** Facilities-facing summary: one row per active finding, then a card with the detail. */
+function renderHandoff(survey: Survey, plan: RepairPlan, closeupUris: ReadonlyMap<string, string>, appOrigin: string | undefined): string {
+  const { rows, rejected } = buildHandoff(survey, plan);
+  const link = (finding: Finding) => (appOrigin ?? '') + '/curb/surveys/' + survey.id + '?finding=' + encodeURIComponent(finding.id);
+  const card = (row: HandoffRow) => [
+    '<article class="card" id="handoff-' + escapeHtml(row.finding.id) + '">',
+    '<h3>' + escapeHtml(row.finding.label) + '</h3>',
+    row.tags.length ? '<p class="tags"><strong>Open questions:</strong> ' + row.tags.map(tag => escapeHtml(UNCERTAINTY_LABELS[tag])).join(' · ') + '</p>' : '',
+    '<figure><img src="' + closeupUris.get(row.finding.id) + '" alt="Close-up photo of ' + escapeHtml(row.repair.obstacle.toLowerCase()) + '">'
+      + '<figcaption>Photo from the video at ' + videoTime(row.finding.evidenceTime) + '. <a href="' + escapeHtml(link(row.finding)) + '">Open this finding in the survey replay</a>.</figcaption></figure>',
+    '<dl>',
+    '<dt>Obstacle</dt><dd>' + escapeHtml(row.repair.obstacle) + '</dd>',
+    '<dt>Location</dt><dd>' + escapeHtml(row.repair.location) + ' · Confidence: ' + escapeHtml(LOCATION_CONFIDENCE_LABELS[row.repair.locationConfidence]) + '</dd>',
+    '<dt>Who is affected</dt><dd>' + (row.repair.accessNeeds.length ? escapeHtml(row.repair.accessNeeds.map(need => ACCESS_NEED_LABELS[need]).join(', ')) : 'Not recorded') + '</dd>',
+    '<dt>Owner</dt><dd>' + escapeHtml(row.repair.owner ?? 'Unassigned') + '</dd>',
+    '<dt>Review and repair status</dt><dd>Review ' + escapeHtml(row.finding.review.status) + ' · Repair ' + escapeHtml(WORKFLOW_LABELS[workflowStatus(row.finding)]) + '</dd>',
+    '<dt>Proposed action</dt><dd>' + escapeHtml(row.action) + '</dd>',
+    '<dt>Priority rationale</dt><dd>' + escapeHtml(row.rationale) + '</dd>',
+    '<dt>Cost</dt><dd>' + escapeHtml(row.cost) + '</dd>',
+    '</dl>',
+    '<h4>Repair history</h4><ol>' + row.repair.workflow.map(step => '<li>' + escapeHtml((step.action === 'reopen' ? 'Reopened to ' : '') + WORKFLOW_LABELS[step.status])
+      + ' · ' + escapeHtml(step.by) + ' · <time datetime="' + escapeHtml(step.at) + '">' + escapeHtml(step.at) + '</time> · ' + escapeHtml(step.note)
+      + (step.evidence ? ' Evidence: ' + escapeHtml(step.evidence) : '') + '</li>').join('') + '</ol>',
+    '</article>',
+  ].join('\n');
+  return [
+    '<section id="handoff" aria-labelledby="handoff-heading">',
+    '<h2 id="handoff-heading">Facilities handoff</h2>',
+    '<p>Ranked by access impact: severity, whether an essential destination is blocked, and how many access needs are affected. Each row shows how sure the ranking is.</p>',
+    '<p><strong>Repair progress:</strong> ' + escapeHtml(workflowSummary(survey).text) + '.</p>',
+    '<p><strong>Not an ADA compliance determination.</strong> Checks compare estimated or measured values with stated ADA limits. Field measurement and professional review are still needed where marked.</p>',
+    rows.length ? '<table class="handoff"><caption>Repairs for facilities, highest priority first</caption><thead><tr>'
+      + '<th scope="col">Finding</th><th scope="col">Priority</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Proposed action</th><th scope="col">Cost</th>'
+      + '</tr></thead><tbody>' + rows.map(row => '<tr><th scope="row"><a href="#handoff-' + escapeHtml(row.finding.id) + '">' + escapeHtml(row.finding.label) + '</a></th>'
+        + '<td>' + escapeHtml(row.score.band) + ' (' + row.score.score + '/100), confidence ' + escapeHtml(row.score.confidence.level) + '</td>'
+        + '<td>' + escapeHtml(row.repair.owner ?? 'Unassigned') + '</td>'
+        + '<td>' + escapeHtml(WORKFLOW_LABELS[workflowStatus(row.finding)]) + '</td>'
+        + '<td>' + escapeHtml(row.action) + '</td>'
+        + '<td>' + escapeHtml(row.cost) + '</td></tr>').join('') + '</tbody></table>'
+      : '<p>No active findings to hand off.</p>',
+    ...rows.map(card),
+    rejected.length ? '<p><strong>Rejected, not handed off:</strong> ' + rejected.map(f => escapeHtml(f.label)).join(', ') + '.</p>' : '',
+    '</section>',
   ].join('\n');
 }
 
@@ -205,6 +259,12 @@ const styles = `
   figure { margin: .8rem 0; }
   img { display: block; max-width: 100%; max-height: 22rem; object-fit: contain; }
   figcaption { margin-top: .4rem; color: #46534a; }
+  table.handoff { width: 100%; border-collapse: collapse; margin: .75rem 0 1rem; background: #fff; }
+  table.handoff caption { text-align: left; font-weight: 650; color: var(--forest); padding-bottom: .35rem; }
+  table.handoff th, table.handoff td { border: 1px solid var(--rule); padding: .4rem .5rem; text-align: left; vertical-align: top; overflow-wrap: normal; word-break: normal; hyphens: manual; }
+  table.handoff td:nth-child(3), table.handoff td:nth-child(4), table.handoff thead th:nth-child(3), table.handoff thead th:nth-child(4) { white-space: nowrap; }
+  table.handoff thead th { background: var(--soft); }
+  .tags { color: #6b3f00; }
   code { overflow-wrap: anywhere; }
   :target { scroll-margin-block: 1rem; }
   @page { margin: 14mm; }
@@ -224,6 +284,8 @@ export function renderSurveyHtmlReport(
   plans: RepairPlan[],
   selectedPlanId: PlanId,
   closeups: ReadonlyMap<string, Uint8Array>,
+  /** Origin of the running app, so the report's links open the survey replay. */
+  appOrigin?: string,
 ): string {
   const selected = plans.find(plan => plan.id === selectedPlanId);
   if (!selected) throw new Error('Selected plan is missing from the survey report');
@@ -233,6 +295,7 @@ export function renderSurveyHtmlReport(
   const findings = new Map(survey.findings.map(finding => [finding.id, finding]));
   const areasByFinding = new Map(survey.workAreas.flatMap(area => area.findingIds.map(id => [id, area] as const)));
   const pending = survey.findings.filter(finding => finding.review.status === 'pending').length;
+  const closeupUris = new Map(survey.findings.map(finding => [finding.id, closeupUri(finding.id, closeups.get(finding.id))]));
   const rejected = survey.findings.filter(finding => finding.review.status === 'rejected');
 
   return [
@@ -251,6 +314,7 @@ export function renderSurveyHtmlReport(
     '<h1>' + escapeHtml(survey.title) + '</h1>',
     '<p class="meta">' + escapeHtml(survey.site.name) + ' · Survey ' + escapeHtml(survey.id) + ' · Revision ' + survey.revision + '</p>',
     '<nav aria-label="Report sections"><ul>',
+    '<li><a href="#handoff">Facilities handoff</a></li>',
     '<li><a href="#plans">Plan comparison</a></li>',
     '<li><a href="#work-areas">Work areas and estimates</a></li>',
     '<li><a href="#findings">Finding evidence</a></li>',
@@ -258,6 +322,7 @@ export function renderSurveyHtmlReport(
     '</ul></nav>',
     '</header>',
     '<main id="main" tabindex="-1">',
+    renderHandoff(survey, selected, closeupUris, appOrigin),
     '<section id="plans" aria-labelledby="plans-heading">',
     '<h2 id="plans-heading">Plan comparison</h2>',
     '<p>' + escapeHtml(survey.site.locationNote) + '</p>',
@@ -280,7 +345,7 @@ export function renderSurveyHtmlReport(
     '<section id="findings" aria-labelledby="findings-heading">',
     '<h2 id="findings-heading">Finding evidence</h2>',
     survey.findings.length ? '' : '<p>No findings are recorded for this survey.</p>',
-    ...survey.findings.map(finding => renderFinding(finding, areasByFinding.get(finding.id), closeupUri(finding.id, closeups.get(finding.id)), survey.media.fps)),
+    ...survey.findings.map(finding => renderFinding(finding, areasByFinding.get(finding.id), closeupUris.get(finding.id)!, survey.media.fps)),
     '</section>',
     '<section id="sources" aria-labelledby="sources-heading">',
     '<h2 id="sources-heading">Sources and provenance</h2>',

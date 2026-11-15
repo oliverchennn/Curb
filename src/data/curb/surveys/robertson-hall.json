@@ -127,6 +127,30 @@
       },
       "measurements": [],
       "mapPosition": null,
+      "repair": {
+        "obstacle": "Crack across the walking path with a broken edge",
+        "location": "North sidewalk of Prospect Avenue, outside Robertson Hall, about 7 seconds into the walk",
+        "locationConfidence": "approximate",
+        "accessNeeds": [
+          "mobility_device",
+          "low_vision_cane",
+          "walker"
+        ],
+        "owner": null,
+        "essentialDestination": "unknown",
+        "destinationNote": null,
+        "professionalReview": false,
+        "workflow": [
+          {
+            "status": "submitted",
+            "action": "advance",
+            "by": "CLIP model",
+            "at": "2026-11-14T07:33:00-05:00",
+            "note": "Flagged from the walking video.",
+            "evidence": null
+          }
+        ]
+      },
       "track": [
         {
           "frame": 105,
@@ -1303,6 +1327,29 @@
       },
       "measurements": [],
       "mapPosition": null,
+      "repair": {
+        "obstacle": "Crack at a panel joint with a loose piece",
+        "location": "North sidewalk of Prospect Avenue, outside Robertson Hall, about 10 seconds into the walk",
+        "locationConfidence": "approximate",
+        "accessNeeds": [
+          "mobility_device",
+          "walker"
+        ],
+        "owner": null,
+        "essentialDestination": "unknown",
+        "destinationNote": null,
+        "professionalReview": true,
+        "workflow": [
+          {
+            "status": "submitted",
+            "action": "advance",
+            "by": "CLIP model",
+            "at": "2026-11-14T07:33:00-05:00",
+            "note": "Flagged from the walking video.",
+            "evidence": null
+          }
+        ]
+      },
       "track": [
         {
           "frame": 195,
@@ -2317,6 +2364,29 @@
       },
       "measurements": [],
       "mapPosition": null,
+      "repair": {
+        "obstacle": "Thin diagonal crack across the walking path",
+        "location": "North sidewalk of Prospect Avenue, outside Robertson Hall, about 12 seconds into the walk",
+        "locationConfidence": "approximate",
+        "accessNeeds": [
+          "mobility_device",
+          "low_vision_cane"
+        ],
+        "owner": null,
+        "essentialDestination": "unknown",
+        "destinationNote": null,
+        "professionalReview": false,
+        "workflow": [
+          {
+            "status": "submitted",
+            "action": "advance",
+            "by": "CLIP model",
+            "at": "2026-11-14T07:33:00-05:00",
+            "note": "Flagged from the walking video.",
+            "evidence": null
+          }
+        ]
+      },
       "track": [
         {
           "frame": 270,
@@ -3278,6 +3348,31 @@
       },
       "measurements": [],
       "mapPosition": null,
+      "repair": {
+        "obstacle": "Broken, crumbling surface beside the walking path",
+        "location": "North sidewalk of Prospect Avenue, outside Robertson Hall, about 6 seconds into the walk",
+        "locationConfidence": "approximate",
+        "accessNeeds": [
+          "mobility_device",
+          "low_vision_cane",
+          "walker",
+          "stroller"
+        ],
+        "owner": null,
+        "essentialDestination": "unknown",
+        "destinationNote": null,
+        "professionalReview": true,
+        "workflow": [
+          {
+            "status": "submitted",
+            "action": "advance",
+            "by": "CLIP model",
+            "at": "2026-11-14T07:33:00-05:00",
+            "note": "Flagged from the walking video.",
+            "evidence": null
+          }
+        ]
+      },
       "track": [
         {
           "frame": 0,
@@ -6047,6 +6142,29 @@
       },
       "measurements": [],
       "mapPosition": null,
+      "repair": {
+        "obstacle": "Crack across the walking path",
+        "location": "North sidewalk of Prospect Avenue, outside Robertson Hall, about 14 seconds into the walk",
+        "locationConfidence": "approximate",
+        "accessNeeds": [
+          "mobility_device",
+          "low_vision_cane"
+        ],
+        "owner": null,
+        "essentialDestination": "unknown",
+        "destinationNote": null,
+        "professionalReview": false,
+        "workflow": [
+          {
+            "status": "submitted",
+            "action": "advance",
+            "by": "CLIP model",
+            "at": "2026-11-14T07:33:00-05:00",
+            "note": "Flagged from the walking video.",
+            "evidence": null
+          }
+        ]
+      },
       "track": [
         {
           "frame": 330,

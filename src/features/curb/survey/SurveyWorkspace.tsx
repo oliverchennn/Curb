@@ -7,7 +7,8 @@ import { ExportPanel } from './ExportPanel';
 import { FindingReview } from './FindingReview';
 import { PlanCompare } from './PlanCompare';
 import { editedFindingIds, formatTime, isEdited, parseBudgetInput, PLAN_ORDER, sliderMaxCents } from './presentation';
-import { clipSummary, type MeasureKey, type MeasurementEntries } from './measurements';
+import { clipSummary, entriesFromSurvey, withMeasurement, type MeasureKey, type MeasurementEntries } from './measurements';
+import { workflowSummary } from '../../../domain/curb/repair';
 import { SiteContext } from './SiteContext';
 import { VideoEvidence, type SeekRequest } from './VideoEvidence';
 import styles from './SurveyWorkspace.module.css';
@@ -143,6 +144,14 @@ export function SurveyWorkspace() {
 
   function setMeasure(findingId: string, key: MeasureKey, text: string) {
     setMeasurements((current) => ({ ...current, [findingId]: { ...current[findingId], [key]: text } }));
+    // Valid values are also stored on the survey, so exports, reports and reloads keep them.
+    setSurvey((current) => current ? withMeasurement(current, findingId, key, text) : current);
+  }
+
+  function loadReviewed(next: Survey) {
+    setSurvey(next);
+    setMeasurements(entriesFromSurvey(next));
+    setNotice('Loaded the reviewed survey from JSON.');
   }
 
   function changeTab(next: WorkTab) {
@@ -153,6 +162,7 @@ export function SurveyWorkspace() {
   function restore() {
     if (!edited) return;
     setSurvey(original);
+    setMeasurements(entriesFromSurvey(original));
     setNotice('Restored the original analysis. All review edits were discarded.');
   }
 
@@ -165,7 +175,7 @@ export function SurveyWorkspace() {
   return <div className={styles.workspace}>
     <Header survey={survey} />
     <div className={styles.summaryBar}>
-      <p><strong>{survey.findings.length} possible defects</strong> · {counts.accepted + counts.rejected} of {survey.findings.length} checked by a person</p>
+      <p><strong>{survey.findings.length} possible defects</strong> · {counts.accepted + counts.rejected} of {survey.findings.length} checked by a person · <span className={styles.workflowSummary}>Repairs: {workflowSummary(survey).text}</span></p>
       <details className={styles.pendingChecks}>
         <summary>Analysis and review status</summary>
         <dl className={styles.statusList}>
@@ -207,7 +217,7 @@ export function SurveyWorkspace() {
             measurements={measurements} onSelectFinding={selectFinding} />
         </div>
         <div role="tabpanel" id="survey-panel-export" aria-labelledby="survey-tab-export" hidden={tab !== 'export'} className={styles.tabPanel}>
-          <ExportPanel survey={survey} edited={edited} plan={selectedPlan} budgetCents={budgetCents} />
+          <ExportPanel survey={survey} original={original} edited={edited} plan={selectedPlan} budgetCents={budgetCents} onLoad={loadReviewed} />
         </div>
         </div>
         </div>

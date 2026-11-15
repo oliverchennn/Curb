@@ -1,4 +1,6 @@
 import type { Survey } from '../../contracts/curb/survey';
+import { entriesFromSurvey, priorityRationale, priorityScore } from './measurements';
+import { repairOf, workflowStatus } from './repair';
 
 const columns = [
   'survey_id',
@@ -26,6 +28,20 @@ const columns = [
   'measurements',
   'route_assessment_status',
   'route_assessment_note',
+  'obstacle',
+  'location',
+  'location_confidence',
+  'access_needs',
+  'owner',
+  'essential_destination',
+  'essential_destination_note',
+  'requires_professional_review',
+  'access_priority_score',
+  'access_priority',
+  'priority_confidence',
+  'priority_rationale',
+  'repair_status',
+  'repair_history',
 ] as const;
 
 type FindingRow = Record<(typeof columns)[number], string | number>;
@@ -40,7 +56,10 @@ function escapeCsvCell(value: string | number): string {
 
 /** Exports one record per finding. Lists and measurements retain their structure as JSON cells. */
 export function surveyToCsv(survey: Survey): string {
+  const entries = entriesFromSurvey(survey);
   const records = survey.findings.map((finding) => {
+    const repair = repairOf(finding, survey);
+    const score = priorityScore(finding, entries);
     const area = survey.workAreas.find((workArea) => workArea.findingIds.includes(finding.id));
     const { assessment, review } = finding;
     const row: FindingRow = {
@@ -69,6 +88,20 @@ export function surveyToCsv(survey: Survey): string {
       measurements: JSON.stringify(finding.measurements),
       route_assessment_status: survey.routeAssessment.status,
       route_assessment_note: survey.routeAssessment.note,
+      obstacle: repair.obstacle,
+      location: repair.location,
+      location_confidence: repair.locationConfidence,
+      access_needs: JSON.stringify(repair.accessNeeds),
+      owner: repair.owner ?? '',
+      essential_destination: repair.essentialDestination,
+      essential_destination_note: repair.destinationNote ?? '',
+      requires_professional_review: repair.professionalReview ? 'yes' : 'no',
+      access_priority_score: score.score,
+      access_priority: score.band,
+      priority_confidence: score.confidence.level,
+      priority_rationale: priorityRationale(score),
+      repair_status: finding.review.status === 'rejected' ? 'rejected' : workflowStatus(finding),
+      repair_history: JSON.stringify(repair.workflow),
     };
     return columns.map((column) => escapeCsvCell(row[column])).join(',');
   });

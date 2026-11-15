@@ -100,3 +100,13 @@ Exports: `PLAN_CONTRACT_VERSION` (`curb-r2`), `PLAN_SCHEMA_VERSION` (1), `MAX_PL
 | C | `/curb/plans` consumes typed HTTP transport and context metadata, validates comparison/context agreement and reuses the existing evidence panel by import. |
 
 Strict versioned success envelopes are HTTP 200; failures map `INVALID_REQUEST` → 400, `SCENARIO_NOT_FOUND` → 404, `STALE_SCENARIO` → 409, `INVALID_SERVER_SCENARIO` → 500. All responses use no-store. A validates loaded context, output schema and both matchers; client validates status/envelope/full request agreement and forwards cancellation. Malformed data, network failure or cancellation never trigger a sample fallback. No provider, live data, database, new package or field truth is introduced.
+
+## Survey repair handoff (curb-survey-v1, additive)
+
+`FindingSchema.repair` is an **optional** strict object, so earlier v1 surveys stay valid and the version stays `curb-survey-v1`. Readers use `repairOf()` in `src/domain/curb/repair.ts`, which fills safe defaults: owner unassigned, location confidence unknown, essential destination unknown, no access needs, history starting at submitted.
+
+- Fields: `obstacle`, `location`, `locationConfidence` (`confirmed|approximate|unknown`), `accessNeeds` (`mobility_device|low_vision_cane|walker|stroller`, unique), `owner` (nullable), `essentialDestination` (`yes|no|unknown`, a yes/no answer needs `destinationNote`), `professionalReview`, `workflow`.
+- `workflow` is the remediation history `submitted → reviewed → planned → completed → reverified`. Each step records `status`, `action` (`advance|reopen`), `by`, `at`, `note` and `evidence`. `workflowIssue()` in the contract enforces: start at submitted, advance one status at a time, reopen only from planned or later back to reviewed, timestamps in order, and fresh `evidence` for re-verified.
+- Reviewer field measurements are stored as `finding.measurements` entries with method `Reviewer field measurement`.
+- Report API (`isReviewOf`): reviewers may set owner, location confidence, the essential-destination answer, append workflow steps and add/remove reviewer measurements. The obstacle, location text, access needs, professional-review flag, earlier workflow steps and all other measurements must match the published survey.
+- Access-impact priority (`src/domain/curb/measurements.ts`): severity 45% (worst ADA check 80% + CLIP travel impact 20%), essential destination 30% (yes 100, unknown 30, no 0), access needs affected 25%. Confidence (measured share, person-checked, location confidence) is reported beside the score and never lowers severity. No automatic ADA-compliance verdict is produced.

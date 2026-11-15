@@ -7,6 +7,7 @@ import {
   type Survey,
 } from '../../contracts/curb/survey';
 import { buildRepairPlans, validateSurvey } from '../../domain/curb/survey';
+import { REVIEWER_METHOD } from '../../domain/curb/measurements';
 import { renderSurveyHtmlReport } from './surveyHtmlReport';
 import { renderSurveyReport } from './surveyReport';
 import { readJsonBody } from './readJsonBody';
@@ -62,12 +63,26 @@ function isReviewOf(edited: Survey, saved: Survey): boolean {
     const textChanged = label !== original.label || kind !== original.kind || description !== original.description;
     if ((reviewChanged || textChanged) && review.method !== 'manual') return finding;
 
+    // Reviewer field measurements may be added or removed; recorded ones may not change.
+    const measurements = finding.measurements.filter(m => m.method !== REVIEWER_METHOD);
+    // Reviewers may set the owner, location confidence, essential-destination answer and
+    // extend the workflow. The obstacle, location text, access needs and professional-review
+    // flag come from the published survey, and earlier workflow steps cannot be rewritten.
+    let repair = finding.repair;
+    if (original.repair && repair) {
+      const fixed = (r: NonNullable<typeof repair>) => [r.obstacle, r.location, r.accessNeeds, r.professionalReview];
+      const prefix = repair.workflow.slice(0, original.repair.workflow.length);
+      if (isDeepStrictEqual(fixed(repair), fixed(original.repair)) && isDeepStrictEqual(prefix, original.repair.workflow)) repair = original.repair;
+    }
+
     return {
       ...finding,
       label: original.label,
       kind: original.kind,
       description: original.description,
       review: original.review,
+      measurements,
+      repair,
     };
   });
   const workAreas = edited.workAreas.map(area => {
@@ -129,7 +144,7 @@ export async function postSurveyReportResponse(request: Request): Promise<Respon
     const plans = buildRepairPlans(survey, budgetCents ?? undefined);
     const closeups = await loadCloseups(saved);
     if (format === 'html') {
-      return new Response(renderSurveyHtmlReport(survey, plans, planId, closeups), {
+      return new Response(renderSurveyHtmlReport(survey, plans, planId, closeups, new URL(request.url).origin), {
         headers: {
           ...headers,
           'content-type': 'text/html; charset=utf-8',

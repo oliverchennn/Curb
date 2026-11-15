@@ -4,6 +4,9 @@ import {
 } from 'pdf-lib';
 import type { Cost, Finding, PlanId, RepairPlan, Survey } from '../../contracts/curb/survey';
 import { costRange } from '../../domain/curb/survey';
+import { UNCERTAINTY_LABELS } from '../../domain/curb/measurements';
+import { LOCATION_CONFIDENCE_LABELS, WORKFLOW_LABELS, workflowStatus, workflowSummary } from '../../domain/curb/repair';
+import { buildHandoff } from './handoff';
 
 const pageWidth = 612;
 const pageHeight = 792;
@@ -321,6 +324,26 @@ export async function renderSurveyReport(
     const unpricedItems = items.filter(item => item.cost.status === 'quote_required');
     if (unpricedItems.length) layout.text('Items requiring quotes  ' + labels(unpricedItems.map(named)), 'planAlert');
   }
+
+  const handoff = buildHandoff(survey, selected);
+  layout.start('Facilities handoff');
+  layout.text('Facilities handoff', 'heading');
+  layout.text('Ranked by access impact. Repair progress: ' + workflowSummary(survey).text + '. Not an ADA compliance determination.', 'planDetail');
+  for (const row of handoff.rows) {
+    layout.reserve(110);
+    layout.gap(4);
+    layout.divider(rule, 6);
+    layout.text(row.finding.label, 'planHeading');
+    if (row.tags.length) layout.text('Open questions  ' + row.tags.map(tag => UNCERTAINTY_LABELS[tag]).join('; '), 'planAlert');
+    layout.text('Obstacle  ' + row.repair.obstacle, 'planDetail');
+    layout.text('Location  ' + row.repair.location + ' (' + LOCATION_CONFIDENCE_LABELS[row.repair.locationConfidence] + ')', 'planDetail');
+    layout.text('Video  ' + row.finding.evidenceTime.toFixed(1) + ' s; photo on the finding evidence page', 'planDetail');
+    layout.text('Owner  ' + (row.repair.owner ?? 'Unassigned') + '   /   Repair status  ' + WORKFLOW_LABELS[workflowStatus(row.finding)], 'planDetail');
+    layout.text('Proposed action  ' + row.action, 'planDetail');
+    layout.text('Priority  ' + row.rationale, 'planDetail');
+    layout.text('Cost  ' + row.cost, row.cost.startsWith('Unknown') ? 'planAlert' : 'planDetail');
+  }
+  if (handoff.rejected.length) layout.text('Rejected, not handed off  ' + handoff.rejected.map(f => f.label).join(', '), 'planDetail');
 
   layout.start('Work areas and estimates');
   layout.text('Work areas and estimates', 'heading');

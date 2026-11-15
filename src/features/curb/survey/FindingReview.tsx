@@ -2,9 +2,28 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import type { Finding, Survey } from '../../../contracts/curb/survey';
+import type { Repair } from '../../../contracts/curb/survey';
+import { WORKFLOW_ORDER } from '../../../contracts/curb/survey';
+import {
+  ACCESS_NEED_SHORT,
+  canReopen,
+  LOCATION_CONFIDENCE_LABELS,
+  markReviewed,
+  moveWorkflow,
+  nextWorkflowStatus,
+  repairOf,
+  setEssentialDestination,
+  setLocationConfidence,
+  setOwner,
+  WORKFLOW_LABELS,
+  workflowStatus,
+} from '../../../domain/curb/repair';
 import {
   clipFor,
   ESTIMATES,
+  UNCERTAINTY_LABELS,
+  uncertaintyTags,
+  type PriorityScore,
   MEASURE_GROUPS,
   measureResults,
   priorityScore,
@@ -30,6 +49,8 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
   const [message, setMessage] = useState<string | null>(null);
   const reviewerError = message?.startsWith('Enter a reviewer') ? message : null;
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
+  const repair = finding ? repairOf(finding, survey) : null;
+  const score = finding ? priorityScore(finding, measurements) : null;
 
   // A message belongs to the finding it was raised for; selecting another finding clears it.
   useEffect(() => setMessage(null), [selectedFindingId]);
@@ -83,30 +104,42 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
       {siteContext}
       </div>
 
-      {finding ? <article className={styles.findingDetail} aria-labelledby="survey-finding-heading">
+      {finding && repair && score ? <article className={styles.findingDetail} aria-labelledby="survey-finding-heading">
         <h3 id="survey-finding-heading" tabIndex={-1}>{finding.label}</h3>
         <p className={styles.small}>Seen at {formatTime(finding.evidenceTime)} in the video</p>
         <Closeup key={finding.closeupSrc} src={finding.closeupSrc} alt={`Close-up of ${finding.label}`} />
         <p>{finding.description}</p>
 
+        <ul className={styles.tagRow} aria-label="Open questions">
+          {uncertaintyTags(survey, finding, measurements).map((tag) => <li key={tag} className={styles.uncertainTag}>{UNCERTAINTY_LABELS[tag]}</li>)}
+        </ul>
         <dl className={styles.facts}>
-          <div><dt>Review note</dt><dd><Fact {...reviewFact(finding)} /></dd></div>
-          <div><dt>Priority</dt><dd><Fact {...priorityFact(finding, measurements)} /></dd></div>
+          <div><dt>Obstacle</dt><dd><Fact headline={repair.obstacle} detail={finding.description} /></dd></div>
+          <div><dt>Location</dt><dd><Fact headline={repair.location} detail={`Location confidence: ${LOCATION_CONFIDENCE_LABELS[repair.locationConfidence]}.`} /></dd></div>
+          <div><dt>Impact</dt><dd><Fact headline={repair.accessNeeds.length ? repair.accessNeeds.map((need) => ACCESS_NEED_SHORT[need]).join(' · ') : 'Not recorded'}
+            detail={finding.assessment.accessImpacts[0] ?? 'No access effect recorded.'} /></dd></div>
+          <div><dt>Evidence</dt><dd><Fact {...evidenceFact(finding, measurements)} /></dd></div>
+          <div><dt>Owner</dt><dd><Fact headline={repair.owner ?? 'Unassigned'} detail={repair.owner ? 'Responsible for this repair.' : 'Set the person or department responsible below.'} /></dd></div>
+          <div><dt>Review status</dt><dd><Fact {...reviewFact(finding)} /></dd></div>
+          <div><dt>Priority</dt><dd><PriorityFact score={score} /></dd></div>
           <div><dt>Measurements</dt><dd><Fact {...measurementFact(finding, measurements)} /></dd></div>
         </dl>
-        <h4>Possible access effects</h4>
-        <ul className={styles.plainList}>{finding.assessment.accessImpacts.map((impact) => <li key={impact}>{impact}</li>)}</ul>
+        <p className={styles.notVerdict}>Checks compare values with stated ADA limits. This is not an ADA compliance determination.</p>
         <MeasureTable finding={finding} entries={measurements} onMeasure={onMeasure} />
 
         {/* aria-disabled rather than disabled: the used button keeps keyboard focus instead of dropping it to the page. */}
         <p className={styles.decisionHelp} id="survey-decision-help">
-          <strong>Accept</strong> confirms the defect is real: it is marked as checked by you and kept in the repair plan and report.{' '}
-          <strong>Reject</strong> removes it from the plan but keeps it in the record. Enter your name above first.
+          <strong>Accept</strong> confirms the defect is real: it is marked as checked by you, moves to “Reviewed”, and stays in the repair plan and report.{' '}
+          <strong>Reject</strong> removes it from the plan and the repair workflow but keeps it in the record. Enter your name above first.
         </p>
         <div className={styles.actions} role="group" aria-label="Review decision" aria-describedby="survey-decision-help">
           <button type="button" id="survey-accept" className={finding.review.status === 'accepted' ? styles.decided : undefined}
             aria-disabled={finding.review.status === 'accepted'}
-            onClick={() => { if (finding.review.status !== 'accepted') apply(setReviewStatus(survey, finding.id, 'accepted', reviewer), `Accepted “${finding.label}”.`); }}>Accept finding</button>
+            onClick={() => {
+              if (finding.review.status === 'accepted') return;
+              const result = setReviewStatus(survey, finding.id, 'accepted', reviewer);
+              apply(result.ok ? { ok: true, survey: markReviewed(result.survey, finding.id, reviewer) } : result, `Accepted “${finding.label}”. Repair status: reviewed.`);
+            }}>Accept finding</button>
           <button type="button" className={`${styles.secondaryButton} ${finding.review.status === 'rejected' ? styles.decided : ''}`}
             aria-disabled={finding.review.status === 'rejected'}
             onClick={() => { if (finding.review.status !== 'rejected') apply(setReviewStatus(survey, finding.id, 'rejected', reviewer), `Rejected “${finding.label}”. It stays in the record and is excluded from plans.`); }}>Reject finding</button>
@@ -117,6 +150,9 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
               if (done) setTimeout(() => document.getElementById('survey-accept')?.focus(), 0);
             }}>Mark pending</button> : null}
         </div>
+
+        <RepairPanel key={`${finding.id}:${repair.owner}:${repair.essentialDestination}:${repair.destinationNote}`} survey={survey} finding={finding} reviewer={reviewer}
+          onChange={(result, done) => apply(result, done)} />
 
         <CorrectionForm key={`${finding.id}:${finding.label}:${finding.kind}:${finding.description}`} finding={finding}
           onSave={(correction) => apply(correctFinding(survey, finding.id, correction, reviewer), `Saved corrections to “${correction.label.trim()}”.`)} />
@@ -177,12 +213,26 @@ function reviewFact(finding: Finding): { headline: string; detail: string } {
   };
 }
 
-function priorityFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
-  const score = priorityScore(finding, entries);
+function PriorityFact({ score }: { score: PriorityScore }) {
+  return <>
+    <strong className={styles.factHeadline}>{PRIORITY_WORDS[score.band]} priority · {score.score}/100 <span className={styles[`confidence_${score.confidence.level}`]}>Confidence: {score.confidence.level}</span></strong>
+    <span className={styles.factDetail}>Ranked by access impact. Confidence: {score.confidence.reasons.join(', ')}.</span>
+    <table className={styles.factorTable}>
+      <caption className={styles.srOnly}>Priority factors</caption>
+      <thead><tr><th scope="col">Factor</th><th scope="col">Weight</th><th scope="col">Points</th><th scope="col">Why</th></tr></thead>
+      <tbody>{score.factors.map((factor) => <tr key={factor.key}>
+        <th scope="row">{factor.label}</th><td>{Math.round(factor.weight * 100)}%</td><td>{factor.points}</td><td>{factor.detail}</td>
+      </tr>)}</tbody>
+    </table>
+  </>;
+}
+
+function evidenceFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
   const clip = clipFor(finding.id);
+  const measured = measureResults(finding.id, entries).filter((r) => r.source === 'measured').length;
   return {
-    headline: `${PRIORITY_WORDS[score.band]} priority · ${score.score}/100`,
-    detail: `Measurements say ${PRIORITY_WORDS[score.reviewer].toLowerCase()} (70%) and CLIP-based travel impact says ${PRIORITY_WORDS[score.clip].toLowerCase()} (30%)${clip ? `, because CLIP rated this ${Math.round(clip.impactScore * 100)}% likely to be hard to walk or roll over` : ''}.`,
+    headline: `Video at ${formatTime(finding.evidenceTime)} · close-up photo${clip ? ` · CLIP ${Math.round(clip.damageScore * 100)}% damage` : ''}`,
+    detail: `${measured ? `${measured} field measurement${measured === 1 ? '' : 's'} entered` : 'No field measurements yet'}${clip ? `; CLIP travel impact ${Math.round(clip.impactScore * 100)}%` : ''}.`,
   };
 }
 
@@ -191,7 +241,7 @@ function measurementFact(finding: Finding, entries: MeasurementEntries): { headl
   const measured = results.filter((r) => r.source === 'measured').length;
   const fails = results.filter((r) => r.status === 'fails').length;
   const almost = results.filter((r) => r.status === 'almost').length;
-  const verdict = fails ? `${fails} does not meet ADA` : almost ? `${almost} almost meets ADA` : 'All meet ADA';
+  const verdict = fails ? `${fails} check${fails === 1 ? '' : 's'} over the ADA limit` : almost ? `${almost} check${almost === 1 ? '' : 's'} close to the limit` : 'All checks within the limits';
   return {
     headline: `${verdict} · ${measured === 0 ? 'estimated' : `${measured} of ${results.length} measured`}`,
     detail: measured === results.length
@@ -244,4 +294,91 @@ function MeasureTable({ finding, entries, onMeasure }: {
 
 function estimateOf(findingId: string, key: MeasureKey): number | undefined {
   return ESTIMATES[findingId]?.[key];
+}
+
+type EditResult = { ok: true; survey: Survey } | { ok: false; message: string };
+
+/** Owner, essential destination, location confidence and the remediation workflow. */
+function RepairPanel({ survey, finding, reviewer, onChange }: {
+  survey: Survey;
+  finding: Finding;
+  reviewer: string;
+  onChange: (result: EditResult, done: string) => boolean;
+}) {
+  const repair = repairOf(finding, survey);
+  const [owner, setOwnerText] = useState(repair.owner ?? '');
+  const [destination, setDestination] = useState<Repair['essentialDestination']>(repair.essentialDestination);
+  const [destinationNote, setDestinationNote] = useState(repair.destinationNote ?? '');
+  const [note, setNote] = useState('');
+  const [evidence, setEvidence] = useState('');
+  const status = workflowStatus(finding);
+  const next = nextWorkflowStatus(finding);
+  const rejected = finding.review.status === 'rejected';
+
+  function step(action: 'advance' | 'reopen') {
+    const done = onChange(moveWorkflow(survey, finding.id, { action, by: reviewer, note, evidence }),
+      action === 'reopen' ? `Reopened “${finding.label}”.` : `Moved “${finding.label}” to ${next ? WORKFLOW_LABELS[next].toLowerCase() : ''}.`);
+    if (done) { setNote(''); setEvidence(''); }
+  }
+
+  return <section className={styles.repairPanel} aria-labelledby="survey-repair-heading">
+    <h4 id="survey-repair-heading">Repair handoff</h4>
+    <div className={styles.repairGrid}>
+      <label htmlFor="survey-owner">Owner
+        <span className={styles.inlineField}>
+          <input id="survey-owner" value={owner} placeholder="Unassigned" maxLength={200} onChange={(event) => setOwnerText(event.target.value)} />
+          <button type="button" className={styles.secondaryButton}
+            onClick={() => onChange({ ok: true, survey: setOwner(survey, finding.id, owner) }, owner.trim() ? `Owner set to ${owner.trim()}.` : 'Owner cleared.')}>Save</button>
+        </span>
+      </label>
+      <label htmlFor="survey-location-confidence">Location confidence
+        <select id="survey-location-confidence" value={repair.locationConfidence}
+          onChange={(event) => onChange({ ok: true, survey: setLocationConfidence(survey, finding.id, event.target.value as Repair['locationConfidence']) }, 'Location confidence updated.')}>
+          {(Object.keys(LOCATION_CONFIDENCE_LABELS) as Repair['locationConfidence'][]).map((value) => <option key={value} value={value}>{LOCATION_CONFIDENCE_LABELS[value]}</option>)}
+        </select>
+      </label>
+      <label htmlFor="survey-destination">Blocks the main route to an essential place?
+        <select id="survey-destination" value={destination} onChange={(event) => setDestination(event.target.value as Repair['essentialDestination'])}>
+          <option value="unknown">Unknown (not checked)</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </label>
+      {destination !== 'unknown' ? <label htmlFor="survey-destination-note">Which place, and why?
+        <input id="survey-destination-note" value={destinationNote} maxLength={400} placeholder="e.g. only step-free route to the main entrance"
+          onChange={(event) => setDestinationNote(event.target.value)} />
+      </label> : null}
+    </div>
+    {destination !== repair.essentialDestination || (destination !== 'unknown' && destinationNote !== (repair.destinationNote ?? ''))
+      ? <button type="button" className={styles.secondaryButton}
+        onClick={() => onChange(setEssentialDestination(survey, finding.id, destination, destinationNote), 'Essential destination updated.')}>Save destination answer</button> : null}
+
+    <h4>Repair status: {rejected ? 'Rejected (out of workflow)' : WORKFLOW_LABELS[status]}</h4>
+    <ol className={styles.workflowSteps} aria-label="Repair workflow">
+      {WORKFLOW_ORDER.map((item) => <li key={item} className={item === status && !rejected ? styles.stepCurrent : WORKFLOW_ORDER.indexOf(item) < WORKFLOW_ORDER.indexOf(status) ? styles.stepDone : styles.stepTodo}
+        aria-current={item === status && !rejected ? 'step' : undefined}>{WORKFLOW_LABELS[item]}</li>)}
+    </ol>
+    <ol className={styles.timeline} aria-label="Repair history">
+      {repair.workflow.map((entry, index) => <li key={index}>
+        <strong>{entry.action === 'reopen' ? 'Reopened → ' : ''}{WORKFLOW_LABELS[entry.status]}</strong> · {entry.by} · <time dateTime={entry.at}>{new Date(entry.at).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}</time>
+        <span className={styles.factDetail}>{entry.note}{entry.evidence ? ` Evidence: ${entry.evidence}` : ''}</span>
+      </li>)}
+    </ol>
+    {rejected ? null : status === 'submitted'
+      ? <p className={styles.small}>Accept the finding to mark it reviewed.</p>
+      : <div className={styles.workflowForm}>
+        <label htmlFor="survey-workflow-note">{next === 'completed' ? 'Completion note (what was done)' : 'Note for this step'}
+          <input id="survey-workflow-note" value={note} maxLength={400} onChange={(event) => setNote(event.target.value)}
+            placeholder={next === 'planned' ? 'e.g. scheduled with Grounds for May' : next === 'completed' ? 'e.g. panel replaced on 3 May' : 'Short note'} />
+        </label>
+        {next === 'reverified' ? <label htmlFor="survey-workflow-evidence">Fresh evidence (new measurement, photo or video)
+          <input id="survey-workflow-evidence" value={evidence} maxLength={400} onChange={(event) => setEvidence(event.target.value)}
+            placeholder="e.g. height difference now 0.1 in; photo IMG_0815" />
+        </label> : null}
+        <div className={styles.actions}>
+          {next ? <button type="button" onClick={() => step('advance')}>Move to {WORKFLOW_LABELS[next]}</button> : <span className={styles.small}>Fully re-verified.</span>}
+          {canReopen(finding) ? <button type="button" className={styles.secondaryButton} onClick={() => step('reopen')}>Reopen</button> : null}
+        </div>
+      </div>}
+  </section>;
 }

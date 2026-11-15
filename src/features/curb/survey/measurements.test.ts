@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import survey from '../../../data/curb/surveys/robertson-hall.json';
 import { SurveySchema } from '../../../contracts/curb/survey';
 import { buildRepairPlans } from '../../../domain/curb/survey';
-import { checkStatus, clipSummary, MEASURE_SPECS, measureResults, parseMeasure, priorityScore, reviewerPriority, suggestPlan } from './measurements';
+import { checkStatus, clipFor, clipSummary, entriesFromSurvey, MEASURE_SPECS, measureResults, parseMeasure, priorityRationale, priorityScore, reviewerPriority, suggestPlan, uncertaintyTags, withMeasurement } from './measurements';
 
 const s = SurveySchema.parse(survey);
 const spec = (key: string) => MEASURE_SPECS.find((item) => item.key === key)!;
@@ -32,17 +32,48 @@ describe('measurement checks', () => {
   });
 });
 
-describe('priority score', () => {
-  it('ranks only Defect 04 as high from the estimates', () => {
-    const bands = Object.fromEntries(s.findings.map((f) => [f.id, priorityScore(f, {}).band]));
-    expect(bands).toEqual({ 'defect-01': 'low', 'defect-02': 'low', 'defect-03': 'low', 'defect-04': 'high', 'defect-05': 'low' });
-    expect(priorityScore(finding('defect-04'), {}).score).toBe(100);
+describe('access-impact priority', () => {
+  it('ranks Defect 04 first and high from the current data', () => {
+    const scores = s.findings.map((f) => [f.id, priorityScore(f, {})] as const);
+    expect(Object.fromEntries(scores.map(([id, p]) => [id, p.band]))).toEqual({
+      'defect-01': 'medium', 'defect-02': 'low', 'defect-03': 'low', 'defect-04': 'high', 'defect-05': 'low',
+    });
+    expect([...scores].sort((x, y) => y[1].score - x[1].score)[0][0]).toBe('defect-04');
   });
 
-  it('weights measurements 70% and AI travel impact 30%', () => {
-    expect(priorityScore(finding('defect-01'), {})).toMatchObject({ reviewer: 'medium', clip: 'low', score: 35 });
-    expect(priorityScore(finding('defect-02'), { 'defect-02': { opening: '2' } })).toMatchObject({ reviewer: 'high', clip: 'low', score: 70, band: 'high' });
+  it('breaks the score into weighted factors that add up', () => {
+    const p = priorityScore(finding('defect-04'), {});
+    expect(p.factors.map((f) => f.key)).toEqual(['severity', 'destination', 'needs']);
+    expect(p.score).toBe(Math.round(p.factors.reduce((sum, f) => sum + f.weight * f.points, 0)));
+    expect(priorityRationale(p)).toMatch(/^High priority \(77\/100\): severity 95 × 45%, essential destination 30 × 30%, access needs affected 100 × 25%; confidence low/);
+  });
+
+  it('never treats an unknown essential destination as yes', () => {
+    const base = finding('defect-03');
+    const withAnswer = (answer: 'yes' | 'no' | 'unknown') => priorityScore({ ...base, repair: { ...base.repair!, essentialDestination: answer, destinationNote: answer === 'unknown' ? null : 'Main entrance' } }, {});
+    expect(withAnswer('unknown').score).toBeLessThan(withAnswer('yes').score);
+    expect(withAnswer('unknown').score).toBeGreaterThan(withAnswer('no').score);
+    expect(withAnswer('yes').band).toBe('medium');
+  });
+
+  it('raises severity, not confidence, when a measurement fails', () => {
+    const before = priorityScore(finding('defect-02'), {});
+    const after = priorityScore(finding('defect-02'), { 'defect-02': { opening: '2' } });
+    expect(after.factors[0].points).toBeGreaterThan(before.factors[0].points);
+    expect(after.confidence.reasons[0]).toBe('1 of 5 values measured');
     expect(reviewerPriority([])).toBe('unassessed');
+  });
+
+  it('flags open questions', () => {
+    expect(uncertaintyTags(s, finding('defect-04'), {})).toEqual(['needs_measurement', 'professional_review', 'quote_needed']);
+    expect(uncertaintyTags(s, finding('defect-01'), {})).toEqual(['needs_measurement']);
+  });
+
+  it('stores reviewer measurements on the survey and reads them back', () => {
+    const edited = withMeasurement(s, 'defect-01', 'level', '0.1');
+    expect(entriesFromSurvey(edited)).toEqual({ 'defect-01': { level: '0.1' } });
+    expect(entriesFromSurvey(withMeasurement(edited, 'defect-01', 'level', ''))).toEqual({});
+    expect(SurveySchema.safeParse(edited).success).toBe(true);
   });
 });
 
@@ -79,6 +110,6 @@ describe('CLIP check', () => {
   });
 
   it('rates only Defect 04 as high travel impact', () => {
-    expect(s.findings.map((f) => priorityScore(f, {}).clip)).toEqual(['low', 'low', 'low', 'high', 'low']);
+    expect(s.findings.map((f) => clipFor(f.id)?.impactPriority)).toEqual(['low', 'low', 'low', 'high', 'low']);
   });
 });
