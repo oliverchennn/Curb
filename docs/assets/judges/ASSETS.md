@@ -1,0 +1,11 @@
+# Judge-facing README assets
+
+Both PNGs are unmodified Curb production browser captures at 1456 × 819. The original image and local copy have identical SHA-256 digests. The captured states use two separately verified production builds.
+
+| Asset | Captured build | Capture and verification |
+| --- | --- | --- |
+| [presenter-review.png](presenter-review.png) | `670f6d80cc139441042957d117ad5eb85d238c6b` | The [capture receipt](https://github.com/oliverchennn/Curb/blob/6e9d4dd44008efe0eb1e5d981e0c1eece2d59134/demo/devpost-video/source-captures/presenter/sets/8c21f416f4c9ecc08d64ece11d246151d1500cabd9a1d45837080812adc820be/receipt.json) records `accepted.png`, Robertson Hall source frame 180 at six seconds, and the actual in-tab **Demo reviewer** acceptance. SHA-256 `c0a5f8ea0a07e524cf6abbdbca7124ed33586392036f7205782dfaaf3d44a7ad`. [Independent public verification](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6893121482). |
+| [investment-comparison.png](investment-comparison.png) | `44ba3e49b06fc679e04acad3f26ca7f5dae79a6c` | The [capture receipt](https://github.com/oliverchennn/Curb/blob/6e9d4dd44008efe0eb1e5d981e0c1eece2d59134/demo/devpost-video/source-captures/investment/sets/870f7a45468d44d4f5f12b9db086614de0a98f60c7d6aca5eb356b186d8fd4bb/receipt.json) records `compare.png` at the assumed $10,000 budget on the separate synthetic network. SHA-256 `877d93055146877396b06e85e5dc13c8eb34dafcd5851883d30136932884075a`. [Independent public verification](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892934505). |
+| [benchmark.svg](benchmark.svg) | Benchmark source `396317aaf5c683b84bf9e71208cbe436f371a69d` | Curb’s chart uses `comparisons.{conditionFirst,cheapestFirst,greedy}.allBudgets` from the [verified summary](../../evidence/metrics/2026-11-15-suite-v1/summary.json). Each comparator has 120 pairs. The [independent reproduction receipt](../../evidence/metrics/2026-11-15-suite-v1/verification.md) and [approved claim ledger](../../evaluation/METRICS_CLAIMS.md) provide the source and interpretation. |
+
+Footage and photo details are in the [Robertson Hall media record](../../../public/curb/surveys/robertson-hall/README.md). Map and other third-party attribution are in the [notices](../../../THIRD_PARTY_NOTICES.md).

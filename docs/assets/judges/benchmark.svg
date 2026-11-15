@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+  <title id="title">Same-budget synthetic benchmark results</title>
+  <desc id="desc">Among 120 budget cases for each comparator, Curb exact had 58 wins and 62 ties against condition-first, 39 wins and 81 ties against cheapest-first, and 16 wins and 104 ties against marginal-gain greedy. Zero losses. All full-budget cases tied.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; fill: #172e25 }
+    .heading { font-size: 29px; font-weight: 750 }
+    .subhead { font-size: 15px; fill: #4b5d52 }
+    .name { font-size: 17px; font-weight: 650 }
+    .count { font-size: 16px; font-weight: 700 }
+    .win { fill: #fff }
+    .note { font-size: 14px; fill: #4b5d52 }
+  </style>
+  <rect x="1" y="1" width="918" height="358" rx="18" fill="#f8f9f3" stroke="#cbd5c8" stroke-width="2"/>
+  <text x="34" y="50" class="heading">Same budget, more newly reachable destinations</text>
+  <text x="34" y="79" class="subhead">30 authored synthetic networks × 4 budget levels · 120 comparisons per strategy</text>
+  <path d="M34 105H886" stroke="#d8dfd4"/>
+  <text x="244" y="131" class="note">Curb exact compared with each strategy</text>
+  <text x="880" y="131" class="note" text-anchor="end">Losses</text>
+  <text x="34" y="168" class="name">Condition-first</text>
+  <rect x="244" y="144" width="552" height="36" rx="8" fill="#dce7d6"/>
+  <rect x="244" y="144" width="267" height="36" rx="8" fill="#225843"/>
+  <text x="377.5" y="168" class="count win" text-anchor="middle">58 wins</text>
+  <text x="653.5" y="168" class="count" text-anchor="middle">62 ties</text>
+  <text x="880" y="168" class="count" text-anchor="end">0</text>
+  <text x="34" y="222" class="name">Cheapest-first</text>
+  <rect x="244" y="198" width="552" height="36" rx="8" fill="#dce7d6"/>
+  <rect x="244" y="198" width="179" height="36" rx="8" fill="#225843"/>
+  <text x="333.5" y="222" class="count win" text-anchor="middle">39 wins</text>
+  <text x="609.5" y="222" class="count" text-anchor="middle">81 ties</text>
+  <text x="880" y="222" class="count" text-anchor="end">0</text>
+  <text x="34" y="276" class="name">Marginal-gain greedy</text>
+  <rect x="244" y="252" width="552" height="36" rx="8" fill="#dce7d6"/>
+  <rect x="244" y="252" width="74" height="36" rx="8" fill="#225843"/>
+  <text x="281" y="276" class="count win" text-anchor="middle">16 wins</text>
+  <text x="557" y="276" class="count" text-anchor="middle">104 ties</text>
+  <text x="880" y="276" class="count" text-anchor="end">0</text>
+  <path d="M34 309H886" stroke="#d8dfd4"/>
+  <text x="34" y="336" class="note">All full-budget cases tied. The separate Investment example is excluded from the benchmark.</text>
+</svg>
