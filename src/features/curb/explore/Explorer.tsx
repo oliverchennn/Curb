@@ -11,8 +11,8 @@ import OverviewMap from './OverviewMap';
 import SectionPicker from './SectionPicker';
 import { RecordCard } from './Evidence';
 import { aerial } from './aerial';
-import { campusCounts, campusPaths, campusRetrievedAt } from './campus';
-import { campusSections, collectionsIn, groupOf, isCampus, sourceClass, type GroupId } from './groups';
+import { campusCounts, campusPaths, campusRetrievedAt, campusSourceTags } from './campus';
+import { campusSections, collectionsIn, explorerAtlas, groupOf, isCampus, sourceClass, type GroupId } from './groups';
 import { OsmCredit } from './OsmCredit';
 import styles from './Explorer.module.css';
 
@@ -37,11 +37,13 @@ function pointInventory(state: CampusPointLocation, section: string | null) {
   return { results, counts: countCampusPoints(results), memberships: countCampusPoints(inventory).categoryMemberships };
 }
 
-export default function Explorer({ atlas }: { atlas: Atlas }) {
+export default function Explorer({ atlas: fullAtlas }: { atlas: Atlas }) {
+  const atlas = useMemo(() => explorerAtlas(fullAtlas), [fullAtlas]);
+  const initial = atlas.collections.find(collection => isCampus(collection.id)) ?? atlas.collections[0];
   const [filter, setFilter] = useState<Filter>('all'), [query, setQuery] = useState('');
-  const [collectionId, setCollectionId] = useState(atlas.collections[0].id), [recordId, setRecordId] = useState(atlas.collections[0].recordIds[0]);
+  const [collectionId, setCollectionId] = useState(initial.id), [recordId, setRecordId] = useState(initial.recordIds[0]);
   const [panel, setPanel] = useState<ExplorerPanel>('map');
-  const [overview, setOverview] = useState(false);
+  const [overview, setOverview] = useState(true);
   const [locationReady, setLocationReady] = useState(false);
   const [pointLocation, setPointLocation] = useState<CampusPointLocation>();
   const [pointBrowserOpen, setPointBrowserOpen] = useState(false);
@@ -63,7 +65,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
   useEffect(() => {
     const restore = () => {
       if (window.location.pathname !== '/curb/explore') return;
-      const saved = readExplorerLocation(atlas, window.location.search);
+      const saved = readExplorerLocation(fullAtlas, window.location.search);
       setFilter(saved.filter); setQuery(saved.query); setCollectionId(saved.collectionId);
       setRecordId(saved.recordId); setPanel(saved.panel); setOverview(Boolean(saved.overview));
       setPointLocation(saved.point);
@@ -74,19 +76,19 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
     restore();
     window.addEventListener('popstate', restore);
     return () => window.removeEventListener('popstate', restore);
-  }, [atlas]);
+  }, [fullAtlas]);
   useEffect(() => {
     if (!locationReady || window.location.pathname !== '/curb/explore') return;
     const next = explorerLocationUrl(window.location.href, {
       collectionId: collection?.id ?? collectionId, recordId: record?.id ?? recordId, filter, query, panel,
-      ...(overview ? { overview: true as const } : {}), point: activePoints,
+      ...(showOverview ? { overview: true as const } : {}), point: activePoints,
     });
     if (next !== window.location.pathname + window.location.search + window.location.hash) {
       // Replace this page's entry: scrubbing snapshots must not create dozens of Back steps.
       // Next's native-history bridge retains its router state when passed null.
       window.history.replaceState(null, '', next);
     }
-  }, [locationReady, collection?.id, record?.id, collectionId, recordId, filter, query, panel, overview, activePoints]);
+  }, [locationReady, collection?.id, record?.id, collectionId, recordId, filter, query, panel, showOverview, activePoints]);
   useEffect(() => {
     if (!locationReady || campusView) return;
     setPointLocation(undefined);
@@ -171,6 +173,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
   const index = record ? records.findIndex(r => r.id === record.id) : -1;
   const step = (offset: number) => { if (records.length) selectRecord(records[(index + offset + records.length) % records.length].id); };
   const feature = record ? atlas.features.find(f => f.id === record.featureId) : undefined;
+  const sourceTags = feature && isCampus(collection?.id) ? campusSourceTags(feature.properties) : [];
   const chip = feature ? feature.geometry ? feature.properties.status ? `${sourceClass(feature.properties, feature.type)} · ${feature.properties.status}` : sourceClass(feature.properties, feature.type) : 'Not on map' : '';
   useEffect(() => { if (filtered) setFiltersOpen(true); }, [filtered]);
   // A deep link that asks for the evidence opens the details; on phones, bring them into view once.
@@ -180,13 +183,11 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationReady]);
   const fmt = (n: number) => n.toLocaleString('en-US');
-  return <div className={styles.explorer}>
+  const view = campusView ? 'campus' : collection?.kind === 'field' ? 'field' : 'downtown';
+  const railOpen = wayDrawerOpen || showPointBrowser;
+  return <div className={styles.explorer} data-view={view} data-rail={railOpen ? 'open' : 'closed'}>
     <header className={styles.heading}>
-      <div>
-        <div className={styles.eyebrow}>PRINCETON / EVIDENCE ATLAS</div>
-        <h1>Route explorer<span className={styles.headingDot}>.</span></h1>
-        <p>Inspect archive paths, campus source geometry, field photos, and conflicting records.</p>
-      </div>
+      <h1>Route explorer<span className={styles.headingDot}>.</span></h1>
       <nav className={styles.pageLinks} aria-label="Related pages"><a href="/curb/collection">How collection would work →</a><a href="/curb/surveys/robertson-hall">Review Robertson survey →</a></nav>
     </header>
     <div className={styles.switcher}>
@@ -195,15 +196,16 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
         onClick={() => setFiltersOpen(open => !open)}>Filter{filtered ? ' · on' : ''}<span aria-hidden="true">▾</span></button>
       <div id="explorer-filters" className={styles.toolbar} hidden={!filtersOpen}>
         <label className={styles.search}><span aria-hidden="true">⌕</span><span className={styles.srOnly}>Search collections, features or source IDs, such as way/1342265659</span><input value={query} onChange={e => setQuery(e.target.value)} maxLength={256} placeholder="Collection, place or source ID (way/…)" type="search" /></label>
-        <label className={styles.filter}>Evidence type<select value={filter} onChange={e => setFilter(e.target.value as Filter)}><option value="all">All evidence</option>{Object.entries(kindLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+        <label className={styles.filter}>Evidence type<select value={filter} onChange={e => setFilter(e.target.value as Filter)}><option value="all">All evidence</option><option value="archive">{kindLabels.archive}</option><option value="field">{kindLabels.field}</option></select></label>
         <span className={styles.resultCount}>{collections.length} of {atlas.collections.length} collections</span>
         {filtered && <button type="button" className={styles.clear} onClick={clear}>Clear filters</button>}
       </div>
     </div>
     {group === 'downtown' && <CollectionChips atlas={atlas} collections={collectionsIn('downtown', collections)} selectedId={collection?.id ?? null} onSelect={chooseCollection} />}
-    {group === 'campus' && <SectionPicker sections={campusSections} collections={collections} current={showOverview ? null : collection?.id ?? null}
-      onPick={pickSection} clearsSearch={Boolean(query.trim())} onOverview={() => returnToOverview(true)} selectRef={campusSectionSelect} />}
-    {campusView && locationReady && <div className={styles.pointControls} aria-label="Campus archive feature layer" role="group">
+    {campusView && <div className={styles.campusControls}>
+      <SectionPicker sections={campusSections} collections={collections} current={showOverview ? null : collection?.id ?? null}
+      onPick={pickSection} clearsSearch={Boolean(query.trim())} onOverview={() => returnToOverview(true)} selectRef={campusSectionSelect} />
+    {locationReady && <div className={styles.pointControls} aria-label="Campus archive feature layer" role="group">
       <button type="button" aria-pressed={Boolean(activePoints)} onClick={() => {
         setPointLocation(activePoints ? undefined : DEFAULT_POINT_LOCATION);
         setPointRequest(null);
@@ -225,20 +227,19 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
         <CampusPointLegend />
       </>}
     </div>}
-    <div className={styles.workspace} data-details={wayDrawerOpen || showPointBrowser ? 'open' : 'closed'}>
+    </div>}
+    <div className={styles.workspace} data-view={view} data-details={railOpen ? 'open' : 'closed'}>
       <section id="explorer-map" className={styles.mapPanel} aria-label="Evidence stage">
         {/* Wait for the URL so a campus link never first requests the downtown image. */}
         {!locationReady ? <div className={styles.stage} data-mode="loading" /> : showOverview ? <>
           <div className={styles.mapHeading}>
-            <h2>Princeton campus · OpenStreetMap ways</h2>
-            <span className={styles.coverage}><b>{fmt(campusCounts.selectedWays)}</b> ways · <b>{campusCounts.sections}</b> sections · <b>{campusCounts.classes.steps}</b> steps · <b>{campusCounts.classes.cycleway}</b> cycleways ·
-              width tag on <b>{campusCounts.selectedWays - campusCounts.unknownTags.width}</b> · wheelchair tag on <b>{campusCounts.selectedWays - campusCounts.unknownTags.wheelchair}</b></span>
+            <h2>Princeton campus</h2>
+            <span className={styles.coverage}><b>{fmt(campusCounts.selectedWays)}</b> ways · <b>{campusCounts.sections}</b> sections</span>
             <span className={styles.traversal}>Current traversal: Unknown</span>
           </div>
           <div className={styles.stage} data-mode="overview">
-            <OverviewMap atlas={atlas} sections={campusSections} collections={collections} onPick={pickFromOverview} pointLayer={pointLayer} />
+            <OverviewMap paths={paths} sections={campusSections} collections={collections} onPick={pickFromOverview} pointLayer={pointLayer} />
           </div>
-          <p className={styles.overviewHint}>Select a section code on the map or use the Campus section list to inspect its ways. Each of the {fmt(campusCounts.selectedWays)} ways belongs to exactly one section; sections are not routes.</p>
         </> : <>
           <div className={styles.mapHeading}>
             <h2>{collection?.name ?? 'No matching evidence'}</h2>
@@ -247,7 +248,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
             <span className={styles.traversal}>{collection ? traversalText(collection) : 'Current traversal: Unknown'}</span>
           </div>
           <EvidenceStage atlas={atlas} collection={collection} records={records} record={record} stops={stops} onSelect={selectRecord} onReset={clear}
-            mapOptions={inCampusSection ? { set: 'campus', context: paths.all, osm: true, dense: true, pointLayer } : undefined} />
+            mapOptions={inCampusSection ? { set: 'campus', context: paths.all, section: campusSections.find(section => section.collectionId === collection?.id), osm: true, dense: true, pointLayer } : undefined} />
           {collection && record && <div className={styles.navigator} role="group" aria-label="Selected record">
             <button type="button" aria-label="Previous snapshot" onClick={() => step(-1)}>‹</button>
             <div className={styles.navCurrent} aria-live="off">
@@ -272,10 +273,13 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
           detailsToggle.current?.focus();
         }} aria-label="Hide details">×</button></div>
         {record ? <>
-          {record.conflictGroup && <div className={styles.conflict}><strong>Records disagree.</strong> The stage shows both at equal size. No winner is selected.</div>}
           <RecordCard key={record.id} atlas={atlas} record={record} stop={stops.get(record.id)} hidePhoto={collection?.kind !== 'synthetic'} />
-        </> : <div className={styles.empty}><h3>No matching evidence</h3><p>Unplaced and conflicting records remain in their collections.</p><button type="button" onClick={clear}>Show the complete atlas</button></div>}
-        {record && <details className={styles.allRecords}><summary>All {all.length} records in source order</summary>{all.map(r => <button type="button" key={r.id} aria-current={r.id === record.id || undefined} onClick={() => { clear(); selectRecord(r.id); }}><span>#{pad(stops.get(r.id))} {r.title}</span><small>{r.id}{!atlas.features.find(f => f.id === r.featureId)?.geometry && ' · Not on map'}{r.conflictGroup && ' · Conflict'}</small></button>)}</details>}
+          {sourceTags.length > 0 && <details key={record.id + ':tags'} className={styles.campusSourceTags}>
+            <summary>All OpenStreetMap tags</summary>
+            <dl>{sourceTags.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl>
+          </details>}
+        </> : <div className={styles.empty}><h3>No matching evidence</h3><p>Unplaced evidence remains in its source collection.</p><button type="button" onClick={clear}>Show the complete atlas</button></div>}
+        {record && <details className={styles.allRecords}><summary>All {all.length} records in source order</summary>{all.map(r => <button type="button" key={r.id} aria-current={r.id === record.id || undefined} onClick={() => { clear(); selectRecord(r.id); }}><span>#{pad(stops.get(r.id))} {r.title}</span><small>{r.id}{!atlas.features.find(f => f.id === r.featureId)?.geometry && ' · Not on map'}</small></button>)}</details>}
       </aside>
       {showPointBrowser && activePoints && inventory && <CampusPointBrowser
         location={activePoints} section={pointSection} records={inventory.results} counts={inventory.counts}

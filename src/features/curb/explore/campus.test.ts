@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { createAtlas } from './data';
 import { layoutCampusPointMarkers } from './CampusPointMarkers';
 import { aerial, campusAerial, countFailedTiles, overviewResolution, tileExtent, visibleTiles } from './aerial';
-import { campusExtent, campusPaths, sectionMembership } from './campus';
-import { GROUPS, campusSectionIds, collectionsIn, groupOf, sourceClass } from './groups';
+import { campusExtent, campusOverviewBounds, campusPaths, campusSourceTags, campusWayType, fitProjectedView, sectionExtent, sectionMembership } from './campus';
+import { GROUPS, campusSectionIds, campusSections, collectionsIn, groupOf, sourceClass } from './groups';
 import { explorerLocationUrl, getCampusPointRecords, readExplorerLocation, searchable } from './location';
 import { placeBadges, placeSectionTargets } from './labels';
 import { locatedFeatures, project, recordsFor, selectionFor, traversalText } from './model';
@@ -24,12 +24,32 @@ describe('campus sections', () => {
       expect(traversalText(c)).toBe('Current traversal: Unknown');
     }
   });
-  it('draws the overview as 22 aggregated paths covering every way', () => {
-    const p = campusPaths(atlas);
-    expect(p.sections.size).toBe(22);
-    const moves = (d: string) => (d.match(/M/g) ?? []).length;
-    expect([...p.sections.values()].reduce((n, d) => n + moves(d), 0)).toBe(1188);
-    expect(moves(p.all)).toBe(1188);
+  it('draws each source way once and counts the whole campus by its preserved tags', () => {
+    const { ways, all } = campusPaths(atlas);
+    expect(ways.map(({ type, count }) => [type, count])).toEqual([
+      ['steps', 62], ['crossing', 131], ['cycleway', 27], ['sidewalk', 101], ['footway', 867], ['unclassified', 0],
+    ]);
+    for (const { count, path } of ways) expect(path.match(/M/g) ?? []).toHaveLength(count);
+    expect(all.match(/M/g)).toHaveLength(1188);
+  });
+
+  it('uses deterministic precedence and preserves unresolved or overlapping source tags', () => {
+    expect(campusWayType({ highway: 'steps', footway: 'crossing', ramp: 'yes', wheelchair: 'yes' })).toBe('steps');
+    expect(campusWayType({ highway: 'cycleway', footway: 'crossing', crossing: 'unmarked' })).toBe('crossing');
+    expect(campusWayType({ highway: 'cycleway', footway: 'sidewalk' })).toBe('cycleway');
+    expect(campusWayType({ highway: 'footway', footway: 'sidewalk', bicycle: 'yes' })).toBe('sidewalk');
+    expect(campusWayType({ highway: 'footway', footway: 'traffic_island' })).toBe('footway');
+    expect(campusWayType({ highway: 'path', bicycle: 'yes' })).toBe('footway');
+    expect(campusWayType({ highway: 'service', footway: 'crossing' })).toBe('unclassified');
+    expect(campusWayType({ footway: 'crossing' })).toBe('unclassified');
+
+    const feature = atlas.features.find(f => f.sourceFeatureId === 'way/966534994')!;
+    const tags = campusSourceTags(feature.properties);
+    expect(tags).toContainEqual(['highway', 'footway']);
+    expect(tags).toContainEqual(['footway', 'crossing']);
+    expect(tags).not.toContainEqual(['feat_type', 'footway']);
+    expect(tags).not.toContainEqual(['osm_way_id', 966534994]);
+    expect(sourceClass(feature.properties, feature.type)).toBe('Crossings');
   });
   it('keeps every campus record an archive assertion with unknown capture and observation', () => {
     const records = atlas.records.filter(r => r.featureId.startsWith('campus-osm-way:'));
@@ -39,11 +59,11 @@ describe('campus sections', () => {
 });
 
 describe('groups', () => {
-  it('replaces 27 collection chips with four groups and keeps the five original IDs', () => {
-    expect(GROUPS.map(g => g.id)).toEqual(['downtown', 'campus', 'field', 'examples']);
+  it('uses three real-evidence groups and recognizes retired examples', () => {
+    expect(GROUPS.map(g => g.id)).toEqual(['campus', 'downtown', 'field']);
     expect(['witherspoon', 'nassau-east', 'nassau-west'].map(groupOf)).toEqual(['downtown', 'downtown', 'downtown']);
     expect(groupOf('robertson')).toBe('field');
-    expect(groupOf('examples')).toBe('examples');
+    expect(groupOf('examples')).toBeNull();
     expect(collectionsIn('campus', atlas.collections)).toHaveLength(22);
   });
   it('names source classes in words, especially steps', () => {
@@ -70,7 +90,7 @@ describe('campus overview location', () => {
     const section = readExplorerLocation(atlas, '?group=campus&collection=campus-central-aaa');
     expect(section.overview).toBeUndefined();
     expect(section.collectionId).toBe('campus-central-aaa');
-    for (const id of ['witherspoon', 'nassau-east', 'nassau-west', 'robertson', 'examples']) {
+    for (const id of ['witherspoon', 'nassau-east', 'nassau-west', 'robertson']) {
       expect(readExplorerLocation(atlas, `?collection=${id}`).collectionId).toBe(id);
       expect(readExplorerLocation(atlas, `?collection=${id}`).overview).toBeUndefined();
     }
@@ -192,4 +212,18 @@ describe('optional campus point layer', () => {
     }), 'https://curb.example');
     expect([...url.searchParams.keys()]).toEqual(['group']);
   });
+});
+
+it('fits the historical raster and all 22 section extents uniformly in desktop and phone plots', () => {
+  const raster = tileExtent(campusAerial.overview);
+  for (const [width, height] of [[1280,1280], [1754,1754], [1410,1410], [341,426.25]]) {
+    const [x, y, w, h] = fitProjectedView(campusOverviewBounds(), [width,height]);
+    expect(w / width).toBeCloseTo(h / height, 10);
+    for (const extent of [raster, ...campusSections.map(sectionExtent)]) {
+      expect(extent.x).toBeGreaterThan(x);
+      expect(extent.y).toBeGreaterThan(y);
+      expect(extent.x + extent.width).toBeLessThan(x + w);
+      expect(extent.y + extent.height).toBeLessThan(y + h);
+    }
+  }
 });

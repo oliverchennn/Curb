@@ -4,9 +4,9 @@ import { coverage, kindLabels, type Atlas, type Collection } from './model';
 import { GROUPS, collectionsIn, type GroupId } from './groups';
 import styles from './Explorer.module.css';
 
-const GROUP_COLORS: Record<GroupId, string> = { downtown: '#4e68a0', campus: '#236d83', field: '#815e83', examples: '#68766a' };
+const GROUP_COLORS: Record<GroupId, string> = { campus: '#236d83', downtown: '#4e68a0', field: '#815e83' };
 
-/** Four group chips (one action each). Groups the filters empty are hidden; nothing is removed from the atlas. */
+/** Show groups with matching Explorer collections. */
 export default function GroupChips({ visible, current, onGroup }: {
   visible: Collection[]; current: GroupId | null; onGroup: (g: GroupId) => void;
 }) {
@@ -28,8 +28,6 @@ export default function GroupChips({ visible, current, onGroup }: {
   })}</div>;
 }
 
-const shortKind = { archive: 'Archive map', field: 'Field photos', synthetic: 'Examples' } as const;
-
 /** Sub-chips for a group with a few named collections (Downtown). Existing collection IDs and deep links unchanged. */
 export function CollectionChips({ atlas, collections, selectedId, onSelect }: {
   atlas: Atlas; collections: Collection[]; selectedId: string | null; onSelect: (c: Collection) => void;
@@ -45,7 +43,7 @@ export function CollectionChips({ atlas, collections, selectedId, onSelect }: {
         const d = ['ArrowRight', 'ArrowDown'].includes(e.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(e.key) ? -1 : 0;
         if (d) { e.preventDefault(); buttons.current[(i + d + collections.length) % collections.length]?.focus(); }
       }}>
-      <i aria-hidden="true" /><span>{c.name}</span><small>{c.code} · {shortKind[c.kind]}</small>
+      <i aria-hidden="true" /><span>{c.name}</span><small>{c.code}</small>
     </button>;
   })}</div>;
 }
