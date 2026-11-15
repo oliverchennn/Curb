@@ -6,8 +6,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $picture = Join-Path $PSScriptRoot 'Curb-picture-edit.mp4'
+$timeline = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'timeline.json') -Raw | ConvertFrom-Json
 $presenter = (Resolve-Path -LiteralPath $PresenterFile).ProviderPath
-$encoder = (Get-Command ffmpeg.exe -ErrorAction Ignore).Source
+$encoder = $env:CURB_DEMO_FFMPEG
+if (-not $encoder) { $encoder = (Get-Command ffmpeg.exe -ErrorAction Ignore).Source }
 if (-not $encoder) {
     $bundled = Join-Path $PSScriptRoot '.tools/imageio_ffmpeg/binaries'
     if (Test-Path -LiteralPath $bundled) {
@@ -24,14 +26,26 @@ if (Test-Path -LiteralPath $OutputFile) {
     throw "Choose a new output filename with -OutputFile. Existing file: $OutputFile"
 }
 
-$start = $StartAtSeconds.ToString('0.###', [System.Globalization.CultureInfo]::InvariantCulture)
-$filters = "[1:v]trim=start=$($start):duration=91.8,setpts=PTS-STARTPTS+3.2/TB,scale=320:180:force_original_aspect_ratio=increase,crop=320:180,setsar=1[cam];" +
-    "[0:v][cam]overlay=1544:722:eof_action=pass:repeatlast=0:enable='gte(t,3.2)*lt(t,95)'[v];" +
-    "[1:a]atrim=start=$($start):duration=91.8,asetpts=PTS-STARTPTS,aresample=48000,afade=t=in:st=0:d=0.08,afade=t=out:st=91.45:d=0.35,adelay=3200|3200,apad=whole_dur=99[a]"
+function FfmpegNumber([double]$value) {
+    $value.ToString('0.###', [System.Globalization.CultureInfo]::InvariantCulture)
+}
+$p = $timeline.presenter
+$start = FfmpegNumber $StartAtSeconds
+$cueIn = FfmpegNumber $p.start
+$cueOut = FfmpegNumber $p.end
+$cueDuration = FfmpegNumber ($p.end - $p.start)
+$fadeStart = FfmpegNumber ($p.end - $p.start - 0.35)
+$delay = [int]($p.start * 1000)
+$length = FfmpegNumber $timeline.seconds
+$size = "$($p.width):$($p.height)"
+$position = "$($p.x):$($p.y)"
+$filters = "[1:v]trim=start=$($start):duration=$cueDuration,setpts=PTS-STARTPTS+$cueIn/TB,scale=$($size):force_original_aspect_ratio=increase,crop=$size,setsar=1[cam];" +
+    "[0:v][cam]overlay=$($position):eof_action=pass:repeatlast=0:enable='gte(t,$cueIn)*lt(t,$cueOut)'[v];" +
+    "[1:a]atrim=start=$($start):duration=$cueDuration,asetpts=PTS-STARTPTS,aresample=48000,afade=t=in:st=0:d=0.08,afade=t=out:st=$($fadeStart):d=0.35,adelay=$delay|$delay,apad=whole_dur=$length[a]"
 $ffmpegArgs = @(
     '-hide_banner', '-loglevel', 'error', '-n', '-filter_complex_threads', '2',
     '-i', $picture, '-i', $presenter, '-filter_complex', $filters, '-map', '[v]', '-map', '[a]',
-    '-t', '99', '-r', '30', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18',
+    '-t', $length, '-r', "$($timeline.fps)", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18',
     '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k', '-ar', '48000',
     '-movflags', '+faststart', $OutputFile
 )
