@@ -212,11 +212,14 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
       {activePoints && inventory && <>
         <button type="button" ref={browseButton} aria-expanded={showPointBrowser} aria-controls={showPointBrowser ? 'campus-point-browser' : undefined}
           onClick={event => {
-            if (showPointBrowser) closePointBrowser(event.detail === 0);
-            else {
-              pendingPointFocus.current = event.detail === 0 ? 'heading' : 'scroll';
-              setPointBrowserOpen(true);
+            const keyboard = event.detail === 0;
+            if (showPointBrowser) {
+              if (keyboard) pointHeading.current?.focus();
+              else if (window.matchMedia('(max-width: 950px)').matches) pointHeading.current?.scrollIntoView({ block: 'nearest' });
+              return;
             }
+            pendingPointFocus.current = keyboard ? 'heading' : 'scroll';
+            setPointBrowserOpen(true);
           }}>Browse features</button>
         <span>{inventory.counts.total} archive features</span>
         <CampusPointLegend />
