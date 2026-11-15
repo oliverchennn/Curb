@@ -15,7 +15,7 @@ const clipTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).pad
 export default function EvidenceStage({ atlas, collection, records, record, stops, onSelect, onReset, mapOptions }: {
   atlas: Atlas; collection: Collection | null; records: EvidenceRecord[]; record: EvidenceRecord | null;
   stops: Map<string, number>; onSelect: (id: string) => void; onReset: () => void;
-  mapOptions?: Pick<ComponentProps<typeof MapCanvas>, 'set' | 'context' | 'osm' | 'dense'>;
+  mapOptions?: Pick<ComponentProps<typeof MapCanvas>, 'set' | 'context' | 'osm' | 'dense' | 'pointLayer'>;
 }) {
   if (!collection) return <div className={styles.stageEmpty} data-mode="empty">
     <h3>No matching evidence</h3><p>Search and type filters hide every collection. Nothing has been removed.</p>

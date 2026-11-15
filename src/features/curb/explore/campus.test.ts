@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { createAtlas } from './data';
+import { layoutCampusPointMarkers } from './CampusPointMarkers';
 import { aerial, campusAerial, countFailedTiles, overviewResolution, tileExtent, visibleTiles } from './aerial';
 import { campusExtent, campusPaths, sectionMembership } from './campus';
 import { GROUPS, campusSectionIds, collectionsIn, groupOf, sourceClass } from './groups';
-import { explorerLocationUrl, readExplorerLocation, searchable } from './location';
+import { explorerLocationUrl, getCampusPointRecords, readExplorerLocation, searchable } from './location';
 import { placeBadges, placeSectionTargets } from './labels';
 import { locatedFeatures, project, recordsFor, selectionFor, traversalText } from './model';
 
@@ -124,5 +125,71 @@ describe('dense badges', () => {
         expect(Math.hypot(spots[i].x - spots[j].x, spots[i].y - spots[j].y)).toBeGreaterThanOrEqual(20 * 2.25 - 1e-9);
       }
     }
+  });
+});
+
+describe('optional campus point layer', () => {
+  const records = getCampusPointRecords();
+  const selected = records.find(point => point.sourceFeatureId === 'node/10828764207')!;
+  const plot = { left: -10_000, right: 10_000, top: -10_000, bottom: 10_000 };
+
+  it('keeps whole-fit markers limited to the eligible selection without changing coordinates', () => {
+    const overview = layoutCampusPointMarkers(records, null, plot, 1, false, []);
+    expect(overview).toMatchObject({ eligible: 329, markers: [] });
+    const placed = layoutCampusPointMarkers(records, selected, plot, 1, false, []);
+    const [x, y] = project(selected.geometry!.coordinates);
+    expect(placed.markers).toEqual([{ point: selected, x, y, selected: true, interactive: false }]);
+    const unplaced = records.find(point => point.sourceFeatureId === 'node/8776287626')!;
+    expect(layoutCampusPointMarkers(records, unplaced, plot, 1, false, []).markers).toHaveLength(0);
+  });
+
+  it('reserves existing targets and keeps a colliding selection as a passive symbol', () => {
+    const [x, y] = project(selected.geometry!.coordinates);
+    const bounds = { left: x - 60, right: x + 60, top: y - 60, bottom: y + 60 };
+    const reserved = [{ x, y }];
+    const layout = layoutCampusPointMarkers([selected, selected], selected, bounds, 1, true, reserved);
+    expect(layout.eligible).toBe(1);
+    expect(layout.markers).toEqual([{ point: selected, x, y, selected: true, interactive: false }]);
+  });
+
+  it('gives the selection priority, limits close-zoom targets and never overlaps their hit areas', () => {
+    const unit = 0.2;
+    const layout = layoutCampusPointMarkers(records, selected, plot, unit, true, []);
+    expect(layout.markers).toHaveLength(24);
+    expect(layout.markers[0]).toMatchObject({ point: selected, interactive: true });
+    const ordered = layout.markers.slice(1).map(marker => marker.point.sourceNode.id);
+    expect(ordered).toEqual([...ordered].sort((a, b) => a - b));
+    const width = 44 * unit;
+    for (const [index, marker] of layout.markers.entries()) {
+      const overlaps = layout.markers.slice(0, index).some(other => Math.abs(other.x - marker.x) < width && Math.abs(other.y - marker.y) < width);
+      expect(overlaps).toBe(false);
+    }
+  });
+
+  it('round-trips an exact point link with independent filters and preserves line state', () => {
+    const query = '?collection=campus-east-b&record=record:campus-osm-way:284117254&type=archive&panel=evidence&node=8776287626&featureKind=kerb,crossing,kerb,bogus&featureScope=review&featureQ=node%2F8776287626';
+    const state = readExplorerLocation(atlas, query);
+    expect(state).toMatchObject({
+      collectionId: 'campus-east-b', recordId: 'record:campus-osm-way:284117254', panel: 'evidence', filter: 'archive',
+      point: { node: 'node/8776287626', categories: ['crossing', 'kerb'], scope: 'review', query: 'node/8776287626' },
+    });
+    const url = new URL(explorerLocationUrl('https://curb.example/curb/explore?keep=1#map', state), 'https://curb.example');
+    expect(url.searchParams.get('keep')).toBe('1');
+    expect(url.hash).toBe('#map');
+    expect(readExplorerLocation(atlas, url.search)).toEqual(state);
+  });
+
+  it('honors legacy precedence and clears point URL fields when disabled', () => {
+    const direct = readExplorerLocation(atlas, '?node=10828764207&featureScope=section');
+    expect(direct).toMatchObject({ overview: true, point: { node: 'node/10828764207', scope: 'all' } });
+    const invalid = readExplorerLocation(atlas, '?group=campus&node=1082876420');
+    expect(invalid.point).toBeUndefined();
+    const legacy = readExplorerLocation(atlas, '?collection=robertson&record=record:robertson:defect-05&panel=evidence&node=10828764207');
+    expect(legacy).toMatchObject({ collectionId: 'robertson', recordId: 'record:robertson:defect-05', panel: 'evidence' });
+    expect(legacy.point).toBeUndefined();
+    const url = new URL(explorerLocationUrl('https://curb.example/curb/explore?features=1&node=10828764207&featureKind=kerb&featureScope=context&featureQ=kerb', {
+      ...direct, point: undefined,
+    }), 'https://curb.example');
+    expect([...url.searchParams.keys()]).toEqual(['group']);
   });
 });

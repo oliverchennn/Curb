@@ -5,6 +5,8 @@ import { aerial, campusAerial, countFailedTiles, visibleTiles } from './aerial';
 import AerialLayer, { baseSrc, type AerialSet } from './AerialLayer';
 import { placeBadges, streetLabel } from './labels';
 import { OSM_COPYRIGHT, OsmCredit } from './OsmCredit';
+import { campusExtent } from './campus';
+import CampusPointMarkers, { CampusPointMapStatus, layoutCampusPointMarkers, viewForCampusPoint, type CampusPointLayer } from './CampusPointMarkers';
 import styles from './Explorer.module.css';
 
 type View = [number, number, number, number];
@@ -35,10 +37,10 @@ const isSteps = (f: Feature) => 'osm_way_id' in f.properties && f.properties.fea
 
 /** Archive map stage. Draws only original archive geometry on the existing projection; unplaced records never appear.
  *  `set` chooses the local aerial (downtown corridor or campus tiles); `context` is faint non-interactive geometry. */
-export default function MapCanvas({ atlas, collection, records, selected, onSelect, stops, set = 'corridor', context, osm = false, dense = false }: {
+export default function MapCanvas({ atlas, collection, records, selected, onSelect, stops, set = 'corridor', context, osm = false, dense = false, pointLayer }: {
   atlas: Atlas; collection: Collection; records: EvidenceRecord[]; selected: EvidenceRecord | null;
   onSelect: (id: string) => void; stops: Map<string, number>;
-  set?: AerialSet; context?: string; osm?: boolean; dense?: boolean;
+  set?: AerialSet; context?: string; osm?: boolean; dense?: boolean; pointLayer?: CampusPointLayer;
 }) {
   const svg = useRef<SVGSVGElement>(null);
   const [view, setView] = useState<View>([-100, -160, 230, 260]);
@@ -72,6 +74,12 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     const observer = new ResizeObserver(entries => { const r = entries[0].contentRect; if (r.width && r.height) setSize([r.width, r.height]); });
     observer.observe(svg.current); return () => observer.disconnect();
   }, []);
+  const pointRequest = pointLayer?.request;
+  useEffect(() => {
+    if (!pointRequest) return;
+    setView(viewForCampusPoint(pointRequest.coordinates));
+    if (pointRequest.focusMap) svg.current?.focus();
+  }, [pointRequest]);
   const zoom = (factor: number) => setView(([x, y, w, h]) => {
     const f = Math.max(12 / w, Math.min(maxWidth / w, factor)); return [x + w * (1 - f) / 2, y + h * (1 - f) / 2, w * f, h * f];
   });
@@ -96,6 +104,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   }), targetRadius, entries.filter(({ f }) => f.geometry?.type === 'Point').map(({ f, record }) => { const [x, y] = anchor(f); return { id: record.id, x, y }; }),
   plotBounds, { hideCrowded: dense, keep: selected?.id });
   const hidden = entries.length - badges.size;
+  const pointLayout = pointLayer && layoutCampusPointMarkers(pointLayer.records, pointLayer.selected,
+    plotBounds, unit, view[2] < campusExtent().width / 2 && unit <= 1.25, [...badges.values()]);
   // One roving tab stop for all mapped stops: arrows move focus in source order, Enter/Space selects, Escape returns to the map.
   const rovingId = (focusId && entries.some(e => e.f.id === focusId) ? focusId : selected?.featureId && entries.some(e => e.f.id === selected.featureId) ? selected.featureId : entries[0]?.f.id) ?? null;
   const moveFocus = (from: string, delta: number | 'first' | 'last') => {
@@ -111,7 +121,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       <div className={styles.mapTools} role="group" aria-label="Map controls">
         <button type="button" aria-label="Zoom in" onClick={() => zoom(.75)}>+</button>
         <button type="button" aria-label="Zoom out" onClick={() => zoom(1.333333)}>−</button>
-        <button type="button" onClick={fitCollection}>Fit collection</button>
+        <button type="button" onClick={fitCollection}>{pointLayer ? 'Fit section' : 'Fit collection'}</button>
         <button type="button" aria-disabled={!selectedFeature} onClick={fitSelection}
           title={selectedFeature ? undefined : 'The selected record has no archive geometry'}>Fit selection</button>
       </div>
@@ -125,6 +135,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every record is unchanged.</p>}
     {!aerialFailed && tileFailures > 0 && showAerial && <p className={styles.mapNotice} role="status">{tileFailures} detail {tileFailures === 1 ? 'tile' : 'tiles'} unavailable — the overview image is shown there. Every record is unchanged.</p>}
     {dense && hidden > 0 && <p className={styles.mapHint}>{hidden} stop {hidden === 1 ? 'number' : 'numbers'} hidden where they would overlap. Zoom in, or use the record list; every way stays drawn.</p>}
+    {pointLayout && <CampusPointMapStatus layout={pointLayout} />}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
       aria-label={`Archive map on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}. Arrow keys pan. Plus and minus zoom. Home fits the collection. Tab once to reach the mapped stops; arrow keys move between them in source order, Enter selects, Escape returns here.`}
       onKeyDown={e => {
@@ -182,6 +193,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
           </g> : null}
         </g>;
       })}
+      {pointLayout && pointLayer && <CampusPointMarkers markers={pointLayout.markers} unit={unit}
+        onSelect={point => { if (!moved.current) pointLayer.onSelect(point); }} />}
       <g aria-hidden="true">{entries.map(({ f, record }) => {
         const b = badges.get(record.id), stop = stops.get(record.id); if (!b || stop === undefined) return null;
         const active = selected?.featureId === f.id, [ax, ay] = anchor(f);
