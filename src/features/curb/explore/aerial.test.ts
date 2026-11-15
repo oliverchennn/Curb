@@ -43,12 +43,14 @@ describe('badge placement', () => {
     expect(p.filter(x => x.moved)).toHaveLength(3);
     expect(anchors.every(a => a.x === 5 && a.y === 5)).toBe(true);
   });
-  it('never places a badge on another stop’s point marker', () => {
-    const markers = [{ id: 'ramp', x: 0, y: -12 }];
-    const p = placeBadges([{ id: 'line', x: 0, y: 0, dy: -12 }, { id: 'ramp', x: 0, y: -12, dy: -15 }], 8, markers);
-    const b = p.get('line')!;
-    expect(Math.hypot(b.x - 0, b.y + 12)).toBeGreaterThanOrEqual(8 * 1.9 - 1e-9);
-    expect(b.moved).toBe(true);
+  it('keeps 44-pixel badge and ramp targets from overlapping', () => {
+    const markers = [{ id: 'ramp', x: 0, y: -22 }];
+    const badges = placeBadges([{ id: 'line', x: 0, y: 0, dy: -22 }, { id: 'ramp', x: 0, y: -22, dy: -22 }], 22, markers);
+    const line = badges.get('line')!;
+    const ramp = badges.get('ramp')!;
+    expect(Math.hypot(line.x, line.y + 22)).toBeGreaterThanOrEqual(44 - 1e-9);
+    expect(Math.hypot(line.x - ramp.x, line.y - ramp.y)).toBeGreaterThanOrEqual(44 - 1e-9);
+    expect(line.moved).toBe(true);
   });
   it('is deterministic', () => {
     const anchors = [{ id: 'a', x: 0, y: 0, dy: -10 }, { id: 'b', x: 2, y: 1, dy: -10 }, { id: 'c', x: 1, y: 3, dy: -10 }];

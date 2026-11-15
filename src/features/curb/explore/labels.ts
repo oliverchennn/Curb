@@ -22,7 +22,7 @@ const ANGLES = [-90, -45, -135, 0, 180, -20, -160, 45, 135, 90];
 export function placeBadges(anchors: BadgeAnchor[], radius: number, markers: { id: string; x: number; y: number }[] = []): Map<string, BadgePlacement> {
   const placed: { x: number; y: number }[] = [];
   const out = new Map<string, BadgePlacement>();
-  const minGap = radius * 2.25, clearance = radius * 1.9;
+  const minGap = radius * 2.25, clearance = radius * 2;
   const free = (x: number, y: number, own: string) => placed.every(p => Math.hypot(p.x - x, p.y - y) >= minGap)
     && markers.every(m => m.id === own || Math.hypot(m.x - x, m.y - y) >= clearance);
   for (const a of anchors) {

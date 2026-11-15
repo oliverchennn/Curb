@@ -46,6 +46,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
   const detailsOpen = panel !== 'map';
   const [filtersOpen, setFiltersOpen] = useState(false);
   const detailsRef = useRef<HTMLElement>(null);
+  const detailsToggle = useRef<HTMLButtonElement>(null);
   const selectRecord = (id: string) => { if (collection) setCollectionId(collection.id); setRecordId(id); setPanel(p => p === 'map' ? 'evidence' : p); };
   const chooseCollection = (c: Collection) => { setCollectionId(c.id); setRecordId(c.recordIds[0]); };
   const clear = () => { setFilter('all'); setQuery(''); };
@@ -65,7 +66,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
       <div>
         <div className={styles.eyebrow}>PRINCETON / EVIDENCE ATLAS</div>
         <h1>Route explorer<span className={styles.headingDot}>.</span></h1>
-        <p>Archive paths, field photos and open questions on one map. Not a verified accessible route.</p>
+        <p>Inspect archive paths, field photos, and conflicting records.</p>
       </div>
       <nav className={styles.pageLinks} aria-label="Related pages"><a href="/curb/collection">How collection would work →</a><a href="/curb/surveys/robertson-hall">Review Robertson survey →</a></nav>
     </header>
@@ -82,7 +83,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
       </details>
     </div>
     <div className={styles.workspace} data-details={detailsOpen ? 'open' : 'closed'}>
-      <section className={styles.mapPanel} aria-label="Evidence stage">
+      <section id="explorer-map" className={styles.mapPanel} aria-label="Evidence stage">
         <div className={styles.mapHeading}>
           <h2>{collection?.name ?? 'No matching evidence'}</h2>
           {counts && <span className={styles.coverage}><b>{counts.records}</b> records · <b>{counts.mappedRecords}</b> on map · <b>{counts.unplacedRecords}</b> not on map{counts.conflictRecords > 0 && <> · <b>{counts.conflictRecords}</b> in conflict</>}
@@ -99,13 +100,16 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
           </div>
           <span className={styles.navCount}>{index + 1} / {records.length}</span>
           <button type="button" aria-label="Next snapshot" onClick={() => step(1)}>›</button>
-          <button type="button" className={styles.detailsToggle} aria-expanded={detailsOpen} aria-controls="explorer-evidence"
+          <button type="button" ref={detailsToggle} className={styles.detailsToggle} aria-expanded={detailsOpen} aria-controls="explorer-evidence"
             onClick={() => setPanel(detailsOpen ? 'map' : 'evidence')}>{detailsOpen ? 'Hide details' : 'Show details'}</button>
         </div>}
       </section>
       <aside id="explorer-evidence" ref={detailsRef} className={styles.drawer} aria-label="Selected evidence" data-open={detailsOpen}>
         <div className={styles.drawerHeading}><h2>Evidence detail</h2>
-          <button type="button" className={styles.drawerClose} onClick={() => setPanel('map')} aria-label="Hide details">×</button></div>
+          <button type="button" className={styles.drawerClose} onClick={() => {
+          setPanel('map');
+          detailsToggle.current?.focus();
+        }} aria-label="Hide details">×</button></div>
         {record ? <>
           {record.conflictGroup && <div className={styles.conflict}><strong>Records disagree.</strong> The stage shows both at equal size. No winner is selected.</div>}
           <RecordCard key={record.id} atlas={atlas} record={record} stop={stops.get(record.id)} hidePhoto={collection?.kind !== 'synthetic'} />

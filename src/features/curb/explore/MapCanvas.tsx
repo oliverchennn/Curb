@@ -8,6 +8,7 @@ import styles from './Explorer.module.css';
 type View = [number, number, number, number];
 type Base = 'aerial' | 'diagram';
 const EXTENT = aerialExtent();
+const STOP_TARGET_DIAMETER = 44;
 // Street names are orientation labels placed beside the archive lines that carry them; they are not data.
 function streetLabels(atlas: Atlas) {
   const ends = (id: string): [[number, number], [number, number]] | null => {
@@ -44,6 +45,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const drag = useRef<{ x: number; y: number; view: View } | null>(null), moved = useRef(false);
   const features = locatedFeatures(atlas, records);
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);
+  const targetRadius = STOP_TARGET_DIAMETER / 2 * unit;
   const selectedFeature = selected ? atlas.features.find(f => f.id === selected.featureId && f.geometry) : undefined;
   // Tighter than the overview default, leaving room above the top stop for its number badge.
   const fit = (f: Feature[]) => fitFeatures(f, 26, 40);
@@ -74,8 +76,8 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   // Selected badge is placed first so it always keeps its natural position.
   const order = [...entries].sort((a, b) => Number(b.f.id === selected?.featureId) - Number(a.f.id === selected?.featureId));
   const badges = placeBadges(order.map(({ f, record }) => {
-    const [x, y] = anchor(f); return { id: record.id, x, y, dy: f.geometry?.type === 'Point' ? -15 * unit : -11 * unit };
-  }), 8.5 * unit, entries.filter(({ f }) => f.geometry?.type === 'Point').map(({ f, record }) => { const [x, y] = anchor(f); return { id: record.id, x, y }; }));
+    const [x, y] = anchor(f); return { id: record.id, x, y, dy: -targetRadius };
+  }), targetRadius, entries.filter(({ f }) => f.geometry?.type === 'Point').map(({ f, record }) => { const [x, y] = anchor(f); return { id: record.id, x, y }; }));
   const halo = showAerial ? '#13201a' : '#fffef8', ink = showAerial ? '#ffffff' : '#213a2c';
   return <div className={styles.mapCanvas} data-base={showAerial ? 'aerial' : 'diagram'}>
     <div className={styles.mapTools} role="group" aria-label="Map controls">
@@ -93,7 +95,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
     <div className={styles.north} aria-hidden="true"><span>↑</span>N</div>
     {aerialFailed && <p className={styles.mapNotice} role="status">Aerial image unavailable — showing Diagram. Every record is unchanged.</p>}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
-      aria-label={`Archive map on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}. Arrow keys pan. Plus and minus zoom. Home fits the collection. Tab reaches paths, then ramps; the record navigator lists every stop in source order.`}
+      aria-label={`Archive map on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}. Arrow keys pan. Plus and minus zoom. Home fits the collection. Tab reaches mapped stops in source order. The record navigator includes unplaced records.`}
       onKeyDown={e => {
         if (e.target !== e.currentTarget) return;
         if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(e.key)) {
@@ -110,9 +112,11 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
       onPointerUp={e => { drag.current = null; if (svg.current?.hasPointerCapture(e.pointerId)) svg.current.releasePointerCapture(e.pointerId); }}
       onPointerCancel={() => { drag.current = null; }} onPointerLeave={() => { if (!moved.current) drag.current = null; }}>
       <title>Princeton archive geometry · current traversal unknown</title>
+      <g className={styles.contextLines} aria-hidden="true">
+        {atlas.context.map(f => f.geometry?.type === 'LineString' && <path key={f.id} d={path(f.geometry.coordinates)} vectorEffect="non-scaling-stroke" />)}
+      </g>
       {showAerial && <image href={aerial.src} x={EXTENT.x} y={EXTENT.y} width={EXTENT.width} height={EXTENT.height}
         preserveAspectRatio="none" onError={() => setAerialFailed(true)} aria-hidden="true" />}
-      {!showAerial && <g className={styles.contextLines} aria-hidden="true">{atlas.context.map(f => f.geometry?.type === 'LineString' && <path key={f.id} d={path(f.geometry.coordinates)} vectorEffect="non-scaling-stroke" />)}</g>}
       <g aria-hidden="true">{streetLabels(atlas).map(s => <text key={s.text} x={s.x} y={s.y} textAnchor="middle" transform={s.rotate ? `rotate(${s.rotate} ${s.x} ${s.y})` : undefined}
         fontSize={12 * unit} fontWeight={700} letterSpacing=".08em" fill={ink} stroke={halo} strokeWidth={3.5 * unit} paintOrder="stroke" className={styles.streetLabel}>{s.text}</text>)}</g>
       {entries.map(({ f, record }) => {
@@ -125,11 +129,11 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
           className={styles.mapFeature} onClick={e => { e.stopPropagation(); if (!moved.current) select(); }}
           onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); select(); } }}>
           {f.geometry?.type === 'LineString' ? <>
-            <path d={path(f.geometry.coordinates)} stroke="transparent" strokeWidth="34" fill="none" vectorEffect="non-scaling-stroke" />
+            <path d={path(f.geometry.coordinates)} stroke="transparent" strokeWidth={STOP_TARGET_DIAMETER} fill="none" vectorEffect="non-scaling-stroke" />
             <path d={path(f.geometry.coordinates)} stroke={showAerial ? '#ffffff' : active ? '#fffdf4' : '#f5f4e9'} strokeWidth={active ? 12 : 9} fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
             <path d={path(f.geometry.coordinates)} stroke={collection.color} strokeWidth={active ? 7 : 5} strokeDasharray={f.type === 'crossing' ? '7 5' : undefined} fill="none" vectorEffect="non-scaling-stroke" />
           </> : f.geometry?.type === 'Point' ? <g transform={`translate(${project(f.geometry.coordinates).join(',')})`}>
-            <circle r={20 * unit} fill="transparent" />
+            <circle r={targetRadius} fill="transparent" />
             {active && <circle r={12 * unit} fill="#f3d796" stroke="#8a551a" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />}
             <circle r={7 * unit} fill={status === 'ASSUMED' || !active ? '#fffdf7' : collection.color}
               stroke={collection.color} strokeWidth={status === 'ASSUMED' ? 2.5 : 3.5} strokeDasharray={status === 'ASSUMED' ? '3 2.4' : undefined} vectorEffect="non-scaling-stroke" />
@@ -141,6 +145,7 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
         const active = selected?.featureId === f.id, [ax, ay] = anchor(f);
         return <g key={record.id} className={styles.badge} onClick={() => { if (!moved.current) onSelect(record.id); }}>
           {b.moved && <line x1={ax} y1={ay} x2={b.x} y2={b.y} stroke={showAerial ? '#ffffff' : '#4b5d4f'} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />}
+          <circle cx={b.x} cy={b.y} r={targetRadius} fill="transparent" />
           <circle cx={b.x} cy={b.y} r={8.5 * unit} fill={active ? '#213a2c' : '#fffef8'} stroke={collection.color} strokeWidth="2" vectorEffect="non-scaling-stroke" />
           <text x={b.x} y={b.y + 3.6 * unit} fontSize={10 * unit} fontWeight={700} textAnchor="middle" fill={active ? '#fffef8' : '#213a2c'}>{stop}</text>
         </g>;
