@@ -5,6 +5,7 @@ import type { Finding, Survey } from '../../../contracts/curb/survey';
 import { getBoxAtTime } from './services';
 import { boxToRect, containedRect, formatTime, type Rect } from './presentation';
 import styles from './SurveyWorkspace.module.css';
+import presenter from './SurveyPresenter.module.css';
 
 export type SeekRequest = { seconds: number; nonce: number };
 type VideoWithFrameCallback = HTMLVideoElement & {
@@ -12,18 +13,24 @@ type VideoWithFrameCallback = HTMLVideoElement & {
   cancelVideoFrameCallback?: (handle: number) => void;
 };
 
-export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
+export function VideoEvidence({ survey, selectedFindingId, seek, edited, compact = false, initialMode = 'live', resetNonce = 0 }: {
   survey: Survey;
   selectedFindingId: string | null;
   seek: SeekRequest | null;
   edited: boolean;
+  compact?: boolean;
+  /** Used only at mount; switching the workspace view never resets playback. */
+  initialMode?: 'original' | 'live' | 'annotated';
+  /** An explicit presenter restart, independent of ordinary selection and review edits. */
+  resetNonce?: number;
 }) {
   const videoRef = useRef<VideoWithFrameCallback>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const resumeTimeRef = useRef(0);
+  const previousResetRef = useRef(resetNonce);
   const [time, setTime] = useState(0);
   const [picture, setPicture] = useState<Rect>({ left: 0, top: 0, width: 0, height: 0 });
-  const [mode, setMode] = useState<'original' | 'live' | 'annotated'>('live');
+  const [mode, setMode] = useState<'original' | 'live' | 'annotated'>(initialMode);
   const [mediaError, setMediaError] = useState<string | null>(null);
   const { media } = survey;
   const src = mode === 'annotated' ? media.annotatedSrc : media.src;
@@ -50,7 +57,9 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     if (typeof video.requestVideoFrameCallback === 'function') {
       const onFrame = (_now: number, metadata: { mediaTime: number }) => {
         if (stopped) return;
-        setTime(metadata.mediaTime);
+        // Decoded timestamps may be rounded to microseconds (418/30 becomes
+        // 13.933333). Snap this decoded-frame callback to its exact frame grid.
+        setTime(Math.round(metadata.mediaTime * media.fps) / media.fps);
         handle = video.requestVideoFrameCallback!(onFrame);
       };
       handle = video.requestVideoFrameCallback(onFrame);
@@ -81,10 +90,24 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     const video = videoRef.current;
     if (!video || !seek) return;
     video.pause();
-    resumeTimeRef.current = Math.min(seek.seconds, Math.max(0, media.durationSeconds - 1 / media.fps));
+    const target = Math.min(Math.max(0, seek.seconds), Math.max(0, media.durationSeconds - 1 / media.fps));
+    // Seek just inside the requested frame, so the browser's microsecond
+    // rounding cannot land on the previous decoded frame at fractional anchors.
+    resumeTimeRef.current = target === 0 ? 0 : target + 0.000001;
     if (video.readyState >= 1) video.currentTime = resumeTimeRef.current;
     setTime(resumeTimeRef.current);
   }, [seek, media.durationSeconds, media.fps]);
+
+  useEffect(() => {
+    if (previousResetRef.current === resetNonce) return;
+    previousResetRef.current = resetNonce;
+    const video = videoRef.current;
+    video?.pause();
+    resumeTimeRef.current = 0;
+    if (video && video.readyState >= 1) video.currentTime = 0;
+    setTime(0);
+    setMode('original');
+  }, [resetNonce]);
 
   useEffect(() => setMediaError(null), [src]);
 
@@ -94,7 +117,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     setMode(next);
   }
 
-  const visible = mode === 'live'
+  const visible = mode === 'live' && !mediaError
     ? survey.findings.flatMap((finding) => {
       if (finding.review.status === 'rejected') return [];
       const box = getBoxAtTime(finding, time, media.fps);
@@ -108,21 +131,26 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
     picture,
   );
 
-  return <section className={styles.videoPanel} aria-labelledby="survey-video-heading">
-    <div className={styles.panelHeading}>
+  return <section className={`${styles.videoPanel} ${compact ? presenter.videoPanel : ''}`} aria-labelledby="survey-video-heading">
+    <div className={`${styles.panelHeading} ${compact ? presenter.videoHeading : ''}`}>
       <h2 id="survey-video-heading">Video</h2>
-      <div className={styles.segmented} role="group" aria-label="Video version">
+      <div className={`${styles.segmented} ${compact ? presenter.videoModes : ''}`} role="group" aria-label="Video version">
         {/* Accessible names begin with the visible words (WCAG 2.5.3 Label in Name). */}
         <button type="button" aria-label="Original: footage without boxes" aria-pressed={mode === 'original'} onClick={() => switchMode('original')}>Original</button>
         <button type="button" aria-label="Review: editable finding overlays" aria-pressed={mode === 'live'} onClick={() => switchMode('live')}>Review</button>
-        <button type="button" aria-label="Annotated: exported video preview" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
+        {!compact ? <button type="button" aria-label="Annotated: exported video preview" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button> : null}
       </div>
+      {compact ? <details className={presenter.fixedExport}>
+        <summary>Fixed export</summary>
+        <p>Annotated is a saved video. Its labels do not change with your review.</p>
+        <button type="button" aria-label="Annotated: fixed exported video" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
+      </details> : null}
     </div>
-    <div ref={frameRef} data-video-frame className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
+    <div ref={frameRef} data-video-frame className={`${styles.videoFrame} ${compact ? presenter.videoFrame : ''}`} style={compact ? undefined : { aspectRatio: `${media.width} / ${media.height}` }}>
       <video key={src} ref={videoRef} className={styles.video} src={src} poster={media.posterSrc} controls playsInline preload="metadata"
         aria-describedby="survey-video-note"
         onLoadedMetadata={(event) => { event.currentTarget.currentTime = resumeTimeRef.current; setTime(resumeTimeRef.current); }}
-        onError={() => setMediaError(`The ${mode === 'annotated' ? 'annotated' : 'survey'} video could not be loaded. Reload the page, or download the original MOV from Export report.`)} />
+        onError={() => setMediaError(`Video unavailable: the ${mode === 'annotated' ? 'annotated' : 'survey'} video could not be loaded. The source close-up is a still image, not playback. Reload, or download the original MOV from Export report.`)} />
       <div className={styles.overlay} aria-hidden="true">
         {visible.map(({ finding, rect }) => <OverlayBox key={finding.id} finding={finding} rect={rect} selected={finding.id === selectedFindingId} />)}
         {visible.map(({ finding }) => {
@@ -135,19 +163,19 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
       </div>
     </div>
     {mediaError ? <p role="alert" className={styles.inlineError}>{mediaError}</p> : null}
-    <div className={styles.videoNotes}>
+    <div className={`${styles.videoNotes} ${compact ? presenter.videoNotes : ''}`}>
       <p id="survey-video-note" className={styles.small}>
         <strong>{formatTime(time)}</strong> · {mode === 'original' ? 'Plain footage, no boxes.' : mode === 'live'
           ? `${visible.length} defect${visible.length === 1 ? '' : 's'} in view right now.`
-          : edited ? 'Saved copy with the original AI labels drawn in. Your edits are not in this file.' : 'Saved copy with the AI labels drawn in.'}
+          : edited ? 'Fixed export — your edits are not in this video.' : 'Fixed export — original AI labels.'}
       </p>
-      <details className={styles.pendingChecks}><summary>How to read the boxes</summary>
+      {compact ? <p className={presenter.legend}>Dashed: pending · Solid: accepted · Rejected: hidden</p> : <details className={styles.pendingChecks}><summary>How to read the boxes</summary>
         <ul className={styles.plainList}>
           <li>Each color follows one defect.</li>
           <li>Dashed box: not checked yet. Solid box: accepted.</li>
           <li>Rejected defects are hidden. No box does not mean no damage.</li>
         </ul>
-      </details>
+      </details>}
     </div>
   </section>;
 }
