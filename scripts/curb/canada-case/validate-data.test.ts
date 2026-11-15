@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -19,13 +19,25 @@ function fixture() {
     "observations.json": { ...sourced, records: [{
       id: "obs-421", assetId: "ramp-421", kind: "ramp", source: { sourceId: "smcccd-final-2020", pdfPage: 2827, printedPage: 2826, record: "421" },
       raw: { rightRunningSlope: "9.8%", action: "Replace curb ramp" },
-      measurements: [{ field: "rightRunningSlope", raw: "9.8%", unit: "%", lower: 9.8, upper: 9.8 }],
+      measurements: [
+        { field: "rightRunningSlope", raw: "9.8%", unit: "%", lower: 9.8, upper: 9.8 },
+        { field: "leftTopLandingSlope", raw: "5.6%", unit: "%", lower: 5.6, upper: 5.6 },
+        { field: "rightTopLandingSlope", raw: "9.4%", unit: "%", lower: 9.4, upper: 9.4 },
+        { field: "domeSetback", raw: "6.0", unit: "in", lower: 6, upper: 6 },
+      ],
+      sourceDefectAnnotations: {
+        basis: "historical_source_annotation", style: "bold_red",
+        legendSource: { sourceId: "smcccd-final-2020", pdfPage: 2817, printedPage: 2816, record: "Navigation item12" },
+        fieldIds: ["rightRunningSlope", "leftTopLandingSlope", "rightTopLandingSlope", "domeSetback"],
+        interpretation: "Historical feature annotations only; no journey or passability assessment.",
+      },
+      replacementAssemblyType: "parallel",
       cost: { raw: "$7,000", cents: 700000, kind: "individual", baseYear: 2020, currency: "USD" },
       assessmentBasis: "surveyed_measurement", status: "recorded_barrier",
       review: { pass1: "author_text", pass2: "author_visual" }, unresolved: ["Connecting crossing not established."],
     }] },
     "coverage.json": { ...sourced, records: [{ id: "lot1", observationIds: ["obs-421"], assessmentBasis: "unresolved", knownBarrierIds: ["obs-421"], unresolved: ["Crossing not established."], notes: "Record only." }], policy: { id: "historical-inventory", description: "No journey inference.", noMissingRecordPass: true } },
-    "projects.json": { ...sourced, projects: [{ id: "replace-421", observationIds: ["obs-421"], physicalWorkGroup: "ramp-421", action: "Replace curb ramp", costCents: 700000, eligible: false, exclusionReason: "No supported journey.", clearsObservationIds: ["obs-421"], remainingUnknowns: ["Crossing not established."] }] },
+    "projects.json": { ...sourced, projects: [{ id: "replace-421", observationIds: ["obs-421"], physicalWorkGroup: "ramp-421", action: "Replace curb ramp", replacementAssemblyType: "parallel", costCents: 700000, eligible: false, exclusionReason: "No supported journey.", clearsObservationIds: ["obs-421"], remainingUnknowns: ["Crossing not established."] }] },
     "graph.json": { ...sourced, nodes: [] as unknown[], edges: [] as unknown[], arrivalNodeId: null, destinationNodeIds: [], candidateEndpoints: [{ id: "lot1-unresolved" }], unresolvedConnections: [{ id: "crossing-421" }] },
     "feasibility.json": { ...sourced, proposedDisposition: "inventory_only", independentReview: { status: "pending", reviewerSession: "independent-reviewer" }, comparisonAllowed: false, missingData: [{ id: "crossing", description: "Establish curb-to-curb crossing coverage." }], inputHashes: {} as Record<string, string> },
   };
@@ -93,7 +105,7 @@ test("rejects dangling observations, duplicate physical work and unsupported cle
 test("construction zero remains unavailable and cannot become a free repair", () => {
   const data = fixture();
   const record = data["observations.json"].records[0];
-  Object.assign(record, { id: "obs-414", assetId: "ramp-414", status: "under_construction", measurements: [] });
+  Object.assign(record, { id: "obs-414", assetId: "ramp-414", status: "under_construction", measurements: [], sourceDefectAnnotations: undefined, replacementAssemblyType: undefined });
   Object.assign(record.source, { pdfPage: 2824, printedPage: 2823, record: "414" });
   Object.assign(record.cost, { raw: "$0", cents: 0, kind: "construction_zero" });
   Object.assign(data["projects.json"].projects[0], { observationIds: ["obs-414"], costCents: 0, clearsObservationIds: [] });
@@ -138,4 +150,41 @@ test("rejects overflow, negative costs, executable topology and premature compar
   const ready = fixture();
   ready["feasibility.json"].proposedDisposition = "comparison_ready";
   assert.throws(() => validateBundle(encode(ready)), /Non-executable/);
+});
+
+test("rejects rehashed loss or reassignment of historical source defect annotations", () => {
+  const omitted = fixture();
+  omitted["observations.json"].records[0].sourceDefectAnnotations.fieldIds.pop();
+  assert.throws(() => validateBundle(encode(omitted)), /source defect annotations differ/);
+  const foreign = fixture();
+  foreign["observations.json"].records[0].sourceDefectAnnotations.fieldIds[0] = "unrecordedFeature";
+  assert.throws(() => validateBundle(encode(foreign)), /Dangling.*source defect field/);
+  const verdict = fixture();
+  verdict["observations.json"].records[0].sourceDefectAnnotations.basis = "verified_passability";
+  assert.throws(() => validateBundle(encode(verdict)), /historical_source_annotation/);
+});
+
+test("rejects a different replacement assembly despite the same estimate", () => {
+  const observation = fixture();
+  observation["observations.json"].records[0].replacementAssemblyType = "perpendicular";
+  assert.throws(() => validateBundle(encode(observation)), /replacement assembly differs from source/);
+  const project = fixture();
+  project["projects.json"].projects[0].replacementAssemblyType = "blended_transition";
+  assert.throws(() => validateBundle(encode(project)), /project replacement assembly differs/);
+});
+
+test("materialized candidate retains printed ramp415 context and strict byte provenance", async () => {
+  const entries = await Promise.all(DATA_FILES.map(async name => [name, await readFile(new URL(`../../../research/curb/canada-2020/${name}`, import.meta.url))] as const));
+  const bytes = Object.fromEntries<Uint8Array | string>(entries) as Record<DataFile, Uint8Array | string>;
+  assert.equal(validateBundle(bytes).comparisonAllowed, false);
+  const crlf = { ...bytes, "observations.json": Buffer.from(bytes["observations.json"]).toString("utf8").replaceAll("\n", "\r\n") };
+  assert.throws(() => validateBundle(crlf), /raw-byte input hash mismatch/);
+  const observations = JSON.parse(Buffer.from(bytes["observations.json"]).toString("utf8"));
+  const ramp415 = observations.records.find((record: { id: string }) => record.id === "ramp-415");
+  ramp415.raw.tableContext.verticalCurb = "not recorded";
+  bytes["observations.json"] = `${JSON.stringify(observations, null, 2)}\n`;
+  const receipt = JSON.parse(Buffer.from(bytes["feasibility.json"]).toString("utf8"));
+  receipt.inputHashes["observations.json"] = sha256(bytes["observations.json"]);
+  bytes["feasibility.json"] = `${JSON.stringify(receipt, null, 2)}\n`;
+  assert.throws(() => validateBundle(bytes), /Vertical/);
 });

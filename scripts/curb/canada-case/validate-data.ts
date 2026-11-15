@@ -16,6 +16,20 @@ const amount = z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
 const hash = z.string().regex(/^[a-f0-9]{64}$/);
 const strings = z.array(text);
 const basis = z.enum(["surveyed_measurement", "source_assessment", "inventory_coverage_assumption", "unresolved"]);
+const assemblyType = z.enum(["perpendicular", "parallel", "blended_transition"]);
+const defectAnnotations = z.object({
+  basis: z.literal("historical_source_annotation"), style: z.literal("bold_red"),
+  legendSource: z.object({ sourceId: z.literal("smcccd-final-2020"), pdfPage: z.literal(2817), printedPage: z.literal(2816), record: text }),
+  fieldIds: strings.min(1), interpretation: text,
+}).strict();
+// Source-fidelity pins reviewed against final pp.2824-2827, not access thresholds.
+const rampAnnotations: Record<string, { fields: string[]; assembly: z.infer<typeof assemblyType> }> = {
+  "404": { fields: ["width", "topLandingCrossSlope", "leftFlare"], assembly: "perpendicular" },
+  "405": { fields: ["rampCrossSlope", "topLandingCrossSlope", "rightFlare", "gutterLip"], assembly: "perpendicular" },
+  "421": { fields: ["rightRunningSlope", "leftTopLandingSlope", "rightTopLandingSlope", "domeSetback"], assembly: "parallel" },
+  "422": { fields: ["bottomLandingCrossSlope"], assembly: "blended_transition" },
+  "413": { fields: ["topLandingCrossSlope", "leftFlare", "rightFlare"], assembly: "perpendicular" },
+};
 const common = { schemaVersion: z.literal(1), caseId: z.literal("canada-college-2020") };
 const sourced = { ...common, sourceSha256: z.literal(FINAL_SOURCE_SHA256) };
 const sourceSchema = z.object({
@@ -29,6 +43,7 @@ const observationSchema = z.object({
   id: text, assetId: text, kind: z.enum(["ramp", "sidewalk", "route_summary", "legend", "methodology"]),
   source: z.object({ sourceId: text, pdfPage: amount.positive(), printedPage: z.union([z.string(), amount, z.null()]), record: text }).passthrough(),
   raw: z.record(z.string(), z.unknown()), measurements: z.array(measurementSchema),
+  sourceDefectAnnotations: defectAnnotations.optional(), replacementAssemblyType: assemblyType.optional(),
   cost: z.object({ raw: z.string(), cents: amount.nullable(), kind: z.enum(["individual", "subtotal", "route_total", "overlap_reference", "construction_zero", "maintenance_zero", "unknown"]), baseYear: z.literal(2020), currency: z.literal("USD") }).passthrough(),
   assessmentBasis: basis,
   status: z.enum(["recorded_barrier", "assessed_features_compliant", "under_construction", "summary_only", "context_only"]),
@@ -40,6 +55,7 @@ const projectsSchema = z.object({ ...sourced, projects: z.array(z.object({
   id: text, observationIds: strings.min(1), physicalWorkGroup: text, action: text,
   costCents: amount.nullable(), eligible: z.literal(false), exclusionReason: text,
   clearsObservationIds: strings, remainingUnknowns: strings,
+  replacementAssemblyType: assemblyType.optional(),
 }).passthrough()).max(12) }).passthrough();
 const graphSchema = z.object({ ...sourced,
   nodes: z.array(z.unknown()).length(0), edges: z.array(z.unknown()).length(0), arrivalNodeId: z.null(),
@@ -100,11 +116,18 @@ export function validateBundle(bytes: Record<DataFile, Uint8Array | string>) {
     requireThat(record.source.printedPage === null || String(record.source.printedPage) === String(record.source.pdfPage - 1), `${record.id}: printed/viewer page mismatch`);
     const rampId = record.kind === "ramp" ? /(?:^|\D)(\d{3})$/.exec(record.assetId)?.[1] : undefined;
     if (rampId && rampPages[rampId]) requireThat(record.source.pdfPage === rampPages[rampId], `${record.id}: known ramp/page mapping mismatch`);
-    unique(record.measurements.map(measurement => measurement.field), `${record.id} measurement field`);
+    const measurementFields = unique(record.measurements.map(measurement => measurement.field), `${record.id} measurement field`);
     for (const measurement of record.measurements) {
       const normalized = normalizeMeasurement(measurement.raw, measurement.unit);
       requireThat(measurement.lower === normalized.lower && measurement.upper === normalized.upper, `${record.id}/${measurement.field}: raw measurement and interval differ`);
     }
+    if (record.sourceDefectAnnotations) references(record.sourceDefectAnnotations.fieldIds, measurementFields, `${record.id} source defect field`);
+    const expectedAnnotations = rampId ? rampAnnotations[rampId] : undefined;
+    if (expectedAnnotations) {
+      requireThat(JSON.stringify([...(record.sourceDefectAnnotations?.fieldIds ?? [])].sort()) === JSON.stringify([...expectedAnnotations.fields].sort()), `${record.id}: historical source defect annotations differ from reviewed source`);
+      requireThat(record.replacementAssemblyType === expectedAnnotations.assembly, `${record.id}: replacement assembly differs from source`);
+    }
+    if (rampId === "415") z.object({ verticalCurb: z.literal("Vertical") }).passthrough().parse(record.raw.tableContext);
     const cost = record.cost;
     requireThat(normalizeUsd(cost.raw) === cost.cents, `${record.id}: raw cost and cents differ`);
     if (cost.cents === null) requireThat(cost.kind === "unknown" || cost.kind === "overlap_reference", `${record.id}: null cost requires unknown or overlap_reference`);
@@ -124,6 +147,7 @@ export function validateBundle(bytes: Record<DataFile, Uint8Array | string>) {
     if (project.observationIds.length === 1) {
       const record = byId.get(project.observationIds[0])!;
       requireThat(project.costCents === record.cost.cents, `${project.id}: single-record estimate differs from source`);
+      if (record.replacementAssemblyType) requireThat(project.replacementAssemblyType === record.replacementAssemblyType, `${project.id}: project replacement assembly differs from observation`);
     }
   }
   unique(coverage.records.map(record => record.id), "coverage ID");

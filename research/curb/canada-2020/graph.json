@@ -21,7 +21,7 @@
     },
     {
       "id": "route40-b9-end",
-      "label": "Route 40 Building 9 side; distinct exterior point unresolved",
+      "label": "Mapped Route 40 parking-side approach near ramp404; summary names Building 9 as route end, exact endpoint/crossing unresolved",
       "source": {
         "sourceId": "smcccd-final-2020",
         "pdfPage": 2795,
@@ -29,7 +29,22 @@
         "record": "Cañada Path of Travel Routes"
       },
       "status": "candidate_only",
-      "nodeId": null
+      "nodeId": null,
+      "mappedLocation": "Parking-side approach near ramp404, across the road from Building9; no crossing inferred.",
+      "summaryNamedEndpoint": {
+        "label": "BUILDING 9",
+        "observationId": "route-40-summary",
+        "source": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2793,
+          "printedPage": 2792,
+          "record": "ROUTE 40 ending route label"
+        }
+      },
+      "unresolved": [
+        "Exact relationship of the mapped parking-side approach to the summary-named Building9 end.",
+        "Crossing continuity, assessed crossing condition and precise exterior endpoint identity."
+      ]
     },
     {
       "id": "route41-53-node",

@@ -4,7 +4,7 @@
 
 ## Two author passes
 
-Pass1: parent extracted searchable text, identified exact rows and transcribed original units, ranges, chainage, quantities and costs. Pass2: a separate read-only author-team reviewer inspected rendered pages and then the actual JSON:all43 sidewalk rows,11 route summaries and78 numeric ramp-table entries agreed. Parent visually inspected the legend/method context and draft reconciliation. Reviewer found one inappropriate inherited vertical-curb value on415; corrected to not recorded before publication. The two passes are author-team work, not Vincent's separate gate acceptance.
+Pass1: parent extracted searchable text, identified exact rows and transcribed original units, ranges, chainage, quantities and costs. Pass2: a separate read-only author-team reviewer inspected rendered pages and then the actual JSON:all43 sidewalk rows,11 route summaries and78 numeric ramp-table entries agreed. Parent visually inspected the legend/method context and draft reconciliation. The original author review incorrectly changed415 Vertical Curb to not recorded. Independent reviewer6893019697 found the error: final2825/printed2824 explicitly prints Vertical Curb: Vertical. The author rechecked the rendered lower-right box and restored Vertical in this additive correction; the original author claim was wrong. The two passes are author-team work, not Vincent's separate gate acceptance.
 
 Every observation contains its source ID, one-based PDF page, printed page, stable record locator, raw fields, normalized values and author pass markers. `raw` preserves source numeric text/labels; action, method, coverage and semantic status sentences are explicitly author paraphrases, not verbatim quotations. Unspecified values remain unknown. Additional source locators on the priority record identify AppendixQ context.
 
@@ -118,3 +118,19 @@ Reviewer preflight6892922527 prompted an additional parent text pass and rendere
 These two additional barriers are retained in west-expansion coverage, not promoted into the four initial-cluster projects. The building-facility priority/severity scale is distinct from the public-right-of-way score. Record4's description uses72 inches while its proposed-solution CA-only line prints72 feet; the conflict remains raw and no target length is normalized. Parent performed both added passes; the earlier author-team reviewer receipt covered the original67records.
 
 REF1352683 spans64.3-68.7ft. Priced1352701ends67.0ft and1352702starts67.8ft. Those two records do not establish repair coverage of67.0-67.8ft; no nearest-row mapping or complete effect is claimed. This is a source interval coverage gap, not proof of a physical gap in the sidewalk.
+
+## Independent source-fidelity correction
+
+Assignment6893036774 reopens only the original author scope from8318518. The author visually rechecked final2817 and2824-2827 plus map2795/summary2793.415 now retains printed `Vertical`; the original ledger correction account above is corrected candidly. Route40's candidate-only map feature is the parking-side approach near404, while the separately cited summary names Building9 as the ending route. Neither label supplies an exact endpoint or crossing. The historical candidate ID is retained only for reference stability.
+
+`sourceDefectAnnotations` preserves the source's bold/red feature emphasis. Legend2817 item12 defines bold dimensions as source-noncompliant; these historical feature annotations are not new legal, passability or journey assessments. Annotation field IDs resolve to the original numeric measurement fields.
+
+| Ramp | Source bold/red measured fields | Specified replacement assembly |
+| --- | --- | --- |
+|404|width; topLandingCrossSlope; leftFlare|perpendicular|
+|405|rampCrossSlope; topLandingCrossSlope; rightFlare; gutterLip|perpendicular|
+|421|rightRunningSlope; leftTopLandingSlope; rightTopLandingSlope; domeSetback|parallel|
+|422|bottomLandingCrossSlope|blended transition|
+|413 (outside-area control)|topLandingCrossSlope; leftFlare; rightFlare|perpendicular, source context only|
+
+Four existing project entries retain their costs, exclusions, empty effects and remaining unknowns; their assembly types are now explicit. No cost, numeric measurement, source bytes, topology, candidate eligibility or feasibility outcome changed.

@@ -64,3 +64,15 @@ node node_modules/typescript/bin/tsc --ignoreConfig --noEmit --strict --target E
 Acquisition rejects changed bytes/pages/hash instead of treating the URL as immutable; changed versions require a new reviewed freeze. Validation binds the exact raw bytes of five input files in `feasibility.json`, returns the sixth file's hash, and checks source identity, record references, locators, normalization, cost semantics and the non-executable inventory boundary. It cannot establish transcription truth, topology or independent acceptance by itself. The JSON schema is an evidence inventory format, not the future production `curb-case-v1` contract.
 
 Actual author checks:21 focused Node tests passed, standalone strict TypeScript passed, official-source cached-byte verification passed, and materialized inventory validation passed. Repository `npm run check` passed (TypeScript,1015tests in43files,production build; exit0). Final publication receipts are reported in the board STOP/RELEASE with exact commit/tree; no deployment or strategy result is asserted here.
+
+## Correction and cross-platform byte reproduction
+
+Independent review6893019697 identified two source-fidelity errors in8318518:415's Vertical Curb value and Route40's map-side wording. Both are corrected after a fresh visual check, with the correction history in TRANSCRIPTION.md. Source bold/red annotations under legend2817 and replacement assembly types are now explicit. The source freeze and all numeric measurements/costs remain unchanged.
+
+Hashes bind **exact committed file bytes**, not parsed JSON equivalence. On Windows, `core.autocrlf=true` can produce CRLF working files from LF Git blobs and correctly fail the validator. Use a fresh checkout with conversion disabled (for example `git -c core.autocrlf=false clone <canonical-url> <new-checkout>` and keep conversion disabled for checkout), or pass exact blob buffers to the published `validateBundle` API. No broad `.gitattributes` change or silent newline normalization is part of this correction. To validate committed bytes at the checked-out candidate, from the repository root with dependencies installed:
+
+```sh
+node --import tsx --input-type=module -e 'import {execFileSync} from "node:child_process"; import {DATA_FILES,validateBundle} from "./scripts/curb/canada-case/validate-data.ts"; const bytes=Object.fromEntries(DATA_FILES.map(name=>[name,execFileSync("git",["show","HEAD:research/curb/canada-2020/"+name])])); console.log(JSON.stringify(validateBundle(bytes),null,2));'
+```
+
+This reads exact Git blobs without rewriting working files and works independently of checkout newline conversion. For file-based validation, preserve the published bytes. The prior21-test Mac receipt remains valid for the original candidate; the independent Windows source check passed exact-blob validation but one acquisition symlink test encountered Windows EPERM. The acquisition pair is unchanged. Correction test counts and exact published SHA are reported in the new STOP/RELEASE.

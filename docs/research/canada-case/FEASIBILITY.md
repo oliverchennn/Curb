@@ -14,10 +14,10 @@ The requested size targets do not justify inventing an origin or three to six di
 
 | Ramp | Featured source finding | Individual 2020 estimate | Final PDF page |
 | --- | --- | ---: | ---: |
-|404|Width45.0in; other recorded features retained|$6500|2826|
-|405|Ramp cross slope2.5%; other recorded features retained|$6500|2826|
-|421|Right running slope9.8%; other recorded features retained|$7000|2827|
-|422|Bottom-landing cross slope2.4%|$3500|2827|
+|404|Perpendicular replacement; width45.0in; other recorded features retained|$6500|2826|
+|405|Perpendicular replacement; ramp cross slope2.5%; other recorded features retained|$6500|2826|
+|421|Parallel replacement; right running slope9.8%; other recorded features retained|$7000|2827|
+|422|Blended-transition replacement; bottom-landing cross slope2.4%|$3500|2827|
 
 404+405+421 reconcile to the **$20000 Lot1/Building9 subtotal**. Ramp422 is a separate **$3500 Lot1/Lot1** entry, giving **$23500 Lot1 ramp total**. These are published historical estimates for whole assemblies, not current quotes or complete journey repair costs. The adjacent subtotal is never substituted for421's price. The cost-summary row beside415 similarly represents the CampusCir group:413$6500+414$0+415$0=$6500, despite415's individual$0. All seven detailed ramp estimates reconcile to$30000.
 
@@ -25,7 +25,7 @@ All43 selected sidewalk row IDs1352681-1352723 retain chainage, original measure
 
 ## Why no supported comparison follows
 
-The final maps2795/2823 show useful junctions, including the Routes41/53 node near405. They do not show a supported continuous connector between404/Route40 and405/Routes41/53, or from the east-side cluster to the west-side network simply because both use Building9. Route52 approaches422;421 is a distinct point across a roadway. Their crosswalk flags do not identify the same crossing or assess the intervening surface. Route28W appears near421 but has no row in the master route-cost list2790. Missing records are not positive passability evidence.
+The final maps2795/2823 show useful junctions, including the Routes41/53 node near405. Route40 is mapped on the parking side near404, across the road from Building9; the separate summary2793 names Building9 as its route end. The exact endpoint and crossing relationship remain unresolved. They do not show a supported continuous connector between404/Route40 and405/Routes41/53, or from the east-side cluster to the west-side network simply because both use Building9. Route52 approaches422;421 is a distinct point across a roadway. Their crosswalk flags do not identify the same crossing or assess the intervening surface. Route28W appears near421 but has no row in the master route-cost list2790. Missing records are not positive passability evidence.
 
 Source methodology10-11 and4361-4362 describes measured categories and prioritization, not positive continuous assessment of all approach, crossing, obstruction and entrance attributes. Source-assessed compliant415 is limited to surveyed ramp features. Under-construction414's$0 is not completion or access evidence. Repairs cannot supply missing coverage. Interval endpoints remain intervals, with no midpoint or favorable threshold chosen.
 
@@ -52,3 +52,5 @@ The next authorized action is independent data review. No kernel/API/UI/study wo
 ## Additional approach evidence reconciled before publication
 
 Final2256 (printed2255), Building9 sheetB9-0-1 dated9-1-2020, depicts crossing paint in its historical aerial. It strengthens approximate location evidence but supplies neither exact curb-ID matching nor an assessed crossing surface. Final2261 (printed2260) records Site2 southwest ramp handrail extension10in (record3,3JOB×$510=$1530) and landing deficiency (record4,300SF×$162=$48600). Both remain known approach barriers in the same bounded expansion; neither is added to initial-cluster projects. Existing landing length is unknown and source target dimension text conflicts. These records reinforce the need for full approach scope rather than treating a named building as a destination node. The final inventory contains69records.
+
+The additive source-fidelity correction restores415's printed Vertical Curb value and retains all source bold/red defect flags with legend2817. These annotations do not alter the inventory-only proposal, unknown dimensions or closed comparison gate.

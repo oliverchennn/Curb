@@ -2900,7 +2900,7 @@
         "unitCost": "$6500.00",
         "surveyStreet": "Lot 1",
         "crossStreet": "Building 9",
-        "proposedAction": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+        "proposedAction": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
         "withinCrosswalk": "YES",
         "crosswalksServed": "1 X-walk",
         "numericFeatureTable": [
@@ -2984,7 +2984,8 @@
           "gutterLip": "see numericFeatureTable",
           "sidewalkWidth": "blank"
         },
-        "priorityVisible": "111.2"
+        "priorityVisible": "111.2",
+        "rampType": "Perpendicular"
       },
       "measurements": [
         {
@@ -3105,7 +3106,24 @@
         "Extracted priority tokens111.2 and5 are vertically separated; rendered table visibly shows111.2 only. No normalized111.25 inference."
       ],
       "scopeRole": "initial_cluster",
-      "normalizedPriority": null
+      "normalizedPriority": null,
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "width",
+          "topLandingCrossSlope",
+          "leftFlare"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "perpendicular"
     },
     {
       "id": "ramp-405",
@@ -3125,7 +3143,7 @@
         "unitCost": "$6500.00",
         "surveyStreet": "Lot 1",
         "crossStreet": "Building 9",
-        "proposedAction": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+        "proposedAction": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
         "withinCrosswalk": "YES",
         "crosswalksServed": "1 X-walk",
         "numericFeatureTable": [
@@ -3213,7 +3231,8 @@
           "streetGradeRight": "N/A",
           "gutterLip": "see numericFeatureTable",
           "sidewalkWidth": "see numericFeatureTable"
-        }
+        },
+        "rampType": "Perpendicular"
       },
       "measurements": [
         {
@@ -3339,7 +3358,25 @@
         "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
-      "scopeRole": "initial_cluster"
+      "scopeRole": "initial_cluster",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "rampCrossSlope",
+          "topLandingCrossSlope",
+          "rightFlare",
+          "gutterLip"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "perpendicular"
     },
     {
       "id": "ramp-421",
@@ -3359,7 +3396,7 @@
         "unitCost": "$7000.00",
         "surveyStreet": "Lot 1",
         "crossStreet": "Building 9",
-        "proposedAction": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+        "proposedAction": "Replace complete parallel curb-ramp assembly including warning surfaces and required top and bottom landings",
         "withinCrosswalk": "YES",
         "crosswalksServed": "1 X-walk",
         "numericFeatureTable": [
@@ -3477,7 +3514,8 @@
           "streetGradeRight": "N/A",
           "gutterLip": "see numericFeatureTable",
           "sidewalkWidth": "see numericFeatureTable"
-        }
+        },
+        "rampType": "Parallel"
       },
       "measurements": [
         {
@@ -3646,7 +3684,25 @@
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
       "scopeRole": "initial_cluster",
-      "locationBasis": "Page2826 Lot1/Building9 header carried to421 and corroborated by2827subtotal;422Lot1/Lot1 label from2827subtotal."
+      "locationBasis": "Page2826 Lot1/Building9 header carried to421 and corroborated by2827subtotal;422Lot1/Lot1 label from2827subtotal.",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "rightRunningSlope",
+          "leftTopLandingSlope",
+          "rightTopLandingSlope",
+          "domeSetback"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "parallel"
     },
     {
       "id": "ramp-422",
@@ -3666,7 +3722,7 @@
         "unitCost": "$3500.00",
         "surveyStreet": "Lot 1",
         "crossStreet": "Lot 1",
-        "proposedAction": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+        "proposedAction": "Replace complete blended transition assembly including warning surfaces and required top and bottom landings",
         "withinCrosswalk": "YES",
         "crosswalksServed": "1 X-walk",
         "numericFeatureTable": [
@@ -3709,7 +3765,8 @@
           "streetGradeRight": "N/A",
           "gutterLip": "N/A",
           "sidewalkWidth": "see numericFeatureTable"
-        }
+        },
+        "rampType": "Blended Transition"
       },
       "measurements": [
         {
@@ -3773,7 +3830,22 @@
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
       "scopeRole": "initial_cluster",
-      "locationBasis": "Page2826 Lot1/Building9 header carried to421 and corroborated by2827subtotal;422Lot1/Lot1 label from2827subtotal."
+      "locationBasis": "Page2826 Lot1/Building9 header carried to421 and corroborated by2827subtotal;422Lot1/Lot1 label from2827subtotal.",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "bottomLandingCrossSlope"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "blended_transition"
     },
     {
       "id": "ramp-413",
@@ -3793,7 +3865,7 @@
         "unitCost": "$6500.00",
         "surveyStreet": "Campus Cir",
         "crossStreet": "Building 3",
-        "proposedAction": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+        "proposedAction": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
         "withinCrosswalk": "YES",
         "crosswalksServed": "1 X-walk",
         "numericFeatureTable": [
@@ -3881,7 +3953,8 @@
           "streetGradeRight": "N/A",
           "gutterLip": "see numericFeatureTable",
           "sidewalkWidth": "see numericFeatureTable"
-        }
+        },
+        "rampType": "Perpendicular"
       },
       "measurements": [
         {
@@ -4007,7 +4080,24 @@
         "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
-      "scopeRole": "source_semantics_control_outside_selected_area"
+      "scopeRole": "source_semantics_control_outside_selected_area",
+      "sourceDefectAnnotations": {
+        "basis": "historical_source_annotation",
+        "style": "bold_red",
+        "legendSource": {
+          "sourceId": "smcccd-final-2020",
+          "pdfPage": 2817,
+          "printedPage": 2816,
+          "record": "Navigation item12: bold text indicates source-noncompliant dimensions"
+        },
+        "fieldIds": [
+          "topLandingCrossSlope",
+          "leftFlare",
+          "rightFlare"
+        ],
+        "interpretation": "Historical source annotations for measured features only; no present-day compliance, passability or whole-journey verdict. Unmarked fields do not supply missing route coverage."
+      },
+      "replacementAssemblyType": "perpendicular"
     },
     {
       "id": "ramp-414",
@@ -4045,7 +4135,8 @@
           "streetGradeRight": "not recorded",
           "gutterLip": "not recorded",
           "sidewalkWidth": "see numericFeatureTable"
-        }
+        },
+        "rampType": "Under Construction"
       },
       "measurements": [
         {
@@ -4132,12 +4223,13 @@
         "tableContext": {
           "stopYieldControl": "No",
           "teeIntersection": "No",
-          "verticalCurb": "not recorded",
+          "verticalCurb": "Vertical",
           "truncatedDomes": "YES",
           "streetGradeRight": "N/A",
           "gutterLip": "N/A",
           "sidewalkWidth": "see numericFeatureTable"
-        }
+        },
+        "rampType": "Blended Transition"
       },
       "measurements": [
         {

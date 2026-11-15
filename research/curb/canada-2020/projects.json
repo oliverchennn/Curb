@@ -9,7 +9,7 @@
         "ramp-404"
       ],
       "physicalWorkGroup": "curb-ramp-404",
-      "action": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+      "action": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
       "costCents": 650000,
       "costBasis": "published_estimate",
       "baseYear": 2020,
@@ -26,7 +26,8 @@
         "Extracted priority tokens111.2 and5 are vertically separated; rendered table visibly shows111.2 only. No normalized111.25 inference."
       ],
       "priorityRaw": "111.2\n5",
-      "normalizedPriority": null
+      "normalizedPriority": null,
+      "replacementAssemblyType": "perpendicular"
     },
     {
       "id": "replace-ramp-405",
@@ -34,7 +35,7 @@
         "ramp-405"
       ],
       "physicalWorkGroup": "curb-ramp-405",
-      "action": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+      "action": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
       "costCents": 650000,
       "costBasis": "published_estimate",
       "baseYear": 2020,
@@ -49,7 +50,8 @@
         "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
-      "priorityRaw": "116"
+      "priorityRaw": "116",
+      "replacementAssemblyType": "perpendicular"
     },
     {
       "id": "replace-ramp-421",
@@ -57,7 +59,7 @@
         "ramp-421"
       ],
       "physicalWorkGroup": "curb-ramp-421",
-      "action": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+      "action": "Replace complete parallel curb-ramp assembly including warning surfaces and required top and bottom landings",
       "costCents": 700000,
       "costBasis": "published_estimate",
       "baseYear": 2020,
@@ -72,7 +74,8 @@
         "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
-      "priorityRaw": "118"
+      "priorityRaw": "118",
+      "replacementAssemblyType": "parallel"
     },
     {
       "id": "replace-ramp-422",
@@ -80,7 +83,7 @@
         "ramp-422"
       ],
       "physicalWorkGroup": "curb-ramp-422",
-      "action": "Replace complete curb-ramp assembly including warning surfaces and required landings",
+      "action": "Replace complete blended transition assembly including warning surfaces and required top and bottom landings",
       "costCents": 350000,
       "costBasis": "published_estimate",
       "baseYear": 2020,
@@ -95,7 +98,8 @@
         "Crossing pairing, intervening roadway condition, approaches and exact endpoint connectivity unverified.",
         "Numerically recorded features are retained, but unmeasured dimensions, source exceptions and full post-repair requirements remain unresolved; no journey assessment follows."
       ],
-      "priorityRaw": "100"
+      "priorityRaw": "100",
+      "replacementAssemblyType": "blended_transition"
     }
   ],
   "notes": [
