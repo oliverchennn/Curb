@@ -1,0 +1,14 @@
+{
+  "imagesDecodedAndVerified": 17,
+  "sharedEdgesVerified": 24,
+  "bytes": 50373514,
+  "bounds": {
+    "west": -74.672,
+    "south": 40.318,
+    "east": -74.628,
+    "north": 40.357
+  },
+  "overviewSHA": "9af51d334b35bab14a4c5a1e43a1e30fd343840793e9148529bd5c87b5ae9c47",
+  "manifestSHA": "bc5b0b7b4bfd13007762f12ec47c2201abd5514047f332cc8bdba7304421546d",
+  "visualInspection": "Overview shows Princeton campus, Lake Carnegie and Meadows area; representative tiles inspected separately. Historical 2020 context, not field observation."
+}

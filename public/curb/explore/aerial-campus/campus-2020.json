@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "curb-aerial-context-tiles-v1",
+  "id": "njogis-campus-2020",
+  "label": "Princeton campus aerial context",
+  "kind": "aerial_archive_context",
+  "captureYear": 2020,
+  "capturedAt": null,
+  "sourceName": "NJ Office of Information Technology, Office of GIS",
+  "sourceUrl": "https://www.nj.gov/njgin/edata/imagery/",
+  "itemUrl": "https://newjersey.maps.arcgis.com/home/item.html?id=5d558e0ad9274c558ce2cabd19afaed9",
+  "attribution": "Aerial imagery: NJ Office of Information Technology, Office of GIS (2020).",
+  "note": "Historical aerial context. Exact capture date and time are unknown. Imagery can predate newer campus development and mapped paths. Raster bounds are a study envelope, not a university property boundary.",
+  "overview": {
+    "id": "overview",
+    "src": "/curb/explore/aerial-campus/overview.jpg",
+    "width": 3520,
+    "height": 3120,
+    "bytes": 4328282,
+    "sha256": "9af51d334b35bab14a4c5a1e43a1e30fd343840793e9148529bd5c87b5ae9c47",
+    "bounds": {
+      "west": -74.672,
+      "south": 40.318,
+      "east": -74.628,
+      "north": 40.357
+    },
+    "crs": "EPSG:4326",
+    "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.672%2C40.318%2C-74.628%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+    "retrievedAt": "2026-11-15T01:23:52.707574+00:00"
+  },
+  "tiles": [
+    {
+      "id": "tile-0-0",
+      "src": "/curb/explore/aerial-campus/tile-0-0.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 3125710,
+      "sha256": "1607d6bb7cfc541300336b782adf9487dab1e859443ea1d761a4352e69966e03",
+      "bounds": {
+        "west": -74.672,
+        "south": 40.34725000000001,
+        "east": -74.661,
+        "north": 40.357000000000006
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.672%2C40.34725%2C-74.661%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.672%2C40.34725%2C-74.661%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:24:52.004416+00:00"
+    },
+    {
+      "id": "tile-0-1",
+      "src": "/curb/explore/aerial-campus/tile-0-1.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 3252518,
+      "sha256": "75602e522c1795cc199a2956057725556b12ea253d4f59af6324beb1429c03a2",
+      "bounds": {
+        "west": -74.661,
+        "south": 40.34725000000001,
+        "east": -74.65,
+        "north": 40.357000000000006
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.661%2C40.34725%2C-74.65%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.661%2C40.34725%2C-74.65%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:24:51.862931+00:00"
+    },
+    {
+      "id": "tile-0-2",
+      "src": "/curb/explore/aerial-campus/tile-0-2.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 3307882,
+      "sha256": "c61fcabb5973bb37866c9a0af48742f99a5a60d6730df06524f11ded158a8ac1",
+      "bounds": {
+        "west": -74.64999999999999,
+        "south": 40.347249999999995,
+        "east": -74.63899999999998,
+        "north": 40.357000000000006
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.65%2C40.34725%2C-74.639%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.65%2C40.34725%2C-74.639%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:24:55.259328+00:00"
+    },
+    {
+      "id": "tile-0-3",
+      "src": "/curb/explore/aerial-campus/tile-0-3.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 3152134,
+      "sha256": "2d128e9602729c8b69ed8e73963587ab3362b3318dc99079e3dd921cfaa867d5",
+      "bounds": {
+        "west": -74.639,
+        "south": 40.34725000000001,
+        "east": -74.628,
+        "north": 40.357000000000006
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.639%2C40.34725%2C-74.628%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.639%2C40.34725%2C-74.628%2C40.357&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:24:59.303506+00:00"
+    },
+    {
+      "id": "tile-1-0",
+      "src": "/curb/explore/aerial-campus/tile-1-0.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2976181,
+      "sha256": "32d5cea786f47c5b80e93ead011f03fc2d7fede9c90a0f19e377ce55615287b4",
+      "bounds": {
+        "west": -74.67199999999998,
+        "south": 40.3375,
+        "east": -74.66099999999997,
+        "north": 40.34725
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.672%2C40.3375%2C-74.661%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.672%2C40.3375%2C-74.661%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:02.235233+00:00"
+    },
+    {
+      "id": "tile-1-1",
+      "src": "/curb/explore/aerial-campus/tile-1-1.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2916517,
+      "sha256": "3ffbb429709e58bc022cb514b65db7332ce25c2c054e310ed36839a35f52e178",
+      "bounds": {
+        "west": -74.66099999999999,
+        "south": 40.3375,
+        "east": -74.64999999999998,
+        "north": 40.34725
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.661%2C40.3375%2C-74.65%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.661%2C40.3375%2C-74.65%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:06.041743+00:00"
+    },
+    {
+      "id": "tile-1-2",
+      "src": "/curb/explore/aerial-campus/tile-1-2.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2472368,
+      "sha256": "f80c82b954a0fcd55b0d030d406197bc464410a1a6656b4cbf97eebb6bf95b40",
+      "bounds": {
+        "west": -74.64999999999999,
+        "south": 40.3375,
+        "east": -74.63899999999998,
+        "north": 40.34725000000001
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.65%2C40.3375%2C-74.639%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.65%2C40.3375%2C-74.639%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:06.783383+00:00"
+    },
+    {
+      "id": "tile-1-3",
+      "src": "/curb/explore/aerial-campus/tile-1-3.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2612051,
+      "sha256": "2088942901d2a9d499caf7f6a94682d8986009f1b6e1992270c12a2b33aa3ae9",
+      "bounds": {
+        "west": -74.639,
+        "south": 40.3375,
+        "east": -74.62799999999999,
+        "north": 40.34725
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.639%2C40.3375%2C-74.628%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.639%2C40.3375%2C-74.628%2C40.34725&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:10.358460+00:00"
+    },
+    {
+      "id": "tile-2-0",
+      "src": "/curb/explore/aerial-campus/tile-2-0.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2749181,
+      "sha256": "a9882a7264816ad873a82dbe1769cd815b90050f074a7f51ce4fd644c1fac607",
+      "bounds": {
+        "west": -74.67199999999998,
+        "south": 40.327749999999995,
+        "east": -74.66099999999997,
+        "north": 40.3375
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.672%2C40.327749999999995%2C-74.661%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.672%2C40.327749999999995%2C-74.661%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:14.351250+00:00"
+    },
+    {
+      "id": "tile-2-1",
+      "src": "/curb/explore/aerial-campus/tile-2-1.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2802125,
+      "sha256": "784cd52f0778b06e0df2f7ff501897bb30a0ab42166b4a582a71295f03bf0539",
+      "bounds": {
+        "west": -74.66099999999999,
+        "south": 40.327749999999995,
+        "east": -74.64999999999998,
+        "north": 40.3375
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.661%2C40.327749999999995%2C-74.65%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.661%2C40.327749999999995%2C-74.65%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:14.569469+00:00"
+    },
+    {
+      "id": "tile-2-2",
+      "src": "/curb/explore/aerial-campus/tile-2-2.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2557022,
+      "sha256": "ee61c4cf1e7ebb14dd430674e0040d5380157a74de9efae51091740be5e6025c",
+      "bounds": {
+        "west": -74.64999999999999,
+        "south": 40.327749999999995,
+        "east": -74.63899999999998,
+        "north": 40.337500000000006
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.65%2C40.327749999999995%2C-74.639%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.65%2C40.327749999999995%2C-74.639%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:20.000680+00:00"
+    },
+    {
+      "id": "tile-2-3",
+      "src": "/curb/explore/aerial-campus/tile-2-3.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2740071,
+      "sha256": "cd1e5aaa9019513af07ef0da36dab772562ff4b04504c892781fc7a3c2c8c8d4",
+      "bounds": {
+        "west": -74.639,
+        "south": 40.327749999999995,
+        "east": -74.62799999999999,
+        "north": 40.3375
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.639%2C40.327749999999995%2C-74.628%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.639%2C40.327749999999995%2C-74.628%2C40.3375&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:24.450616+00:00"
+    },
+    {
+      "id": "tile-3-0",
+      "src": "/curb/explore/aerial-campus/tile-3-0.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2706739,
+      "sha256": "851c93068d83b4c95165a96025b9aa2a0c77e3672503e9ce5302e1f3c558efce",
+      "bounds": {
+        "west": -74.672,
+        "south": 40.318,
+        "east": -74.661,
+        "north": 40.327749999999995
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.672%2C40.318%2C-74.661%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.672%2C40.318%2C-74.661%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:22.424360+00:00"
+    },
+    {
+      "id": "tile-3-1",
+      "src": "/curb/explore/aerial-campus/tile-3-1.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2766431,
+      "sha256": "0cd85a79874ec9378246c5f244155457f072423c09e5a86963a307e76f4b6d4e",
+      "bounds": {
+        "west": -74.661,
+        "south": 40.318,
+        "east": -74.65,
+        "north": 40.327749999999995
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.661%2C40.318%2C-74.65%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.661%2C40.318%2C-74.65%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:26:07.044004+00:00"
+    },
+    {
+      "id": "tile-3-2",
+      "src": "/curb/explore/aerial-campus/tile-3-2.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 2876220,
+      "sha256": "e62dc5745d815fd184f8261ac792469298d870c3b2ce14abfd86df59e93ab4ef",
+      "bounds": {
+        "west": -74.64999999999999,
+        "south": 40.31799999999999,
+        "east": -74.63899999999998,
+        "north": 40.32775
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.65%2C40.318%2C-74.639%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.65%2C40.318%2C-74.639%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:31.012020+00:00"
+    },
+    {
+      "id": "tile-3-3",
+      "src": "/curb/explore/aerial-campus/tile-3-3.jpg",
+      "width": 3520,
+      "height": 3120,
+      "bytes": 3032082,
+      "sha256": "32ad51c431ad5fa0eba5fa4694fc03b84bd60af5c5b6b46d0704ec3867d82fa8",
+      "bounds": {
+        "west": -74.639,
+        "south": 40.318,
+        "east": -74.628,
+        "north": 40.327749999999995
+      },
+      "crs": "EPSG:4326",
+      "exportUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=image&bbox=-74.639%2C40.318%2C-74.628%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "metadataUrl": "https://maps.nj.gov/arcgis/rest/services/Basemap/Orthos_Natural_2020_NJ_WM/MapServer/export?f=json&bbox=-74.639%2C40.318%2C-74.628%2C40.327749999999995&bboxSR=4326&imageSR=4326&size=3520%2C3120&format=jpg&transparent=false&dpi=96",
+      "retrievedAt": "2026-11-15T01:25:34.669154+00:00"
+    }
+  ],
+  "rendering": {
+    "projection": "Project both geographic corners through existing explorer project(); preserveAspectRatio none.",
+    "overview": "Use the overview at campus-wide zoom.",
+    "detail": "At close zoom, load only tiles intersecting the visible geographic extent. Keep overview beneath as fallback while tiles load or if one fails.",
+    "failure": "Retain Diagram and evidence access if no raster is available."
+  }
+}
