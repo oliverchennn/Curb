@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "surveyId": "robertson-hall",
+  "media": {
+    "src": "/curb/surveys/robertson-hall/survey.mp4",
+    "sourceSrc": "/curb/surveys/robertson-hall/source/IMG_0699.MOV",
+    "originalSha256": "30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a",
+    "normalizedSha256": "52b364f88dd42f66fe924f2d5a25ef6cf642a8ce272790bc315ee78427831ff6",
+    "width": 720,
+    "height": 1280,
+    "fps": 30,
+    "frameCount": 419
+  },
+  "trackFingerprintAlgorithm": "sha256-u32le-f64le-v1",
+  "trackDataSha256": "d2f7b2f2361101a9f11aaaf429689c0cecae8a9df22f31b3e58f9cff7f582186",
+  "frames": [
+    {
+      "findingId": "defect-01",
+      "canonicalFrame": 210,
+      "frame": 195,
+      "seconds": 6.5,
+      "decision": "change",
+      "trackSpan": [
+        105,
+        229
+      ],
+      "trackSha256": "bb86d47d1e376b7f646e5192fe460fb6c6d3698de91201a4a210bf72ca7ee503",
+      "normalizedBox": [
+        0.10226871818304062,
+        0.4845809042453766,
+        0.7653557658195496,
+        0.0932348221540451
+      ],
+      "cropRectPixels": {
+        "x": 8,
+        "y": 563,
+        "width": 692,
+        "height": 241
+      },
+      "fullFrameSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-01-frame.jpg",
+      "cropSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-01-crop.jpg",
+      "fullFrameSha256": "141a9efe64fb1464a217f5ff90e66bed2a1e59e5769ff7f9bd451aacee045e70",
+      "cropSha256": "fb8b8510c7234eb6367110d5f6afae389bd7f8db906714903e2d1a82fcab4658",
+      "rationale": "The ragged opening at the left and the crack across the panel have clearer edges. The adjacent joints and right panel edge are still in view."
+    },
+    {
+      "findingId": "defect-02",
+      "canonicalFrame": 285,
+      "frame": 264,
+      "seconds": 8.8,
+      "decision": "change",
+      "trackSpan": [
+        195,
+        301
+      ],
+      "trackSha256": "59c2fe4a634e7e7ef84f4110f8a73aba38bbd6299890c260b78e6b3b2ab5b52c",
+      "normalizedBox": [
+        0.13936954736709595,
+        0.46647995710372925,
+        0.6871213912963867,
+        0.10402917861938477
+      ],
+      "cropRectPixels": {
+        "x": 30,
+        "y": 545,
+        "width": 644,
+        "height": 290
+      },
+      "fullFrameSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-02-frame.jpg",
+      "cropSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-02-crop.jpg",
+      "fullFrameSha256": "ee592f5c18eb38082e3a2879a3878e15b5f56d596a4251139fa76cc984989790",
+      "cropSha256": "0bfb6c3a92c3c7921a1c1707bf7614496125657d9abc1525f3cb07badf44341b",
+      "rationale": "The branch and small opening read more clearly than at the 9.5-second anchor. The crop retains the branch below the retained box and the panel joint."
+    },
+    {
+      "findingId": "defect-03",
+      "canonicalFrame": 360,
+      "frame": 326,
+      "seconds": 10.866666666666667,
+      "decision": "change",
+      "trackSpan": [
+        270,
+        370
+      ],
+      "trackSha256": "97ce778609f341642f774833fb6d20a614e70c168caeb9623d3924663d282502",
+      "normalizedBox": [
+        0.24809527397155762,
+        0.4229542315006256,
+        0.572717547416687,
+        0.1201544776558876
+      ],
+      "cropRectPixels": {
+        "x": 93,
+        "y": 486,
+        "width": 592,
+        "height": 270
+      },
+      "fullFrameSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-03-frame.jpg",
+      "cropSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-03-crop.jpg",
+      "fullFrameSha256": "585fce0c7b06a2847e02143ab854c6c5da4142be87ce52d555151862adefdd64",
+      "cropSha256": "c2496fbef9820862aad43af04d16e451c9743660b68b2d5e9d598132e4b6ec98",
+      "rationale": "The curved split is sharper and visible with both bounding panel joints. The later anchor is larger but loses context at the source edges."
+    },
+    {
+      "findingId": "defect-04",
+      "canonicalFrame": 180,
+      "frame": 180,
+      "seconds": 6.0,
+      "decision": "retain",
+      "trackSpan": [
+        0,
+        301
+      ],
+      "trackSha256": "753c3426d7cd6bd475aad8353593044f45a1df2f2952d2a2d2de68170fa64c91",
+      "normalizedBox": [
+        0.6041666666666666,
+        0.1796875,
+        0.39583333333333337,
+        0.07421875
+      ],
+      "cropRectPixels": {
+        "x": 369,
+        "y": 168,
+        "width": 351,
+        "height": 222
+      },
+      "fullFrameSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-04-frame.jpg",
+      "cropSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-04-crop.jpg",
+      "fullFrameSha256": "5ba049659f7d6542388a85cd7e58538f7e0520d1b597f440468faf606c8a70b7",
+      "cropSha256": "b1e199f667d280942998a7c08e8641df133306b28fe17e4efe90d6f329c729b6",
+      "rationale": "The 6-second anchor shows the central breakup and the adjoining joint clearly enough for review. The damaged area continues toward the right source edge. Nearby frames trade some of that context for size or sharpness."
+    },
+    {
+      "findingId": "defect-05",
+      "canonicalFrame": 418,
+      "frame": 398,
+      "seconds": 13.266666666666667,
+      "decision": "change",
+      "trackSpan": [
+        330,
+        418
+      ],
+      "trackSha256": "f45df37d911c6fa8f910249261696031d31d66b1f0629342ef0017325abf5169",
+      "normalizedBox": [
+        0.17262956500053406,
+        0.5297929644584656,
+        0.7299766540527344,
+        0.0502253994345665
+      ],
+      "cropRectPixels": {
+        "x": 38,
+        "y": 617,
+        "width": 674,
+        "height": 194
+      },
+      "fullFrameSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-05-frame.jpg",
+      "cropSrc": "/curb/surveys/robertson-hall/presenter-v1/defect-05-crop.jpg",
+      "fullFrameSha256": "b3c99355852a972858606b1a7b19845374774a70cc03942b636d04e36f07586d",
+      "cropSha256": "f33e549c716c031769daa0c7ae00d5178df950b503c2ca656408e3fe1ac43406",
+      "rationale": "The transverse crack is sharper and both panel edges remain visible. The final decoded frame crops more tightly at the sides."
+    }
+  ]
+}
