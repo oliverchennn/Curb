@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "studyId": "canada-map-curb-ramp-conditional-v1",
+  "disposition": "conditional_only",
+  "metric": "Count of newly connected modeled exterior approach points from the fixed middle Lot 1 origin.",
+  "favorableAssumptions": [
+    {
+      "id": "A1",
+      "text": "The 2026 map and 2020 ramp inventory are combined as a hypothetical planning exercise, not a reconstructed observed 2020 or 2026 network."
+    },
+    {
+      "id": "A2",
+      "text": "Historical ramp IDs are associated with the two mapped crossings by the reviewed plausible alignment, not authoritative asset-to-edge identification."
+    },
+    {
+      "id": "A3",
+      "text": "In favorable scenarios ONLY, all non-ramp conditions along the mapped paths, including known sidewalk/approach defects and unknown widths, slopes, crossings and coverage, are assumed addressed or otherwise usable outside this four-project budget. Their work and costs are not included or estimated. No such work is observed."
+    },
+    {
+      "id": "A4",
+      "text": "The optional north Building 9 vertical transfer AND its usable landings are assumed available only in its explicitly enabled scenario; doors, levels, operating status and actual step-free continuity are unverified. A3 does not enable the transfer or its landings."
+    },
+    {
+      "id": "A5",
+      "text": "Endpoints represent exterior approach areas on a schematic map, not confirmed accessible entrances. Each counts once with equal weight; no people, usage, business value or ROI weights are inferred."
+    }
+  ],
+  "historicalEstimate": {
+    "baseYear": 2020,
+    "currency": "USD",
+    "estimateCents": 2350000,
+    "projectCount": 4,
+    "scope": "Four published curb-ramp replacement assemblies only."
+  },
+  "scenarios": [
+    {
+      "id": "conservative",
+      "nominalMaximumNewDestinationCount": 0,
+      "nominal": {
+        "cases": 5,
+        "cheapest": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        }
+      },
+      "stress": {
+        "cases": 30,
+        "cheapest": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        }
+      }
+    },
+    {
+      "id": "mapping-unconfirmed",
+      "nominalMaximumNewDestinationCount": 0,
+      "nominal": {
+        "cases": 5,
+        "cheapest": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        }
+      },
+      "stress": {
+        "cases": 30,
+        "cheapest": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        }
+      }
+    },
+    {
+      "id": "conditional-no-transfer",
+      "nominalMaximumNewDestinationCount": 1,
+      "nominal": {
+        "cases": 5,
+        "cheapest": {
+          "wins": 2,
+          "ties": 3,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        }
+      },
+      "stress": {
+        "cases": 30,
+        "cheapest": {
+          "wins": 13,
+          "ties": 17,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        }
+      }
+    },
+    {
+      "id": "conditional-with-transfer",
+      "nominalMaximumNewDestinationCount": 3,
+      "nominal": {
+        "cases": 5,
+        "cheapest": {
+          "wins": 2,
+          "ties": 3,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 5,
+          "losses": 0
+        }
+      },
+      "stress": {
+        "cases": 30,
+        "cheapest": {
+          "wins": 13,
+          "ties": 17,
+          "losses": 0
+        },
+        "greedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        },
+        "bundleGreedy": {
+          "wins": 0,
+          "ties": 30,
+          "losses": 0
+        }
+      }
+    }
+  ],
+  "comparison": {
+    "nominal": {
+      "cases": 20,
+      "cheapest": {
+        "wins": 4,
+        "ties": 16,
+        "losses": 0
+      },
+      "greedy": {
+        "wins": 0,
+        "ties": 20,
+        "losses": 0
+      },
+      "bundleGreedy": {
+        "wins": 0,
+        "ties": 20,
+        "losses": 0
+      }
+    },
+    "stress": {
+      "cases": 120,
+      "cheapest": {
+        "wins": 26,
+        "ties": 94,
+        "losses": 0
+      },
+      "greedy": {
+        "wins": 0,
+        "ties": 120,
+        "losses": 0
+      },
+      "bundleGreedy": {
+        "wins": 0,
+        "ties": 120,
+        "losses": 0
+      }
+    }
+  },
+  "publishedPriority": "Unavailable because the ramp 404 priority is unresolved.",
+  "limitation": "The southern 404/405 pair has no mapped connection to the fixed middle Lot 1 origin or its targets. Its costs remain in the denominator. Any comparison is structurally specific to this origin, target set and inferred placement, not evidence of campus-wide algorithm performance.",
+  "boundary": "Historical cost inputs and conditional modeled exterior connections. No current access, complete-route price, observed benefit, compliance assessment, campus-wide comparison or human-study claim."
+}

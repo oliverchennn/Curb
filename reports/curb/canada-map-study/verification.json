@@ -1,0 +1,113 @@
+{
+  "checks": {
+    "budgetCases": 140,
+    "csvRows": 560,
+    "distinctCostVariants": 11,
+    "frontiers": 44,
+    "fullSetOmissions": 176,
+    "scenarioCostVariants": 44,
+    "scenarios": 4,
+    "selectionOmissions": 816,
+    "singletonProjections": 176,
+    "strategyResults": 560,
+    "subsets": 704,
+    "witnesses": 176
+  },
+  "frozenCommit": "53363bcf114abe7c08d062a281d441db806127a3",
+  "inputHashes": [
+    {
+      "path": "research/curb/canada-map-study/study-spec.json",
+      "sha256": "e57b5b66c463c91a4d157e30561ab0a6e6db578a581d3513838f1d8ee4017c57"
+    },
+    {
+      "path": "docs/research/canada-case/map-topology.json",
+      "sha256": "ffd6d17db589f2e4e762bd951e70609cd923ed7bc832b0e80eb2057dcdaa46fe"
+    },
+    {
+      "path": "research/curb/canada-2020/projects.json",
+      "sha256": "5f77328b5f296dea3a9bc318babc154c968cecc1a397215610966e6153bb8707"
+    }
+  ],
+  "inputManifestSha256": "680ff922c2bce887bcd65752469525d2a6b6b48d1f968473406088b3456b13ea",
+  "kernelCommit": "2756c4b344a667fbe2e143076b8bde55609db617",
+  "nominalExactVersusBaselines": {
+    "conditional-no-transfer": {
+      "bundleGreedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      },
+      "cheapest": {
+        "losses": 0,
+        "ties": 3,
+        "wins": 2
+      },
+      "greedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      }
+    },
+    "conditional-with-transfer": {
+      "bundleGreedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      },
+      "cheapest": {
+        "losses": 0,
+        "ties": 3,
+        "wins": 2
+      },
+      "greedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      }
+    },
+    "conservative": {
+      "bundleGreedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      },
+      "cheapest": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      },
+      "greedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      }
+    },
+    "mapping-unconfirmed": {
+      "bundleGreedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      },
+      "cheapest": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      },
+      "greedy": {
+        "losses": 0,
+        "ties": 5,
+        "wins": 0
+      }
+    }
+  },
+  "resultsCsvSha256Lf": "1f0ba2228fbabed5a38b53822f8715ff61551be9dbdc4d93415437a9a1461c4d",
+  "resultsSha256Lf": "c7269cbd9e8ed0fe0d054f31fdf82bd09280e84924b03df2239b717afd1218a5",
+  "schemaVersion": 1,
+  "scope": "Independent BFS and exhaustive-subset verification of the frozen conditional model.",
+  "status": "passed",
+  "studyId": "canada-map-curb-ramp-conditional-v1",
+  "tamperRejection": {
+    "changedStrategySpend": "scenarios.conservative.variants.nominal.budgets[0].strategies.exact.spendCents: expected 0, received 1",
+    "excludedWitnessEdge": "scenarios.conditional-no-transfer.variants.nominal.subsets[12].witnesses[0].edgeIds[0]: excluded, unknown, or unavailable"
+  }
+}

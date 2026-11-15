@@ -1,5 +1,18 @@
 # Curb crunch execution queue - 2026-11-15
 
+## Latest checkpoint: 13:00 UTC
+
+This checkpoint supersedes the older state rows below; the live board remains authoritative. User steers are cumulative.
+
+- **Recording kit complete:** PR47 merged at `5704f7ac28a87b0c7f9efa39d0dd1595e1d2960a`. The 116-second skeleton, conversational script, captions and tested assembly helper include a seven-second real team-camera intro slot. Real team footage, narration and final upload remain human actions. The existing presenter also supplied a two-minute live cut after checking the conflicting event timing sources; the three-minute script remains preserved.
+- **Mapped Cañada network complete:** PR49 merged at `2756c4b344a667fbe2e143076b8bde55609db617`. Independent review accepted 18 nodes, 14 mapped edges and two conditional building links. Current production was independently observed on that source. This mapping does not amend the original inventory-only access gate.
+- **Conditional Cañada study active:** user explicitly requested proceeding. Spec and input hashes were published before comparisons at `53363bcf114abe7c08d062a281d441db806127a3`, branch `codex/canada-map-study`. The separate source reviewer approved the scope. Vincent's implementation child owns only the new study generator/report files; a distinct child owns the independent BFS verifier. Four scenarios, four historical ramp projects, five budgets, cost stress, single-repair and bundle-aware baselines are frozen. Known non-ramp work is assumed addressed only in explicitly favorable scenarios and remains outside the cost total. Southern projects have no connection to the fixed origin. Results and final claims are pending, with no application ownership transfer.
+- **CAD integration active on Oliver:** PR48 exact head `cfad2d22ad0f5a4793e64bf29450ba97b5b2d3f2` combines the reviewed original and corrections. Both Node CI checks, desktop CAD and mobile/survey lanes passed. Vincent's four-page desktop lane now passed and stopped in [6894606264](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6894606264). Oliver's final native-upload closeout and integrated release remain pending. Keep original Landau branch until explicit release; main integration and branch retirement are separate decisions.
+- **Princeton route active on Oliver:** [6894572357](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6894572357) reserves the separate fixed Blair Arch route. Same-endpoint baseline and narration are being checked. Do not claim superiority over Google wheelchair walking directions without a valid comparison.
+- **Cleanup:** 44 completed branch tips archived and removed with exact tag/ref verification. Active CAD branches and three unrelated unreleased research tips remain preserved. All previously accepted Investment, Survey, synthetic metrics and skipped-human-study decisions remain in force.
+
+Study ownership and exact scopes: [freeze/dispatch receipt](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6894686620). No scheduled automation was restarted.
+
 Snapshot updated for the user's urgent recording request. The [live board](https://github.com/oliverchennn/Curb/issues/1) is authoritative. New steering appends or explicitly revises the queue; it does not cancel unfinished tasks. Never merge the historical local coordination branch. The scheduled 11:18 UTC dispatch window closed, but subsequent explicit user requests authorize the recording, source recovery and repository organization below. Oliver stopped the scheduled heartbeat; existing owners resume directly.
 
 ## Authority
