@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "studyId": "canada-map-curb-ramp-conditional-v1",
+  "disposition": "conditional_only",
+  "title": "Cañada College: conditional curb-ramp planning on a public map",
+  "baseCommit": "2756c4b344a667fbe2e143076b8bde55609db617",
+  "purpose": "Compare budget selection for four historical curb-ramp replacement assemblies on a separately reconstructed map. This is not a complete-route cost estimate, current access assessment, or observed outcome.",
+  "inputPaths": {
+    "topology": "docs/research/canada-case/map-topology.json",
+    "projects": "research/curb/canada-2020/projects.json"
+  },
+  "hashPolicy": "SHA-256 of UTF-8 input with CRLF normalized to LF; input manifest is published before any comparison run.",
+  "originNodeId": "mid-lot1-access-area",
+  "destinationNodeIds": ["b9-north-elevator-east", "b12-approach", "b18-b23-path"],
+  "destinationLabels": ["Building 9 north elevator approach", "Building 12/13 approach", "Path beside Buildings 18/23"],
+  "endpointSelectionReason": "One mapped middle Lot 1 arrival area and three distinct exterior approach areas in its mapped or explicitly conditional component. No indoor library alias, inferred building entrance, or duplicate node. Selection uses map connectivity and the previously selected Lot 1/Building 9 scope, before outcome computation.",
+  "projectIds": ["replace-ramp-404", "replace-ramp-405", "replace-ramp-421", "replace-ramp-422"],
+  "projectCostCents": [650000, 650000, 700000, 350000],
+  "currency": "USD",
+  "costBaseYear": 2020,
+  "nominalTotalCents": 2350000,
+  "budgetCents": [0, 587500, 1175000, 1762500, 2350000],
+  "eligibility": "All four source-supported whole curb-ramp replacement assemblies remain in every strategy and scenario, including the disconnected southern pair. Original inventory eligibility remains false; this separate conditional model does not amend it.",
+  "singleOriginLimitation": "The southern 404/405 pair has no mapped connection to the fixed middle Lot 1 origin or its targets. Its costs remain in the denominator. Any comparison is structurally specific to this origin, target set and inferred placement, not evidence of campus-wide algorithm performance.",
+  "projectToEdge": {
+    "replace-ramp-404": "south-road-crossing",
+    "replace-ramp-405": "south-road-crossing",
+    "replace-ramp-421": "mid-road-crossing",
+    "replace-ramp-422": "mid-road-crossing"
+  },
+  "repairSemantics": "An authorized crossing requires both assigned ramp assemblies to be selected. This is addressing selected recorded ramp deficiencies, not a claim that either deficiency makes the crossing physically impassable. Repairs never resolve other conditions by themselves.",
+  "excludedEdgeIds": ["b9-east-landing-to-library-level"],
+  "conditionalTransferEdgeId": "b9-vertical-design-link",
+  "graphPolicy": "Use only source topology edges with existing nodes, exclude the indoor library link, and treat map edges as bidirectional solely for this conditional model. Never connect separate parking areas or the south and north Building 9 approaches. Edge weights are one computational hop, never measured metres; published witness paths omit distanceMeters.",
+  "assumptions": [
+    {"id": "A1", "text": "The 2026 map and 2020 ramp inventory are combined as a hypothetical planning exercise, not a reconstructed observed 2020 or 2026 network."},
+    {"id": "A2", "text": "Historical ramp IDs are associated with the two mapped crossings by the reviewed plausible alignment, not authoritative asset-to-edge identification."},
+    {"id": "A3", "text": "In favorable scenarios ONLY, all non-ramp conditions along the mapped paths, including known sidewalk/approach defects and unknown widths, slopes, crossings and coverage, are assumed addressed or otherwise usable outside this four-project budget. Their work and costs are not included or estimated. No such work is observed."},
+    {"id": "A4", "text": "The optional north Building 9 vertical transfer AND its usable landings are assumed available only in its explicitly enabled scenario; doors, levels, operating status and actual step-free continuity are unverified. A3 does not enable the transfer or its landings."},
+    {"id": "A5", "text": "Endpoints represent exterior approach areas on a schematic map, not confirmed accessible entrances. Each counts once with equal weight; no people, usage, business value or ROI weights are inferred."}
+  ],
+  "scenarios": [
+    {"id": "conservative", "otherConditionsAssumedResolved": false, "historicalMappingAssumed": false, "verticalTransferAssumed": false, "label": "Conservative: unresolved access and known non-ramp conditions remain unavailable"},
+    {"id": "mapping-unconfirmed", "otherConditionsAssumedResolved": true, "historicalMappingAssumed": false, "verticalTransferAssumed": false, "label": "Other conditions assumed resolved; historical crossing assignment not assumed"},
+    {"id": "conditional-no-transfer", "otherConditionsAssumedResolved": true, "historicalMappingAssumed": true, "verticalTransferAssumed": false, "label": "Conditional curb-ramp scope, no Building 9 vertical transfer"},
+    {"id": "conditional-with-transfer", "otherConditionsAssumedResolved": true, "historicalMappingAssumed": true, "verticalTransferAssumed": true, "label": "Conditional curb-ramp scope plus assumed Building 9 vertical transfer"}
+  ],
+  "strategies": {
+    "exact": "Reuse comparePlans from src/domain/curb/plans.ts. Maximize newly connected endpoints; ties lower spend, fewer projects, ascending code-unit project ID list.",
+    "cheapest": "Ascending cost then ascending code-unit project ID; scan once, skip unaffordable, continue.",
+    "greedy": "Single-repair greedy: recompute marginal newly connected endpoints divided by cost after every selection. Compare ratios using exact integer cross products; ties greater gain, lower cost, ascending code-unit ID. Continue zero-gain affordable choices.",
+    "bundleGreedy": "Predeclared sensitivity baseline: treat [replace-ramp-404,replace-ramp-405] and [replace-ramp-421,replace-ramp-422] as two crossing bundles. Apply the same recomputed gain/cost rule and tie order to whole bundles using their summed costs and joined ascending project IDs; continue zero-gain affordable bundles. This exposes differences attributable to single-repair selection versus complementary work packages.",
+    "publishedPriority": "Unavailable for the full four-project set: ramp404 source priority is unresolved. Do not fabricate a severity/priority comparison. Neutral adapter severity is an implementation placeholder only; production conditionFirst output must not be reported as an audit-priority strategy."
+  },
+  "sensitivity": {
+    "costMultipliersPercent": [75, 125],
+    "variants": "Nominal, all project costs scaled together, and each project alone scaled; same nominal budgets retained, round each cost to nearest cent with half-up rounding. Nominal uses all five budgets; sensitivity uses the three strictly intermediate budgets.",
+    "uncertainty": "All four preregistered scenarios use identical origins, destinations, projects, costs, budgets and strategies. No favorable scenario is presented as established reality."
+  },
+  "artifacts": {
+    "results": "reports/curb/canada-map-study/results.json",
+    "report": "reports/curb/canada-map-study/README.md",
+    "verification": "reports/curb/canada-map-study/verification.json"
+  },
+  "verification": "A separate author independently enumerates every subset and uses BFS without importing production route/optimizer/adapter code; validates every scenario/cost variant/strategy/budget, spend, witnesses, singleton and omission results, and rejects a deliberately corrupted result. Repeated runs must reproduce byte-identical artifacts.",
+  "claimsBoundary": "Report actual conditional counts, wins, ties, losses and assumptions. No verified real-world accessibility, observed repair benefit, full route repair cost, current quote, legal compliance, campus-wide optimality, or human-study result. Existing inventory API and readiness UI remain unchanged."
+}
