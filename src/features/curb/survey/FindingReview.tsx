@@ -37,8 +37,13 @@ import {
 } from './measurements';
 import { correctFinding, formatTime, REVIEW_LABELS, setReviewStatus } from './presentation';
 import styles from './SurveyWorkspace.module.css';
+import presenterStyles from './SurveyPresenter.module.css';
+import { canonicalPresenterFrame, type PresenterFrame } from './presenter';
 
-export function FindingReview({ survey, original, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure }: {
+export function FindingReview({ survey, original, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, plan, onMeasure, compact = false, presenterFrame, resetNonce = 0 }: {
+  compact?: boolean;
+  presenterFrame?: PresenterFrame;
+  resetNonce?: number;
   survey: Survey;
   /** Published baseline shared with JSON import and report validation, never a loaded review. */
   original: Pick<Survey, 'findings'>;
@@ -64,7 +69,7 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   ) ? 'This finding has new repair steps, so it cannot be marked pending. Keep it accepted to continue repairs, or rejected to exclude it from plans. Its history is preserved.' : null;
 
   // A message belongs to the finding it was raised for; selecting another finding clears it.
-  useEffect(() => setMessage(null), [selectedFindingId]);
+  useEffect(() => setMessage(null), [selectedFindingId, resetNonce]);
 
   function apply(result: { ok: true; survey: Survey } | { ok: false; message: string }, done: string): boolean {
     if (!result.ok) {
@@ -77,17 +82,72 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
     return true;
   }
 
-  return <section className={styles.card} aria-labelledby="survey-review-heading">
-    <div className={styles.panelHeading}>
-      <h2 id="survey-review-heading"><span className={styles.stepNumber}>1</span> Review findings</h2>
-      <div>
-        <label className={styles.inlineLabel} htmlFor="survey-reviewer">Reviewer
+  const reviewerInput = (
+      <div className={compact ? presenterStyles.reviewer : undefined}>
+        <label className={compact ? undefined : styles.inlineLabel} htmlFor="survey-reviewer">Reviewer
           <input id="survey-reviewer" value={reviewer} autoComplete="name" placeholder="Your name"
             aria-invalid={reviewerError ? true : undefined} aria-describedby={reviewerError ? 'survey-reviewer-error' : undefined}
             onChange={(event) => { setReviewer(event.target.value); if (event.target.value.trim()) setMessage((current) => current?.startsWith('Enter a reviewer') ? null : current); }} />
         </label>
         {reviewerError ? <p id="survey-reviewer-error" role="alert" className={styles.inlineError}>{reviewerError}</p> : null}
       </div>
+  );
+  const decisionActions = finding ? (
+        <div className={compact ? presenterStyles.actions : styles.actions} role="group" aria-label="Review decision" aria-describedby="survey-decision-help">
+          <button type="button" id="survey-accept" className={finding.review.status === 'accepted' ? styles.decided : undefined}
+            aria-disabled={finding.review.status === 'accepted'}
+            onClick={() => {
+              if (finding.review.status === 'accepted') return;
+              const result = setReviewStatus(survey, finding.id, 'accepted', reviewer);
+              apply(result.ok ? { ok: true, survey: markReviewed(result.survey, finding.id, reviewer) } : result, `Accepted “${finding.label}”. Repair status: reviewed.`);
+            }}>Accept finding</button>
+          <button type="button" className={`${styles.secondaryButton} ${finding.review.status === 'rejected' ? styles.decided : ''}`}
+            aria-disabled={finding.review.status === 'rejected'}
+            onClick={() => { if (finding.review.status !== 'rejected') apply(setReviewStatus(survey, finding.id, 'rejected', reviewer), `Rejected “${finding.label}”. It stays in the record and is excluded from plans.`); }}>Reject finding</button>
+          {!compact && finding.review.status !== 'pending' ? <button type="button" className={styles.textButton}
+            aria-disabled={pendingIssue !== null} aria-describedby={pendingIssue ? 'survey-pending-help' : undefined}
+            onClick={() => {
+              if (pendingIssue) { setMessage(pendingIssue); return; }
+              const result = setReviewStatus(survey, finding.id, 'pending', reviewer);
+              const done = apply(result, `Returned “${finding.label}” to pending.`);
+              // This button disappears once the finding is pending; keep focus on the decision group.
+              if (done) setTimeout(() => document.getElementById('survey-accept')?.focus(), 0);
+            }}>Mark pending</button> : null}
+        </div>
+  ) : null;
+
+  if (compact) {
+    const source = finding ? presenterFrame ?? canonicalPresenterFrame(survey, finding) : null;
+    return <section className={presenterStyles.reviewCard} aria-labelledby="survey-review-heading">
+      <div className={presenterStyles.reviewHeading}>
+        <h2 id="survey-review-heading">{finding?.label ?? 'Review a finding'}</h2>
+      </div>
+      {finding && source ? <>
+        <div className={presenterStyles.evidence}>
+          <Closeup key={source.cropSrc} src={source.cropSrc} alt={`Extracted source close-up of ${finding.label}, frame ${source.frame}`} compact fallbackSrc={finding.closeupSrc} />
+          <div className={presenterStyles.evidenceText}>
+            <p>{finding.description.split(/(?<=[.!?])\s/)[0]}</p>
+            <p className={presenterStyles.sourceLabel}>Source frame {source.frame} · {formatTime(source.seconds)}{source.alternate ? ` (canonical: ${formatTime(finding.evidenceTime)})` : ''}. Static close-up.</p>
+            <button type="button" className={styles.secondaryButton} onClick={() => onSelectFinding(finding.id)}>Jump to evidence</button>
+          </div>
+        </div>
+        {source.fallbackReason ? <p className={presenterStyles.fallback}>{source.fallbackReason}</p> : null}
+        <p className={presenterStyles.outcome} aria-label="Selected finding review status">
+          <strong>{REVIEW_LABELS[finding.review.status]}</strong>{finding.review.method === 'manual' ? ` · ${finding.review.reviewer}` : ' · Awaiting human review'}
+        </p>
+        {reviewerInput}
+        {decisionActions}
+        <p id="survey-decision-help" className={presenterStyles.nextInspection}>Accept confirms the visible observation only. <strong>Field measurements pending · Route impact unknown.</strong></p>
+        <details className={presenterStyles.nextInspection}><summary>Next on-site inspection</summary><p>{finding.assessment.measurementNeeds.slice(0, 2).join(' ')}</p></details>
+        {message && !reviewerError ? <p role="alert" className={styles.inlineError}>{message}</p> : null}
+      </> : <p>Select a finding to review its evidence.</p>}
+    </section>;
+  }
+
+  return <section className={styles.card} aria-labelledby="survey-review-heading">
+    <div className={styles.panelHeading}>
+      <h2 id="survey-review-heading"><span className={styles.stepNumber}>1</span> Review findings</h2>
+      {reviewerInput}
     </div>
     <p className={styles.small}>Pick a defect to see it in the video. Accept or reject it, and edit the assumed dimensions if you know better.</p>
 
@@ -143,27 +203,7 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
           <strong>Accept</strong> confirms the defect is real: it is marked as checked by you, moves to “Reviewed”, and stays in the repair plan and report.{' '}
           <strong>Reject</strong> removes it from the plan and the repair workflow but keeps it in the record. Enter your name above first.
         </p>
-        <div className={styles.actions} role="group" aria-label="Review decision" aria-describedby="survey-decision-help">
-          <button type="button" id="survey-accept" className={finding.review.status === 'accepted' ? styles.decided : undefined}
-            aria-disabled={finding.review.status === 'accepted'}
-            onClick={() => {
-              if (finding.review.status === 'accepted') return;
-              const result = setReviewStatus(survey, finding.id, 'accepted', reviewer);
-              apply(result.ok ? { ok: true, survey: markReviewed(result.survey, finding.id, reviewer) } : result, `Accepted “${finding.label}”. Repair status: reviewed.`);
-            }}>Accept finding</button>
-          <button type="button" className={`${styles.secondaryButton} ${finding.review.status === 'rejected' ? styles.decided : ''}`}
-            aria-disabled={finding.review.status === 'rejected'}
-            onClick={() => { if (finding.review.status !== 'rejected') apply(setReviewStatus(survey, finding.id, 'rejected', reviewer), `Rejected “${finding.label}”. It stays in the record and is excluded from plans.`); }}>Reject finding</button>
-          {finding.review.status !== 'pending' ? <button type="button" className={styles.textButton}
-            aria-disabled={pendingIssue !== null} aria-describedby={pendingIssue ? 'survey-pending-help' : undefined}
-            onClick={() => {
-              if (pendingIssue) { setMessage(pendingIssue); return; }
-              const result = setReviewStatus(survey, finding.id, 'pending', reviewer);
-              const done = apply(result, `Returned “${finding.label}” to pending.`);
-              // This button disappears once the finding is pending; keep focus on the decision group.
-              if (done) setTimeout(() => document.getElementById('survey-accept')?.focus(), 0);
-            }}>Mark pending</button> : null}
-        </div>
+        {decisionActions}
         {finding.review.status !== 'pending' && pendingIssue ? <p id="survey-pending-help" className={styles.small}>{pendingIssue}</p> : null}
 
         <RepairPanel key={`${finding.id}:${repair.owner}:${repair.essentialDestination}:${repair.destinationNote}`} survey={survey} finding={finding} reviewer={reviewer}
@@ -178,12 +218,17 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
   </section>;
 }
 
-function Closeup({ src, alt }: { src: string; alt: string }) {
+function Closeup({ src, alt, compact = false, fallbackSrc }: { src: string; alt: string; compact?: boolean; fallbackSrc?: string }) {
   const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [src]);
+  const [fallbackFailed, setFallbackFailed] = useState(false);
+  useEffect(() => { setFailed(false); setFallbackFailed(false); }, [src]);
+  if (failed && fallbackSrc && fallbackSrc !== src && !fallbackFailed) return <div>
+    <img className={compact ? presenterStyles.crop : styles.closeup} src={fallbackSrc} alt="Canonical source close-up for the selected finding" onError={() => setFallbackFailed(true)} />
+    <p className={presenterStyles.fallback}>Presenter crop unavailable. Showing the canonical source close-up instead.</p>
+  </div>;
   return failed
-    ? <p className={styles.mediaMissing}>Close-up unavailable — {src} could not be loaded. The finding and its video evidence are still reviewable.</p>
-    : <img className={styles.closeup} src={src} alt={alt} onError={() => setFailed(true)} />;
+    ? <p className={styles.mediaMissing}>Close-up unavailable. Use the selected finding’s video evidence; no substitute image is shown.</p>
+    : <img className={compact ? presenterStyles.crop : styles.closeup} src={src} alt={alt} onError={() => setFailed(true)} />;
 }
 
 function CorrectionForm({ finding, onSave }: {

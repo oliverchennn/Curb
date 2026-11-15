@@ -12,6 +12,11 @@ import { workflowSummary } from '../../../domain/curb/repair';
 import { SiteContext } from './SiteContext';
 import { VideoEvidence, type SeekRequest } from './VideoEvidence';
 import styles from './SurveyWorkspace.module.css';
+import presenterStyles from './SurveyPresenter.module.css';
+import { canonicalPresenterFrame, resolvePresenterFrames, type PresenterFrame } from './presenter';
+
+// Replaced only with the frame owner's released, audited metadata checkpoint.
+const presenterMetadata: unknown = null;
 
 type LoadState = { status: 'loading' } | { status: 'error'; message: string } | { status: 'ready'; original: Survey };
 const LOAD_TIMEOUT_MS = 15_000;
@@ -48,6 +53,12 @@ export function SurveyWorkspace() {
   const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('suggested');
   const [notice, setNotice] = useState('');
   const [tab, setTab] = useState<WorkTab>('review');
+  const [presenter, setPresenter] = useState(false);
+  const [frames, setFrames] = useState<Record<string, PresenterFrame>>({});
+  const [videoInitialMode, setVideoInitialMode] = useState<'original' | 'live'>('live');
+  const [restartNonce, setRestartNonce] = useState(0);
+  const [linkNotice, setLinkNotice] = useState('');
+  const lastFindingQuery = useRef<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const deskRef = useRef<HTMLDivElement>(null);
   useFitVideoToScreen(deskRef, load.status === 'ready');
@@ -66,16 +77,24 @@ export function SurveyWorkspace() {
       controller.abort();
       setLoad({ status: 'error', message: 'Loading the survey took too long. Retry when ready.' });
     }, LOAD_TIMEOUT_MS);
-    Promise.resolve().then(() => fetchSurvey(controller.signal)).then((data) => {
+    Promise.resolve().then(() => fetchSurvey(controller.signal)).then(async (data) => {
+      const resolvedFrames = await resolvePresenterFrames(data, presenterMetadata);
       clearTimeout(timer);
       if (!isCurrent()) return;
       setLoad({ status: 'ready', original: data });
       setSurvey(data);
-      // Explorer links identify a finding in this validated survey, never an arbitrary seek time.
-      const requestedId = new URLSearchParams(window.location.search).get('finding');
+      setFrames(resolvedFrames);
+      const query = new URLSearchParams(window.location.search);
+      const presenting = query.get('present') === '1';
+      const requestedId = query.get('finding');
+      lastFindingQuery.current = requestedId;
       const linkedFinding = data.findings.find((finding) => finding.id === requestedId);
-      setSelectedFindingId(linkedFinding?.id ?? data.findings[0]?.id ?? null);
-      if (linkedFinding) setSeek({ seconds: linkedFinding.evidenceTime, nonce: Date.now() });
+      const fallback = (presenting ? data.findings.find((finding) => finding.id === 'defect-04') : null) ?? data.findings[0];
+      setPresenter(presenting);
+      setVideoInitialMode(presenting ? 'original' : 'live');
+      setSelectedFindingId(linkedFinding?.id ?? fallback?.id ?? null);
+      setLinkNotice(requestedId !== null && !linkedFinding ? 'Requested finding is unavailable. Showing an available finding instead.' : '');
+      setSeek({ seconds: linkedFinding ? (presenting ? resolvedFrames[linkedFinding.id].seconds : linkedFinding.evidenceTime) : 0, nonce: Date.now() });
     }, (error: unknown) => {
       clearTimeout(timer);
       if (!isCurrent() || (error instanceof DOMException && error.name === 'AbortError')) return;
@@ -98,6 +117,29 @@ export function SurveyWorkspace() {
     window.addEventListener('hashchange', follow);
     return () => window.removeEventListener('hashchange', follow);
   }, []);
+
+  useEffect(() => {
+    if (!survey) return;
+    const follow = () => {
+      const query = new URLSearchParams(window.location.search);
+      const presenting = query.get('present') === '1';
+      setPresenter(presenting);
+      if (presenting) setTab('review');
+      const requestedId = query.get('finding');
+      if (requestedId === lastFindingQuery.current) return;
+      lastFindingQuery.current = requestedId;
+      const linked = survey.findings.find((finding) => finding.id === requestedId);
+      const fallback = (presenting ? survey.findings.find((finding) => finding.id === 'defect-04') : null) ?? survey.findings[0];
+      const selected = linked ?? fallback;
+      setLinkNotice(requestedId !== null && !linked ? 'Requested finding is unavailable. Showing an available finding instead.' : '');
+      if (selected) {
+        setSelectedFindingId(selected.id);
+        setSeek({ seconds: presenting ? (frames[selected.id] ?? canonicalPresenterFrame(survey, selected)).seconds : selected.evidenceTime, nonce: Date.now() });
+      }
+    };
+    window.addEventListener('popstate', follow);
+    return () => window.removeEventListener('popstate', follow);
+  }, [survey, frames]);
 
   const budget = parseBudgetInput(budgetText);
   const budgetCents = budget.ok ? budget.cents : null;
@@ -138,7 +180,14 @@ export function SurveyWorkspace() {
     const finding = survey!.findings.find((item) => item.id === findingId);
     if (!finding) return;
     setSelectedFindingId(findingId);
-    setSeek({ seconds: finding.evidenceTime, nonce: Date.now() });
+    setSeek({ seconds: presenter ? (frames[finding.id] ?? canonicalPresenterFrame(survey!, finding)).seconds : finding.evidenceTime, nonce: Date.now() });
+    setLinkNotice('');
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('finding') !== findingId) {
+      url.searchParams.set('finding', findingId);
+      window.history.pushState(null, '', url);
+      lastFindingQuery.current = findingId;
+    }
   }
 
   /** Dimensions are stored on the survey with their basis, so plans, exports and reloads agree. */
@@ -146,7 +195,9 @@ export function SurveyWorkspace() {
     setSurvey((current) => current ? withMeasurement(current, findingId, key, input) : current);
   }
 
-  function loadReviewed(next: Survey) {
+  async function loadReviewed(next: Survey) {
+    const resolvedFrames = await resolvePresenterFrames(next, presenterMetadata);
+    setFrames(resolvedFrames);
     setSurvey(next);
     setNotice('Loaded the reviewed survey from JSON.');
   }
@@ -162,15 +213,54 @@ export function SurveyWorkspace() {
     setNotice('Restored the original analysis. All review edits were discarded.');
   }
 
+  function changeView(presenting: boolean) {
+    setPresenter(presenting);
+    if (presenting) setTab('review');
+    const url = new URL(window.location.href);
+    if (presenting) url.searchParams.set('present', '1');
+    else url.searchParams.delete('present');
+    window.history.pushState(null, '', url);
+  }
+
+  function restartPresenter() {
+    setSurvey(original);
+    setSelectedFindingId(original.findings.find((finding) => finding.id === 'defect-04')?.id ?? original.findings[0]?.id ?? null);
+    setSeek({ seconds: 0, nonce: Date.now() });
+    setRestartNonce((current) => current + 1);
+    setPresenter(true);
+    setTab('review');
+    setLinkNotice('');
+    setNotice('Presenter restarted. All in-tab review edits were cleared; the original analysis is restored.');
+    const url = new URL(window.location.href);
+    url.searchParams.set('present', '1');
+    url.searchParams.delete('finding');
+    url.hash = '';
+    window.history.replaceState(null, '', url);
+    lastFindingQuery.current = null;
+  }
+
   const counts = {
     accepted: survey.findings.filter((f) => f.review.status === 'accepted').length,
     pending: survey.findings.filter((f) => f.review.status === 'pending').length,
     rejected: survey.findings.filter((f) => f.review.status === 'rejected').length,
   };
 
-  return <div className={styles.workspace}>
-    <Header survey={survey} />
-    <div className={styles.summaryBar}>
+  return <div className={`${styles.workspace} ${presenter ? presenterStyles.workspace : ''}`}>
+    <Header survey={survey} compact={presenter}>
+      <div className={presenterStyles.toolbar}>
+        <button type="button" className={styles.secondaryButton} aria-pressed={presenter} onClick={() => changeView(!presenter)}>{presenter ? 'Full review' : 'Presenter view'}</button>
+        {presenter ? <>
+          <button type="button" className={styles.secondaryButton} aria-describedby="presenter-retention" onClick={restartPresenter}>Restart presenter demo</button>
+          <a href="/curb/investment-demo">Investment demo →</a>
+        </> : null}
+      </div>
+    </Header>
+    <div className={presenter ? presenterStyles.summary : styles.summaryBar}>
+      {presenter ? <>
+        <p className={presenterStyles.provenance}>Real footage · Prepared analysis · Field measurements pending</p>
+        <p aria-label="Finding review counts"><strong>{counts.accepted} accepted · {counts.pending} pending · {counts.rejected} rejected</strong></p>
+      </> : <>
+
       <p><strong>{survey.findings.length} possible defects</strong> · {counts.accepted + counts.rejected} of {survey.findings.length} checked by a person · <span className={styles.workflowSummary}>Repairs: {workflowSummary(survey).text}</span></p>
       <details className={styles.pendingChecks}>
         <summary>Analysis and review status</summary>
@@ -186,22 +276,24 @@ export function SurveyWorkspace() {
         <button type="button" className={styles.secondaryButton} aria-disabled={!edited} onClick={restore}>Restore original</button>
       </div>
       {edited ? <p className={styles.sessionNote}>Edits stay in this browser tab only and are lost on reload. To keep them, use Export report, then Download JSON.</p> : null}
-      <p role="status" aria-live="polite" aria-atomic="true" className={styles.small}>{notice}</p>
+      </>}
+      {linkNotice ? <p role="alert" className={presenter ? presenterStyles.fallback : styles.small}>{linkNotice}</p> : null}
+      <p role="status" aria-live="polite" aria-atomic="true" className={presenter ? presenterStyles.notice : styles.small}>{notice}</p>
     </div>
 
-    <div ref={deskRef} className={styles.desk}>
-      <div className={styles.evidenceColumn} data-evidence-column>
-        <VideoEvidence survey={survey} selectedFindingId={selectedFindingId} seek={seek} edited={edited} />
-        <EvidenceJump survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />
+    <div ref={deskRef} className={`${styles.desk} ${presenter ? presenterStyles.desk : ''}`}>
+      <div className={`${styles.evidenceColumn} ${presenter ? presenterStyles.evidenceColumn : ''}`} data-evidence-column>
+        <VideoEvidence survey={survey} selectedFindingId={selectedFindingId} seek={seek} edited={edited} compact={presenter} initialMode={videoInitialMode} resetNonce={restartNonce} />
+        <EvidenceJump survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} compact={presenter} frames={frames} />
       </div>
 
-      <div className={styles.workColumn}>
-        <div className={styles.workFrame}>
-        <WorkTabs active={tab} onChange={changeTab} />
-        <div ref={scrollRef} className={styles.workScroll}>
+      <div className={`${styles.workColumn} ${presenter ? presenterStyles.workColumn : ''}`}>
+        <div className={`${styles.workFrame} ${presenter ? presenterStyles.workFrame : ''}`}>
+        <div hidden={presenter}><WorkTabs active={tab} onChange={changeTab} /></div>
+        <div ref={scrollRef} className={`${styles.workScroll} ${presenter ? presenterStyles.workScroll : ''}`}>
         {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
         <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
-          <FindingReview survey={survey} original={original} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+          <FindingReview compact={presenter} presenterFrame={selectedFindingId ? frames[selectedFindingId] : undefined} resetNonce={restartNonce} survey={survey} original={original} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
             plan={selectedPlan} onMeasure={setMeasure}
             onChange={(next, message) => { setSurvey(next); setNotice(message); }}
             siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />
@@ -219,7 +311,10 @@ export function SurveyWorkspace() {
         </div>
       </div>
     </div>
-
+    {presenter ? <footer className={presenterStyles.footer}>
+      <p id="presenter-retention">Edits stay in this tab. Full review → Export report → Download JSON to keep them. Restart clears all in-tab review edits.</p>
+      <details><summary>Source and analysis</summary><p>Robertson Hall walking video; prepared AI-assisted proposals and optical-flow tracks. Accept confirms a visible observation only. It does not confirm route accessibility or a completed repair. Full review includes the original provenance, history and export.</p></details>
+    </footer> : null}
   </div>;
 }
 
@@ -285,20 +380,23 @@ function WorkTabs({ active, onChange }: { active: WorkTab; onChange: (tab: WorkT
 }
 
 /** Compact evidence selector under the video, so any pane can jump the replay to a finding. */
-function EvidenceJump({ survey, selectedFindingId, onSelectFinding }: {
+function EvidenceJump({ survey, selectedFindingId, onSelectFinding, compact = false, frames }: {
+  compact?: boolean;
+  frames?: Record<string, PresenterFrame>;
   survey: Survey;
   selectedFindingId: string | null;
   onSelectFinding: (findingId: string) => void;
 }) {
-  return <nav className={styles.jumpBar} aria-label="Jump to finding evidence">
+  return <nav className={`${styles.jumpBar} ${compact ? presenterStyles.jumpBar : ''}`} aria-label="Jump to finding evidence">
     <p className={styles.jumpTitle} aria-hidden="true">Jump to evidence</p>
     <ul>{survey.findings.map((finding, index) => {
       const selected = finding.id === selectedFindingId;
+      const evidenceTime = compact ? frames?.[finding.id]?.seconds ?? finding.evidenceTime : finding.evidenceTime;
       const status = finding.review.status === 'pending' ? 'pending' : finding.review.status;
       return <li key={finding.id}>
         <button type="button" className={selected ? styles.jumpSelected : styles.jump} aria-pressed={selected}
-          aria-label={`${String(index + 1).padStart(2, '0')} ${finding.label}, evidence at ${formatTime(finding.evidenceTime)}, ${status}`}
-          title={`${finding.label} · ${formatTime(finding.evidenceTime)}`} onClick={() => onSelectFinding(finding.id)}>
+          aria-label={`${String(index + 1).padStart(2, '0')} ${finding.label}, evidence at ${formatTime(evidenceTime)}, ${status}`}
+          title={`${finding.label} · ${formatTime(evidenceTime)}`} onClick={() => onSelectFinding(finding.id)}>
           <span className={styles.swatch} style={{ background: finding.color }} aria-hidden="true" />
           <span className={finding.review.status === 'rejected' ? styles.jumpRejected : undefined}>{String(index + 1).padStart(2, '0')}</span>
         </button>
@@ -307,9 +405,9 @@ function EvidenceJump({ survey, selectedFindingId, onSelectFinding }: {
   </nav>;
 }
 
-function Header({ survey }: { survey?: Survey }) {
-  return <header className={styles.header}>
-    <p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p>
-    <h1>Survey replay</h1>
+function Header({ survey, compact = false, children }: { survey?: Survey; compact?: boolean; children?: React.ReactNode }) {
+  return <header className={compact ? presenterStyles.header : styles.header}>
+    {compact ? <h1 className={presenterStyles.heading}>{survey?.site.name ?? 'Robertson Hall'}</h1> : <><p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p><h1>Survey replay</h1></>}
+    {children}
   </header>;
 }
