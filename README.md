@@ -28,6 +28,8 @@ The chart counts paired budget cases. Each win means more modeled destinations b
 
 ## What a real repair decision still needs
 
+The [Cañada College case](https://curb-taupe.vercel.app/curb/case-studies/canada-college) investigates a published 2020 accessibility audit. Its independently reviewed inventory contains 69 records, including source context and summaries. Four proposed ramp assemblies total **$23,500 in historical estimates**. The source leaves crossing connections, endpoint approaches and complete repair scope unresolved, so Curb shows the missing evidence before offering a route comparison. [Case findings and proof](reports/curb/canada-2020/readiness.md)
+
 The footage documents visible conditions. Facilities staff would still walk the route with disabled campus users, measure the conditions and repair scope, and obtain current quotes. The synthetic plans do not establish real-world access, construction outcomes, or ADA compliance.
 
 [Run Curb locally](docs/DEVELOPMENT.md) · [Documentation](docs/README.md) · [Media and chart sources](docs/assets/judges/ASSETS.md) · [License](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
