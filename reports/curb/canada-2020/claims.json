@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "disposition": "inventory_only",
+  "comparisonAllowed": false,
+  "approval": {
+    "status": "approved",
+    "reviewerSessionId": "01a1ddd3-c247-7bd1-b4af-51837eafc5a0",
+    "dataCandidateSha": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+    "reviewSha": "65effc19e03c5f3bd98cbb3e781fcd9ec07c98ab",
+    "scope": "Historical inventory and evidence readiness"
+  },
+  "claims": [
+    {
+      "id": "CANADA-INVENTORY",
+      "approval": "approved",
+      "wording": "The reviewed Cañada College 2020 inventory contains 69 records for the bounded Lot 1 and Building 9 investigation and its source context.",
+      "evidence": [
+        {
+          "path": "research/curb/canada-2020/data-review.json",
+          "pointer": "/verifiedCounts"
+        },
+        {
+          "path": "research/curb/canada-2020/observations.json",
+          "pointer": "/records"
+        }
+      ],
+      "limits": [
+        "The count includes summaries, context and subtotals; it is not a count of distinct defects or a campus-wide inventory."
+      ]
+    },
+    {
+      "id": "CANADA-RAMP-ESTIMATES",
+      "approval": "approved",
+      "wording": "The 2020 report priced four proposed curb-ramp assemblies at $23,500 in published estimates.",
+      "rampIds": [
+        404,
+        405,
+        421,
+        422
+      ],
+      "estimateCents": 2350000,
+      "currency": "USD",
+      "estimateYear": 2020,
+      "evidence": [
+        {
+          "path": "research/curb/canada-2020/projects.json",
+          "pointer": "/projects"
+        },
+        {
+          "path": "research/curb/canada-2020/data-review.json",
+          "pointer": "/rampEstimateTotalsCents"
+        },
+        {
+          "sourceId": "smcccd-final-2020",
+          "viewerPages": [
+            2826,
+            2827
+          ],
+          "printedPages": [
+            2825,
+            2826
+          ]
+        }
+      ],
+      "limits": [
+        "The total is for the four proposed assemblies and excludes complete-route work and separate Building 9 approach records.",
+        "The estimates date to 2020. Current prices, work completion and present conditions remain unverified."
+      ]
+    },
+    {
+      "id": "CANADA-READINESS",
+      "approval": "approved",
+      "wording": "The historical survey leaves assessed crossing connections, distinct arrival and exterior endpoints, continuous route coverage and full repair scopes unresolved. The case supports an evidence inventory.",
+      "evidence": [
+        {
+          "path": "research/curb/canada-2020/data-review.json",
+          "pointer": "/decisionBasis"
+        },
+        {
+          "path": "research/curb/canada-2020/graph.json",
+          "pointer": "/unresolvedConnections"
+        },
+        {
+          "sourceId": "smcccd-final-2020",
+          "viewerPages": [
+            2256,
+            2795,
+            2823
+          ],
+          "printedPages": [
+            2255,
+            2794,
+            2822
+          ]
+        }
+      ],
+      "limits": [
+        "The published map contains campus paths and historical crossing markings. The case has no assessed end-to-end graph for a comparison."
+      ]
+    },
+    {
+      "id": "CANADA-REVIEW-CHECKLIST",
+      "approval": "approved",
+      "wording": "The independent source review completed M11. M1 through M10 remain open before a repair comparison can be supported.",
+      "evidence": [
+        {
+          "path": "research/curb/canada-2020/data-review.json",
+          "pointer": "/resolvedMissingDataIds"
+        },
+        {
+          "path": "research/curb/canada-2020/data-review.json",
+          "pointer": "/openMissingDataIds"
+        },
+        {
+          "path": "research/curb/canada-2020/feasibility.json",
+          "pointer": "/missingData"
+        }
+      ],
+      "limits": [
+        "M11 establishes source-review acceptance for the inventory. The ten evidence requirements remain unresolved."
+      ]
+    }
+  ],
+  "notApplicable": {
+    "comparison": "not_applicable",
+    "studyGrid": "not_applicable",
+    "engineOutput": "not_applicable",
+    "sensitivities": "not_applicable",
+    "reason": "The evidence does not support a connected, assessed case. No comparative computation was run and no benefit value is available."
+  }
+}
