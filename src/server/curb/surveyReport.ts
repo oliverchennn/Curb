@@ -20,7 +20,7 @@ const linkColor = rgb(0.11, 0.33, 0.41);
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
 const policyDescription: Record<PlanId, string> = {
-  essential: 'Lowest-cost suitable options for near-term work areas.',
+  essential: 'Lowest-priced options for near-term work areas, subject to field confirmation of suitability.',
   balanced: 'Recommended options for eligible work areas.',
   durable: 'Highest-durability options for eligible work areas.',
   budget: 'Prioritizes high, then medium, low and unassessed work areas within the known cost upper bound. Quote-only treatments are outside the budget calculation.',
@@ -232,7 +232,7 @@ function showFinding(layout: ReportLayout, finding: Finding, workAreaId: string 
   layout.text(assessment.rationale);
   for (const impact of assessment.accessImpacts) layout.text('- ' + impact);
   layout.gap(7);
-  layout.text('Field measurements and checks', 'subheading');
+  layout.text('Site measurement checklist', 'subheading');
   if (!measurements.length) layout.text('Measurements unknown. The survey contains no recorded values.');
   for (const measurement of measurements) {
     layout.text('Recorded  ' + measurement.property + '  /  ' + measurement.value + ' ' + measurement.unit + '  /  ' + measurement.method);
@@ -293,6 +293,7 @@ export async function renderSurveyReport(
   layout.text(survey.site.locationNote, 'planDetail');
   layout.text('Route impact unknown. ' + survey.routeAssessment.note, 'planDetail');
   layout.text('Overall ADA compliance undetermined. Confirm applicability, measurements and treatment suitability in the field.', 'planDetail');
+  if (orderedPlans.some(plan => plan.cost.unpricedItems.length)) layout.text('Partial subtotals cannot rank full project costs while items still need quotes.', 'planAlert');
   if (pendingCount) layout.text(pendingCount + ' finding(s) pending review. Plans using them are provisional.', 'planAlert');
   if (excludedFindings.length) layout.text('Rejected evidence IDs excluded from planning  ' + labels(excludedFindings), 'planDetail');
   if (budget && budget.budgetCents !== null) {

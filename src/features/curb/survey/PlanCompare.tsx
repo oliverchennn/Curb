@@ -4,10 +4,10 @@ import { costRange } from './services';
 import styles from './PlanCompare.module.css';
 
 const POLICY: Record<PlanId, { name: string; purpose: string }> = {
-  essential: { name: 'Essential', purpose: 'Start with near-term needs. Choose the lowest priced suitable option for each.' },
+  essential: { name: 'Essential', purpose: 'Start with near-term work and the lowest priced options. Confirm treatment suitability on site before proceeding.' },
   balanced: { name: 'Balanced', purpose: 'Address every eligible area with its recommended treatment, including repairs that need quotes.' },
   durable: { name: 'Durable', purpose: 'Address every eligible area with its most durable suitable option. Confirm the renewal scope on site.' },
-  budget: { name: 'Budget scenario', purpose: 'Prioritise areas within the priced upper bound, then durability. Unpriced treatments cannot be selected by this comparison.' },
+  budget: { name: 'Budget scenario', purpose: 'Prioritize areas within the priced upper bound, then durability. Unpriced treatments cannot be selected by this comparison.' },
 };
 const METHODS = { inspect: 'Inspection', seal: 'Sealing', patch: 'Local repair', replace: 'Panel renewal' };
 const plural = (count: number, noun: string) => `${count} ${noun}${count === 1 ? '' : 's'}`;
@@ -78,6 +78,7 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
           <p>{budgetPlan.optionIds.length
             ? `Priced upper bound: ${formatCents(budgetPlan.cost.highCents)}. ${budgetPlan.cost.isComplete ? 'The selected priced scope fits this amount.' : 'Full budget fit is unconfirmed until the missing costs are quoted.'}`
             : budgetPlan.deferredWorkAreaIds.length ? 'No eligible repair fits the known upper estimates. This does not make the deferred work free.' : 'There are no eligible repairs in this review.'}</p>
+          {selectedPlanId !== 'budget' ? <p>This is a preview. Choose Budget scenario below to use it in the report.</p> : null}
           {budgetPlan.workAreaIds.length ? <p><strong>Proposed work:</strong> {names(survey, budgetPlan.workAreaIds)}.</p> : null}
           <p><strong>Deferred:</strong> {budgetPlan.deferredWorkAreaIds.length ? names(survey, budgetPlan.deferredWorkAreaIds) : 'No eligible areas deferred'}.</p>
           {budgetPlan.cost.unpricedItems.length ? <p><strong>Not yet priced:</strong> {budgetPlan.cost.unpricedItems.map(item => item.replace(/\s\([a-z0-9-]+\):[\s\S]*$/, '')).join('; ')}.</p> : null}
@@ -166,7 +167,7 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
       <h4 id="deferred-needs-heading">Deferred needs · {plural(deferred.length, 'area')}</h4>
       {deferred.length ? <ul>{deferred.map(area => <li key={area.id}><strong>{area.label} · {area.priority} priority</strong>
         <p>{area.findingIds.filter(id => !plan.excludedFindingIds.includes(id)).map(id => labelForId(survey, id)).join('; ')}</p>
-        <p>{plan.id === 'essential' && !area.nearTerm ? 'Outside the near-term scope.' : plan.id === 'budget' ? 'Not selected within the priced upper bound; quote-only treatments cannot compete in this scenario.' : 'No repair treatment selected by this policy.'} Access needs remain unresolved.</p>
+        <p>{plan.id === 'essential' && !area.nearTerm ? 'Outside the near-term scope.' : plan.id === 'budget' ? 'Not selected within the priced upper bound.' : 'No repair treatment selected by this policy.'} Access needs remain unresolved.</p>
       </li>)}</ul> : <p>All eligible areas have a proposed treatment. Their effect on accessibility still needs site verification.</p>}
       {plan.excludedFindingIds.length ? <p><strong>Rejected and excluded:</strong> {names(survey, plan.excludedFindingIds)}.</p> : null}
     </section>
