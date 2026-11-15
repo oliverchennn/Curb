@@ -261,7 +261,7 @@ export function InvestmentDemo() {
           <p><strong>{selectedCandidate.cost.status === 'unknown' ? 'Cost unknown' : `${money(selectedCandidate.cost.cents)} assumed cost`}</strong> · Authored condition {selectedCandidate.severity.score}/5</p>
           <p>{selectedCandidate.severity.rationale}</p>
           <p>Cost source: {selectedCandidate.cost.source}</p>
-          {singleton ? <p><strong>{shortRepairLabel(singleton.repairId)} alone:</strong> {singleton.restoredDestinationIds.length} newly reachable destinations{singleton.restoredDestinationIds.length ? ` — ${listNames(singleton.restoredDestinationIds.map((id) => destinationLabel(scenario, id)))}` : ''}. This is the server’s evaluated single-repair outcome.</p> : null}
+          {singleton ? <p><strong>{shortRepairLabel(singleton.repairId)} alone:</strong> {singleton.restoredDestinationIds.length} newly reachable {singleton.restoredDestinationIds.length === 1 ? 'destination' : 'destinations'}{singleton.restoredDestinationIds.length ? ` — ${listNames(singleton.restoredDestinationIds.map((id) => destinationLabel(scenario, id)))}` : ''}. This is the server’s evaluated single-repair outcome.</p> : null}
           <button type="button" className={styles.secondaryButton} onClick={() => {
             document.getElementById(`investment-repair-${selectedRepairId}`)?.focus();
             setSelectedRepairId(null);
