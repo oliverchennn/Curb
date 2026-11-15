@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { archiveAttributes, dateText, kindLabels, project, vertices, type Atlas, type EvidenceRecord, type Feature, type EvidenceDate } from './model';
+import { sourceClass } from './groups';
 import styles from './Explorer.module.css';
 
 export function Snapshot({ record, feature, compact = false }: { record: EvidenceRecord; feature: Feature; compact?: boolean }) {
@@ -25,6 +26,7 @@ function DateValue({ value }: { value: EvidenceDate }) { return value ? <time da
 export function RecordCard({ atlas, record, comparison = false, stop, hidePhoto = false }: { atlas: Atlas; record: EvidenceRecord; comparison?: boolean; stop?: number; hidePhoto?: boolean }) {
   const feature = atlas.features.find(f => f.id === record.featureId)!, source = atlas.sources.find(s => s.id === record.sourceId)!;
   const attributes = archiveAttributes(feature);
+  const osm = 'osm_way_id' in feature.properties;
   // Root's survey deep link: validated canonical finding ID from the field record's feature.
   const reviewHref = record.kind === 'field' && feature.sourceFeatureId ? `/curb/surveys/robertson-hall?finding=${encodeURIComponent(feature.sourceFeatureId)}` : '/curb/surveys/robertson-hall';
   return <article className={comparison ? styles.comparisonCard : styles.recordCard} data-record={record.id}>
@@ -40,8 +42,10 @@ export function RecordCard({ atlas, record, comparison = false, stop, hidePhoto 
       <div><dt>Retrieved</dt><dd><DateValue value={record.retrieved} /></dd></div>
       <div><dt>Attachment</dt><dd>{record.attachment === 'source-matched' ? 'Source ID matched' : record.attachment === 'accepted' ? record.kind === 'synthetic' ? 'Accepted (example only)' : 'Accepted attachment' : 'Pending review'}</dd></div>
       {record.clipSeconds !== undefined && <div><dt>Clip position</dt><dd>{record.clipSeconds.toFixed(3)} seconds · not a date</dd></div>}
+      {osm && <div><dt>Source class</dt><dd>{sourceClass(feature.properties, feature.type)} (OpenStreetMap tag)</dd></div>}
+      {osm && <div><dt>Source edit</dt><dd>{String(feature.properties.osm_edited_at ?? 'Unknown')} · OpenStreetMap edit time, not an observation</dd></div>}
     </dl>
-    {attributes.length > 0 && <div className={styles.attributes}><h4>Archive metadata</h4><dl>{attributes.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl><p>From the DVRPC archive snapshot. Not a field observation, current condition or passability.</p></div>}
+    {attributes.length > 0 && <div className={styles.attributes}><h4>{osm ? 'Source tags' : 'Archive metadata'}</h4><dl>{attributes.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl><p>{osm ? `From the OpenStreetMap snapshot (way ${feature.properties.osm_way_id}, version ${feature.properties.osm_version}). Tags are contributor assertions, not field measurements, current condition or passability.` : 'From the DVRPC archive snapshot. Not a field observation, current condition or passability.'}</p></div>}
     <p className={styles.unknown}>Current traversal: Unknown</p>
     {record.kind === 'field' && <div className={styles.evidenceLinks}><a className={styles.actionLink} href={`/curb/surveys/robertson-hall/survey.mp4#t=${record.clipSeconds}`}>Open source clip at this frame →</a><a href={reviewHref}>Review this finding in the survey →</a></div>}
     <details className={styles.sourceDetails}><summary>Source & record details</summary>

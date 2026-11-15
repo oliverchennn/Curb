@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type ComponentProps, type KeyboardEvent } from 'react';
 import { type Atlas, type Collection, type EvidenceRecord } from './model';
 import MapCanvas from './MapCanvas';
 import { RecordCard } from './Evidence';
@@ -12,9 +12,10 @@ const MAX_SCALE = 4;
 const clipTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, '0')}`;
 
 /** One stage, three evidence modes: archive map, field photograph, synthetic conflict pair. */
-export default function EvidenceStage({ atlas, collection, records, record, stops, onSelect, onReset }: {
+export default function EvidenceStage({ atlas, collection, records, record, stops, onSelect, onReset, mapOptions }: {
   atlas: Atlas; collection: Collection | null; records: EvidenceRecord[]; record: EvidenceRecord | null;
   stops: Map<string, number>; onSelect: (id: string) => void; onReset: () => void;
+  mapOptions?: Pick<ComponentProps<typeof MapCanvas>, 'set' | 'context' | 'osm' | 'dense'>;
 }) {
   if (!collection) return <div className={styles.stageEmpty} data-mode="empty">
     <h3>No matching evidence</h3><p>Search and type filters hide every collection. Nothing has been removed.</p>
@@ -22,7 +23,7 @@ export default function EvidenceStage({ atlas, collection, records, record, stop
   </div>;
   const unplaced = records.filter(r => !atlas.features.find(f => f.id === r.featureId)?.geometry);
   if (collection.kind === 'archive') return <div className={styles.stage} data-mode="map">
-    <MapCanvas atlas={atlas} collection={collection} records={records} selected={record} onSelect={onSelect} stops={stops} />
+    <MapCanvas atlas={atlas} collection={collection} records={records} selected={record} onSelect={onSelect} stops={stops} {...mapOptions} />
     {unplaced.length > 0 && <UnplacedTray key={collection.id} unplaced={unplaced} record={record} stops={stops} onSelect={onSelect} />}
   </div>;
   if (collection.kind === 'field') return <div className={styles.stage} data-mode="photo">

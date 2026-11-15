@@ -23,11 +23,14 @@ const ANGLES = [-90, -45, -135, 0, 180, -20, -160, 45, 135, 90];
 export function placeBadges(
   anchors: BadgeAnchor[], radius: number, markers: { id: string; x: number; y: number }[] = [],
   bounds?: BadgeBounds,
+  /** Dense maps: a badge with no free position is omitted (counted by the caller), except `keep`, which is never hidden. */
+  options: { hideCrowded?: boolean; keep?: string } = {},
 ): Map<string, BadgePlacement> {
   const placed: { x: number; y: number }[] = [];
   const out = new Map<string, BadgePlacement>();
   const minGap = radius * 2.25, clearance = radius * 2;
   for (const a of anchors) {
+    const hideable = options.hideCrowded && a.id !== options.keep;
     const keepInPlot = bounds && a.x >= bounds.left && a.x <= bounds.right && a.y >= bounds.top && a.y <= bounds.bottom;
     const free = (x: number, y: number) => (
       !keepInPlot || (x - radius >= bounds.left && x + radius <= bounds.right
@@ -36,12 +39,13 @@ export function placeBadges(
       && markers.every(m => m.id === a.id || Math.hypot(m.x - x, m.y - y) >= clearance);
     let spot: BadgePlacement = { x: a.x, y: a.y + a.dy, moved: false };
     if (!free(spot.x, spot.y)) {
-      search: for (const ring of [2.6, 3.7, 4.8, 6]) {
+      search: for (const ring of hideable ? [2.6, 3.4] : [2.6, 3.7, 4.8, 6]) {
         for (const deg of ANGLES) {
           const t = deg * Math.PI / 180, x = a.x + Math.cos(t) * radius * ring, y = a.y + Math.sin(t) * radius * ring;
           if (free(x, y)) { spot = { x, y, moved: true }; break search; }
         }
       }
+      if (!spot.moved && hideable) continue;
       // Preserve the full hit area at the plot edge even when all preferred positions are occupied.
       if (!spot.moved && keepInPlot) {
         spot = {
