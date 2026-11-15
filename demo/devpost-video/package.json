@@ -4,6 +4,9 @@
   "scripts": {
     "capture": "node tools/capture-investment.cjs",
     "capture:import": "node tools/render-refresh.cjs --import-capture",
+    "capture:presenter": "node tools/capture-presenter.cjs",
+    "capture:import-presenter": "node tools/render-refresh.cjs --import-presenter",
+    "test:capture": "node --test tools/capture-store.test.cjs",
     "render": "node tools/render-refresh.cjs",
     "assemble": "node tools/render-refresh.cjs --assemble-only",
     "render:preview": "node tools/render-refresh.cjs --preview",

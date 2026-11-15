@@ -1,0 +1,16 @@
+{
+  "approved": true,
+  "claimId": "synthetic-mean-conditionFirst",
+  "evidenceClass": "independently_audited_synthetic_benchmark",
+  "sourceRevision": "396317aaf5c683b84bf9e71208cbe436f371a69d",
+  "ledgerRevision": "deb9c7ccecbbe50491edeac75d98693f617c2fda",
+  "ledger": "https://github.com/oliverchennn/Curb/blob/deb9c7ccecbbe50491edeac75d98693f617c2fda/docs/evaluation/METRICS_CLAIMS.md",
+  "rawPointers": "docs/evidence/metrics/2026-11-15-suite-v1/summary.json#/comparisons/conditionFirst/allBudgets",
+  "networks": 30,
+  "budgetCases": 120,
+  "budgetPercent": [25, 50, 75, 100],
+  "comparator": "condition-first",
+  "wins": 58,
+  "ties": 62,
+  "caption": "30 authored synthetic networks / 120 budget cases / 58 wins and 62 ties versus condition-first."
+}

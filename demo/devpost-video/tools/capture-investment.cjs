@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
+const { writeReceipt } = require('./capture-store.cjs');
 
 const base = (process.env.CURB_DEMO_URL || 'https://curb-taupe.vercel.app').replace(/\/+$/, '');
 const expectedRevision = process.env.CURB_DEMO_REVISION;
@@ -119,7 +120,7 @@ async function main() {
     const lastHealth = await page.request.get(base+'/api/health');
     assert.equal((await lastHealth.json()).revision,expectedRevision,'revision stayed pinned throughout');
     assert.deepEqual(errors,[],'page errors');
-    fs.writeFileSync(path.join(output,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');
+    writeReceipt(output,receipt,Object.keys(receipt.images));
     console.log('Investment capture verified at',expectedRevision);
   } finally {await browser.close();}
 }

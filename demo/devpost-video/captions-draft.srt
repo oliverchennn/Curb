@@ -8,80 +8,83 @@ In 2022, about one in eight U.S. adults reported
 serious difficulty walking or climbing stairs.
 
 3
-00:00:15,000 --> 00:00:20,700
-At Princeton’s Robertson Hall,
-we filmed a real sidewalk with a phone.
+00:00:15,000 --> 00:00:19,600
+Here’s the original footage from Robertson Hall.
 
 4
-00:00:20,800 --> 00:00:26,100
-Clicking Finding Four takes us
-to the broken surface at six seconds.
+00:00:19,700 --> 00:00:23,700
+In Review, Curb overlays the prepared AI findings.
 
 5
-00:00:26,200 --> 00:00:30,100
-The five findings were prepared with AI.
+00:00:23,800 --> 00:00:28,900
+Jump to Surface breakup at six seconds,
+frame 180.
 
 6
-00:00:30,200 --> 00:00:37,900
-A reviewer can check the footage
-and flag what still needs a site measurement.
+00:00:29,000 --> 00:00:32,900
+I can accept the visible damage.
 
 7
+00:00:33,000 --> 00:00:37,900
+One accepted, four pending.
+Route impact stays unknown.
+
+8
 00:00:38,100 --> 00:00:41,900
 For the budget test, we switch
 to a separate simulated campus.
 
-8
+9
 00:00:42,200 --> 00:00:45,900
 Give both plans ten thousand dollars.
 
-9
+10
 00:00:46,000 --> 00:00:51,500
 Worst condition first funds repair C
 and opens one destination, Hall.
 
-10
+11
 00:00:51,600 --> 00:00:59,300
 Curb picks two linked repairs, A and B,
 and opens the Library and Student center.
 
-11
+12
 00:00:59,400 --> 00:01:04,900
 Same budget, two newly reachable destinations
 versus one in this example.
 
-12
+13
 00:01:05,100 --> 00:01:10,700
 Take A away and both new trips disappear.
 
-13
+14
 00:01:10,800 --> 00:01:16,100
 Put A back and take B away.
 The same thing happens.
 
-14
+15
 00:01:16,200 --> 00:01:20,900
 The shared route needs both repairs.
 
-15
+16
 00:01:21,200 --> 00:01:27,200
 At twenty thousand dollars,
 both plans can fund all three repairs.
 
-16
+17
 00:01:27,300 --> 00:01:31,900
 They tie at three newly reachable destinations.
 
-17
-00:01:32,150 --> 00:01:39,900
-The decision brief keeps the recommended work
-and the model’s assumptions together.
-
 18
+00:01:32,150 --> 00:01:39,900
+Across 120 synthetic budget cases,
+Curb beat condition-first 58 times and tied 62.
+
+19
 00:01:40,150 --> 00:01:43,050
 The buyer is campus facilities.
 
-19
+20
 00:01:43,150 --> 00:01:51,900
 Next, we’d walk the crossings with disabled campus users
 and accessibility staff, measure them, and get quotes.

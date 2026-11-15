@@ -1,5 +1,7 @@
 node_modules/
 package-lock.json
 .render/
+.staging-*/
+.capture-write-*
 captures/
 Curb-with-presenter.mp4

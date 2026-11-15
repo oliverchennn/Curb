@@ -1,0 +1,45 @@
+{
+  "source": "https://curb-taupe.vercel.app",
+  "route": "/curb/surveys/robertson-hall?present=1",
+  "revision": "670f6d80cc139441042957d117ad5eb85d238c6b",
+  "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892996974",
+  "viewport": {
+    "width": 1456,
+    "height": 819
+  },
+  "basis": "accepted deployed build",
+  "capturedAt": "2026-11-15T10:37:12.105Z",
+  "originalSecond": 0.6675,
+  "evidenceSecond": 6.000001,
+  "sourceFrame": 180,
+  "cropPath": "/curb/surveys/robertson-hall/presenter-v1/defect-04-crop.jpg",
+  "cropSha256": "b1e199f667d280942998a7c08e8641df133306b28fe17e4efe90d6f329c729b6",
+  "reviewer": "Demo reviewer",
+  "acceptedLabel": "Accepted · Demo reviewer",
+  "decision": "actual in-tab visual review",
+  "fieldImpact": "unknown",
+  "overlay": {
+    "pending": "dashed",
+    "accepted": "solid"
+  },
+  "counts": "1 accepted · 4 pending · 0 rejected",
+  "fieldMeasurements": "pending",
+  "images": {
+    "original": {
+      "file": "original.png",
+      "sha256": "032bfb7ecc14da74235ac2886717d5d63ba47a6d95dc8a35a7c4dc0863ccc0ff"
+    },
+    "review": {
+      "file": "review.png",
+      "sha256": "4a8409080bf0a722949a7200765a76d1f4100562c0bf0ef388bb91a2e4ae4409"
+    },
+    "crop": {
+      "file": "crop.png",
+      "sha256": "a043e6d38ebc968c06a5d49eba7fda916f6f058f1c89a849744d6e4d43cf2e3c"
+    },
+    "accepted": {
+      "file": "accepted.png",
+      "sha256": "c0a5f8ea0a07e524cf6abbdbca7124ed33586392036f7205782dfaaf3d44a7ad"
+    }
+  }
+}

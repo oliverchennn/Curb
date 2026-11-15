@@ -1,5 +1,5 @@
 {
-  "version": "Investment refresh",
+  "version": "Presenter and audited benchmark refresh",
   "durationSeconds": 116,
   "fps": 30,
   "statistic": {
@@ -10,24 +10,26 @@
   },
   "robertson": {
     "footage": "public/curb/surveys/robertson-hall/survey.mp4",
-    "review": "Accepted PR23 evidence chapter, Defect 04 at 6 seconds",
-    "receipt": "capture-receipt.json",
-    "replacement": "Compact survey presenter capture and narration awaiting separate accepted release"
+    "revision": "670f6d80cc139441042957d117ad5eb85d238c6b",
+    "basis": "accepted deployed build",
+    "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892996974",
+    "source": "https://curb-taupe.vercel.app",
+    "receipt": "source-captures/presenter/sets/8c21f416f4c9ecc08d64ece11d246151d1500cabd9a1d45837080812adc820be/receipt.json"
   },
   "investment": {
     "revision": "44ba3e49b06fc679e04acad3f26ca7f5dae79a6c",
     "basis": "accepted deployed build",
     "acceptance": "https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892784591",
     "source": "https://curb-taupe.vercel.app",
-    "receipt": "source-captures/investment/receipt.json"
+    "receipt": "source-captures/investment/sets/870f7a45468d44d4f5f12b9db086614de0a98f60c7d6aca5eb356b186d8fd4bb/receipt.json"
   },
   "proof": {
     "window": [
       92,
       100
     ],
-    "content": "Actual printable synthetic decision brief",
-    "benchmark": "Awaiting accepted metrics; no benchmark in this cut"
+    "claim": "benchmark-proof.json",
+    "ledger": "https://github.com/oliverchennn/Curb/blob/deb9c7ccecbbe50491edeac75d98693f617c2fda/docs/evaluation/METRICS_CLAIMS.md"
   },
   "audio": "Silent picture edit with draft narration and captions. Presenter audio recorded separately."
 }
