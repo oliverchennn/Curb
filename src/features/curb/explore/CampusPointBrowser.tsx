@@ -22,7 +22,7 @@ function PointLabels({ point }: { point: CampusPoint }) {
 }
 
 function SourceTime({ value }: { value: string | null }) {
-  return value ? <time dateTime={value}>{value.slice(0, 10)} UTC</time> : <>Unknown</>;
+  return value ? <time dateTime={value}>{value.replace('T', ' ').replace(/Z$/, ' UTC')}</time> : <>Unknown</>;
 }
 
 export default function CampusPointBrowser({
@@ -53,6 +53,7 @@ export default function CampusPointBrowser({
   const rowRefs = useRef(new Map<string, HTMLButtonElement>());
   const detailHeading = useRef<HTMLHeadingElement>(null);
   const listHeading = useRef<HTMLHeadingElement>(null);
+  const searchField = useRef<HTMLInputElement>(null);
   const pendingFocus = useRef<'detail' | 'list' | 'first' | null>(null);
   const keepScroll = useRef(false);
 
@@ -158,7 +159,7 @@ export default function CampusPointBrowser({
         <details className={styles.pointFilters} open={filtersOpen} onToggle={event => setFiltersOpen(event.currentTarget.open)}>
           <summary>Feature filters</summary>
           <label className={styles.pointSearch}>Search archive features
-            <input type="search" value={location.query} maxLength={256} placeholder="Name, category or node/ID"
+            <input ref={searchField} type="search" value={location.query} maxLength={256} placeholder="Name, category or node/ID"
               onChange={event => change({ ...location, query: event.target.value })} />
           </label>
           <fieldset>
@@ -178,7 +179,10 @@ export default function CampusPointBrowser({
             </select>
           </label>
           {(location.query || location.categories.length > 0 || location.scope !== 'all') &&
-            <button type="button" onClick={() => change({ query: '', categories: [], scope: 'all' })}>Clear feature filters</button>}
+            <button type="button" onClick={event => {
+              searchField.current?.focus({ preventScroll: event.detail !== 0 });
+              change({ query: '', categories: [], scope: 'all' });
+            }}>Clear feature filters</button>}
         </details>
         <h3 ref={listHeading} tabIndex={-1}>Feature results</h3>
         {rows.length ? <>
