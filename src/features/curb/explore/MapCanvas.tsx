@@ -41,7 +41,10 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
   const [size, setSize] = useState([900, 520]);
   const [base, setBase] = useState<Base>('aerial');
   const [aerialFailed, setAerialFailed] = useState(false);
-  const showAerial = base === 'aerial' && !aerialFailed;
+  const [mounted, setMounted] = useState(false);
+  // Attach the image only after hydration so an immediate failure reaches its handler.
+  useEffect(() => { setMounted(true); }, []);
+  const showAerial = mounted && base === 'aerial' && !aerialFailed;
   const drag = useRef<{ x: number; y: number; view: View } | null>(null), moved = useRef(false);
   const features = locatedFeatures(atlas, records);
   const unit = Math.max(view[2] / size[0], view[3] / size[1]);

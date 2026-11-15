@@ -72,15 +72,14 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
     </header>
     <div className={styles.switcher}>
       <CollectionCards atlas={atlas} collections={collections} selectedId={collection?.id ?? null} onSelect={chooseCollection} />
-      <details className={styles.filters} open={filtersOpen} onToggle={e => setFiltersOpen(e.currentTarget.open)}>
-        <summary>Filter{filtered ? ' · on' : ''}</summary>
-        <div className={styles.toolbar}>
-          <label className={styles.search}><span aria-hidden="true">⌕</span><span className={styles.srOnly}>Search collections, features or record IDs</span><input value={query} onChange={e => setQuery(e.target.value)} maxLength={256} placeholder="Collection, place or source ID…" type="search" /></label>
-          <label className={styles.filter}>Evidence type<select value={filter} onChange={e => setFilter(e.target.value as Filter)}><option value="all">All evidence</option>{Object.entries(kindLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
-          <span className={styles.resultCount}>{collections.length} of {atlas.collections.length} collections</span>
-          {filtered && <button type="button" className={styles.clear} onClick={clear}>Clear filters</button>}
-        </div>
-      </details>
+      <button type="button" className={styles.filterToggle} aria-expanded={filtersOpen} aria-controls="explorer-filters"
+        onClick={() => setFiltersOpen(open => !open)}>Filter{filtered ? ' · on' : ''}<span aria-hidden="true">▾</span></button>
+      <div id="explorer-filters" className={styles.toolbar} hidden={!filtersOpen}>
+        <label className={styles.search}><span aria-hidden="true">⌕</span><span className={styles.srOnly}>Search collections, features or record IDs</span><input value={query} onChange={e => setQuery(e.target.value)} maxLength={256} placeholder="Collection, place or source ID…" type="search" /></label>
+        <label className={styles.filter}>Evidence type<select value={filter} onChange={e => setFilter(e.target.value as Filter)}><option value="all">All evidence</option>{Object.entries(kindLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+        <span className={styles.resultCount}>{collections.length} of {atlas.collections.length} collections</span>
+        {filtered && <button type="button" className={styles.clear} onClick={clear}>Clear filters</button>}
+      </div>
     </div>
     <div className={styles.workspace} data-details={detailsOpen ? 'open' : 'closed'}>
       <section id="explorer-map" className={styles.mapPanel} aria-label="Evidence stage">
