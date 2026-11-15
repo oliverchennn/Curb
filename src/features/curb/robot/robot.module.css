@@ -43,9 +43,10 @@
   border: 1px solid #cdd8ce;
   border-radius: 9px;
   background: #fff;
+  color: #20372c;
   cursor: pointer;
 }
-.groupButton:hover, .groupButton[data-hovered] { border-color: #2f6df6; box-shadow: 0 0 0 2px #2f6df633; }
+.groupButton:hover, .groupButton[data-hovered] { background: #eef5ff; border-color: #2f6df6; box-shadow: 0 0 0 2px #2f6df633; }
 .swatch { width: 14px; height: 14px; border-radius: 4px; margin-top: 2px; flex: none; }
 .groupText { display: grid; gap: 2px; }
 .groupText strong { font-size: 14px; }
@@ -63,6 +64,19 @@
   font-weight: 650;
 }
 .back:hover { background: #1c3a2b; }
+
+.expand {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #2f6df6;
+  border-radius: 8px;
+  background: #2f6df6;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 650;
+}
+.expand:hover { background: #255fd6; }
 
 .groupTag {
   display: inline-block;
@@ -84,9 +98,10 @@
   border: 1px solid #cdd8ce;
   border-radius: 8px;
   background: #fff;
+  color: #20372c;
   cursor: pointer;
 }
-.partButton:hover, .partButton[data-open] { border-color: #2f6df6; }
+.partButton:hover, .partButton[data-open] { background: #eef5ff; border-color: #2f6df6; }
 .partButton[data-open] { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
 .partNumber {
   flex: none;

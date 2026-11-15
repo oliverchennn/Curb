@@ -9,10 +9,9 @@ import {
   type IndexEntry,
 } from './groups';
 import { loadManifest, type ManifestGroup, type RobotManifest } from './manifest';
-import { RobotScene } from './RobotScene';
+import { RobotScene, type SceneMode } from './RobotScene';
 import styles from './robot.module.css';
 
-type Mode = 'overview' | 'exploded';
 type Status = 'loading' | 'ready' | 'error';
 
 function roleFor(id: string): string {
@@ -23,6 +22,7 @@ export default function RobotExplorer() {
   const stageRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<RobotScene | null>(null);
+  const indexRef = useRef<HTMLOListElement>(null);
 
   const [manifest, setManifest] = useState<RobotManifest | null>(null);
   const [status, setStatus] = useState<Status>('loading');
@@ -30,7 +30,7 @@ export default function RobotExplorer() {
   const [fallback, setFallback] = useState('');
   const [progress, setProgress] = useState({ loaded: 0, total: 6 });
 
-  const [mode, setMode] = useState<Mode>('overview');
+  const [mode, setMode] = useState<SceneMode>('overview');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [entries, setEntries] = useState<IndexEntry[]>([]);
   const [openKey, setOpenKey] = useState<string | null>(null);
@@ -40,20 +40,24 @@ export default function RobotExplorer() {
   const [reduced, setReduced] = useState(false);
   const [autoOrbit, setAutoOrbit] = useState(true);
 
-  // Keep the latest manifest reachable from stable callbacks.
   const manifestRef = useRef<RobotManifest | null>(null);
   manifestRef.current = manifest;
 
-  const openGroup = useCallback((id: string) => {
+  const isolate = useCallback((id: string) => {
     const group = manifestRef.current?.groups.find(g => g.id === id);
     if (!group) return;
     const collapsed = collapseGroup(group);
-    setMode('exploded');
+    setMode('isolated');
     setSelectedId(id);
     setEntries(collapsed);
     setOpenKey(null);
     setDetail({ state: 'idle' });
-    sceneRef.current?.explodeGroup(group, collapsed);
+    sceneRef.current?.isolateGroup(group, collapsed);
+  }, []);
+
+  const expand = useCallback(() => {
+    sceneRef.current?.expand();
+    setMode('exploded');
   }, []);
 
   const selectEntry = useCallback((key: string) => {
@@ -74,7 +78,6 @@ export default function RobotExplorer() {
     sceneRef.current?.reset();
   }, []);
 
-  // Reduced-motion preference.
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sync = () => {
@@ -86,7 +89,6 @@ export default function RobotExplorer() {
     return () => media.removeEventListener('change', sync);
   }, []);
 
-  // Build the scene and load the overview once the mount points exist.
   useEffect(() => {
     let cancelled = false;
     const controller = new AbortController();
@@ -100,7 +102,8 @@ export default function RobotExplorer() {
         try {
           scene = new RobotScene(stageRef.current, labelRef.current, {
             onHoverGroup: setHovered,
-            onPickGroup: openGroup,
+            onPickGroup: isolate,
+            onExpand: () => expand(),
             onPickEntry: (_g, key) => selectEntry(key),
             onProgress: (loaded, total) => setProgress({ loaded, total }),
             onDetailState: (_g, state, message) => setDetail({ state, message }),
@@ -130,24 +133,31 @@ export default function RobotExplorer() {
       sceneRef.current?.dispose();
       sceneRef.current = null;
     };
-  }, [openGroup, selectEntry]);
+  }, [isolate, expand, selectEntry]);
 
   useEffect(() => { sceneRef.current?.setReducedMotion(reduced); }, [reduced]);
   useEffect(() => { sceneRef.current?.setAutoOrbit(autoOrbit); }, [autoOrbit]);
 
   // Esc returns to the full robot.
   useEffect(() => {
-    if (mode !== 'exploded') return;
+    if (mode === 'overview') return;
     const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') back(); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [mode, back]);
+
+  // Keep the open index item in view when it is opened from a 3D click.
+  useEffect(() => {
+    if (!openKey || !indexRef.current) return;
+    indexRef.current.querySelector(`[data-entrykey="${openKey}"]`)?.scrollIntoView({ block: 'nearest' });
+  }, [openKey]);
 
   const selectedGroup: ManifestGroup | null = selectedId
     ? manifest?.groups.find(g => g.id === selectedId) ?? null
     : null;
   const groups = manifest ? orderedGroups(manifest) : [];
   const totalParts = manifest ? manifest.groups.reduce((n, g) => n + g.count, 0) : 0;
+  const maxQty = entries.length ? Math.max(...entries.map(e => e.quantity)) : 1;
 
   if (status === 'error') {
     return (
@@ -159,12 +169,12 @@ export default function RobotExplorer() {
 
   return (
     <div className={styles.explorer}>
-      <aside className={styles.index} aria-label={mode === 'overview' ? 'Robot subsystems' : 'Parts index'}>
+      <aside className={styles.index} aria-label={mode === 'overview' ? 'Robot subsystems' : 'Group components'}>
         {mode === 'overview' ? (
           <>
             <div className={styles.indexHead}>
               <h2>Subsystems</h2>
-              <p>{totalParts.toLocaleString()} parts · {groups.length} functional groups. Hover the robot to highlight a group, then open it to explode its parts.</p>
+              <p>{totalParts.toLocaleString()} parts · {groups.length} functional groups. Hover the robot to highlight a group, then click to isolate it.</p>
             </div>
             <ul className={styles.groupList}>
               {groups.map(g => (
@@ -173,7 +183,7 @@ export default function RobotExplorer() {
                     type="button"
                     className={styles.groupButton}
                     data-hovered={hovered === g.id || undefined}
-                    onClick={() => openGroup(g.id)}
+                    onClick={() => isolate(g.id)}
                     onPointerEnter={() => setHovered(g.id)}
                     onPointerLeave={() => setHovered(null)}
                   >
@@ -195,66 +205,74 @@ export default function RobotExplorer() {
               <div className={styles.indexHead}>
                 <span className={styles.groupTag} style={{ background: selectedGroup.color }}>{selectedGroup.label}</span>
                 <p>{roleFor(selectedGroup.id) || selectedGroup.blurb}</p>
-                <p className={styles.collapseNote}>
-                  {entries.length} item types · {selectedGroup.count.toLocaleString()} parts. Identical repeated hardware is listed once with a quantity (e.g. ×{Math.max(...entries.map(e => e.quantity))}).
-                </p>
+                {mode === 'isolated' ? (
+                  <>
+                    <p className={styles.collapseNote}>{selectedGroup.count.toLocaleString()} parts, shown assembled. Hover the model and click — or use the button — to expand it into its {entries.length} component types.</p>
+                    <button type="button" className={styles.expand} onClick={expand}>Expand into parts →</button>
+                  </>
+                ) : (
+                  <p className={styles.collapseNote}>{entries.length} component types · {selectedGroup.count.toLocaleString()} parts. Identical repeated hardware is listed once with a quantity (e.g. ×{maxQty}). Click a part or its number for details.</p>
+                )}
               </div>
             )}
-            <ol className={styles.partList}>
-              {entries.map(entry => {
-                const open = openKey === entry.key;
-                return (
-                  <li key={entry.key}>
-                    <button
-                      type="button"
-                      className={styles.partButton}
-                      aria-expanded={open}
-                      data-open={open || undefined}
-                      onClick={() => selectEntry(entry.key)}
-                    >
-                      <span className={styles.partNumber} style={{ borderColor: selectedGroup?.color }}>{entry.number}</span>
-                      <span className={styles.partName}>{entry.label}</span>
-                      {entry.quantity > 1 && <span className={styles.qty}>×{entry.quantity}</span>}
-                      <span className={styles.chevron} aria-hidden="true">{open ? '▾' : '▸'}</span>
-                    </button>
-                    {open && (
-                      <div className={styles.partDetail}>
-                        <p>{entry.description}</p>
-                        <dl>
-                          <div><dt>Family</dt><dd><code>{entry.kind}</code></dd></div>
-                          <div><dt>Quantity</dt><dd>{entry.quantity}</dd></div>
-                        </dl>
-                        <p className={styles.genericNote}>Generic geometry; supplier, material and ratings are unselected.</p>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
+            {mode === 'exploded' && (
+              <ol className={styles.partList} ref={indexRef}>
+                {entries.map(entry => {
+                  const open = openKey === entry.key;
+                  return (
+                    <li key={entry.key} data-entrykey={entry.key}>
+                      <button
+                        type="button"
+                        className={styles.partButton}
+                        aria-expanded={open}
+                        data-open={open || undefined}
+                        onClick={() => selectEntry(entry.key)}
+                      >
+                        <span className={styles.partNumber} style={{ borderColor: selectedGroup?.color }}>{entry.number}</span>
+                        <span className={styles.partName}>{entry.label}</span>
+                        {entry.quantity > 1 && <span className={styles.qty}>×{entry.quantity}</span>}
+                        <span className={styles.chevron} aria-hidden="true">{open ? '▾' : '▸'}</span>
+                      </button>
+                      {open && (
+                        <div className={styles.partDetail}>
+                          <p>{entry.description}</p>
+                          <dl>
+                            <div><dt>Family</dt><dd><code>{entry.kind}</code></dd></div>
+                            <div><dt>Quantity</dt><dd>{entry.quantity}</dd></div>
+                          </dl>
+                          <p className={styles.genericNote}>Generic geometry; supplier, material and ratings are unselected.</p>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
           </>
         )}
       </aside>
 
       <section className={styles.stageWrap} aria-label="Robot model">
         <div className={styles.toolbar}>
-          {mode === 'exploded' && selectedGroup ? (
-            <span className={styles.stageTitle}><span className={styles.dot} style={{ background: selectedGroup.color }} aria-hidden="true" />{selectedGroup.label} — exploded view</span>
-          ) : (
-            <span className={styles.stageTitle}>Curb survey robot — concept model</span>
-          )}
+          <span className={styles.stageTitle}>
+            {mode === 'exploded' && selectedGroup ? (
+              <><span className={styles.dot} style={{ background: selectedGroup.color }} aria-hidden="true" />{selectedGroup.label} — exploded view</>
+            ) : mode === 'isolated' && selectedGroup ? (
+              <><span className={styles.dot} style={{ background: selectedGroup.color }} aria-hidden="true" />{selectedGroup.label} — isolated</>
+            ) : (
+              'Curb survey robot — concept model'
+            )}
+          </span>
           <div className={styles.toolbarActions}>
             {mode === 'overview' && !fallback && (
-              <button
-                type="button"
-                className={styles.orbitToggle}
-                aria-pressed={autoOrbit}
-                disabled={reduced}
-                onClick={() => setAutoOrbit(v => !v)}
-              >
+              <button type="button" className={styles.orbitToggle} aria-pressed={autoOrbit} disabled={reduced} onClick={() => setAutoOrbit(v => !v)}>
                 {autoOrbit ? '❙❙ Pause orbit' : '▶ Auto-orbit'}
               </button>
             )}
-            {mode === 'exploded' && (
+            {mode === 'isolated' && (
+              <button type="button" className={styles.orbitToggle} onClick={expand}>Expand into parts</button>
+            )}
+            {mode !== 'overview' && (
               <button type="button" className={styles.orbitToggle} onClick={back}>← Full robot</button>
             )}
           </div>
@@ -262,7 +280,7 @@ export default function RobotExplorer() {
 
         <div className={styles.stage}>
           <div ref={stageRef} className={styles.canvasHost} />
-          <div ref={labelRef} className={styles.labelLayer} aria-hidden="true" />
+          <div ref={labelRef} className={styles.labelLayer} />
 
           {fallback ? (
             <div className={styles.fallback} role="status">
@@ -276,17 +294,15 @@ export default function RobotExplorer() {
             </div>
           ) : null}
 
-          {detail.state === 'loading' && (
-            <div className={styles.detailLoading} role="status">Loading full detail…</div>
-          )}
-          {detail.state === 'error' && (
-            <div className={styles.detailError} role="alert">Detail failed to load. {detail.message}</div>
-          )}
+          {detail.state === 'loading' && <div className={styles.detailLoading} role="status">Loading full detail…</div>}
+          {detail.state === 'error' && <div className={styles.detailError} role="alert">Detail failed to load. {detail.message}</div>}
 
           <p className={styles.hint}>
             {mode === 'overview'
-              ? 'Drag to orbit · scroll to zoom · hover a group then click to explode it'
-              : 'Click a numbered part or an index item for its purpose · Esc returns'}
+              ? 'Drag to orbit · scroll to zoom · WASD / arrows to move · hover a group and click to isolate it'
+              : mode === 'isolated'
+                ? 'Hover the model and click to expand into parts · WASD / arrows to move · Esc returns'
+                : 'Click a numbered part or an index item for its purpose · WASD / arrows to move · Esc returns'}
           </p>
         </div>
         <p className={styles.concept}>{manifest?.note ?? 'Generic prototype concept model — not validated hardware.'}</p>
