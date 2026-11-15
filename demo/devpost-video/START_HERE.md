@@ -32,6 +32,8 @@ The benchmark counts more newly reachable destinations as a win at the same assu
 
 Put both takes in the ignored `recordings/` folder. From this kit folder, run this with your actual source offsets. The example starts the team take one second into its file and uses the voiceover file from its start. Use zero for any file already trimmed to its first cue.
 
+If you start the voice recorder with the silent edit and wait seven seconds to read the CDC line, trim the lead-in or set `-VoiceStartSeconds 7`, adjusting for when your first word actually begins.
+
 ~~~powershell
 .\join-recording.ps1 -TeamFile .\recordings\team.mov -VoiceoverFile .\recordings\narration.wav -TeamStartSeconds 1 -VoiceStartSeconds 0
 ~~~
