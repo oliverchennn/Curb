@@ -14,6 +14,29 @@ export const STRATEGIES = ['exact', 'conditionFirst', 'cheapestFirst', 'greedy']
 export const PRICE_SET_CENTS = [100, 200, 300, 500, 800, 1300] as const;
 export const EXPECTED_COUNTS = { networks: 30, cases: 120, rows: 480, pairs: 360, controls: 8, controlRows: 32 } as const;
 export const INVESTMENT_BUDGETS = [0, 499999, 500000, 999999, 1000000, 1499999, 1500000, 2000000] as const;
+/** Serialization/provenance contract frozen before the official audited run.
+ * UTF-8 CSV: unquoted header, every data cell quoted, internal quotes doubled;
+ * arrays use compact JSON, null is an empty quoted cell, other scalars String(value).
+ * LF after every row including the last. Only the 480 main rows; route outcomes and
+ * all 32 control rows remain in results.json. Order: family, seed, budget, strategy.
+ */
+export const CSV_FIELDS = [
+  'caseId', 'scenarioId', 'family', 'seed', 'budgetPercent', 'budgetCents', 'strategy',
+  'eligibleCostCents', 'eligibleCandidateCount', 'excludedUnknownCostRepairIds', 'selectedRepairIds',
+  'spendCents', 'baselineDestinationIds', 'newDestinationIds', 'totalDestinationIds',
+  'baselineCount', 'gain', 'totalCount', 'destinationCount', 'gainFraction',
+  'costPerNewDestinationCents', 'costPerNewDestinationReason',
+] as const;
+/** Every tracked path selected by `git ls-files -- <these pathspecs>`, code-unit sorted. */
+export const RELEVANT_SOURCE_PATHS = [
+  'scripts/curb/metrics', 'benchmarks/curb-metrics', 'src/domain/curb', 'src/contracts/curb',
+  'src/data/curb/investment-demo.json', 'modules/maps/src', 'package.json', 'package-lock.json',
+  'tsconfig.json', 'vitest.config.ts',
+] as const;
+export const SOURCE_HASH_SEMANTICS = 'sourceHashes are SHA-256 over exact committed Git blob bytes at sourceCommit:path; working tree must be Git-clean. Frozen suite checkout bytes must also exactly equal the committed suite blob, with no silent line-ending normalization.';
+export const PRE_AUDIT_HASHED_ARTIFACTS = ['inputs.json', 'engine-responses.json', 'results.json', 'results.csv', 'run.log'] as const;
+// manifest.json is additionally emitted and never self-hashed. Audit/verification and
+// summary/report/claims are subsequent independently gated artifacts.
 export const LIMITATIONS = [
   'Preregistered authored synthetic engineering suite; not a representative or held-out campus sample.',
   'Equal-weight destinations are not people; assumed costs and modeled repairs are not construction outcomes.',
@@ -102,6 +125,7 @@ export const ManifestSchema = z.strictObject({
   schemaVersion: z.literal(METRICS_VERSION), suiteVersion: z.literal(SUITE_VERSION),
   sourceCommit: commit, frozenInputCommit: commit, suiteSha256: hash,
   inputRelationship: z.literal('inputs.json is a byte-for-byte copy of the frozen suite file'),
+  // Committed blobs, as defined by SOURCE_HASH_SEMANTICS; not platform checkout bytes.
   sourceHashes: z.record(id, hash), artifactHashes: z.record(id, hash),
   counts: z.strictObject({ networks: count, cases: count, rows: count, pairs: count, controls: count, controlRows: count }),
   execution: z.strictObject({ utc: id, node: id, platform: id, commands: z.array(id), publishable: z.boolean() }),

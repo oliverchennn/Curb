@@ -10,14 +10,9 @@ import {
   type Network, type ResultRow, type Results, type EngineResponses, type Manifest,
   validateSuite, requestFor, eligibleCost, caseId, controlCaseId, stableStringify, sha256, deepFreeze,
   codeUnitCompare, cliArgs, isMain,
+  CSV_FIELDS, RELEVANT_SOURCE_PATHS, SOURCE_HASH_SEMANTICS, PRE_AUDIT_HASHED_ARTIFACTS,
 } from './spec';
-
-export const RELEVANT_SOURCE_PATHS = [
-  'scripts/curb/metrics', 'benchmarks/curb-metrics', 'src/domain/curb', 'src/contracts/curb',
-  'src/data/curb/investment-demo.json', 'modules/maps/src', 'package.json', 'package-lock.json',
-  'tsconfig.json', 'vitest.config.ts',
-];
-const CORE_ARTIFACTS = ['inputs.json', 'engine-responses.json', 'results.json', 'results.csv'] as const;
+export { RELEVANT_SOURCE_PATHS } from './spec';
 
 function makeRow(
   plan: PlanScenario, identity: Pick<ResultRow, 'caseId' | 'family' | 'seed' | 'budgetPercent'>,
@@ -83,13 +78,6 @@ export function measureSuite(suiteInput: unknown, suiteSha256: string, investmen
   return { results, engine };
 }
 
-const CSV_FIELDS = [
-  'caseId', 'scenarioId', 'family', 'seed', 'budgetPercent', 'budgetCents', 'strategy',
-  'eligibleCostCents', 'eligibleCandidateCount', 'excludedUnknownCostRepairIds', 'selectedRepairIds',
-  'spendCents', 'baselineDestinationIds', 'newDestinationIds', 'totalDestinationIds',
-  'baselineCount', 'gain', 'totalCount', 'destinationCount', 'gainFraction',
-  'costPerNewDestinationCents', 'costPerNewDestinationReason',
-] as const;
 export function resultsCsv(rows: readonly ResultRow[]): string {
   const cell = (v: unknown) => {
     const value = v === null ? '' : Array.isArray(v) ? JSON.stringify(v) : String(v);
@@ -114,7 +102,9 @@ export function sourceProvenance(root: string, suitePath: string): Pick<Manifest
   if (!bytes.equals(frozenBytes)) throw new Error('Frozen input bytes differ from the recorded commit');
   for (const path of ['scripts/curb/metrics/spec.ts', 'scripts/curb/metrics/generate.ts']) git(root, 'cat-file', '-e', `${frozenInputCommit}:${path}`);
   const files = git(root, 'ls-files', '--', ...RELEVANT_SOURCE_PATHS).split('\n').filter(Boolean).sort(codeUnitCompare);
-  const sourceHashes = Object.fromEntries(files.map(path => [path, sha256(readFileSync(resolve(root, path)))]));
+  const sourceHashes = Object.fromEntries(files.map(path => [path,
+    sha256(execFileSync('git', ['show', `${sourceCommit}:${path}`], { cwd: root })),
+  ]));
   return { sourceCommit, frozenInputCommit, suiteSha256: sha256(bytes), sourceHashes };
 }
 
@@ -150,10 +140,10 @@ export function runBenchmark(options: { root?: string; suite: string; out: strin
       schemaVersion: METRICS_VERSION, suiteVersion: SUITE_VERSION, ...provenance,
       inputRelationship: 'inputs.json is a byte-for-byte copy of the frozen suite file',
       sourceHashes: provenance.sourceHashes,
-      artifactHashes: Object.fromEntries([...CORE_ARTIFACTS, 'run.log'].map(name => [name, sha256(readFileSync(resolve(out, name)))])),
+      artifactHashes: Object.fromEntries(PRE_AUDIT_HASHED_ARTIFACTS.map(name => [name, sha256(readFileSync(resolve(out, name)))])),
       counts: EXPECTED_COUNTS,
       execution: { utc: new Date().toISOString(), node: process.version, platform: process.platform, commands: [runCommand], publishable: true },
-      measuredScope: 'Known modeled destination access at equal assumed repair budget; controls excluded from aggregate. Execution command uses a portable placeholder for the reserved output directory.',
+      measuredScope: `Known modeled destination access at equal assumed repair budget; controls excluded from aggregate. External private output paths use a portable command placeholder. ${SOURCE_HASH_SEMANTICS}`,
       limitations: [...LIMITATIONS],
     });
     writeFileSync(resolve(out, 'manifest.json'), stableStringify(manifest), { flag: 'wx' });

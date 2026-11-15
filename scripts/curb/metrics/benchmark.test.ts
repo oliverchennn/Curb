@@ -275,6 +275,16 @@ describe('source provenance', () => {
       const p = sourceProvenance(root, suitePath);
       expect(p.frozenInputCommit).toBe(p.sourceCommit);
       expect(p.suiteSha256).toBe(sha256('{}\n'));
+      git('config', 'core.autocrlf', 'true');
+      writeFileSync(resolve(root, 'scripts/curb/metrics/spec.ts'), '// test\r\n');
+      git('add', 'scripts/curb/metrics/spec.ts'); // Refresh clean filtered bytes, as a Windows checkout does.
+      git('diff', '--cached', '--quiet');
+      expect(sourceProvenance(root, suitePath).sourceHashes['scripts/curb/metrics/spec.ts']).toBe(sha256('// test\n'));
+      writeFileSync(suitePath, '{}\r\n');
+      git('add', 'benchmarks/curb-metrics/suite-v1.json');
+      git('diff', '--cached', '--quiet');
+      expect(() => sourceProvenance(root, suitePath)).toThrow(/Frozen input bytes differ/);
+      writeFileSync(suitePath, '{}\n');
       writeFileSync(resolve(root, 'scripts/curb/metrics/spec.ts'), '// modified\n');
       expect(() => sourceProvenance(root, suitePath)).toThrow(/dirty/);
     } finally { rmSync(root, { recursive: true }); }

@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import type { PlanScenario } from '../../../src/contracts/curb/plans';
 import {
-  AuditSchema, BUDGET_PERCENTAGES, EngineResponsesSchema, EXPECTED_COUNTS, FAMILIES,
+  AuditSchema, BUDGET_PERCENTAGES, CSV_FIELDS, EngineResponsesSchema, EXPECTED_COUNTS, FAMILIES,
   INVESTMENT_BUDGETS, LIMITATIONS, ManifestSchema, METRICS_VERSION, ResultsSchema,
   STRATEGIES, caseId, cliArgs, codeUnitCompare, controlCaseId, eligibleCost, isMain,
   sameIds, sha256, stableStringify, validateSuite,
@@ -112,13 +112,8 @@ export function validateCompleteResults(suite: Suite, resultsInput: unknown, eng
 /** Check the CSV itself, not just its checksum. Its canonical encoding contains the
  * 480 aggregate rows only; controls remain in results.json and separate HTML tables. */
 export function validateResultsCsv(results: Results, bytes: string | Uint8Array): void {
-  const fields = ['caseId', 'scenarioId', 'family', 'seed', 'budgetPercent', 'budgetCents', 'strategy',
-    'eligibleCostCents', 'eligibleCandidateCount', 'excludedUnknownCostRepairIds', 'selectedRepairIds',
-    'spendCents', 'baselineDestinationIds', 'newDestinationIds', 'totalDestinationIds',
-    'baselineCount', 'gain', 'totalCount', 'destinationCount', 'gainFraction',
-    'costPerNewDestinationCents', 'costPerNewDestinationReason'] as const;
   const csvCell = (value: unknown) => '"' + (value === null ? '' : Array.isArray(value) ? JSON.stringify(value) : String(value)).replaceAll('"', '""') + '"';
-  const expected = fields.join(',') + '\n' + results.rows.map(row => fields.map(key => csvCell(row[key])).join(',')).join('\n') + '\n';
+  const expected = CSV_FIELDS.join(',') + '\n' + results.rows.map(row => CSV_FIELDS.map(key => csvCell(row[key])).join(',')).join('\n') + '\n';
   const actual = typeof bytes === 'string' ? bytes : Buffer.from(bytes).toString('utf8');
   requireTrue(actual === expected, 'CSV does not exactly encode all 480 JSON strategy rows');
 }
