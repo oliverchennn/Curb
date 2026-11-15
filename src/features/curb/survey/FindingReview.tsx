@@ -157,8 +157,9 @@ export function FindingReview({ survey, original, editedIds, selectedFindingId, 
           {finding.review.status !== 'pending' ? <button type="button" className={styles.textButton}
             aria-disabled={pendingIssue !== null} aria-describedby={pendingIssue ? 'survey-pending-help' : undefined}
             onClick={() => {
+              if (pendingIssue) { setMessage(pendingIssue); return; }
               const result = setReviewStatus(survey, finding.id, 'pending', reviewer);
-              const done = apply(result.ok && pendingIssue ? { ok: false, message: pendingIssue } : result, `Returned “${finding.label}” to pending.`);
+              const done = apply(result, `Returned “${finding.label}” to pending.`);
               // This button disappears once the finding is pending; keep focus on the decision group.
               if (done) setTimeout(() => document.getElementById('survey-accept')?.focus(), 0);
             }}>Mark pending</button> : null}

@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { createElement } from 'react';
+import { createElement, isValidElement, type ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { POST } from '../../../app/api/curb/survey/report/route';
 import canonical from '../../../src/data/curb/surveys/robertson-hall.json';
 import { SurveySchema, type Survey } from '../../../src/contracts/curb/survey';
@@ -247,5 +247,50 @@ describe('pending review controls preserve exportable repair history', () => {
     expect(appendedWorkflowIssue(pending.findings[0], published.findings[0])).toBeNull();
     expect(pending.findings[0].repair!.workflow).toEqual(published.findings[0].repair!.workflow);
     expect(published.findings[0].review.status).toBe('accepted');
+  });
+
+  it.each([true, false])('checks pending availability before empty-reviewer validation (blocked=%s)', (blocked) => {
+    const restored = SurveySchema.parse(JSON.parse(JSON.stringify(blocked ? acceptAndProgress(true) : decide(base, 'rejected'))));
+    const before = JSON.stringify(restored);
+    const onChange = vi.fn();
+    const focus = vi.fn();
+    const getElementById = vi.fn(() => ({ focus }));
+    let activate: (() => void) | undefined;
+
+    function capture(node: ReactNode): void {
+      if (Array.isArray(node)) { node.forEach(capture); return; }
+      if (!isValidElement<{ children?: ReactNode; onClick?: () => void }>(node)) return;
+      if (node.type === 'button' && node.props.children === 'Mark pending') activate = node.props.onClick;
+      capture(node.props.children);
+    }
+
+    // Capture the actual event handler during a real React render with empty local reviewer state.
+    // Browser coverage verifies the alert rerender and actual activeElement after activation.
+    function RestoredReview() {
+      const view = FindingReview({
+        survey: restored, original: base, plan: undefined, editedIds: [id], selectedFindingId: id,
+        onSelectFinding: () => {}, onChange, onMeasure: () => {},
+      });
+      capture(view);
+      return view;
+    }
+
+    renderToStaticMarkup(createElement(RestoredReview));
+    expect(activate).toBeTypeOf('function');
+    vi.stubGlobal('document', { getElementById });
+    try {
+      activate!();
+      expect(onChange).not.toHaveBeenCalled();
+      expect(JSON.stringify(restored)).toBe(before);
+      if (blocked) {
+        expect(getElementById).not.toHaveBeenCalled();
+        expect(focus).not.toHaveBeenCalled();
+      } else {
+        expect(getElementById).toHaveBeenCalledWith('survey-reviewer');
+        expect(focus).toHaveBeenCalledOnce();
+      }
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
