@@ -1,0 +1,6577 @@
+{
+  "schemaVersion": 1,
+  "task": "CURB-CAMPUS-COVERAGE-AUDIT/1",
+  "sourceSha": "a561892fc443e2c87eddb3676fccbac70c31ee23",
+  "geography": "Princeton University campus baseline only; not municipality or every university property",
+  "decision": "Source accounting verified; physical campus completeness and current accessibility not established.",
+  "source": {
+    "license": "ODbL-1.0",
+    "credit": "\u00a9 OpenStreetMap contributors",
+    "licenseUrl": "https://www.openstreetmap.org/copyright",
+    "snapshotSha256": "47338cae35eb146e063cc7c0d458123ffde2873ba7ce291ee584ebabb3e5d959",
+    "datasetSha256": "8bb4b8cdd2b5e89548195f33df5fa09e23c0e16b44c2e47f2059b47f858da6e1",
+    "provenanceSha256": "46d8eca512527f0dcd2053c817f778cabe44fde665ade3c3a63d831863e4bcd2",
+    "rawResponses": [
+      {
+        "name": "0-0",
+        "bbox": [
+          -74.676,
+          40.318,
+          -74.659,
+          40.3275
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.676,40.318,-74.659,40.3275",
+        "retrievedAt": "2026-11-15T01:17:03Z",
+        "bytes": 651200,
+        "sha256": "de0d715432c39d7cad9768c5c4962488f049324a82f23ce14ec655ad99375c72",
+        "elements": 2707
+      },
+      {
+        "name": "0-1",
+        "bbox": [
+          -74.676,
+          40.3275,
+          -74.659,
+          40.337
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.676,40.3275,-74.659,40.337",
+        "retrievedAt": "2026-11-15T01:17:05Z",
+        "bytes": 1192121,
+        "sha256": "4a4432edb3a1d3407922b57e2a623d39618df95e5133806550965b1cf82bee06",
+        "elements": 6321
+      },
+      {
+        "name": "0-2",
+        "bbox": [
+          -74.676,
+          40.337,
+          -74.659,
+          40.3465
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.676,40.337,-74.659,40.3465",
+        "retrievedAt": "2026-11-15T01:17:06Z",
+        "bytes": 2195323,
+        "sha256": "c7684bc097a8ece673f630c19e6d9b03ee61c2ce04ac0633c7f0866c80ff730d",
+        "elements": 10603
+      },
+      {
+        "name": "0-3",
+        "bbox": [
+          -74.676,
+          40.3465,
+          -74.659,
+          40.356
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.676,40.3465,-74.659,40.356",
+        "retrievedAt": "2026-11-15T01:17:08Z",
+        "bytes": 2977985,
+        "sha256": "8fb99a75942af6e3d85131a6ad109a94b8d0fd43df133aee9dbf70cb1364ac01",
+        "elements": 14053
+      },
+      {
+        "name": "1-0",
+        "bbox": [
+          -74.659,
+          40.318,
+          -74.642,
+          40.3275
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.659,40.318,-74.642,40.3275",
+        "retrievedAt": "2026-11-15T01:17:03Z",
+        "bytes": 1702475,
+        "sha256": "30287cd107e7f6da8d3d5bc3790c607cd4991179373a0a2c1697d5b7a608ff39",
+        "elements": 7797
+      },
+      {
+        "name": "1-1",
+        "bbox": [
+          -74.659,
+          40.3275,
+          -74.642,
+          40.337
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.659,40.3275,-74.642,40.337",
+        "retrievedAt": "2026-11-15T01:17:05Z",
+        "bytes": 1444822,
+        "sha256": "dfcf9969ed9af46158dae87126d45f1f11bf63fa165d7a43f6507792d0342a26",
+        "elements": 6410
+      },
+      {
+        "name": "1-2",
+        "bbox": [
+          -74.659,
+          40.337,
+          -74.642,
+          40.3465
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.659,40.337,-74.642,40.3465",
+        "retrievedAt": "2026-11-15T01:17:07Z",
+        "bytes": 2027730,
+        "sha256": "e4cf52fd18b00aa76915d8dfd73d7ec7abdbebb9cc3dde0e8cbad490c1b02420",
+        "elements": 9850
+      },
+      {
+        "name": "1-3",
+        "bbox": [
+          -74.659,
+          40.3465,
+          -74.642,
+          40.356
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.659,40.3465,-74.642,40.356",
+        "retrievedAt": "2026-11-15T01:17:08Z",
+        "bytes": 2458211,
+        "sha256": "fd109eb34d11f59588f3925b1729b25531834e5ff7938ecdfd709d743ba08ef5",
+        "elements": 11753
+      },
+      {
+        "name": "2-0",
+        "bbox": [
+          -74.642,
+          40.318,
+          -74.625,
+          40.3275
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.642,40.318,-74.625,40.3275",
+        "retrievedAt": "2026-11-15T01:17:04Z",
+        "bytes": 1425380,
+        "sha256": "7da58eddb797a11f380dc4fb8cf20eb8eb63a6e0c4c5b8838198c8c53188767c",
+        "elements": 7237
+      },
+      {
+        "name": "2-1",
+        "bbox": [
+          -74.642,
+          40.3275,
+          -74.625,
+          40.337
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.642,40.3275,-74.625,40.337",
+        "retrievedAt": "2026-11-15T01:17:06Z",
+        "bytes": 917392,
+        "sha256": "c9c96d719b002de809245c1440838c68b8d24121a21db45906e897f364ddcedb",
+        "elements": 4081
+      },
+      {
+        "name": "2-2",
+        "bbox": [
+          -74.642,
+          40.337,
+          -74.625,
+          40.3465
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.642,40.337,-74.625,40.3465",
+        "retrievedAt": "2026-11-15T01:17:07Z",
+        "bytes": 1291158,
+        "sha256": "2e6babdda5c24c3710c84b5fca0bbeca16821b8da85f1059344de746969def25",
+        "elements": 5728
+      },
+      {
+        "name": "2-3",
+        "bbox": [
+          -74.642,
+          40.3465,
+          -74.625,
+          40.356
+        ],
+        "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-74.642,40.3465,-74.625,40.356",
+        "retrievedAt": "2026-11-15T01:17:09Z",
+        "bytes": 1251352,
+        "sha256": "253687193d2c1bb939e31fa20ab810ee2de7c74873351ce2c3f954c0aae33bad",
+        "elements": 5240
+      }
+    ],
+    "boundaryResponse": {
+      "url": "https://api.openstreetmap.org/api/0.6/relation/6365145/full.json",
+      "sha256": "b3de87e8fa77178af041ee416081fa9946d661587b9c3c65c605d333b6414b4f",
+      "version": 28,
+      "editedAt": "2026-06-29T10:47:43Z"
+    }
+  },
+  "method": {
+    "auditScriptSha256": "2d79a60d5a470fbfc39a4dfd9e0a95fb2f271950ad7513968d32f1e8aac49eba",
+    "privateEvidenceDirectory": ".curb-local/campus-coverage-audit/",
+    "officialReferenceGeometryPublished": false,
+    "sourceEditOrRetrievalIsFieldObservation": false,
+    "pointBoundaryRule": "Inside or on selected outer boundaries, excluding strict interiors of holes. Complete-way context retained separately.",
+    "areaCountRule": "Way-based manifest areas; points linked to multiple areas appear in each local count, globally deduplicated by OSM node ID. Unlinked points use the documented coordinate cuts for audit grouping only.",
+    "categories": {
+      "crossing": "highway=crossing OR crossing key present",
+      "kerb": "kerb key present OR barrier=kerb",
+      "entrance": "entrance key present",
+      "transit": "highway=bus_stop OR public_transport key present"
+    },
+    "omittedRoadAreaRule": "Bounding-box center, Meadows point containment first, then published coordinate cuts; audit grouping only, not source ownership."
+  },
+  "checks": [
+    {
+      "check": "raw tile 0-0 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 0-1 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 0-2 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 0-3 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 1-0 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 1-1 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 1-2 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 1-3 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 2-0 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 2-1 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 2-2 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw tile 2-3 SHA-256",
+      "passed": true
+    },
+    {
+      "check": "raw full relation SHA-256",
+      "passed": true
+    },
+    {
+      "check": "sanitized snapshot SHA-256",
+      "passed": true
+    },
+    {
+      "check": "all sanitized source fields equal original response fields",
+      "passed": true
+    },
+    {
+      "check": "twelve tiles exactly cover the declared rectangle without gaps",
+      "passed": true
+    },
+    {
+      "check": "independent raw relation ring join: outer",
+      "passed": true
+    },
+    {
+      "check": "independent raw relation ring join: inner",
+      "passed": true
+    },
+    {
+      "check": "Meadows raw ring equals retained ring",
+      "passed": true
+    },
+    {
+      "check": "geometry boundary semantics",
+      "passed": true
+    },
+    {
+      "check": "all boundary vertices inside acquisition rectangle",
+      "passed": true
+    },
+    {
+      "check": "all candidate nodes present",
+      "passed": true
+    },
+    {
+      "check": "independent retained-way selection equals all 1188 IDs",
+      "passed": true
+    },
+    {
+      "check": "geometry and node order preserved exactly",
+      "passed": true
+    },
+    {
+      "check": "selected point accounting: 295 = 235 inside + 60 context",
+      "passed": true
+    },
+    {
+      "check": "raw interior point accounting: 273 = 235 linked + 38 unlinked",
+      "passed": true
+    },
+    {
+      "check": "333-point proposed union is distinct",
+      "passed": true
+    },
+    {
+      "check": "all 38 unlinked interior points absent from sanitized snapshot",
+      "passed": true
+    },
+    {
+      "check": "selected-way membership totals 1188 exactly once across areas",
+      "passed": true
+    },
+    {
+      "check": "373 omitted highway ways reconcile with complete highway intersection set",
+      "passed": true
+    },
+    {
+      "check": "all 14 official reference neighborhoods fit acquisition rectangle",
+      "passed": true
+    },
+    {
+      "check": "point linkage dedup: 296 area memberships represent 295 points",
+      "passed": true
+    }
+  ],
+  "rawCounts": {
+    "node": 65806,
+    "way": 8645,
+    "relation": 170
+  },
+  "acquisitionEnvelope": [
+    -74.676,
+    40.318,
+    -74.625,
+    40.356
+  ],
+  "boundaryComponents": [
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 1,
+      "bounds": [
+        -74.6679062,
+        40.3268219,
+        -74.6492539,
+        40.3504758
+      ],
+      "segments": 227,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 2,
+      "bounds": [
+        -74.6540948,
+        40.3405446,
+        -74.6379536,
+        40.3501983
+      ],
+      "segments": 121,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 3,
+      "bounds": [
+        -74.6448998,
+        40.3507191,
+        -74.6434049,
+        40.3514127
+      ],
+      "segments": 6,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 4,
+      "bounds": [
+        -74.6542951,
+        40.3508262,
+        -74.6538778,
+        40.3512533
+      ],
+      "segments": 6,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 5,
+      "bounds": [
+        -74.6635642,
+        40.3496161,
+        -74.6629191,
+        40.3501351
+      ],
+      "segments": 6,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 6,
+      "bounds": [
+        -74.6637428,
+        40.3501,
+        -74.6630909,
+        40.3503751
+      ],
+      "segments": 8,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 7,
+      "bounds": [
+        -74.665347,
+        40.3484497,
+        -74.6635325,
+        40.3500749
+      ],
+      "segments": 8,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 8,
+      "bounds": [
+        -74.6705979,
+        40.3453017,
+        -74.6682823,
+        40.3470589
+      ],
+      "segments": 8,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 9,
+      "bounds": [
+        -74.6520408,
+        40.3283089,
+        -74.6411024,
+        40.3339268
+      ],
+      "segments": 50,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 10,
+      "bounds": [
+        -74.652034,
+        40.3230213,
+        -74.648476,
+        40.3259021
+      ],
+      "segments": 24,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 11,
+      "bounds": [
+        -74.6405014,
+        40.3231857,
+        -74.6382076,
+        40.3250315
+      ],
+      "segments": 5,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 12,
+      "bounds": [
+        -74.6364369,
+        40.3202913,
+        -74.6324728,
+        40.3234322
+      ],
+      "segments": 7,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 13,
+      "bounds": [
+        -74.6689991,
+        40.3518795,
+        -74.6637299,
+        40.3556278
+      ],
+      "segments": 18,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 14,
+      "bounds": [
+        -74.657855,
+        40.3503779,
+        -74.6573177,
+        40.3509423
+      ],
+      "segments": 4,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 15,
+      "bounds": [
+        -74.6622575,
+        40.3437574,
+        -74.6617023,
+        40.3442214
+      ],
+      "segments": 5,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 16,
+      "bounds": [
+        -74.6412061,
+        40.3463602,
+        -74.6337988,
+        40.3510876
+      ],
+      "segments": 26,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 17,
+      "bounds": [
+        -74.645301,
+        40.3496633,
+        -74.6443623,
+        40.3504543
+      ],
+      "segments": 10,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 18,
+      "bounds": [
+        -74.6520798,
+        40.3489774,
+        -74.6477982,
+        40.3519331
+      ],
+      "segments": 32,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 19,
+      "bounds": [
+        -74.6548715,
+        40.3472532,
+        -74.654037,
+        40.3478889
+      ],
+      "segments": 6,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 20,
+      "bounds": [
+        -74.6531421,
+        40.3507063,
+        -74.6521664,
+        40.3516154
+      ],
+      "segments": 14,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 21,
+      "bounds": [
+        -74.6553532,
+        40.3511343,
+        -74.6549474,
+        40.3515112
+      ],
+      "segments": 14,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 22,
+      "bounds": [
+        -74.656892,
+        40.3494578,
+        -74.6538858,
+        40.3511159
+      ],
+      "segments": 9,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "outer",
+      "component": 23,
+      "bounds": [
+        -74.6561345,
+        40.3479102,
+        -74.6512751,
+        40.3507491
+      ],
+      "segments": 11,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "inner",
+      "component": 1,
+      "bounds": [
+        -74.6409043,
+        40.3438034,
+        -74.6396785,
+        40.3447029
+      ],
+      "segments": 16,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-relation-6365145",
+      "role": "inner",
+      "component": 2,
+      "bounds": [
+        -74.6464919,
+        40.3474208,
+        -74.6445071,
+        40.3487965
+      ],
+      "segments": 8,
+      "verticesOutsideEnvelope": 0
+    },
+    {
+      "source": "osm-way-1389673622",
+      "role": "outer",
+      "component": 1,
+      "bounds": [
+        -74.647079,
+        40.3328316,
+        -74.6345187,
+        40.3410448
+      ],
+      "segments": 24,
+      "verticesOutsideEnvelope": 0
+    }
+  ],
+  "counts": {
+    "candidateCount": 2328,
+    "selectedWays": 1188,
+    "selectedNodeCount": 5301,
+    "selectedNodesOutsideBoundary": 446,
+    "selectedNodesOutsideEnvelope": 1,
+    "selectedWaysWithOutsideBoundaryNodes": 113,
+    "selectedWaysWithOutsideEnvelopeNodes": [
+      966618089
+    ],
+    "referenceExcludedCandidateDistinct": 102
+  },
+  "pointSummary": {
+    "linked": {
+      "distinct": 295,
+      "categories": {
+        "crossing": 221,
+        "entrance": 28,
+        "kerb": 43,
+        "transit": 3
+      },
+      "overlapNodes": 0
+    },
+    "linkedOutsideBoundary": {
+      "distinct": 60,
+      "categories": {
+        "crossing": 43,
+        "kerb": 17
+      },
+      "overlapNodes": 0
+    },
+    "linkedOutsideEnvelope": 0,
+    "linkedMultipleWays": 35,
+    "linkedMultipleAreas": 1,
+    "allRelevantRawInsideBoundary": {
+      "distinct": 273,
+      "categories": {
+        "crossing": 189,
+        "entrance": 38,
+        "transit": 20,
+        "kerb": 27
+      },
+      "overlapNodes": 1
+    },
+    "unlinkedInsideBoundary": {
+      "distinct": 38,
+      "categories": {
+        "transit": 17,
+        "entrance": 10,
+        "crossing": 11,
+        "kerb": 1
+      },
+      "overlapNodes": 1
+    },
+    "unlinkedAlreadyInSanitizedSnapshot": 0,
+    "kerbValues": {
+      "flush": 6,
+      "lowered": 37
+    }
+  },
+  "proposedPointCatalogCount": 333,
+  "proposedPointInventory": [
+    {
+      "osmNodeId": 103952853,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1112000750
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 103987240,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265707
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 104026286,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392343
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 299812878,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964085
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 299813854,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664507
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 299814647,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        289900411
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 299814695,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095374575
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 299815370,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095399624
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 300153466,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095394560
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 495578238,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        457121814
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 1539925571,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095672839
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 1539925580,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        140577204
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 1539925632,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        140577202,
+        1184218238
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 1539968102,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704859
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 1539972125,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095395774
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 1540353694,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1504772910
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 1544986630,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        459452333
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 2297160158,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1020094293
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 2718342232,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095377369
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2831550786,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        278859283
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 2902844441,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        969448620
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 2902852149,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095374571
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2902852154,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        286607024
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2902852155,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095374574
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2902854387,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        286607811
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 2902854389,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        286607811
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 2902854391,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1500217803
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 2902857319,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1504772906,
+        1504772907
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2902857326,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095686967
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2914537512,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095376143
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2914537533,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095382036
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 2934334774,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        287889522,
+        1289748909
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3018971369,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704227
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3635909681,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1504772912
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3635933993,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704852,
+        358704853
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3635933994,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704853,
+        358704854
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3635933995,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704854,
+        358704855
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3635933996,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704855,
+        358704857
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 3790901163,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 3790904454,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095680048
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 3833688972,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095673959
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 3833709718,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1415303109
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 4205654270,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704863
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 4270947668,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 4270947816,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1504772911
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 4270947832,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1324313170
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 4270947838,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 4272397104,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        428100746
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 4272433410,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392334
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 4552986547,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        459452331
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 5034731121,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095680045
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 5034731126,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704225
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5527170096,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070154
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710132587,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392301
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 5710136429,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358700976
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710136430,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704851
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710145287,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704853
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710145291,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095680047
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 5710145293,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095680044
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710145296,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095395769
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710145297,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095395772
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5710186472,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284574
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 5710462901,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534980
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 5915329808,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964067
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5915329818,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964053
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5952890669,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095672839
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5952890671,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095672839
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 5957855970,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        643201658
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 5964595889,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704852
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 6053505359,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        643201660
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 6053505361,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        643201661
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 6129383300,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        891568035,
+        1232298203
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 7070825320,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 7508568921,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        802694246,
+        1289749006
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 7508581387,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        802695554
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 8286801771,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        891568035
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8286801778,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        891568035
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8776284592,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964048
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 8776284614,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392305
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 8776287626,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        948125361
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 8793848972,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284571
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8793848987,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        949906614
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8942159385,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534980
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 8942159388,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534980
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 8942159399,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966538785
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 8942160533,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534994
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8942181827,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966538784
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8942181828,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966538784
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8942181829,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966538784
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8942181837,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966538793
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8942602090,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966580674,
+        966580675
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 8942602093,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966580676
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 8942886469,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342267389
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 8942886470,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342267386
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 8942896868,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966618089
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 8948919375,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568,
+        967284579
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919377,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919378,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919379,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919390,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284569
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919391,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284569
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919392,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284569
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919406,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284571
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919415,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284572
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948919416,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284572,
+        967284579
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948926317,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284579
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948926320,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284573
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948926332,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284574,
+        1095664487
+      ],
+      "selectedWayAreaIds": [
+        "central",
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948926333,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284574
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948926334,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284574
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948926336,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284575
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948926337,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232253813
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 8948926347,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284583
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948926349,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284583
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948926350,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284583
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948926368,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284590
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930376,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1039908806
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930377,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286969
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930378,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1039908806
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930379,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286969
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930383,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286970
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930384,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286972
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930385,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286970
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930386,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286972
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930388,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286971
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8948930395,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967286975
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8950181745,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967442281
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8950181756,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967442282
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8950181776,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        891568035
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 8975856993,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392322
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9036853433,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284583
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 9408459338,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1020094293
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 9410191426,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342267387
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 9575392433,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 9575392434,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 9575392435,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1039908811
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 9575392436,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        967284568,
+        1039908810
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 9756588689,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        297994493
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 9956212525,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086587020
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959259073,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964033
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 9959273518,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964050
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273542,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964055
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273548,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964059
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273553,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964062
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273556,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964064
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273558,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964065
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273570,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964070
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273576,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964072
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273580,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964073
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273583,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964075
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273644,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964079
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273647,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964080
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273681,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964086
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 9959273682,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964087
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10031479587,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095374577
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031479595,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095374578
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031499522,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095377370
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10031499570,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095377374
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10031580328,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387364
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10031580329,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387364
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10031580330,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387364
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10031580335,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387366
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10031580420,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387375
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10031580421,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387377
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10031580459,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387380
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031580460,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387380
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031580461,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387380
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031648435,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095394566
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031648438,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095394567
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031651448,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095395780
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10031651451,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095395777
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10031682224,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387378
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031682225,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387378
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10031682226,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095387378
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10034141911,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664487,
+        1095664488
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10034141913,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664488,
+        1095664489
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10034141915,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664489
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10034181425,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664516
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034181428,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664516
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034181440,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704855
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034181441,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        358704855
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034181454,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664515,
+        1095664516
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034181455,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095664516,
+        1095664517
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034234100,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095669619
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034234101,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095669619
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034234109,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095669621
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034239425,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10034266442,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        380023450
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10034266443,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        380023450
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10034266445,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095672844
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10034266446,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1095672844
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 10034452949,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086586999
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034457549,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392343
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034457550,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1504772910
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034457551,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10034457552,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1324313171
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 10034457553,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10034457554,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10034457555,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10034457556,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10173346439,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1112000746
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10173346443,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1112000748
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10173346448,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1112000749
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10173346457,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1112000754
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10173392326,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1112000749
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10697170721,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        284117259
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 10828764207,
+      "categories": [
+        "crossing",
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 10828764208,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11124620507,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392289
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 11124620509,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392291
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 11124620512,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392293
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 11124620536,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392300
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 11124620569,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        948125360
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620665,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392323
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620666,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392323
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620667,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392323
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620668,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392323
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620669,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392323
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620693,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392323
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11124620711,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392300
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 11423896577,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534980,
+        1231790711
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 11423896579,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534980
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 11424004860,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534994,
+        1231801988
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 11424004861,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966534994
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 11427900183,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392343,
+        1232069753
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427900184,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1199392343,
+        1232069752
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427939624,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070186,
+        1232070188
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427939625,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070186
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427939626,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070186,
+        1232070190
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427939627,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070187,
+        1232070190
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427939628,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070187
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427939629,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070187,
+        1232070189
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427982787,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070431,
+        1232070435
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427982788,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070431
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427982789,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070431,
+        1232070433
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427982790,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070432,
+        1232070434
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427982791,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070432
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427982792,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070432,
+        1232070433
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427984315,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964087,
+        1232070152
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427984316,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070153,
+        1232070154
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427984317,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232070154,
+        1232070155
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11427984318,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1086964087,
+        1232070155
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 11429560936,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        949906614
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 11429706958,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232253812
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 11430177779,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232298203
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 11430177782,
+      "categories": [
+        "kerb"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1232298203
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 11739763042,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        278859283
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 11823659525,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11823659526,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11823659527,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11823659528,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11823659529,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11823659533,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11959213640,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11959214022,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 11959214024,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1289748965
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 11959214027,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1289748966
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 11959214032,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1289748967
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 12140749715,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1311607548
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 12140749716,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1311607549
+      ],
+      "selectedWayAreaIds": [
+        "central"
+      ]
+    },
+    {
+      "osmNodeId": 12197360668,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12197360669,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12197360670,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12197360671,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12197360672,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12197360673,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12254672926,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1466333937
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 12254672932,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12287024572,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        966618089
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417482803,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265645
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417482804,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265644
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417482807,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265645
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485725,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342267384
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485820,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265676
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485823,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265679
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485825,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265679
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485826,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265679
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485863,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342267383
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485895,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265696
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417485927,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265704
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417486036,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265716
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12417486060,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1342265718
+      ],
+      "selectedWayAreaIds": [
+        "north"
+      ]
+    },
+    {
+      "osmNodeId": 12492584062,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1350399993
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 12492584083,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1350399999
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 12785065967,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12785065968,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        948125360
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 12785065969,
+      "categories": [
+        "transit"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 12863579399,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389672532
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 12863579400,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389672532
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 12863579419,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389672531
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 12863579435,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389672536
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 12863615626,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389676758
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 12863615627,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389676760
+      ],
+      "selectedWayAreaIds": [
+        "east"
+      ]
+    },
+    {
+      "osmNodeId": 13032423758,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1418178945
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 13046580595,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13057925291,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1389672531
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057933625,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941250
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941766,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941001
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941772,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941002
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941807,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941004
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941810,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941006
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941857,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941007,
+        1420941008
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941875,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941009
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941891,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941011
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941917,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941015
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941948,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941006
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057941949,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941006
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13057971160,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420947254
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13058007147,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941017
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13058007150,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420947263
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13058007157,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941015
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13058007161,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1420941018
+      ],
+      "selectedWayAreaIds": [
+        "meadows"
+      ]
+    },
+    {
+      "osmNodeId": 13058500687,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500688,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500689,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500690,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500691,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500692,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500693,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13058500694,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": false,
+      "selectedWayIds": [],
+      "selectedWayAreaIds": []
+    },
+    {
+      "osmNodeId": 13113346811,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1426512596
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 13113346816,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1426512594
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 13113346817,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1426512597
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 13305313242,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1450748321
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 13525554107,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": false,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1474318188
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 13768955231,
+      "categories": [
+        "crossing"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1504772913
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 14143148022,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1554614615
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 14143148023,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1554614616
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 14143148024,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1554614615
+      ],
+      "selectedWayAreaIds": [
+        "south"
+      ]
+    },
+    {
+      "osmNodeId": 14249043734,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1564950267
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 14249043741,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1564950264
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 14249043747,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1351835335
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    },
+    {
+      "osmNodeId": 14272171937,
+      "categories": [
+        "entrance"
+      ],
+      "insideChosenBoundary": true,
+      "insideAcquisitionEnvelope": true,
+      "inSanitizedSnapshot": true,
+      "selectedWayIds": [
+        1567217640
+      ],
+      "selectedWayAreaIds": [
+        "west"
+      ]
+    }
+  ],
+  "otherTaggedSelectedNodeIds": [
+    104017838,
+    299814965,
+    367681977,
+    3018971367,
+    3833696176,
+    3833718162,
+    10255567080,
+    11124620782,
+    12392907678,
+    12863579392
+  ],
+  "waySummary": {
+    "allHighwaysTouchingBoundary": 1561,
+    "rawHighwayClasses": {
+      "track": 10,
+      "residential": 59,
+      "service": 256,
+      "path": 22,
+      "footway": 1077,
+      "unclassified": 8,
+      "tertiary": 13,
+      "secondary": 23,
+      "steps": 62,
+      "primary": 2,
+      "cycleway": 27,
+      "living_street": 1,
+      "road": 1
+    },
+    "incompleteRawHighwayWayIds": [],
+    "omittedClasses": {
+      "track": 10,
+      "residential": 59,
+      "service": 256,
+      "unclassified": 8,
+      "tertiary": 13,
+      "secondary": 23,
+      "primary": 2,
+      "living_street": 1,
+      "road": 1
+    },
+    "omittedSidewalkTaggedRoadIds": [
+      11642143,
+      365781849,
+      365781850,
+      488532423,
+      576206598,
+      576206599,
+      576206600,
+      576206601,
+      576206602,
+      576206603,
+      586099019,
+      27316927,
+      11642596,
+      140635294,
+      140635296,
+      140635300,
+      140635303,
+      803154568,
+      803154569,
+      969953789,
+      1164330554,
+      48427228
+    ],
+    "selectedSidewalkKeyCount": 0,
+    "selectedFootwaySidewalkValueCount": 101,
+    "selectedFootwayCrossingValueCount": 131,
+    "selectedCrossingKeyCount": 127,
+    "selectedRelevantTags": {
+      "access": {
+        "(absent)": 1174,
+        "permissive": 2,
+        "private": 4,
+        "yes": 8
+      },
+      "foot": {
+        "(absent)": 1058,
+        "designated": 105,
+        "permissive": 1,
+        "private": 1,
+        "yes": 23
+      },
+      "bicycle": {
+        "(absent)": 881,
+        "designated": 41,
+        "no": 7,
+        "permissive": 1,
+        "private": 1,
+        "yes": 257
+      },
+      "indoor": {
+        "(absent)": 1188
+      },
+      "construction": {
+        "(absent)": 1188
+      },
+      "highway": {
+        "cycleway": 27,
+        "footway": 1077,
+        "path": 22,
+        "steps": 62
+      },
+      "wheelchair": {
+        "(absent)": 1187,
+        "yes": 1
+      },
+      "width": {
+        "(absent)": 1166,
+        "0.3": 1,
+        "1": 1,
+        "10": 1,
+        "2": 4,
+        "20": 1,
+        "3": 12,
+        "5": 2
+      },
+      "incline": {
+        "(absent)": 1169,
+        "30%": 1,
+        "down": 7,
+        "up": 11
+      },
+      "lit": {
+        "(absent)": 1159,
+        "no": 10,
+        "yes": 19
+      }
+    }
+  },
+  "areaHighwayCandidates": [
+    {
+      "id": 141452123,
+      "tags": {
+        "area:highway": "service"
+      }
+    }
+  ],
+  "areas": [
+    {
+      "id": "north",
+      "name": "Northern university areas",
+      "count": 84,
+      "bounds": [
+        -74.6690109,
+        40.3511847,
+        -74.6630792,
+        40.3560433
+      ],
+      "sectionIds": [
+        "campus-north-a",
+        "campus-north-b"
+      ],
+      "classes": {
+        "footway": 84
+      },
+      "distinctNodes": 413,
+      "linkedPointCandidates": 21,
+      "linkedPointsOutsideBoundary": 3,
+      "pointCategories": {
+        "crossing": 19,
+        "kerb": 2
+      },
+      "unknownTags": {
+        "width": 84,
+        "incline": 84,
+        "wheelchair": 84,
+        "surface": 83,
+        "lit": 84
+      },
+      "omittedHighwayWaysAssignedByCenter": [
+        11640451,
+        11640672,
+        11642030,
+        11647224,
+        448509233,
+        448509235,
+        448510076,
+        632721766,
+        637973055,
+        737262772,
+        737533604,
+        970615416,
+        641195702
+      ],
+      "unlinkedPointsInsideAssignedByPosition": []
+    },
+    {
+      "id": "west",
+      "name": "Graduate College / west campus",
+      "count": 56,
+      "bounds": [
+        -74.669837,
+        40.335614,
+        -74.6619523,
+        40.3488284
+      ],
+      "sectionIds": [
+        "campus-west-0"
+      ],
+      "classes": {
+        "path": 6,
+        "footway": 50
+      },
+      "distinctNodes": 203,
+      "linkedPointCandidates": 20,
+      "linkedPointsOutsideBoundary": 7,
+      "pointCategories": {
+        "crossing": 9,
+        "entrance": 7,
+        "kerb": 4
+      },
+      "unknownTags": {
+        "width": 56,
+        "incline": 56,
+        "wheelchair": 56,
+        "surface": 41,
+        "lit": 56
+      },
+      "omittedHighwayWaysAssignedByCenter": [
+        631182300,
+        297991898,
+        11644583,
+        11646964,
+        11647655,
+        86781061,
+        86781067,
+        86781078,
+        86781262,
+        158751885,
+        297994494,
+        297994495,
+        365781849,
+        488501981,
+        630988982,
+        630988983,
+        630988984,
+        631626553,
+        693121875,
+        728332295,
+        736457918,
+        736457919,
+        736457920,
+        933813433,
+        148121629,
+        427935017,
+        427935018,
+        427935019,
+        845662842,
+        1190190932,
+        1190190933,
+        1190190934,
+        1311607552,
+        1311607553
+      ],
+      "unlinkedPointsInsideAssignedByPosition": [
+        12785065967
+      ]
+    },
+    {
+      "id": "central",
+      "name": "Central campus",
+      "count": 443,
+      "bounds": [
+        -74.6645474,
+        40.3442887,
+        -74.6493804,
+        40.351811
+      ],
+      "sectionIds": [
+        "campus-central-aaa",
+        "campus-central-aab",
+        "campus-central-aba",
+        "campus-central-abb",
+        "campus-central-baa",
+        "campus-central-bab",
+        "campus-central-bba",
+        "campus-central-bbb"
+      ],
+      "classes": {
+        "footway": 395,
+        "steps": 47,
+        "path": 1
+      },
+      "distinctNodes": 1346,
+      "linkedPointCandidates": 64,
+      "linkedPointsOutsideBoundary": 34,
+      "pointCategories": {
+        "crossing": 49,
+        "entrance": 3,
+        "kerb": 11,
+        "transit": 1
+      },
+      "unknownTags": {
+        "width": 440,
+        "incline": 433,
+        "wheelchair": 442,
+        "surface": 321,
+        "lit": 441
+      },
+      "omittedHighwayWaysAssignedByCenter": [
+        11644522,
+        11647868,
+        27313080,
+        365781867,
+        428105930,
+        562293576,
+        775888889,
+        976845535,
+        11647358,
+        27313151,
+        141295809,
+        141295810,
+        141295811,
+        380020129,
+        380020941,
+        427933557,
+        428105918,
+        428105919,
+        428105920,
+        428105921,
+        428105922,
+        1099343321,
+        1311607550,
+        11644247,
+        27313396,
+        27342334,
+        140418352,
+        140418354,
+        140418356,
+        141450497,
+        1289748878,
+        1289748923,
+        1289748972,
+        11647360,
+        141092725,
+        141230518,
+        141230519,
+        148097780,
+        210274748,
+        297952350,
+        297952351,
+        428100749,
+        428102436,
+        428102441,
+        428102443,
+        428102448,
+        428102449,
+        428102450,
+        428106572,
+        591759602,
+        730965587,
+        730965588,
+        845328081,
+        940227221,
+        949906613,
+        1111991130,
+        1161550620
+      ],
+      "unlinkedPointsInsideAssignedByPosition": [
+        13046580595,
+        11823659525,
+        11823659526,
+        12785065969,
+        12197360669,
+        12197360670,
+        12197360671,
+        12197360672,
+        12197360673
+      ]
+    },
+    {
+      "id": "east",
+      "name": "East campus / athletics",
+      "count": 125,
+      "bounds": [
+        -74.6531285,
+        40.3409793,
+        -74.6322224,
+        40.351887
+      ],
+      "sectionIds": [
+        "campus-east-a",
+        "campus-east-b"
+      ],
+      "classes": {
+        "footway": 117,
+        "path": 4,
+        "steps": 4
+      },
+      "distinctNodes": 718,
+      "linkedPointCandidates": 52,
+      "linkedPointsOutsideBoundary": 14,
+      "pointCategories": {
+        "crossing": 43,
+        "kerb": 6,
+        "entrance": 3
+      },
+      "unknownTags": {
+        "width": 125,
+        "incline": 123,
+        "wheelchair": 125,
+        "surface": 96,
+        "lit": 122
+      },
+      "omittedHighwayWaysAssignedByCenter": [
+        11640456,
+        11642579,
+        11644248,
+        27313314,
+        27313324,
+        49430435,
+        140635300,
+        287887173,
+        581731354,
+        802696920,
+        969955312,
+        1149897028,
+        1284250637,
+        1289748924,
+        1289748926,
+        1289748927,
+        11638883,
+        11647624,
+        428100747,
+        428100748,
+        428100750,
+        428100751,
+        581731355,
+        731078242,
+        834200550,
+        834200551,
+        856615370,
+        921899121,
+        1161547905,
+        1161547906,
+        1161550812,
+        1161550813,
+        1289748952,
+        1419701685,
+        11641227,
+        11642025,
+        11643080,
+        287890165,
+        654069754,
+        654069755,
+        1389676756,
+        11639699,
+        11641498,
+        11642130,
+        11642643,
+        11643729,
+        11646113,
+        11647259,
+        11647594,
+        11648153,
+        23097160,
+        48427228,
+        48427229
+      ],
+      "unlinkedPointsInsideAssignedByPosition": [
+        11959213640,
+        11959214022
+      ]
+    },
+    {
+      "id": "south",
+      "name": "Southern university areas",
+      "count": 440,
+      "bounds": [
+        -74.6627731,
+        40.3192245,
+        -74.6297684,
+        40.3453415
+      ],
+      "sectionIds": [
+        "campus-south-aaa",
+        "campus-south-aab",
+        "campus-south-aba",
+        "campus-south-abb",
+        "campus-south-baa",
+        "campus-south-bab",
+        "campus-south-bba",
+        "campus-south-bbb"
+      ],
+      "classes": {
+        "footway": 422,
+        "path": 7,
+        "steps": 11
+      },
+      "distinctNodes": 2027,
+      "linkedPointCandidates": 116,
+      "linkedPointsOutsideBoundary": 2,
+      "pointCategories": {
+        "crossing": 87,
+        "entrance": 6,
+        "kerb": 21,
+        "transit": 2
+      },
+      "unknownTags": {
+        "width": 422,
+        "incline": 433,
+        "wheelchair": 440,
+        "surface": 320,
+        "lit": 421
+      },
+      "omittedHighwayWaysAssignedByCenter": [
+        297991899,
+        303887838,
+        619279771,
+        619279775,
+        651879678,
+        651879679,
+        769372846,
+        822000540,
+        845227696,
+        1517280211,
+        11642143,
+        86781961,
+        86781974,
+        265103351,
+        284826267,
+        357820982,
+        365781850,
+        429748783,
+        429748784,
+        429748785,
+        429748786,
+        488532423,
+        564775965,
+        576206597,
+        576206598,
+        576206599,
+        576206600,
+        576206601,
+        576206602,
+        576206603,
+        586099017,
+        586099018,
+        586099019,
+        586099020,
+        586099021,
+        586099022,
+        736457921,
+        736457922,
+        969953790,
+        1223140040,
+        1312133665,
+        1463611463,
+        1463611464,
+        11640769,
+        11647094,
+        140637812,
+        140640377,
+        140641284,
+        140641285,
+        140641287,
+        140641289,
+        140641297,
+        140641298,
+        140641301,
+        140641305,
+        140641306,
+        865334504,
+        865334505,
+        27316927,
+        27316930,
+        158750775,
+        297991897,
+        297998516,
+        297999670,
+        297999671,
+        301963640,
+        301963641,
+        303888206,
+        365781868,
+        427931888,
+        427931889,
+        619279777,
+        633212904,
+        633212905,
+        633212906,
+        634099385,
+        634099386,
+        634099387,
+        634099388,
+        634099389,
+        639838908,
+        640448468,
+        640448469,
+        640448470,
+        640448471,
+        822065300,
+        933824429,
+        1164330550,
+        1164330551,
+        1164330552,
+        1164330553,
+        11642596,
+        27313090,
+        27313210,
+        27313320,
+        27313409,
+        140579794,
+        140579795,
+        140579796,
+        140579992,
+        140582767,
+        140586048,
+        140586050,
+        140586051,
+        140586054,
+        140586055,
+        140586817,
+        140586819,
+        140586820,
+        140587951,
+        140633170,
+        140633172,
+        140633173,
+        140633174,
+        140633175,
+        140633176,
+        140633180,
+        140633181,
+        140633182,
+        140633183,
+        140633184,
+        140633186,
+        140633187,
+        140635294,
+        140635296,
+        140635298,
+        140635299,
+        140635302,
+        140635303,
+        265103352,
+        287889524,
+        289900452,
+        289900573,
+        289900574,
+        305365026,
+        305365029,
+        322506078,
+        322506079,
+        322506084,
+        322524161,
+        322524162,
+        322524163,
+        360948108,
+        360948948,
+        380024404,
+        420606666,
+        427921296,
+        427921300,
+        427921302,
+        427931890,
+        427931891,
+        427931892,
+        427931893,
+        427931894,
+        427931895,
+        427931896,
+        427931900,
+        564775964,
+        564775966,
+        626575421,
+        708252567,
+        802696466,
+        803154563,
+        803154564,
+        803154565,
+        803154566,
+        803154567,
+        803154568,
+        803154569,
+        803154570,
+        803154571,
+        845245217,
+        845591513,
+        845886955,
+        908404286,
+        908404287,
+        908404288,
+        915085350,
+        969953789,
+        1095377375,
+        1095377383,
+        1095395778,
+        1095664505,
+        1095664506,
+        1095664509,
+        1095664510,
+        1095664511,
+        1095664512,
+        1095664513,
+        1095664514,
+        1164330554,
+        1199392339,
+        1199392340,
+        1223140041,
+        1238257576,
+        1289748962,
+        1324313172,
+        1361174990,
+        1389673621,
+        158749135,
+        646643619,
+        647038511,
+        649250047,
+        649250048,
+        649250049
+      ],
+      "unlinkedPointsInsideAssignedByPosition": [
+        11823659527,
+        11823659533,
+        4270947668,
+        10034457553,
+        10828764207,
+        10828764208,
+        3790901163,
+        4270947838,
+        7070825320,
+        10034239425,
+        10034457551,
+        10034457554,
+        10034457555,
+        10034457556,
+        11823659528,
+        11823659529,
+        12254672932
+      ]
+    },
+    {
+      "id": "meadows",
+      "name": "Meadows Neighborhood",
+      "count": 40,
+      "bounds": [
+        -74.6475364,
+        40.3322027,
+        -74.6351498,
+        40.3419712
+      ],
+      "sectionIds": [
+        "campus-meadows-0"
+      ],
+      "classes": {
+        "cycleway": 27,
+        "footway": 9,
+        "path": 4
+      },
+      "distinctNodes": 636,
+      "linkedPointCandidates": 23,
+      "linkedPointsOutsideBoundary": 0,
+      "pointCategories": {
+        "crossing": 14,
+        "entrance": 9
+      },
+      "unknownTags": {
+        "width": 39,
+        "incline": 40,
+        "wheelchair": 40,
+        "surface": 28,
+        "lit": 35
+      },
+      "omittedHighwayWaysAssignedByCenter": [
+        1263579192,
+        1263579193,
+        1263579194,
+        1263579195,
+        1341097339,
+        1420929832,
+        1273631499,
+        1273631500,
+        1273631501,
+        1341097340,
+        1341097341
+      ],
+      "unlinkedPointsInsideAssignedByPosition": [
+        12197360668,
+        13058500693,
+        13058500694,
+        13058500687,
+        13058500688,
+        13058500689,
+        13058500690,
+        13058500691,
+        13058500692
+      ]
+    }
+  ],
+  "officialReferenceComparison": [
+    {
+      "name": "College Road",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 9,
+      "candidateWaysTouching": 88,
+      "selectedWaysTouching": 62,
+      "excludedCandidateWaysTouching": 26
+    },
+    {
+      "name": "University Place",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 10,
+      "candidateWaysTouching": 207,
+      "selectedWaysTouching": 192,
+      "excludedCandidateWaysTouching": 15
+    },
+    {
+      "name": "Woodlands",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 3,
+      "candidateWaysTouching": 25,
+      "selectedWaysTouching": 25,
+      "excludedCandidateWaysTouching": 0
+    },
+    {
+      "name": "Museum",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 3,
+      "candidateWaysTouching": 102,
+      "selectedWaysTouching": 102,
+      "excludedCandidateWaysTouching": 0
+    },
+    {
+      "name": "Nassau",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 6,
+      "candidateWaysTouching": 125,
+      "selectedWaysTouching": 110,
+      "excludedCandidateWaysTouching": 15
+    },
+    {
+      "name": "Lawrence",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 4,
+      "candidateWaysTouching": 49,
+      "selectedWaysTouching": 49,
+      "excludedCandidateWaysTouching": 0
+    },
+    {
+      "name": "Stadium",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 11,
+      "candidateWaysTouching": 106,
+      "selectedWaysTouching": 103,
+      "excludedCandidateWaysTouching": 3
+    },
+    {
+      "name": "Ivy Lane",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 11,
+      "candidateWaysTouching": 37,
+      "selectedWaysTouching": 33,
+      "excludedCandidateWaysTouching": 4
+    },
+    {
+      "name": "The Meadows",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 19,
+      "candidateWaysTouching": 37,
+      "selectedWaysTouching": 35,
+      "excludedCandidateWaysTouching": 2
+    },
+    {
+      "name": "Prospect Avenue",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 14,
+      "candidateWaysTouching": 86,
+      "selectedWaysTouching": 65,
+      "excludedCandidateWaysTouching": 21
+    },
+    {
+      "name": "William Street",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 8,
+      "candidateWaysTouching": 69,
+      "selectedWaysTouching": 49,
+      "excludedCandidateWaysTouching": 20
+    },
+    {
+      "name": "Lakeside",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 11,
+      "candidateWaysTouching": 32,
+      "selectedWaysTouching": 32,
+      "excludedCandidateWaysTouching": 0
+    },
+    {
+      "name": "Theater",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 3,
+      "candidateWaysTouching": 146,
+      "selectedWaysTouching": 145,
+      "excludedCandidateWaysTouching": 1
+    },
+    {
+      "name": "The Ellipse",
+      "verticesOutsideAcquisition": 0,
+      "verticesOutsideSelectedBoundary": 5,
+      "candidateWaysTouching": 141,
+      "selectedWaysTouching": 139,
+      "excludedCandidateWaysTouching": 2
+    }
+  ],
+  "publicReadReceipts": [
+    {
+      "url": "https://facgisprd.princeton.edu/server/rest/services/Building/Buildings/MapServer/0/query?where=1%3D1&geometry=-74.69%2C40.31%2C-74.61%2C40.37&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=OBJECTID%2CNAME%2CMAP_NAME%2CCAMPUS_ID%2CPU_ACTIVE%2COWN_STATUS%2CLAT%2CLON&returnGeometry=false&resultRecordCount=2000&f=pjson",
+      "retrievedAtUtc": "2026-11-15T01:57:14.084841+00:00",
+      "sha256": "688748f12a6e1393cce7d3c4b567e33aec3194c14898f6271bf22e41417e045b",
+      "bytes": 97,
+      "status": 200,
+      "purpose": "Bounded University registry reference points near the main/Graduate/Meadows campus; no municipality import, no product geometry retained",
+      "license": "No redistribution license established; reference-only"
+    },
+    {
+      "url": "https://facgisprd.princeton.edu/server/rest/services/Building/Buildings/MapServer/0/query?where=1%3D1&outFields=OBJECTID%2CNAME%2CCAMPUS_ID%2CPU_ACTIVE%2COWN_STATUS%2CLAT%2CLON&returnGeometry=false&resultRecordCount=2000&f=pjson",
+      "retrievedAt": "2026-11-15T02:00:44.793621+00:00",
+      "status": 200,
+      "bytes": 97,
+      "sha256": "688748f12a6e1393cce7d3c4b567e33aec3194c14898f6271bf22e41417e045b",
+      "role": "Private reference only; no redistribution license established."
+    },
+    {
+      "url": "https://facgisprd.princeton.edu/server/rest/services/Building/Buildings/MapServer/0?f=pjson",
+      "retrievedAtUtc": "2026-11-15T01:56:21.689451+00:00",
+      "sha256": "6686970653ad46da7c3bc4f6ef8fa3c0da3dabbb08ff24f625269b4f1bf170b6",
+      "bytes": 6605,
+      "status": 200,
+      "use": "private reference-only comparison; no redistribution license established; no product geometry import"
+    },
+    {
+      "url": "https://facgisprd.princeton.edu/server/rest/services/Property/Neighborhoods/MapServer/0/query?where=1%3D1&outFields=OBJECTID%2CNAME&returnGeometry=true&outSR=4326&resultRecordCount=100&f=pjson",
+      "retrievedAtUtc": "2026-11-15T01:56:22.164181+00:00",
+      "sha256": "5eec2c90b9399e73010db651b1934d6567d1ad3ba6e64f5d83e77f28d712ffdd",
+      "bytes": 23896,
+      "status": 200,
+      "use": "private reference-only comparison; no redistribution license established; no product geometry import"
+    }
+  ],
+  "limits": [
+    "No complete building/destination roster: official Buildings queries failed at application level.",
+    "Neighborhood overlap is a review signal, not University ownership or eligibility.",
+    "No source acquisition coverage claim for Forrestal/PPPL or every outlying property.",
+    "No current survey, construction, measurement, passability or ADA finding.",
+    "No application/model/importer/data changes or product/browser acceptance in this task."
+  ]
+}
