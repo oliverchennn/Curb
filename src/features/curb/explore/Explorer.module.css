@@ -256,6 +256,18 @@
   .stagePair { grid-template-columns:1fr; }
   .recordMeta>div, .attributes dl>div { grid-template-columns:1fr; gap:0; }
 }
+@media (max-width:480px) {
+  .pageLinks { column-gap:8px; font-size:13px; }
+  .collectionChip, .collectionChip[aria-pressed=true] { flex:1 1 0; min-width:0; justify-content:center; padding-inline:5px; text-align:center; }
+  .collectionChip>i, .chipText small { display:none; }
+  .chipText strong { white-space:normal; font-size:14px; }
+  .workspace[data-view=campus] .mapToolbar { gap:4px; padding-inline:6px; }
+  .workspace[data-view=campus] .baseToggle button { padding-inline:7px; }
+  .workspace[data-view=campus] .north { width:18px; }
+  .campusWayLegend { order:1; border-top:1px solid #d7ddcb; }
+  .mapCredit[data-campus=true] { order:2; }
+  .workspace[data-view=campus] .legend { order:3; }
+}
 @media (prefers-reduced-motion:reduce) { .explorer *, .explorer *::before, .explorer *::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
 /* Campus archive features share the evidence rail and the current map. */
 .pointControls, .pointLegend, .pointPager { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
