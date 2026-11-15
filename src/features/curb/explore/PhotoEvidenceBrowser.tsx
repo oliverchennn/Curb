@@ -33,7 +33,7 @@ function PhotoSummary({ record, onLocate }: { record: PhotoEvidence; onLocate: (
       <div><dt>Condition</dt><dd>{finding.status === 'possible-concern' ? 'Possible · ' : ''}{conditionLabels[finding.condition]}</dd></div>
       <div><dt>Manual review</dt><dd>{reviewLabels[finding.review.status]} · {finding.review.note}</dd></div>
       {finding.modelSuggestion && <div><dt>Model suggestion</dt><dd>{finding.modelSuggestion.description} ({finding.modelSuggestion.source})</dd></div>}
-      <div><dt>Captured</dt><dd>{photoDateText(image.source.captured)}</dd></div>
+      <div><dt>Captured</dt><dd>{photoDateText(image.source.captured)}{image.source.captureNote && <> · {image.source.captureNote}</>}</dd></div>
       <div><dt>Source</dt><dd>
         {image.source.url ? <a href={image.source.url} target="_blank" rel="noreferrer">{image.source.credit} (opens in a new tab)</a> : image.source.credit}
         {image.source.kind === 'generated-illustration' && ' · Illustration'}
@@ -59,6 +59,9 @@ export function PhotoEvidenceBrowser({ records, selected, headingRef, onSelect, 
   onSelect: (id: string, keyboard: boolean) => void; onClose: () => void; onLocate: (keyboard: boolean) => void;
 }) {
   const lists = { mapped: records.filter(photoPin), unplaced: records.filter(record => !photoPin(record)) };
+  const related = selected?.location.camera
+    ? lists.mapped.filter(record => record.locationId === selected.locationId && record.id !== selected.id)
+    : [];
   return <aside id="campus-photo-browser" className={styles.browser} aria-labelledby="campus-photo-heading"
     onKeyDown={event => { if (event.key === 'Escape') { event.stopPropagation(); onClose(); } }}>
     <div className={styles.heading}>
@@ -66,11 +69,17 @@ export function PhotoEvidenceBrowser({ records, selected, headingRef, onSelect, 
       <button type="button" onClick={onClose} aria-label="Close photo evidence">×</button>
     </div>
     {selected && <PhotoSummary record={selected} onLocate={onLocate} />}
+    {related.length > 0 && <div className={styles.inventory}>
+      <h3>More at this viewpoint</h3>
+      <ul>{related.map(record => <li key={record.id}>
+        <button type="button" onClick={event => onSelect(record.id, event.detail === 0)}>{record.title}</button>
+      </li>)}</ul>
+    </div>}
     <div className={styles.inventory}>
       <details open={selected ? undefined : true} key={selected ? 'selected' : 'inventory'}>
-        <summary>All campus photos · {lists.mapped.length} mapped · {lists.unplaced.length} unplaced</summary>
+        <summary>Photo records · {lists.mapped.length} with a map marker · {lists.unplaced.length} unplaced</summary>
         {(['mapped', 'unplaced'] as const).map(group => lists[group].length > 0 && <div key={group}>
-          <h3>{group === 'mapped' ? 'Mapped evidence' : 'Unplaced / review'}</h3>
+          <h3>{group === 'mapped' ? 'Records with a map marker' : 'Unplaced / review'}</h3>
           <ul>{lists[group].map(record => {
             const pin = photoPin(record);
             return <li key={record.id}>

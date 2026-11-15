@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { campusOverviewBounds } from './campus';
 import { project } from './model';
@@ -103,14 +103,26 @@ describe('photo manifest and placement', () => {
       expect.objectContaining({ id: neighbor.id, x, y, selected: true }),
     ]);
     const fallback = layoutPhotoMarkers([record], null, bounds, 1, [{ x, y }]);
-    expect(fallback).toEqual([expect.objectContaining({ id: record.id, x, y, selected: false })]);
+    expect(fallback).toEqual([expect.objectContaining({ id: record.id, anchor: { x, y }, selected: false })]);
+    expect(Math.hypot(fallback[0].x - x, fallback[0].y - y)).toBeLessThanOrEqual(54);
     expect(layoutPhotoMarkers([record], null, { left: x + 30, right: x + 90, top: y + 30, bottom: y + 90 }, 1, [])).toEqual([]);
   });
 
-  it('resolves checked-in image paths to actual local assets', () => {
-    for (const record of getPhotoEvidence()) {
-      const image = record.image.availability;
-      if (image.status === 'available') expect(existsSync('public' + image.path), image.path).toBe(true);
+  it('publishes the selected archives at camera positions only and retains all reviewed findings', () => {
+    const records = getPhotoEvidence();
+    const cameras = new Set(records.filter(record => photoPin(record)?.kind === 'viewpoint').map(record => record.locationId));
+    const images = new Set(records.flatMap(record => record.image.availability.status === 'available' ? [record.image.availability.path] : []));
+    expect(cameras.size).toBe(5);
+    expect(records.filter(record => photoPin(record) === null)).toHaveLength(16);
+    expect(new Set(records.map(record => record.findingId)).size).toBe(24);
+    expect(records.every(record => record.location.finding === null)).toBe(true);
+    expect(readdirSync('public/curb/explore/photo-evidence').sort()).toEqual([...images].map(path => path.split('/').at(-1)).sort());
+    for (const path of images) {
+      const bytes = readFileSync('public' + path);
+      expect(bytes.subarray(0, 2).toString('hex'), path).toBe('ffd8');
     }
+    const west = records.filter(record => record.findingId.endsWith('-f22'));
+    expect(west.map(record => record.image.source.captured.value)).toEqual([null, '2011-06']);
+    expect(west.every(record => record.image.source.captureNote?.includes('September 2017'))).toBe(true);
   });
 });

@@ -1,59 +1,64 @@
-# Campus photo map — WIP checkpoint
+# Campus photo evidence
 
-Task `CURB-PHOTO-MAP/1`. Base `572c91657b8d35c59c5199258e0fb6f57bb17788`,
-tree `36d83fe932ecff60cd75e81debfc1eba80d5c4ba`, branch
-`codex/campus-photo-map`. Sole writer: Vincent / Dev B,
-`01a1dde2-f504-7393-9ebd-a5b9f6c35da8`.
-[Assignment](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890309208) ·
-[ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890370619) ·
-[Latest scope](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890416752) ·
-[Pass-through ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890426170).
+CURB-PHOTO-MAP/2 continues the existing photo layer in `codex/campus-photo-map`.
+Pinned base `572c91657b8d35c59c5199258e0fb6f57bb17788`, tree
+`36d83fe932ecff60cd75e81debfc1eba80d5c4ba`.
+[Assignment](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890856049) ·
+[Resume ACK](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890916769).
 
-**WIP: no publication-ready photo records.** The manifest currently has zero images,
-findings, locations and records. No asset or photo marker is published from the
-supplied source; the photo controls stay hidden with an empty manifest. The
-original completion requirement remains blocked. Do not merge this checkpoint
-as the completed slice.
+The initial projection includes six supplied images at five reviewed camera
+viewpoints. The full selected product inventory contains 22 distinct JPEGs
+and 24 distinct historical findings in 26 records. Ten records share the five
+camera viewpoints. Sixteen records stay in location review and retain a
+representative image. Two of the 26 records present alternate-date images
+for findings already counted. All 24 finding positions remain unverified.
 
-The additive manifest validates media rights fields, dates and precision, IDs
-and their references, and separate camera and independently supported
-finding positions. Map markers use a camera square for a viewpoint, an amber
-exclamation triangle for a possible concern at a supported finding position, and an
-octagon only after condition review. The actual panel keeps source, placement,
-visible condition, review and any model suggestion distinct. Unplaced records
-can be selected from the inventory without snapping. Map selection, the
-keyboard list and URL state share a single evidence panel. Current traversal
-remains Unknown. Router, budget, Robertson findings, point and line data, and
-the download are unchanged.
+Each square uses the archived camera position. The map can offset a square
+from a crowded location and draw a leader to the source position. Records at
+the same viewpoint can be opened from the selected photo panel and the
+keyboard-accessible inventory. Unplaced records use the inventory alone.
+No triangle or octagon is placed for this dataset because the review
+established zero precise finding positions. Historical observations leave
+current traversal Unknown.
 
-[Google's Street View guidelines](https://about.google/brand-resource-center/products-and-services/geo-guidelines/#street-view)
-do not permit rehosting extracted Street View crops or creating map data from them.
-No independent grant was established for the supplied crops. The
-[provider presentation correction](https://github.com/oliverchennn/Curb/issues/1#issuecomment-6890399228)
-also withdraws the proposed provider iframe beside this map. No crops,
-provider iframe, private derivative findings, provider account, or credentials
-are included. No public inventory can be inferred from the private review.
-An independent candidate photo or provider source link requires the separate
-product route decision recorded on the board.
+The project owner confirmed licensed use of the supplied files for the
+product in the assignment above. The panel preserves original archive
+credits and marks the basis of image use as owner-confirmed. The source
+provider and specific license terms remain independently unverified. Archive
+months appear at the precision supplied. The conflicting June 2011 and
+September 2017 claims for the west residential approach are available side
+by side, with the supplement capture date shown as Unknown. Source
+retrieval dates remain Unknown.
 
-Checks, 2026-11-15 on the isolated worktree (Windows, Node v24.12.0):
+Only selected JPEGs and public evidence fields enter the product. The
+private projection receipt pins the immutable review checkpoint and
+per-image archive member, dimensions and SHA-256. All 22 files match the
+supplied source bytes and total 5,242,325 bytes. Inspection found JFIF
+headers without EXIF, XMP or comment metadata.
 
-- `npm.cmd ci --no-audit --no-fund` installed the pinned lockfile.
-- `npm.cmd run check` passed: TypeScript, 877 tests in 36 files, and the
-  production webpack build. A preceding focused run passed 129 tests.
-- Production-build smoke in Google Chrome at 1366×768 and 390×844 retained
-  1,188 ways, 22 sections, and 333 archive points (329 eligible, four in
-  location review), with no horizontal overflow at 390. Diagram, section
-  selection and Reset worked. The Campus download returned HTTP 200 with the
-  original 952,412 bytes, SHA-256
+Verification on 2026-11-15, Windows, Node v24.12.0:
+
+- `npm.cmd run check` passed TypeScript, 877 tests in 36 files, and a
+  production webpack build. An initial sandboxed attempt could not read
+  Vitest worker cache files in its temporary directory. The repeated check
+  succeeded with the same source in the isolated checkout.
+- Production Chrome at 1366 × 768 opened the actual Nassau Hall image
+  on the Campus overview and the McCosh Walk image from section C07.
+  C07 displayed all five viewpoints at its default fit. Selecting an
+  alternate frame at the same camera kept the selected square visible.
+- Chrome at 390 × 844 restored a C07 photo URL with no horizontal overflow.
+  The inventory opened an unplaced photo with no selection pin, the
+  selected photo heading took keyboard focus, and Escape returned focus to
+  Browse photos. Layer-off survived reload and Reset restored the default.
+- The photo panel showed the missing-image message when one JPEG was
+  temporarily withheld. The file was restored, decoded after reload, and
+  verified byte for byte. All 22 loopback image URLs returned the expected
+  source bytes.
+- The Campus map displayed 1,188 ways, 22 sections, and 333 archive points
+  (329 eligible and four in location review). The download matched the
+  accepted 952,412-byte attachment at SHA-256
   `9262bbd2781c20d7be83a3645dc6de1fbca2f34b04cd56d7dc5a33ecd2b20868`.
-- A separate ignored fixture copy at 1366×768 and 390×844 exercised square,
-  triangle and octagon statuses, overview and section selection, a decoded
-  320 px fixture image, focus on selection and return on Escape, restored
-  section photo link, unplaced image error fallback, layer-off reload and
-  Reset. Fixtures did not enter the branch. This confirms behavior with test
-  data; it does not verify any public photo or placement.
 
-Next: decide the public photo route, verify its actual media and attribution,
-populate only the authorized projection, and repeat the browser checks with
-real imagery. No deployment or merge performed.
+The exact local checkpoint, branch publication outcome and release
+handoff are recorded separately. Merge and deployment belong to the
+assigned integration and release owners.

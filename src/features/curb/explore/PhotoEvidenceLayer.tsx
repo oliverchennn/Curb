@@ -40,6 +40,13 @@ export function PhotoEvidenceLayer({ markers, unit, onSelect }: {
   markers: ReturnType<typeof layoutPhotoMarkers>; unit: number; onSelect: PhotoLayer['onSelect'];
 }) {
   return <g role="group" aria-label="Photo evidence map markers">
+    <g aria-hidden="true" pointerEvents="none">
+      {markers.filter(({ anchor, x, y }) => anchor.x !== x || anchor.y !== y).map(({ id, anchor, x, y }) => <g key={id}>
+        <line x1={anchor.x} y1={anchor.y} x2={x} y2={y} stroke="#fff" strokeWidth={4} vectorEffect="non-scaling-stroke" />
+        <line x1={anchor.x} y1={anchor.y} x2={x} y2={y} stroke="#234160" strokeWidth={2} vectorEffect="non-scaling-stroke" />
+        <circle cx={anchor.x} cy={anchor.y} r={3 * unit} fill="#234160" stroke="#fff" strokeWidth={1} vectorEffect="non-scaling-stroke" />
+      </g>)}
+    </g>
     {markers.map(({ id, title, kind, x, y, selected, interactive }) => {
       const size = interactive ? PHOTO_TARGET : 28;
       return <g key={id} transform={`translate(${x} ${y}) scale(${unit})`}

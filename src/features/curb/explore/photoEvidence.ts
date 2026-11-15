@@ -24,15 +24,16 @@ const imageSchema = z.strictObject({
   id, alt: note, availability,
   source: z.strictObject({
     kind: z.enum(['captured-photo', 'generated-illustration', 'unresolved']),
-    credit: note, url: https.nullable(), captured: date, retrieved: date,
+    credit: note, url: https.nullable(), captured: date, retrieved: date, captureNote: note.optional(),
   }),
 });
 const concerns = ['missing-curb-ramp', 'obstruction', 'damaged-surface', 'abrupt-level-change'] as const;
-const condition = z.enum([...concerns, 'flush-edge', 'ramp-visible', 'inconclusive']);
+const condition = z.enum([...concerns, 'flush-edge', 'ramp-visible', 'stairs', 'paving-joint', 'clearance-unmeasured', 'inconclusive']);
 export const conditionLabels: Record<z.infer<typeof condition>, string> = {
   'missing-curb-ramp': 'Missing curb ramp', obstruction: 'Obstruction',
   'damaged-surface': 'Damaged surface', 'abrupt-level-change': 'Abrupt level change',
-  'flush-edge': 'Flush edge', 'ramp-visible': 'Ramp visible', inconclusive: 'Inconclusive',
+  'flush-edge': 'Flush edge', 'ramp-visible': 'Ramp visible', stairs: 'Stairs in the photo',
+  'paving-joint': 'Paving joint', 'clearance-unmeasured': 'Clearance unmeasured', inconclusive: 'Inconclusive',
 };
 const findingSchema = z.strictObject({
   id, visibleCondition: note, condition,
@@ -171,39 +172,49 @@ export function photoPin(record: PhotoEvidence): { kind: PhotoMarker; coordinate
 
 export const PHOTO_TARGET = 44;
 type XY = { x: number; y: number };
-type LayoutMarker = XY & { id: string; title: string; kind: PhotoMarker; interactive: boolean; selected: boolean };
+type LayoutMarker = XY & { anchor: XY; id: string; title: string; kind: PhotoMarker; interactive: boolean; selected: boolean };
 export function layoutPhotoMarkers(
   records: readonly PhotoEvidence[], selectedId: string | null, bounds: BadgeBounds, unit: number,
   reserved: readonly XY[],
 ): LayoutMarker[] {
   const radius = PHOTO_TARGET * unit / 2;
   const occupied = [...reserved];
-  const candidates = records.flatMap(record => {
+  const byPosition = new Map<string, { id: string; title: string; kind: PhotoMarker; anchor: XY }>();
+  for (const record of records) {
     const pin = photoPin(record);
-    if (!pin) return [];
+    if (!pin) continue;
     const [x, y] = project(pin.coordinates);
-    if (x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom) return [];
-    return [{ id: record.id, title: record.title, kind: pin.kind, x, y }];
-  });
+    if (x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom) continue;
+    const key = pin.kind === 'viewpoint' ? record.locationId : record.id;
+    if (!byPosition.has(key) || record.id === selectedId) {
+      byPosition.set(key, { id: record.id, title: record.title, kind: pin.kind, anchor: { x, y } });
+    }
+  }
+  const candidates = [...byPosition.values()];
   const active = candidates.find(marker => marker.id === selectedId);
   // Keep the selected symbol readable at its real anchor; other targets never cover it.
-  if (active) occupied.push(active);
+  if (active) occupied.push(active.anchor);
   const markers: LayoutMarker[] = [];
+  const offsets = [[0, 0], [0, -46], [46, 0], [0, 46], [-46, 0], [38, -38], [38, 38], [-38, 38], [-38, -38]];
   for (const candidate of candidates) {
     if (candidate === active) continue;
-    if (candidate.x - radius < bounds.left || candidate.x + radius > bounds.right ||
-        candidate.y - radius < bounds.top || candidate.y + radius > bounds.bottom) continue;
-    if (occupied.some(other => Math.abs(candidate.x - other.x) < 2 * radius && Math.abs(candidate.y - other.y) < 2 * radius)) continue;
-    markers.push({ ...candidate, selected: false, interactive: true });
-    occupied.push(candidate);
+    const offsetsForKind = candidate.kind === 'viewpoint' ? offsets : offsets.slice(0, 1);
+    const position = offsetsForKind.map(([dx, dy]) => ({ x: candidate.anchor.x + dx * unit, y: candidate.anchor.y + dy * unit }))
+      .find(({ x, y }) => x - radius >= bounds.left && x + radius <= bounds.right &&
+        y - radius >= bounds.top && y + radius <= bounds.bottom &&
+        occupied.every(other => Math.abs(x - other.x) >= 2 * radius || Math.abs(y - other.y) >= 2 * radius));
+    if (position) {
+      markers.push({ ...candidate, ...position, selected: false, interactive: true });
+      occupied.push(position);
+    }
   }
   if (!markers.length && !active && candidates[0]) {
     const first = candidates[0];
     // Keep an in-view photo selectable at campus scale even among section labels.
     // Its compact hit box overlays only its visible symbol.
-    markers.push({ ...first, selected: false, interactive: false });
+    markers.push({ ...first, ...first.anchor, selected: false, interactive: false });
   }
-  if (active) markers.push({ ...active, selected: true, interactive: false });
+  if (active) markers.push({ ...active, ...active.anchor, selected: true, interactive: false });
   return markers;
 }
 
