@@ -61,7 +61,7 @@ export const REVIEW_LABELS: Record<Finding['review']['status'], string> = {
 };
 
 export const METHOD_LABELS: Record<Finding['review']['method'], string> = {
-  ai: 'AI suggestion',
+  ai: 'CLIP model',
   manual: 'Manual review',
 };
 

@@ -94,7 +94,11 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <MeasureTable finding={finding} entries={measurements} onMeasure={onMeasure} />
 
         {/* aria-disabled rather than disabled: the used button keeps keyboard focus instead of dropping it to the page. */}
-        <div className={styles.actions} role="group" aria-label="Review decision">
+        <p className={styles.decisionHelp} id="survey-decision-help">
+          <strong>Accept</strong> confirms the defect is real: it is marked as checked by you and kept in the repair plan and report.{' '}
+          <strong>Reject</strong> removes it from the plan but keeps it in the record. Enter your name above first.
+        </p>
+        <div className={styles.actions} role="group" aria-label="Review decision" aria-describedby="survey-decision-help">
           <button type="button" id="survey-accept" className={finding.review.status === 'accepted' ? styles.decided : undefined}
             aria-disabled={finding.review.status === 'accepted'}
             onClick={() => { if (finding.review.status !== 'accepted') apply(setReviewStatus(survey, finding.id, 'accepted', reviewer), `Accepted “${finding.label}”.`); }}>Accept finding</button>
@@ -163,16 +167,17 @@ function reviewFact(finding: Finding): { headline: string; detail: string } {
   return {
     headline: 'Not checked by a person yet',
     detail: clip
-      ? `Suggested by AI; CLIP rates this close-up ${Math.round(clip.damageScore * 100)}% likely to show damaged pavement.`
-      : 'Suggested by AI from the walking video.',
+      ? `Flagged by the CLIP model, which compared this close-up with sidewalk descriptions and rated it ${Math.round(clip.damageScore * 100)}% likely to be damaged pavement.`
+      : 'Flagged by the CLIP model from the walking video.',
   };
 }
 
 function priorityFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
   const score = priorityScore(finding, entries);
+  const clip = clipFor(finding.id);
   return {
     headline: `${PRIORITY_WORDS[score.band]} priority · ${score.score}/100`,
-    detail: `Measurements say ${PRIORITY_WORDS[score.reviewer].toLowerCase()} (70%) and AI travel impact says ${PRIORITY_WORDS[score.ai].toLowerCase()} (30%): ${finding.assessment.rationale}`,
+    detail: `Measurements say ${PRIORITY_WORDS[score.reviewer].toLowerCase()} (70%) and CLIP-based travel impact says ${PRIORITY_WORDS[score.clip].toLowerCase()} (30%)${clip ? `, because CLIP rated this ${Math.round(clip.impactScore * 100)}% likely to be hard to walk or roll over` : ''}.`,
   };
 }
 
@@ -186,7 +191,7 @@ function measurementFact(finding: Finding, entries: MeasurementEntries): { headl
     headline: `${verdict} · ${measured === 0 ? 'estimated' : `${measured} of ${results.length} measured`}`,
     detail: measured === results.length
       ? 'Every value below was entered by a reviewer.'
-      : 'Estimates come from the video and typical sidewalk construction; enter real measurements below to replace them.',
+      : 'Values below start as estimates; type over any of them with a real measurement.',
   };
 }
 
@@ -198,24 +203,31 @@ function MeasureTable({ finding, entries, onMeasure }: {
   const results = new Map(measureResults(finding.id, entries).map((r) => [r.spec.key, r]));
   return <section aria-labelledby="survey-measure-heading">
     <h4 id="survey-measure-heading">Needs measuring</h4>
+    <p className={styles.measureIntro}>Each box starts with an <strong>estimate</strong> from the video and standard sidewalk construction. Type over it if you have a real measurement.</p>
     <ul className={styles.measureList}>{MEASURE_GROUPS.map((group) => <li key={group.id}>
       <strong>{group.need}</strong>
       <p className={styles.measureWhy}><span>{group.standard}:</span> {group.why}</p>
       <table className={styles.measureTable}>
-        <thead><tr><th scope="col">Check</th><th scope="col">Needs</th><th scope="col">Estimate</th><th scope="col">Measured</th><th scope="col">Result</th></tr></thead>
+        <colgroup><col className={styles.colCheck} /><col className={styles.colNeeds} /><col className={styles.colValue} /><col className={styles.colResult} /></colgroup>
+        <thead><tr><th scope="col">Check</th><th scope="col">Needs</th><th scope="col">Value</th><th scope="col">Result</th></tr></thead>
         <tbody>{group.specs.map((spec) => {
           const result = results.get(spec.key)!;
           const estimate = estimateOf(finding.id, spec.key);
           const id = `measure-${finding.id}-${spec.key}`;
+          // Untouched boxes show the estimate as their value; the reviewer edits it in place.
+          const text = entries[finding.id]?.[spec.key] ?? (estimate === undefined ? '' : String(estimate));
           return <tr key={spec.key}>
             <th scope="row"><label htmlFor={id}>{spec.label}</label></th>
             <td>{spec.rule}</td>
-            <td>{estimate === undefined ? '—' : `${estimate} ${spec.unit}`}</td>
             <td><span className={styles.measureInput}>
-              <input id={id} inputMode="decimal" autoComplete="off" value={entries[finding.id]?.[spec.key] ?? ''}
-                placeholder="—" aria-invalid={result.source !== 'measured' && (entries[finding.id]?.[spec.key] ?? '').trim() !== '' ? true : undefined}
+              <input id={id} inputMode="decimal" autoComplete="off" value={text}
+                placeholder={estimate === undefined ? '—' : String(estimate)} aria-describedby={`${id}-source`}
+                aria-invalid={entries[finding.id]?.[spec.key] !== undefined && result.source !== 'measured' && text.trim() !== '' ? true : undefined}
                 onChange={(event) => onMeasure(finding.id, spec.key, event.target.value)} />
               <span aria-hidden="true">{spec.unit}</span>
+              <span id={`${id}-source`} className={result.source === 'measured' ? styles.sourceMeasured : styles.sourceEstimate}>
+                {result.source === 'measured' ? 'Measured' : 'Estimate'}
+              </span>
             </span></td>
             <td>{result.status ? <span className={styles[`status_${result.status}`]}>{STATUS_LABELS[result.status]}</span> : '—'}</td>
           </tr>;

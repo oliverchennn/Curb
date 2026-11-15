@@ -40,8 +40,8 @@ describe('priority score', () => {
   });
 
   it('weights measurements 70% and AI travel impact 30%', () => {
-    expect(priorityScore(finding('defect-01'), {})).toMatchObject({ reviewer: 'medium', ai: 'low', score: 35 });
-    expect(priorityScore(finding('defect-02'), { 'defect-02': { opening: '2' } })).toMatchObject({ reviewer: 'high', ai: 'low', score: 70, band: 'high' });
+    expect(priorityScore(finding('defect-01'), {})).toMatchObject({ reviewer: 'medium', clip: 'low', score: 35 });
+    expect(priorityScore(finding('defect-02'), { 'defect-02': { opening: '2' } })).toMatchObject({ reviewer: 'high', clip: 'low', score: 70, band: 'high' });
     expect(reviewerPriority([])).toBe('unassessed');
   });
 });
@@ -76,5 +76,9 @@ describe('suggested plan', () => {
 describe('CLIP check', () => {
   it('covers every finding', () => {
     expect(clipSummary(s)).toEqual({ confirmed: 5, total: 5 });
+  });
+
+  it('rates only Defect 04 as high travel impact', () => {
+    expect(s.findings.map((f) => priorityScore(f, {}).clip)).toEqual(['low', 'low', 'low', 'high', 'low']);
   });
 });

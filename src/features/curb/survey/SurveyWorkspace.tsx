@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
 import { buildRepairPlans, costRange, fetchSurvey } from './services';
 import { ExportPanel } from './ExportPanel';
@@ -49,6 +49,8 @@ export function SurveyWorkspace() {
   const [tab, setTab] = useState<WorkTab>('review');
   const [measurements, setMeasurements] = useState<MeasurementEntries>({});
   const scrollRef = useRef<HTMLDivElement>(null);
+  const deskRef = useRef<HTMLDivElement>(null);
+  useFitVideoToScreen(deskRef, load.status === 'ready');
   const generationRef = useRef(0);
   const controllerRef = useRef<AbortController | null>(null);
 
@@ -177,8 +179,8 @@ export function SurveyWorkspace() {
       <p role="status" aria-live="polite" className={styles.small} hidden={!notice}>{notice}</p>
     </div>
 
-    <div className={styles.desk}>
-      <div className={styles.evidenceColumn}>
+    <div ref={deskRef} className={styles.desk}>
+      <div className={styles.evidenceColumn} data-evidence-column>
         <VideoEvidence survey={survey} selectedFindingId={selectedFindingId} seek={seek} edited={edited} />
         <EvidenceJump survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />
       </div>
@@ -208,8 +210,40 @@ export function SurveyWorkspace() {
       </div>
     </div>
 
-    <p className={styles.footerNote}>AI-suggested findings from one walking video. Estimates are not a final ADA ruling or a contractor quote.</p>
+    <p className={styles.footerNote}>Findings flagged by the CLIP model, which matched close-ups from one walking video to damaged-pavement descriptions. Estimates are not a final ADA ruling or a contractor quote.</p>
   </div>;
+}
+
+/** Size the video so the whole evidence column (video, notes, jump bar) fits the
+ * window below the page header without scrolling. Sets --desk-top (where the desk
+ * starts on the page) and --column-chrome (column height that is not the video). */
+function useFitVideoToScreen(deskRef: RefObject<HTMLDivElement | null>, ready: boolean) {
+  useLayoutEffect(() => {
+    const desk = deskRef.current;
+    const workspace = desk?.parentElement;
+    if (!desk || !workspace) return;
+    let raf = 0;
+    const measure = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const column = desk.querySelector<HTMLElement>('[data-evidence-column]');
+        const frame = desk.querySelector<HTMLElement>('[data-video-frame]');
+        if (!column || !frame) return;
+        const top = Math.round(desk.getBoundingClientRect().top + window.scrollY);
+        const chrome = Math.round(column.getBoundingClientRect().height - frame.getBoundingClientRect().height);
+        const set = (name: string, value: number) => {
+          if (Math.abs(parseFloat(workspace.style.getPropertyValue(name) || '0') - value) > 1) workspace.style.setProperty(name, `${value}px`);
+        };
+        set('--desk-top', top);
+        set('--column-chrome', chrome);
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    for (const element of [workspace, ...Array.from(workspace.children)]) observer.observe(element);
+    window.addEventListener('resize', measure);
+    return () => { cancelAnimationFrame(raf); observer.disconnect(); window.removeEventListener('resize', measure); };
+  }, [deskRef, ready]);
 }
 
 /** WAI-ARIA tabs with automatic activation: arrow keys, Home and End move focus and select. */

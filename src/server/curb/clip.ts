@@ -8,12 +8,15 @@ export const ClipCheckSchema = z.strictObject({
   model: z.string().min(1),
   task: z.string().min(1),
   labels: z.array(z.string().min(1)).min(2),
+  impactLabels: z.array(z.string().min(1)).length(2),
   createdAt: z.iso.datetime(),
   findings: z.array(z.strictObject({
     id: z.string().regex(/^[a-z][a-z0-9-]{0,79}$/),
     topLabel: z.string().min(1),
     damageScore: z.number().min(0).max(1),
     confirmsDamage: z.boolean(),
+    impactScore: z.number().min(0).max(1),
+    impactPriority: z.enum(['high', 'low']),
     scores: z.array(z.strictObject({ label: z.string().min(1), score: z.number().min(0).max(1) })).min(2),
   })).max(50),
 });

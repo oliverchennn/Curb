@@ -97,16 +97,17 @@ export function reviewerPriority(results: MeasureResult[]): Priority {
 }
 
 export const REVIEWER_WEIGHT = 0.7;
-export const AI_WEIGHT = 0.3;
+export const CLIP_WEIGHT = 0.3;
 
-export type PriorityScore = { reviewer: Priority; ai: Priority; score: number; band: Priority };
+export type PriorityScore = { reviewer: Priority; clip: Priority; score: number; band: Priority };
 
-/** 70% measurement (reviewer) priority + 30% AI travel-impact priority, on a 0–100 scale. */
+/** 70% measurement (reviewer) priority + 30% CLIP travel-impact priority, on a 0–100 scale.
+ * Without a CLIP result the finding's recorded priority stands in. */
 export function priorityScore(finding: Finding, entries: MeasurementEntries): PriorityScore {
   const reviewer = reviewerPriority(measureResults(finding.id, entries));
-  const ai = finding.assessment.priority;
-  const score = Math.round(REVIEWER_WEIGHT * PRIORITY_POINTS[reviewer] + AI_WEIGHT * PRIORITY_POINTS[ai]);
-  return { reviewer, ai, score, band: score >= 60 ? 'high' : score >= 40 ? 'medium' : 'low' };
+  const clip = clipFor(finding.id)?.impactPriority ?? finding.assessment.priority;
+  const score = Math.round(REVIEWER_WEIGHT * PRIORITY_POINTS[reviewer] + CLIP_WEIGHT * PRIORITY_POINTS[clip]);
+  return { reviewer, clip, score, band: score >= 60 ? 'high' : score >= 40 ? 'medium' : 'low' };
 }
 
 // ---------- Suggested plan ----------
@@ -168,10 +169,13 @@ export function suggestPlan(survey: Survey, entries: MeasurementEntries, budgetC
 
 // ---------- CLIP ----------
 
-export type ClipResult = { id: string; topLabel: string; damageScore: number; confirmsDamage: boolean };
+export type ClipResult = {
+  id: string; topLabel: string; damageScore: number; confirmsDamage: boolean;
+  impactScore: number; impactPriority: 'high' | 'low';
+};
 
 export function clipFor(findingId: string): ClipResult | undefined {
-  return clipCheck.findings.find((item) => item.id === findingId);
+  return (clipCheck.findings as ClipResult[]).find((item) => item.id === findingId);
 }
 
 export function clipSummary(survey: Survey): { confirmed: number; total: number } {

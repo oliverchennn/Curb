@@ -173,7 +173,7 @@ function SuggestedPlanView({ survey, measurements, budgetCents, onSelectFinding 
     <p className={styles.suggestedTotal} role="status">
       {plan.included === 0 ? 'Nothing fits this budget yet.' : <>{formatCentsRange(plan.lowCents, plan.highCents)} <span>to fix {plan.included} of {plan.steps.length} defects</span></>}
     </p>
-    <p className={styles.small}>Ranked by priority: 70% measurements, 30% AI travel impact.{left.length ? ` ${left.length} left out to stay within budget.` : ''}</p>
+    <p className={styles.small}>Ranked by priority: 70% measurements, 30% CLIP-based travel impact.{left.length ? ` ${left.length} left out to stay within budget.` : ''}</p>
 
     {included.length > 0 ? <details className={styles.collapsible} open>
       <summary>Included work ({included.length})</summary>

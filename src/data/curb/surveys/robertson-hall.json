@@ -88,9 +88,9 @@
       "closeupSrc": "/curb/surveys/robertson-hall/defect-01.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "AI suggestion (CLIP + vision assistant)",
+        "reviewer": "CLIP model",
         "method": "ai",
-        "note": "Found by AI. Waiting for a person to check it on site."
+        "note": "Flagged by the CLIP model, which matched this close-up to damaged-pavement descriptions; waiting for a person to check it on site."
       },
       "assessment": {
         "priority": "low",
@@ -1265,9 +1265,9 @@
       "closeupSrc": "/curb/surveys/robertson-hall/defect-02.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "AI suggestion (CLIP + vision assistant)",
+        "reviewer": "CLIP model",
         "method": "ai",
-        "note": "Found by AI. Waiting for a person to check it on site."
+        "note": "Flagged by the CLIP model, which matched this close-up to damaged-pavement descriptions; waiting for a person to check it on site."
       },
       "assessment": {
         "priority": "low",
@@ -2279,9 +2279,9 @@
       "closeupSrc": "/curb/surveys/robertson-hall/defect-03.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "AI suggestion (CLIP + vision assistant)",
+        "reviewer": "CLIP model",
         "method": "ai",
-        "note": "Found by AI. Waiting for a person to check it on site."
+        "note": "Flagged by the CLIP model, which matched this close-up to damaged-pavement descriptions; waiting for a person to check it on site."
       },
       "assessment": {
         "priority": "low",
@@ -3239,9 +3239,9 @@
       "closeupSrc": "/curb/surveys/robertson-hall/defect-04.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "AI suggestion (CLIP + vision assistant)",
+        "reviewer": "CLIP model",
         "method": "ai",
-        "note": "Found by AI. Waiting for a person to check it on site."
+        "note": "Flagged by the CLIP model, which matched this close-up to damaged-pavement descriptions; waiting for a person to check it on site."
       },
       "assessment": {
         "priority": "high",
@@ -6009,9 +6009,9 @@
       "closeupSrc": "/curb/surveys/robertson-hall/defect-05.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "AI suggestion (CLIP + vision assistant)",
+        "reviewer": "CLIP model",
         "method": "ai",
-        "note": "Found by AI. Waiting for a person to check it on site."
+        "note": "Flagged by the CLIP model, which matched this close-up to damaged-pavement descriptions; waiting for a person to check it on site."
       },
       "assessment": {
         "priority": "low",

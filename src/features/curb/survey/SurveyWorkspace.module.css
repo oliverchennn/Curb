@@ -334,21 +334,21 @@
 @media (min-width: 1100px) {
   .workspace {
     --desk-width: min(1640px, calc(100vw - 64px));
-    /* Picture width stays in ranges whose labels were swept frame by frame: under 240px
-     * (compact "Defect NN" labels) on short screens, at least 320px on taller ones. */
-    --frame-h: clamp(320px, calc(100vh - 345px), 420px);
+    /* The whole evidence column fits the window under the page header:
+     * window height - where the desk starts - non-video column parts - bottom gap.
+     * --desk-top and --column-chrome are measured in SurveyWorkspace. */
+    --frame-h: clamp(220px, calc(100vh - var(--desk-top, 290px) - var(--column-chrome, 250px) - 16px), 1100px);
     width: var(--desk-width);
     margin-inline: calc((100% - var(--desk-width)) / 2);
   }
   .header { padding: 10px 22px; }
   .header h1 { font-size: clamp(30px, 2.6vw, 40px); }
   .lede { font-size: 18px; }
-  @media (min-height: 900px) { .workspace { --frame-h: clamp(570px, calc(100vh - 330px), 720px); } }
   .desk { grid-template-columns: max(360px, calc(var(--frame-h) * 0.5625 + 40px)) minmax(0, 1fr); }
   /* Right pane matches the evidence column's height and scrolls inside itself,
    * so the findings and plan never scroll the video out of view. */
   .desk { align-items: stretch; }
-  .workColumn { position: relative; display: block; min-height: 560px; }
+  .workColumn { position: relative; display: block; min-height: 0; }
   .workFrame { position: absolute; inset: 0; grid-template-rows: auto minmax(0, 1fr); }
   .workFrame .tabList { position: static; }
   .workScroll { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-radius: var(--radius-lg); scrollbar-gutter: stable; }
@@ -358,6 +358,11 @@
   .evidenceColumn .segmented button { padding: 6px 10px; }
   .evidenceColumn .videoPanel .small { margin-bottom: 0; font-size: 14px; }
   .evidenceColumn .pendingChecks { margin-block: 2px 0; }
+  /* One row of evidence buttons, labelled by the nav's accessible name. */
+  .evidenceColumn .jumpBar { padding: 8px 10px; }
+  .evidenceColumn .jumpTitle { display: none; }
+  .evidenceColumn .jumpBar ul { grid-template-columns: repeat(auto-fit, minmax(44px, 1fr)); }
+  .evidenceColumn .videoNotes { margin-top: 10px; gap: 6px; }
   .evidenceColumn .videoFrame { max-height: none; }
   @supports (aspect-ratio: 1) { .evidenceColumn .videoFrame { height: var(--frame-h); } }
 }
@@ -433,12 +438,16 @@
 .measureList { display: grid; gap: 16px; margin: 0; padding-left: 20px; font-size: 15px; }
 .measureWhy { margin: 4px 0 8px 14px; padding-left: 10px; border-left: 3px solid var(--rule-strong); color: var(--muted-ink); font-size: 14px; }
 .measureWhy span { font-weight: 750; color: var(--ink); }
-.measureTable { width: 100%; border-collapse: collapse; font-size: 14px; }
+.measureTable { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 14px; }
+.colCheck { width: 34%; }
+.colNeeds { width: 20%; }
+.colValue { width: 28%; }
+.colResult { width: 18%; }
 .measureTable th, .measureTable td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: middle; }
 .measureTable thead th { color: var(--muted-ink); font-size: 12px; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
 .measureTable tbody th { font-weight: 650; }
 .measureTable label { display: inline; font-size: 14px; }
-.measureInput { display: inline-flex; align-items: center; gap: 4px; }
+.measureInput { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; }
 .workspace .measureInput input { width: 72px; min-height: 36px; padding: 4px 8px; font-size: 14px; }
 .workspace .measureInput input[aria-invalid='true'] { border-color: var(--danger); }
 .status_meets, .status_almost, .status_fails { padding: 1px 8px; border: 1px solid; border-radius: 6px; font-size: 13px; font-weight: 750; white-space: nowrap; }
@@ -463,3 +472,10 @@
 .otherPlans { margin-top: 18px; padding: 12px 16px; border: 1px solid var(--rule); border-radius: var(--radius-md); background: var(--paper-2); }
 .otherPlans > summary { min-height: 32px; color: var(--forest); font-weight: 750; cursor: pointer; }
 .otherPlans[open] > summary { margin-bottom: 12px; }
+
+.measureIntro { margin: 0 0 10px; padding: 8px 12px; border-radius: 8px; background: var(--paper-2); color: var(--muted-ink); font-size: 14px; }
+.sourceEstimate, .sourceMeasured { margin-left: 4px; font-size: 12px; font-weight: 750; letter-spacing: .02em; }
+.sourceEstimate { color: #8a5606; font-style: italic; }
+.sourceMeasured { color: #1b5230; }
+
+.decisionHelp { margin: 18px 0 0; padding: 10px 14px; border-left: 4px solid var(--forest-2); border-radius: 0 10px 10px 0; background: var(--forest-tint); font-size: 14px; }

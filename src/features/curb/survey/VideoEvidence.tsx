@@ -118,7 +118,7 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
         <button type="button" aria-label="Annotated: exported video preview" aria-pressed={mode === 'annotated'} onClick={() => switchMode('annotated')}>Annotated</button>
       </div>
     </div>
-    <div ref={frameRef} className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
+    <div ref={frameRef} data-video-frame className={styles.videoFrame} style={{ aspectRatio: `${media.width} / ${media.height}` }}>
       <video key={src} ref={videoRef} className={styles.video} src={src} poster={media.posterSrc} controls playsInline preload="metadata"
         aria-describedby="survey-video-note"
         onLoadedMetadata={(event) => { event.currentTarget.currentTime = resumeTimeRef.current; setTime(resumeTimeRef.current); }}

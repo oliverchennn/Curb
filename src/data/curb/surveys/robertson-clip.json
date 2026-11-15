@@ -8,13 +8,19 @@
     "grass",
     "an asphalt road"
   ],
-  "createdAt": "2026-11-15T06:31:08.310Z",
+  "impactLabels": [
+    "a badly damaged sidewalk that is hard to walk or roll over",
+    "a sidewalk with a minor crack that is easy to walk over"
+  ],
+  "createdAt": "2026-11-15T07:03:46.665Z",
   "findings": [
     {
       "id": "defect-01",
       "topLabel": "a cracked concrete sidewalk",
       "damageScore": 0.8683,
       "confirmsDamage": true,
+      "impactScore": 0.0849,
+      "impactPriority": "low",
       "scores": [
         {
           "label": "a cracked concrete sidewalk",
@@ -43,6 +49,8 @@
       "topLabel": "a smooth, undamaged concrete sidewalk",
       "damageScore": 0.5359,
       "confirmsDamage": true,
+      "impactScore": 0.2332,
+      "impactPriority": "low",
       "scores": [
         {
           "label": "a smooth, undamaged concrete sidewalk",
@@ -71,6 +79,8 @@
       "topLabel": "a cracked concrete sidewalk",
       "damageScore": 0.7518,
       "confirmsDamage": true,
+      "impactScore": 0.1549,
+      "impactPriority": "low",
       "scores": [
         {
           "label": "a cracked concrete sidewalk",
@@ -99,6 +109,8 @@
       "topLabel": "a cracked concrete sidewalk",
       "damageScore": 0.8699,
       "confirmsDamage": true,
+      "impactScore": 0.7458,
+      "impactPriority": "high",
       "scores": [
         {
           "label": "a cracked concrete sidewalk",
@@ -127,6 +139,8 @@
       "topLabel": "a cracked concrete sidewalk",
       "damageScore": 0.5817,
       "confirmsDamage": true,
+      "impactScore": 0.0845,
+      "impactPriority": "low",
       "scores": [
         {
           "label": "a cracked concrete sidewalk",
