@@ -2,11 +2,14 @@
   "name": "curb-devpost-video",
   "private": true,
   "scripts": {
-    "capture": "node tools/capture.cjs",
-    "render": "node tools/render.cjs",
-    "render:titles": "node tools/render.cjs --titles",
+    "capture": "node tools/capture-investment.cjs",
+    "capture:import": "node tools/render-refresh.cjs --import-capture",
+    "render": "node tools/render-refresh.cjs",
+    "assemble": "node tools/render-refresh.cjs --assemble-only",
+    "render:preview": "node tools/render-refresh.cjs --preview",
+    "render:titles": "node tools/render-refresh.cjs --titles",
     "verify": "node tools/verify.cjs",
-    "timeline": "node tools/render.cjs --timeline-only"
+    "timeline": "node tools/render-refresh.cjs --timeline-only"
   },
   "dependencies": {
     "playwright": "1.64.0",

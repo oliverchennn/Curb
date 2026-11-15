@@ -1,0 +1,84 @@
+{
+  "fps": 30,
+  "seconds": 116,
+  "presenter": {
+    "start": 3.2,
+    "end": 112,
+    "x": 1544,
+    "y": 722,
+    "width": 320,
+    "height": 180
+  },
+  "clips": [
+    {
+      "key": "intro",
+      "title": "Animated introduction",
+      "file": "01-Curb-intro.mp4",
+      "start": 0,
+      "end": 3.2
+    },
+    {
+      "key": "field",
+      "title": "The problem",
+      "file": "02-Robertson-footage.mp4",
+      "start": 3.2,
+      "end": 15
+    },
+    {
+      "key": "review",
+      "title": "Real Robertson Hall evidence",
+      "file": "03-Review-finding.mp4",
+      "start": 15,
+      "end": 38
+    },
+    {
+      "key": "transition",
+      "title": "Separate simulated campus",
+      "file": "04-Synthetic-transition.mp4",
+      "start": 38,
+      "end": 42
+    },
+    {
+      "key": "compare",
+      "title": "$10,000 · C versus A+B",
+      "file": "05-Investment-10000.mp4",
+      "start": 42,
+      "end": 65
+    },
+    {
+      "key": "omissions",
+      "title": "Omit A · Omit B",
+      "file": "06-Investment-omissions.mp4",
+      "start": 65,
+      "end": 81
+    },
+    {
+      "key": "tie",
+      "title": "$20,000 · Both plans tie",
+      "file": "07-Investment-20000.mp4",
+      "start": 81,
+      "end": 92
+    },
+    {
+      "key": "proof",
+      "title": "Replaceable proof slot",
+      "file": "08-Decision-brief.mp4",
+      "start": 92,
+      "end": 100
+    },
+    {
+      "key": "buyer",
+      "title": "Buyer and next validation",
+      "file": "09-Buyer-and-validation.mp4",
+      "start": 100,
+      "end": 112
+    },
+    {
+      "key": "outro",
+      "title": "Animated close",
+      "file": "10-Curb-outro.mp4",
+      "start": 112,
+      "end": 116
+    }
+  ]
+}

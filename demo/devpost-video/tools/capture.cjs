@@ -1,3 +1,5 @@
+// Historical Robertson review and report capture. The current cut's synthetic
+// Investment recording has its own exact-source capture command.
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
