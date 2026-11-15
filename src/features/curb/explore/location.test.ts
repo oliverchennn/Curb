@@ -33,3 +33,23 @@ describe('restorable explorer locations', () => {
     expect(url.hash).toBe('');
   });
 });
+
+it('defaults to Campus and clears retired example filters without changing unrelated URL state', () => {
+  const initial = readExplorerLocation(atlas, '');
+  expect(initial).toMatchObject({ overview: true, filter: 'all', panel:'map' });
+  expect(readExplorerLocation(atlas, '?collection=examples&record=record:example:a&type=synthetic&q=example&panel=evidence')).toEqual(initial);
+  const normalized = new URL(explorerLocationUrl('https://curb.example/curb/explore?group=examples&type=synthetic&campaign=demo#map', initial), 'https://curb.example');
+  expect(normalized.searchParams.get('group')).toBe('campus');
+  expect(normalized.searchParams.has('type')).toBe(false);
+  expect(normalized.searchParams.get('campaign')).toBe('demo');
+  expect(normalized.hash).toBe('#map');
+});
+
+it('keeps explicit real groups, Robertson links, way records and point links', () => {
+  expect(readExplorerLocation(atlas, '?group=downtown').collectionId).toBe('witherspoon');
+  expect(readExplorerLocation(atlas, '?group=field').collectionId).toBe('robertson');
+  expect(readExplorerLocation(atlas, '?record=record:robertson:defect-05&panel=evidence&type=synthetic')).toMatchObject({ collectionId:'robertson', recordId:'record:robertson:defect-05', panel:'evidence', filter:'all' });
+  expect(readExplorerLocation(atlas, '?record=record:campus-osm-way:284117254').collectionId).toBe('campus-east-b');
+  expect(readExplorerLocation(atlas, '?q=way/284117254')).toMatchObject({ collectionId:'campus-east-b', recordId:'record:campus-osm-way:284117254' });
+  expect(readExplorerLocation(atlas, '?node=10828764207')).toMatchObject({ overview:true, point:{ node:'node/10828764207' } });
+});

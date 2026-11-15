@@ -1,5 +1,5 @@
 import { selectionFor, type Atlas, type Filter } from './model';
-import { campusSectionIds, isCampus } from './groups';
+import { campusSectionIds, explorerAtlas, groupOf, isCampus } from './groups';
 import { createCampusPointCatalog, findCampusPoint, POINT_CATEGORIES, type CampusPoint, type PointCategory } from '../../../data/curb/princeton-campus-points/adapter';
 
 const POINT_SCOPES = ['all', 'section', 'context', 'unlinked', 'review'] as const;
@@ -39,27 +39,34 @@ export function searchable(query: string): string {
 
 export function readExplorerLocation(atlas: Atlas, search: string): ExplorerLocation {
   const params = new URLSearchParams(search);
-  const type = params.get('type');
-  const filter: Filter = type === 'archive' || type === 'field' || type === 'synthetic' ? type : 'all';
-  const query = (params.get('q') ?? '').slice(0, 256);
-  const first = atlas.collections[0];
+  const visible = explorerAtlas(atlas);
+  const group = params.get('group');
   const asked = params.get('collection');
-  const explicitLegacyCollection = atlas.collections.some(c => c.id === asked && !isCampus(c.id));
-  const point = explicitLegacyCollection ? undefined : parsePointLocation(params);
-  // A valid node may open campus on its own. An explicit collection retains its existing view.
-  const overview = !explicitLegacyCollection && !isCampus(asked) && (params.get('group') === 'campus' || Boolean(point?.node));
-  const fallback = overview ? atlas.collections.find(c => c.id === campusSectionIds[0]) ?? first : first;
-  const requested = atlas.collections.find(c => c.id === asked) ?? fallback;
-  const recordId = requested.recordIds.includes(params.get('record') ?? '') ? params.get('record')! : requested.recordIds[0];
-  const selected = selectionFor(atlas, filter, searchable(query), requested.id, recordId);
+  const askedRecord = params.get('record') ?? '';
+  const explicitCollection = visible.collections.find(c => c.id === asked);
+  const groupCollection = group === 'downtown' || group === 'field'
+    ? visible.collections.find(c => groupOf(c.id) === group) : undefined;
+  const recordCollection = asked ? undefined : visible.collections.find(c => c.recordIds.includes(askedRecord)
+    && (group !== 'campus' || isCampus(c.id)));
+  const explicit = explicitCollection ?? groupCollection ?? recordCollection;
+  const type = params.get('type');
+  const retired = !explicit && (group === 'examples' || asked === 'examples' || type === 'synthetic'
+    || atlas.collections.some(c => c.kind === 'synthetic' && c.recordIds.includes(askedRecord)));
+  const filter: Filter = !retired && (type === 'archive' || type === 'field') ? type : 'all';
+  const query = retired ? '' : (params.get('q') ?? '').slice(0, 256);
+  const requested = explicit ?? visible.collections.find(c => c.id === campusSectionIds[0]) ?? visible.collections[0];
+  const recordId = requested.recordIds.includes(askedRecord) ? askedRecord : requested.recordIds[0];
+  const selected = selectionFor(visible, filter, searchable(query), requested.id, recordId);
+  const overview = !explicit && !query.trim() && selected.collections.some(c => isCampus(c.id));
+  const point = (!explicit || isCampus(explicit.id)) && (overview || isCampus(selected.collection?.id))
+    ? parsePointLocation(params) : undefined;
   const panel = params.get('panel');
   return {
     collectionId: selected.collection?.id ?? requested.id,
     recordId: selected.record?.id ?? recordId,
-    filter, query, panel: panel === 'routes' || panel === 'evidence' ? panel : 'map',
+    filter, query, panel: !overview && (panel === 'routes' || panel === 'evidence') ? panel : 'map',
     ...(overview ? { overview: true as const } : {}),
-    ...(point && (isCampus(selected.collection?.id) || (overview && !query.trim() && selected.collections.some(c => isCampus(c.id))))
-      ? { point: scopeForView(point, overview && !query.trim()) } : {}),
+    ...(point ? { point: scopeForView(point, overview) } : {}),
   };
 }
 
