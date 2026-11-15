@@ -1,0 +1,98 @@
+{
+  "approval": {
+    "basis": "Independent exhaustive audit, separate clean-checkout rerun and raw-row aggregate review; no human observations.",
+    "coordinator": "Vincent root 01a1de7d-ca0f-7ed2-989d-4aae0850f1ae",
+    "dateUtc": "2026-11-15"
+  },
+  "claims": [
+    {
+      "approved": true,
+      "denominator": 30,
+      "evidenceClass": "independently_audited_synthetic_benchmark",
+      "filter": "family=all; budgetPercent in [25,50,75,100]; comparator=conditionFirst; investment controls excluded",
+      "id": "synthetic-mean-conditionFirst",
+      "limitations": [
+        "Preregistered authored synthetic engineering suite; not a representative or held-out campus sample.",
+        "Equal-weight destinations are not people; assumed costs and modeled repairs are not construction outcomes.",
+        "Unknown routes provide no demonstrated access; unknown-cost candidates are excluded.",
+        "Objective omits hazard reduction, partial progress and mandatory-work constraints.",
+        "120 correlated budget cases arise from 30 networks; no significance or population claims.",
+        "Human study observations and measured time savings are outside this benchmark."
+      ],
+      "numerator": 24.25,
+      "pairedCaseDenominator": 120,
+      "pairedCaseDenominatorPointer": "summary.json#/comparisons/conditionFirst/allBudgets/pairCount",
+      "pointers": [
+        "summary.json#/comparisons/conditionFirst/allBudgets/meanDifference",
+        "summary.json#/comparisons/conditionFirst/allBudgets/wins",
+        "summary.json#/comparisons/conditionFirst/allBudgets/ties",
+        "summary.json#/comparisons/conditionFirst/allBudgets/losses"
+      ],
+      "wording": "Across 30 authored synthetic networks and four budgets each, Curb exact yielded a scenario-weighted mean of 0.808 additional newly reachable destinations versus Condition-first, with 58 wins, 62 ties and 0 losses across 120 paired budget cases."
+    },
+    {
+      "approved": true,
+      "denominator": 30,
+      "evidenceClass": "independently_audited_synthetic_benchmark",
+      "filter": "family=all; budgetPercent in [25,50,75,100]; comparator=cheapestFirst; investment controls excluded",
+      "id": "synthetic-mean-cheapestFirst",
+      "limitations": [
+        "Preregistered authored synthetic engineering suite; not a representative or held-out campus sample.",
+        "Equal-weight destinations are not people; assumed costs and modeled repairs are not construction outcomes.",
+        "Unknown routes provide no demonstrated access; unknown-cost candidates are excluded.",
+        "Objective omits hazard reduction, partial progress and mandatory-work constraints.",
+        "120 correlated budget cases arise from 30 networks; no significance or population claims.",
+        "Human study observations and measured time savings are outside this benchmark."
+      ],
+      "numerator": 13.75,
+      "pairedCaseDenominator": 120,
+      "pairedCaseDenominatorPointer": "summary.json#/comparisons/cheapestFirst/allBudgets/pairCount",
+      "pointers": [
+        "summary.json#/comparisons/cheapestFirst/allBudgets/meanDifference",
+        "summary.json#/comparisons/cheapestFirst/allBudgets/wins",
+        "summary.json#/comparisons/cheapestFirst/allBudgets/ties",
+        "summary.json#/comparisons/cheapestFirst/allBudgets/losses"
+      ],
+      "wording": "Across 30 authored synthetic networks and four budgets each, Curb exact yielded a scenario-weighted mean of 0.458 additional newly reachable destinations versus Cheapest-first, with 39 wins, 81 ties and 0 losses across 120 paired budget cases."
+    },
+    {
+      "approved": true,
+      "denominator": 30,
+      "evidenceClass": "independently_audited_synthetic_benchmark",
+      "filter": "family=all; budgetPercent in [25,50,75,100]; comparator=greedy; investment controls excluded",
+      "id": "synthetic-mean-greedy",
+      "limitations": [
+        "Preregistered authored synthetic engineering suite; not a representative or held-out campus sample.",
+        "Equal-weight destinations are not people; assumed costs and modeled repairs are not construction outcomes.",
+        "Unknown routes provide no demonstrated access; unknown-cost candidates are excluded.",
+        "Objective omits hazard reduction, partial progress and mandatory-work constraints.",
+        "120 correlated budget cases arise from 30 networks; no significance or population claims.",
+        "Human study observations and measured time savings are outside this benchmark."
+      ],
+      "numerator": 5.5,
+      "pairedCaseDenominator": 120,
+      "pairedCaseDenominatorPointer": "summary.json#/comparisons/greedy/allBudgets/pairCount",
+      "pointers": [
+        "summary.json#/comparisons/greedy/allBudgets/meanDifference",
+        "summary.json#/comparisons/greedy/allBudgets/wins",
+        "summary.json#/comparisons/greedy/allBudgets/ties",
+        "summary.json#/comparisons/greedy/allBudgets/losses"
+      ],
+      "wording": "Across 30 authored synthetic networks and four budgets each, Curb exact yielded a scenario-weighted mean of 0.183 additional newly reachable destinations versus Greedy marginal access per dollar, with 16 wins, 104 ties and 0 losses across 120 paired budget cases."
+    }
+  ],
+  "claims_verified": true,
+  "frozenInputCommit": "ec8afe2d72c947943767c9906b3ec6f21270fc75",
+  "limitations": [
+    "Preregistered authored synthetic engineering suite; not a representative or held-out campus sample.",
+    "Equal-weight destinations are not people; assumed costs and modeled repairs are not construction outcomes.",
+    "Unknown routes provide no demonstrated access; unknown-cost candidates are excluded.",
+    "Objective omits hazard reduction, partial progress and mandatory-work constraints.",
+    "120 correlated budget cases arise from 30 networks; no significance or population claims.",
+    "Human study observations and measured time savings are outside this benchmark."
+  ],
+  "schemaVersion": "curb-metrics-v1",
+  "sourceCommit": "396317aaf5c683b84bf9e71208cbe436f371a69d",
+  "status": "approved_by_coordinator",
+  "suiteSha256": "d639296a53e17c1298436b63f358ecb026358d46e7fef6bd1f00812c18daed55"
+}

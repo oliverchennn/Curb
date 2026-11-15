@@ -1,0 +1,6641 @@
+{
+  "actualCounts": {
+    "cases": 120,
+    "controlRows": 32,
+    "controls": 8,
+    "networks": 30,
+    "pairs": 360,
+    "rows": 480
+  },
+  "caseChecks": [
+    {
+      "caseId": "independent-101@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-101@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-101@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-101@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-202@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-202@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-202@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-202@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-303@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-303@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-303@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-303@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-404@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-404@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-404@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-404@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-505@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-505@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-505@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "independent-505@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-101@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-101@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-101@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-101@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-202@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-202@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-202@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-202@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-303@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-303@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-303@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-303@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-404@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-404@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-404@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-404@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-505@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-505@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-505@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "serial-505@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-101@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-101@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-101@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-101@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-202@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-202@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-202@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-202@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-303@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-303@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-303@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-303@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-404@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-404@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-404@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-404@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-505@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-505@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-505@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "shared-505@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-101@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-101@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-101@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-101@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-202@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-202@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-202@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-202@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-303@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-303@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-303@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-303@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-404@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-404@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-404@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-404@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-505@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-505@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-505@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "alternatives-505@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-101@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-101@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-101@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-101@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-202@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-202@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-202@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-202@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-303@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-303@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-303@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-303@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-404@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-404@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-404@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-404@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-505@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-505@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-505@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "mixed-505@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-101@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-101@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-101@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-101@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-202@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-202@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-202@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-202@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-303@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-303@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-303@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-303@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-404@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-404@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-404@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-404@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-505@25",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-505@50",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-505@75",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "incomplete-505@100",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "exact gain is monotone in budget"
+      ],
+      "passed": true
+    }
+  ],
+  "checkedArtifactHashes": {
+    "engine-responses.json": "144ea893d6911317c72c4000f53364f87da181abc55e3081232693e83cd33fd6",
+    "inputs.json": "d639296a53e17c1298436b63f358ecb026358d46e7fef6bd1f00812c18daed55",
+    "results.csv": "94096980339493ea5b005f66cf52c72fce7fa04f328933ee83242929f144abc5",
+    "results.json": "95f4e06123ecca013a6b29253409aaf59dd06f613e02f65bb88205e55103625e"
+  },
+  "controlChecks": [
+    {
+      "caseId": "investment@0",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@499999",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@500000",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@999999",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@1000000",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@1499999",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@1500000",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    },
+    {
+      "caseId": "investment@2000000",
+      "checks": [
+        "identity and eligibility",
+        "independent exact optimum and search counts",
+        "baseline, singleton, omission and directed path witnesses",
+        "authored investment oracle",
+        "exact: identity, selection and cost, destination metrics, route witness",
+        "conditionFirst: identity, selection and cost, destination metrics, route witness",
+        "cheapestFirst: identity, selection and cost, destination metrics, route witness",
+        "greedy: identity, selection and cost, destination metrics, route witness"
+      ],
+      "passed": true
+    }
+  ],
+  "expectedCounts": {
+    "cases": 120,
+    "controlRows": 32,
+    "controls": 8,
+    "networks": 30,
+    "pairs": 360,
+    "rows": 480
+  },
+  "failures": [],
+  "independentRerun": {
+    "completed": true,
+    "deterministicHashes": {
+      "engine-responses.json": "144ea893d6911317c72c4000f53364f87da181abc55e3081232693e83cd33fd6",
+      "inputs.json": "d639296a53e17c1298436b63f358ecb026358d46e7fef6bd1f00812c18daed55",
+      "results.csv": "94096980339493ea5b005f66cf52c72fce7fa04f328933ee83242929f144abc5",
+      "results.json": "95f4e06123ecca013a6b29253409aaf59dd06f613e02f65bb88205e55103625e"
+    },
+    "receipt": "verification.md",
+    "sourceCommit": "396317aaf5c683b84bf9e71208cbe436f371a69d",
+    "suiteSha256": "d639296a53e17c1298436b63f358ecb026358d46e7fef6bd1f00812c18daed55",
+    "verifier": "independent-directed-bfs-v1"
+  },
+  "rowChecks": [
+    {
+      "caseId": "independent-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "independent-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "independent-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "independent-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "independent-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "serial-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "serial-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "serial-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "serial-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "shared-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "shared-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "shared-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "shared-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "alternatives-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "alternatives-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "alternatives-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "alternatives-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "mixed-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "mixed-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "mixed-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "mixed-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-101@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-101@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-101@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-101@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-202@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-202@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-202@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-202@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-303@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-303@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-303@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-303@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-404@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-404@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-404@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-404@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-505@25",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-505@50",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-505@75",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    },
+    {
+      "caseId": "incomplete-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "exact"
+    },
+    {
+      "caseId": "incomplete-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "conditionFirst"
+    },
+    {
+      "caseId": "incomplete-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "cheapestFirst"
+    },
+    {
+      "caseId": "incomplete-505@100",
+      "checks": [
+        "identity",
+        "selection and cost",
+        "destination metrics",
+        "route witness"
+      ],
+      "passed": true,
+      "strategy": "greedy"
+    }
+  ],
+  "schemaVersion": "curb-metrics-v1",
+  "sourceCommit": "396317aaf5c683b84bf9e71208cbe436f371a69d",
+  "status": "passed",
+  "suiteSha256": "d639296a53e17c1298436b63f358ecb026358d46e7fef6bd1f00812c18daed55",
+  "verifierVersion": "independent-directed-bfs-v1"
+}
