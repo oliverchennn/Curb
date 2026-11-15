@@ -1,0 +1,168 @@
+{
+  "model": "CLIP ViT-B/32 (openai/clip-vit-base-patch32, ONNX)",
+  "task": "zero-shot image classification of finding close-ups",
+  "labels": [
+    "a cracked concrete sidewalk",
+    "a broken, crumbling concrete sidewalk",
+    "a smooth, undamaged concrete sidewalk",
+    "grass",
+    "an asphalt road"
+  ],
+  "impactLabels": [
+    "a badly damaged sidewalk that is hard to walk or roll over",
+    "a sidewalk with a minor crack that is easy to walk over"
+  ],
+  "createdAt": "2026-11-15T07:03:46.665Z",
+  "findings": [
+    {
+      "id": "defect-01",
+      "topLabel": "a cracked concrete sidewalk",
+      "damageScore": 0.8683,
+      "confirmsDamage": true,
+      "impactScore": 0.0849,
+      "impactPriority": "low",
+      "scores": [
+        {
+          "label": "a cracked concrete sidewalk",
+          "score": 0.7091
+        },
+        {
+          "label": "a broken, crumbling concrete sidewalk",
+          "score": 0.1592
+        },
+        {
+          "label": "a smooth, undamaged concrete sidewalk",
+          "score": 0.124
+        },
+        {
+          "label": "an asphalt road",
+          "score": 0.0075
+        },
+        {
+          "label": "grass",
+          "score": 0.0001
+        }
+      ]
+    },
+    {
+      "id": "defect-02",
+      "topLabel": "a smooth, undamaged concrete sidewalk",
+      "damageScore": 0.5359,
+      "confirmsDamage": true,
+      "impactScore": 0.2332,
+      "impactPriority": "low",
+      "scores": [
+        {
+          "label": "a smooth, undamaged concrete sidewalk",
+          "score": 0.3952
+        },
+        {
+          "label": "a cracked concrete sidewalk",
+          "score": 0.297
+        },
+        {
+          "label": "a broken, crumbling concrete sidewalk",
+          "score": 0.2389
+        },
+        {
+          "label": "an asphalt road",
+          "score": 0.0547
+        },
+        {
+          "label": "grass",
+          "score": 0.0141
+        }
+      ]
+    },
+    {
+      "id": "defect-03",
+      "topLabel": "a cracked concrete sidewalk",
+      "damageScore": 0.7518,
+      "confirmsDamage": true,
+      "impactScore": 0.1549,
+      "impactPriority": "low",
+      "scores": [
+        {
+          "label": "a cracked concrete sidewalk",
+          "score": 0.5982
+        },
+        {
+          "label": "a smooth, undamaged concrete sidewalk",
+          "score": 0.2132
+        },
+        {
+          "label": "a broken, crumbling concrete sidewalk",
+          "score": 0.1537
+        },
+        {
+          "label": "an asphalt road",
+          "score": 0.0348
+        },
+        {
+          "label": "grass",
+          "score": 0.0001
+        }
+      ]
+    },
+    {
+      "id": "defect-04",
+      "topLabel": "a cracked concrete sidewalk",
+      "damageScore": 0.8699,
+      "confirmsDamage": true,
+      "impactScore": 0.7458,
+      "impactPriority": "high",
+      "scores": [
+        {
+          "label": "a cracked concrete sidewalk",
+          "score": 0.6265
+        },
+        {
+          "label": "a broken, crumbling concrete sidewalk",
+          "score": 0.2434
+        },
+        {
+          "label": "a smooth, undamaged concrete sidewalk",
+          "score": 0.1021
+        },
+        {
+          "label": "an asphalt road",
+          "score": 0.0213
+        },
+        {
+          "label": "grass",
+          "score": 0.0067
+        }
+      ]
+    },
+    {
+      "id": "defect-05",
+      "topLabel": "a cracked concrete sidewalk",
+      "damageScore": 0.5817,
+      "confirmsDamage": true,
+      "impactScore": 0.0845,
+      "impactPriority": "low",
+      "scores": [
+        {
+          "label": "a cracked concrete sidewalk",
+          "score": 0.4103
+        },
+        {
+          "label": "a smooth, undamaged concrete sidewalk",
+          "score": 0.2223
+        },
+        {
+          "label": "an asphalt road",
+          "score": 0.1944
+        },
+        {
+          "label": "a broken, crumbling concrete sidewalk",
+          "score": 0.1714
+        },
+        {
+          "label": "grass",
+          "score": 0.0016
+        }
+      ]
+    }
+  ]
+}

@@ -62,7 +62,7 @@ for i, f in enumerate(findings):
 
 survey = dict(contractVersion='curb-survey-v1',id='robertson-hall',revision=2,title='Robertson Hall sidewalk survey',
     site=dict(name='Robertson Hall, Princeton',kind='campus_path',latitude=40.3482,longitude=-74.6541,
-        locationNote='Location supplied by Oliver, with one approximate phone GPS tag. Exact surveyed path, property boundary and per-defect positions are not yet verified.'),
+        locationNote='Filmed walking along the north sidewalk of Prospect Avenue, outside Robertson Hall. The route is approximate (phone GPS); individual defects are not pinned.'),
     media=dict(src=MEDIA+'survey.mp4',sourceSrc=MEDIA+'source/IMG_0699.MOV',annotatedSrc=MEDIA+'annotated.mp4',posterSrc=MEDIA+'poster.jpg',durationSeconds=tracks['frameCount']/30,fps=30,width=720,height=1280,originalSha256=analysis['sourceSha256']),
     analysis=dict(method='AI visual proposals followed by forward/backward-checked optical-flow tracking and visual contact-sheet review. Local preprocessed analysis; no live inference.',model=analysis['model'],createdAt=analysis['createdAt'],
         note='Five proposed findings, including the user-identified broad surface deterioration and final transverse crack omitted from revision 1. Straight control joints are excluded. Review coverage remains fallible; all priorities and treatment options are provisional. Dimensions, cause, route passability and ADA compliance were not inferred.'),

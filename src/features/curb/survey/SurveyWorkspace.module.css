@@ -258,6 +258,8 @@
 .desk { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
 .evidenceColumn { display: grid; gap: 12px; min-width: 0; }
 .workColumn { display: grid; gap: 12px; min-width: 0; container-type: inline-size; }
+.workFrame { display: grid; gap: 12px; min-width: 0; }
+.workScroll { min-width: 0; }
 .tabList {
   position: sticky; top: 8px; z-index: 6;
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px;
@@ -327,21 +329,37 @@
 @media (min-width: 1100px) {
   .workspace {
     --desk-width: min(1640px, calc(100vw - 64px));
+    /* The whole evidence column fits the window under the page header:
+     * window height - where the desk starts - non-video column parts - bottom gap.
+     * --desk-top and --column-chrome are measured in SurveyWorkspace. */
+    --frame-h: clamp(220px, calc(100vh - var(--desk-top, 290px) - var(--column-chrome, 250px) - 16px), 1100px);
     width: var(--desk-width);
     margin-inline: calc((100% - var(--desk-width)) / 2);
   }
   .header { padding: 10px 22px; }
   .header h1 { font-size: clamp(30px, 2.6vw, 40px); }
   .lede { font-size: 18px; }
-  .desk { grid-template-columns: minmax(420px, .95fr) minmax(0, 1.05fr); }
+  .desk { grid-template-columns: max(360px, calc(var(--frame-h) * 0.5625 + 40px)) minmax(0, 1fr); }
+  /* Right pane matches the evidence column's height and scrolls inside itself,
+   * so the findings and plan never scroll the video out of view. */
+  .desk { align-items: stretch; }
+  .workColumn { position: relative; display: block; min-height: 0; }
+  .workFrame { position: absolute; inset: 0; grid-template-rows: auto minmax(0, 1fr); }
+  .workFrame .tabList { position: static; }
+  .workScroll { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-radius: var(--radius-lg); scrollbar-gutter: stable; }
   .evidenceColumn .videoPanel { padding: 14px 16px; }
   .evidenceColumn .panelHeading { margin-bottom: 10px; gap: 8px; }
   .evidenceColumn .videoPanel h2 { font-size: 22px; }
   .evidenceColumn .segmented button { padding: 6px 10px; }
-  .evidenceColumn .videoPanel .small { margin-bottom: 4px; font-size: 14px; }
+  .evidenceColumn .videoPanel .small { margin-bottom: 0; font-size: 14px; }
   .evidenceColumn .pendingChecks { margin-block: 2px 0; }
-  .evidenceColumn .jumpBar { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; }
-  .evidenceColumn .jumpBar ul { grid-template-columns: repeat(5, minmax(44px, 1fr)); }
+  /* One row of evidence buttons, labelled by the nav's accessible name. */
+  .evidenceColumn .jumpBar { padding: 8px 10px; }
+  .evidenceColumn .jumpTitle { display: none; }
+  .evidenceColumn .jumpBar ul { grid-template-columns: repeat(auto-fit, minmax(44px, 1fr)); }
+  .evidenceColumn .videoNotes { margin-top: 10px; gap: 6px; }
+  .evidenceColumn .videoFrame { max-height: none; }
+  @supports (aspect-ratio: 1) { .evidenceColumn .videoFrame { width: auto; height: var(--frame-h); } }
 }
 @media (max-width: 960px) {
   .stage, .reviewLayout { grid-template-columns: minmax(0, 1fr); }
@@ -389,5 +407,125 @@
   .workspace::before, .steps, .tabList, .jumpBar { display: none; }
   .tabPanel[hidden] { display: block; }
   .evidenceColumn { position: static; }
+  .workColumn { min-height: 0; }
+  .workFrame { position: static; }
+  .workScroll { overflow: visible; }
   .card, .sitePanel, .videoPanel, .header, .summaryBar { box-shadow: none; backdrop-filter: none; }
+}
+
+/* ---------- Simplified status, notes and facts ---------- */
+.statusList { display: grid; gap: 6px; margin: 8px 0 4px; font-size: 15px; }
+.statusList div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 10px; }
+.statusList dt { color: var(--muted-ink); font-weight: 750; }
+.statusList dd { margin: 0; }
+.videoNotes { display: grid; gap: 10px; margin-top: 14px; line-height: 1.6; }
+.videoNotes p { margin: 0; }
+.videoNotes .plainList li + li { margin-top: 6px; }
+.factHeadline { display: block; font-size: 16px; }
+.factDetail { display: block; margin-top: 2px; color: var(--muted-ink); font-size: 14px; }
+
+.priority_high, .priority_medium, .priority_low, .priority_unassessed { padding: 1px 8px; border: 1px solid; border-radius: 6px; font-size: 13px; font-weight: 750; white-space: nowrap; }
+.priority_high { border-color: #e1b1a4; background: #f8e3dc; color: var(--danger); }
+.priority_medium { border-color: #e7c77d; background: var(--amber-soft); color: #5e3d05; }
+.priority_low, .priority_unassessed { border-color: #c9d6cd; background: #eef3ef; color: #2c4a3a; }
+
+/* ---------- Needs measuring ---------- */
+.measureList { display: grid; gap: 16px; margin: 0; padding-left: 20px; font-size: 15px; }
+.measureWhy { margin: 4px 0 8px 14px; padding-left: 10px; border-left: 3px solid var(--rule-strong); color: var(--muted-ink); font-size: 14px; }
+.measureWhy span { font-weight: 750; color: var(--ink); }
+.measureTable { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 14px; }
+.colCheck { width: 34%; }
+.colNeeds { width: 20%; }
+.colValue { width: 28%; }
+.colResult { width: 18%; }
+.measureTable th, .measureTable td { padding: 6px 8px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: middle; }
+.measureTable thead th { color: var(--muted-ink); font-size: 12px; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
+.measureTable tbody th { font-weight: 650; }
+.measureTable label { display: inline; font-size: 14px; }
+.measureInput { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; }
+.workspace .measureInput input { width: 72px; min-height: 36px; padding: 4px 8px; font-size: 14px; }
+.workspace .measureInput input[aria-invalid='true'] { border-color: var(--danger); }
+.status_meets, .status_almost, .status_fails { display: inline-block; max-width: 100%; padding: 1px 8px; border: 1px solid; border-radius: 6px; font-size: 13px; font-weight: 750; white-space: normal; }
+.status_meets { border-color: #a9cfb4; background: #e3f0e6; color: #1b5230; }
+.status_almost { border-color: #e7c77d; background: var(--amber-soft); color: #5e3d05; }
+.status_fails { border-color: #e1b1a4; background: #f8e3dc; color: var(--danger); }
+
+/* ---------- Suggested plan ---------- */
+.suggested { margin-top: 18px; padding: 18px; border: 2px solid var(--forest); border-radius: 16px; background: #fff; box-shadow: 0 0 0 4px var(--forest-tint); }
+.suggested h3 { color: var(--forest); }
+.suggestedTotal { margin-bottom: 4px; color: var(--forest); font-size: 28px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.suggestedTotal span { color: var(--muted-ink); font-size: 16px; font-weight: 600; }
+.collapsible { margin-top: 12px; padding: 10px 14px; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper-2); }
+.collapsible summary { min-height: 32px; color: var(--forest); font-weight: 750; cursor: pointer; }
+.stepList { display: grid; gap: 8px; margin: 8px 0 4px; padding-left: 22px; }
+.stepItem { font-size: 15px; }
+.stepItem > * { margin-right: 8px; }
+.workspace .stepItem .textButton { min-height: 32px; padding: 0; font-size: 15px; }
+.stepRepair { display: block; color: var(--muted-ink); font-size: 14px; }
+.readPrices { margin-top: 14px; padding: 12px 14px; border-left: 4px solid var(--amber-ring); border-radius: 0 10px 10px 0; background: var(--amber-soft); color: #553804; font-size: 15px; }
+.readPrices p { margin: 2px 0 0; }
+.otherPlans { margin-top: 18px; padding: 12px 16px; border: 1px solid var(--rule); border-radius: var(--radius-md); background: var(--paper-2); }
+.otherPlans > summary { min-height: 32px; color: var(--forest); font-weight: 750; cursor: pointer; }
+.otherPlans[open] > summary { margin-bottom: 12px; }
+
+.measureIntro { margin: 0 0 10px; padding: 8px 12px; border-radius: 8px; background: var(--paper-2); color: var(--muted-ink); font-size: 14px; }
+.sourceEstimate, .sourceMeasured { margin-left: 4px; font-size: 12px; font-weight: 750; letter-spacing: .02em; }
+.sourceEstimate { color: #8a5606; font-style: italic; }
+.sourceMeasured { color: #1b5230; }
+
+.decisionHelp { margin: 18px 0 0; padding: 10px 14px; border-left: 4px solid var(--forest-2); border-radius: 0 10px 10px 0; background: var(--forest-tint); font-size: 14px; }
+
+.routeOverlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.routeSwatch { display: inline-block; width: 22px; height: 0; margin-right: 4px; border-top: 3px dashed #c2410c; vertical-align: middle; }
+
+/* ---------- Repair-ready findings ---------- */
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tagRow { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; }
+.uncertainTag { padding: 2px 10px; border: 1px dashed #b07a1a; border-radius: 999px; background: var(--amber-soft); color: #5e3d05; font-size: 13px; font-weight: 750; }
+.uncertainTag::before { content: '? '; }
+.notVerdict { margin: 8px 0 0; color: var(--muted-ink); font-size: 13px; font-style: italic; }
+.confidence_high, .confidence_medium, .confidence_low { margin-left: 6px; padding: 1px 8px; border: 1px solid; border-radius: 6px; font-size: 12px; font-weight: 750; white-space: nowrap; }
+.confidence_high { border-color: #a9cfb4; background: #e3f0e6; color: #1b5230; }
+.confidence_medium { border-color: #e7c77d; background: var(--amber-soft); color: #5e3d05; }
+.confidence_low { border-color: #d5d1c6; background: #efede6; color: #3e3c36; }
+.factorTable { width: 100%; margin-top: 6px; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+.factorTable th, .factorTable td { padding: 4px 6px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+.factorTable thead th { color: var(--muted-ink); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.factorTable th:first-child { width: 30%; }
+.factorTable td:nth-child(2), .factorTable td:nth-child(3), .factorTable thead th:nth-child(2), .factorTable thead th:nth-child(3) { width: 13%; }
+.repairPanel { margin-top: 18px; padding: 16px; border: 1px solid var(--rule); border-radius: var(--radius-md); background: var(--paper-2); }
+.repairPanel h4:first-child { margin-top: 0; }
+.repairGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 10px; }
+.inlineField { display: flex; gap: 6px; }
+.inlineField input { flex: 1; min-width: 0; }
+.workflowSteps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin: 6px 0 10px; padding: 0; list-style: none; font-size: 13px; font-weight: 750; text-align: center; }
+.workflowSteps li { padding: 6px 2px; border-radius: 8px; border: 1px solid var(--rule); }
+.stepDone { background: #e3f0e6; color: #1b5230; }
+.stepDone::before { content: '✓ '; }
+.stepCurrent { background: var(--forest); border-color: var(--forest) !important; color: #fff; }
+.stepTodo { background: #fff; color: var(--muted-ink); }
+.timeline { display: grid; gap: 6px; margin: 0 0 10px; padding-left: 20px; font-size: 14px; }
+.workflowForm { display: grid; gap: 8px; }
+.workflowForm .actions { margin-top: 4px; }
+.workflowSummary { color: var(--forest); font-weight: 750; }
+.workspace .measuredToggle { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; font-weight: 650; color: var(--muted-ink); }
+.workspace .measuredToggle input { min-height: 0; width: 16px; height: 16px; padding: 0; accent-color: var(--forest); }
+.measureTable td .sourceEstimate, .measureTable td .sourceMeasured { display: block; margin: 2px 0 0; }
+.measureTable td .inlineError { display: block; margin-top: 2px; font-size: 12px; }
+
+@media (max-width: 600px) {
+  /* Keep each check and its threshold together, with room below for editing and feedback. */
+  .measureTable colgroup { display: none; }
+  .measureTable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .measureTable tbody { display: block; }
+  .measureTable tbody tr { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); border-bottom: 1px solid var(--rule); }
+  .measureTable tbody th, .measureTable td { min-width: 0; padding: 8px 6px; border-bottom: 0; }
+  .measureTable tbody th { align-self: end; }
+  .measureTable td:nth-child(2) { align-self: end; }
+  .measureTable td:nth-child(2)::before { content: 'Needs: '; color: var(--muted-ink); font-size: 12px; }
+  .measureTable td:last-child { align-self: start; }
+  .measureTable td:last-child::before { content: 'Result'; display: block; margin-bottom: 4px; color: var(--muted-ink); font-size: 12px; }
+  .workspace .measureInput input { width: 100%; min-width: 0; max-width: 10rem; min-height: 44px; }
+  .workspace .measuredToggle { min-height: 44px; }
+  .workspace .measuredToggle input { flex: 0 0 20px; width: 20px; height: 20px; }
 }

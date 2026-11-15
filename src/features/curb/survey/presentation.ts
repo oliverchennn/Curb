@@ -61,7 +61,7 @@ export const REVIEW_LABELS: Record<Finding['review']['status'], string> = {
 };
 
 export const METHOD_LABELS: Record<Finding['review']['method'], string> = {
-  ai: 'AI suggestion',
+  ai: 'CLIP model',
   manual: 'Manual review',
 };
 
@@ -72,7 +72,7 @@ export const BUDGET_FIT_LABELS: Record<RepairPlan['budgetFit'], string> = {
   over: 'Over budget at the upper estimate',
 };
 
-export const PLAN_ORDER: RepairPlan['id'][] = ['essential', 'balanced', 'durable', 'budget'];
+export const PLAN_ORDER: RepairPlan['id'][] = ['suggested', 'essential', 'balanced', 'durable', 'budget'];
 
 // ---------- Review edits (immutable) ----------
 

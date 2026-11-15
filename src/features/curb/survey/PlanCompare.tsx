@@ -1,9 +1,12 @@
 import type { Cost, PlanId, RepairPlan, Survey, Treatment } from '../../../contracts/curb/survey';
 import { areaForFinding, centsToInput, formatCents, formatCentsRange, labelForId, type BudgetParse } from './presentation';
 import { costRange } from './services';
+import { ACCESS_WEIGHTS, rankWorkAreas, SEVERITY_MIX, type AreaRanking } from './measurements';
 import styles from './PlanCompare.module.css';
+import ws from './SurveyWorkspace.module.css';
 
 const POLICY: Record<PlanId, { name: string; purpose: string }> = {
+  suggested: { name: 'Suggested', purpose: 'Each work area once, highest access-impact priority first, within your budget.' },
   essential: { name: 'Essential', purpose: 'Start with near-term work and the lowest priced options. Confirm treatment suitability on site before proceeding.' },
   balanced: { name: 'Balanced', purpose: 'Address every eligible area with its recommended treatment, including repairs that need quotes.' },
   durable: { name: 'Durable', purpose: 'Address every eligible area with its most durable suitable option. Confirm the renewal scope on site.' },
@@ -17,14 +20,16 @@ const treatmentsFor = (survey: Survey, plan: RepairPlan) => plan.optionIds.flatM
   return treatment ? [treatment] : [];
 });
 
-export function PlanCompare({ survey, plans, planError, budgetText, budget, sliderMax, selectedFindingId, selectedPlanId, onBudgetText, onSelectPlan }: {
+export function PlanCompare({ survey, plans, planError, budgetText, budget, sliderMax, selectedFindingId, selectedPlanId, onBudgetText, onSelectPlan, onSelectFinding }: {
   survey: Survey; plans: RepairPlan[]; planError: string | null; budgetText: string; budget: BudgetParse;
   sliderMax: number; selectedFindingId: string | null; selectedPlanId: PlanId;
   onBudgetText: (text: string) => void; onSelectPlan: (planId: PlanId) => void;
+  onSelectFinding: (findingId: string) => void;
 }) {
   const selectedArea = selectedFindingId ? areaForFinding(survey, selectedFindingId) : undefined;
   const selected = plans.find(plan => plan.id === selectedPlanId);
   const budgetPlan = plans.find(plan => plan.id === 'budget');
+  const suggested = plans.find(plan => plan.id === 'suggested');
   const balanced = plans.find(plan => plan.id === 'balanced');
   const essential = plans.find(plan => plan.id === 'essential');
   const unpricedBalanced = balanced ? treatmentsFor(survey, balanced).filter(t => t.cost.status === 'quote_required').length : 0;
@@ -35,25 +40,12 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
     <header className={styles.intro}>
       <p className={styles.eyebrow}>Robertson Hall · Repair planning</p>
       <h2 id="survey-plans-heading">What work should we fund?</h2>
-      <p>Choose a scope, understand the missing costs, then build a budget with facilities and a contractor.</p>
-      <p className={styles.reviewNote}>{pending ? `${plural(pending, 'finding')} pending review — these plans are provisional. ` : ''}Rejected findings are excluded. Site measurements and treatment suitability still need confirmation.</p>
+      <p>Set a budget. Curb suggests what to fix first.</p>
+      {pending ? <p className={styles.reviewNote}>{plural(pending, 'finding')} not checked by a person yet, so this plan is provisional.</p> : null}
     </header>
-    <div className={styles.sectionHeading}><span aria-hidden="true">1</span><h3>Choose the work</h3></div>
-    {planError ? <p role="alert" className={styles.error}>{planError}</p> : <>
-      <div className={styles.policyGrid}>
-        {plans.filter(plan => plan.id !== 'budget').map(plan => <PolicyCard key={plan.id} survey={survey} plan={plan}
-          selected={plan.id === selectedPlanId} onSelect={() => onSelectPlan(plan.id)} />)}
-      </div>
-      <p className={styles.comparisonNote}><strong>Compare scope before price.</strong>{' '}
-        {balanced && essential && unpricedBalanced > 0 && balanced.cost.highCents < essential.cost.highCents
-          ? `Balanced includes ${plural(unpricedBalanced, 'unpriced treatment')}. Its lower priced subtotal does not mean the whole project is cheaper. `
-          : 'Each subtotal covers only the work that has a price. '}
-        Partial subtotals cannot rank the full cost of these plans.</p>
-    </>}
 
     <section className={styles.budgetSection} aria-labelledby="optional-budget-heading">
-      <div className={styles.sectionHeading}><span aria-hidden="true">2</span><h3 id="optional-budget-heading">Have a budget in mind? <small>Optional</small></h3></div>
-      <p className={styles.small}>Leave this empty to develop a scope first. An amount adds a fourth scenario using priced work; quotes may put the full project over that amount.</p>
+      <div className={styles.sectionHeading}><span aria-hidden="true">1</span><h3 id="optional-budget-heading">Your budget <small>Optional</small></h3></div>
       <div className={styles.budgetRow}>
         <label htmlFor="survey-budget">Budget (US dollars)
           <span className={styles.moneyInput}><span aria-hidden="true">$</span>
@@ -70,26 +62,32 @@ export function PlanCompare({ survey, plans, planError, budgetText, budget, slid
         {budgetText !== '' ? <button type="button" className={styles.secondaryButton} onClick={() => onBudgetText('')}>Clear budget</button> : null}
       </div>
       <p id="survey-budget-help" className={budget.ok ? styles.small : styles.error}>
-        {budget.ok ? `Type exact dollars and cents. The slider moves in $100 steps, up to ${formatCents(sliderMax)}.` : budget.message}
+        {budget.ok ? 'Leave blank to see every repair.' : budget.message}
       </p>
-      <div role="status" aria-live="polite" aria-atomic="true" className={styles.budgetStatus}>
-        {budget.ok && budget.cents !== null && budgetPlan && !planError ? <>
-          <strong>{budgetPlan.optionIds.length ? `${plural(budgetPlan.workAreaIds.length, 'area')} in the ${formatCents(budget.cents)} scenario` : 'No repair work selected for this amount'}</strong>
-          <p>{budgetPlan.optionIds.length
-            ? `Priced upper bound: ${formatCents(budgetPlan.cost.highCents)}. ${budgetPlan.cost.isComplete ? 'The selected priced scope fits this amount.' : 'Full budget fit is unconfirmed until the missing costs are quoted.'}`
-            : budgetPlan.deferredWorkAreaIds.length ? 'No eligible repair fits the known upper estimates. This does not make the deferred work free.' : 'There are no eligible repairs in this review.'}</p>
-          {selectedPlanId !== 'budget' ? <p>This is a preview. Choose Budget scenario below to use it in the report.</p> : null}
-          {budgetPlan.workAreaIds.length ? <p><strong>Proposed work:</strong> {names(survey, budgetPlan.workAreaIds)}.</p> : null}
-          <p><strong>Deferred:</strong> {budgetPlan.deferredWorkAreaIds.length ? names(survey, budgetPlan.deferredWorkAreaIds) : 'No eligible areas deferred'}.</p>
-          {budgetPlan.cost.unpricedItems.length ? <p><strong>Not yet priced:</strong> {budgetPlan.cost.unpricedItems.map(item => item.replace(/\s\([a-z0-9-]+\):[\s\S]*$/, '')).join('; ')}.</p> : null}
-        </> : null}
-      </div>
-      {budget.ok && budget.cents !== null && budgetPlan && !planError ? <PolicyCard survey={survey} plan={budgetPlan}
-        selected={selectedPlanId === 'budget'} onSelect={() => onSelectPlan('budget')} /> : null}
     </section>
 
-    {selected && !planError ? <PlanBreakdown survey={survey} plan={selected} highlightAreaId={selectedArea?.id ?? null} selectedFindingId={selectedFindingId} /> : null}
-    <p className={styles.routeNote}><strong>Route impact: unknown.</strong> {survey.routeAssessment.note}</p>
+    <div className={styles.sectionHeading}><span aria-hidden="true">2</span><h3 id="survey-suggested-heading">Suggested plan</h3></div>
+    {suggested ? <SuggestedPlanView survey={survey} plan={suggested} selected={selectedPlanId === 'suggested'}
+      onSelect={() => onSelectPlan('suggested')} onSelectFinding={onSelectFinding} /> : null}
+
+    <details className={ws.otherPlans}>
+      <summary>Other plan options (used for the downloadable report)</summary>
+      {planError ? <p role="alert" className={styles.error}>{planError}</p> : <>
+        <div className={styles.policyGrid}>
+          {plans.filter(plan => plan.id !== 'budget' && plan.id !== 'suggested').map(plan => <PolicyCard key={plan.id} survey={survey} plan={plan}
+            selected={plan.id === selectedPlanId} onSelect={() => onSelectPlan(plan.id)} />)}
+          {budget.ok && budget.cents !== null && budgetPlan ? <PolicyCard survey={survey} plan={budgetPlan}
+            selected={selectedPlanId === 'budget'} onSelect={() => onSelectPlan('budget')} /> : null}
+        </div>
+        <p className={styles.comparisonNote}><strong>Compare scope before price.</strong>{' '}
+          {balanced && essential && unpricedBalanced > 0 && balanced.cost.highCents < essential.cost.highCents
+            ? `Balanced includes ${plural(unpricedBalanced, 'unpriced treatment')}. Its lower priced subtotal does not mean the whole project is cheaper. `
+            : 'Each subtotal covers only the work that has a price. '}
+          Partial subtotals cannot rank the full cost of these plans.</p>
+      </>}
+      {selected && !planError ? <PlanBreakdown survey={survey} plan={selected} highlightAreaId={selectedArea?.id ?? null} selectedFindingId={selectedFindingId} /> : null}
+      <p className={styles.routeNote}><strong>Route impact: unknown.</strong> {survey.routeAssessment.note}</p>
+    </details>
   </section>;
 }
 
@@ -149,7 +147,9 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
         ? 'The selected finding is rejected and excluded from this plan.'
         : `${labelForId(survey, highlightAreaId)} from the selected evidence is not included.`}</p> : null}
     <Price survey={survey} plan={plan} />
-    {treatments.length ? <table className={styles.breakdownTable}>
+    {treatments.length ? <details className={ws.collapsible} open>
+      <summary>Included work ({treatments.length + survey.sharedCosts.length})</summary>
+      <table className={styles.breakdownTable}>
       <caption>Included work and its pricing basis</caption>
       <thead><tr><th scope="col">Included work</th><th scope="col">Priced portion</th></tr></thead>
       <tbody>{treatments.map(t => <tr key={t.id} className={t.workAreaId === highlightAreaId ? styles.highlightRow : undefined}>
@@ -161,7 +161,7 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
         <th scope="row"><strong>Shared job cost · once per project</strong><p>{item.label}</p></th>
         <td><Estimate cost={item.cost} /></td>
       </tr>)}</tbody>
-    </table> : <p className={styles.empty}>There is no selected repair scope to price. Review the deferred areas below.</p>}
+    </table></details> : <p className={styles.empty}>There is no selected repair scope to price. Review the deferred areas below.</p>}
 
     <section className={styles.deferred} aria-labelledby="deferred-needs-heading">
       <h4 id="deferred-needs-heading">Deferred needs · {plural(deferred.length, 'area')}</h4>
@@ -174,23 +174,22 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
 
     <section className={styles.estimateGuide} aria-labelledby="estimate-guide-heading">
       <h4 id="estimate-guide-heading">How to read these estimates</h4>
-      <p>Each priced row multiplies a published unit-rate range by an <strong>assumed quantity</strong>. These are planning references, not a current campus-job quote. Durability is a relative 0–3 catalog rating, not years of service.</p>
-      {suitability.length ? <><h4>Confirm treatment suitability</h4><ul>{suitability.map(t => <li key={t.eligibilityNote}><strong>{METHODS[t.method]}:</strong> {t.eligibilityNote}</li>)}</ul></> : null}
-      {survey.sources.filter(source => sourceIds.has(source.id)).map(source => <div key={source.id} className={styles.source}>
-        <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>
-        <p><strong>Source date: {source.asOf}.</strong> {source.scopeNote}</p>
-      </div>)}
-      {estimates.length ? <p>The quantities above are not measurements from the video. Confirm the area boundaries, treatment lengths, panel thickness and suitability before requesting prices.</p> : <p>No priced quantities are available for this selected scope.</p>}
-      {treatments.length ? <>
-        <h4>Before approving funds</h4>
+      <p>Price = a published unit price × an estimated size. A contractor quote sets the final cost.</p>
+      {sourceIds.size ? <details className={ws.collapsible}>
+        <summary>Sources and dates</summary>
+        {survey.sources.filter(source => sourceIds.has(source.id)).map(source => <div key={source.id} className={styles.source}>
+          <a href={source.url} target="_blank" rel="noreferrer">{source.title} ↗</a>
+          <p><strong>Source date: {source.asOf}.</strong></p>
+        </div>)}
+      </details> : null}
+      {treatments.length ? <details className={ws.collapsible}>
+        <summary>Before approving funds</summary>
         <ul className={styles.checklist}>
-          <li>Measure the work and confirm each conditional treatment with a site professional.</li>
-          <li>Get current, itemized quotes for every “Quote needed” row. Reconcile shared setup once across the job.</li>
-          {exclusions.map(item => <li key={item}><strong>Outside the selected unit rates:</strong> {item}.</li>)}
+          <li>Measure the work and confirm each repair type with a site professional.</li>
+          <li>Get current quotes for every “Quote needed” row.</li>
+          {suitability.map(t => <li key={t.eligibilityNote}><strong>{METHODS[t.method]}:</strong> {t.eligibilityNote}</li>)}
+          {exclusions.map(item => <li key={item}><strong>Not in the unit price:</strong> {item}.</li>)}
         </ul>
-      </> : null}
-      {plan.pendingChecks.length ? <details><summary>Site measurement checklist ({plan.pendingChecks.length})</summary>
-        <ul>{plan.pendingChecks.map(check => <li key={check}>{check}</li>)}</ul>
       </details> : null}
     </section>
     <a className={styles.exportLink} href="#survey-export-heading" onClick={() => {
@@ -198,4 +197,71 @@ function PlanBreakdown({ survey, plan, highlightAreaId, selectedFindingId }: { s
       if (window.location.hash === '#survey-export-heading') window.dispatchEvent(new HashChangeEvent('hashchange'));
     }}>Continue to Export report <span aria-hidden="true">→</span></a>
   </section>;
+}
+
+const PRIORITY_WORDS = { high: 'High', medium: 'Medium', low: 'Low', unassessed: 'Not set' } as const;
+
+const percent = (weight: number) => `${Math.round(weight * 100)}%`;
+export const PRIORITY_EXPLANATION = `Ranked by access impact: severity ${percent(ACCESS_WEIGHTS.severity)} (ADA checks ${percent(SEVERITY_MIX.measurement)}, CLIP travel impact ${percent(SEVERITY_MIX.clip)}), essential destination ${percent(ACCESS_WEIGHTS.destination)}, access needs affected ${percent(ACCESS_WEIGHTS.needs)}.`;
+
+/** Renders the suggested RepairPlan itself: the same object the report exports. */
+function SuggestedPlanView({ survey, plan, selected, onSelect, onSelectFinding }: {
+  survey: Survey;
+  plan: RepairPlan;
+  selected: boolean;
+  onSelect: () => void;
+  onSelectFinding: (findingId: string) => void;
+}) {
+  const ranking = rankWorkAreas(survey);
+  const included = ranking.filter((item) => plan.workAreaIds.includes(item.area.id));
+  const left = ranking.filter((item) => plan.deferredWorkAreaIds.includes(item.area.id));
+  const chosen = (item: AreaRanking) => survey.treatments.find((t) => t.workAreaId === item.area.id && plan.optionIds.includes(t.id));
+  const quoted = plan.cost.unpricedItems.map((item) => item.replace(/\s\([a-z0-9-]+\):[\s\S]*$/, ''));
+  return <section className={ws.suggested} aria-labelledby="survey-suggested-heading" data-plan-id={plan.id}>
+    <p className={ws.suggestedTotal} role="status">
+      {plan.workAreaIds.length === 0 ? 'Nothing fits this budget yet.' : <>{formatCentsRange(plan.cost.lowCents, plan.cost.highCents)} <span>for {plural(plan.workAreaIds.length, 'work area')} of {ranking.length}{plan.cost.isComplete ? '' : ', plus quotes'}</span></>}
+    </p>
+    <p className={ws.small}>{PRIORITY_EXPLANATION} Each work area is charged once; shared setup is charged once.{left.length ? ` ${plural(left.length, 'area')} left out.` : ''}</p>
+    <button type="button" className={selected ? ws.planSelect : `${ws.secondaryButton} ${ws.planSelect}`} aria-pressed={selected} onClick={onSelect}>
+      {selected ? '✓ Used for the report' : 'Use this plan for the report'}
+    </button>
+
+    {included.length > 0 ? <details className={ws.collapsible} open>
+      <summary>Included work ({included.length})</summary>
+      <ol className={ws.stepList}>{included.map((item) => <AreaItem key={item.area.id} item={item} treatment={chosen(item)} onSelectFinding={onSelectFinding} />)}</ol>
+    </details> : null}
+    {left.length > 0 ? <details className={ws.collapsible}>
+      <summary>Left out for now ({left.length})</summary>
+      <ul className={ws.stepList}>{left.map((item) => <AreaItem key={item.area.id} item={item} treatment={undefined}
+        reason={item.treatment ? 'Does not fit the budget.' : 'Needs a contractor quote before it can be planned.'} onSelectFinding={onSelectFinding} />)}</ul>
+    </details> : null}
+    {quoted.length > 0 ? <p className={ws.small}>Not in the total – needs a quote: {quoted.join('; ')}.</p> : null}
+
+    <div className={ws.readPrices}>
+      <strong>How to read these prices</strong>
+      <p>Each price is a low–high range from recent public bids, using assumed sizes. A contractor quote sets the final cost.</p>
+      <details className={ws.pendingChecks}>
+        <summary>Price sources</summary>
+        <ul className={ws.plainList}>{survey.sources.filter((source) => source.kind === 'cost').map((source) => <li key={source.id}>
+          <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> · {source.asOf}
+        </li>)}</ul>
+      </details>
+    </div>
+  </section>;
+}
+
+function AreaItem({ item, treatment, reason, onSelectFinding }: {
+  item: AreaRanking;
+  treatment: Treatment | undefined;
+  reason?: string;
+  onSelectFinding: (findingId: string) => void;
+}) {
+  const range = treatment ? costRange(treatment.cost) : null;
+  return <li className={ws.stepItem}>
+    <strong>{item.area.label}</strong>
+    <span className={ws[`priority_${item.score.band}`]}>{PRIORITY_WORDS[item.score.band]} · {item.score.score}</span>
+    <span className={ws.stepRepair}>{item.findings.map((finding, index) => <span key={finding.id}>{index ? ', ' : ''}
+      <button type="button" className={ws.textButton} onClick={() => onSelectFinding(finding.id)}>{finding.label}</button></span>)}</span>
+    <span className={ws.stepRepair}>{treatment ? `${treatment.label} · ${range ? formatCentsRange(range.lowCents, range.highCents) : 'quote needed'}` : reason}</span>
+  </li>;
 }
