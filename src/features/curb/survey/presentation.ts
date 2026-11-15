@@ -136,6 +136,16 @@ export function correctFinding(survey: Survey, findingId: string, correction: Fi
   };
 }
 
+const AREA_PRIORITY_REVIEW_PREFIX = 'Priority reviewed by ';
+
+/** Editable reason from an already reviewed work area in the v1 survey format. */
+export function reviewedAreaPriorityReason(rationale: string): string {
+  if (!rationale.startsWith(AREA_PRIORITY_REVIEW_PREFIX)) return '';
+  const separator = rationale.indexOf(': ', AREA_PRIORITY_REVIEW_PREFIX.length);
+  if (separator < 0 || !rationale.slice(AREA_PRIORITY_REVIEW_PREFIX.length, separator).trim()) return '';
+  return rationale.slice(separator + 2);
+}
+
 export function setAreaPriority(survey: Survey, areaId: string, priority: Priority, reviewerName: string, rationaleText: string): EditResult {
   const reviewer = cleanText(reviewerName);
   if (!reviewer) return { ok: false, message: 'Enter a reviewer name before recording an accessibility priority.' };
@@ -143,7 +153,7 @@ export function setAreaPriority(survey: Survey, areaId: string, priority: Priori
   if (!rationale || rationale.length > 3500) return { ok: false, message: 'Explain the access need behind this priority (1–3500 characters).' };
   if (!survey.workAreas.some(area => area.id === areaId)) return { ok: false, message: 'That work area is no longer in this survey.' };
   return { ok: true, survey: { ...survey, workAreas: survey.workAreas.map((area) => area.id === areaId
-    ? { ...area, priority, rationale: `Priority reviewed by ${reviewer.slice(0, 400)}: ${rationale}` } : area) } };
+    ? { ...area, priority, rationale: `${AREA_PRIORITY_REVIEW_PREFIX}${reviewer.slice(0, 400)}: ${rationale}` } : area) } };
 }
 
 export function isEdited(original: Survey, current: Survey): boolean {

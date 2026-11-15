@@ -2,7 +2,18 @@
 .nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 12px; color: #40594a; border: 1px solid transparent; border-radius: 8px; font-size: 14px; font-weight: 550; text-decoration: none !important; }
 .nav a:hover { background: #e9eee3; }
 .nav a[aria-current='page'] { background: #e6eddf; border-color: #c6d1bb; color: #193b2b; font-weight: 750; }
+.resetButton {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #b7c7b5;
+  border-radius: 8px;
+  color: #193b2b;
+  background: #f7f9f3;
+  font-size: 14px;
+  font-weight: 650;
+}
+.resetButton:hover { background: #e6eddf; }
 @media (max-width: 760px) {
   .nav { justify-content: flex-start; width: 100%; }
-  .nav a { padding: 8px 10px; min-height: 44px; font-size: 13px; }
+  .nav a, .resetButton { padding: 8px 10px; min-height: 44px; font-size: 13px; }
 }
