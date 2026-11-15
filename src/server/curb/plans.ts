@@ -15,8 +15,15 @@ import {
   type PlanScenario,
   type PlanScenarioResponse,
 } from '../../contracts/curb/plans';
+import investmentDemo from '../../data/curb/investment-demo.json';
 import planDemo from '../../data/curb/plan-demo.json';
 import { comparePlans, PlanRequestError, validatePlanScenario } from '../../domain/curb/plans';
+
+const DEFAULT_SCENARIO_ID = 'synthetic-campus-repair-plans';
+const planFixtures = new Map<string, unknown>([
+  [DEFAULT_SCENARIO_ID, planDemo],
+  ['synthetic-campus-investment', investmentDemo],
+]);
 
 const errorMessages = {
   INVALID_REQUEST: 'The repair plan request is invalid.',
@@ -36,8 +43,10 @@ function failure(code: PlanErrorCode): { status: number; body: PlanFailure } {
   };
 }
 
-function loadPlanScenario(): PlanScenario {
-  return PlanScenarioSchema.parse(validatePlanScenario(planDemo));
+function loadPlanScenario(scenarioId: string): PlanScenario {
+  const scenario = PlanScenarioSchema.parse(validatePlanScenario(planFixtures.get(scenarioId)));
+  if (scenario.scenario.id !== scenarioId) throw new Error('Plan fixture does not match its scenario ID.');
+  return scenario;
 }
 
 export function getPlanScenarioResponse(query: unknown): {
@@ -47,12 +56,11 @@ export function getPlanScenarioResponse(query: unknown): {
   const selected = PlanScenarioQuerySchema.safeParse(query);
   if (!selected.success) return failure('INVALID_REQUEST');
 
+  const scenarioId = selected.data.scenarioId ?? DEFAULT_SCENARIO_ID;
+  if (!planFixtures.has(scenarioId)) return failure('SCENARIO_NOT_FOUND');
+
   try {
-    const scenario = loadPlanScenario();
-    const { scenarioId } = selected.data;
-    if (scenarioId !== undefined && scenarioId !== scenario.scenario.id) {
-      return failure('SCENARIO_NOT_FOUND');
-    }
+    const scenario = loadPlanScenario(scenarioId);
     return {
       status: 200,
       body: PlanScenarioResponseSchema.parse({
@@ -71,17 +79,19 @@ export function getPlanResponse(input: unknown): {
   const selected = PlanRequestSchema.safeParse(input);
   if (!selected.success) return failure('INVALID_REQUEST');
 
+  const request = selected.data;
+  if (!planFixtures.has(request.scenarioId)) return failure('SCENARIO_NOT_FOUND');
+
   // A failure while loading the authoritative fixture is always a server error.
   let scenario: PlanScenario;
   try {
-    scenario = loadPlanScenario();
+    scenario = loadPlanScenario(request.scenarioId);
   } catch {
     return failure('INVALID_SERVER_SCENARIO');
   }
 
   try {
     // Retain the submitted tuple for independent output validation.
-    const request = selected.data;
     const body = PlanResponseSchema.parse({
       contractVersion: PLAN_CONTRACT_VERSION, ok: true, data: comparePlans(scenario, { ...request }),
     });

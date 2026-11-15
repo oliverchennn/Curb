@@ -1,0 +1,23 @@
+# Prompt for the existing Curb orchestrator
+
+Implement the synthetic campus investment demo described in `docs/planning/INVESTMENT_DEMO_IMPLEMENTATION.md`. I want this to become the central business-track demo. Keep the Route Explorer in the product.
+
+The plan is saved in Vincent's local repo at `C:\Users\vzhu0\PycharmProjects\Curb\docs\planning\INVESTMENT_DEMO_IMPLEMENTATION.md`. If your checkout does not contain it yet, bring over that file and this prompt as a scoped documentation change before dispatching remote implementation. The planning checkout is on the old `codex/r2-coordination` branch. Read current canonical main and the live board before choosing the implementation base. Do not merge the historical branch wholesale.
+
+Use the existing coordinator and implementation workflow. The latest handoff inspected by the planning chat is https://github.com/oliverchennn/Curb/issues/1#issuecomment-6892178523, confirmed in 6892186041, passing coordination to Vincent's existing coordinator. Reconcile newer records, confirm the actual coordinator ACK, integration publisher, and existing live deployment checker, then reserve literal file scopes and dispatch available leads. Preserve active survey and robot ownership. Existing model policy remains Sol/xhigh with Landau's approved Claude exception.
+
+Deliver a new `/curb/investment-demo` page with an interactive schematic, editable budget, side-by-side strategy results, a single-repair omission preview, reset, and a printable recommendation brief. `/curb/plans` currently renders Robertson Repair priorities, so preserve it. Add Investment demo to shared navigation while retaining Route Explorer.
+
+Use the actual Robertson video to introduce evidence review, then switch to an explicitly synthetic planning scenario. Keep “Synthetic scenario · assumed costs and route conditions” visible. All scenario observations, route assessments, and costs are authored. The video supplies the real evidence example; modeled route gains belong to the synthetic scenario.
+
+The scenario has Arrival court, Library, Student center, Hall, and an already-reachable Cafe. A and B are consecutive barriers on the shared approach to Library and Student center. A and B each cost an assumed $5,000. C costs an assumed $10,000 and opens Hall on its own. C has the worst condition rating. Default budget is $10,000.
+
+Reuse `comparePlans`, existing `curb-r2` schemas, and `fetchPlanScenario(signal, scenarioId)`. Add a new server-owned fixture and explicit scenario selection while retaining the old fixture and omitted-selector API behavior. Compute results through the real API. Render reachable paths from returned route edge IDs. Use existing `singleRepairs` and `exact.withoutRepair` for the dependency demonstration. Preserve cancellation, identity validation, error/retry, and stale-result handling.
+
+Required results are in the plan's complete acceptance table. At $10,000, condition-first chooses C and restores Hall; Curb chooses A+B and restores Library and Student center. Omitting either A or B restores zero new destinations. At $15,000, Curb still selects A+B for $10,000 while condition-first spends $15,000 on C+A and restores only Hall. At $20,000, both methods fund all three and restore three destinations. Cafe remains baseline access and never counts as a new benefit. At $5,000 the exact method selects the empty set under its destination-count objective.
+
+Prioritize the diagram, actual budget computation, and the A/B dependency interaction. Implement the plan's scoped work through existing available leads, resolve routine choices yourself, and keep shared navigation edits serial. The new page should work at desktop and phone widths with keyboard controls and a text equivalent of the map. Print the canonical recommendation even while an omission preview is visible.
+
+Verify the numerical oracles, both scenario APIs, browser interactions and failures, print output, and existing Route Explorer/Robertson/Repair priorities regressions. Run `npm run check` and required CI. Publish scoped commits, verify remote SHAs, and integrate through the existing publisher. Follow the current hosting runbook through automatic production deployment, READY status, matching public health SHA, and the existing live checker. Rehearse the three-minute script and save a usable backup of the accepted demo.
+
+Return the implemented URL, PR/commit and deployment evidence, actual checks, the final presenter script, and any remaining limitations. Proceed with this bounded implementation using the existing coordination and release authority.
