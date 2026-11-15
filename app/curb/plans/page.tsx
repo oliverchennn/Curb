@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { PlanPlanner } from '../../../src/features/curb/plans/PlanPlanner';
+import { RepairPriorities } from '../../../src/features/curb/priorities/RepairPriorities';
 
 export const metadata: Metadata = {
-  title: 'Curb · Repair plan comparison',
+  title: 'Curb · Repair priorities',
 };
 
 export default function PlansPage() {
-  return <PlanPlanner />;
+  return <RepairPriorities />;
 }

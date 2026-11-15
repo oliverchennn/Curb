@@ -9,7 +9,7 @@ const LINKS = [
   { href: '/curb/surveys/robertson-hall', label: 'Survey replay' },
   { href: '/curb/collection', label: 'Collection demo' },
   { href: '/curb/explore', label: 'Route explorer' },
-  { href: '/curb/plans', label: 'Sample network' },
+  { href: '/curb/plans', label: 'Repair priorities' },
 ];
 
 function resetCurrentPage() {
