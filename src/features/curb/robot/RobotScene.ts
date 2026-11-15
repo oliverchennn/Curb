@@ -11,11 +11,18 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { assetUrl, type ManifestGroup, type RobotManifest, type Vec3 } from './manifest';
 import type { IndexEntry } from './groups';
 
-const OVERLAY_BLUE = 0x2f6df6;
+const HOVER_MINT = 0x8ef0e4;
+const SELECTION_BLUE = 0x2f6df6;
+const EXPLODE_SCALE = 0.5;
+const EXPAND_RATE = 1.8;
+const CAMERA_KEYS = ['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'];
+
+export type SceneMode = 'overview' | 'isolated' | 'exploded';
 
 export interface RobotSceneCallbacks {
   onHoverGroup(id: string | null): void;
   onPickGroup(id: string): void;
+  onExpand(): void;
   onPickEntry(groupId: string, entryKey: string): void;
   onProgress(loaded: number, total: number): void;
   onDetailState(groupId: string, state: 'loading' | 'ready' | 'error', message?: string): void;
@@ -31,10 +38,11 @@ interface PartNode {
 interface GroupEntry {
   group: ManifestGroup;
   root: THREE.Group; // preview, shown in overview
-  overlay: THREE.Object3D; // translucent blue clone, toggled on hover
+  overlay: THREE.Object3D;
   pickMeshes: THREE.Mesh[];
   detail?: {
     root: THREE.Group;
+    overlay: THREE.Object3D;
     parts: PartNode[];
     meshesByPart: Map<string, THREE.Mesh[]>;
     pickMeshes: THREE.Mesh[];
@@ -60,6 +68,8 @@ export class RobotScene {
   private readonly loader = new GLTFLoader();
   private readonly pointer = new THREE.Vector2();
   private readonly overlayMaterial: THREE.MeshBasicMaterial;
+  private readonly tooltip: HTMLDivElement;
+  private readonly keys = new Set<string>();
 
   private manifest: RobotManifest | null = null;
   private overviewReady = false;
@@ -67,17 +77,19 @@ export class RobotScene {
   private selectionVersion = 0;
   private cssWidth = 0;
   private cssHeight = 0;
-  private lastFit: { target: THREE.Vector3; radius: number; iso: boolean } | null = null;
+  private lastFit: { target: THREE.Vector3; radius: number | null; iso: boolean } | null = null;
   private groups = new Map<string, GroupEntry>();
-  private mode: 'overview' | 'exploded' = 'overview';
+  private mode: SceneMode = 'overview';
   private selected: string | null = null;
   private selectedEntries: IndexEntry[] = [];
   private callouts = new Map<string, {
     el: HTMLButtonElement;
     connector: HTMLDivElement;
     anchor: THREE.Vector3;
+    offset: THREE.Vector3;
   }>();
-  private highlightKey: string | null = null;
+  private readonly calloutCenter = new THREE.Vector3();
+  private readonly calloutCenterOffset = new THREE.Vector3();
 
   private hovered: string | null = null;
   private pointerInside = false;
@@ -104,6 +116,8 @@ export class RobotScene {
     canvas.style.display = 'block';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
+    canvas.tabIndex = 0;
+    canvas.setAttribute('aria-label', '3D robot model. Use WASD or arrow keys to move the view.');
 
     this.camera = new THREE.PerspectiveCamera(35, 1, 0.5, 25000);
     this.camera.up.set(0, 0, 1);
@@ -126,18 +140,27 @@ export class RobotScene {
     this.controls.addEventListener('end', () => { this.dragging = false; });
 
     this.overlayMaterial = new THREE.MeshBasicMaterial({
-      color: OVERLAY_BLUE,
+      color: HOVER_MINT,
       transparent: true,
-      opacity: 0.42,
+      opacity: 0.3,
       depthWrite: false,
       side: THREE.DoubleSide,
     });
+
+    this.tooltip = document.createElement('div');
+    this.tooltip.className = 'robot-tip';
+    this.tooltip.setAttribute('aria-hidden', 'true');
+    this.tooltip.hidden = true;
+    this.labelLayer.appendChild(this.tooltip);
 
     canvas.addEventListener('pointermove', this.handlePointerMove);
     canvas.addEventListener('pointerleave', this.handlePointerLeave);
     canvas.addEventListener('pointerdown', this.handlePointerDown);
     canvas.addEventListener('pointerup', this.handlePointerUp);
     canvas.addEventListener('webglcontextlost', this.handleContextLost);
+    canvas.addEventListener('keydown', this.handleKeyDown);
+    canvas.addEventListener('keyup', this.handleKeyUp);
+    canvas.addEventListener('blur', this.clearKeys);
     window.addEventListener('resize', this.handleResize);
 
     this.loop();
@@ -170,18 +193,7 @@ export class RobotScene {
       });
       root.add(gltf.scene);
 
-      // Translucent blue overlay clone — a real second pass, toggled on hover.
-      const overlay = gltf.scene.clone(true);
-      overlay.scale.multiplyScalar(1.004);
-      overlay.visible = false;
-      overlay.traverse(node => {
-        const mesh = node as THREE.Mesh;
-        if (mesh.isMesh) {
-          mesh.material = this.overlayMaterial;
-          mesh.renderOrder = 999;
-          mesh.userData.overlay = true;
-        }
-      });
+      const overlay = this.makeOverlay(gltf.scene);
       root.add(overlay);
       this.scene.add(root);
 
@@ -215,7 +227,21 @@ export class RobotScene {
     this.frameOverview();
     const pending = this.pendingSelection;
     this.pendingSelection = null;
-    if (pending) void this.explodeGroup(pending.group, pending.entries);
+    if (pending) void this.isolateGroup(pending.group, pending.entries);
+  }
+
+  private makeOverlay(source: THREE.Object3D): THREE.Object3D {
+    const overlay = source.clone(true);
+    overlay.scale.multiplyScalar(1.004);
+    overlay.visible = false;
+    overlay.traverse(node => {
+      const mesh = node as THREE.Mesh;
+      if (mesh.isMesh) {
+        mesh.material = this.overlayMaterial;
+        mesh.renderOrder = 999;
+      }
+    });
+    return overlay;
   }
 
   private tuneMaterial(mesh: THREE.Mesh): void {
@@ -238,7 +264,7 @@ export class RobotScene {
     this.autoOrbit = enabled;
   }
 
-  async explodeGroup(group: ManifestGroup, entries: IndexEntry[]): Promise<void> {
+  async isolateGroup(group: ManifestGroup, entries: IndexEntry[]): Promise<void> {
     if (this.disposed) return;
     if (!this.overviewReady) {
       this.pendingSelection = { group, entries };
@@ -249,21 +275,26 @@ export class RobotScene {
     const version = ++this.selectionVersion;
     this.highlightEntry(null);
     this.clearCallouts();
-    this.mode = 'exploded';
+    this.mode = 'isolated';
     this.selected = group.id;
     this.selectedEntries = entries;
     this.setHover(null);
+    this.showTooltip(null);
+    this.explodeT = 0;
 
     // Every previous view is hidden immediately, including a cached detail view.
     for (const g of this.groups.values()) {
       g.root.visible = false;
       g.overlay.visible = false;
-      if (g.detail) g.detail.root.visible = false;
+      if (g.detail) {
+        g.detail.root.visible = false;
+        g.detail.overlay.visible = false;
+      }
       g.label.style.display = 'none';
       g.connector.style.display = 'none';
     }
 
-    const isCurrent = () => !this.disposed && this.mode === 'exploded'
+    const isCurrent = () => !this.disposed && this.mode === 'isolated'
       && this.selected === group.id && this.selectionVersion === version;
     if (!entry.detail) {
       this.cb.onDetailState(group.id, 'loading');
@@ -284,11 +315,21 @@ export class RobotScene {
     if (!isCurrent() || !entry.detail) return;
 
     entry.detail.root.visible = true;
-    this.explodeT = this.reduced ? 1 : 0;
-    this.buildCallouts(group.id, entries);
-    this.frameExploded(group);
-    this.highlightEntry(this.highlightKey);
+    this.updateExplode(0);
+    this.frameGroup(group, false);
     this.cb.onDetailState(group.id, 'ready');
+  }
+
+  expandGroup(): boolean {
+    const entry = this.selected ? this.groups.get(this.selected) : undefined;
+    if (this.disposed || this.mode !== 'isolated' || !entry?.detail?.root.visible) return false;
+    this.mode = 'exploded';
+    entry.detail.overlay.visible = false;
+    this.showTooltip(null);
+    this.buildCallouts(entry.group, this.selectedEntries);
+    this.frameGroup(entry.group, true);
+    this.updateExplode(0);
+    return true;
   }
 
   private async buildDetail(group: ManifestGroup): Promise<NonNullable<GroupEntry['detail']>> {
@@ -306,7 +347,7 @@ export class RobotScene {
     const pickMeshes: THREE.Mesh[] = [];
     gltf.scene.traverse(node => {
       const part = byName.get(node.name);
-      if (part) parts.push({ node, base: node.position.clone(), explode: v(part.explode) });
+      if (part) parts.push({ node, base: node.position.clone(), explode: v(part.explode).multiplyScalar(EXPLODE_SCALE) });
       const mesh = node as THREE.Mesh;
       if (mesh.isMesh) {
         this.tuneMaterial(mesh);
@@ -321,35 +362,52 @@ export class RobotScene {
         pickMeshes.push(mesh);
       }
     });
-    root.add(gltf.scene);
+    const overlay = this.makeOverlay(gltf.scene);
+    root.add(gltf.scene, overlay);
     root.visible = false;
     this.scene.add(root);
-    return { root, parts, meshesByPart, pickMeshes };
+    return { root, overlay, parts, meshesByPart, pickMeshes };
   }
 
-  private buildCallouts(groupId: string, entries: IndexEntry[]): void {
+  private buildCallouts(group: ManifestGroup, entries: IndexEntry[]): void {
     this.clearCallouts();
+    this.calloutCenter.set(0, 0, 0);
+    this.calloutCenterOffset.set(0, 0, 0);
+    const byName = new Map(group.parts.map(part => [part.name, part]));
     for (const e of entries) {
+      const anchor = new THREE.Vector3();
+      for (const member of e.members) {
+        const part = byName.get(member);
+        if (part) anchor.add(v(part.center));
+      }
+      anchor.divideScalar(e.members.length);
+      const offset = v(e.anchor).sub(anchor).multiplyScalar(EXPLODE_SCALE);
+      this.calloutCenter.add(anchor);
+      this.calloutCenterOffset.add(offset);
       const el = document.createElement('button');
       el.type = 'button';
       el.className = 'robot-callout';
       el.textContent = String(e.number);
       el.setAttribute('aria-label', `Part ${e.number}: ${e.label}`);
       el.dataset.entryKey = e.key;
-      el.dataset.groupId = groupId;
+      el.dataset.groupId = group.id;
       el.addEventListener('click', () => {
-        if (this.selected === groupId) this.cb.onPickEntry(groupId, e.key);
+        if (this.selected === group.id) this.cb.onPickEntry(group.id, e.key);
       });
       el.style.zIndex = '1';
       const connector = document.createElement('div');
       connector.setAttribute('aria-hidden', 'true');
       Object.assign(connector.style, {
         position: 'absolute', left: '0', top: '0', height: '1px',
-        background: '#547363', opacity: '0.45', transformOrigin: '0 0',
+        background: '#20372c', opacity: '0.7', transformOrigin: '0 0',
         pointerEvents: 'none', zIndex: '0',
       });
       this.labelLayer.append(connector, el);
-      this.callouts.set(e.key, { el, connector, anchor: v(e.anchor) });
+      this.callouts.set(e.key, { el, connector, anchor, offset });
+    }
+    if (entries.length) {
+      this.calloutCenter.divideScalar(entries.length);
+      this.calloutCenterOffset.divideScalar(entries.length);
     }
   }
 
@@ -359,7 +417,6 @@ export class RobotScene {
   }
 
   highlightEntry(key: string | null): void {
-    this.highlightKey = key;
     const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
     if (!detail) return;
     const members = key
@@ -369,15 +426,15 @@ export class RobotScene {
       const on = members ? members.has(name) : false;
       for (const mesh of meshes) {
         const mat = mesh.material as THREE.MeshStandardMaterial;
-        mat.emissive.setHex(on ? OVERLAY_BLUE : 0x000000);
+        mat.emissive.setHex(on ? SELECTION_BLUE : 0x000000);
         mat.emissiveIntensity = on ? 0.55 : 1;
       }
     }
     for (const [k, c] of this.callouts) {
       c.el.classList.toggle('is-active', k === key);
       c.el.setAttribute('aria-pressed', String(k === key));
-      c.connector.style.background = k === key ? '#2f6df6' : '#547363';
-      c.connector.style.opacity = k === key ? '1' : '0.45';
+      c.connector.style.background = k === key ? '#2f6df6' : '#20372c';
+      c.connector.style.opacity = k === key ? '1' : '0.7';
       c.connector.style.height = k === key ? '2px' : '1px';
     }
   }
@@ -385,7 +442,7 @@ export class RobotScene {
   focusEntry(key: string): void {
     const entry = this.selectedEntries.find(e => e.key === key);
     const group = this.selected ? this.groups.get(this.selected)?.group : undefined;
-    if (!entry || !group) return;
+    if (this.mode !== 'exploded' || !entry || !group) return;
     this.highlightEntry(key);
     // Fit the actual members rather than guessing size from quantity: a single
     // case lid can be larger than hundreds of repeated electronic components.
@@ -393,7 +450,7 @@ export class RobotScene {
     const box = new THREE.Box3();
     for (const part of group.parts) {
       if (!members.has(part.name)) continue;
-      const center = v(part.center).add(v(part.explode));
+      const center = v(part.center).addScaledVector(v(part.explode), EXPLODE_SCALE);
       const half = v(part.bbox).multiplyScalar(0.5);
       box.expandByPoint(center.clone().sub(half));
       box.expandByPoint(center.clone().add(half));
@@ -407,27 +464,18 @@ export class RobotScene {
   reset(): void {
     this.selectionVersion += 1;
     this.pendingSelection = null;
+    this.highlightEntry(null);
+    this.showTooltip(null);
     this.mode = 'overview';
-    const previous = this.selected;
     this.selected = null;
     this.selectedEntries = [];
-    this.highlightKey = null;
     this.clearCallouts();
-    if (previous) {
-      const prev = this.groups.get(previous);
-      if (prev?.detail) {
-        prev.detail.root.visible = false;
-        for (const meshes of prev.detail.meshesByPart.values()) {
-          for (const mesh of meshes) {
-            const mat = mesh.material as THREE.MeshStandardMaterial;
-            mat.emissive.setHex(0x000000);
-            mat.emissiveIntensity = 1;
-          }
-        }
-      }
-    }
     for (const g of this.groups.values()) {
       g.root.visible = true;
+      if (g.detail) {
+        g.detail.root.visible = false;
+        g.detail.overlay.visible = false;
+      }
       g.label.style.display = '';
       g.connector.style.display = '';
     }
@@ -452,16 +500,14 @@ export class RobotScene {
     if (!this.manifest) return;
     const min = v(this.manifest.envelope.min);
     const max = v(this.manifest.envelope.max);
-    const size = max.clone().sub(min);
-    // A sphere encloses the entire envelope for every auto-orbit angle.
-    const radius = 0.5 * size.length();
-    this.fit(min.add(max).multiplyScalar(0.5), radius, false);
+    this.fit(min.add(max).multiplyScalar(0.5), null, false);
   }
 
-  private frameExploded(group: ManifestGroup): void {
+  private frameGroup(group: ManifestGroup, exploded: boolean): void {
     const box = new THREE.Box3();
     for (const part of group.parts) {
-      const centre = v(part.center).add(v(part.explode));
+      const centre = v(part.center);
+      if (exploded) centre.addScaledVector(v(part.explode), EXPLODE_SCALE);
       const half = v(part.bbox).multiplyScalar(0.5);
       box.expandByPoint(centre.clone().sub(half));
       box.expandByPoint(centre.clone().add(half));
@@ -472,17 +518,46 @@ export class RobotScene {
     this.fit(center, radius, true);
   }
 
-  private fit(target: THREE.Vector3, radius: number, iso: boolean): void {
+  private fit(target: THREE.Vector3, radius: number | null, iso: boolean): void {
     const dir = (iso ? new THREE.Vector3(1, -1.2, 0.8) : new THREE.Vector3(1.1, -1, 0.55)).normalize();
     this.lastFit = { target: target.clone(), radius, iso };
     const verticalHalfFov = THREE.MathUtils.degToRad(this.camera.fov / 2);
     const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * this.camera.aspect);
     const limitingHalfFov = Math.min(verticalHalfFov, horizontalHalfFov);
-    const dist = Math.max(45, radius / Math.sin(limitingHalfFov) * 1.12);
+    const distance = radius === null
+      ? this.overviewFitDistance(target, dir, Math.tan(verticalHalfFov))
+      : radius / Math.sin(limitingHalfFov) * 1.12;
+    const dist = Math.max(45, distance);
     this.camera.position.copy(target).addScaledVector(dir, dist);
     this.controls.target.copy(target);
     this.camera.updateProjectionMatrix();
     this.controls.update();
+  }
+
+  private overviewFitDistance(target: THREE.Vector3, direction: THREE.Vector3, verticalSlope: number): number {
+    const sinElevation = direction.z;
+    const cosElevation = Math.hypot(direction.x, direction.y);
+    const inverseVertical = 1 / (0.9 * verticalSlope);
+    const inverseHorizontal = inverseVertical / this.camera.aspect;
+    let distance = 0;
+    for (const group of this.manifest?.groups ?? []) {
+      for (const part of group.parts) {
+        const [x, y, z] = part.center;
+        const [width, depth, height] = part.bbox;
+        const radial = Math.hypot(Math.abs(x - target.x) + width / 2, Math.abs(y - target.y) + depth / 2);
+        for (const edge of [z - target.z - height / 2, z - target.z + height / 2]) {
+          // Each part's horizontal radius bounds its projection at every
+          // azimuth. Check the side, top, and bottom planes of the frustum.
+          distance = Math.max(
+            distance,
+            edge * sinElevation + radial * Math.hypot(cosElevation, inverseHorizontal),
+            edge * (sinElevation + cosElevation * inverseVertical) + radial * Math.abs(cosElevation - sinElevation * inverseVertical),
+            edge * (sinElevation - cosElevation * inverseVertical) + radial * Math.abs(cosElevation + sinElevation * inverseVertical),
+          );
+        }
+      }
+    }
+    return distance;
   }
 
   private readonly handleResize = (): void => {
@@ -515,17 +590,20 @@ export class RobotScene {
 
   private readonly handlePointerLeave = (): void => {
     this.pointerInside = false;
+    this.showTooltip(null);
     if (this.mode === 'overview') this.setHover(null);
   };
 
   private readonly handlePointerDown = (event: PointerEvent): void => {
+    if (event.button !== 0) return;
+    this.renderer.domElement.focus({ preventScroll: true });
     this.pressInfo = { x: event.clientX, y: event.clientY, time: performance.now() };
   };
 
   private readonly handlePointerUp = (event: PointerEvent): void => {
     const press = this.pressInfo;
     this.pressInfo = null;
-    if (!press) return;
+    if (!press || event.button !== 0) return;
     const moved = Math.hypot(event.clientX - press.x, event.clientY - press.y);
     if (moved > 6 || performance.now() - press.time > 500) return; // a drag, not a click
     const rect = this.renderer.domElement.getBoundingClientRect();
@@ -541,14 +619,48 @@ export class RobotScene {
       if (id) this.cb.onPickGroup(id);
       return;
     }
-    const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
-    if (!detail) return;
+    const groupId = this.selected;
+    const detail = groupId ? this.groups.get(groupId)?.detail : undefined;
+    if (!groupId || !detail?.root.visible) return;
     const hit = this.raycaster.intersectObjects(detail.pickMeshes, false)[0];
+    if (this.mode === 'isolated') {
+      if (hit) this.cb.onExpand();
+      return;
+    }
     const name = hit?.object.userData.partName as string | undefined;
     if (!name) return;
     const key = this.selectedEntries.find(e => e.members.includes(name))?.key;
-    if (key) this.cb.onPickEntry(this.selected!, key);
+    if (key) this.cb.onPickEntry(groupId, key);
   };
+
+  private readonly handleKeyDown = (event: KeyboardEvent): void => {
+    const key = event.key.toLowerCase();
+    if (event.altKey || event.ctrlKey || event.metaKey || !CAMERA_KEYS.includes(key)) return;
+    event.preventDefault();
+    this.keys.add(key);
+  };
+
+  private readonly handleKeyUp = (event: KeyboardEvent): void => {
+    this.keys.delete(event.key.toLowerCase());
+  };
+
+  private readonly clearKeys = (): void => { this.keys.clear(); };
+
+  private applyKeys(dt: number): void {
+    if (!this.keys.size) return;
+    const target = this.controls.target;
+    const pan = this.camera.position.distanceTo(target) * 0.9 * dt;
+    const right = new THREE.Vector3().setFromMatrixColumn(this.camera.matrix, 0);
+    const up = new THREE.Vector3().setFromMatrixColumn(this.camera.matrix, 1);
+    const move = new THREE.Vector3();
+    if (this.keys.has('a') || this.keys.has('arrowleft')) move.addScaledVector(right, -pan);
+    if (this.keys.has('d') || this.keys.has('arrowright')) move.addScaledVector(right, pan);
+    if (this.keys.has('w') || this.keys.has('arrowup')) move.addScaledVector(up, pan);
+    if (this.keys.has('s') || this.keys.has('arrowdown')) move.addScaledVector(up, -pan);
+    this.camera.position.add(move);
+    target.add(move);
+    this.lastFit?.target.add(move);
+  }
 
   private readonly handleContextLost = (event: Event): void => {
     event.preventDefault();
@@ -558,20 +670,44 @@ export class RobotScene {
   };
 
   private updateHover(): void {
-    if (this.mode !== 'overview' || !this.pointerInside || this.dragging) {
-      if (this.dragging && this.mode === 'overview') this.setHover(null);
+    const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
+    if (!this.pointerInside || this.dragging) {
+      if (this.dragging) this.setHover(null);
+      if (detail) detail.overlay.visible = false;
+      if (this.mode !== 'overview') this.host.style.cursor = 'default';
+      this.showTooltip(null);
       return;
     }
     this.raycaster.setFromCamera(this.pointer, this.camera);
-    const meshes: THREE.Mesh[] = [];
-    for (const g of this.groups.values()) if (g.root.visible) meshes.push(...g.pickMeshes);
-    const hit = this.raycaster.intersectObjects(meshes, false)[0];
-    this.setHover((hit?.object.userData.groupId as string | undefined) ?? null);
+    if (this.mode === 'overview') {
+      const meshes = [...this.groups.values()].flatMap(g => g.root.visible ? g.pickMeshes : []);
+      const hit = this.raycaster.intersectObjects(meshes, false)[0];
+      const groupId = (hit?.object.userData.groupId as string | undefined) ?? null;
+      this.setHover(groupId);
+      this.showTooltip(groupId ? 'Click to isolate' : null);
+    } else {
+      const hit = detail?.root.visible ? this.raycaster.intersectObjects(detail.pickMeshes, false)[0] : undefined;
+      const canExpand = this.mode === 'isolated' && !!hit;
+      if (detail) detail.overlay.visible = canExpand;
+      this.host.style.cursor = hit ? 'pointer' : 'default';
+      this.showTooltip(canExpand ? 'Click to expand' : null);
+    }
+  }
+
+  private showTooltip(message: string | null): void {
+    this.tooltip.hidden = !message;
+    if (!message) return;
+    if (this.tooltip.textContent !== message) this.tooltip.textContent = message;
+    const x = (this.pointer.x + 1) * this.cssWidth / 2 + 16;
+    const y = (1 - this.pointer.y) * this.cssHeight / 2 + 16;
+    const left = Math.max(4, Math.min(x, this.cssWidth - this.tooltip.offsetWidth - 4));
+    const top = Math.max(4, Math.min(y, this.cssHeight - this.tooltip.offsetHeight - 4));
+    this.tooltip.style.transform = `translate(${left}px,${top}px)`;
   }
 
   private updateExplode(dt: number): void {
     const target = this.mode === 'exploded' ? 1 : 0;
-    const k = this.reduced ? 1 : Math.min(1, dt * 7);
+    const k = this.reduced ? 1 : Math.min(1, dt * EXPAND_RATE);
     if (Math.abs(this.explodeT - target) < 0.002) this.explodeT = target;
     else this.explodeT = THREE.MathUtils.lerp(this.explodeT, target, k);
     const detail = this.selected ? this.groups.get(this.selected)?.detail : undefined;
@@ -624,10 +760,11 @@ export class RobotScene {
         g.connector.style.transform = `translate(${point.x}px,${point.y}px) rotate(${Math.atan2(dy, dx)}rad)`;
         g.connector.style.visibility = point.visible ? 'visible' : 'hidden';
       }
-    } else {
+    } else if (this.mode === 'exploded') {
       // Dense electronics can share the same projected anchor. Assign each
-      // visible number its nearest free grid position in stable index order,
-      // keeping all 22px buttons disjoint and leaving the bottom hint clear.
+      // number an outward position in stable index order. The grid keeps
+      // buttons disjoint and leaves the bottom hint clear.
+      const center = project(this.calloutCenter.clone().addScaledVector(this.calloutCenterOffset, this.explodeT));
       const slots: { x: number; y: number; occupied: boolean }[] = [];
       const spacing = 28;
       const inset = 19;
@@ -639,8 +776,13 @@ export class RobotScene {
           slots.push({ x: left + column * spacing, y: inset + row * spacing, occupied: false });
         }
       }
-      for (const { el, connector, anchor } of this.callouts.values()) {
-        const point = project(anchor);
+      for (const { el, connector, anchor, offset } of this.callouts.values()) {
+        const point = project(anchor.clone().addScaledVector(offset, this.explodeT));
+        const outwardX = point.x - center.x;
+        const outwardY = point.y - center.y;
+        const spread = 54 / (Math.hypot(outwardX, outwardY) || 1);
+        const preferredX = point.x + outwardX * spread;
+        const preferredY = point.y + outwardY * spread;
         const onScreen = point.visible && point.x >= 0 && point.x <= w
           && point.y >= 0 && point.y <= h;
         let nearest: typeof slots[number] | undefined;
@@ -648,7 +790,7 @@ export class RobotScene {
         if (onScreen) {
           for (const slot of slots) {
             if (slot.occupied) continue;
-            const squared = (slot.x - point.x) ** 2 + (slot.y - point.y) ** 2;
+            const squared = (slot.x - preferredX) ** 2 + (slot.y - preferredY) ** 2;
             if (squared < distance) { distance = squared; nearest = slot; }
           }
         }
@@ -659,7 +801,7 @@ export class RobotScene {
         el.style.transform = `translate(-50%,-50%) translate(${nearest.x}px,${nearest.y}px)`;
         const dx = nearest.x - point.x;
         const dy = nearest.y - point.y;
-        connector.style.width = `${Math.max(0, Math.hypot(dx, dy) - 11)}px`;
+        connector.style.width = `${Math.max(0, Math.hypot(dx, dy) - 12)}px`;
         connector.style.transform = `translate(${point.x}px,${point.y}px) rotate(${Math.atan2(dy, dx)}rad)`;
       }
     }
@@ -675,14 +817,15 @@ export class RobotScene {
 
     this.handleResize();
     const spin = this.autoOrbit && this.mode === 'overview'
-      && !this.dragging && !this.pointerInside && !this.hovered;
+      && !this.dragging && !this.pointerInside && !this.hovered && !this.keys.size;
     this.controls.autoRotate = spin;
 
-    this.updateHover();
+    this.applyKeys(dt);
     this.updateExplode(dt);
     this.controls.update();
-    this.updateLabels();
     this.renderer.render(this.scene, this.camera);
+    this.updateHover();
+    this.updateLabels();
   };
 
   dispose(): void {
@@ -692,6 +835,7 @@ export class RobotScene {
     cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.handleResize);
     this.clearCallouts();
+    this.tooltip.remove();
     for (const g of this.groups.values()) { g.label.remove(); g.connector.remove(); }
     this.disposeObject(this.scene);
     this.overlayMaterial.dispose();

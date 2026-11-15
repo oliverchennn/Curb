@@ -137,19 +137,35 @@
 }
 .orbitToggle:hover { background: #e7eee8; }
 .orbitToggle[aria-pressed='true'] { background: #244b37; color: #fff; border-color: #244b37; }
+.expandButton { background: #244b37; color: #fff; border-color: #244b37; }
+.expandButton:hover:not(:disabled) { background: #315b46; }
 .orbitToggle:disabled { opacity: 0.5; cursor: default; }
 
 .stage { position: relative; flex: 1; min-height: 0; background: linear-gradient(#eef2eb, #dce4d8); overflow: hidden; }
 .canvasHost { position: absolute; inset: 0; }
+.canvasHost canvas:focus-visible { outline: 2px solid #2f6df6; outline-offset: -2px; }
 .labelLayer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .labelLayer :global(.robot-callout) {
   box-sizing: border-box;
-  width: 22px;
+  width: 24px;
   height: 22px;
+  border-radius: 5px;
   min-width: 0;
   min-height: 0;
   padding: 0;
   line-height: 1;
+}
+.labelLayer :global(.robot-tip) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  max-width: calc(100% - 8px);
+  padding: 5px 9px;
+  border-radius: 5px;
+  color: #fff;
+  background: #20372ce8;
+  font-size: 12px;
 }
 
 .loading, .detailLoading, .detailError {
