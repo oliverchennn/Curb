@@ -141,9 +141,8 @@
 .segmented button[aria-pressed='true'] { background: var(--forest); color: #fff; box-shadow: var(--shadow-1); }
 
 .videoPanel { background: var(--paper); }
-/* Capped so the replay and site context fit one presentation screen. */
-.videoFrame { position: relative; width: 100%; max-height: 62vh; margin-inline: auto; overflow: hidden; border-radius: 14px; background: #0d1210; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), 0 10px 26px -14px rgba(0, 0, 0, .6); }
-@supports (aspect-ratio: 1) { .videoFrame { width: auto; max-width: 100%; height: min(48vh, 560px); } }
+/* Fill the card width; the media's inline aspect ratio sets the portrait height. */
+.videoFrame { position: relative; width: 100%; max-width: 100%; height: auto; margin-inline: auto; overflow: hidden; border-radius: 14px; background: #0d1210; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), 0 10px 26px -14px rgba(0, 0, 0, .6); }
 .video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #0d1210; }
 .overlay { position: absolute; inset: 0; pointer-events: none; }
 .box, .boxSelected { position: absolute; border: 2px solid; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .6); }
@@ -322,19 +321,12 @@
   .workspace { font-size: 19px; }
   .small { font-size: 16px; }
 }
-/* Tall desktop screens get a larger evidence video; the measured stage still fits one screen.
- * 1366x768 keeps the compact height, and narrow layouts use their own rules below. */
-@media (min-width: 1200px) and (min-height: 1000px) {
-  @supports (aspect-ratio: 1) { .videoFrame { height: min(52vh, 720px); } }
-}
 /* Desktop desk: the workspace uses the window width (beyond the 1200px page column) and keeps
- * the portrait replay in a sticky column sized to fit one screen beside the tabbed pane. */
+ * the full-width portrait replay beside the tabbed pane. Both columns scroll naturally
+ * so the taller video's transport controls and evidence shortcuts remain reachable. */
 @media (min-width: 1100px) {
   .workspace {
     --desk-width: min(1640px, calc(100vw - 64px));
-    /* Give the evidence more of the desktop and enlarge the actual portrait picture,
-     * while preserving room for transport controls and the finding shortcuts. */
-    --frame-h: clamp(320px, calc(100vh - 268px), 800px);
     width: var(--desk-width);
     margin-inline: calc((100% - var(--desk-width)) / 2);
   }
@@ -342,7 +334,6 @@
   .header h1 { font-size: clamp(30px, 2.6vw, 40px); }
   .lede { font-size: 18px; }
   .desk { grid-template-columns: minmax(420px, .95fr) minmax(0, 1.05fr); }
-  .evidenceColumn { position: sticky; top: 8px; }
   .evidenceColumn .videoPanel { padding: 14px 16px; }
   .evidenceColumn .panelHeading { margin-bottom: 10px; gap: 8px; }
   .evidenceColumn .videoPanel h2 { font-size: 22px; }
@@ -351,14 +342,11 @@
   .evidenceColumn .pendingChecks { margin-block: 2px 0; }
   .evidenceColumn .jumpBar { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; }
   .evidenceColumn .jumpBar ul { grid-template-columns: repeat(5, minmax(44px, 1fr)); }
-  .evidenceColumn .videoFrame { max-height: none; }
-  @supports (aspect-ratio: 1) { .evidenceColumn .videoFrame { height: var(--frame-h); } }
 }
 @media (max-width: 960px) {
   .stage, .reviewLayout { grid-template-columns: minmax(0, 1fr); }
   .tabList { top: 0; }
   .findingList { position: static; }
-  .videoFrame { height: min(70vh, 700px); }
 }
 @media (max-width: 480px) {
   /* Leave room for the sticky survey tabs when the browser scrolls keyboard focus into view. */
@@ -378,7 +366,6 @@
   .budgetLabel { flex: 1 1 100%; }
   .moneyInput input { width: 100%; }
   .planCost { font-size: 26px; }
-  .videoFrame { height: min(62vh, 600px); }
   .workspace .tabList button { flex-direction: column; gap: 2px; min-height: 56px; padding: 6px 4px; font-size: 14px; text-align: center; }
   .tabNumber { width: 24px; height: 24px; font-size: 13px; }
   .jumpBar { padding: 10px 12px; }
