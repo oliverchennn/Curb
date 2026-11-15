@@ -192,11 +192,19 @@ export default function MapCanvas({ atlas, collection, records, selected, onSele
         </g>;
       })}</g>
       {selectedFeature && (() => { const b = selected && badges.get(selected.id); if (!b) return null;
-        // Flip toward whichever side has room for the label's estimated width (13px bold, ~7.4px per character).
-        const width = selectedFeature.label.length * 7.4 * unit, right = plotBounds.right - b.x - 12 * unit, left = b.x - plotBounds.left - 12 * unit;
-        const flip = right < width && left > right;
-        return <text className={styles.selectedLabel} x={flip ? b.x - 12 * unit : b.x + 12 * unit} y={b.y + 4.5 * unit} textAnchor={flip ? 'end' : 'start'} fontSize={13 * unit} fontWeight={700}
-          fill={ink} stroke={halo} strokeWidth={4 * unit} paintOrder="stroke" aria-hidden="true">{selectedFeature.label}</text>; })()}
+        // Bound the display label to the actual plot. CSS measures the text and adds an ellipsis when needed;
+        // the marker name and evidence panel keep the full title, and the badge and geometry stay in place.
+        const gap = 12 * unit, inset = 3 * unit, height = 20 * unit;
+        const right = plotBounds.right - inset - b.x - gap, left = b.x - gap - plotBounds.left - inset;
+        const flip = right < selectedFeature.label.length * 7.4 * unit && left > right;
+        const x1 = Math.max(plotBounds.left + inset, flip ? plotBounds.left + inset : b.x + gap);
+        const x2 = Math.min(plotBounds.right - inset, flip ? b.x - gap : plotBounds.right - inset);
+        const y = Math.max(plotBounds.top, Math.min(b.y - height / 2, plotBounds.bottom - height));
+        if (x2 <= x1 || height > plotBounds.bottom - plotBounds.top) return null;
+        return <foreignObject className={styles.selectedLabel} x={x1} y={y} width={x2 - x1} height={height} aria-hidden="true" data-selected-label>
+          <div style={{ color: ink, WebkitTextStroke: (3 * unit) + 'px ' + halo, fontSize: 13 * unit,
+            lineHeight: height + 'px', textAlign: flip ? 'right' : 'left', paddingInline: 2 * unit }}>{selectedFeature.label}</div>
+        </foreignObject>; })()}
     </svg>
     <div className={styles.mapCredit}>
       {showAerial && <span>Aerial {imagery.captureYear} · NJ Office of GIS</span>}

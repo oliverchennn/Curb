@@ -7,6 +7,12 @@ export type ExplorerLocation = {
   collectionId: string; recordId: string; filter: Filter; query: string; panel: ExplorerPanel; overview?: true;
 };
 
+/** The catalog’s adjacent record and feature IDs disambiguate a complete OSM way ID from longer IDs. */
+export function searchable(query: string): string {
+  const id = /^way\/(\d+)$/i.exec(query.trim())?.[1];
+  return id ? 'record:campus-osm-way:' + id + ' campus-osm-way:' + id : query.replace(/\bway\//gi, 'way:');
+}
+
 export function readExplorerLocation(atlas: Atlas, search: string): ExplorerLocation {
   const params = new URLSearchParams(search);
   const type = params.get('type');
@@ -19,7 +25,7 @@ export function readExplorerLocation(atlas: Atlas, search: string): ExplorerLoca
   const fallback = overview ? atlas.collections.find(c => c.id === campusSectionIds[0]) ?? first : first;
   const requested = atlas.collections.find(c => c.id === asked) ?? fallback;
   const recordId = requested.recordIds.includes(params.get('record') ?? '') ? params.get('record')! : requested.recordIds[0];
-  const selected = selectionFor(atlas, filter, query, requested.id, recordId);
+  const selected = selectionFor(atlas, filter, searchable(query), requested.id, recordId);
   const panel = params.get('panel');
   return {
     collectionId: selected.collection?.id ?? requested.id,

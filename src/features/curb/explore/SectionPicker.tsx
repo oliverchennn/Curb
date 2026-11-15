@@ -4,9 +4,9 @@ import type { CampusSection } from './campus';
 import styles from './Explorer.module.css';
 
 /** Native section selector with previous/next and a way back to the overview. Any number of sections, one control. */
-export default function SectionPicker({ sections, collections, current, onPick, onOverview }: {
+export default function SectionPicker({ sections, collections, current, onPick, onOverview, clearsSearch }: {
   sections: CampusSection[]; collections: Collection[]; current: string | null;
-  onPick: (collectionId: string) => void; onOverview: () => void;
+  onPick: (collectionId: string) => void; onOverview: () => void; clearsSearch: boolean;
 }) {
   const shown = new Set(collections.map(c => c.id));
   const list = sections.filter(s => shown.has(s.collectionId));
@@ -22,7 +22,7 @@ export default function SectionPicker({ sections, collections, current, onPick, 
     </label>
     <button type="button" aria-label="Previous section" onClick={() => step(-1)} disabled={!list.length}>‹</button>
     <button type="button" aria-label="Next section" onClick={() => step(i < 0 ? 0 : 1)} disabled={!list.length}>›</button>
-    {i >= 0 && <button type="button" className={styles.overviewButton} onClick={onOverview}>Back to campus overview</button>}
+    {i >= 0 && <button type="button" className={styles.overviewButton} onClick={onOverview}>Back to campus overview{clearsSearch ? ' · clear search' : ''}</button>}
     <span className={styles.pickerCount}>{list.length} of {sections.length} sections</span>
   </div>;
 }

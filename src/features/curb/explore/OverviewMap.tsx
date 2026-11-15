@@ -45,8 +45,8 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
     const f = Math.max(80 / w, Math.min((fit[2] * 1.6) / w, factor)); return [x + w * (1 - f) / 2, y + h * (1 - f) / 2, w * f, h * f];
   });
   const local = (x: number, y: number) => { const p = svg.current!.createSVGPoint(); p.x = x; p.y = y; return p.matrixTransform(svg.current!.getScreenCTM()!.inverse()); };
-  const move = (from: string, delta: number) => {
-    const i = targets.findIndex(s => s.collectionId === from), next = targets[(i + delta + targets.length) % targets.length];
+  const move = (from: string, delta: number | 'first' | 'last') => {
+    const i = targets.findIndex(s => s.collectionId === from), next = targets[delta === 'first' ? 0 : delta === 'last' ? targets.length - 1 : (i + delta + targets.length) % targets.length];
     if (next) { setFocusId(next.collectionId); refs.current.get(next.collectionId)?.focus(); }
   };
   const ink = showAerial ? '#ffffff' : '#213a2c', halo = showAerial ? '#13201a' : '#fffef8';
@@ -71,7 +71,7 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
     {targets.length - labelSpots.size > 0 && <p className={styles.mapHint}>{targets.length - labelSpots.size} section codes hidden where they would overlap. Zoom in, or use the Campus section list.</p>}
     {!aerialFailed && showAerial && tileFailures > 0 && <p className={styles.mapNotice} role="status">{tileFailures} detail {tileFailures === 1 ? 'tile' : 'tiles'} unavailable — the overview image is shown there.</p>}
     <svg ref={svg} className={styles.mapSvg} viewBox={view.join(' ')} tabIndex={0} role="group"
-      aria-label={`Princeton campus overview on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}: ${targets.length} sections of OpenStreetMap ways. Arrow keys pan, plus and minus zoom, Home fits the campus. Tab once to reach the sections; arrow keys move between them, Enter opens one, Escape returns here.`}
+      aria-label={`Princeton campus overview on ${showAerial ? 'a 2020 aerial image' : 'a diagram'}: ${targets.length} sections of OpenStreetMap ways. Arrow keys pan, plus and minus zoom, Home fits the campus. Tab once to reach the sections; arrow keys move between them, Home and End jump to the first and last, Enter opens one, Escape returns here.`}
       onKeyDown={e => {
         if (e.target !== e.currentTarget) return;
         if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', '+', '=', '-', 'Home'].includes(e.key)) {
@@ -91,6 +91,7 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
         stroke={shown.has(s.collectionId) ? SECTION_COLORS[s.areaId] : '#8b9483'} strokeOpacity={shown.has(s.collectionId) ? 1 : .35}
         strokeWidth={2.2} vectorEffect="non-scaling-stroke" className={styles.overviewWays} data-base={showAerial ? 'aerial' : 'diagram'} />)}</g>
       {targets.map(s => { const e = sectionExtent(s), color = SECTION_COLORS[s.areaId];
+        const hitW = Math.max(e.width, 44 * unit), hitH = Math.max(e.height, 44 * unit);
         return <g key={s.collectionId} ref={el => { if (el) refs.current.set(s.collectionId, el); else refs.current.delete(s.collectionId); }}
           role="button" tabIndex={s.collectionId === rovingId ? 0 : -1} data-section={s.collectionId} className={styles.sectionTarget}
           aria-label={`${s.code}: ${s.areaLabel}, section ${s.section} of ${s.sectionsInArea}, ${s.wayCount} ways`}
@@ -99,8 +100,10 @@ export default function OverviewMap({ atlas, sections, collections, onPick }: {
             if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); onPick(s.collectionId); }
             else if (['ArrowRight', 'ArrowDown'].includes(ev.key)) { ev.preventDefault(); move(s.collectionId, 1); }
             else if (['ArrowLeft', 'ArrowUp'].includes(ev.key)) { ev.preventDefault(); move(s.collectionId, -1); }
+            else if (ev.key === 'Home' || ev.key === 'End') { ev.preventDefault(); move(s.collectionId, ev.key === 'Home' ? 'first' : 'last'); }
             else if (ev.key === 'Escape') { ev.preventDefault(); svg.current?.focus(); }
           }}>
+          <rect data-hit-area x={e.x + (e.width - hitW) / 2} y={e.y + (e.height - hitH) / 2} width={hitW} height={hitH} fill="transparent" />
           <rect x={e.x} y={e.y} width={e.width} height={e.height} fill={color} fillOpacity={.1} stroke="#ffffff" strokeOpacity={.8} strokeWidth={4} vectorEffect="non-scaling-stroke" />
           <rect x={e.x} y={e.y} width={e.width} height={e.height} fill="none" stroke={color} strokeWidth={2} strokeDasharray="7 4" vectorEffect="non-scaling-stroke" />
           {(() => { const l = labelSpots.get(s.collectionId); return l && <text x={l.x} y={l.y + 5 * unit} textAnchor="middle" fontSize={14 * unit} fontWeight={800}

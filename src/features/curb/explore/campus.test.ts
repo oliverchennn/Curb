@@ -3,9 +3,9 @@ import { createAtlas } from './data';
 import { campusAerial, overviewResolution, tileExtent, visibleTiles } from './aerial';
 import { campusExtent, campusPaths, sectionMembership } from './campus';
 import { GROUPS, campusSectionIds, collectionsIn, groupOf, sourceClass } from './groups';
-import { explorerLocationUrl, readExplorerLocation } from './location';
+import { explorerLocationUrl, readExplorerLocation, searchable } from './location';
 import { placeBadges } from './labels';
-import { locatedFeatures, project, recordsFor, traversalText } from './model';
+import { locatedFeatures, project, recordsFor, selectionFor, traversalText } from './model';
 
 const atlas = createAtlas();
 
@@ -53,6 +53,12 @@ describe('groups', () => {
 });
 
 describe('campus overview location', () => {
+  it('restores exact source-ID search and does not guess a longer way ID for a prefix', () => {
+    const result = readExplorerLocation(atlas, '?group=campus&q=way%2F284117254');
+    expect(result.recordId).toBe('record:campus-osm-way:284117254');
+    expect(result.collectionId).toBe('campus-east-b');
+    expect(selectionFor(atlas, 'all', searchable('way/28411725'), result.collectionId, result.recordId).records).toEqual([]);
+  });
   it('round-trips ?group=campus and keeps old collection links working', () => {
     const o = readExplorerLocation(atlas, '?group=campus');
     expect(o.overview).toBe(true);

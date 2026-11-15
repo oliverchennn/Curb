@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { coverage, dateText, kindLabels, recordsFor, selectionFor, stopNumbers, traversalText, type Atlas, type Collection, type Filter } from './model';
-import { explorerLocationUrl, readExplorerLocation, type ExplorerPanel } from './location';
+import { explorerLocationUrl, readExplorerLocation, searchable, type ExplorerPanel } from './location';
 import GroupChips, { CollectionChips } from './CollectionCards';
 import EvidenceStage from './EvidenceStage';
 import OverviewMap from './OverviewMap';
@@ -13,9 +13,6 @@ import { campusSections, collectionsIn, groupOf, isCampus, sourceClass, type Gro
 import { OsmCredit } from './OsmCredit';
 import styles from './Explorer.module.css';
 
-/** `way/123` (the OSM form) matches the atlas feature key `campus-osm-way:123`. */
-const searchable = (q: string) => q.replace(/\bway\//gi, 'way:');
-
 export default function Explorer({ atlas }: { atlas: Atlas }) {
   const [filter, setFilter] = useState<Filter>('all'), [query, setQuery] = useState('');
   const [collectionId, setCollectionId] = useState(atlas.collections[0].id), [recordId, setRecordId] = useState(atlas.collections[0].recordIds[0]);
@@ -25,8 +22,8 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
   const selected = useMemo(() => selectionFor(atlas, filter, searchable(query), collectionId, recordId), [atlas, filter, query, collectionId, recordId]);
   const { collection, record, records, collections } = selected;
   const filtered = Boolean(query) || filter !== 'all';
-  // The overview is the campus default; an active search or type filter shows its matching section instead.
-  const showOverview = overview && !filtered && collections.some(c => isCampus(c.id));
+  // Archive is the type of every campus way, so it can stay selected at overview scale.
+  const showOverview = overview && !query.trim() && collections.some(c => isCampus(c.id));
   useEffect(() => {
     const restore = () => {
       if (window.location.pathname !== '/curb/explore') return;
@@ -66,8 +63,9 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
   const chooseCollection = (c: Collection) => { setCollectionId(c.id); setRecordId(c.recordIds[0]); setOverview(false); };
   const pickSection = (id: string) => { const c = atlas.collections.find(x => x.id === id); if (c) chooseCollection(c); };
   const chooseGroup = (g: GroupId) => {
-    if (g === 'campus') { setOverview(true); setPanel('map'); return; }
     const options = collectionsIn(g, collections);
+    if (g === 'campus' && !query.trim()) { setOverview(true); setPanel('map'); return; }
+    if (g === 'campus') setPanel('map');
     const keep = collection && groupOf(collection.id) === g && !showOverview ? collection : options[0];
     if (keep) chooseCollection(keep);
   };
@@ -106,7 +104,7 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
     </div>
     {group === 'downtown' && <CollectionChips atlas={atlas} collections={collectionsIn('downtown', collections)} selectedId={collection?.id ?? null} onSelect={chooseCollection} />}
     {group === 'campus' && <SectionPicker sections={campusSections} collections={collections} current={showOverview ? null : collection?.id ?? null}
-      onPick={pickSection} onOverview={() => { setOverview(true); setPanel('map'); }} />}
+      onPick={pickSection} clearsSearch={Boolean(query.trim())} onOverview={() => { setQuery(''); setOverview(true); setPanel('map'); }} />}
     <div className={styles.workspace} data-details={detailsOpen ? 'open' : 'closed'}>
       <section id="explorer-map" className={styles.mapPanel} aria-label="Evidence stage">
         {/* Wait for the URL so a campus link never first requests the downtown image. */}
@@ -167,4 +165,3 @@ export default function Explorer({ atlas }: { atlas: Atlas }) {
       : collection ? `${collection.name}, ${records.length} matching records. ${record ? `Record ${stops.get(record.id)}: ${record.title}` : ''}. Current traversal unknown. ${counts?.unplacedRecords ?? 0} records not on the map in this collection.` : 'No matching evidence. Show the complete atlas to restore all collections.'}</p>
   </div>;
 }
-
