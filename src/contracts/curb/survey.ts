@@ -11,6 +11,76 @@ export const ReviewSchema = z.strictObject({
   method: z.enum(['ai', 'manual']),
   note: Text,
 });
+/** Measured properties and their dimension. Lengths compute in inches, slopes in percent. */
+export const MEASURE_DIMENSIONS = {
+  opening: 'length', level: 'length', clearWidth: 'length', crossSlope: 'slope', runningSlope: 'slope',
+} as const;
+export type MeasureDimension = 'length' | 'slope';
+export const CANONICAL_UNITS: Record<MeasureDimension, string> = { length: 'in', slope: '%' };
+/** Supported units: how many of the unit make one canonical unit. Anything else is rejected. */
+export const UNIT_DIVISORS: Record<MeasureDimension, Record<string, number>> = {
+  length: { in: 1, ft: 1 / 12, mm: 25.4, cm: 2.54, m: 0.0254 },
+  slope: { '%': 1 },
+};
+export const ASSUMED_METHOD = 'Assumed planning estimate';
+export const REVIEWER_METHOD = 'Reviewer field measurement';
+
+/** Value in a supported unit → finite inches or percent (rounded to 1e-9), or null. */
+export function toCanonical(dimension: MeasureDimension, value: number, unit: string): number | null {
+  if (!Object.hasOwn(UNIT_DIVISORS, dimension) || !Number.isFinite(value) || value < 0) return null;
+  const units = UNIT_DIVISORS[dimension];
+  if (!Object.hasOwn(units, unit)) return null;
+  const divisor = units[unit];
+  if (!Number.isFinite(divisor) || divisor <= 0) return null;
+  const converted = value / divisor;
+  const scaled = converted * 1e9;
+  if (!Number.isFinite(converted) || !Number.isFinite(scaled)) return null;
+  const result = Math.round(scaled) / 1e9;
+  return Number.isFinite(result) ? result : null;
+}
+
+export const AccessNeedSchema = z.enum(['mobility_device', 'low_vision_cane', 'walker', 'stroller']);
+export const WorkflowStatusSchema = z.enum(['submitted', 'reviewed', 'planned', 'completed', 'reverified']);
+export const WORKFLOW_ORDER = WorkflowStatusSchema.options;
+export const WorkflowStepSchema = z.strictObject({
+  status: WorkflowStatusSchema,
+  action: z.enum(['advance', 'reopen']),
+  by: Text,
+  at: z.iso.datetime({ offset: true }),
+  note: Text,
+  /** Required for re-verified: the fresh measurement, photo or video reference showing the fix. */
+  evidence: Text.nullable(),
+});
+/** Repair-handoff fields. Optional so curb-survey-v1 data without them stays valid;
+ * readers fall back to defaults (see src/domain/curb/repair.ts). */
+export const RepairSchema = z.strictObject({
+  obstacle: Text,
+  location: Text,
+  locationConfidence: z.enum(['confirmed', 'approximate', 'unknown']),
+  accessNeeds: z.array(AccessNeedSchema).max(4).refine(needs => new Set(needs).size === needs.length, 'Duplicate access needs'),
+  owner: Text.nullable(),
+  essentialDestination: z.enum(['yes', 'no', 'unknown']),
+  destinationNote: Text.nullable(),
+  professionalReview: z.boolean(),
+  workflow: z.array(WorkflowStepSchema).min(1).max(100),
+});
+
+/** First problem in a workflow history, or null. Starts at submitted; each step moves
+ * forward one status, or reopens to reviewed. Re-verified needs fresh evidence. */
+export function workflowIssue(history: readonly z.infer<typeof WorkflowStepSchema>[]): string | null {
+  if (history[0]?.status !== 'submitted' || history[0].action !== 'advance') return 'Workflow must start at submitted';
+  for (let i = 1; i < history.length; i++) {
+    const from = WORKFLOW_ORDER.indexOf(history[i - 1].status);
+    const step = history[i];
+    const to = WORKFLOW_ORDER.indexOf(step.status);
+    if (step.action === 'advance' && to !== from + 1) return `Workflow cannot move from ${history[i - 1].status} to ${step.status}`;
+    if (step.action === 'reopen' && (step.status !== 'reviewed' || from < WORKFLOW_ORDER.indexOf('planned'))) return 'Reopen returns a planned or later finding to reviewed';
+    if (step.status === 'reverified' && step.evidence === null) return 'Re-verification needs fresh evidence';
+    if (Date.parse(step.at) < Date.parse(history[i - 1].at)) return 'Workflow steps must be in time order';
+  }
+  return null;
+}
+
 export const BoxSchema = z.tuple([z.number().min(0).max(1), z.number().min(0).max(1), z.number().positive().max(1), z.number().positive().max(1)])
   .refine(([x, y, w, h]) => x + w <= 1.000001 && y + h <= 1.000001, 'Box must fit the displayed video');
 export const FindingSchema = z.strictObject({
@@ -26,6 +96,7 @@ export const FindingSchema = z.strictObject({
   measurements: z.array(z.strictObject({ property: Text, value: z.number().finite(), unit: Text, method: Text })),
   mapPosition: z.strictObject({ x: z.number().min(0).max(1), y: z.number().min(0).max(1), accuracy: z.literal('approximate'), placementReview: z.literal('accepted'), note: Text }).nullable(),
   track: z.array(z.strictObject({ frame: z.number().int().nonnegative(), box: BoxSchema })).min(1).max(20_000),
+  repair: RepairSchema.optional(),
 });
 export const CostSchema = z.discriminatedUnion('status', [
   z.strictObject({ status: z.literal('estimated'), rateLowCents: Money, rateHighCents: Money,
@@ -76,6 +147,21 @@ export const SurveySchema = z.strictObject({
       previous = k.frame;
     }
     for (const check of f.assessment.checks) if (!sources.has(check.sourceId)) fail(`Unknown standards source: ${check.sourceId}`);
+    for (const m of f.measurements) {
+      if (!Object.hasOwn(MEASURE_DIMENSIONS, m.property)) {
+        // Other v1 measurements are immutable published evidence. Only the known
+        // dimension properties may use the two reviewer-editable methods.
+        if (m.method === ASSUMED_METHOD || m.method === REVIEWER_METHOD) fail(`Unsupported measurement property "${m.property}": ${f.id}`);
+        continue;
+      }
+      const dimension = MEASURE_DIMENSIONS[m.property as keyof typeof MEASURE_DIMENSIONS];
+      if (toCanonical(dimension, m.value, m.unit) === null) fail(`Invalid value or unit "${m.unit}" for ${m.property}: ${f.id}`);
+    }
+    if (f.repair) {
+      const issue = workflowIssue(f.repair.workflow);
+      if (issue) fail(`${issue}: ${f.id}`);
+      if (f.repair.essentialDestination !== 'unknown' && f.repair.destinationNote === null) fail(`Essential-destination answer needs a note: ${f.id}`);
+    }
   }
   for (const a of s.workAreas) {
     for (const id of a.findingIds) {
@@ -101,7 +187,11 @@ export type Treatment = z.infer<typeof TreatmentSchema>;
 export type Cost = z.infer<typeof CostSchema>;
 export type Priority = z.infer<typeof PrioritySchema>;
 export type Box = z.infer<typeof BoxSchema>;
-export type PlanId = 'essential' | 'balanced' | 'durable' | 'budget';
+export type Repair = z.infer<typeof RepairSchema>;
+export type WorkflowStep = z.infer<typeof WorkflowStepSchema>;
+export type WorkflowStatus = z.infer<typeof WorkflowStatusSchema>;
+export type AccessNeed = z.infer<typeof AccessNeedSchema>;
+export type PlanId = 'suggested' | 'essential' | 'balanced' | 'durable' | 'budget';
 export interface RepairPlan {
   id: PlanId;
   title: string;
@@ -119,4 +209,4 @@ export interface RepairPlan {
 }
 
 export const SurveyResponseSchema = z.strictObject({ data: SurveySchema });
-export const ExportRequestSchema = z.strictObject({ survey: SurveySchema, budgetCents: Money.nullable(), planId: z.enum(['essential', 'balanced', 'durable', 'budget']) });
+export const ExportRequestSchema = z.strictObject({ survey: SurveySchema, budgetCents: Money.nullable(), planId: z.enum(['suggested', 'essential', 'balanced', 'durable', 'budget']) });

@@ -1,12 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
 import { SurveySchema, type PlanId, type RepairPlan, type Survey } from '../../../contracts/curb/survey';
-import { buildRepairPlans, costRange, fetchSurvey } from './services';
+import { costRange, fetchSurvey } from './services';
 import { ExportPanel } from './ExportPanel';
 import { FindingReview } from './FindingReview';
 import { PlanCompare } from './PlanCompare';
 import { editedFindingIds, formatTime, isEdited, parseBudgetInput, PLAN_ORDER, sliderMaxCents } from './presentation';
+import { buildAllPlans, clipSummary, withMeasurement, type Basis, type MeasureKey } from './measurements';
+import { workflowSummary } from '../../../domain/curb/repair';
 import { SiteContext } from './SiteContext';
 import { VideoEvidence, type SeekRequest } from './VideoEvidence';
 import styles from './SurveyWorkspace.module.css';
@@ -26,7 +28,7 @@ function loadErrorMessage(error: unknown): string {
 type WorkTab = 'review' | 'plans' | 'export';
 const WORK_TABS: { id: WorkTab; number: number; label: string; heading: string }[] = [
   { id: 'review', number: 1, label: 'Review findings', heading: 'survey-review-heading' },
-  { id: 'plans', number: 2, label: 'Compare repairs', heading: 'survey-plans-heading' },
+  { id: 'plans', number: 2, label: 'Repair plan', heading: 'survey-plans-heading' },
   { id: 'export', number: 3, label: 'Export report', heading: 'survey-export-heading' },
 ];
 
@@ -43,9 +45,12 @@ export function SurveyWorkspace() {
   const [selectedFindingId, setSelectedFindingId] = useState<string | null>(null);
   const [seek, setSeek] = useState<SeekRequest | null>(null);
   const [budgetText, setBudgetText] = useState('');
-  const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('balanced');
+  const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('suggested');
   const [notice, setNotice] = useState('');
   const [tab, setTab] = useState<WorkTab>('review');
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const deskRef = useRef<HTMLDivElement>(null);
+  useFitVideoToScreen(deskRef, load.status === 'ready');
   const generationRef = useRef(0);
   const controllerRef = useRef<AbortController | null>(null);
 
@@ -97,19 +102,19 @@ export function SurveyWorkspace() {
   const budget = parseBudgetInput(budgetText);
   const budgetCents = budget.ok ? budget.cents : null;
 
-  // Plans always come from the root evaluator over the current validated survey.
+  // One computation feeds the page and the report: the suggested plan plus the root evaluator's plans.
   const planResult = useMemo((): { plans: RepairPlan[]; error: string | null } => {
     if (!survey) return { plans: [], error: null };
     if (!SurveySchema.safeParse(survey).success) return { plans: [], error: 'The reviewed survey failed validation, so no plans were computed. Restore the original survey.' };
     try {
-      const plans = buildRepairPlans(survey, budgetCents ?? undefined);
+      const plans = buildAllPlans(survey, budgetCents);
       return { plans: [...plans].sort((a, b) => PLAN_ORDER.indexOf(a.id) - PLAN_ORDER.indexOf(b.id)), error: null };
     } catch (error) {
       return { plans: [], error: `Repair plans could not be computed${error instanceof Error ? `: ${error.message}` : '.'}` };
     }
   }, [survey, budgetCents]);
 
-  const effectivePlanId: PlanId = planResult.plans.some((plan) => plan.id === selectedPlanId) ? selectedPlanId : 'balanced';
+  const effectivePlanId: PlanId = planResult.plans.some((plan) => plan.id === selectedPlanId) ? selectedPlanId : 'suggested';
   const selectedPlan = planResult.plans.find((plan) => plan.id === effectivePlanId);
 
   if (load.status !== 'ready' || !survey) {
@@ -136,6 +141,21 @@ export function SurveyWorkspace() {
     setSeek({ seconds: finding.evidenceTime, nonce: Date.now() });
   }
 
+  /** Dimensions are stored on the survey with their basis, so plans, exports and reloads agree. */
+  function setMeasure(findingId: string, key: MeasureKey, input: { value: number; unit: string; basis: Basis } | null) {
+    setSurvey((current) => current ? withMeasurement(current, findingId, key, input) : current);
+  }
+
+  function loadReviewed(next: Survey) {
+    setSurvey(next);
+    setNotice('Loaded the reviewed survey from JSON.');
+  }
+
+  function changeTab(next: WorkTab) {
+    setTab(next);
+    scrollRef.current?.scrollTo({ top: 0 });
+  }
+
   function restore() {
     if (!edited) return;
     setSurvey(original);
@@ -151,10 +171,14 @@ export function SurveyWorkspace() {
   return <div className={styles.workspace}>
     <Header survey={survey} />
     <div className={styles.summaryBar}>
-      <p><strong>{survey.findings.length}</strong> findings · {counts.accepted} accepted · {counts.pending} pending · {counts.rejected} rejected · {survey.workAreas.length} work areas</p>
+      <p><strong>{survey.findings.length} possible defects</strong> · {counts.accepted + counts.rejected} of {survey.findings.length} checked by a person · <span className={styles.workflowSummary}>Repairs: {workflowSummary(survey).text}</span></p>
       <details className={styles.pendingChecks}>
         <summary>Analysis and review status</summary>
-        <p className={styles.small}>{survey.analysis.method} ({survey.analysis.model}). {survey.analysis.note}</p>
+        <dl className={styles.statusList}>
+          <div><dt>Tools</dt><dd>CLIP · AI vision assistant · optical-flow tracking · human review</dd></div>
+          <div><dt>Analysis</dt><dd>Found {survey.findings.length} possible defects in a {Math.round(survey.media.durationSeconds)}-second walking video. CLIP agrees on {clipSummary(survey).confirmed} of {clipSummary(survey).total}.</dd></div>
+          <div><dt>Review</dt><dd>{counts.accepted} accepted · {counts.rejected} rejected · {counts.pending} waiting. Measurements are estimates until someone measures on site.</dd></div>
+        </dl>
       </details>
       <div className={styles.actions}>
         {edited ? <span className={styles.editedTag}>Edited — {editedIds.length} finding{editedIds.length === 1 ? '' : 's'} changed</span> : <span className={styles.small}>Original analysis</span>}
@@ -165,27 +189,33 @@ export function SurveyWorkspace() {
       <p role="status" aria-live="polite" aria-atomic="true" className={styles.small}>{notice}</p>
     </div>
 
-    <div className={styles.desk}>
-      <div className={styles.evidenceColumn}>
+    <div ref={deskRef} className={styles.desk}>
+      <div className={styles.evidenceColumn} data-evidence-column>
         <VideoEvidence survey={survey} selectedFindingId={selectedFindingId} seek={seek} edited={edited} />
         <EvidenceJump survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />
       </div>
 
       <div className={styles.workColumn}>
-        <WorkTabs active={tab} onChange={setTab} />
+        <div className={styles.workFrame}>
+        <WorkTabs active={tab} onChange={changeTab} />
+        <div ref={scrollRef} className={styles.workScroll}>
         {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
         <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
-          <FindingReview survey={survey} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+          <FindingReview survey={survey} original={original} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+            plan={selectedPlan} onMeasure={setMeasure}
             onChange={(next, message) => { setSurvey(next); setNotice(message); }}
             siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />
         </div>
         <div role="tabpanel" id="survey-panel-plans" aria-labelledby="survey-tab-plans" hidden={tab !== 'plans'} className={styles.tabPanel}>
           <PlanCompare survey={survey} plans={planResult.plans} planError={planResult.error} budgetText={budgetText} budget={budget}
             sliderMax={sliderMax} selectedFindingId={selectedFindingId} selectedPlanId={effectivePlanId}
-            onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId} />
+            onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId}
+            onSelectFinding={selectFinding} />
         </div>
         <div role="tabpanel" id="survey-panel-export" aria-labelledby="survey-tab-export" hidden={tab !== 'export'} className={styles.tabPanel}>
-          <ExportPanel survey={survey} edited={edited} plan={selectedPlan} budgetCents={budgetCents} />
+          <ExportPanel survey={survey} original={original} edited={edited} plan={selectedPlan} budgetCents={budgetCents} onLoad={loadReviewed} />
+        </div>
+        </div>
         </div>
       </div>
     </div>
@@ -193,17 +223,45 @@ export function SurveyWorkspace() {
   </div>;
 }
 
+/** Size the video so the whole evidence column (video, notes, jump bar) fits the
+ * window below the page header without scrolling. Sets --desk-top (where the desk
+ * starts on the page) and --column-chrome (column height that is not the video). */
+function useFitVideoToScreen(deskRef: RefObject<HTMLDivElement | null>, ready: boolean) {
+  useLayoutEffect(() => {
+    const desk = deskRef.current;
+    const workspace = desk?.parentElement;
+    if (!desk || !workspace) return;
+    let raf = 0;
+    const measure = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const column = desk.querySelector<HTMLElement>('[data-evidence-column]');
+        const frame = desk.querySelector<HTMLElement>('[data-video-frame]');
+        if (!column || !frame) return;
+        const top = Math.round(desk.getBoundingClientRect().top + window.scrollY);
+        const chrome = Math.round(column.getBoundingClientRect().height - frame.getBoundingClientRect().height);
+        const set = (name: string, value: number) => {
+          if (Math.abs(parseFloat(workspace.style.getPropertyValue(name) || '0') - value) > 1) workspace.style.setProperty(name, `${value}px`);
+        };
+        set('--desk-top', top);
+        set('--column-chrome', chrome);
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    for (const element of [workspace, ...Array.from(workspace.children)]) observer.observe(element);
+    window.addEventListener('resize', measure);
+    return () => { cancelAnimationFrame(raf); observer.disconnect(); window.removeEventListener('resize', measure); };
+  }, [deskRef, ready]);
+}
+
 /** WAI-ARIA tabs with automatic activation: arrow keys, Home and End move focus and select. */
 function WorkTabs({ active, onChange }: { active: WorkTab; onChange: (tab: WorkTab) => void }) {
   const refs = useRef<Partial<Record<WorkTab, HTMLButtonElement | null>>>({});
-  const listRef = useRef<HTMLDivElement>(null);
 
   function select(id: WorkTab, focus: boolean) {
     onChange(id);
     if (focus) refs.current[id]?.focus();
-    // If the pane top has scrolled above the viewport, bring the tabs back into view (no smooth scrolling).
-    const list = listRef.current;
-    if (list && list.getBoundingClientRect().top < 0) list.scrollIntoView({ block: 'start' });
   }
 
   function move(event: KeyboardEvent<HTMLDivElement>) {
@@ -217,7 +275,7 @@ function WorkTabs({ active, onChange }: { active: WorkTab; onChange: (tab: WorkT
     select(WORK_TABS[next].id, true);
   }
 
-  return <div ref={listRef} className={styles.tabList} role="tablist" aria-label="Survey workflow" onKeyDown={move}>
+  return <div className={styles.tabList} role="tablist" aria-label="Survey workflow" onKeyDown={move}>
     {WORK_TABS.map((item) => <button key={item.id} ref={(node) => { refs.current[item.id] = node; }} type="button" role="tab"
       id={`survey-tab-${item.id}`} aria-controls={`survey-panel-${item.id}`} aria-selected={active === item.id}
       tabIndex={active === item.id ? 0 : -1} onClick={() => select(item.id, false)}>

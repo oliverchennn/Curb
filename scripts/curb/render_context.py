@@ -41,7 +41,7 @@ for label,lon,lat,size in labels:
 svg.append('<text x="133" y="335" transform="rotate(-77 133 335)" font-size="15" fill="#687566">WASHINGTON ROAD</text>')
 svg.append('<text x="493" y="450" transform="rotate(-16 493 450)" font-size="15" fill="#687566">PROSPECT AVENUE</text>')
 x,y=xy((-74.6541,40.3482))
-svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="23" fill="#b7770f" fill-opacity=".14"/><circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#94600d" stroke="#fffdf7" stroke-width="3"/><text x="{x:.1f}" y="{y+43:.1f}" font-size="15" font-weight="650">Phone GPS · approximate</text>')
+svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="23" fill="#b7770f" fill-opacity=".14"/><circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="#94600d" stroke="#fffdf7" stroke-width="3"/><text x="{x+95:.1f}" y="{y-27:.1f}" paint-order="stroke" stroke="#edf1e7" stroke-width="4" font-size="15" font-weight="650">Phone GPS · approximate</text>')
 svg.append('<path d="M681 51L681 24M675 33L681 24L687 33" fill="none" stroke="#284936" stroke-width="2"/><text x="681" y="19" font-size="12">N</text>')
 svg.append('<rect x="12" y="533" width="696" height="35" rx="7" fill="#fffdf7" fill-opacity=".95"/><text x="360" y="556" font-size="13">Mapped paths · access unverified · © OpenStreetMap contributors</text></g></svg>')
 out=ROOT/'public/curb/surveys/robertson-hall/site-context.svg'
