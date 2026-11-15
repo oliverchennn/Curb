@@ -54,7 +54,7 @@ export const CanadaReadinessSchema = z.strictObject({
     candidateSha: commit,
     reviewSha: commit,
     reviewedAt: z.iso.datetime(),
-    observationCount: positiveInt,
+    inventoryRecordCount: positiveInt,
     inputHashes: z.strictObject({
       'coverage.json': sha256,
       'graph.json': sha256,

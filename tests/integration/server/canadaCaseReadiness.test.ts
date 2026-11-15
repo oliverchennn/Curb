@@ -26,7 +26,7 @@ describe('reviewed Cañada inventory snapshot', () => {
       inputHashes: review.inputHashes,
       status: 'accepted',
       completedRequirementId: review.resolvedMissingDataIds[0],
-      observationCount: 69,
+      inventoryRecordCount: review.verifiedCounts.observations,
     });
     expect(parsed.requirements.map(({ id }) => id)).toEqual(review.openMissingDataIds);
     expect(feasibility.missingData.map(({ id }) => id)).toContain('M11');

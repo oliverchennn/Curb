@@ -21,7 +21,7 @@
     "candidateSha": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
     "reviewSha": "65effc19e03c5f3bd98cbb3e781fcd9ec07c98ab",
     "reviewedAt": "2026-11-15T10:46:13Z",
-    "observationCount": 69,
+    "inventoryRecordCount": 69,
     "inputHashes": {
       "coverage.json": "a3ac00b055dac3c8d38664dc2f0e73e9a5951faecf7d07e1b26d8b79ad0e3e2b",
       "graph.json": "4da95bd0a345537783f0371d11d736c3e13111723bb034aa2320896f91b8d68c",
@@ -110,13 +110,13 @@
     },
     {
       "id": "M2",
-      "title": "Assess the crossing at ramps 421 and 422",
-      "description": "Match the curb pair and assess the full crossing between Route 28 by ramp 421 and Route 52 by ramp 422."
+      "title": "Verify the upper crossing and approaches",
+      "description": "Identify the curb pair and assess whether and how ramp 421 and Route 28 connect to ramp 422 and Route 52, including the intervening crossing."
     },
     {
       "id": "M3",
-      "title": "Connect ramps 404 and 405",
-      "description": "Document the complete connector from ramp 404 and Route 40 to ramp 405 and Routes 41 and 53."
+      "title": "Verify the lower crossing and approaches",
+      "description": "Verify whether and how ramp 404 and Route 40 connect to ramp 405 and Routes 41 and 53, including the intervening crossing."
     },
     {
       "id": "M4",

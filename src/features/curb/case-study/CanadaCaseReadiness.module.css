@@ -37,7 +37,8 @@
 }
 .actions button:hover:not(:disabled), .state button:hover { background: #e6eddf; }
 .actions button:disabled { opacity: .6; cursor: default; }
-.state { padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.state { margin: 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.announcer { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .state p { margin-block: 0 8px; }
 
 .disposition {

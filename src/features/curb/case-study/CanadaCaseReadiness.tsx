@@ -7,7 +7,9 @@ import styles from './CanadaCaseReadiness.module.css';
 
 const defaultRecordId = 'ramp-421';
 const timeoutMs = 10_000;
-const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const currency = new Intl.NumberFormat('en-US', {
+  style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2,
+});
 
 type RampRecord = CanadaReadiness['records'][number];
 type LoadState =
@@ -127,7 +129,7 @@ function Inventory({
       </ol>
       <p className={styles.complete}>
         <strong>{snapshot.review.completedRequirementId} complete.</strong>{' '}
-        Independent source review accepted {snapshot.review.observationCount} historical observations for the inventory.{' '}
+        Independent source review accepted {snapshot.review.inventoryRecordCount} historical inventory records for the inventory.{' '}
         <a href={reviewUrl(snapshot)} target="_blank" rel="noreferrer">Read the independent review</a>.
       </p>
     </section>
@@ -153,6 +155,7 @@ export function CanadaCaseReadiness() {
   const [state, setState] = useState<LoadState>({ kind: 'loading' });
   const [selectedId, setSelectedId] = useState<RampRecord['id']>(defaultRecordId);
   const active = useRef<AbortController | null>(null);
+  const heading = useRef<HTMLHeadingElement>(null);
   const load = useCallback(async () => {
     active.current?.abort();
     const request = new AbortController();
@@ -190,7 +193,7 @@ export function CanadaCaseReadiness() {
   return <article className={styles.casePage} aria-labelledby="canada-title">
     <header className={styles.hero}>
       <p className={styles.kicker}>2020 accessibility audit</p>
-      <h1 id="canada-title">Cañada College</h1>
+      <h1 id="canada-title" ref={heading} tabIndex={-1}>Cañada College</h1>
       <p className={styles.lede}>A historical inventory of curb-ramp work around Lot 1 and Building 9. The audit records measurements and estimated costs. Current conditions remain unverified.</p>
       <div className={styles.actions}>
         <button type="button" onClick={() => { if (snapshot) window.print(); }} disabled={!snapshot}>Print evidence brief</button>
@@ -200,12 +203,15 @@ export function CanadaCaseReadiness() {
       </div>
     </header>
 
-    {!snapshot && <div className={styles.state} aria-busy={state.kind === 'loading'}>
-      {state.kind === 'loading' ? <p role="status">Loading the historical audit inventory…</p> : null}
-      {state.kind === 'failed' && <>
-        <p role="alert">{state.message}</p>
-        <button type="button" onClick={() => { void load(); }}>Retry</button>
-      </>}
+    <p role="status" className={state.kind === 'loading' ? styles.state : styles.announcer}>
+      {state.kind === 'loading' ? 'Loading the historical audit inventory…' : snapshot ? 'Historical audit inventory loaded.' : ''}
+    </p>
+    {state.kind === 'failed' && <div className={styles.state}>
+      <p role="alert">{state.message}</p>
+      <button type="button" onClick={() => {
+        heading.current?.focus();
+        void load();
+      }}>Retry</button>
     </div>}
 
     {snapshot && <>
