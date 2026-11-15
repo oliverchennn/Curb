@@ -256,6 +256,7 @@ export function SurveyWorkspace() {
     lastFindingQuery.current = null;
   }
 
+  const selectedSource = selectedFindingId ? frames[selectedFindingId] : undefined;
   const counts = {
     accepted: survey.findings.filter((f) => f.review.status === 'accepted').length,
     pending: survey.findings.filter((f) => f.review.status === 'pending').length,
@@ -334,7 +335,12 @@ export function SurveyWorkspace() {
     </div>
     {presenter ? <footer className={presenterStyles.footer}>
       <p id="presenter-retention">Edits stay in this tab. Full review → Export report → Download JSON to keep them. Restart clears all in-tab review edits.</p>
-      <details><summary>Source and analysis</summary><p>Robertson Hall walking video; prepared AI-assisted proposals and optical-flow tracks. Accept confirms a visible observation only. It does not confirm route accessibility or a completed repair. Full review includes the original provenance, history and export.</p></details>
+      <details><summary>Source and analysis</summary>
+        <p>Robertson Hall walking video; prepared AI-assisted proposals and optical-flow tracks. Accept confirms a visible observation only. It does not confirm route accessibility or a completed repair. Full review includes the review history and export.</p>
+        <p><a href={original.media.sourceSrc} download>Original MOV</a> · Normalized video: {original.media.width} × {original.media.height}, {original.media.fps} fps.</p>
+        {selectedSource ? <p>{selectedSource.rationale} {selectedSource.fullFrameSrc ? <a href={selectedSource.fullFrameSrc}>View the full source frame</a> : null}</p> : null}
+        <p>Original source SHA-256: <code>{original.media.originalSha256}</code></p>
+      </details>
     </footer> : null}
   </div>;
 }
