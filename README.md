@@ -1,72 +1,33 @@
 # Curb
 
-Curb helps campus facilities teams turn sidewalk evidence into disability-access repair priorities and budget options.
+**Which sidewalk repairs reconnect the most destinations on a fixed budget?**
 
-The Robertson Hall pilot uses an actual 14-second phone video, five AI-proposed findings with tracked evidence, and a local campus context map. The working flow is **Review findings → Compare repairs → Export report**, with a sticky video beside the three workspace tabs on desktop. Essential, balanced and durable plans keep unmeasured conditions, conditional treatments, deferred needs and unpriced work visible.
+Curb helps campus facilities teams review sidewalk evidence, compare repair combinations, and bring a funding recommendation to a budget meeting.
 
-The deployed demo is [curb-taupe.vercel.app](https://curb-taupe.vercel.app), hosted through Vincent’s account. See the [hosting runbook](docs/demo/ROBERTSON_HOSTING.md) for the exact release and verification process. Deployments are manual; pushing a branch does not publish it.
+[**Start the live demo**](https://curb-taupe.vercel.app/curb/surveys/robertson-hall?present=1) · [Investment demo](https://curb-taupe.vercel.app/curb/investment-demo) · [Route Explorer](https://curb-taupe.vercel.app/curb/explore) · [Three-minute judge walkthrough](docs/demo/INVESTMENT_DEMO_SCRIPT.md)
 
-## Run locally
+## From evidence to a decision
 
-Use Node.js 22.23.0 or newer. No credentials or environment file are required. Install dependencies before arriving at the venue:
+1. **Review a real finding.** In the [Robertson Hall footage](https://curb-taupe.vercel.app/curb/surveys/robertson-hall?present=1), switch from **Original** to **Review**. Open **Defect 04 · Surface breakup** and use **Jump to evidence** to see the original frame and close-up. Accepting the finding records a named visual review. Field measurements and route impact remain unknown.
 
-```sh
-npm ci
-npm run check
-npm run start
-```
+   ![Robertson Hall review at six seconds, with Defect 04 accepted by a demo reviewer and route impact marked unknown.](docs/assets/judges/presenter-review.png)
 
-Open `http://127.0.0.1:3000/`. The home page opens `/curb/upload`: choose the supplied Robertson Hall MOV or its prepared MP4, or use the bundled demo. A visibly labeled ten-second processing simulation then opens the prepared findings. File identity is checked locally; arbitrary clips do not receive Robertson's findings, and no live AI analysis or file upload occurs. `/curb/surveys/robertson-hall` opens the workspace directly.
+2. **Compare two plans at the same budget.** In the separate [synthetic Investment demo](https://curb-taupe.vercel.app/curb/investment-demo), set **$10,000**. Condition-first funds C and makes Hall newly reachable. Curb funds A+B and makes Library and Student center newly reachable, for the same assumed spend. Cafe already has access.
 
-For development use `npm run dev`; for a different port use `npm run start -- --port 3004`. The production build and committed media/data work with local loopback access and no venue internet. Opening an external source reference requires internet; playback, calculations and exports do not.
+   ![Synthetic campus network and $10,000 comparison, with one new destination for Condition-first and two for the Curb recommendation.](docs/assets/judges/investment-comparison.png)
 
-`npm run check` runs TypeScript, Vitest and the production Next.js build. GitHub pull requests and main pushes run those checks, the synthetic replay suite, and compiled API/report/media verification on Node 22.23.0 and 26.x. Run `npm run test:replay` for the separate synthetic replay regressions. `npm run verify:media` verifies committed media hashes, decoded frames, color metadata and track agreement; this optional media audit requires `ffprobe` on PATH.
+3. **Test the dependency and print the recommendation.** Choose **Omit A** or **Omit B**. Either omission leaves both shared destinations blocked. Restore the recommendation and print the decision brief. At **$20,000**, both plans make the same three destinations newly reachable.
 
-## Demo data and editing
+## What the benchmark shows
 
-- Editable survey: `src/data/curb/surveys/robertson-hall.json`, validated by `src/contracts/curb/survey.ts`.
-- Original MOV, normalized MP4, annotated MP4 and evidence images: `public/curb/surveys/robertson-hall/`.
-- AI proposals and every tracked frame: `src/data/curb/surveys/robertson-analysis.json` and `robertson-tracks.json`.
-- Video preparation and local map rendering: `scripts/curb/`. See the [media provenance and reproduction notes](public/curb/surveys/robertson-hall/README.md).
+An independent rerun checked **30 authored synthetic networks at four budget levels each**. At the same assumed budget, Curb’s exact planner made **0.81 more destinations newly reachable on average** than condition-first. It led in **58 of 120** paired cases and tied in the other **62**.
 
-Accept, reject or correct a finding in the workspace, and supply a reviewer and rationale for priority changes. Edits survive workspace tab switches but remain in the current open page; download the updated JSON before reloading or leaving it. PDF, self-contained HTML and CSV exports reflect the current review. HTML includes semantic navigation, original Unicode text and embedded evidence photos; the PDF is untagged.
+![Curb exact results across 120 pairs per comparator. Condition-first had 58 wins and 62 ties, cheapest-first 39 wins and 81 ties, and marginal-gain greedy 16 wins and 104 ties. There were no losses, and all full-budget cases tied.](docs/assets/judges/benchmark.svg)
 
-The video offers three views: **Original** plays clean footage, **Review** draws editable overlays at the playhead, and **Annotated** previews the downloadable MP4 with burned-in labels. Switching views preserves the evidence time after media metadata loads. The annotated MP4 is a fixed rendering of the original analysis and does not incorporate subsequent browser edits. Rebuilding a manifest with the Python script overwrites authored edits; preserve them first.
+The chart counts paired budget cases. Each win means more modeled destinations became reachable at the same assumed budget. The separately authored Investment example is outside the benchmark. In that $10,000 example, cheapest-first also chooses A+B. [Methods and results](docs/evaluation/METRICS_RESULTS.md) · [Approved claims](docs/evaluation/METRICS_CLAIMS.md) · [Raw evidence and independent rerun](docs/evidence/README.md)
 
-With the production server running, `npm run verify:flow -- http://127.0.0.1:3004` checks the real API and saves three PDF/HTML report variants in ignored `.curb-local/release/` for inspection. `scripts/curb/build_backup.py` assembles a two-minute offline walkthrough from actual captured app screens and the full annotated clip; it requires the documented screenshots and does not simulate a live session.
+## What a real repair decision still needs
 
-The completed [two-minute backup video](public/curb/surveys/robertson-hall/demo-backup.mp4) is committed for the presentation machine. Download it before the venue; it plays independently of the app. See the [presenter script](docs/demo/ROBERTSON_DEMO_SCRIPT.md) for the live flow and its remaining field-review limits.
+The footage documents visible conditions. Facilities staff would still walk the route with disabled campus users, measure the conditions and repair scope, and obtain current quotes. The synthetic plans do not establish real-world access, construction outcomes, or ADA compliance.
 
-Verify saved report bundles without the server using `node --import tsx scripts/curb/verify_report_bundle.ts .curb-local/release`. This checks all five evidence photos, IDs, review data, costs and selected/deferred work across the corresponding request/JSON/CSV/HTML/PDF files. See the [portable report runbook](docs/demo/ROBERTSON_PORTABLE_RELEASE.md) for the bundle format and deliberate failure checks.
-
-No dimensions were measured from this footage. Accessibility effects are qualified observations, not an overall ADA verdict. A visible crack never automatically blocks a route. The Robertson Hall map is context only, with no accepted per-defect map placements or verified route graph. Cost amounts are partial planning estimates from explicitly identified historical/regional benchmarks and assumed quantities; obtain site measurements, suitable repair scopes and current quotes. Unknown costs are never treated as free.
-
-## Try the collection robot concept
-
-Open `/curb/collection` from **Collection demo**. A procedural six-wheel robot rolls along a miniature sidewalk while three camera callouts follow their physical mounts. Select a camera to inspect its proposed coverage, switch between Follow, Side and Overhead, or use a mouse to orbit. Play, pause, replay, speed and the timeline control the same 24-second capture sequence. Selecting a capture card seeks to its time; keyboard arrows scrub backward too.
-
-**Static diagram** retains the sensor explanations and capture controls without WebGL; it also appears automatically if graphics are unavailable. Reduced motion starts paused. This is a simulated collection concept, separate from the actual Robertson Hall phone evidence. It does not represent deployed hardware, calibrated measurements or live inference. All geometry and assets are local. See [Vincent's implementation and verification](docs/demo/COLLECTION_ROBOT_RESULT.md).
-
-## Explore routes and their evidence
-
-Open `/curb/explore` from **Route explorer** in the shared navigation. Choose Library / Witherspoon, Nassau / east crossing, or Nassau / west crossing to inspect the local DVRPC archive geometry. Select a line, landing marker or snapshot to see its source record. Zoom into closely spaced features; every record is also available in the evidence list. Search accepts collection names, source IDs and record IDs. The selected collection, snapshot, filter and mobile panel are kept in the URL, so reload and Back restore the view. Arrow keys pan the focused map, plus/minus zoom, and Home fits the collection.
-
-The **Robertson Hall** collection contains the five actual close-ups and links to their positions in the original clip. Their precise locations are unknown, so no finding pins are drawn. **Evidence examples** contains two explicitly synthetic conflicting records, kept side by side. Evidence-type filters, named date fields and Unknown values preserve these distinctions. A record's accepted attachment is not a passability decision; current traversal remains Unknown throughout this explorer.
-
-At narrow widths, **Map & snapshots**, **Collections**, and **Evidence** are keyboard-operable tabs. The page uses committed SVG geometry and local photographs without map-service credentials or runtime tiles. Geometry attribution and source details are visible in the page. The [explorer result](docs/demo/ROUTE_EXPLORER_RESULT.md) records the audited source features and its independent browser checks; the [release checkpoint](docs/demo/CURB_RELEASE_CHECKPOINT.md) separates those from later integration checks.
-
-## Separate synthetic routing examples
-
-`/survey-replay/index.html` demonstrates the three repair states: the sample crack repair saves 90 m on the library trip, while the sample slab repair opens clinic and pharmacy routes. `/curb/trips` and `/curb/plans` preserve the directed routing and equal-budget comparison foundation. These use labeled synthetic geography, not Robertson Hall field routes.
-
-## Verification and team
-
-[Integrated evidence and open gates](docs/demo/ROBERTSON_INTEGRATION.md) · [Independent domain/media review](docs/demo/ROBERTSON_REVIEW.md) · [Exact implementation boundaries](docs/demo/ROBERTSON_IMPLEMENTATION.md) · [Live team board](https://github.com/oliverchennn/Curb/issues/1).
-
-For the next step, use the [pilot validation packet](docs/demo/ROBERTSON_PILOT_VALIDATION.md): voluntary sessions with disabled campus users and facilities staff, an inspection/quote worksheet, observable decision criteria and an evidence-based follow-up backlog. These are proposed future sessions, not completed research or field inspections.
-
-Oliver's desktop chat coordinates integration and owns core/media/planning. Vincent is Developer B (API and reports), Landau is Developer C (workspace and visual QA), and Oliver's existing cloud chat is Developer D (independent review and demo support). The live board records exact branches, bases, writable paths and releases. Follow the current block in [AGENTS.md](AGENTS.md) before the preserved historical handoff records. Routine reviewed integration is serialized; current deployment authority and target are recorded on the live board.
-
-Completed task branches are preserved under `archive/2026-11-14/<original-branch>` tags; the [cleanup inventory](docs/demo/BRANCH_ARCHIVE_2026-11-14.json) records their exact commits. Archived proposals are historical work, not newly selected features. The current release task adds B/C/D stress checks and hosting through Vincent's account, explicitly authorized by Oliver; no paid upgrades are included.
-
-Kit application foundations originate from [`oliverchennn/hackathon-kit` at `22a5f44`](https://github.com/oliverchennn/hackathon-kit/tree/22a5f44a27375e88ac2cd1754f6976704f725bc5); [provenance](docs/KIT_IMPORT.md). Local map geometry © OpenStreetMap contributors, [ODbL 1.0](https://www.openstreetmap.org/copyright).
+[Run Curb locally](docs/DEVELOPMENT.md) · [Documentation](docs/README.md) · [Media and chart sources](docs/assets/judges/ASSETS.md) · [License](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
