@@ -1,21 +1,24 @@
 'use client';
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { PrioritySchema, type Priority, type Survey } from '../../../contracts/curb/survey';
+import type { Finding, Survey } from '../../../contracts/curb/survey';
 import {
-  areaForFinding,
-  correctFinding,
-  formatTime,
-  METHOD_LABELS,
-  PRIORITY_LABELS,
-  REVIEW_LABELS,
-  setAreaPriority,
-  setReviewStatus,
-} from './presentation';
+  clipFor,
+  ESTIMATES,
+  MEASURE_GROUPS,
+  measureResults,
+  priorityScore,
+  STATUS_LABELS,
+  type MeasureKey,
+  type MeasurementEntries,
+} from './measurements';
+import { correctFinding, formatTime, REVIEW_LABELS, setReviewStatus } from './presentation';
 import styles from './SurveyWorkspace.module.css';
 
-export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext }: {
+export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFinding, onChange, siteContext, measurements, onMeasure }: {
   survey: Survey;
+  measurements: MeasurementEntries;
+  onMeasure: (findingId: string, key: MeasureKey, text: string) => void;
   editedIds: string[];
   selectedFindingId: string | null;
   onSelectFinding: (findingId: string) => void;
@@ -26,8 +29,6 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
   const [reviewer, setReviewer] = useState('');
   const [message, setMessage] = useState<string | null>(null);
   const finding = survey.findings.find((item) => item.id === selectedFindingId) ?? null;
-  const area = finding ? areaForFinding(survey, finding.id) : undefined;
-  const sources = new Map(survey.sources.map((source) => [source.id, source]));
 
   // A message belongs to the finding it was raised for; selecting another finding clears it.
   useEffect(() => setMessage(null), [selectedFindingId]);
@@ -51,7 +52,7 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
           onChange={(event) => { setReviewer(event.target.value); if (event.target.value.trim()) setMessage((current) => current?.startsWith('Enter a reviewer') ? null : current); }} />
       </label>
     </div>
-    <p className={styles.small}>Findings are AI-assisted suggestions until a person reviews them. Selecting one jumps the video to its evidence frame. Decisions and corrections are recorded as manual review.</p>
+    <p className={styles.small}>Pick a defect to see it in the video. Accept or reject it, and add measurements if you have them.</p>
 
     <div className={styles.reviewLayout}>
       <div className={styles.reviewAside}>
@@ -66,7 +67,8 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
                 {index + 1}. {item.label}
               </span>
               <span className={styles.findingMeta}>
-                {formatTime(item.evidenceTime)} · <span className={styles[`review_${item.review.status}`]}>{REVIEW_LABELS[item.review.status]}</span>
+                <span className={styles[`priority_${priorityScore(item, measurements).band}`]}>{PRIORITY_WORDS[priorityScore(item, measurements).band]}</span>
+                {' '}<span className={styles[`review_${item.review.status}`]}>{REVIEW_LABELS[item.review.status]}</span>
                 {editedIds.includes(item.id) ? ' · edited' : ''}
               </span>
             </button>
@@ -78,31 +80,18 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
 
       {finding ? <article className={styles.findingDetail} aria-labelledby="survey-finding-heading">
         <h3 id="survey-finding-heading" tabIndex={-1}>{finding.label}</h3>
-        <p className={styles.small}>{finding.kind} · evidence at {formatTime(finding.evidenceTime)} · ID <code>{finding.id}</code></p>
+        <p className={styles.small}>Seen at {formatTime(finding.evidenceTime)} in the video</p>
         <Closeup key={finding.closeupSrc} src={finding.closeupSrc} alt={`Close-up of ${finding.label}`} />
         <p>{finding.description}</p>
 
         <dl className={styles.facts}>
-          <div><dt>Review</dt><dd><span className={styles[`review_${finding.review.status}`]}>{REVIEW_LABELS[finding.review.status]}</span> · {METHOD_LABELS[finding.review.method]} · {finding.review.reviewer}</dd></div>
-          <div><dt>Review note</dt><dd>{finding.review.note}</dd></div>
-          <div><dt>Proposed finding priority</dt><dd>{PRIORITY_LABELS[finding.assessment.priority]} — {finding.assessment.rationale}</dd></div>
-          <div><dt>Measurements</dt><dd>{finding.measurements.length === 0
-            ? 'None recorded. Dimensions are unknown until measured on site.'
-            : finding.measurements.map((m) => `${m.property}: ${m.value} ${m.unit} (${m.method})`).join('; ')}</dd></div>
+          <div><dt>Review note</dt><dd><Fact {...reviewFact(finding)} /></dd></div>
+          <div><dt>Priority</dt><dd><Fact {...priorityFact(finding, measurements)} /></dd></div>
+          <div><dt>Measurements</dt><dd><Fact {...measurementFact(finding, measurements)} /></dd></div>
         </dl>
         <h4>Possible access effects</h4>
         <ul className={styles.plainList}>{finding.assessment.accessImpacts.map((impact) => <li key={impact}>{impact}</li>)}</ul>
-        <h4>Needs measuring</h4>
-        <ul className={styles.plainList}>{finding.assessment.measurementNeeds.map((need) => <li key={need}>{need}</li>)}</ul>
-        <details className={styles.pendingChecks}>
-          <summary>Standards checks ({finding.assessment.checks.length}): need measurement or not assessed. Not a compliance verdict.</summary>
-          <ul className={styles.plainList}>{finding.assessment.checks.map((check, index) => {
-            const source = sources.get(check.sourceId);
-            return <li key={index}>
-              <strong>{check.status === 'needs_measurement' ? 'Needs measurement' : 'Not assessed'}</strong> · {source?.title ?? check.sourceId} §{check.section}. {check.note}
-            </li>;
-          })}</ul>
-        </details>
+        <MeasureTable finding={finding} entries={measurements} onMeasure={onMeasure} />
 
         {/* aria-disabled rather than disabled: the used button keeps keyboard focus instead of dropping it to the page. */}
         <div className={styles.actions} role="group" aria-label="Review decision">
@@ -123,30 +112,10 @@ export function FindingReview({ survey, editedIds, selectedFindingId, onSelectFi
         <CorrectionForm key={`${finding.id}:${finding.label}:${finding.kind}:${finding.description}`} finding={finding}
           onSave={(correction) => apply(correctFinding(survey, finding.id, correction, reviewer), `Saved corrections to “${correction.label.trim()}”.`)} />
 
-        {area ? <AreaPriorityForm key={`${area.id}:${area.priority}:${area.rationale}`} area={area}
-          onSave={(priority, rationale) => apply(setAreaPriority(survey, area.id, priority, reviewer, rationale), `Recorded accessibility priority for ${area.label}.`)} />
-          : <p className={styles.small}>This finding is not grouped into a work area.</p>}
         {message ? <p role="alert" className={styles.inlineError}>{message}</p> : null}
       </article> : <p className={styles.small}>Select a finding to review its evidence.</p>}
     </div>
   </section>;
-}
-
-function AreaPriorityForm({area, onSave}: {area: Survey['workAreas'][number]; onSave: (priority: Priority, rationale: string) => void}) {
-  const [priority, setPriority] = useState(area.priority);
-  const [rationale, setRationale] = useState('');
-  return <form className={styles.areaBox} onSubmit={(event) => {event.preventDefault(); onSave(priority, rationale);}}>
-    <label htmlFor="survey-area-priority"><strong>{area.label}</strong> priority
-      <select id="survey-area-priority" value={priority} onChange={(event) => setPriority(event.target.value as Priority)}>
-        {PrioritySchema.options.map(value => <option key={value} value={value}>{PRIORITY_LABELS[value]}</option>)}
-      </select>
-    </label>
-    <p className={styles.small}>{area.rationale} {area.nearTerm ? 'Flagged for near-term work.' : 'Not flagged for near-term work.'}</p>
-    <label htmlFor="survey-area-rationale">Why this priority matters for access
-      <textarea id="survey-area-rationale" rows={2} maxLength={3500} value={rationale} onChange={event => setRationale(event.target.value)} placeholder="Access need, uncertainty, and what the site visit should confirm" />
-    </label>
-    <button type="submit" className={styles.secondaryButton}>Save accessibility priority</button>
-  </form>;
 }
 
 function Closeup({ src, alt }: { src: string; alt: string }) {
@@ -177,4 +146,85 @@ function CorrectionForm({ finding, onSave }: {
       <button type="submit">Save correction</button>
     </form>
   </details>;
+}
+
+const PRIORITY_WORDS = { high: 'High', medium: 'Medium', low: 'Low', unassessed: 'Not set' } as const;
+
+function Fact({ headline, detail }: { headline: string; detail: string }) {
+  return <><strong className={styles.factHeadline}>{headline}</strong><span className={styles.factDetail}>{detail}</span></>;
+}
+
+function reviewFact(finding: Finding): { headline: string; detail: string } {
+  const { status, method, reviewer } = finding.review;
+  if (status === 'accepted') return { headline: 'Accepted', detail: `${reviewer} confirmed this defect, so it is counted in the plan.` };
+  if (status === 'rejected') return { headline: 'Rejected', detail: `${reviewer} marked this as not a defect, so it is left out of the plan.` };
+  if (method === 'manual') return { headline: 'Reopened', detail: `${reviewer} sent this back for another look.` };
+  const clip = clipFor(finding.id);
+  return {
+    headline: 'Not checked by a person yet',
+    detail: clip
+      ? `Suggested by AI; CLIP rates this close-up ${Math.round(clip.damageScore * 100)}% likely to show damaged pavement.`
+      : 'Suggested by AI from the walking video.',
+  };
+}
+
+function priorityFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
+  const score = priorityScore(finding, entries);
+  return {
+    headline: `${PRIORITY_WORDS[score.band]} priority · ${score.score}/100`,
+    detail: `Measurements say ${PRIORITY_WORDS[score.reviewer].toLowerCase()} (70%) and AI travel impact says ${PRIORITY_WORDS[score.ai].toLowerCase()} (30%): ${finding.assessment.rationale}`,
+  };
+}
+
+function measurementFact(finding: Finding, entries: MeasurementEntries): { headline: string; detail: string } {
+  const results = measureResults(finding.id, entries);
+  const measured = results.filter((r) => r.source === 'measured').length;
+  const fails = results.filter((r) => r.status === 'fails').length;
+  const almost = results.filter((r) => r.status === 'almost').length;
+  const verdict = fails ? `${fails} does not meet ADA` : almost ? `${almost} almost meets ADA` : 'All meet ADA';
+  return {
+    headline: `${verdict} · ${measured === 0 ? 'estimated' : `${measured} of ${results.length} measured`}`,
+    detail: measured === results.length
+      ? 'Every value below was entered by a reviewer.'
+      : 'Estimates come from the video and typical sidewalk construction; enter real measurements below to replace them.',
+  };
+}
+
+function MeasureTable({ finding, entries, onMeasure }: {
+  finding: Finding;
+  entries: MeasurementEntries;
+  onMeasure: (findingId: string, key: MeasureKey, text: string) => void;
+}) {
+  const results = new Map(measureResults(finding.id, entries).map((r) => [r.spec.key, r]));
+  return <section aria-labelledby="survey-measure-heading">
+    <h4 id="survey-measure-heading">Needs measuring</h4>
+    <ul className={styles.measureList}>{MEASURE_GROUPS.map((group) => <li key={group.id}>
+      <strong>{group.need}</strong>
+      <p className={styles.measureWhy}><span>{group.standard}:</span> {group.why}</p>
+      <table className={styles.measureTable}>
+        <thead><tr><th scope="col">Check</th><th scope="col">Needs</th><th scope="col">Estimate</th><th scope="col">Measured</th><th scope="col">Result</th></tr></thead>
+        <tbody>{group.specs.map((spec) => {
+          const result = results.get(spec.key)!;
+          const estimate = estimateOf(finding.id, spec.key);
+          const id = `measure-${finding.id}-${spec.key}`;
+          return <tr key={spec.key}>
+            <th scope="row"><label htmlFor={id}>{spec.label}</label></th>
+            <td>{spec.rule}</td>
+            <td>{estimate === undefined ? '—' : `${estimate} ${spec.unit}`}</td>
+            <td><span className={styles.measureInput}>
+              <input id={id} inputMode="decimal" autoComplete="off" value={entries[finding.id]?.[spec.key] ?? ''}
+                placeholder="—" aria-invalid={result.source !== 'measured' && (entries[finding.id]?.[spec.key] ?? '').trim() !== '' ? true : undefined}
+                onChange={(event) => onMeasure(finding.id, spec.key, event.target.value)} />
+              <span aria-hidden="true">{spec.unit}</span>
+            </span></td>
+            <td>{result.status ? <span className={styles[`status_${result.status}`]}>{STATUS_LABELS[result.status]}</span> : '—'}</td>
+          </tr>;
+        })}</tbody>
+      </table>
+    </li>)}</ul>
+  </section>;
+}
+
+function estimateOf(findingId: string, key: MeasureKey): number | undefined {
+  return ESTIMATES[findingId]?.[key];
 }

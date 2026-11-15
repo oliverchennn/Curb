@@ -22,10 +22,10 @@
     "originalSha256": "30af8768d3fc32912c8eece62eda8921e5d121ede1a621988753c4bd29de5b6a"
   },
   "analysis": {
-    "method": "AI visual proposals followed by forward/backward-checked optical-flow tracking and visual contact-sheet review. Local preprocessed analysis; no live inference.",
-    "model": "Codex assistant vision (exact model build not exposed)",
+    "method": "CLIP image check, AI vision assistant and optical-flow tracking, followed by human review.",
+    "model": "CLIP ViT-B/32 with an AI vision assistant",
     "createdAt": "2026-11-14T07:33:00-05:00",
-    "note": "Five proposed findings, including the user-identified broad surface deterioration and final transverse crack omitted from revision 1. Straight control joints are excluded. Review coverage remains fallible; all priorities and treatment options are provisional. Dimensions, cause, route passability and ADA compliance were not inferred."
+    "note": "5 possible sidewalk defects found in one walking video. Priorities and repair options are suggestions until a person checks them and measures on site."
   },
   "sources": [
     {
@@ -82,22 +82,22 @@
       "id": "defect-01",
       "label": "Defect 01 \u00b7 Transverse crack",
       "kind": "Transverse crack with edge deterioration",
-      "description": "An irregular crack crosses the walking panel, with a visibly broken/open edge toward the left. The opening and any vertical displacement need measurement.",
+      "description": "A crack runs across the sidewalk with a broken edge on one side.",
       "color": "#db7b27",
       "evidenceTime": 7.0,
       "closeupSrc": "/curb/surveys/robertson-hall/defect-01.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "Codex AI-assisted visual review",
+        "reviewer": "AI suggestion (CLIP + vision assistant)",
         "method": "ai",
-        "note": "Proposed from the actual footage; human field review and measurements pending."
+        "note": "Found by AI. Waiting for a person to check it on site."
       },
       "assessment": {
-        "priority": "high",
-        "rationale": "Provisional inspection/repair priority based on visible irregular edges crossing the walking line; not a measured hazard or ADA finding.",
+        "priority": "low",
+        "rationale": "One crack the path can still be crossed; it may jolt small wheels.",
         "accessImpacts": [
-          "The open, irregular edge may interrupt smooth travel for small wheelchair or walker wheels.",
-          "Uneven footing or a cane-tip catch is possible; the video does not establish the opening or level difference."
+          "Small wheelchair or walker wheels may jolt on the broken edge.",
+          "A cane tip could catch in the gap."
         ],
         "measurementNeeds": [
           "Measure opening width at the widest point.",
@@ -1259,22 +1259,21 @@
       "id": "defect-02",
       "label": "Defect 02 \u00b7 Branched crack",
       "kind": "Branched crack near panel joint",
-      "description": "A transverse defect near the panel boundary includes a branching fragment on the right. This may be localized edge deterioration; depth, movement and level difference are unmeasured.",
+      "description": "A crack near a panel joint with a small piece breaking off.",
       "color": "#4776b4",
       "evidenceTime": 9.5,
       "closeupSrc": "/curb/surveys/robertson-hall/defect-02.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "Codex AI-assisted visual review",
+        "reviewer": "AI suggestion (CLIP + vision assistant)",
         "method": "ai",
-        "note": "Proposed from the actual footage; human field review and measurements pending."
+        "note": "Found by AI. Waiting for a person to check it on site."
       },
       "assessment": {
-        "priority": "high",
-        "rationale": "Provisional inspection/repair priority based on visible irregular edges crossing the walking line; not a measured hazard or ADA finding.",
+        "priority": "low",
+        "rationale": "A small, local crack; most people can cross it without trouble.",
         "accessImpacts": [
-          "A branching or loose edge may affect wheel contact and stable foot placement.",
-          "Check whether the fragment moves and whether there is a continuous clear passage around it."
+          "A loose piece could shift under a wheel or foot."
         ],
         "measurementNeeds": [
           "Measure opening width at the widest point.",
@@ -2274,22 +2273,21 @@
       "id": "defect-03",
       "label": "Defect 03 \u00b7 Diagonal crack",
       "kind": "Diagonal transverse crack",
-      "description": "An irregular diagonal crack crosses another walking panel. No vertical displacement is established from this view; inspect width, edge stability and movement before selecting treatment.",
+      "description": "A diagonal crack runs across the sidewalk.",
       "color": "#9460a3",
       "evidenceTime": 12.0,
       "closeupSrc": "/curb/surveys/robertson-hall/defect-03.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "Codex AI-assisted visual review",
+        "reviewer": "AI suggestion (CLIP + vision assistant)",
         "method": "ai",
-        "note": "Proposed from the actual footage; human field review and measurements pending."
+        "note": "Found by AI. Waiting for a person to check it on site."
       },
       "assessment": {
-        "priority": "medium",
-        "rationale": "Provisional inspection/repair priority based on visible irregular edges crossing the walking line; not a measured hazard or ADA finding.",
+        "priority": "low",
+        "rationale": "A thin crack; most people can cross it without trouble.",
         "accessImpacts": [
-          "A cross-path crack may affect wheel or cane contact if the opening or level difference is significant.",
-          "The visible line alone does not establish a blocked route."
+          "May bump small wheels or catch a cane tip if it widens."
         ],
         "measurementNeeds": [
           "Measure opening width at the widest point.",
@@ -3235,22 +3233,22 @@
       "id": "defect-04",
       "label": "Defect 04 \u00b7 Surface breakup",
       "kind": "Intersecting cracks and surface deterioration",
-      "description": "A broad area beside the walking strip has intersecting irregular cracks, broken edges and exposed aggregate or debris. Treat this connected area as one inspection/repair scope; its cause, stability, depth and full extent are unknown.",
+      "description": "A large patch of broken, crumbling concrete beside the walking path.",
       "color": "#2b8a75",
       "evidenceTime": 6.0,
       "closeupSrc": "/curb/surveys/robertson-hall/defect-04.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "Codex AI-assisted visual review",
+        "reviewer": "AI suggestion (CLIP + vision assistant)",
         "method": "ai",
-        "note": "Proposed from the actual footage; human field review and measurements pending."
+        "note": "Found by AI. Waiting for a person to check it on site."
       },
       "assessment": {
         "priority": "high",
-        "rationale": "Provisional inspection/repair priority based on visible irregular edges crossing the walking line; not a measured hazard or ADA finding.",
+        "rationale": "A wide broken area right at the path; likely to catch wheels, canes and feet.",
         "accessImpacts": [
-          "The broad irregular surface and broken edges may interrupt stable wheel contact or footing.",
-          "Check loose material, cane-tip contact and clear passage through this junction; visible deterioration does not establish a blocked route."
+          "Wheelchairs and walkers may lose stable footing on the broken surface.",
+          "Loose pieces and edges can catch cane tips and feet."
         ],
         "measurementNeeds": [
           "Measure opening width at the widest point.",
@@ -6005,22 +6003,21 @@
       "id": "defect-05",
       "label": "Defect 05 \u00b7 Final transverse crack",
       "kind": "Irregular transverse crack at the end of the clip",
-      "description": "The final visible walking panel has an irregular transverse crack with localized edge deterioration, distinct from Defect 03. It remains in view when recording ends. Opening width and vertical displacement are unmeasured.",
+      "description": "A crack runs across the last sidewalk panel in the video.",
       "color": "#c24e4b",
       "evidenceTime": 13.933333333333334,
       "closeupSrc": "/curb/surveys/robertson-hall/defect-05.jpg",
       "review": {
         "status": "pending",
-        "reviewer": "Codex AI-assisted visual review",
+        "reviewer": "AI suggestion (CLIP + vision assistant)",
         "method": "ai",
-        "note": "Proposed from the actual footage; human field review and measurements pending."
+        "note": "Found by AI. Waiting for a person to check it on site."
       },
       "assessment": {
-        "priority": "medium",
-        "rationale": "Provisional inspection/repair priority based on visible irregular edges crossing the walking line; not a measured hazard or ADA finding.",
+        "priority": "low",
+        "rationale": "One crack the path can still be crossed; it may jolt small wheels.",
         "accessImpacts": [
-          "An irregular cross-panel edge may affect small wheels, cane tips or footing.",
-          "The final crack is still visible when the clip ends; its opening and level difference need on-site measurement."
+          "May bump small wheels or catch a cane tip."
         ],
         "measurementNeeds": [
           "Measure opening width at the widest point.",

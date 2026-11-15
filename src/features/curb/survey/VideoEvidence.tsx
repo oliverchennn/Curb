@@ -135,16 +135,20 @@ export function VideoEvidence({ survey, selectedFindingId, seek, edited }: {
       </div>
     </div>
     {mediaError ? <p role="alert" className={styles.inlineError}>{mediaError}</p> : null}
-    <p id="survey-video-note" className={styles.small}>
-      {mode === 'original' ? `${formatTime(time)} · Original footage without boxes. Switch to Review to inspect the findings.` : mode === 'live'
-        ? `${formatTime(time)} · ${visible.length} tracked finding${visible.length === 1 ? '' : 's'}. Interactive overlays follow your review. Dashed boxes await review. A missing box does not mean there is no defect.`
-        : edited
-          ? 'Export preview: original labels are permanently rendered into this video. Your review edits appear in JSON and reports, not this file.'
-          : 'Export preview: original finding labels are permanently rendered into this video.'}
-    </p>
-    <details className={styles.pendingChecks}><summary>About the tracks</summary>
-      <p className={styles.small}>Boxes appear only on retained tracked frames; missing boxes do not establish that a defect is absent. Rejected findings are hidden in the live overlay. Measurements and field review are still needed.</p>
-    </details>
+    <div className={styles.videoNotes}>
+      <p id="survey-video-note" className={styles.small}>
+        <strong>{formatTime(time)}</strong> · {mode === 'original' ? 'Plain footage, no boxes.' : mode === 'live'
+          ? `${visible.length} defect${visible.length === 1 ? '' : 's'} in view right now.`
+          : edited ? 'Saved copy with the original AI labels drawn in. Your edits are not in this file.' : 'Saved copy with the AI labels drawn in.'}
+      </p>
+      <details className={styles.pendingChecks}><summary>How to read the boxes</summary>
+        <ul className={styles.plainList}>
+          <li>Each color follows one defect.</li>
+          <li>Dashed box: not checked yet. Solid box: accepted.</li>
+          <li>Rejected defects are hidden. No box does not mean no damage.</li>
+        </ul>
+      </details>
+    </div>
   </section>;
 }
 

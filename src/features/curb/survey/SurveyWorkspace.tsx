@@ -7,6 +7,7 @@ import { ExportPanel } from './ExportPanel';
 import { FindingReview } from './FindingReview';
 import { PlanCompare } from './PlanCompare';
 import { editedFindingIds, formatTime, isEdited, parseBudgetInput, PLAN_ORDER, sliderMaxCents } from './presentation';
+import { clipSummary, type MeasureKey, type MeasurementEntries } from './measurements';
 import { SiteContext } from './SiteContext';
 import { VideoEvidence, type SeekRequest } from './VideoEvidence';
 import styles from './SurveyWorkspace.module.css';
@@ -26,7 +27,7 @@ function loadErrorMessage(error: unknown): string {
 type WorkTab = 'review' | 'plans' | 'export';
 const WORK_TABS: { id: WorkTab; number: number; label: string; heading: string }[] = [
   { id: 'review', number: 1, label: 'Review findings', heading: 'survey-review-heading' },
-  { id: 'plans', number: 2, label: 'Compare repairs', heading: 'survey-plans-heading' },
+  { id: 'plans', number: 2, label: 'Repair plan', heading: 'survey-plans-heading' },
   { id: 'export', number: 3, label: 'Export report', heading: 'survey-export-heading' },
 ];
 
@@ -46,6 +47,8 @@ export function SurveyWorkspace() {
   const [selectedPlanId, setSelectedPlanId] = useState<PlanId>('balanced');
   const [notice, setNotice] = useState('');
   const [tab, setTab] = useState<WorkTab>('review');
+  const [measurements, setMeasurements] = useState<MeasurementEntries>({});
+  const scrollRef = useRef<HTMLDivElement>(null);
   const generationRef = useRef(0);
   const controllerRef = useRef<AbortController | null>(null);
 
@@ -132,6 +135,15 @@ export function SurveyWorkspace() {
     setSeek({ seconds: finding.evidenceTime, nonce: Date.now() });
   }
 
+  function setMeasure(findingId: string, key: MeasureKey, text: string) {
+    setMeasurements((current) => ({ ...current, [findingId]: { ...current[findingId], [key]: text } }));
+  }
+
+  function changeTab(next: WorkTab) {
+    setTab(next);
+    scrollRef.current?.scrollTo({ top: 0 });
+  }
+
   function restore() {
     if (!edited) return;
     setSurvey(original);
@@ -147,10 +159,14 @@ export function SurveyWorkspace() {
   return <div className={styles.workspace}>
     <Header survey={survey} />
     <div className={styles.summaryBar}>
-      <p><strong>{survey.findings.length}</strong> findings · {counts.accepted} accepted · {counts.pending} pending · {counts.rejected} rejected · {survey.workAreas.length} work areas</p>
+      <p><strong>{survey.findings.length} possible defects</strong> · {counts.accepted + counts.rejected} of {survey.findings.length} checked by a person</p>
       <details className={styles.pendingChecks}>
         <summary>Analysis and review status</summary>
-        <p className={styles.small}>{survey.analysis.method} ({survey.analysis.model}). {survey.analysis.note}</p>
+        <dl className={styles.statusList}>
+          <div><dt>Tools</dt><dd>CLIP · AI vision assistant · optical-flow tracking · human review</dd></div>
+          <div><dt>Analysis</dt><dd>Found {survey.findings.length} possible defects in a {Math.round(survey.media.durationSeconds)}-second walking video. CLIP agrees on {clipSummary(survey).confirmed} of {clipSummary(survey).total}.</dd></div>
+          <div><dt>Review</dt><dd>{counts.accepted} accepted · {counts.rejected} rejected · {counts.pending} waiting. Measurements are estimates until someone measures on site.</dd></div>
+        </dl>
       </details>
       <div className={styles.actions}>
         {edited ? <span className={styles.editedTag}>Edited — {editedIds.length} finding{editedIds.length === 1 ? '' : 's'} changed</span> : <span className={styles.small}>Original analysis</span>}
@@ -168,39 +184,41 @@ export function SurveyWorkspace() {
       </div>
 
       <div className={styles.workColumn}>
-        <WorkTabs active={tab} onChange={setTab} />
+        <div className={styles.workFrame}>
+        <WorkTabs active={tab} onChange={changeTab} />
+        <div ref={scrollRef} className={styles.workScroll}>
         {/* All panes stay mounted while hidden: review input, budget and an in-flight report survive tab changes. */}
         <div role="tabpanel" id="survey-panel-review" aria-labelledby="survey-tab-review" hidden={tab !== 'review'} className={styles.tabPanel}>
           <FindingReview survey={survey} editedIds={editedIds} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding}
+            measurements={measurements} onMeasure={setMeasure}
             onChange={(next, message) => { setSurvey(next); setNotice(message); }}
             siteContext={<SiteContext survey={survey} selectedFindingId={selectedFindingId} onSelectFinding={selectFinding} />} />
         </div>
         <div role="tabpanel" id="survey-panel-plans" aria-labelledby="survey-tab-plans" hidden={tab !== 'plans'} className={styles.tabPanel}>
           <PlanCompare survey={survey} plans={planResult.plans} planError={planResult.error} budgetText={budgetText} budget={budget}
             sliderMax={sliderMax} selectedFindingId={selectedFindingId} selectedPlanId={effectivePlanId}
-            onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId} />
+            onBudgetText={setBudgetText} onSelectPlan={setSelectedPlanId}
+            measurements={measurements} onSelectFinding={selectFinding} />
         </div>
         <div role="tabpanel" id="survey-panel-export" aria-labelledby="survey-tab-export" hidden={tab !== 'export'} className={styles.tabPanel}>
           <ExportPanel survey={survey} edited={edited} plan={selectedPlan} budgetCents={budgetCents} />
         </div>
+        </div>
+        </div>
       </div>
     </div>
 
-    <p className={styles.footerNote}>AI-assisted findings from one walk-through video. Not a measured survey, an ADA compliance determination, a cost quote or a record of completed repairs. Route impact is unknown because no reviewed route graph exists for this site.</p>
+    <p className={styles.footerNote}>AI-suggested findings from one walking video. Estimates are not a final ADA ruling or a contractor quote.</p>
   </div>;
 }
 
 /** WAI-ARIA tabs with automatic activation: arrow keys, Home and End move focus and select. */
 function WorkTabs({ active, onChange }: { active: WorkTab; onChange: (tab: WorkTab) => void }) {
   const refs = useRef<Partial<Record<WorkTab, HTMLButtonElement | null>>>({});
-  const listRef = useRef<HTMLDivElement>(null);
 
   function select(id: WorkTab, focus: boolean) {
     onChange(id);
     if (focus) refs.current[id]?.focus();
-    // If the pane top has scrolled above the viewport, bring the tabs back into view (no smooth scrolling).
-    const list = listRef.current;
-    if (list && list.getBoundingClientRect().top < 0) list.scrollIntoView({ block: 'start' });
   }
 
   function move(event: KeyboardEvent<HTMLDivElement>) {
@@ -214,7 +232,7 @@ function WorkTabs({ active, onChange }: { active: WorkTab; onChange: (tab: WorkT
     select(WORK_TABS[next].id, true);
   }
 
-  return <div ref={listRef} className={styles.tabList} role="tablist" aria-label="Survey workflow" onKeyDown={move}>
+  return <div className={styles.tabList} role="tablist" aria-label="Survey workflow" onKeyDown={move}>
     {WORK_TABS.map((item) => <button key={item.id} ref={(node) => { refs.current[item.id] = node; }} type="button" role="tab"
       id={`survey-tab-${item.id}`} aria-controls={`survey-panel-${item.id}`} aria-selected={active === item.id}
       tabIndex={active === item.id ? 0 : -1} onClick={() => select(item.id, false)}>
@@ -250,6 +268,6 @@ function Header({ survey }: { survey?: Survey }) {
   return <header className={styles.header}>
     <p className={styles.eyebrow}>{survey?.site.name ?? 'Robertson Hall'} · field video</p>
     <h1>Survey replay</h1>
-    <p className={styles.lede}>Turn sidewalk evidence into a repair plan for better disability access.</p>
+    <p className={styles.lede}>A walking video becomes a ranked sidewalk repair plan.</p>
   </header>;
 }
