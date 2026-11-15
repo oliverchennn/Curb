@@ -38,6 +38,7 @@ export function RecordCard({ atlas, record, comparison = false, stop, hidePhoto 
     <dl className={styles.recordMeta}>
       <div><dt>Location</dt><dd>{feature.geometry ? 'Archive source geometry' : 'Location not yet placed'}</dd></div>
       <div><dt>{record.kind === 'archive' ? 'Source capture' : 'Observed'}</dt><dd><DateValue value={record.kind === 'archive' ? record.captured : record.observed} /></dd></div>
+      {osm && <div><dt>Observed</dt><dd><DateValue value={record.observed} /></dd></div>}
       {record.kind !== 'archive' && <div><dt>Photo captured</dt><dd><DateValue value={record.captured} /></dd></div>}
       <div><dt>Retrieved</dt><dd><DateValue value={record.retrieved} /></dd></div>
       <div><dt>Attachment</dt><dd>{record.attachment === 'source-matched' ? 'Source ID matched' : record.attachment === 'accepted' ? record.kind === 'synthetic' ? 'Accepted (example only)' : 'Accepted attachment' : 'Pending review'}</dd></div>

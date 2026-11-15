@@ -25,7 +25,7 @@
 .subChip i { width:10px; height:10px; border-radius:50%; background:var(--accent); }
 .subChip small { font-size:12px; color:var(--quiet); }
 .subChip[aria-pressed=true] { border:2px solid var(--accent); background:#eef2e6; font-weight:650; padding:5px 11px; }
-.sectionPicker label { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--quiet); }
+.sectionPicker .sectionSelect { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--quiet); }
 .sectionPicker select { min-height:44px; max-width:min(440px,70vw); padding:6px 8px; border:1px solid #c9d2c0; border-radius:6px; background:#fffef9; color:#213a2c; font-size:14px; }
 .sectionPicker>button { min-width:44px; min-height:44px; padding:6px 12px; border:1px solid #c9d2c0; background:#fffef8; color:var(--forest); font-size:18px; }
 .sectionPicker>button:disabled { background:#fffef8; color:#8b9284; cursor:not-allowed; }
@@ -220,7 +220,7 @@
   .mapTools button { padding:8px 10px; }
   .mapCredit { position:static; align-self:flex-end; margin:4px 8px 0; background:none; color:var(--quiet); }
   .mapCredit a { color:var(--forest); display:inline-flex; align-items:center; min-height:44px; }
-  .sectionPicker label { flex-basis:100%; flex-wrap:wrap; }
+  .sectionPicker .sectionSelect { flex-basis:100%; flex-wrap:wrap; }
   .sectionPicker select { flex:1; max-width:none; }
   .legend>summary { gap:4px 12px; }
   .legendMore { margin-left:0; flex-basis:100%; }
