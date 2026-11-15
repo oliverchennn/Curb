@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "caseId": "canada-college-2020",
+  "revision": 1,
+  "dataKind": "historical_audit",
+  "disposition": "inventory_only",
+  "comparisonAllowed": false,
+  "area": "Lot 1 and Building 9",
+  "source": {
+    "title": "SMCCCD ADA Self-Evaluation and Transition Plan",
+    "publisher": "San Mateo County Community College District",
+    "version": "FINAL November 2020",
+    "url": "https://smccd.edu/ada2020/19029%20SMCCCD%20ADA%20Self-Evaluation%20and%20Transition%20Plan%20FINAL%20Nov2020%20sm.pdf",
+    "sha256": "01e6d86bc0535a925a1f26172c808a22b80fc000797d5fc441ea1b9714f4d2f8",
+    "bytes": 111675832,
+    "viewerPages": 4399,
+    "estimateYear": 2020
+  },
+  "review": {
+    "status": "accepted",
+    "candidateSha": "1dbe30033ae46a4b2711bca1b93b0831b675251e",
+    "reviewSha": "65effc19e03c5f3bd98cbb3e781fcd9ec07c98ab",
+    "reviewedAt": "2026-11-15T10:46:13Z",
+    "observationCount": 69,
+    "inputHashes": {
+      "coverage.json": "a3ac00b055dac3c8d38664dc2f0e73e9a5951faecf7d07e1b26d8b79ad0e3e2b",
+      "graph.json": "4da95bd0a345537783f0371d11d736c3e13111723bb034aa2320896f91b8d68c",
+      "observations.json": "4cd84a0e2d14c79fe66e2f9ffabbc9b6ced1cd360526540d3f985bf7c21c30a8",
+      "projects.json": "5f77328b5f296dea3a9bc318babc154c968cecc1a397215610966e6153bb8707",
+      "sources.json": "cde6dae0160368351381691268a25094f2404758aa2fb88e6e6fb37c43d0deb5",
+      "feasibility.json": "2ecb03aea77affc6030bc98051dd1b9b6aa6ee0735b16dc7e7f583b6254265b2"
+    },
+    "completedRequirementId": "M11"
+  },
+  "records": [
+    {
+      "id": "ramp-404",
+      "area": "Lot 1 / Building 9",
+      "measurement": {
+        "label": "Ramp width",
+        "raw": "45.0",
+        "unit": "in"
+      },
+      "assemblyType": "perpendicular",
+      "action": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+      "estimateCents": 650000,
+      "projectEligible": false,
+      "locator": {
+        "viewerPage": 2826,
+        "printedPage": 2825
+      }
+    },
+    {
+      "id": "ramp-405",
+      "area": "Lot 1 / Building 9",
+      "measurement": {
+        "label": "Ramp cross slope",
+        "raw": "2.5",
+        "unit": "%"
+      },
+      "assemblyType": "perpendicular",
+      "action": "Replace complete perpendicular curb-ramp assembly including warning surfaces and required top and bottom landings",
+      "estimateCents": 650000,
+      "projectEligible": false,
+      "locator": {
+        "viewerPage": 2826,
+        "printedPage": 2825
+      }
+    },
+    {
+      "id": "ramp-421",
+      "area": "Lot 1 / Building 9",
+      "measurement": {
+        "label": "Right running slope",
+        "raw": "9.8",
+        "unit": "%"
+      },
+      "assemblyType": "parallel",
+      "action": "Replace complete parallel curb-ramp assembly including warning surfaces and required top and bottom landings",
+      "estimateCents": 700000,
+      "projectEligible": false,
+      "locator": {
+        "viewerPage": 2827,
+        "printedPage": 2826
+      }
+    },
+    {
+      "id": "ramp-422",
+      "area": "Lot 1 / Lot 1",
+      "measurement": {
+        "label": "Bottom landing cross slope",
+        "raw": "2.4",
+        "unit": "%"
+      },
+      "assemblyType": "blended_transition",
+      "action": "Replace complete blended transition assembly including warning surfaces and required top and bottom landings",
+      "estimateCents": 350000,
+      "projectEligible": false,
+      "locator": {
+        "viewerPage": 2827,
+        "printedPage": 2826
+      }
+    }
+  ],
+  "requirements": [
+    {
+      "id": "M1",
+      "title": "Identify the arrival and destinations",
+      "description": "Locate the exact arrival point and distinct exterior access points. Shared Building 9 labels cannot establish a junction or entrance."
+    },
+    {
+      "id": "M2",
+      "title": "Assess the crossing at ramps 421 and 422",
+      "description": "Match the curb pair and assess the full crossing between Route 28 by ramp 421 and Route 52 by ramp 422."
+    },
+    {
+      "id": "M3",
+      "title": "Connect ramps 404 and 405",
+      "description": "Document the complete connector from ramp 404 and Route 40 to ramp 405 and Routes 41 and 53."
+    },
+    {
+      "id": "M4",
+      "title": "Trace the east and west approaches",
+      "description": "Identify continuous connections from the east Building 9 approaches to western Routes 24, 25, 26, 29 and 9, including distinct entrance approaches."
+    },
+    {
+      "id": "M5",
+      "title": "Recover missing sidewalk row headings",
+      "description": "Resolve route, run and priority for sidewalk records 1352681–1352723 against the original inventory."
+    },
+    {
+      "id": "M6",
+      "title": "Reconcile overlapping work",
+      "description": "Identify which priced projects own each overlapping REF entry and chainage interval. Confirm complete, nonoverlapping replacement scopes."
+    },
+    {
+      "id": "M7",
+      "title": "Reconcile published cost arithmetic",
+      "description": "Explain discrepancies between displayed quantities, unit prices and printed totals while retaining the published 2020 amounts."
+    },
+    {
+      "id": "M8",
+      "title": "Find the Route 28 W assessment and cost",
+      "description": "Locate the missing inventory and cost record, including assessed dimensions and chainage. The route is mapped without a matching master cost row."
+    },
+    {
+      "id": "M9",
+      "title": "Assess continuous route conditions",
+      "description": "Document crossing surfaces, approach grades, usable width, obstructions and entrance access, or establish a supportable recorded-barrier policy."
+    },
+    {
+      "id": "M10",
+      "title": "Verify remaining barriers and repair scope",
+      "description": "Inventory remaining barriers and confirm the full post-repair scope on any end-to-end route before crediting a connection."
+    }
+  ]
+}

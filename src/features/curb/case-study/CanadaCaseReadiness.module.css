@@ -1,0 +1,179 @@
+.casePage {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-block: clamp(26px, 5vw, 64px) 52px;
+  line-height: 1.55;
+}
+
+.hero { margin-block-end: 24px; }
+.kicker, .statusTag {
+  margin: 0 0 4px;
+  color: #356048;
+  font-size: .78rem;
+  font-weight: 750;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.7rem, 6vw, 4.85rem);
+  line-height: 1.05;
+  letter-spacing: -.055em;
+}
+.lede {
+  max-width: 65ch;
+  margin: 12px 0 16px;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.actions button, .state button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #bdcbbd;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 650;
+}
+.actions button:hover:not(:disabled), .state button:hover { background: #e6eddf; }
+.actions button:disabled { opacity: .6; cursor: default; }
+.state { padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.state p { margin-block: 0 8px; }
+
+.disposition {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 10px 26px;
+  margin-block: 18px;
+  padding: 16px clamp(14px, 3vw, 24px);
+  border: 1px solid #d9cbae;
+  border-left: 5px solid #9b7939;
+  border-radius: 12px;
+  background: #fbf5e8;
+}
+.disposition .statusTag { color: #71531d; }
+.disposition h2, .disposition > p { margin: 0; }
+.disposition > p { color: #574725; }
+
+.inventoryGrid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px; }
+.panel, .costPanel {
+  min-width: 0;
+  width: 100%;
+  padding: clamp(14px, 3vw, 23px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+.costPanel { background: #edf2e9; border-color: #cfdbcc; }
+.casePage h2 { font-size: clamp(1.17rem, 2.5vw, 1.5rem); line-height: 1.25; }
+.panel > h2, .costPanel > h2 { margin: 0 0 10px; }
+.selector { margin: 0; padding: 0; min-inline-size: 0; border: 0; }
+.selector legend { padding: 0; margin: 0 0 6px; color: var(--muted); }
+.choices { display: flex; flex-wrap: wrap; gap: 6px; }
+.choice { position: relative; cursor: pointer; }
+.choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.choice span {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #c7d2c6;
+  border-radius: 8px;
+  font-weight: 650;
+}
+.choice:hover span { background: #f3f6ee; }
+.choice input:checked + span { background: #e2eee3; color: #194c32; border-color: #4d775f; }
+.choice input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.liveRecord { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); }
+.liveRecord h3 { margin: 0 0 8px; font-size: 1.2rem; }
+.liveRecord h3 span { color: var(--muted); font-size: .92rem; font-weight: 500; }
+.liveRecord p { margin: 10px 0 6px; }
+.liveRecord a, .complete a, .provenance a { font-weight: 650; }
+.recordData { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; }
+.recordData > div { padding: 8px 10px; border-radius: 8px; background: #f4f6f0; }
+.recordData dt { color: var(--muted); font-size: .88rem; }
+.recordData dd { margin: 0; font-size: 1.36rem; font-weight: 750; }
+.total { font-size: clamp(2rem, 5vw, 2.9rem); letter-spacing: -.04em; line-height: 1.15; }
+.costPanel p { margin: 7px 0; }
+.estimateList { margin: 10px 0; padding: 0; list-style: none; }
+.estimateList li { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; border-bottom: 1px solid #cfdbcc; }
+.costLimit { color: var(--muted); font-size: .92rem; }
+
+.requirements, .provenance { margin-top: 26px; }
+.requirements > h2, .provenance > h2 { margin: 0 0 5px; }
+.requirements > p, .provenance > p { margin: 0 0 12px; }
+.requirementList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.requirementList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  padding: 12px;
+}
+.requirementId {
+  flex: none;
+  color: #30523f;
+  background: #e8efe5;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: .82rem;
+  font-weight: 750;
+}
+.requirementList h3 { margin: 0 0 2px; font-size: 1rem; }
+.requirementList p { color: var(--muted); margin: 0; font-size: .92rem; }
+.complete { padding: 12px; border: 1px solid #cbd8c7; border-radius: 10px; background: #edf2e9; }
+.provenance { border-top: 1px solid var(--line); padding-top: 14px; }
+.provenance summary { cursor: pointer; width: fit-content; min-height: 44px; padding-block: 8px; }
+.digests { margin: 0; display: grid; gap: 6px; }
+.digests dt { font-weight: 650; }
+.digests dd { margin: 0; overflow-wrap: anywhere; }
+.printRecords { display: none; }
+
+@media (max-width: 760px) {
+  .disposition, .inventoryGrid, .requirementList { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 430px) {
+  .choice span { padding-inline: 9px; }
+  .recordData dd { font-size: 1.2rem; }
+}
+@media print {
+  @page canada-brief { size: auto; margin: 11mm; }
+  :global(html):has(.casePage), :global(body):has(.casePage) { page: canada-brief; background: #fff; }
+  :global(body):has(.casePage) > :global(header), :global(body):has(.casePage) > :global(.skip) { display: none !important; }
+  :global(body):has(.casePage) > :global(main) { max-width: none; margin: 0; padding: 0; }
+  .casePage { max-width: none; padding: 0; font-size: 9.5pt; line-height: 1.32; }
+  .actions, .selector, .liveRecord, .estimateList { display: none !important; }
+  .hero { margin-block-end: 8pt; }
+  .hero h1 { font-size: 27pt; }
+  .lede { max-width: none; margin: 5pt 0; font-size: 10pt; }
+  .disposition, .inventoryGrid { display: block; margin: 6pt 0; }
+  .disposition, .panel, .costPanel, .requirementList li, .complete { background: #fff; padding: 5pt 7pt; border-radius: 0; }
+  .disposition, .costPanel, .provenance { break-inside: avoid; }
+  .disposition h2 { margin-bottom: 3pt; }
+  .casePage h2 { font-size: 12pt; }
+  .printRecords { width: 100%; display: table; margin-block: 4pt; border-collapse: collapse; }
+  .printRecords th, .printRecords td { padding: 3pt; border-bottom: 1px solid #ccd4c9; text-align: left; vertical-align: top; }
+  .printRecords tr, .requirementList li { break-inside: avoid; }
+  .costPanel { margin-top: 4pt; }
+  .costPanel h2, .costPanel p { display: inline; }
+  .total { font-size: 14pt; margin-inline: 5pt; }
+  .costLimit::before { content: ' '; }
+  .requirements, .provenance { margin-top: 8pt; }
+  .requirementList { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4pt; }
+  .requirementList h3, .requirementList p { font-size: 9pt; }
+  .provenance summary { display: none; }
+  .provenance details::details-content { content-visibility: visible; }
+  .provenance [open] .digests, .provenance details > .digests { display: grid; }
+  .digests { font-size: 8pt; gap: 0; }
+  .digests > div { display: flex; flex-wrap: wrap; gap: 2pt 5pt; }
+}
